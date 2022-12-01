@@ -1,0 +1,101 @@
+.homeAboutSection {
+  position: relative;
+  padding-bottom: 70px;
+  padding-top: 70px;
+}
+
+.homeAboutDescription {
+  color: white;
+  padding-top: 100px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.topRow{
+  display: flex;
+  padding: 2rem;
+}
+
+.homeAboutBody {
+  padding: 2rem 2rem;
+  font-size: 1.5em;
+  text-align: left;
+}
+
+.myAvtar {
+    justify-content: center;
+    position: relative;
+    top: 14rem;
+}
+  
+  @media (max-width: 767px) {
+    .myAvtar {
+      padding-top: 2em ;
+      padding-bottom: 2em;
+    }
+  }
+
+.homeAboutSocial {
+  text-align: center;
+  padding-top: 25px;
+  color: white;
+}
+
+.homeAboutSocial p {
+  font-size: 2.2rem;
+}
+
+.homeAboutSocialLinks {
+  justify-content: center;
+  padding-top: 15px;
+  display: inline-block;
+  position: relative;
+  padding-inline-start: 0;
+}
+
+.socialIcons {
+  display: inline-block;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.homeSocialIcons {
+  position: relative;
+  display: flex;
+  width: 60px;
+  height: 60px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  line-height: 2em;
+  color: #035814;
+  background: rgba(249, 248, 248, 0.972);
+  border-radius: 50%;
+  transition: 0.5s;
+}
+
+.homeSocialIcons::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #03fc20;
+  transition: 0.5s;
+  transform: scale(0.9);
+  z-index: -1;
+}
+
+.homeSocialIcons:hover::before {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #37c656;
+}
+
+.homeSocialIcons:hover {
+  color: #04ff3a;
+  background-color: black;
+  box-shadow: 0 0 8px #04fc4a;
+  text-shadow: 0 0 5px #04fc4a;
+}
