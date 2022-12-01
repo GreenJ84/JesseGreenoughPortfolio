@@ -8,6 +8,9 @@ import { FaLinkedinIn } from "react-icons/fa";
 
 const css = require('./HomeBottom.module.css')
 import myImg from "../../public/assets/avatar.svg";
+import TechnicalSkills from "./TechnicalSkills";
+import DeveloperTools from "./DeveloperTools";
+import GithubCard from "./GithubCard";
 
 const HomeBottom = () => {
     return (
@@ -58,6 +61,9 @@ const HomeBottom = () => {
                         </Tilt>
                     </Col>
                 </Row>
+                <TechnicalSkills />
+                <DeveloperTools />
+                <GithubCard />
                 <Row>
                     <Col md={12} className={ css.homeAboutSocial }>
                     <p>
