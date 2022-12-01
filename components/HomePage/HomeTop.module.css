@@ -2,15 +2,16 @@
   position: relative;
   z-index: -1;
   background-image: var(--image-gradient), url(../../public/assets/home-bg.jpg);
+  filter:hue-rotate(230deg);
   background-position: top center;
   background-repeat: no-repeat;
-  padding-bottom: 30px !important;
-  padding-top: 30px !important;
+  padding: 2rem 0;
 }
+
 
 .homeContent {
   padding: 9rem 0 2rem !important;
-  color: whitesmoke;
+  color: #fcfdfc;
   text-align: left;
 }
 
@@ -19,18 +20,37 @@
 }
 
 .heading {
-  font-size: 2.4em !important;
-  padding-left: 50px !important;
+  font-size: 2.4em;
+  text-align: center;
+}
+
+.headingName {
+  font-size: 2.5em;
+  text-align: center;
+}
+
+.mainName {
+  color: #cd5ff8;
 }
 
 .wave {
-    animation-name: wave-animation; /* Refers to the name of your @keyframes element below */
-    animation-duration: 2.1s; /* Change to speed up or slow down */
-    animation-iteration-count: infinite; /* Never stop waving :) */
-    transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
-    display: inline-block;
+  margin-left: 1rem;
+  animation-name: wave-animation;
+  animation-duration: 1.8s;
+  animation-iteration-count: infinite; 
+  transform-origin: 70% 70%;
+  display: inline-block;
 }
-  
+
+.typeText {
+  text-align: left;
+  font-size: 2rem;
+  color: #cd5ff8;
+  font-weight: 700;
+  margin: 2.5rem;
+  text-align: center;
+}
+
 @keyframes wave-animation {
   0% {
     transform: rotate(0deg);
@@ -56,13 +76,4 @@
   100% {
     transform: rotate(0deg);
   }
-}
-
-.headingName {
-  font-size: 2.5em !important;
-  padding-left: 45px !important;
-}
-
-.mainName {
-  color: #cd5ff8;
 }
