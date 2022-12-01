@@ -1,21 +1,17 @@
 import React from 'react';
 import Typewriter from "typewriter-effect";
 
-require('./TypeWrite.module.css')
+interface typeProps{
+    typePrompts: string[]
+}
 
-
-const TypeWrite = () => {
+const TypeWrite = ( props: typeProps) => {
     return (
         <Typewriter options={{
-            strings: [
-                "Full-stack Developer",
-                "React focused Software Engineer",
-                "Front-end/Back-end Capable",
-                "Open Source Contributor",
-            ],
+            strings: props.typePrompts,
             autoStart: true,
             loop: true,
-            deleteSpeed: 50 }}
+            deleteSpeed: 50}}
         />
     )
 }
