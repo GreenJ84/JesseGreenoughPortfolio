@@ -1,0 +1,25 @@
+.blockquote{
+    font-size: 1.75rem;
+}
+
+.quote{
+    font-size: 180%;
+    margin: 8rem 0 2rem 15%;
+}
+
+.quote + footer{
+    margin-left: 60%;
+}
+
+.quoteCardView {
+    border: none;
+    color: white;
+    background-color: transparent;
+}
+
+.aboutActivity {
+    list-style: none;
+    text-align: left;
+    padding-left: 1px;
+    color: rgb(52, 250, 167);
+}
