@@ -87,7 +87,7 @@ const NavBar = () => {
                         <Nav.Item className={ css.navItem }>
                             <Nav.Link href="/experience" className={ css.navLink } rel="noreferrer" >
                                 <ImBlog style={{ marginBottom: "2px" }} />
-                                Expeience
+                                Experience
                             </Nav.Link>
                         </Nav.Item>
 
