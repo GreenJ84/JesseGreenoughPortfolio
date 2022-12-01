@@ -5,7 +5,7 @@ import AboutMain from '../../components/AboutPage/AboutMain';
 
 const AboutPage = () => {
     return (
-        <Container fluid className="about-section">
+        <Container fluid>
             <AboutMain />
             <AboutInfo />
         </Container>
