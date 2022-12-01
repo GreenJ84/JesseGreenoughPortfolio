@@ -1,0 +1,16 @@
+.title{
+    color: white;
+    font-size: 3rem;
+    text-align: center;
+}
+
+.aboutMe{
+    color: white;
+    margin: 2rem 4rem;
+    font-size: 1.75rem;
+    line-height: 3rem;
+}
+
+.aboutMe:last-child{
+    margin-bottom: 15rem;
+}
