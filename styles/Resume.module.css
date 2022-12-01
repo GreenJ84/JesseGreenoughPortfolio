@@ -1,0 +1,35 @@
+.resumeSection {
+    padding-top: 110px;
+    padding-bottom: 30px;
+    color: white;
+}
+
+.resume {
+    display: block;
+    margin: 4rem 100px;
+    justify-content: center;
+}
+
+.download{
+    justify-content: center;
+    position: relative;
+}
+
+.downloadButton {
+    display: block;
+    max-width: 250px;
+    text-align: center;
+    margin: 5rem auto;
+    background-color: rgba(1, 85, 1, 0.333);
+    color: rgb(14, 233, 152);
+    box-shadow: 2px 1px 1px rgb(14, 233, 152);
+    padding: 1rem .5rem;
+    border-radius: 15px;
+}
+
+.downloadButton:hover{
+    background-color: rgb(3, 181, 9);
+    color: black;
+    font-weight: 800;
+    box-shadow: 8px 8px 5px black;
+}
