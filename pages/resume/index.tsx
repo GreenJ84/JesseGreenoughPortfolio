@@ -6,22 +6,23 @@ import Button from "react-bootstrap/Button";
 import { AiOutlineDownload } from "react-icons/ai";
 
 import resume from '../../public/assets/JesseGreenough.React.Resume.png'
-import Particle from "../../components/Layout/Particle";
 
 const css = require('../../styles/Resume.module.css')
 
 
 const ReumePage = () => {
 
-    const [width, setWidth] = useState(1200);
-
-    useEffect(() => {
-        window.addEventListener('resize',
-        () => setWidth(window.innerWidth));
+    const [width, setWidth] = useState(0);
+    React.useEffect(() => {
+        setWidth(window.innerWidth)
+        
+        window.addEventListener('resize', () => setWidth(window.innerWidth));
 
         const unMount = () => {
-
+            window.removeEventListener('resize',
+            () => setWidth(window.innerWidth))
         }
+        return unMount
     }, []);
     
     return (
