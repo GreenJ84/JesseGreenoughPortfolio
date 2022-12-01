@@ -45,11 +45,11 @@ const NavBar = () => {
             }
         }
         window.addEventListener("scroll", scrollHandler);
-        window.addEventListener('resize',
-        sizeHandler)
+        window.addEventListener('resize',sizeHandler)
 
         const unMount = () => {
             window.removeEventListener("scroll", scrollHandler);
+            window.removeEventListener('resize',sizeHandler);
         return unMount
         };
     });
