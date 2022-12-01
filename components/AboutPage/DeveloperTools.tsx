@@ -1,14 +1,24 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap';
-import { SiLinux, SiVisualstudiocode, SiPostman, SiHeroku, SiVercel } from "react-icons/si";
+import { SiVisualstudiocode, SiPostman, SiVercel, SiGitkraken, SiApollographql, SiFigma } from "react-icons/si";
+import { GrGraphQl } from 'react-icons/gr';
 
 const css = require('./TechnicalSkills.module.css')
 
 const DeveloperTools = () => {
     return (
-        <Row style={{ justifyContent: "center", paddingBottom: "50px" }}>
+        <div className={css.body}>
             <Col xs={4} md={2} className={ css.techIcons }>
-                <SiLinux />
+                <SiFigma />
+            </Col>
+            <Col xs={4} md={2} className={ css.techIcons }>
+                <SiApollographql />
+            </Col>
+            <Col xs={4} md={2} className={css.techIcons}>
+                <GrGraphQl />
+            </Col>
+            <Col xs={4} md={2} className={css.techIcons}>
+                <SiGitkraken />
             </Col>
             <Col xs={4} md={2} className={ css.techIcons }>
                 <SiVisualstudiocode />
@@ -19,10 +29,7 @@ const DeveloperTools = () => {
             <Col xs={4} md={2} className={ css.techIcons }>
                 <SiVercel />
             </Col>
-            <Col xs={4} md={2} className={ css.techIcons }>
-                <SiHeroku />
-            </Col>
-        </Row>
+        </div>
     )
 }
 
