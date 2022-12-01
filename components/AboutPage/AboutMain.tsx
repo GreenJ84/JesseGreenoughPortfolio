@@ -4,16 +4,16 @@ import { Col, Container, Row } from 'react-bootstrap'
 
 import AboutCard from './AboutCard'
 import DeveloperTools from './DeveloperTools'
-import GithubCard from './GithubCard'
 import TechnicalSkills from './TechnicalSkills'
 import laptopImage from '../../public/assets/about.png'
+import GithubCard from './githubCard'
 
 const css = require('./AboutMain.module.css')
 
 const AboutMain = () => {
     return (
         <Container className={ css.body }>
-            <h1 style={{ fontSize: "2.1em", paddingBottom: "20px" }}>
+            <h1 style={{ fontSize: "3em", paddingBottom: "20px", textAlign:'center' }}>
                 Know Who <strong className="purple">I Am</strong>
             </h1>
             <AboutCard />
@@ -28,6 +28,9 @@ const AboutMain = () => {
             </h1>
             <DeveloperTools />
 
+            <h1 className={ css.projectHeading } >
+                Days I <strong className="purple">Code</strong>
+            </h1>
             <GithubCard />
         </Container>
     )
