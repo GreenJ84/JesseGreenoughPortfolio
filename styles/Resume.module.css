@@ -20,9 +20,10 @@
     max-width: 250px;
     text-align: center;
     margin: 5rem auto;
-    background-color: rgba(1, 85, 1, 0.333);
-    color: rgb(14, 233, 152);
-    box-shadow: 2px 1px 1px rgb(14, 233, 152);
+    background-color: rgba(1, 17, 1, 0.333);
+    color: rgb(3, 181, 9);
+    border: 1px solid rgb(3, 181, 9);
+    box-shadow: 4px 4px 1px rgb(3, 181, 9);
     padding: 1rem .5rem;
     border-radius: 15px;
 }
