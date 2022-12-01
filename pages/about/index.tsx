@@ -1,8 +1,12 @@
 import React from 'react'
+import { Container } from 'react-bootstrap';
+import AboutMain from '../../components/AboutPage/AboutMain';
 
 const AboutPage = () => {
     return (
-        <div>AboutPage</div>
+        <Container fluid className="about-section">
+            <AboutMain />
+        </Container>
     )
 }
 
