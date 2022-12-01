@@ -8,8 +8,8 @@ const AboutCard = () => {
     return (
         <Card className={ css.quoteCardView }>
             <Card.Body>
-                <blockquote className="blockquote mb-0">
-                    <p style={{ textAlign: "justify" }}>
+                <blockquote className={ css.blockquote }>
+                    <p style={{ textAlign: "left" }}>
                         Hi Everyone, I am <span className="purple">Jesse Greenough </span> currently residing in <span className="purple"> Shoreline, Washington USA.</span>
                         <br />
                         <br />
@@ -35,11 +35,11 @@ const AboutCard = () => {
                             <ImPointRight /> Enjoying the outdoors!
                         </li>
                     </ul>
-                    <p style={{ color: "rgb(155 126 172)" }}>
-                        &ldquote;Build to make a difference!&rdquote;{" "}
+                    <p className={ css.quote }>
+                        &quot;Build to make a difference!&quot;{" "}
                     </p>
-                    <footer className="blockquote-footer">
-                        Jesse
+                    <footer className={ css.blockquoteFooter }>
+                        - <span className="purple">Jesse</span>
                     </footer>
                 </blockquote>
             </Card.Body>
