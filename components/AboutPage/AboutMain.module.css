@@ -11,11 +11,3 @@
     filter:hue-rotate(260deg);
 }
 
-.projectHeading {
-    color: white;
-    font-size: 3em;
-    font-weight: 500;
-    padding-top: 10px;
-    text-align: center;
-    margin-top: 5em;
-}
