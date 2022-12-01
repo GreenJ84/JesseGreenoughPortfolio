@@ -16,6 +16,9 @@ const AboutCard = () => {
                         I am a Full-stack Developer with 5+ years of operations, management, and cusomer success experience
                         <br />
                         <br />
+                        Can you tell my favorite color is <span className='purple'>Green</span>??? ( All Shades 😎 )
+                        <br/>
+                        <br/>
                         Apart from learning and coding, some other activities that I love to do are: 
                     </p>
                     <ul>
