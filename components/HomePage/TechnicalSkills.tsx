@@ -9,6 +9,9 @@ const css = require('./TechnicalSkills.module.css')
 const TechnicalSkills = () => {
     return (
         <>
+            <h1 className={ css.projectHeading }>
+                Technical <strong className="purple">Skillset </strong>
+            </h1>
             <div className={ css.body }>
                 <Col xs={4} md={2} className={ css.techIcons }>
                     <SiTypescript />
