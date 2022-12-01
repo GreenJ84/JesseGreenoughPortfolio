@@ -10,30 +10,28 @@ const Footer = () => {
     let year = date.getFullYear();
 
     return (
-        <Container fluid className={css.footer}>
+        <Container fluid className={ css.footer }>
             <Row>
-                <Col md="4" className="footer-copywright">
+                <Col md="4" className={ css.footerCopywright }>
                     <h3>Designed and Developed by Jesse Greenough </h3>
                 </Col>
                 <Col md="4" className={css.footerCopywright}>
                     <h3>Copyright © {year} JLG</h3>
                 </Col>
-                <Col md="4" className={css.footerBody}>
+                <Col md="4" className={css.footerBody }>
                     <ul className={ css.footerIcons }>
                         <li className={ css.socialIcons }>
                             <a
                                 href="https://github.com/GreenJ84"
-                                style={{ color: "white" }}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <AiFillGithub />
+                                <AiFillGithub/>
                             </a>
                         </li>
                         <li className={ css.socialIcons }>
                             <a
                                 href="https://twitter.com/GoodGreens84"
-                                style={{ color: "white" }}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -43,7 +41,6 @@ const Footer = () => {
                         <li className={ css.socialIcons }>
                             <a
                                 href="https://www.linkedin.com/in/jessegreenough/"
-                                style={{ color: "white" }}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
@@ -53,7 +50,6 @@ const Footer = () => {
                         <li className={ css.socialIcons }>
                             <a
                                 href="https://www.instagram.com/jesse.greenough/"
-                                style={{ color: "white" }}
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
