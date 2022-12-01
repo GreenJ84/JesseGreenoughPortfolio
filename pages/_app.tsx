@@ -1,11 +1,11 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { useEffect, useState } from 'react';
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { useEffect, useState } from "react";
 
-import Preloader from '../components/layout/Preloader';
-import NavBar from '../components/layout/NavBar';
-import Footer from '../components/layout/Footer';
-const css = require('./App.module.css')
+import Preloader from "../components/Layout/Preloader";
+import NavBar from "../components/Layout/NavBar";
+import Footer from "../components/Layout/Footer";
+const css = require("./App.module.css");
 
 export default function App({ Component, pageProps }: AppProps) {
   const [load, setLoad] = useState(true);
@@ -23,8 +23,9 @@ export default function App({ Component, pageProps }: AppProps) {
       <Preloader load={load} />
       <div className="App" id={load ? css.noScroll : "scroll"}>
         <NavBar />
-          <Component {...pageProps} />
+        <Component {...pageProps} />
         <Footer />
       </div>
-    </>)
+    </>
+  );
 }
