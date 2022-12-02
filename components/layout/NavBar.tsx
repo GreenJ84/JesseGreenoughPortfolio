@@ -64,45 +64,45 @@ const NavBar = () => {
                     <Nav className={ wideScreen ? css.navbarNav : expandBar ? css.navbarNav : css.navClosed }defaultActiveKey="#home">
                         <Nav.Item className={ css.navItem }>
                             <Nav.Link as={Link} href='/' className={ css.navLink } onClick={() => setExpandBar(false)}>
-                                <AiOutlineHome style={{ marginBottom: "2px" }} />
+                                <AiOutlineHome className={ css.navIcon } />
                                 Home
                             </Nav.Link>
                         </Nav.Item>
 
                         <Nav.Item className={ css.navItem }>
                             <Nav.Link as={Link} href="/about" className={ css.navLink } onClick={() => setExpandBar(false)}>
-                                <AiOutlineUser style={{ marginBottom: "2px" }} />
+                                <AiOutlineUser className={ css.navIcon } />
                                 About
                             </Nav.Link>
                         </Nav.Item>
 
                         <Nav.Item className={ css.navItem }>
                             <Nav.Link as={Link} href="/projects" className={ css.navLink }  onClick={() => setExpandBar(false)}>
-                                <AiOutlineFundProjectionScreen style={{ marginBottom: "2px" }} />
+                                <AiOutlineFundProjectionScreen className={ css.navIcon } />
                                 {" "}
                                 Projects
                             </Nav.Link>
-                            </Nav.Item>
+                        </Nav.Item>
                             
                         <Nav.Item className={ css.navItem }>
                             <Nav.Link href="/experience" className={ css.navLink } rel="noreferrer" >
-                                <ImBlog style={{ marginBottom: "2px" }} />
+                                <ImBlog className={ css.navIcon } />
                                 Experience
                             </Nav.Link>
                         </Nav.Item>
 
                         <Nav.Item className={ css.navItem }>
                             <Nav.Link as={Link} href="/resume" className={ css.navLink } onClick={() => setExpandBar(false)}>
-                                <CgFileDocument style={{ marginBottom: "2px" }} />
+                                <CgFileDocument className={ css.navIcon } />
                                 Resume
                             </Nav.Link>
                         </Nav.Item>
 
 
-                        { wideScreen && <Nav.Item className={ css.navItem && "fork-btn"}>
-                            <Button href="https://github.com/GreenJ84" target="_blank" className="github-btn-inner">
-                                <CgGitFork style={{ fontSize: "1.2em" }} />{" "}
-                                <AiFillStar style={{ fontSize: "1.1em" }} />
+                        { wideScreen && <Nav.Item className={ css.navFork }>
+                            <Button href="https://github.com/GreenJ84" target="_blank" className="github-btn-inner center">
+                                <CgGitFork className={ css.forkIcon} />{" "}
+                                <AiFillStar className={ css.forkIcon} />
                             </Button>
                         </Nav.Item>}
 
