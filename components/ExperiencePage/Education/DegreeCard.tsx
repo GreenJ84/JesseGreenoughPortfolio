@@ -23,7 +23,7 @@ const DegreeCard = (props: degreeCard ) => {
                 </p>
             </div>
             <div className={ css.cardText }>
-                {props.education.description.map((item) => <> <li key={item}> ☞ {item} </li></>)}
+                {props.education.description.map((item, idx) => <><li key={idx}> ☞ {item} </li></>)}
                 <a target='blank' href={ props.education.website } className={ css.button }> Visit Site <HiOutlineExternalLink /> </ a>
             </div>
         </div>

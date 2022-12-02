@@ -44,7 +44,7 @@ export const certifications: certificationType[] = [
         url: 'https://www.apollographql.com/tutorials/certifications/39b422d7-10f0-4ccb-bc91-8b08207fe102',
     },
     {
-        title: 'Apolllo GraphQL Developer - Professional',
+        title: 'Apolllo Developer - Professional',
         issuer: 'Apollo GraphQL',
         date: 'Nov 2022',
         description: 'Developers who obtain this certification demonstrate strong familiarity with Apollo Federation concepts. They can apply those concepts to build a federated supergraph or move an existing monolithic graph to federation.',
@@ -52,7 +52,7 @@ export const certifications: certificationType[] = [
         url: 'https://www.apollographql.com/tutorials/certifications/39b422d7-10f0-4ccb-bc91-8b08207fe102',
     },
     {
-        title: 'Apolllo GraphQL Developer - Professional',
+        title: 'Apolllo GraphQL - Associate',
         issuer: 'Apollo GraphQL',
         date: 'Nov 2022',
         description: 'Developers who obtain this certification demonstrate strong familiarity with Apollo Federation concepts. They can apply those concepts to build a federated supergraph or move an existing monolithic graph to federation.',
@@ -60,7 +60,7 @@ export const certifications: certificationType[] = [
         url: 'https://www.apollographql.com/tutorials/certifications/39b422d7-10f0-4ccb-bc91-8b08207fe102',
     },
     {
-        title: 'Apolllo GraphQL Developer - Professional',
+        title: 'Not Apolllo GraphQL Developer',
         issuer: 'Apollo GraphQL',
         date: 'Nov 2022',
         description: 'Developers who obtain this certification demonstrate strong familiarity with Apollo Federation concepts. They can apply those concepts to build a federated supergraph or move an existing monolithic graph to federation.',
@@ -68,7 +68,7 @@ export const certifications: certificationType[] = [
         url: 'https://www.apollographql.com/tutorials/certifications/39b422d7-10f0-4ccb-bc91-8b08207fe102',
     },
     {
-        title: 'Apolllo GraphQL Developer - Professional',
+        title: 'GraphQL Not Developer - Professional',
         issuer: 'Apollo GraphQL',
         date: 'Nov 2022',
         description: 'Developers who obtain this certification demonstrate strong familiarity with Apollo Federation concepts. They can apply those concepts to build a federated supergraph or move an existing monolithic graph to federation.',
@@ -76,7 +76,7 @@ export const certifications: certificationType[] = [
         url: 'https://www.apollographql.com/tutorials/certifications/39b422d7-10f0-4ccb-bc91-8b08207fe102',
     },
     {
-        title: 'Apolllo GraphQL Developer - Professional',
+        title: 'Apolllo Professional',
         issuer: 'Apollo GraphQL',
         date: 'Nov 2022',
         description: 'Developers who obtain this certification demonstrate strong familiarity with Apollo Federation concepts. They can apply those concepts to build a federated supergraph or move an existing monolithic graph to federation.',
