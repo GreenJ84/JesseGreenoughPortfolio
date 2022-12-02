@@ -1,0 +1,26 @@
+.bodyText h1{
+    color: rgb(1, 242, 1);
+    text-shadow: 1px 1px 15px rgb(0, 186, 0);
+    text-align: center;
+    margin-top: 8rem;
+    font-size: 350%;
+}
+
+.bodyText h3{
+    position: relative;
+    right: 30%;
+    color: white;
+    text-align: center;
+    font-size: 180%;
+    margin-top: 12rem;
+}
+
+.bodyText p{
+    position: relative;
+    right: 120%;
+    width: 160%;
+    color: white;
+    margin-top: 8rem;
+    font-size: 120%;
+    text-align: center;
+}
