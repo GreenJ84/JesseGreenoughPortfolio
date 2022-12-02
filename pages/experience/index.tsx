@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Container } from 'react-bootstrap';
-import EduExp from '../../components/ExperiencePage/eduExp';
+import EduExp from '../../components/ExperiencePage/Education/EduExp';
 import ExpNavbar from '../../components/ExperiencePage/ExpNavbar';
-import WorkExp from '../../components/ExperiencePage/workExp';
+import WorkExp from '../../components/ExperiencePage/Work/WorkExp';
 
 const ExperiencePage = () => {
     const [showWork, setShowWork] = useState(false);
