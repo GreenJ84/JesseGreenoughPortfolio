@@ -15,15 +15,10 @@ export interface IProject {
     key_techs: string[];
 }
 
-const projectBody = {
-    padding: '12rem 1rem 1rem'
-}
-
 const ProjectPage = () => {
 
     const [projectData, setProjectData] = useState(data);
     const [activeNav, setActiveNav] = useState('all');
-
     const filterHandler = (category: Category | "all") => {
         if (category === "all") {
             setProjectData(data);
@@ -31,23 +26,38 @@ const ProjectPage = () => {
             return;
         }
         
-        const newArray = data.filter((project) =>
+        else {
+            const newArray = data.filter((project) =>
             project.category.includes(category)
             );
             setProjectData(newArray);
-            setActiveNav(category);
+            setActiveNav(category);}
     };
 
     return (
-        <Container fluid style={ projectBody }>
+        <Container fluid style={projectBody}>
             <>
-            <ProjectNavbar filterHandler={ filterHandler } active={ activeNav } />
-            { projectData.map((project: IProject) => {
-                <ProjectCard project={ project } />
-            })}
+                <ProjectNavbar filterHandler={filterHandler} active={activeNav} />
+                <div style={ flexbox }>
+                    { projectData.map((project) =>
+                        <ProjectCard project={project} key={project.name} />
+                    )}
+                </div>
             </>
         </Container>
     );
 }
 
 export default ProjectPage;
+
+const projectBody = {
+    padding: '12rem 1rem 1rem',
+}
+
+const flexbox = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    backgroundColor: '#002400',
+    padding: '5rem 0',
+    border: '2px solid '
+}
