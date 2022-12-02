@@ -2,7 +2,7 @@
     position: fixed;
     width: 100%;
     padding: 2rem;
-    z-index: 2;
+    z-index: 2000;
     background-color: rgba(1, 56, 4, 0.462);
     transition: all 0.3s ease-out 0s;
     box-shadow: 0px 2px 4px 0px rgba(2, 119, 12, 0.874);
@@ -12,6 +12,7 @@
 .navbar {
     position: fixed;
     width: 100%;
+    z-index: 2000;
     transition: all 0.3s ease-out 0s;
     padding: 0.3rem 2rem;
     font-size: 1.2rem;
@@ -97,6 +98,7 @@
 @media only screen and (max-width: 900px) {
     .navbar, .sticky{
         min-height: 8rem;
+        background-color: rgb(1, 56, 4) !important;
     }
     .navbarContainer{
         justify-content: space-between;
@@ -112,6 +114,10 @@
 
     .navItem{
         padding: 0;
+    }
+
+    .navItem:hover{
+        background-color: #02fc3028;
     }
 
     .logo{
