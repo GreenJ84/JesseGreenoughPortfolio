@@ -1,7 +1,78 @@
+.cardHead>p, .cardHead>h1 {
+    margin: 0;
+    padding: 0;
+}
+
 .cardBody{
-    background-color: red;
+    background-color: rgb(0, 58, 0);
+    border-radius: 30px;
     height: 28rem;
     width: 60%;
-    border-radius: 40px;
+    box-shadow: inset 2px -2px 14px rgb(80, 255, 45), inset -2px -2px 14px rgb(80, 255, 45);
+}
+.cardBody:hover{
+    box-shadow: inset 2px -2px 14px rgb(80, 255, 45), inset -2px -2px 14px rgb(80, 255, 45), 0 0 15px rgb(80, 255, 45);
+}
+
+.cardHead{
+    color: white;
+    background-color: rgb(0, 58, 0);
     padding: 1rem;
+    border-radius: 30px 30px 0 0;
+    margin-bottom: 0;
+}
+
+.cardHead>h1{
+    text-align: center;
+    margin: .4rem 0;
+    font-size: 220%;
+}
+
+.cardHead h1+p{
+    font-size: 70%;
+    text-align: center;
+}
+
+.cardHead h1+p+p{
+    position: relative;
+    left: 1rem;
+    margin-top: 2rem;
+    font-size: 150%;
+}
+
+.cardText{
+    position: relative;
+    background-color: rgb(179, 255, 158);
+    height: 17.25rem;
+    width: 94%;
+    margin: 0 auto;
+    border-radius: 0 0 20px 20px;
+    padding: .25rem 0 0 .5rem;
+}
+
+.cardText li{
+    text-indent: .5rem;
+    list-style: none;
+    margin: 1rem 0;
+    font-size: 110%;
+}
+
+.button{
+    font-size: 110%;
+    position: absolute;
+    text-align: center;
+    padding: .2rem 0;
+    right: 6rem;
+    bottom: 2rem;
+    width: 35%;
+    height: 2.25rem;
+    color: black;
+    background-color: rgb(1, 202, 1);
+    border: 2px solid black;
+    border-radius: 10px;
+}
+.button:hover{
+    color: rgb(1, 202, 1);
+    background-color: rgb(0, 30, 0);
+    box-shadow: 2px -2px 18px 5px rgb(32, 111, 14);
 }
