@@ -1,5 +1,5 @@
 .title{
-    margin: 12rem 0 6rem;
+    margin: 9rem 0 6rem;
     font-size: 300%;
     text-align: center;
     color: rgb(120, 255, 99)
@@ -9,10 +9,15 @@
     position: relative;
     align-items: center;
     padding: 0 4rem 5rem 6rem;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .image{
     border-radius: 50%;
     border: 1.5px solid rgb(1, 250, 1);
     box-shadow: 0 0 10px rgb(1, 250, 1);
+}
+.image:hover{
+    border-radius: 50%;
+    border: 1.5px solid rgb(1, 250, 1);
+    box-shadow: 0 0 30px rgb(1, 250, 1);
 }
