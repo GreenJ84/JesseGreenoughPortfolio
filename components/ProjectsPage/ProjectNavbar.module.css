@@ -1,0 +1,9 @@
+.projectNavbar {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content: space-around;
+    background: linear-gradient(to bottom, #ffffff00 0%, #ffffff00 90%, #000000 100%);
+    padding: 1rem 0 .2rem;
+    position: relative;
+}
