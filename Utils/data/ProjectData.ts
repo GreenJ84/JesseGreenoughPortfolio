@@ -3,17 +3,17 @@ import { IProject } from "../../pages/projects";
 const projects: IProject[] = [
     {
         name: "Adventure Connect",
-        description: "description",
-        image_path: "image_path",
-        deployed_url: "deployed_url",
-        github_url: "github_url",
+        description: "Adventure Connect is an application for users within the Pacific NorthWest to create, arrange, and join Outdoor Activities.",
+        image_path: "https://github.com/czmud/adventureConnect/raw/main/projectImages/advCon_register.png",
+        deployed_url: "http://adventure-connect.vercel.app/",
+        github_url: "https://github.com/czmud/adventureConnect#-adventure-connect-",
         category: ["react"],
-        key_techs: [],
+        key_techs: ["TypeScript", "NodeJS", "ReactJS", 'ExpressJS', "MongoDB"],
     },
     {
         name: "Next Meetups",
         description: "description",
-        image_path: "image_path",
+        image_path: "https://github.com/czmud/adventureConnect/raw/main/projectImages/advCon_register.png",
         deployed_url: "deployed_url",
         github_url: "github_url",
         category: ["react"],
@@ -22,7 +22,7 @@ const projects: IProject[] = [
     {
         name: "Catstronauts",
         description: "description",
-        image_path: "image_path",
+        image_path: "https://github.com/czmud/adventureConnect/raw/main/projectImages/advCon_register.png",
         deployed_url: "deployed_url",
         github_url: "github_url",
         category: ["react"],
@@ -31,7 +31,7 @@ const projects: IProject[] = [
     {
         name: "Airlock",
         description: "description",
-        image_path: "image_path",
+        image_path: "https://github.com/czmud/adventureConnect/raw/main/projectImages/advCon_register.png",
         deployed_url: "deployed_url",
         github_url: "github_url",
         category: ["react"],
@@ -40,7 +40,7 @@ const projects: IProject[] = [
     {
         name: "Pet Shelter",
         description: "description",
-        image_path: "image_path",
+        image_path: "https://github.com/czmud/adventureConnect/raw/main/projectImages/advCon_register.png",
         deployed_url: "deployed_url",
         github_url: "github_url",
         category: ["react"],
@@ -49,7 +49,7 @@ const projects: IProject[] = [
     {
         name: "Pirate Crew",
         description: "description",
-        image_path: "image_path",
+        image_path: "https://github.com/czmud/adventureConnect/raw/main/projectImages/advCon_register.png",
         deployed_url: "deployed_url",
         github_url: "github_url",
         category: ["react"],
@@ -58,7 +58,7 @@ const projects: IProject[] = [
     {
         name: "Green Exchange",
         description: "description",
-        image_path: "image_path",
+        image_path: "https://github.com/czmud/adventureConnect/raw/main/projectImages/advCon_register.png",
         deployed_url: "deployed_url",
         github_url: "github_url",
         category: ["java"],
@@ -67,7 +67,7 @@ const projects: IProject[] = [
     {
         name: "Project Manager",
         description: "description",
-        image_path: "image_path",
+        image_path: "https://github.com/czmud/adventureConnect/raw/main/projectImages/advCon_register.png",
         deployed_url: "deployed_url",
         github_url: "github_url",
         category: ["java"],
@@ -76,7 +76,7 @@ const projects: IProject[] = [
     {
         name: "Pie Derby",
         description: "description",
-        image_path: "image_path",
+        image_path: "https://github.com/czmud/adventureConnect/raw/main/projectImages/advCon_register.png",
         deployed_url: "deployed_url",
         github_url: "github_url",
         category: ["python"],
@@ -85,7 +85,7 @@ const projects: IProject[] = [
     {
         name: "Horoscopes",
         description: "description",
-        image_path: "image_path",
+        image_path: "https://github.com/czmud/adventureConnect/raw/main/projectImages/advCon_register.png",
         deployed_url: "deployed_url",
         github_url: "github_url",
         category: ["python"],
