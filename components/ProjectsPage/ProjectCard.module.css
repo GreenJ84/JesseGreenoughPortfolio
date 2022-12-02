@@ -1,0 +1,121 @@
+.display{
+    position: relative;
+    background-color: rgb(60, 60, 60);
+    width: 46%;
+    height: 20rem;
+    margin: 0 2% 2rem;
+    border-radius: 20px;
+    box-shadow: 2px -3px 3px rgb(7, 247, 7);
+}
+.display:hover{
+    background-color: rgb(25, 25, 25);
+    box-shadow: 6px -7px 3px rgb(7, 247, 7);
+}
+
+.displayImage{
+    width: 90% !important;
+    margin: 1rem 5% 0;
+    height: 15rem !important;
+}
+
+.displayTitle{
+    color: rgb(24, 245, 24);
+    margin: .6rem 0 0;
+    font-size: 1.75rem;
+    text-align: center;
+    font-weight: 800;
+}
+
+.detail{
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    bottom: 10rem;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    width: 96%;
+    height: 45rem;
+    padding: 2rem;
+    border-radius: 30px;
+    background-color: rgb(25, 25, 25);
+    box-shadow: inset 2px 4px 10px rgba(174, 255, 149, 0.467), inset -2px -4px 10px rgba(174, 255, 149, 0.467);
+    color: rgb(42, 255, 4)
+}
+
+.detailLeft{
+    width: 70%;
+    padding: .5rem;
+}
+.detailLeft>div{
+    color: white;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.detailLeft>div a{
+    background-color: rgb(17, 114, 0);
+    border-radius: 30px;
+    padding: 1rem 2.5rem;
+    margin: 8rem 0 0;
+}
+.detailLeft>div a:hover{
+    color: black;
+    background-color: rgb(5, 255, 5);
+    box-shadow: 2px 2px 3px rgb(209, 252, 209);
+}
+
+.detailImage{
+    width: 86% !important;
+    height: 30rem !important;
+}
+
+.detailRight{
+    width: 30%
+}
+
+.detailRight>h2{
+    text-align: center;
+    font-size: 160%;
+    margin: 3rem 0 4rem 0;
+}
+.detailRight>h3{
+    font-size: 140%;
+    text-indent: 2rem;
+    line-height: 2rem;
+    color: rgb(154, 184, 154);
+}
+.techs{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.detailTech{
+    background-color: rgb(24, 60, 24);
+    color: white;
+    padding: .6rem;
+    margin: .5rem 0;
+    border-radius: 10px;
+}
+
+.detailClose{
+    position: absolute;
+    right: 3%;
+    top: 1rem;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+    background-color: rgb(0, 91, 0);
+    color: white;
+}
+
+.detailClose:hover{
+    background-color: rgb(3, 250, 3);
+    color: rgb(0, 0, 0);
+    border: 1.5px solid black;
+    box-shadow: 2px 2px 2px rgb(130, 255, 151), -2px -2px 2px rgb(130, 255, 151), -2px 2px 2px rgb(130, 255, 151), 2px -2px 2px rgb(130, 255, 151);
+}

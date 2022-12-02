@@ -5,36 +5,43 @@ import { IProject } from '../../pages/projects'
 import { AiFillGithub, AiFillProject } from 'react-icons/ai'
 import { MdClose } from 'react-icons/md'
 
+const css = require('./ProjectCard.module.css')
+
 interface projectProps{
     project: IProject
 }
 
 const ProjectCard = (props: projectProps) => {
     const [showDetail, setShowDetail] = useState(false);
+    console.log( props.project )
 
     return (
         <>
-            <Image
-                src={ props.project.image_path }
-                alt={ props.project.name}
-                onClick={() => setShowDetail(true)}
-                layout="responsive"
-                height="150"
-                width="300"
-            />
-            <p >{props.project.name}</p>
-
+            <div className={ css.display }>
+                <Image
+                    src={ props.project.image_path }
+                    alt={props.project.name}
+                    className={ css.displayImage }
+                    onClick={() => setShowDetail(true)}
+                    layout="responsive"
+                    height="150"
+                    width="300"
+                />
+                <p className={ css.displayTitle }>{props.project.name}</p>
+            </div>
             {showDetail && (
-            <div >
-                <div>
+            <div className={ css.detail }>
+                <div className={ css.detailLeft }>
                     <Image
-                        src={ props.project.image_path }
-                        alt={ props.project.name }
-                        layout="responsive"
-                        height="150"
-                        width="300"
+                    src={ props.project.image_path }
+                    alt={props.project.name}
+                    className={ css.detailImage }
+                    layout="responsive"
+                    height="150"
+                    width="300"
                     />
-                    <div >
+                    <br />
+                    <div>
                         <a
                         href={ props.project.github_url }
                         >
@@ -48,14 +55,15 @@ const ProjectCard = (props: projectProps) => {
                     </div>
                 </div>
     
-                <div>
+                <div className={ css.detailRight }>
                     <h2 >{ props.project.name }</h2>
                     <h3 >{props.project.description }</h3>
         
-                    <div >
+                    <div className={ css.techs }>
                         { props.project.key_techs.map((tech) => (
                             <span
                                 key={tech}
+                                className={ css.detailTech}
                             >
                                 {tech}
                             </span>
@@ -65,9 +73,9 @@ const ProjectCard = (props: projectProps) => {
     
                 <button
                 onClick={() => setShowDetail(false)}
-                className="absolute p-1 bg-gray-200 rounded-full top-3 right-3 focus:outline-none dark:bg-dark-200"
+                className={ css.detailClose}
                 >
-                <MdClose size={30} />
+                    <MdClose size={30} />
                 </button>
             </div>
             )}
