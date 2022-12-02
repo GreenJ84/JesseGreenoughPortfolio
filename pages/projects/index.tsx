@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Container } from 'react-bootstrap'
+import ProjectCard from '../../components/ProjectsPage/ProjectCard';
 import ProjectNavbar from '../../components/ProjectsPage/ProjectNavbar';
 import data from '../../Utils/data/ProjectData'
 
@@ -14,15 +15,35 @@ export interface IProject {
     key_techs: string[];
 }
 
+const projectBody = {
+    padding: '12rem 1rem 1rem'
+}
+
 const ProjectPage = () => {
-    const [projectData, setProjectData] = useState( data )
+
+    const [projectData, setProjectData] = useState(data);
+    const [activeNav, setActiveNav] = useState('all');
+
+    const filterHandler = (category: Category | "all") => {
+        if (category === "all") {
+            setProjectData(data);
+            setActiveNav(category);
+            return;
+        }
+        
+        const newArray = data.filter((project) =>
+            project.category.includes(category)
+            );
+            setProjectData(newArray);
+            setActiveNav(category);
+    };
 
     return (
-        <Container fluid>
+        <Container fluid style={ projectBody }>
             <>
-            <ProjectNavbar />
-            {data.map((project: IProject) => {
-                <
+            <ProjectNavbar filterHandler={ filterHandler } active={ activeNav } />
+            { projectData.map((project: IProject) => {
+                <ProjectCard project={ project } />
             })}
             </>
         </Container>
