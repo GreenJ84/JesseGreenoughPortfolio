@@ -26,7 +26,7 @@ const Footer = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <AiFillGithub/>
+                                <AiFillGithub className={css.footIcons} />
                             </a>
                         </li>
                         <li className={ css.socialIcons }>
@@ -35,7 +35,7 @@ const Footer = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <AiOutlineTwitter />
+                                <AiOutlineTwitter className={ css.footIcons }/>
                             </a>
                         </li>
                         <li className={ css.socialIcons }>
@@ -44,7 +44,7 @@ const Footer = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <FaLinkedinIn />
+                                <FaLinkedinIn className={ css.footIcons }/>
                             </a>
                         </li>
                         <li className={ css.socialIcons }>
@@ -53,7 +53,7 @@ const Footer = () => {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                <AiFillInstagram />
+                                <AiFillInstagram className={ css.footIcons }/>
                             </a>
                         </li>
                     </ul>
