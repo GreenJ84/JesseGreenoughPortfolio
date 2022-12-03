@@ -10,6 +10,7 @@ export default function EducationImg() {
       width="655.39431"
       height="574.03802"
       viewBox="0 0 795.39431 574.03802"
+      style={{ position: 'relative', top: '6rem'}}
     >
       <defs>
         <linearGradient

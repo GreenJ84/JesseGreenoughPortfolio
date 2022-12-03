@@ -10,10 +10,9 @@ const EduBody = () => {
                 <EduImage />
             </div>
             <div className={ css.bodyText }>
-                <h1> Education </h1>
-                <h3>
+                <h1>
                     Basic Qualifications and Certifications 
-                </h3>
+                </h1>
                 <p> I activiely participate in tech-related activities and partake in courses to further my understanding and knowledge. </p>
             </div>
         </div>

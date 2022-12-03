@@ -3,24 +3,16 @@
     text-shadow: 1px 1px 15px rgb(0, 186, 0);
     text-align: center;
     margin-top: 8rem;
-    font-size: 350%;
-}
-
-.bodyText h3{
-    position: relative;
-    right: 30%;
-    color: white;
-    text-align: center;
-    font-size: 180%;
-    margin-top: 12rem;
+    font-size: 200%;
 }
 
 .bodyText p{
     position: relative;
+    top: 18rem;
     right: 120%;
-    width: 160%;
+    width: 190%;
     color: white;
     margin-top: 10rem;
-    font-size: 140%;
+    font-size: 180%;
     text-align: center;
 }
