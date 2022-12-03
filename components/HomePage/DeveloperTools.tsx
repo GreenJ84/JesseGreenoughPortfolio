@@ -14,24 +14,30 @@ const DeveloperTools = () => {
             <div className={css.body}>
                 <Col xs={4} md={2} className={ css.techIcons }>
                     <SiFigma />
+                    <span> Figma </span>
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
                     <SiApollographql />
+                    <span> Apollo </span>
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
                     <GrGraphQl />
+                    <span> GraphQL </span>
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
-                    <SiGitkraken />
+                    <SiGitkraken /><span> GitKraken </span>
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
                     <SiVisualstudiocode />
+                    <span> VS Code </span>
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
                     <SiPostman />
+                    <span> Postman </span>
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
                     <SiVercel />
+                    <span> Vercel </span>
                 </Col>
             </div>
         </>
