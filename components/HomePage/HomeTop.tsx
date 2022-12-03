@@ -56,7 +56,7 @@ const props1 = [
 ];
 
 const props2 = [
-  "Front/Back-end Capable",
+  "Web/Web3 Development",
   "SQL/NoSQL Database, Python, & Java skills",
   "Always actively learning",
 ];

@@ -22,18 +22,18 @@ const HomeBottom = () => {
                             LET ME <span className="purple"> INTRODUCE </span> MYSELF
                         </h1>
                         <p className={ css.homeAboutBody }>
-                            I fell in love with programming and I have constantly pushed learning more and more at every opportunity! 🤓
+                            I fell in love with programming over 3 years ago and have constantly pushed learning more and more at every opportunity I had! This year I got the opportunity to attend <i><b className="purple"> Coding Dojo </b></i> bootcamp and change my hobby into a full-time career pursuit.
                             <br />
                             <br />
                             I am fluent in classics like
                             <i>
-                                <b className="purple"> Java, Javascript and Python. </b>
+                                <b className="purple"> Java, Javascript and Python </b> with Typings.
                             </i>
                             <br />
                             <br />
-                            My field of Interest&apos;s are building new &nbsp;
+                            My interest in coding is the ability it provides to to build new &nbsp;
                             <i>
-                                <b className="purple">Web technologies and Products that help society </b> and especilly interested in topics within areas relate to{" "}
+                                <b className="purple">Web technologies and Products that help society </b>, especilly around topics within areas relating to{" "}
                                 <b className="purple">
                                 Web3/Blockchain development.
                                 </b>
