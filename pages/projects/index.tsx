@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { Container } from 'react-bootstrap'
+import { MongoClient } from 'mongodb'
+
 import ProjectCard from '../../components/ProjectsPage/ProjectCard';
 import ProjectNavbar from '../../components/ProjectsPage/ProjectNavbar';
+
 import data from '../../Utils/data/ProjectData'
+import { GetStaticProps } from 'next';
 
 export type Category = "react" | "python" | "java";
 export interface IProject {
@@ -46,6 +50,24 @@ const ProjectPage = () => {
             </>
         </Container>
     );
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+
+    const client = new MongoClient(process.env.DB_CONN_STRING!)
+    const db = client.db()
+
+    const projectData = db.collection(process.env.PROJECT_COLL!)
+
+    const results = await projectData.find().toArray()
+
+    return {
+        props: {
+            projectData: results.map(result => ({
+
+            }))
+        },
+    }
 }
 
 export default ProjectPage;

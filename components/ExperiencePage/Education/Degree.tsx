@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
-import DegreeCard from './DegreeCard'
-import { education } from '../../../Utils/data/EducationData'
+import {MongoClient} from 'mongodb'
 import Image from 'next/image'
+import { GetStaticProps } from 'next'
+
+import DegreeCard from './DegreeCard'
+
+import { education } from '../../../Utils/data/EducationData'
 
 const css = require('./Degree.module.css')
 
@@ -19,6 +23,24 @@ const Degree = () => {
             </div>)}
         </>
     )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+
+    const client = new MongoClient(process.env.DB_CONN_STRING!)
+    const db = client.db()
+
+    const educationData = db.collection(process.env.EDU_COLL!)
+
+    const results = await educationData.find().toArray()
+
+    return {
+        props: {
+            educationData: results.map(result => ({
+
+            }))
+        },
+    }
 }
 
 export default Degree
