@@ -16,5 +16,6 @@ const EduExp = () => {
 export default EduExp;
 
 const bodyStyle = {
-    backgroundColor: '#001A04'
+    backgroundColor: '#001A04',
+    padding: '0 0 6rem'
 }

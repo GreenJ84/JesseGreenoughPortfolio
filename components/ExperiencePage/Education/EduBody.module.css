@@ -1,4 +1,7 @@
 .bodyText h1{
+    position: relative;
+    right: 14rem;
+    width: 160%;
     color: rgb(1, 242, 1);
     text-shadow: 1px 1px 15px rgb(0, 186, 0);
     text-align: center;
