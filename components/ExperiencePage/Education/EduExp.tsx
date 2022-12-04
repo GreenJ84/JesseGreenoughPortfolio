@@ -6,7 +6,7 @@ import EduBody from './EduBody'
 
 const bodyStyle = {
     backgroundColor: '#001A04',
-    padding: '0 0 6rem'
+    padding: '0 2.5vw 6rem'
 }
 
 const EduExp = () => {

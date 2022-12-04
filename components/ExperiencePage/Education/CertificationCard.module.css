@@ -27,6 +27,13 @@
 .certDisplay h3, .certDisplay p{
     margin:  6% 0 10%;
 }
+.certDisplay h3{
+    font-size: 1.6vw;
+}
+
+.certDisplay p{
+    font-size: 1.2vw;
+}
 
 .certDetailCard{
     position: absolute;
@@ -50,11 +57,11 @@
     box-shadow: 0 0 3rem green;
     border-radius: 20px;
     height: 100%;
-    padding: 2% 4%;
+    padding: 2% 1.5vw 2.5rem;
 }
 
 .certDetails p{
-    font-size: 120%;
+    font-size: 2vw;
     max-height: 80%;
     overflow: scroll;
     font-weight: bolder;
@@ -69,8 +76,12 @@
     left: 0;
     right: 0;
     margin: 0 auto;
-    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1vw;
     width: 40%;
+    height: 2vw;
     text-decoration: none;
     color: rgb(64, 255, 0);
     background-color: black;

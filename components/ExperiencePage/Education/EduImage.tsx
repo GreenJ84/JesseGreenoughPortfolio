@@ -7,10 +7,10 @@ export default function EducationImg() {
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       // xmlns:xlink="http://www.w3.org/1999/xlink"
-      width="655.39431"
-      height="574.03802"
+      width="50vw"
+      height="40vw"
       viewBox="0 0 795.39431 574.03802"
-      style={{ position: 'relative', top: '6rem'}}
+      style={{ position: 'relative', transform: 'translate(5vw, 7vw)'}}
     >
       <defs>
         <linearGradient

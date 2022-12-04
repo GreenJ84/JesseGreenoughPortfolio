@@ -16,9 +16,11 @@ const Degree = () => {
     return (
         <>
             <h1 className={ css.title }> Degrees Recieved </h1>
-            { educationExp.map((exp) => <div key={ exp.college } className={ css.icons }>
-                <Image src={exp.icon} width={ 200 } height={ 200 } alt={`${exp.college} icon`} className={ css.image } /> 
-                <DegreeCard education={ exp } />
+            {educationExp.map((exp) => <div key={exp.college} className={css.icons}>
+                <a href={ exp.website }>
+                    <Image src={exp.icon} width={200} height={200} alt={`${exp.college} icon`} className={css.image} />
+                </a>
+                    <DegreeCard education={exp} />
             </div>)}
         </>
     )
