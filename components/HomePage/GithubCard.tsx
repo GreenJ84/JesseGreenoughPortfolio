@@ -4,7 +4,8 @@ import GitHubCalendar from 'react-github-calendar'
 const css = require('./TechnicalSkills.module.css')
 
 const calenderStyle = {
-    margin: '1rem 5% 4rem',
+    
+    margin: '1rem auto 4rem',
     color: 'white',
     height: '150px',
 }

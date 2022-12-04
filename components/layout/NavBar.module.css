@@ -1,6 +1,7 @@
 .sticky {
     position: fixed;
     width: 100%;
+    max-height: 15rem;
     padding: 2rem;
     z-index: 2000;
     background-color: rgba(1, 56, 4, 0.462);

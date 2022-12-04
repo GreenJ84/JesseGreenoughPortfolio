@@ -27,7 +27,7 @@ const flexbox = {
     display: 'flex',
     flexWrap: 'wrap',
     backgroundColor: '#002400',
-    padding: '5rem 0',
+    padding: '5rem 3vw',
     border: '2px solid '
 }
 

@@ -1,15 +1,15 @@
 .blockquote{
-    font-size: 2.4vw;
+    font-size: 2vw;
 }
 
 .quote{
-    font-size: 4.8vw;
+    font-size: 4.2vw;
     margin: 8rem 0 2rem 15%;
 }
 
 .quote + footer{
     margin-left: 60%;
-    font-size: 3.4vw;
+    font-size: 3vw;
 }
 
 .quoteCardView {

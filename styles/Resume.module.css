@@ -1,12 +1,11 @@
 .resumeSection {
     padding-top: 110px;
     padding-bottom: 30px;
-    color: white;
 }
 
 .resume {
-    display: block;
-    margin: 4rem 100px;
+    display: flex;
+    margin: 0 auto;
     justify-content: center;
 }
 
@@ -16,16 +15,19 @@
 }
 
 .downloadButton {
-    display: block;
-    max-width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30vw;
+    height: 5vw;
     text-align: center;
-    margin: 5rem auto;
+    margin: 10vw auto;
     background-color: rgba(1, 17, 1, 0.333);
     color: rgb(3, 181, 9);
     font-weight: 900;
+    font-size: 1.8vw;
     border: 1px solid rgb(3, 181, 9);
     box-shadow: 4px 4px 1px rgb(3, 181, 9);
-    padding: 1rem .5rem;
     border-radius: 15px;
 }
 
