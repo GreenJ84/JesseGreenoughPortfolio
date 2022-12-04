@@ -8,7 +8,7 @@ export interface workItem{
     details: string[]
 }
 
-export const workHistory: workItem[] = [
+const workHistory: workItem[] = [
     {
         company: 'Fred Meyer',
         position: 'Retail Manager',
@@ -57,3 +57,5 @@ export const workHistory: workItem[] = [
         details: ['Set-up and managed athletic events','Conducted gym matenance', 'Assisted with inventory manageent']
     },
 ]
+
+export default workHistory;
