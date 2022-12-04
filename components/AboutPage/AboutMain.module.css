@@ -2,12 +2,18 @@
     padding: 8rem 3rem 4rem;
     color: white;
 }
-
 .image{
-    max-height: 20rem;
-    max-width: 30rem;
+    height: 40vw;
+    max-height: 45rem;
+    width: 60vw;
+    max-width: 70rem;
     display: block;
     margin: 5rem auto;
     filter:hue-rotate(260deg);
 }
-
+.title{
+    font-size: 6vw;
+    padding-bottom: 20px;
+    margin: 8vw 0;
+    text-align:center;
+}
