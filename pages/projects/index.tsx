@@ -25,7 +25,7 @@ const projectBody = {
 
 const flexbox = {
     display: 'flex',
-    FlexWrap: 'wrap',
+    flexWrap: 'wrap',
     backgroundColor: '#002400',
     padding: '5rem 0',
     border: '2px solid '
