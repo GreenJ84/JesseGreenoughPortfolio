@@ -16,7 +16,7 @@ const ExperiencePage = () => {
     }
 
     return (
-        <Container style={{ padding: '12rem 1rem 1rem' }}>
+        <Container style={{ padding: '12rem 3vw 1rem' }}>
             <ExpNavbar changeActive={ changeActive } workActive={ showWork } />
             <div>
                 { showWork ? 

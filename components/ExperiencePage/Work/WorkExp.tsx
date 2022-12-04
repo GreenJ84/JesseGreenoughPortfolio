@@ -5,13 +5,14 @@ import React, { useState } from 'react'
 import WorkBody from './WorkBody';
 import WorkCard from './WorkCard';
 
-import { workHistory } from "../../../Utils/data/WorkData"
+import workHistory from "../../../Utils/data/WorkData"
+import secondaryWorkData from '../../../Utils/data/SecondaryWorkData';
 
 const css = require('./WorkExp.module.css')
 
 const WorkExp = () => {
     const [workData, setWorkData] = useState( workHistory );
-    const [extraData, setExtraData] = useState( workHistory )
+    const [extraData, setExtraData] = useState( secondaryWorkData )
     const [showWork, setShowWork] = useState(true);
 
     const filterHandler = () => {
