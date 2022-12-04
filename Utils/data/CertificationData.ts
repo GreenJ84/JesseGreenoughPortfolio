@@ -17,7 +17,7 @@ export const certifications: certificationType[] = [
         url: 'https://www.apollographql.com/tutorials/certifications/39b422d7-10f0-4ccb-bc91-8b08207fe102',
     },
     {
-        title: 'Graph Developer - Associate',
+        title: 'GraphQL Developer - Associate',
         issuer: 'Apollo GraphQL',
         date: 'Nov 2022',
         description: 'Developers who obtain this certification possess a solid foundational knowledge of GraphQL and the Apollo tool suite to design a schema, run an Apollo Server, and perform queries with Apollo Client on the frontend.',
@@ -71,5 +71,13 @@ export const certifications: certificationType[] = [
         description: 'This course teaches you React in-depth, from the ground up, step by step by diving into all the core basics, exploring tons of examples and also introducing you to advanced concepts as well. You\'ll get theory,examples, demos, assignments and exercises with tons of important knowledge that is skipped by most other resources.',
         image: 'https://imgs.search.brave.com/Z0COuUuFwK_Clu8tOGSh4m4pUMUGjnfUXXIr_hzlCUQ/rs:fit:128:128:1/g:ce/aHR0cHM6Ly9sb2dv/LmNsZWFyYml0LmNv/bS91ZGVteS5jb20',
         url: 'https://ude.my/UC-2d90a06d-e7ba-422c-9c9c-771440b8dd8e',
+    },
+    {
+        title: 'Tailwind CSS From Scratch',
+        issuer: 'Udemy',
+        date: 'Dec 2022',
+        description: 'This is a project-based course to learn how to create awesome layouts using the Tailwind CSS framework and get comfortable using utility classes over something like Bootstrap, which uses component-based classes. ',
+        image: 'https://imgs.search.brave.com/Z0COuUuFwK_Clu8tOGSh4m4pUMUGjnfUXXIr_hzlCUQ/rs:fit:128:128:1/g:ce/aHR0cHM6Ly9sb2dv/LmNsZWFyYml0LmNv/bS91ZGVteS5jb20',
+        url: 'https://www.udemy.com/certificate/UC-95d8a351-10ea-4b83-b9c1-01b0f4fd10da/',
     },
 ]
