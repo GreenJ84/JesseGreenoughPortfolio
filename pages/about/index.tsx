@@ -6,7 +6,7 @@ import AboutMain from '../../components/AboutPage/AboutMain';
 
 const AboutPage = () => {
     return (
-        <Container fluid>
+        <Container fluid style={{ padding: '0 3vw'}}>
             <AboutMain />
             <AboutInfo />
         </Container>

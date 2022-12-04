@@ -6,6 +6,7 @@
     margin: 0 2% 2rem;
     border-radius: 20px;
     box-shadow: 2px -3px 3px rgb(7, 247, 7);
+    overflow: scroll;
 }
 .display:hover{
     background-color: rgb(25, 25, 25);
@@ -97,13 +98,15 @@
     text-indent: 2rem;
     line-height: 2.6vw;
     color: rgb(154, 184, 154);
-    transform: translateX(-2vw) scaleX(1.2)
+    transform: translateX(-2vw) scaleX(1.2);
+    max-height: 320px;
+    overflow: scroll;
 }
 .techs{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    transform: translateX(-2vw) scaleX(1.1)
+    transform: translateX(-2vw) scaleX(1.1);
 }
 
 .detailTech{
@@ -137,9 +140,24 @@
     box-shadow: 2px 2px 2px rgb(130, 255, 151), -2px -2px 2px rgb(130, 255, 151), -2px 2px 2px rgb(130, 255, 151), 2px -2px 2px rgb(130, 255, 151);
 }
 
-@media only screen and (min-width: 1800px){
+@media only screen and (min-width: 1400px){
+    .detail{
+        max-height: 900px !important;
+    }
     .detailImage{
-        margin-left: 1.5vw;
+        max-height: 600px !important;
+        max-width: 800px !important;
+    }
+}
+
+@media only screen and (min-width: 1800px){
+    .detail{
+        max-height: 1050px !important;
+        transform: translateY(6rem);
+    }
+    .detailImage{
+        max-height: 800px !important;
+        max-width: 1000px !important;
     }
     .detailRight>h3{
         transform: translateX(-2vw) scaleX(1.2)
