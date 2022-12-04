@@ -11,10 +11,16 @@ interface expNavProps{
 const ExpNavbar = (props: expNavProps) => {
     return (
         <div className={ css.nav }>
-            <NavItem className={props.workActive ? css.navItem : css.activeNav} onClick={() => props.changeActive
-            () }> Education </NavItem>
-            <NavItem className={props.workActive ? css.activeNav : css.navItem}
-            onClick={() => props.changeActive() }> Work </NavItem>
+            <NavItem className={props.workActive ? css.navItem : css.activeNav} onClick={() => {
+                if (props.workActive) {
+                    props.changeActive()
+                }
+            }}> Education </NavItem>
+            <NavItem className={props.workActive ? css.activeNav : css.navItem} onClick={() => {
+                if (!props.workActive) {
+                    props.changeActive()
+                }
+            }}> Work </NavItem>
         </div>
     )
 }

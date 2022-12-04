@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { GetStaticProps } from 'next'
-import { MongoClient } from 'mongodb'
+// import { GetStaticProps } from 'next'
+// import { MongoClient } from 'mongodb'
 
 import CertificationCard from './CertificationCard'
-import { certifications } from '../../../Utils/data/EducationData'
 
+import { certifications } from '../../../Utils/data/EducationData'
 const css = require('./Certifications.module.css')
 
 const Certifications = () => {
@@ -22,22 +22,22 @@ const Certifications = () => {
 }
 
 
-export const getStaticProps: GetStaticProps = async () => {
+// export const getStaticProps: GetStaticProps = async () => {
 
-  const client = new MongoClient(process.env.DB_CONN_STRING!)
-  const db = client.db()
+//   const client = new MongoClient(process.env.DB_CONN_STRING!)
+//   const db = client.db()
 
-  const certificationData = db.collection(process.env.CERT_COLL!)
+//   const certificationData = db.collection(process.env.CERT_COLL!)
 
-  const results = await certificationData.find().toArray()
+//   const results = await certificationData.find().toArray()
 
-  return {
-      props: {
-          certificationData: results.map(result => ({
+//   return {
+//       props: {
+//           certificationData: results.map(result => ({
 
-          }))
-      },
-  }
-}
+//           }))
+//       },
+//   }
+// }
 
 export default Certifications

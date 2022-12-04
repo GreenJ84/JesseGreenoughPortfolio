@@ -1,8 +1,9 @@
 import React from "react"
 import Image from 'next/image'
-import { workItem } from "../../../Utils/data/WorkData"
+
 import { ImPointRight } from "react-icons/im"
 
+import { workItem } from "../../../Utils/data/WorkData"
 const css = require('./WorkCard.module.css')
 
 interface workCard{

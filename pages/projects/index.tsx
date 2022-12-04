@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Container } from 'react-bootstrap'
-import { MongoClient } from 'mongodb'
+// import { MongoClient } from 'mongodb'
+// import { GetStaticProps } from 'next';
 
 import ProjectCard from '../../components/ProjectsPage/ProjectCard';
 import ProjectNavbar from '../../components/ProjectsPage/ProjectNavbar';
 
 import data from '../../Utils/data/ProjectData'
-import { GetStaticProps } from 'next';
 
 export type Category = "react" | "python" | "java";
 export interface IProject {
@@ -19,23 +19,35 @@ export interface IProject {
     key_techs: string[];
 }
 
-const ProjectPage = () => {
+const projectBody = {
+    padding: '12rem 1rem 1rem',
+}
 
+const flexbox = {
+    display: 'flex',
+    FlexWrap: 'wrap',
+    backgroundColor: '#002400',
+    padding: '5rem 0',
+    border: '2px solid '
+}
+
+const ProjectPage = () => {
     const [projectData, setProjectData] = useState(data);
     const [activeNav, setActiveNav] = useState('all');
+
     const filterHandler = (category: Category | "all") => {
         if (category === "all") {
             setProjectData(data);
             setActiveNav(category);
             return;
         }
-        
         else {
             const newArray = data.filter((project) =>
             project.category.includes(category)
             );
             setProjectData(newArray);
-            setActiveNav(category);}
+            setActiveNav(category);
+        }
     };
 
     return (
@@ -52,34 +64,22 @@ const ProjectPage = () => {
     );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+// export const getStaticProps: GetStaticProps = async () => {
 
-    const client = new MongoClient(process.env.DB_CONN_STRING!)
-    const db = client.db()
+//     const client = new MongoClient(process.env.DB_CONN_STRING!)
+//     const db = client.db()
 
-    const projectData = db.collection(process.env.PROJECT_COLL!)
+//     const projectData = db.collection(process.env.PROJECT_COLL!)
 
-    const results = await projectData.find().toArray()
+//     const results = await projectData.find().toArray()
 
-    return {
-        props: {
-            projectData: results.map(result => ({
+//     return {
+//         props: {
+//             projectData: results.map(result => ({
 
-            }))
-        },
-    }
-}
+//             }))
+//         },
+//     }
+// }
 
 export default ProjectPage;
-
-const projectBody = {
-    padding: '12rem 1rem 1rem',
-}
-
-const flexbox = {
-    display: 'flex',
-    flexWrap: 'wrap',
-    backgroundColor: '#002400',
-    padding: '5rem 0',
-    border: '2px solid '
-}

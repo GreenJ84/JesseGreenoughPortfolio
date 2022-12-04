@@ -6,7 +6,8 @@ interface PreloaderProps{
 }
 
 const Pre = (props: PreloaderProps) => {
-    return <div id={props.load ? css.preloader : css.preloaderNone}></div>;
-    }
+    return (
+        <div id={props.load ? css.preloader : css.preloaderNone}></div>
+    )}
 
 export default Pre;

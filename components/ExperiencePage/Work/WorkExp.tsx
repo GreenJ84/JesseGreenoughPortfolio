@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { MongoClient } from 'mongodb'
+// import { GetStaticProps } from 'next';
+// import {MongoClient} from 'mongodb'
 
 import WorkBody from './WorkBody';
 import WorkCard from './WorkCard';
 
 import { workHistory } from "../../../Utils/data/WorkData"
-import { GetStaticProps } from 'next';
 
 const css = require('./WorkExp.module.css')
 
@@ -44,22 +44,22 @@ const WorkExp = () => {
     )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+// export const getStaticProps: GetStaticProps = async () => {
 
-    const client = new MongoClient(process.env.DB_CONN_STRING!)
-    const db = client.db()
+//     const client = new MongoClient(process.env.DB_CONN_STRING!)
+//     const db = client.db()
 
-    const workData = db.collection(process.env.WORK_COLL!)
+//     const workData = db.collection(process.env.WORK_COLL!)
 
-    const results = await workData.find().toArray()
+//     const results = await workData.find().toArray()
 
-    return {
-        props: {
-            workData: results.map(result => ({
+//     return {
+//         props: {
+//             workData: results.map(result => ({
 
-            }))
-        },
-    }
-}
+//             }))
+//         },
+//     }
+// }
 
 export default WorkExp

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import EduImage from './EduImage'
 
 const css = require('./EduBody.module.css')

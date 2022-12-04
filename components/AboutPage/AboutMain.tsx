@@ -3,8 +3,8 @@ import React from 'react'
 import { Container } from 'react-bootstrap'
 
 import AboutCard from './AboutCard'
-import laptopImage from '../../public/assets/about.png'
 
+import laptopImage from '../../public/assets/about.png'
 const css = require('./AboutMain.module.css')
 
 const AboutMain = () => {

@@ -11,22 +11,18 @@ const css = require('../../styles/Resume.module.css')
 
 
 const ReumePage = () => {
-
     const [width, setWidth] = useState(0);
+
     React.useEffect(() => {
         setWidth(window.innerWidth)
-        
         window.addEventListener('resize', () => setWidth(window.innerWidth));
 
-        const unMount = () => {
-            window.removeEventListener('resize',
-            () => setWidth(window.innerWidth))
+        return () => {
+            window.removeEventListener('resize', () => setWidth(window.innerWidth))
         }
-        return unMount
     }, []);
-    
+
     return (
-        <div>
             <Container fluid className={css.resumeSection }>
                 <Row className={ css.download }>
                     <Button
@@ -55,7 +51,6 @@ const ReumePage = () => {
                     </Button>
                 </Row>
             </Container>
-        </div>
     )
 }
 

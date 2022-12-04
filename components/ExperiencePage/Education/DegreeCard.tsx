@@ -1,7 +1,8 @@
 import React from 'react'
-import { educationType } from '../../../Utils/data/EducationData'
+
 import { HiOutlineExternalLink } from 'react-icons/hi'
 
+import { educationType } from '../../../Utils/data/EducationData'
 const css = require('./DegreeCard.module.css')
 
 interface degreeCard {

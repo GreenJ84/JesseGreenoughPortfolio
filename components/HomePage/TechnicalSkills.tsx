@@ -1,8 +1,8 @@
 import React from 'react'
-import { Col, Row } from 'react-bootstrap'
-import { CgCPlusPlus } from "react-icons/cg";
+import { Col } from 'react-bootstrap'
+
 import { DiJavascript1, DiReact, DiNodejs, DiMongodb, DiPython, DiGit, DiMysql } from "react-icons/di";
-import { SiPytorch, SiFirebase, SiNextdotjs, SiTypescript, SiJava, SiRedux, SiPostgresql, SiJest, SiTailwindcss, SiSolidity } from "react-icons/si";
+import { SiFirebase, SiNextdotjs, SiTypescript, SiJava, SiRedux, SiPostgresql, SiJest, SiTailwindcss, SiSolidity } from "react-icons/si";
 
 const css = require('./TechnicalSkills.module.css')
 

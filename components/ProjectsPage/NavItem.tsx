@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Category } from '../../pages/projects'
+
 import { ProjectNavProps } from './ProjectNavbar'
 
+import { Category } from '../../pages/projects'
 const css = require('./NavItem.module.css')
 
 interface navItemProps extends ProjectNavProps{

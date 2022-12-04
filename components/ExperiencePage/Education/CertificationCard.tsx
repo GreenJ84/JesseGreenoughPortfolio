@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
+
 import {RiExternalLinkFill} from 'react-icons/ri'
 
 import { certificationType } from '../../../Utils/data/EducationData'
-
 const css = require('./CertificationCard.module.css')
 
 interface certificateCardProps{

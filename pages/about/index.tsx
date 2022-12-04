@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container } from 'react-bootstrap';
+
 import AboutInfo from '../../components/AboutPage/AboutInfo';
 import AboutMain from '../../components/AboutPage/AboutMain';
 

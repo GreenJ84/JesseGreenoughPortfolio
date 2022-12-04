@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+
 import NavItem from './NavItem'
 
 const css = require('./ProjectNavbar.module.css')
@@ -6,7 +7,6 @@ export interface ProjectNavProps {
     filterHandler: Function,
     active: string
 }
-
 
 const ProjectNavbar = (props: ProjectNavProps) => {
     

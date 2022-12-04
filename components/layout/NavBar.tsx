@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -14,20 +15,23 @@ import { AiFillStar, AiOutlineHome, AiOutlineFundProjectionScreen, AiOutlineUser
 import { CgFileDocument } from "react-icons/cg";
 
 import logo from "../../public/assets/logo.png";
-import { useRouter } from "next/router";
-
 const css = require('./NavBar.module.css');
 
 const NavBar = () => {
+    // For NavBar Accordian on small screens
     const [expandBar, setExpandBar] = useState(false);
+    // For Responsive NavBar change
     const [wideScreen, setWideScreen] = useState(true)
+    // For fading as you scroll
     const [navFade, setNavFade] = useState(false);
     const { pathname } = useRouter();
 
+    // Starting at the top on every new page selected
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname])
 
+    // Response listeners for window changes
     useEffect(() => {
         const scrollHandler = () => {
             if (window.scrollY >= 60) {

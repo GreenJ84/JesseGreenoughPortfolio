@@ -3,14 +3,16 @@ import Tilt from "react-parallax-tilt";
 import Image from "next/image";
 
 import { Container, Row, Col } from "react-bootstrap";
+
 import { AiFillGithub, AiOutlineTwitter, AiFillInstagram } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 
-const css = require('./HomeBottom.module.css')
-import myImg from "../../public/assets/avatar.svg";
 import TechnicalSkills from "./TechnicalSkills";
 import DeveloperTools from "./DeveloperTools";
 import GithubCard from "./GithubCard";
+
+import myImg from "../../public/assets/avatar.svg";
+const css = require('./HomeBottom.module.css')
 
 const HomeBottom = () => {
     return (

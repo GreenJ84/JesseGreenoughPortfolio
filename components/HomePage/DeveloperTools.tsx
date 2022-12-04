@@ -1,5 +1,6 @@
 import React from 'react'
-import { Col, Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+
 import { SiVisualstudiocode, SiPostman, SiVercel, SiGitkraken, SiApollographql, SiFigma } from "react-icons/si";
 import { GrGraphQl } from 'react-icons/gr';
 

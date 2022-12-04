@@ -2,14 +2,6 @@ import React from "react";
 
 const css = require('./WorkBody.module.css')
 
-interface imageProps{
-  theme: {
-    accentColor: string
-    dark: string
-    imageDark: string
-  }
-}
-
 const WorkImg = () => {
   const theme = { accentColor: 'green', dark:'black', imageDark: '#041A00'};
   return (
