@@ -52,14 +52,14 @@ const ProjectPage = () => {
 
     return (
         <Container fluid style={projectBody}>
-            <>
+            <div style={{ padding: '0 3vw'}}>
                 <ProjectNavbar filterHandler={filterHandler} active={activeNav} />
                 <div style={ flexbox }>
                     { projectData.map((project) =>
                         <ProjectCard project={project} key={project.name} />
                     )}
                 </div>
-            </>
+            </div>
         </Container>
     );
 }

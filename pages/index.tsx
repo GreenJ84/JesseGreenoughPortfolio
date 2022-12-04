@@ -4,7 +4,7 @@ import HomeTop from "../components/HomePage/HomeTop";
 
 const HomePage = () => {
   return (
-    <section>
+    <section style={{ padding: '0 2vw'}}>
       <HomeTop />
       <HomeBottom />
     </section>
