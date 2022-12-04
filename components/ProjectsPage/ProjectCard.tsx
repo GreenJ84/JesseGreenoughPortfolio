@@ -17,12 +17,11 @@ const ProjectCard = (props: projectProps) => {
 
     return (
         <>
-            <div className={ css.display }>
+            <div className={ css.display } onClick={() => setShowDetail(true)}>
                 <Image
                     src={ props.project.image_path }
                     alt={props.project.name}
                     className={ css.displayImage }
-                    onClick={() => setShowDetail(true)}
                     layout="responsive"
                     height="150"
                     width="300"
