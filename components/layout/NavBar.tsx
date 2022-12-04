@@ -89,7 +89,7 @@ const NavBar = () => {
                         </Nav.Item>
                             
                         <Nav.Item className={ css.navItem }>
-                            <Nav.Link href="/experience" className={ css.navLink } rel="noreferrer" >
+                            <Nav.Link as={Link} href="/experience" className={ css.navLink } rel="noreferrer" >
                                 <ImBlog className={ css.navIcon } />
                                 Experience
                             </Nav.Link>
