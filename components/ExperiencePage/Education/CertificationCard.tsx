@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 import {RiExternalLinkFill} from 'react-icons/ri'
 
-import { certificationType } from '../../../Utils/data/EducationData'
+import { certificationType } from '../../../Utils/data/CertificationData'
 const css = require('./CertificationCard.module.css')
 
 interface certificateCardProps{

@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 import CertificationCard from './CertificationCard'
 
-import { certifications } from '../../../Utils/data/EducationData'
+import { certifications } from '../../../Utils/data/CertificationData'
 const css = require('./Certifications.module.css')
 
 const Certifications = () => {

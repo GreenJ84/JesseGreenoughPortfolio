@@ -19,8 +19,8 @@
 
 .workImage{
     display: flex;
-    width: 60%;
-    height: auto;
+    width: 12vw;
+    height: 12vw;
     margin: 1rem auto 0;
     border-radius: 50%;
 }
