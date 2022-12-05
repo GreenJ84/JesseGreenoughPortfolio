@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 
-// import Preloader from "../components/Layout/Preloader";
+import Preloader from "../components/Layout/Preloader";
 import NavBar from "../components/Layout/NavBar";
 import Footer from "../components/Layout/Footer";
 
@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      {/* <Preloader load={load} /> */}
+      <Preloader load={load} />
       <div className={load ? css.noScroll : "scroll"}>
         <NavBar />
         <Component {...pageProps} />
