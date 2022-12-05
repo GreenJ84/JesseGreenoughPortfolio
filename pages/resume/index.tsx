@@ -36,8 +36,8 @@ const ReumePage = () => {
                 </Row>
     
                 <Row className={ css.resume }>
-                <Image src={resume} alt='MyResume' width={width - 400
-                } height={(width - 400) * 1.5} />
+                <Image src={resume} alt='MyResume' width={width * .6
+                } height={(width * .6) * 1.3} />
                 </Row>
     
                 <Row className={ css.download }>
