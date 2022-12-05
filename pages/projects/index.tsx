@@ -19,7 +19,7 @@ const projectBody = {
 
 const flexbox = {
     display: 'flex',
-    FlexWrap: 'wrap',
+    flexWrap: 'wrap',
     backgroundColor: '#002400',
     padding: '5rem 3vw',
     border: '2px solid '
@@ -50,7 +50,7 @@ const ProjectPage = (props: Projects) => {
         <Container fluid style={projectBody}>
             <div style={{ padding: '0 3vw'}}>
                 <ProjectNavbar filterHandler={filterHandler} active={activeNav} />
-                <div style={ flexbox }>
+                <div style={ flexbox as React.CSSProperties }>
                     { projectData.map((project) =>
                         <ProjectCard project={project} key={project.name} />
                     )}
