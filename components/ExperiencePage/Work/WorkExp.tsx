@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
-// import { GetStaticProps } from 'next';
-// import {MongoClient} from 'mongodb'
 
 import WorkBody from './WorkBody';
 import WorkCard from './WorkCard';
 
-import workHistory from "../../../Utils/data/WorkData"
-import secondaryWorkData from '../../../Utils/data/SecondaryWorkData';
+import { workItem } from "../../../Utils/data/WorkData"
+// import workHistory from "../../../Utils/data/WorkData"
+// import secondaryWorkData from '../../../Utils/data/SecondaryWorkData';
 
 const css = require('./WorkExp.module.css')
 
-const WorkExp = () => {
-    const [workData, setWorkData] = useState( workHistory );
-    const [extraData, setExtraData] = useState( secondaryWorkData )
+interface Work {
+    workData: workItem[]
+    secondaryWorkData: workItem[]
+}
+
+const WorkExp = (props: Work) => {
     const [showWork, setShowWork] = useState(true);
 
     const filterHandler = () => {
@@ -37,30 +39,12 @@ const WorkExp = () => {
             </div>
             <div className={ css.workCardHolder }>
                 {showWork ?
-                    workData.map((item) => <WorkCard key={item.position} work={item} />) :
+                    props.workData.map((item) => <WorkCard key={item.position} work={item} />) :
 
-                    extraData.map((item) => <WorkCard key={item.position} work={item} />)}
+                    props.secondaryWorkData.map((item) => <WorkCard key={item.position} work={item} />)}
             </div>
         </>
     )
 }
-
-// export const getStaticProps: GetStaticProps = async () => {
-
-//     const client = new MongoClient(process.env.DB_CONN_STRING!)
-//     const db = client.db()
-
-//     const workData = db.collection(process.env.WORK_COLL!)
-
-//     const results = await workData.find().toArray()
-
-//     return {
-//         props: {
-//             workData: results.map(result => ({
-
-//             }))
-//         },
-//     }
-// }
 
 export default WorkExp

@@ -9,9 +9,12 @@ import WorkExp from '../../components/ExperiencePage/Work/WorkExp';
 
 import { certificationType } from '../../Utils/data/CertificationData';
 import { educationType } from '../../Utils/data/EducationData';
+import { workItem } from '../../Utils/data/WorkData';
 export interface Experience {
     educationData: educationType[]
     certificationData: certificationType[]
+    workData: workItem[]
+    secondaryWorkData: workItem[]
 }
 
 const ExperiencePage = (props: Experience ) => {
@@ -30,7 +33,7 @@ const ExperiencePage = (props: Experience ) => {
             <ExpNavbar changeActive={ changeActive } workActive={ showWork } />
             <div>
                 { showWork ? 
-                    <WorkExp /> :
+                    <WorkExp workData={ props.workData } secondaryWorkData={ props.secondaryWorkData} /> :
                     <EduExp educationData={ props.educationData} certificationData={ props.certificationData } />
                 }
             </div>
@@ -45,13 +48,17 @@ export const getStaticProps: GetStaticProps<Experience> = async () => {
 
     const educationData = db.collection(process.env.DEG_COLL!)
     const cetificationData = db.collection(process.env.CERT_COLL!)
+    const workData = db.collection(process.env.WORK_COLL!)
+    const secWorkData = db.collection(process.env.SWORK_COLL!)
 
-    const results1 = await educationData.find().toArray()
-    const results2 = await cetificationData.find().toArray()
+    const eduResults = await educationData.find().toArray()
+    const certResults = await cetificationData.find().toArray()
+    const workResults = await workData.find().toArray()
+    const secWorkResults = await secWorkData.find().toArray()
 
     return {
         props: {
-            educationData: results1.map((result) => ({
+            educationData: eduResults.map((result) => ({
                 college: result.college,
                 degree: result.degree,
                 date:  result.date,
@@ -60,13 +67,31 @@ export const getStaticProps: GetStaticProps<Experience> = async () => {
                 website: result.website,
                 id: result._id.toString()
             })),
-            certificationData: results2.map((result) => ({
+            certificationData: certResults.map((result) => ({
                 title: result.title,
                 issuer: result.issuer,
                 date: result.date,
                 url:  result.url,
                 description: result.description,
                 image: result.image,
+                id: result._id.toString()
+            })),
+            workData: workResults.map((result) => ({
+                company: result.company,
+                logo: result.logo,
+                position:  result.position,
+                location: result.location,
+                date: result.date,
+                details: result.details,
+                id: result._id.toString()
+            })),
+            secondaryWorkData: secWorkResults.map((result) => ({
+                company: result.company,
+                logo: result.logo,
+                position:  result.position,
+                location: result.location,
+                date: result.date,
+                details: result.details,
                 id: result._id.toString()
             })),
         },
