@@ -14,10 +14,10 @@
     width: 190%;
     max-width: 1000px;
     color: white;
-    margin: 7rem 0 18vw;
+    margin: 7rem 0 21vw;
     font-size: 3vw;
     text-align: center;
-    transform: translate(-34vw, 24vw);
+    transform: translate(-34vw, 30vw);
 }
 
 @media only screen and (min-width: 1800px){

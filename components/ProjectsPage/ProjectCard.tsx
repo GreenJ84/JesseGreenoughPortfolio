@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 
-import { IProject } from '../../pages/projects'
+import { IProject } from '../../Utils/data/ProjectData'
 import { AiFillGithub, AiFillProject } from 'react-icons/ai'
 import { MdClose } from 'react-icons/md'
 
