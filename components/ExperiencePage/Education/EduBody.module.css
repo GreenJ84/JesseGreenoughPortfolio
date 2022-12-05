@@ -5,8 +5,8 @@
     text-shadow: 1px 1px 15px rgb(0, 186, 0);
     text-align: center;
     margin-top: 8rem;
-    font-size: 4.4vw;
-    transform: translate(-8vw, -4vw);
+    font-size: 4vw;
+    transform: translate(-8vw, -6vw);
 }
 
 .bodyText p{
