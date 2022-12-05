@@ -33,6 +33,14 @@ const NavBar = () => {
 
     // Response listeners for window changes
     useEffect(() => {
+        if (window.innerWidth > 900) {
+            setExpandBar(false);
+            setWideScreen(true);
+        } else {
+            setWideScreen(false);
+            setExpandBar(false);
+        }
+
         const scrollHandler = () => {
             if (window.scrollY >= 60) {
                 setNavFade(true);
@@ -40,23 +48,24 @@ const NavBar = () => {
                 setNavFade(false);
             }
         }
+        window.addEventListener("scroll", scrollHandler);
+        
         const sizeHandler = () => {
-            if (innerWidth > 900) {
-                setExpandBar(true);
+            if (window.innerWidth > 900) {
+                setExpandBar(false);
                 setWideScreen(true);
             } else {
                 setWideScreen(false);
             }
         }
-        window.addEventListener("scroll", scrollHandler);
-        window.addEventListener('resize',sizeHandler)
+        window.addEventListener('resize', sizeHandler)
 
         const unMount = () => {
             window.removeEventListener("scroll", scrollHandler);
             window.removeEventListener('resize',sizeHandler);
         return unMount
         };
-    });
+    }, []);
 
     return (
         <Navbar expanded={expandBar} fixed="top" expand="md" className={navFade ? css.sticky : css.navbar}>
