@@ -1,22 +1,16 @@
 import React, { useState } from 'react'
+import { MongoClient } from 'mongodb'
+import { GetStaticProps } from 'next';
 import { Container } from 'react-bootstrap'
-// import { MongoClient } from 'mongodb'
-// import { GetStaticProps } from 'next';
 
 import ProjectCard from '../../components/ProjectsPage/ProjectCard';
 import ProjectNavbar from '../../components/ProjectsPage/ProjectNavbar';
 
-import data from '../../Utils/data/ProjectData'
+// import data from '../../Utils/data/ProjectData'
+import { Category, IProject } from '../../Utils/data/ProjectData';
 
-export type Category = "react" | "python" | "java";
-export interface IProject {
-    name: string;
-    description: string;
-    image_path: string;
-    deployed_url: string | null;
-    github_url: string;
-    category: Category[];
-    key_techs: string[];
+interface Projects{
+    projectData: IProject[]
 }
 
 const projectBody = {
@@ -31,18 +25,20 @@ const flexbox = {
     border: '2px solid '
 }
 
-const ProjectPage = () => {
-    const [projectData, setProjectData] = useState(data);
+const ProjectPage = (props: Projects) => {
+    const [projectData, setProjectData] = useState(props.projectData);
     const [activeNav, setActiveNav] = useState('all');
+
+    console.log(projectData)
 
     const filterHandler = (category: Category | "all") => {
         if (category === "all") {
-            setProjectData(data);
+            setProjectData(props.projectData);
             setActiveNav(category);
             return;
         }
         else {
-            const newArray = data.filter((project) =>
+            const newArray = props.projectData.filter((project) =>
             project.category.includes(category)
             );
             setProjectData(newArray);
@@ -64,22 +60,29 @@ const ProjectPage = () => {
     );
 }
 
-// export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
 
-//     const client = new MongoClient(process.env.DB_CONN_STRING!)
-//     const db = client.db()
+    const client = new MongoClient(process.env.DB_CONN_STRING!)
+    const db = client.db(process.env.DB_NAME)
 
-//     const projectData = db.collection(process.env.PROJECT_COLL!)
+    const projectData = db.collection(process.env.PROJ_COLL!)
 
-//     const results = await projectData.find().toArray()
+    const results = await projectData.find().toArray()
 
-//     return {
-//         props: {
-//             projectData: results.map(result => ({
-
-//             }))
-//         },
-//     }
-// }
+    return {
+        props: {
+            projectData: results.map(result => ({
+                name: result.name,
+                description: result.description,
+                image_path: result.image_path,
+                deployed_url: result.deployed_url,
+                github_url: result.github_url,
+                category: result.category,
+                key_techs: result.key_techs,
+                id: result._id.toString()
+            }))
+        },
+    }
+}
 
 export default ProjectPage;

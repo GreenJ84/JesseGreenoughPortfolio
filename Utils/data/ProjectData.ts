@@ -1,4 +1,13 @@
-import { IProject } from "../../pages/projects";
+export type Category = "react" | "python" | "java";
+export interface IProject {
+    name: string;
+    description: string;
+    image_path: string;
+    deployed_url: string | null;
+    github_url: string;
+    category: Category[];
+    key_techs: string[];
+}
 
 const projects: IProject[] = [
     {
