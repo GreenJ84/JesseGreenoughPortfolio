@@ -5,9 +5,9 @@ interface PreloaderProps{
     load: boolean
 }
 
-const Pre = (props: PreloaderProps) => {
+const Preloader = (props: PreloaderProps) => {
     return (
         <div id={props.load ? css.preloader : css.preloaderNone}></div>
     )}
 
-export default Pre;
+export default Preloader;
