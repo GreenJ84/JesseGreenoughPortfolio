@@ -28,7 +28,9 @@
 .logo {
     position: relative;
     height: 8vw;
+    max-height: 120px;
     width: 8vw;
+    max-width: 120px;
     left: 4.6vw;
     border-radius:  50%;
 }

@@ -20,7 +20,7 @@ const HomeBottom = () => {
             <Container>
                 <Row className={ css.topRow }>
                     <Col md={8} className={ css.homeAboutDescription }>
-                        <h1 style={{ fontSize: "2.6em" }}>
+                        <h1 style={{ fontSize: "2.6vw" }}>
                             LET ME <span className="purple"> INTRODUCE </span> MYSELF
                         </h1>
                         <p className={ css.homeAboutBody }>

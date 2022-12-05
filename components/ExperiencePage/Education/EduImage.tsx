@@ -1,5 +1,7 @@
 import React from "react";
 
+const css = require('./EduBody.module.css')
+
 export default function EducationImg() {
   return (
     <svg
@@ -10,7 +12,7 @@ export default function EducationImg() {
       width="50vw"
       height="40vw"
       viewBox="0 0 795.39431 574.03802"
-      style={{ position: 'relative', transform: 'translateX(5vw)', marginTop: '14vw'}}
+      className={ css.eduImage }
     >
       <defs>
         <linearGradient

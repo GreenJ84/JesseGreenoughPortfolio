@@ -24,4 +24,15 @@
     .bodyText p{
         max-width: 1400px;
     }
+    .eduImage{
+        transform: translate(10vw, -8vw) !important;
+    }
 }
+
+.eduImage{ 
+    position: relative;
+    transform: translateX(5vw);
+    margin-top: 14vw;
+    max-width: 900px;
+}
+
