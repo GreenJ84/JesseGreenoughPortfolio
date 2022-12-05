@@ -4,17 +4,20 @@ import React, { useState } from 'react'
 
 import CertificationCard from './CertificationCard'
 
-import { certifications } from '../../../Utils/data/CertificationData'
+import { certifications, certificationType } from '../../../Utils/data/CertificationData'
 const css = require('./Certifications.module.css')
 
-const Certifications = () => {
-  const [certData, setCertData] = useState(certifications)
+interface Certification{
+  certificationData: certificationType[]
+}
+
+const Certifications = (props: Certification ) => {
 
   return (
     <>
       <h1 className={ css.certTitle }> Certifications Achieved </h1>
       <div className={ css.certCardHolder }>
-        { certData.map((item) =>  <CertificationCard certificate={item} key={ item.title } />
+        { props.certificationData.map((item) =>  <CertificationCard certificate={item} key={ item.title } />
         )}
       </div>
     </>

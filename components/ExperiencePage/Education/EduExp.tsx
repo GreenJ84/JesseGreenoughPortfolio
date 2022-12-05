@@ -1,4 +1,7 @@
 import React from 'react'
+import { Experience } from '../../../pages/experience'
+import { certificationType } from '../../../Utils/data/CertificationData'
+import { educationType } from '../../../Utils/data/EducationData'
 
 import Certifications from './Certifications'
 import Degree from './Degree'
@@ -9,12 +12,17 @@ const bodyStyle = {
     padding: '0 2.5vw 6rem'
 }
 
-const EduExp = () => {
+interface Education{
+    educationData: educationType[]
+    certificationData: certificationType[]
+}
+
+const EduExp = (props: Education) => {
     return (
         <div style={ bodyStyle }>
             <EduBody />
-            <Degree />
-            <Certifications />
+            <Degree educationData={ props.educationData } />
+            <Certifications certificationData={ props.certificationData } />
         </div>
     )
 }
