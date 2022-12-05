@@ -1,9 +1,9 @@
 .display{
     position: relative;
     background-color: rgb(60, 60, 60);
-    width: 46%;
-    height: 30vw;
-    margin: 0 auto 2vw;
+    width: 38%;
+    height: 28vw;
+    margin: 0 auto 8vw;
     border-radius: 20px;
     box-shadow: 2px -3px 3px rgb(7, 247, 7);
     overflow: scroll;
@@ -15,9 +15,10 @@
 }
 
 .displayImage{
-    width: 90% !important;
-    margin: 1rem 5% 0;
-    height: 21vw !important;
+    display: flex;
+    width: 80% !important;
+    margin: 1rem auto 0;
+    height: 18vw !important;
 }
 
 .displayTitle{

@@ -14,14 +14,14 @@ interface Projects{
 }
 
 const projectBody = {
-    padding: '12rem 1rem 1rem',
+    padding: '12rem 2vw 1rem',
 }
 
 const flexbox = {
     display: 'flex',
     flexWrap: 'wrap',
     backgroundColor: '#002400',
-    padding: '5rem 3vw',
+    padding: '5rem 4vw',
     border: '2px solid '
 }
 
