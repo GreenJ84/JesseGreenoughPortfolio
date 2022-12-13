@@ -98,7 +98,7 @@ const NavBar = () => {
                         </Nav.Item>
                             
                         <Nav.Item className={ css.navItem }>
-                            <Nav.Link as={Link} href="/experience" className={ css.navLink } rel="noreferrer" >
+                            <Nav.Link as={Link} href="/experience" className={ css.navLink } rel="noreferrer" onClick={() => setExpandBar(false)}>
                                 <ImBlog className={ css.navIcon } />
                                 Experience
                             </Nav.Link>

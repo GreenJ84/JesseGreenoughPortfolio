@@ -14,7 +14,7 @@ interface Projects{
 }
 
 const projectBody = {
-    padding: '12rem 2vw 1rem',
+    padding: '9rem 2vw 10vw',
 }
 
 const flexbox = {

@@ -49,7 +49,7 @@
 .homeAboutSocialLinks {
   display: flex;
   justify-content: center;
-  padding: 8vw vw;
+  padding: 8vw 0 10rem;
   position: relative;
   padding-inline-start: 0;
 }
