@@ -11,6 +11,7 @@
 }
 
 .navbar {
+    max-height: 15rem;
     position: fixed;
     width: 100%;
     z-index: 2000;
@@ -28,8 +29,10 @@
 .logo {
     position: relative;
     height: 8vw;
+    min-height: 40px;
     max-height: 120px;
     width: 8vw;
+    min-width: 40px;
     max-width: 120px;
     left: 4.6vw;
     border-radius:  50%;
@@ -126,27 +129,30 @@
     .navbar, .sticky{
         min-height: 8rem;
         background-color: rgb(1, 56, 4) !important;
+        padding: 2rem 0;
+    }
+    .navbar{
+            box-shadow: 0px 2px 4px 0px rgba(2, 119, 12, 0.874);
     }
     .navbarContainer{
-        justify-content: space-between;
+        justify-content: center;
     }
-
     .navbarNav{
         flex-direction: column;
         position: relative;
-        top: -2rem;
-        margin: 2rem 19rem -2rem 12rem;
-        font-size: 1.5rem;
+        top: -3rem;
     }
 
     .navItem{
         padding: 0;
     }
-
     .navItem:hover{
-        background-color: #02fc3028;
+        background-color: #07932128;
     }
-
+    .navIcon{
+        font-size: 1rem;
+        margin: 0 1vw 0 0;
+    }
     .logo{
         position: absolute;
         top: 2rem;
@@ -216,18 +222,12 @@
         opacity: 0.9 !important;
     }
 
-
-    .navbar {
-        box-shadow: 0px 2px 4px 0px rgba(2, 119, 12, 0.874);
-        background-color: rgba(1, 69, 6, 0.407);
-        padding: 2rem 2rem !important;
-        font-size: 1.4rem !important;
-    }
     .navbarNav .navItem a::after {
         display: none !important;
-    }    
+    }
     .navLink {
         flex-direction: row;
-        padding: 0.7rem 1rem !important;
+        padding: 0.5rem 1rem;
+        font-size: 1.2rem !important;
     }
 }
