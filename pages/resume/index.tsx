@@ -14,11 +14,19 @@ const ReumePage = () => {
     const [width, setWidth] = useState(0);
 
     React.useEffect(() => {
-        setWidth(window.innerWidth)
-        window.addEventListener('resize', () => setWidth(window.innerWidth));
+        const checkWindow = ( width: number ) => { 
+            if ( width < 900) {
+                setWidth( width / .62)
+            }
+            else {
+                setWidth( width)
+            }
+        }
+        checkWindow(window.innerWidth)
+        window.addEventListener('resize', () => checkWindow(window.innerWidth));
 
         return () => {
-            window.removeEventListener('resize', () => setWidth(window.innerWidth))
+            window.removeEventListener('resize', () => checkWindow(window.innerWidth));
         }
     }, []);
 
