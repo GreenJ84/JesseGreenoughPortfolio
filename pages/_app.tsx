@@ -9,23 +9,23 @@ import "../styles/globals.css";
 const css = require("./App.module.css");
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [load, setLoad] = useState(true);
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoad(false);
-    }, 1200);
+      setLoad(true);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <>
-      <Preloader load={load} />
-      <div className={load ? css.noScroll : "scroll"}>
+      { load ? <div className={load ? css.noScroll : "Scroll" }>
         <NavBar />
         <Component {...pageProps} />
         <Footer />
-      </div>
+      </div> :
+      <Preloader />}
     </>
   );
 }

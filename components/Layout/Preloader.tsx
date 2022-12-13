@@ -1,13 +1,18 @@
 import React from "react";
+import Image from "next/image";
+
+import loaderLogo from '../../public/assets/pre.svg'
 const css = require('./Preloader.module.css')
 
-interface PreloaderProps{
-    load: boolean
-}
 
-const Preloader = (props: PreloaderProps) => {
+const Preloader = () => {
     return (
-        <div id={props.load ? css.preloader : css.preloaderNone}></div>
+        <Image 
+        src={loaderLogo}
+        alt='Loading Icon'
+        width={100}
+        height={100}
+        className={css.preloader}/>
     )}
 
 export default Preloader;
