@@ -74,7 +74,7 @@ const ProjectCard = (props: projectProps) => {
                 onClick={() => setShowDetail(false)}
                 className={ css.detailClose}
                 >
-                    <MdClose size={30} />
+                    <MdClose />
                 </button>
             </div>
             )}
