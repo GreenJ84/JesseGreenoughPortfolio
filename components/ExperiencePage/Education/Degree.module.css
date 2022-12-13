@@ -5,12 +5,13 @@
     color: rgb(41, 226, 12);
     text-shadow: 0 0 18px rgb(102, 255, 0);
 }
-.icons{
+.degrees{
     display: flex;
     position: relative;
+    justify-content: space-between;
     align-items: center;
-    padding: 0 4rem 5rem 6rem;
-    justify-content: space-around;
+    padding: 0 6.5vw 0 9.5vw;
+    margin-bottom: 12vw;
 }
 .image{
     width: 16vw;

@@ -1,13 +1,8 @@
-.cardHead>p, .cardHead>h1 {
-    margin: 0;
-    padding: 0;
-}
-
 .cardBody{
     background-color: rgb(0, 58, 0);
     border-radius: 30px;
     height: auto;
-    width: 60%;
+    width: 70%;
     box-shadow: inset 2px -2px 14px rgb(80, 255, 45), inset -2px -2px 14px rgb(80, 255, 45);
 }
 .cardBody:hover{
@@ -17,14 +12,18 @@
 .cardHead{
     color: white;
     background-color: rgb(0, 58, 0);
-    padding: 1rem;
+    padding: 2vw;
     border-radius: 30px 30px 0 0;
     margin-bottom: 0;
+}
+.cardHead>p, .cardHead>h1 {
+    margin: 0;
+    padding: 0;
 }
 
 .cardHead>h1{
     text-align: center;
-    margin: .4rem 0;
+    margin: 1vw 0;
     font-size: 2.8vw;
 }
 
@@ -36,7 +35,7 @@
 .cardHead h1+p+p{
     position: relative;
     left: 1.4vw;
-    margin: 1.4rem 0 .6rem;
+    margin: 3.4vw 0 1.4vw;
     font-size: 1.8vw;
 }
 
@@ -45,15 +44,15 @@
     background-color: rgb(179, 255, 158);
     height: 24vw;
     width: 94%;
-    margin: 0 auto 2rem;
+    margin: 0 auto 3.5vw;
     border-radius: 0 0 20px 20px;
-    padding: .25rem 0 0 .5rem;
+    padding: .5vw 0 0 1vw;
 }
 
 .cardText li{
     text-indent: .5rem;
     list-style: none;
-    margin: 1rem 0;
+    margin: 2vw 0;
     font-size: 1.6vw;
     line-height: 2.4vw;
     margin-top: 2vw;
@@ -65,8 +64,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    right: 6rem;
-    bottom: 2rem;
+    right: 8vw;
+    bottom: 3vw;
     width: 14vw;
     height: 2.7vw;
     color: black;
@@ -78,4 +77,18 @@
     color: rgb(1, 202, 1);
     background-color: rgb(0, 30, 0);
     box-shadow: 2px -2px 18px 5px rgb(32, 111, 14);
+}
+
+@media only screen and (max-width: 625px){
+    .cardHead>h1{
+        font-size: 3.8vw;
+    }
+    
+    .cardHead h1+p{
+        font-size: 1.8vw;
+    }
+    
+    .cardHead h1+p+p{
+        font-size: 2.4vw;
+    }
 }
