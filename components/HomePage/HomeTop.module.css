@@ -5,28 +5,31 @@
   filter:hue-rotate(230deg);
   background-position: top center;
   background-repeat: no-repeat;
-  padding: 2rem 0;
+  background-size: cover;
+  padding: 2rem 0 0;
 }
 
 
 .homeContent {
-  padding: 9rem 0 2rem !important;
+  padding: 9rem 0 3vw;
   color: #fcfdfc;
   text-align: left;
 }
 
 .homeHeader {
-  padding-top: 80px !important;
+  padding-top: 3vw;
 }
 
 .heading {
-  font-size: 2.4em;
+  font-size: 4vw;
   text-align: center;
+  margin-bottom: 8vw;
 }
 
 .headingName {
-  font-size: 2.5em;
+  font-size: 3.2vw;
   text-align: center;
+  margin-bottom: 10vw;
 }
 
 .mainName {
@@ -34,7 +37,7 @@
 }
 
 .wave {
-  margin-left: 1rem;
+  margin-left: 2vw;
   animation-name: wave-animation;
   animation-duration: 1.8s;
   animation-iteration-count: infinite; 
@@ -44,7 +47,7 @@
 
 .typeText {
   text-align: left;
-  font-size: 2rem;
+  font-size: 3vw;
   color: #cd5ff8;
   font-weight: 700;
   margin: 2.5rem;
@@ -75,5 +78,34 @@
   } /* Reset for the last half to pause */
   100% {
     transform: rotate(0deg);
+  }
+}
+
+.imageHolder{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topImage{
+  position: relative;
+  margin: 0 auto;
+  height: 50vw;
+  max-height: 650px;
+}
+
+@media only screen and (min-width: 1500px) {
+  .heading {
+    font-size: 3vw;
+
+  }
+  
+  .headingName {
+    font-size: 2.4vw;
+    margin-bottom: 6vw;
+  }
+
+  .typeText {
+    font-size: 2.4vw;
   }
 }

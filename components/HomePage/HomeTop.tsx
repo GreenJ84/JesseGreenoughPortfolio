@@ -34,12 +34,11 @@ const HomeTop = () => {
             </div>
           </Col>
 
-          <Col md={5} style={{ paddingBottom: 20 }}>
+          <Col md={5} className={ css.imageHolder }>
             <Image
               src={homeLogo}
               alt="home pic"
-              className="img-fluid"
-              style={{ maxHeight: "450px" }}
+              className={ css.topImage }
             />
           </Col>
         </Row>
