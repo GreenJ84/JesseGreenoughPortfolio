@@ -7,8 +7,8 @@
 }
 
 .techIcons {
-    font-size: 5em;
-    margin: .5em;
+    font-size: 12vw;
+    margin: 2vw;
     padding: .2em;
     opacity: 0.93;
     border: 1.7px solid rgba(26, 246, 191, 0.924);
@@ -36,22 +36,22 @@
 
 .projectHeading {
     color: white;
-    font-size: 3em;
+    font-size: 3.5vw;
     font-weight: 500;
     padding-top: 10px;
     text-align: center;
     margin-top: 1em;
 }
 
-@media only screen and (max-width: 767px) {
-    .techIcons {
-        margin: 10px;
+@media only screen and (max-width: 900px) {
+    .projectHeading {
+        font-size: 7vw;
     }
 }
 
-@media only screen and (min-width: 1200px) {
+@media only screen and (min-width: 1500px) {
     .techIcons {
-        margin: .6em;
-        font-size: 6em;
+        font-size: 7vw;
+        margin: 2vw;
     }
 }

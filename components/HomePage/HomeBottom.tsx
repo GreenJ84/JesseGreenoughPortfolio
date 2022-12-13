@@ -16,11 +16,11 @@ const css = require('./HomeBottom.module.css')
 
 const HomeBottom = () => {
     return (
-        <Container fluid className={ css.homeAboutSection } id="about">
+        <Container fluid id="about">
             <Container>
                 <Row className={ css.topRow }>
                     <Col md={8} className={ css.homeAboutDescription }>
-                        <h1 style={{ fontSize: "2.6vw" }}>
+                        <h1 className={ css.homeAboutTitle }>
                             LET ME <span className="purple"> INTRODUCE </span> MYSELF
                         </h1>
                         <p className={ css.homeAboutBody }>
@@ -59,7 +59,7 @@ const HomeBottom = () => {
                     </Col>
                     <Col md={4} className={ css.myAvtar }>
                         <Tilt>
-                            <Image src={myImg} className="img-fluid" alt="avatar" />
+                            <Image src={myImg} className={css.myAvatarImage } alt="avatar" />
                         </Tilt>
                     </Col>
                 </Row>
