@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import { Container, Row, Col } from "react-bootstrap";
 import { AiFillGithub, AiOutlineTwitter,  AiFillInstagram } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
@@ -8,6 +9,11 @@ const css = require('./Footer.module.css')
 const Footer = () => {
     let date = new Date();
     let year = date.getFullYear();
+    const router = useRouter()
+
+    if (router.pathname == '/') {
+        
+    }
 
     return (
         <Container fluid className={ css.footer }>
@@ -18,7 +24,7 @@ const Footer = () => {
                 <Col md="4" className={css.footerCopywright}>
                     <h3>Copyright © {year} JLG</h3>
                 </Col>
-                <Col md="4">
+                { router.pathname != '/' && <Col md="4">
                     <ul className={ css.footerIcons }>
                         <li className={ css.socialIcons }>
                             <a
@@ -57,7 +63,7 @@ const Footer = () => {
                             </a>
                         </li>
                     </ul>
-                </Col>
+                </Col>}
             </Row>
         </Container>
     )
