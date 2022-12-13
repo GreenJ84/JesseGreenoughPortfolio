@@ -2,28 +2,23 @@
     height: auto;
     background-color: rgb(10, 4, 22);
     bottom: 0;
-    padding: 1rem 4rem 2rem;
+    padding: 1rem 3rem 2rem;
 }
 .footerCopywright {
-    font-size: 1.5rem;
+    font-size: 3vw;
     color: rgb(202, 250, 204);
     text-align: center;
 }
 
-.footerBody {
-    z-index: 1;
-    text-align: center;
-}
-
 .footerIcons {
-  margin-top: 0.5em !important;
-  margin-bottom: 0.5em !important;
-  padding: 0 !important;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  padding: 0;
 }
 
 .socialIcons {
-  display: inline-block;
-  padding: 0 15px;
+  padding: 0 4vw;
 }
 
 .socialIcons a{
@@ -31,5 +26,5 @@
 }
 
 .footIcons{
-  font-size: 2rem;
+  font-size: 7vw;
 }

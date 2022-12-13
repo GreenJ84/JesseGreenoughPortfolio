@@ -18,7 +18,7 @@ const Footer = () => {
                 <Col md="4" className={css.footerCopywright}>
                     <h3>Copyright © {year} JLG</h3>
                 </Col>
-                <Col md="4" className={css.footerBody }>
+                <Col md="4">
                     <ul className={ css.footerIcons }>
                         <li className={ css.socialIcons }>
                             <a
