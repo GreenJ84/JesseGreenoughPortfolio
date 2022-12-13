@@ -13,10 +13,10 @@
     display: flex;
     justify-content: center;
     font-size: 3vw;
-    width: 40%;
+    width: 35%;
     color: rgb(9, 248, 9);
     background-color: rgb(1, 30, 1);
-    padding: 1rem 8rem;
+    padding: 2vw 15vw;
     border-radius: 20px 20px 0 0;
     box-shadow: 2px -2px 3px rgb(17, 247, 5), -2px -2px 3px rgb(17, 247, 5), 0 2px black;
 }
@@ -33,6 +33,18 @@
 .activeNav{
     color: red;
     font-weight: bolder;
-    box-shadow: 4px -4px 3px rgb(247, 4, 4), -4px -4px 3px rgb(247, 4, 4);
+    box-shadow: 4px -4px 3px rgb(247, 4, 4), -4px -4px 3px rgb(247, 4, 4), 4px -2px 3px rgb(247, 4, 4), -4px -2px 3px rgb(247, 4, 4);
     transform: scale(1.1, 1.2) translateY(-4px)
+}
+
+@media only screen and (max-width: 625px){
+    .navItem, .activeNav{
+        font-size: 3vw;
+        width: 40%;
+        background-color: rgb(1, 30, 1);
+        padding: 2vw 15vw;
+    }
+    .activeNav{
+        transform: scale(1.1, 1.2) translateY(-.5vw)
+    }
 }
