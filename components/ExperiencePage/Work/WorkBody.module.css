@@ -2,12 +2,12 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    padding: 0 5rem 5rem;
+    padding: 0 6vw 5rem;
 }
 
 .workBodyTitle{
     text-align: center;
-    font-size: 260%;
+    font-size: 6vw;
     margin: 6rem 0 0;
     color: rgb(72, 253, 72);
 }
@@ -20,8 +20,27 @@
 .workBody p{
     width: 120%;
     position: relative;
-    top: 10rem;
     text-align: center;
-    font-size: 200%;
-    color: rgb(183, 250, 180)
+    font-size: 4.5vw;
+    color: rgb(183, 250, 180);
+    margin: 10rem 0;
+}
+
+@media only screen and (max-width: 900px){
+    .workBodyImage{
+        display: none;
+    }
+    .workBody p{
+        margin: 6rem 0;
+    }
+}
+@media only screen and (min-width: 1400px){
+    .workBodyTitle{
+        font-size: 80px;
+    }
+    
+    .workBody p{
+        font-size: 60px;
+    }
+    
 }
