@@ -1,5 +1,6 @@
 .blockquote{
     font-size: 2vw;
+    margin: 0;
 }
 
 .quote{
@@ -13,9 +14,7 @@
 }
 
 .quoteCardView {
-    border: none;
     color: white;
-    background-color: transparent;
 }
 
 .aboutActivity {
@@ -23,4 +22,19 @@
     text-align: left;
     padding-left: 1px;
     color: rgb(52, 250, 167);
+}
+
+@media only screen and (max-width: 900px){
+    .blockquote{
+        font-size: 4vw;
+    }
+    
+    .quote{
+        font-size: 5vw;
+        margin: 5rem 0 1rem 8%;
+    }
+    
+    .quote + footer{
+        font-size: 4vw;
+    }
 }

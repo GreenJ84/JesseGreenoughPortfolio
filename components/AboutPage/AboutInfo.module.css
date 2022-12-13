@@ -15,3 +15,15 @@
 .aboutMe:last-child{
     margin-bottom: 15rem;
 }
+
+@media only screen and (max-width: 900px){
+    .title{
+        font-size: 7vw;
+    }
+    
+    .aboutMe{
+        margin: 2rem 4vw;
+        font-size: 3.2vw;
+        line-height: 7vw;
+    }
+}

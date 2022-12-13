@@ -1,5 +1,5 @@
 .body{
-    padding: 8rem 3rem 4rem;
+    padding: 8rem 2vw 4rem;
     color: white;
 }
 .image{
@@ -16,4 +16,10 @@
     padding-bottom: 20px;
     margin: 8vw 0;
     text-align:center;
+}
+
+@media only screen and (max-width: 900px){
+    .image{
+        margin: 4rem auto .5rem;
+    }
 }
