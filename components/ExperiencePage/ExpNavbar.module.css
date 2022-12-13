@@ -5,7 +5,7 @@
     justify-content:space-evenly;
     background: linear-gradient(to bottom, #ffffff00 0%, #ffffff00 90%, #000000 100%);
     margin: 15vw 0 5vw;
-    padding: 1rem 0 .2rem;
+    padding: 2vw 0 .2rem;
     position: relative;
 }
 
@@ -38,6 +38,9 @@
 }
 
 @media only screen and (max-width: 625px){
+    .nav{
+        margin: 0;
+    }
     .navItem, .activeNav{
         font-size: 3vw;
         width: 40%;

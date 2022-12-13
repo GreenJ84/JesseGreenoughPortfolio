@@ -6,16 +6,14 @@ const css = require('./EduBody.module.css')
 
 const EduBody = () => {
     return (
-        <div style={{ display: 'flex', padding: '2rem 3rem 0 1rem'}}>
-            <div>
-                <EduImage />
-            </div>
-            <div className={ css.bodyText }>
-                <h1>
-                    Basic Qualifications and Certifications 
-                </h1>
-                <p> I activiely participate in tech-related activities and partake in courses to further my understanding and knowledge. </p>
-            </div>
+        <div className={ css.eduBody}>
+            <h1>
+                Basic Qualifications and Certifications 
+            </h1>
+            <EduImage />
+            <p> 
+                I activiely participate in tech-related activities and partake in courses to further my understanding and knowledge. 
+            </p>
         </div>
     )
 }
