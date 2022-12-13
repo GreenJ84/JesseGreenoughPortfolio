@@ -31,10 +31,10 @@ const CertificationCard = (props: certificateCardProps) => {
                     <a href={ props.certificate.url }>
                             View <RiExternalLinkFill />
                     </a>
-                    </div>
+                </div>
             </div>: 
             <div className={ css.certDisplay }>
-                <Image src={props.certificate.image} alt={props.certificate.title} className={css.certImage } width={100} height={100} style={{ borderRadius: '50%' }}
+                <Image src={props.certificate.image} alt={props.certificate.title} className={css.certImage } width={100} height={100}
                 />
                 <h3>
                     { props.certificate.title }

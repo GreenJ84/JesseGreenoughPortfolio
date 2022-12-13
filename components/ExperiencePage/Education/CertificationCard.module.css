@@ -21,7 +21,10 @@
 }
 
 .certImage{
-    margin: 4% 
+    margin: 4%;
+    border-radius: 50%;
+    width: 15vw;
+    height: 15vw;
 }
 
 .certDisplay h3, .certDisplay p{
@@ -33,6 +36,20 @@
 
 .certDisplay p{
     font-size: 1.2vw;
+}
+
+@media only screen and (max-width: 625px){
+    .certCard{
+        width: 45%;
+        margin: 5% 2%;
+        padding:1%;
+    }
+    .certDisplay h3{
+        font-size: 2.6vw;
+    }
+    .certDisplay p{
+        font-size: 2.2vw;
+    }
 }
 
 .certDetailCard{
