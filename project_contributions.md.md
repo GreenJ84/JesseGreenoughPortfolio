@@ -66,7 +66,7 @@ git checkout -b <your_branch_name>
 git add . 
 ``` 
 
-**10.** Get your application [running](https://github.com/GreenJ84/ReactExchange/edit/main/README.md#how-to-install-locally) locally
+**10.** Get your application [running](https://github.com/GreenJ84/JesseGreenoughPortfolio/edit/main/README.md#how-to-install-locally) locally
 
 **11.** Perform your desired changes to the code base.
 
