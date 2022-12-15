@@ -1,10 +1,11 @@
 export interface certificationType{
-    title: string
-    issuer: string
-    date: string
-    description: string
-    image: string
-    url: string
+    priority?: number;
+    title: string;
+    issuer: string;
+    date: string;
+    description: string;
+    image: string;
+    url: string;
 }
 
 export const certifications: certificationType[] = [

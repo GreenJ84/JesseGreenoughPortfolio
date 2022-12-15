@@ -1,5 +1,6 @@
 export type Category = "react" | "python" | "java";
 export interface IProject {
+    priority?: number;
     name: string;
     description: string;
     image_path: string;
