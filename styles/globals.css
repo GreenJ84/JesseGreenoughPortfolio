@@ -4,6 +4,8 @@
 }
 
 html {
+  --image-match: rgb(206, 82, 255);
+
   --section-background-color: linear-gradient(
     to bottom left,
     rgba(17, 16, 16, 0.582),
@@ -25,7 +27,58 @@ body {
   font-family: "Raleway", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serifserif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: linear-gradient(to left, rgb(20, 41, 34), rgb(18, 54, 42));
+  background-image: var(--background-image);
+}
+
+body[data-theme='dark'] {
+  /* Main Colors  */
+  --background-image: linear-gradient(to left, rgb(20, 41, 34), rgb(18, 54, 42));
+  --background: rgb(18, 54, 42);
+  --background2: rgb(12, 27, 22);
+  --background3: rgb(12, 27, 22);
+
+  --card-background: rgb(60, 60, 60);
+  --card-background2: rgb(60, 60, 60);
+  --card-background3: rgb(60, 60, 60);
+
+  --text-primary: rgb(206, 255, 208);
+  --text-secondary: rgb(0, 255, 13);
+  --text-ternary: rgb(52, 250, 167);
+
+  --detail-primary: rgba(26, 246, 191, 0.924);
+  --detail-secondary: rgb(6, 255, 19);
+  --detail-terinary: rgb(24, 60, 24);
+
+  /* Home Section */
+  --hue-rotate-home: hue-rotate(230deg);
+  /* About Scetion */
+  --hue-rotate-about: hue-rotate(260deg);
+
+}
+
+body[data-theme='light'] {
+    /* Main Colors  */
+  --background-image: linear-gradient(to left, rgb(119, 255, 196), rgb(133, 255, 214));
+  --background: rgb(26, 171, 98);
+  --background2: rgb(23, 242, 169);
+  --background3: rgb(3, 187, 141);
+
+  --card-background: rgb(61, 252, 131);
+  --card-background2: rgb(29, 159, 252);
+  --card-background3: rgb(35, 235, 188);
+
+  --text-primary: rgb(36, 39, 36);
+  --text-secondary: rgb(0, 88, 3);
+  --text-ternary: rgb(0, 104, 125);
+
+  --detail-primary: rgb(10, 97, 75);
+  --detail-secondary: rgb(0, 69, 3);
+  --detail-terinary: rgb(0, 182, 161);
+  
+  /* Home Section */
+  --hue-rotate-home: hue-rotate(260deg);
+  /* About Scetion */
+  --hue-rotate-about: hue-rotate(260deg);
 }
 
 a {
@@ -33,8 +86,8 @@ a {
   text-decoration: none;
 }
 
-.purple, .blockquote-footer {
-  color: var(--imp-text-color) !important;
+.detail, .blockquote-footer {
+  color: var(--text-secondary);
 }
 
 
