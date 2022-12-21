@@ -63,7 +63,7 @@
 }
 
 .navItem:hover{
-    background-color: #02fc300c;
+    background-color: var(--nav-hover);
     border-radius: 20px;
 }
 
