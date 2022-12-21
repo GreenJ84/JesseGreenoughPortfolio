@@ -1,12 +1,12 @@
 .footer {
     height: auto;
-    background-color: rgb(10, 4, 22);
+    background-color: var(--background3);
     bottom: 0;
     padding: 1rem 3rem 2rem;
 }
 .footerCopywright {
     font-size: 3vw;
-    color: rgb(202, 250, 204);
+    color: var(--text-primary);
     text-align: center;
 }
 
@@ -15,6 +15,7 @@
   justify-content: center;
   margin-top: 2rem;
   padding: 0;
+  list-style: none;
 }
 
 .socialIcons {
