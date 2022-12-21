@@ -1,6 +1,6 @@
 .body{
     display: flex;
-    color: white;
+    color: var(--text-primary);
     flex-wrap: wrap;
     justify-content: center;
     margin: 5em 0;
@@ -11,13 +11,13 @@
     margin: 2vw;
     padding: .2em;
     opacity: 0.93;
-    border: 1.7px solid rgba(26, 246, 191, 0.924);
+    border: 1.7px solid var(--detail-primary);
     vertical-align: middle;
     text-align: center;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    box-shadow: 4px 4px 5px 1px rgba(2, 250, 52, 0.37);
+    box-shadow: 2px 1px 2px 2px var(--detail-primary);
     overflow: hidden;
     transition: all 0.4s ease 0s;
 }
@@ -25,8 +25,8 @@
 .techIcons:hover {
     transform: scale(1.35);
     overflow: hidden;
-    border: 2.2px solid rgba(5, 250, 66, 0.883);
-    box-shadow: 4px 4px 3px 2px rgba(5, 250, 66, 0.883);
+    border: 2.2px solid var(--detail-secondary);
+    box-shadow: 4px 4px 3px 2px var(--detail-secondary);
 }
 
 .techIcons span{
@@ -35,7 +35,7 @@
 }
 
 .projectHeading {
-    color: white;
+    color: var(--text-ternary);
     font-size: 3.5vw;
     font-weight: 500;
     padding-top: 10px;
