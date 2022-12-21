@@ -11,7 +11,7 @@ const AboutMain = () => {
     return (
         <Container className={ css.body }>
             <h1 className={ css.title }>
-                Know Who <strong className="purple">I Am</strong>
+                Know Who <strong className="detail">I Am</strong>
             </h1>
             <AboutCard />
             <Image src={ laptopImage } alt="about" className={ css.image } />
