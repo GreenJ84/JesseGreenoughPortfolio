@@ -21,22 +21,22 @@ const HomeBottom = () => {
                 <Row className={ css.topRow }>
                     <Col md={8} className={ css.homeAboutDescription }>
                         <h1 className={ css.homeAboutTitle }>
-                            LET ME <span className="purple"> INTRODUCE </span> MYSELF
+                            LET ME <span className="detail"> INTRODUCE </span> MYSELF
                         </h1>
                         <p className={ css.homeAboutBody }>
-                            I fell in love with programming over 3 years ago and have constantly pushed learning more and more at every opportunity I had! This year I got the opportunity to attend <i><b className="purple"> Coding Dojo </b></i> bootcamp and change my hobby into a full-time career pursuit.
+                            I fell in love with programming over 3 years ago and have constantly pushed learning more and more at every opportunity I had! This year I got the opportunity to attend <i><b className="detail"> Coding Dojo </b></i> bootcamp and change my hobby into a full-time career pursuit.
                             <br />
                             <br />
                             I am fluent in classics like
                             <i>
-                                <b className="purple"> Java, Javascript and Python </b> with Typings.
+                                <b className="detail"> Java, Javascript and Python </b> with Typings.
                             </i>
                             <br />
                             <br />
                             My interest in coding is the ability it provides to to build new &nbsp;
                             <i>
-                                <b className="purple">Web technologies and Products that help society </b>, especilly around topics within areas relating to{" "}
-                                <b className="purple">
+                                <b className="detail">Web technologies and Products that help society </b>, especilly around topics within areas relating to{" "}
+                                <b className="detail">
                                 Web3/Blockchain development.
                                 </b>
                             </i>
@@ -44,16 +44,16 @@ const HomeBottom = () => {
                             <br />
                             Whenever possible, I apply my passion for developing products
                             with
-                                <b className="purple"> Node.js</b> and
+                                <b className="detail"> Node.js</b> and
                             <i>
-                            <b className="purple">
+                            <b className="detail">
                                 {" "}
                                 Modern Javascript Library and Frameworks
                             </b>
                             </i>
                             &nbsp; like
                             <i>
-                            <b className="purple"> React.js and Next.js</b>
+                            <b className="detail"> React.js and Next.js</b>
                             </i>
                         </p>
                     </Col>
@@ -69,7 +69,7 @@ const HomeBottom = () => {
                 <Row>
                     <Col md={12} className={ css.homeAboutSocial }>
                     <p>
-                        Feel free to <span className="purple">connect </span>with me on
+                        Feel free to <span className="detail">connect </span>with me on
                     </p>
                     <ul className={ css.homeAboutSocialLinks }>
                         <li className={ css.socialIcons }>
