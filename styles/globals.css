@@ -79,8 +79,8 @@ body[data-theme='light'] {
   --card-background2: rgb(29, 159, 252);
   --card-background3: rgb(35, 235, 188);
 
-  --text-primary: rgb(46, 53, 46);
-  --text-secondary: rgb(0, 35, 1);
+  --text-primary: rgb(78, 80, 78);
+  --text-secondary: rgb(0, 89, 3);
   --text-ternary: rgb(0, 110, 132);
 
   --detail-primary: rgb(10, 97, 75);
@@ -90,7 +90,7 @@ body[data-theme='light'] {
   /* Home Section */
   --hue-rotate-home: hue-rotate(260deg);
   /* About Scetion */
-  --hue-rotate-about: hue-rotate(260deg);
+  --hue-rotate-about: hue-rotate(270deg);
 }
 
 a {
@@ -100,6 +100,7 @@ a {
 
 .detail, .blockquote-footer {
   color: var(--text-secondary);
+  font-weight: bold;
 }
 
 
