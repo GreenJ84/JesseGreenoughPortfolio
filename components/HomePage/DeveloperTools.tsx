@@ -10,7 +10,7 @@ const DeveloperTools = () => {
     return (
         <>
             <h1 className={ css.projectHeading }>
-                <strong className="purple">Tools</strong> I use
+                <strong className="detail">Tools</strong> I use
             </h1>
             <div className={css.body}>
                 <Col xs={4} md={2} className={ css.techIcons }>
