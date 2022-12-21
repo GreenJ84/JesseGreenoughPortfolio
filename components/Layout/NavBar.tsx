@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -17,7 +17,7 @@ import { CgFileDocument } from "react-icons/cg";
 import logo from "../../public/assets/logo.png";
 const css = require('./NavBar.module.css');
 
-const NavBar = () => {
+const NavBar = (props: {mode: Function}) => {
     // For NavBar Accordian on small screens
     const [expandBar, setExpandBar] = useState(false);
     // For Responsive NavBar change
@@ -25,7 +25,6 @@ const NavBar = () => {
     // For fading as you scroll
     const [navFade, setNavFade] = useState(false);
     const { pathname } = useRouter();
-
     // Starting at the top on every new page selected
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -33,6 +32,7 @@ const NavBar = () => {
 
     // Response listeners for window changes
     useEffect(() => {
+        
         if (window.innerWidth > 900) {
             setExpandBar(false);
             setWideScreen(true);
@@ -71,7 +71,12 @@ const NavBar = () => {
         <Navbar expanded={expandBar} fixed="top" expand="md" className={navFade ? css.sticky : css.navbar}>
             <Container className={ css.navbarContainer }>
                 <Navbar.Brand href="/" className={ css.navBarBrand }>
-                    <Image src={logo} className={ css.logo } alt="brand" />
+                    <Image src={logo} className={css.logo} alt="brand"
+                    onClick={(e: React.MouseEvent<HTMLImageElement>) => {
+                        e.preventDefault();
+                        props.mode();
+                    }}
+                    />
                 </Navbar.Brand>
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className={ wideScreen ? css.navbarNav : expandBar ? css.navbarNav : css.navClosed }defaultActiveKey="#home">
