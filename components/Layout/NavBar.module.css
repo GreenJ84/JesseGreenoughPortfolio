@@ -4,9 +4,9 @@
     max-height: 15rem;
     padding: 2rem;
     z-index: 2000;
-    background-color: rgba(1, 56, 4, 0.462);
+    background-color: var(--sticky-bg);
     transition: all 0.3s ease-out 0s;
-    box-shadow: 0px 2px 4px 0px rgba(2, 119, 12, 0.874);
+    box-shadow: 0px 2px 4px 0px var(--nav-shadow);
     backdrop-filter: blur(15px);
 }
 
@@ -82,7 +82,7 @@
     height: 5px;
     width: 0;
     border-radius: 16px;
-    background: #0ee936;
+    background: var(--nav-shadow);
     bottom: 1px;
     left: 0;
     z-index: -1;
@@ -102,8 +102,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: rgb(207, 206, 206);
-    text-shadow: .7px .7px rgb(150, 251, 167);
+    color: var(--nav-color);
+    text-shadow: .7px .7px var(--detail-primary);
     flex-direction: column;
     align-items: center;
     font-size: 110%;
@@ -128,11 +128,11 @@
 @media only screen and (max-width: 900px) {
     .navbar, .sticky{
         min-height: 8rem;
-        background-color: rgb(1, 56, 4) !important;
+        background-color: var(--nav-bg) !important;
         padding: 2rem 0;
     }
     .navbar{
-            box-shadow: 0px 2px 4px 0px rgba(2, 119, 12, 0.874);
+            box-shadow: 0px 2px 4px 0px var(--nav-shadow);
     }
     .navbarContainer{
         justify-content: center;
@@ -164,70 +164,70 @@
         position: absolute;
         top: 2rem;
         right: 2rem;
-        background-color: transparent !important;
-        border-color: transparent !important;
+        background-color: transparent;
+        border-color: transparent;
     }
 
     .navbarToggler span, .navbarTogglerClosed span {
-        display: block !important;
-        background-color: #be50f4 !important;
-        height: 4px !important;
-        width: 27px !important;
-        margin-top: 5px !important;
-        margin-bottom: 5px !important;
-        transform: rotate(0deg) !important;
-        left: 0 !important;
-        opacity: 1 !important;
+        display: block;
+        background-color: var(--nav-toggle);
+        height: 4px;
+        width: 27px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        transform: rotate(0deg);
+        left: 0;
+        opacity: 1;
     }
 
     .navbarToggler:focus,
     .navbarToggler:active {
-        outline: 0 !important;
+        outline: 0;
     }
 
     .navbarTogglerClosed:focus,
     .navbarTogglerClosed:active {
-        outline: 0 !important;
+        outline: 0;
     }
 
     .navbarToggler span:nth-child(1),
     .navbarToggler span:nth-child(3) {
-        transition: transform 0.35s ease-in-out !important
+        transition: transform 0.35s ease-in-out
     }
 
     .navbarTogglerClosed span:nth-child(1),
     .navbarTogglerClosed span:nth-child(3) {
-        transition: transform 0.35s ease-in-out !important
+        transition: transform 0.35s ease-in-out
     }
 
     .navbarToggler:not(.collapsed) span:nth-child(1) {
-        position: absolute !important;
-        left: 12px !important;
-        top: 10px !important;
-        transform: rotate(135deg) !important;
-        opacity: 0.9 !important;
+        position: absolute;
+        left: 12px;
+        top: 10px;
+        transform: rotate(135deg);
+        opacity: 0.9;
     }
 
     .navbarToggler:not(.collapsed) span:nth-child(2) {
-        height: 12px !important;
-        visibility: hidden !important;
-        background-color: transparent !important;
+        height: 12px;
+        visibility: hidden;
+        background-color: transparent;
     }
 
     .navbarToggler:not(.collapsed) span:nth-child(3) {
-        position: absolute !important;
-        left: 12px !important;
-        top: 10px !important;
-        transform: rotate(-135deg) !important;
-        opacity: 0.9 !important;
+        position: absolute;
+        left: 12px;
+        top: 10px;
+        transform: rotate(-135deg);
+        opacity: 0.9;
     }
 
     .navbarNav .navItem a::after {
-        display: none !important;
+        display: none;
     }
     .navLink {
         flex-direction: row;
         padding: 0.5rem 1rem;
-        font-size: 1.2rem !important;
+        font-size: 1.2rem;
     }
 }
