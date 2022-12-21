@@ -1,5 +1,7 @@
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
+import useLocalStorage from 'use-local-storage'
+
 
 import Preloader from "../components/Layout/Preloader";
 import NavBar from "../components/Layout/NavBar";
@@ -10,6 +12,23 @@ const css = require("./App.module.css");
 
 export default function App({ Component, pageProps }: AppProps) {
   const [load, setLoad] = useState(false);
+  const [theme, setTheme] = useLocalStorage('theme', 'dark');
+
+  useEffect(() => {
+    const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
+    
+    setTheme(matchMedia.matches ? 'dark' : 'light');
+  }, []);
+
+  useEffect(() => {
+    document.body.dataset.theme = theme
+  }, [theme])
+
+
+  const switchMode = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light')
+  }
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,7 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       { load ? <div className={load ? css.noScroll : "Scroll" }>
-        <NavBar />
+        <NavBar mode={ () => switchMode() }/>
         <Component {...pageProps} />
         <Footer />
       </div> :
