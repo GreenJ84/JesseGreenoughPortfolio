@@ -1,13 +1,13 @@
-.homeAboutDescription {
-  color: white;
-  padding-top: 100px;
-  padding-bottom: 20px;
-  text-align: center;
-}
-
 .topRow{
   display: flex;
   padding: 2rem;
+}
+
+.homeAboutDescription {
+  color: var(--text-primary);
+  padding-top: 100px;
+  padding-bottom: 20px;
+  text-align: center;
 }
 
 .homeAboutTitle{
@@ -39,7 +39,7 @@
 .homeAboutSocial {
   text-align: center;
   padding-top: 6vw;
-  color: white;
+  color: var(--text-primary);
 }
 
 .homeAboutSocial p {
@@ -72,8 +72,8 @@
   max-height: 180px;
   font-size: 4vw;
   line-height: 2em;
-  color: #035814;
-  background: rgba(249, 248, 248, 0.972);
+  color: var(--detail-terinary);
+  background: var(--text-primary);
   border-radius: 50%;
   transition: 0.5s;
 }
@@ -98,10 +98,9 @@
 }
 
 .homeSocialIcons:hover {
-  color: #04ff3a;
-  background-color: black;
-  box-shadow: 0 0 8px #04fc4a;
-  text-shadow: 0 0 5px #04fc4a;
+  color: var(--detail-secondary);
+  background-color: var(--background2);
+  box-shadow: 0 0 8px var(--detail-secondary);
 }
 
 @media only screen and (max-width: 900px){
