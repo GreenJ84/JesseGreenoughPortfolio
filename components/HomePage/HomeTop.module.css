@@ -2,7 +2,7 @@
   position: relative;
   z-index: -1;
   background-image: var(--image-gradient), url(../../public/assets/home-bg.jpg);
-  filter:hue-rotate(230deg);
+  filter: var(--hue-rotate-home) opacity(.9);
   background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -12,7 +12,7 @@
 
 .homeContent {
   padding: 9rem 0 3vw;
-  color: #fcfdfc;
+  color: white;
   text-align: left;
 }
 
@@ -32,8 +32,8 @@
   margin-bottom: 10vw;
 }
 
-.mainName {
-  color: #cd5ff8;
+.mainName, .typeText {
+  color: var(--image-match);
 }
 
 .wave {
@@ -48,7 +48,6 @@
 .typeText {
   text-align: left;
   font-size: 3vw;
-  color: #cd5ff8;
   font-weight: 700;
   margin: 2.5rem;
   text-align: center;
