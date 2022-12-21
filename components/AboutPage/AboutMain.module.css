@@ -1,6 +1,6 @@
 .body{
     padding: 8rem 2vw 4rem;
-    color: white;
+    color: var(--text-primary);
 }
 .image{
     height: 40vw;
@@ -9,7 +9,7 @@
     max-width: 70rem;
     display: block;
     margin: 5rem auto;
-    filter:hue-rotate(260deg);
+    filter:var(--hue-rotate-about);
 }
 .title{
     font-size: 6vw;
