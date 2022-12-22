@@ -103,7 +103,7 @@
     flex-direction: column;
     align-items: center;
     color: var(--nav-color);
-    text-shadow: .7px .7px var(--detail-primary);
+    text-shadow: .7px .7px var(--nav-shadow);
     flex-direction: column;
     align-items: center;
     font-size: 110%;
@@ -147,7 +147,7 @@
         padding: 0;
     }
     .navItem:hover{
-        background-color: #07932128;
+        background-color: var(--nav-hover);
     }
     .navIcon{
         font-size: 1rem;
