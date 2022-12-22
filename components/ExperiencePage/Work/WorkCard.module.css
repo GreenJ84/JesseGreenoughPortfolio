@@ -4,13 +4,13 @@
     margin: 1rem 0 2.5rem;
     padding: 3rem 1.5rem;
     border-radius: 20px;
-    color: rgb(102, 255, 166);
-    background-color: rgb(15, 28, 34);
+    color: var(--text-primary);
+    background-color: var(--card-background);
 }
 
 .workCard:hover{
     transform: scale(1.05, 1.05);
-    box-shadow: 0 0 12px rgb(3, 255, 3);
+    box-shadow: 0 0 12px var(--detail-terinary);
 }
 
 .workImageHolder{
@@ -35,7 +35,7 @@
 }
 
 .workCardBody div:first-child p:first-child{
-    color: rgb(35, 255, 86);
+    color: var(--text-secondary);
     font-size: 3vw;
     margin: 0;
 }
