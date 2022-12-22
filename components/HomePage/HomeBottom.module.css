@@ -72,8 +72,8 @@
   max-height: 180px;
   font-size: 4vw;
   line-height: 2em;
-  color: var(--detail-terinary);
-  background: var(--text-primary);
+  color: var(--detail-primary);
+  background: var(--detail-terinary);
   border-radius: 50%;
   transition: 0.5s;
 }
