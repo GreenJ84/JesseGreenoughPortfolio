@@ -8,7 +8,7 @@ import Degree from './Degree'
 import EduBody from './EduBody'
 
 const bodyStyle = {
-    backgroundColor: '#001A04',
+    backgroundColor: 'var(--background2)',
     padding: '0 2.5vw 6rem'
 }
 

@@ -6,8 +6,8 @@
 
 .eduBody h1{
     position: relative;
-    color: rgb(1, 242, 1);
-    text-shadow: 1px 1px 15px rgb(0, 186, 0);
+    color: var(--text-secondary);
+    text-shadow: 1px 1px 15px var(--detail-secondary);
     width: 70%;
     text-align: center;
     margin-top: 8vw;
@@ -17,7 +17,7 @@
 
 .eduBody p{
     position: relative;
-    color: white;
+    color: var(--text-primary);
     width: 60%;
     margin: 10vw 0 0;
     font-size: 3vw;
