@@ -31,30 +31,39 @@ body {
 }
 
 body[data-theme='dark'] {
-    /* Navbar */
-    --sticky-bg: rgba(1, 56, 4, 0.462);
-    --nav-bg: rgb(1, 56, 4);
-    --nav-color: rgb(111, 255, 118);
-    --nav-shadow: rgba(0, 156, 13, 0.874);
-    --nav-hover: rgba(2, 252, 48, 0.1);
-    --nav-toggle: #be50f4;
-  /* Main Colors  */
+  /* App Global */
+  --text-primary: rgb(206, 255, 208);
+  --text-secondary: rgb(0, 255, 13);
+
   --background-image: linear-gradient(to left, rgb(20, 41, 34), rgb(18, 54, 42));
   --background: rgb(12, 43, 33);
   --background2: rgb(12, 27, 22);
+  
+  --detail-primary: rgb(36, 94, 36);
+  --detail-secondary: rgb(6, 255, 19);
+  --detail-terinary: rgba(14, 215, 165, 0.924);
+  
+
+  /* Navbar */
+  --sticky-bg: rgba(1, 56, 4, 0.462);
+  --nav-bg: rgb(1, 56, 4);
+  --nav-shadow: rgba(0, 156, 13, 0.874);
+  --nav-color: rgb(111, 255, 118);
+  --nav-hover: rgba(2, 252, 48, 0.1);
+  --nav-toggle: #c75fff;
+
+  /* Footer */
+  --footer-background: rgba(1, 56, 4);
+
+
   --background3: rgba(1, 56, 4);
 
   --card-background: rgb(60, 60, 60);
   --card-background2: rgb(25, 25, 25);
   --card-background3: rgb(60, 60, 60);
 
-  --text-primary: rgb(206, 255, 208);
-  --text-secondary: rgb(0, 255, 13);
   --text-ternary: rgb(52, 250, 167);
 
-  --detail-primary: rgba(14, 215, 165, 0.924);
-  --detail-secondary: rgb(6, 255, 19);
-  --detail-terinary: rgb(36, 94, 36);
 
   /* Home Section */
   --hue-rotate-home: hue-rotate(230deg);
@@ -64,17 +73,29 @@ body[data-theme='dark'] {
 }
 
 body[data-theme='light'] {
-  /* Navbar */
-  --sticky-bg: rgba(2, 255, 242, 0.588);
-  --nav-bg: rgb(0, 162, 135);
-  --nav-color: rgb(0, 91, 65);
-  --nav-shadow: rgba(0, 141, 115, 0.874);
-  --nav-hover: rgba(2, 112, 112, 0.15);
-  --nav-toggle: rgb(140, 11, 205);
-    /* Main Colors  */
+  /* App Global */
+  --text-primary: rgb(78, 80, 78);
+  --text-secondary: rgb(0, 89, 3);
   --background-image: linear-gradient(to left, rgb(119, 255, 196), rgb(133, 255, 214));
   --background: rgb(26, 171, 98);
   --background2: rgb(23, 242, 169);
+  
+  --detail-primary: rgb(0, 139, 123);
+  --detail-secondary: rgb(0, 69, 3);
+  --detail-terinary: rgb(0, 87, 163);
+
+  /* Navbar */
+  --sticky-bg: rgba(2, 255, 242, 0.588);
+  --nav-bg: rgb(0, 162, 135);
+  --nav-shadow: rgb(6, 135, 205);
+  --nav-color: rgb(1, 49, 36);
+  --nav-hover: rgba(2, 84, 84, 0.15);
+  --nav-toggle: rgb(108, 2, 161);
+
+  /* Footer */
+  --footer-background: rgba(8, 235, 262);
+
+
   --background3: rgba(8, 235, 262);
 
   --card-background: rgb(61, 252, 131);
@@ -83,11 +104,8 @@ body[data-theme='light'] {
 
   --text-primary: rgb(78, 80, 78);
   --text-secondary: rgb(0, 89, 3);
-  --text-ternary: rgb(0, 110, 132);
+  --text-ternary: rgb(0, 70, 132);
 
-  --detail-primary: rgb(10, 97, 75);
-  --detail-secondary: rgb(0, 69, 3);
-  --detail-terinary: rgb(0, 139, 123);
   
   /* Home Section */
   --hue-rotate-home: hue-rotate(260deg);
@@ -123,8 +141,9 @@ a {
 
 .github-btn-inner {
   display: flex;
+  color: rgb(0, 33, 26);
   flex-direction: column;
-  background-color: var(--detail-terinary);
+  background-color: var(--detail-primary);
   border-radius: 10px;
   padding: 0.5rem 1rem;
   margin-left: 2rem;
@@ -135,8 +154,8 @@ a {
 .github-btn-inner:hover {
   transform: translateY(-2px);
   background-color: var(--detail-secondary);
-  border-color: var(--detail-secondary);
-  box-shadow: 3px 3px 3px var(--detail-primary);
+  border-color: var(--detail-terinary);
+  box-shadow: 3px 3px 3px var(--detail-terinary);
 }
 .github-btn-inner::after {
   display: none !important;
