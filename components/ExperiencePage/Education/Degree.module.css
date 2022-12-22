@@ -2,8 +2,8 @@
     margin: 14vw 0;
     font-size: 4.4vw;
     text-align: center;
-    color: rgb(41, 226, 12);
-    text-shadow: 0 0 18px rgb(102, 255, 0);
+    color: var(--text-secondary);
+    text-shadow: 0 0 18px var(--detail-secondary);
 }
 .degrees{
     display: flex;
@@ -17,12 +17,12 @@
     width: 16vw;
     height: 16vw;
     border-radius: 50%;
-    border: 1.5px solid rgb(1, 250, 1);
-    box-shadow: 0 0 10px rgb(1, 250, 1);
+    border: 1.5px solid var(--detail-secondary);
+    box-shadow: 0 0 10px var(--detail-secondary);
 }
 .image:hover{
     border-radius: 50%;
-    border: 1.5px solid rgb(1, 250, 1);
-    box-shadow: 0 0 30px rgb(1, 250, 1);
+    border: 1.5px solid var(--detail-secondary);
+    box-shadow: 0 0 30px var(--detail-secondary);
     transform: scale(1.3);
 }
