@@ -38,12 +38,19 @@ body[data-theme='dark'] {
   --background-image: linear-gradient(to left, rgb(20, 41, 34), rgb(18, 54, 42));
   --background: rgb(12, 43, 33);
   --background2: rgb(12, 27, 22);
+  --background3: rgb(24, 60, 24);
   
   --detail-primary: rgb(36, 94, 36);
   --detail-secondary: rgb(6, 255, 19);
   --detail-terinary: rgba(14, 215, 165, 0.924);
   
-
+  --card-background: rgb(60, 60, 60);
+  --card-background2: rgb(25, 25, 25);
+  --card-background3: rgb(179, 255, 158);
+  
+  --button-bg1: rgb(17, 114, 0);
+  --button-bg2:rgb(24, 158, 0);
+  
   /* Navbar */
   --sticky-bg: rgba(1, 56, 4, 0.462);
   --nav-bg: rgb(1, 56, 4);
@@ -55,34 +62,32 @@ body[data-theme='dark'] {
   /* Footer */
   --footer-background: rgba(1, 56, 4);
 
-
-  --background3: rgba(1, 56, 4);
-
-  --card-background: rgb(60, 60, 60);
-  --card-background2: rgb(25, 25, 25);
-  --card-background3: rgb(60, 60, 60);
-
-  --text-ternary: rgb(52, 250, 167);
-
-
   /* Home Section */
   --hue-rotate-home: hue-rotate(230deg);
+
   /* About Scetion */
   --hue-rotate-about: hue-rotate(260deg);
-
 }
 
 body[data-theme='light'] {
   /* App Global */
   --text-primary: rgb(78, 80, 78);
-  --text-secondary: rgb(0, 89, 3);
+  --text-secondary: rgb(1, 66, 36);
   --background-image: linear-gradient(to left, rgb(119, 255, 196), rgb(133, 255, 214));
   --background: rgb(26, 171, 98);
-  --background2: rgb(23, 242, 169);
+  --background2: rgb(18, 237, 164);
+  --background3: rgb(21, 203, 244);
   
-  --detail-primary: rgb(0, 139, 123);
+  --detail-primary: rgb(1, 153, 135);
   --detail-secondary: rgb(0, 69, 3);
-  --detail-terinary: rgb(0, 87, 163);
+  --detail-terinary: rgb(0, 81, 151);
+  
+  --card-background: rgb(61, 252, 242);
+  --card-background2: rgb(29, 159, 252);
+  --card-background3: rgb(24, 73, 121);
+  
+  --button-bg1: rgb(1, 248, 244);
+  --button-bg2:rgb(44, 74, 74);
 
   /* Navbar */
   --sticky-bg: rgba(2, 255, 242, 0.588);
@@ -95,20 +100,9 @@ body[data-theme='light'] {
   /* Footer */
   --footer-background: rgba(8, 235, 262);
 
-
-  --background3: rgba(8, 235, 262);
-
-  --card-background: rgb(61, 252, 131);
-  --card-background2: rgb(29, 159, 252);
-  --card-background3: rgb(35, 235, 188);
-
-  --text-primary: rgb(78, 80, 78);
-  --text-secondary: rgb(0, 89, 3);
-  --text-ternary: rgb(0, 70, 132);
-
-  
   /* Home Section */
   --hue-rotate-home: hue-rotate(260deg);
+
   /* About Scetion */
   --hue-rotate-about: hue-rotate(270deg);
 }
