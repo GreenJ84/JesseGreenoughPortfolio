@@ -51,10 +51,10 @@ export const getStaticProps: GetStaticProps<Experience> = async () => {
     const workData = db.collection(process.env.WORK_COLL!)
     const secWorkData = db.collection(process.env.SWORK_COLL!)
 
-    const eduResults = await educationData.find().toArray()
+    const eduResults = await educationData.find().sort({"_id":-1}).toArray()
     const certResults = await cetificationData.find().toArray()
-    const workResults = await workData.find().toArray()
-    const secWorkResults = await secWorkData.find().toArray()
+    const workResults = await workData.find().sort({"_id":-1}).toArray()
+    const secWorkResults = await secWorkData.find().sort({"_id":-1}).toArray()
 
     return {
         props: {
