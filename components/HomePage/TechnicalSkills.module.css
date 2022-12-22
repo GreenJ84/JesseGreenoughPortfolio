@@ -11,13 +11,13 @@
     margin: 2vw;
     padding: .2em;
     opacity: 0.93;
-    border: 1.7px solid var(--detail-primary);
+    border: 1.7px solid var(--detail-terinary);
     vertical-align: middle;
     text-align: center;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    box-shadow: 2px 1px 2px 2px var(--detail-primary);
+    box-shadow: 0px 2px 3px 3px var(--detail-primary);
     overflow: hidden;
     transition: all 0.4s ease 0s;
 }
@@ -25,8 +25,8 @@
 .techIcons:hover {
     transform: scale(1.35);
     overflow: hidden;
-    border: 2.2px solid var(--detail-secondary);
-    box-shadow: 4px 4px 3px 2px var(--detail-secondary);
+    border: 2.2px solid var(--detail-terinary);
+    box-shadow: 0px 4px 3px 2px var(--detail-secondary);
 }
 
 .techIcons span{
@@ -35,9 +35,9 @@
 }
 
 .projectHeading {
-    color: var(--text-ternary);
+    color: var(--text-primary);
     font-size: 3.5vw;
-    font-weight: 500;
+    font-weight: 800;
     padding-top: 10px;
     text-align: center;
     margin-top: 1em;
