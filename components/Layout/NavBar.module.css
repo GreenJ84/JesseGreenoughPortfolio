@@ -26,6 +26,26 @@
     align-items: center;
 }
 
+.navBarBrand{
+    position: relative;
+}
+
+.navBarBrand > p{
+    position: absolute;
+    top:-9vw;
+    left: 4.75vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    width: 10vw;
+    color: var(--detail-primary);
+    font-weight: 900;
+    font-size: 8vw;
+    display: none;
+}
+
+
 .logo {
     position: relative;
     height: 8vw;
@@ -36,12 +56,9 @@
     max-width: 120px;
     left: 4.6vw;
     border-radius:  50%;
+    transform: scale(1.2,1.2);
 }
 
-.logo:hover{
-    transform: translate(1rem, 1rem) scale(1.5,1.5);
-    z-index: 500;
-}
 
 .navbarNav{
     display: flex;

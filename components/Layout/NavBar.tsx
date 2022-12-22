@@ -14,10 +14,11 @@ import { AiFillStar, AiOutlineHome, AiOutlineFundProjectionScreen, AiOutlineUser
 } from "react-icons/ai";
 import { CgFileDocument } from "react-icons/cg";
 
-import logo from "../../public/assets/logo.png";
+import logo1 from "../../public/assets/logo.png";
+import logo2 from "../../public/assets/CyberHedera1.png";
 const css = require('./NavBar.module.css');
 
-const NavBar = (props: {mode: Function}) => {
+const NavBar = (props: {mode: Function, theme: String}) => {
     // For NavBar Accordian on small screens
     const [expandBar, setExpandBar] = useState(false);
     // For Responsive NavBar change
@@ -70,11 +71,24 @@ const NavBar = (props: {mode: Function}) => {
     return (
         <Navbar expanded={expandBar} fixed="top" expand="md" className={navFade ? css.sticky : css.navbar}>
             <Container className={ css.navbarContainer }>
-                <Navbar.Brand href="/" className={ css.navBarBrand }>
-                    <Image src={logo} className={css.logo} alt="brand"
-                    onClick={(e: React.MouseEvent<HTMLImageElement>) => {
-                        e.preventDefault();
-                        props.mode();
+                <Navbar.Brand className={css.navBarBrand}>
+                    {props.theme === 'dark' ?
+                        <p onClick={(e: React.MouseEvent<HTMLImageElement>) => {
+                            e.preventDefault();
+                            props.mode();
+                        }} id='mode'>🌞</p> :
+                        <p onClick={(e: React.MouseEvent<HTMLImageElement>) => {
+                            e.preventDefault();
+                            props.mode();
+                        }} id='mode'>🌙</p>}
+                    <Image src={props.theme === 'dark' ? logo1 : logo2} className={css.logo} alt="brand" id='logo'
+                    onMouseOver={() => {
+                        document.getElementById('mode')!.style.display = 'block'
+                        document.getElementById('logo')!.style.filter = 'grayscale(100%) contrast(200%)'
+                    }}
+                    onMouseOut={() => {
+                        document.getElementById('mode')!.style.display = 'none';
+                        document.getElementById('logo')!.style.filter = ''
                     }}
                     />
                 </Navbar.Brand>
