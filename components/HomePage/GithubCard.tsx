@@ -18,7 +18,7 @@ const githubCard = () => {
             </h1>
             <GitHubCalendar
             username="GreenJ84"
-            color="#0be116"
+            color="#229955"
             style={calenderStyle}
             blockSize={14}
             blockMargin={6}
