@@ -17,7 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
     
-    setTheme(matchMedia.matches ? 'dark' : 'light');
+    setTheme(matchMedia.matches ? 'light' : 'dark');
   }, []);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
 
   const switchMode = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light')
+    setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
 
