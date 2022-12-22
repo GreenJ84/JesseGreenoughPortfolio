@@ -20,7 +20,7 @@ const projectBody = {
 const flexbox = {
     display: 'flex',
     flexWrap: 'wrap',
-    backgroundColor: '#002400',
+    backgroundColor: 'var(--background2)',
     padding: '10vw 4vw',
     border: '2px solid '
 }
