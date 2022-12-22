@@ -40,7 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       { load ? <div className={load ? css.noScroll : "Scroll" }>
-        <NavBar mode={ () => switchMode() }/>
+        <NavBar theme={ theme } mode={ () => switchMode() }/>
         <Component {...pageProps} />
         <Footer />
       </div> :
