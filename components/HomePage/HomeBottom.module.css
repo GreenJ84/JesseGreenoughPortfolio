@@ -72,8 +72,8 @@
   max-height: 180px;
   font-size: 4vw;
   line-height: 2em;
-  color: var(--detail-primary);
-  background: var(--detail-terinary);
+  color: var(--detail-terinary);
+  background: var(--detail-primary);
   border-radius: 50%;
   transition: 0.5s;
 }
@@ -86,7 +86,7 @@
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: #03fc20;
+  background: var(--detail-secondary);
   transition: 0.5s;
   transform: scale(0.9);
   z-index: -1;
@@ -94,7 +94,7 @@
 
 .homeSocialIcons:hover::before {
   transform: scale(1.1);
-  box-shadow: 0 0 15px #37c656;
+  box-shadow: 0 0 15px var(--background2);
 }
 
 .homeSocialIcons:hover {
