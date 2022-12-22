@@ -23,7 +23,7 @@
 }
 
 .socialIcons a{
-  color: rgb(202, 250, 204);
+  color: var(--text-primary);
 }
 
 .footIcons{
