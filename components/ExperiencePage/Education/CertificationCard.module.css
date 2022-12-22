@@ -8,14 +8,14 @@
     height: auto;
     margin: 5% 3%;
     padding:1%;
-    color: white;
-    background-color: rgba(0, 128, 0, 0.211);
+    color: var(--text-primary);
+    background-color: var(--card-background2);
     border-radius: 20px;
-    box-shadow: 0 0 1rem green;
+    box-shadow: 0 0 1rem var(--detail-secondary);
 }
 
 .certDisplay{
-    background-color: green;
+    background-color: var(--card-background);
     border-radius: 20px;
     padding: 2%;
 }
@@ -61,17 +61,17 @@
     height: 150%;
     margin: 5% 3%;
     padding:3%;
-    color: white;
-    background-color: rgb(0, 0, 0);
+    color: var(--background2);
+    background-color: var(--card-background2);
     border-radius: 20px;
-    box-shadow: 0 0 1rem green;
+    box-shadow: 0 0 1rem var(--detail-secondary);
 }
 
 .certDetails{
     display:flex;
     align-items: center;
-    background-color: green;
-    box-shadow: 0 0 3rem green;
+    background-color: var(--card-background3);
+    box-shadow: 0 0 3rem var(--detail-secondary);
     border-radius: 20px;
     height: 100%;
     padding: 2% 1.5vw 2.5rem;
@@ -100,9 +100,9 @@
     width: 40%;
     height: 2vw;
     text-decoration: none;
-    color: rgb(64, 255, 0);
-    background-color: black;
-    border: 1px solid rgb(64, 255, 0);
+    color: var(--text-secondary);
+    background-color: var(--background2);
+    border: 1px solid var(--detail-secondary);
 }
 .certDetails a:hover{
     box-shadow: 0 0 1rem rgb(64, 255, 0);
