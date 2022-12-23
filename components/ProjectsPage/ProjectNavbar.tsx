@@ -17,9 +17,11 @@ const ProjectNavbar = (props: ProjectNavProps) => {
     return (
         <div className={ css.projectNavbar }>
             <NavItem value="all" {...props} />
-            <NavItem value="react" {...props} />
+            {/* <NavItem value="react" {...props} /> */}
+            <NavItem value="js" {...props} />
             <NavItem value="python" {...props} />
             <NavItem value="java" {...props} />
+            <NavItem value="static" {...props} />
         </div>
     )
 }
