@@ -6,7 +6,6 @@ import { Container } from 'react-bootstrap'
 import ProjectCard from '../../components/ProjectsPage/ProjectCard';
 import ProjectNavbar from '../../components/ProjectsPage/ProjectNavbar';
 
-// import data from '../../Utils/data/ProjectData'
 import { Category, IProject } from '../../Utils/data/ProjectData';
 
 interface Projects{
