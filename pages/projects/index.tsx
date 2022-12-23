@@ -67,19 +67,21 @@ export const getStaticProps: GetStaticProps = async () => {
 
     const projectData = db.collection(process.env.PROJ_COLL!)
 
-    const results = await projectData.find().toArray()
+    const results = await projectData.find().sort({"priority": 1, "date": -1, "name": 1}).toArray()
 
     return {
         props: {
             projectData: results.map(result => ({
+                id: result._id.toString(),
+                priority: result.priority,
                 name: result.name,
                 description: result.description,
+                date: result.date,
                 image_path: result.image_path,
                 deployed_url: result.deployed_url,
                 github_url: result.github_url,
                 category: result.category,
                 key_techs: result.key_techs,
-                id: result._id.toString()
             }))
         },
     }
