@@ -6,9 +6,17 @@
     text-shadow: 0 0 2rem var(--detail-secondary);
 }
 
+.certTitle+p{
+    text-align: center;
+    font-size: 2.4vw;
+    color: var(--text-primary);
+}
+
 .certCardHolder{
     display: flex;
     flex-wrap: wrap;
-    padding: 0 3vw;
+    padding: 7vw 3vw;
     justify-content: space-evenly;
+    height: 231vw;
+    overflow: scroll;
 }

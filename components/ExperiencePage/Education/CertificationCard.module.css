@@ -105,5 +105,5 @@
     border: 1px solid var(--detail-secondary);
 }
 .certDetails a:hover{
-    box-shadow: 0 0 1rem rgb(64, 255, 0);
+    box-shadow: 0 0 1.5px 2px var(--detail-secondary);
 }
