@@ -74,23 +74,25 @@ const NavBar = (props: {mode: Function, theme: String}) => {
                 <Navbar.Brand className={css.navBarBrand}>
                     {props.theme === 'dark' ?
                         <p onClick={(e: React.MouseEvent<HTMLImageElement>) => {
-                                e.preventDefault();
-                                props.mode();
+                            e.preventDefault();
+                            document.getElementById('mode')!.style.display = 'none';
+                            props.mode();
                             }}
                             id='mode'>🌞</p> :
                         
                         <p onClick={(e: React.MouseEvent<HTMLImageElement>) => {
                             e.preventDefault();
+                            document.getElementById('mode')!.style.display = 'none';
                             props.mode();
                             }}
                             id='mode'>🌙</p>}
                     
                     <Image src={props.theme === 'dark' ? logo1 : logo2} className={css.logo} alt="brand" id='logo'
-                    onMouseOver={() => {
-                        document.getElementById('mode')!.style.display = 'block'
+                    onMouseEnter={() => {
                         document.getElementById('logo')!.style.filter = 'grayscale(100%) contrast(200%)'
+                        document.getElementById('mode')!.style.display = 'block'
                     }}
-                    onMouseOut={() => {
+                    onMouseLeave={() => {
                         document.getElementById('mode')!.style.display = 'none';
                         document.getElementById('logo')!.style.filter = ''
                     }}
