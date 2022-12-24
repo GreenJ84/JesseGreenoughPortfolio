@@ -16,12 +16,20 @@ const projectBody = {
     padding: '9rem 2vw 10vw',
 }
 
+const container = {
+    backgroundColor: 'var(--background2)',
+    padding: '4vw 4vw 8vw',
+    border: '2px solid black'
+}
+const title = {
+    marginBottom: "8vw",
+    textAlign: "center",
+    color: "var(--text-primary)",
+    fontSize: "2vw"
+}
 const flexbox = {
     display: 'flex',
     flexWrap: 'wrap',
-    backgroundColor: 'var(--background2)',
-    padding: '10vw 4vw',
-    border: '2px solid '
 }
 
 const ProjectPage = (props: Projects) => {
@@ -49,10 +57,13 @@ const ProjectPage = (props: Projects) => {
         <Container fluid style={projectBody}>
             <div style={{ padding: '0 3vw'}}>
                 <ProjectNavbar filterHandler={filterHandler} active={activeNav} />
-                <div style={ flexbox as React.CSSProperties }>
-                    { projectData.map((project) =>
+                <div style={ container as React.CSSProperties }>
+                    <p style={ title as React.CSSProperties }> I have created <span className='detail'>over {projectData.length}</span> projects related to the filtered category </p>
+                    <div style={ flexbox as React.CSSProperties }>
+                        { projectData.map((project) =>
                         <ProjectCard project={project} key={project.name} />
-                    )}
+                        )}
+                    </div>
                 </div>
             </div>
         </Container>
