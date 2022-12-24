@@ -22,7 +22,7 @@ const NavItem = (props: navItemProps) => {
 
     return (
         <li className={ isActive ? css.activeNav : css.navItem } onClick={() => props.filterHandler(props.value)}>
-            { display }
+            { display != 'Js' ? display: display.toUpperCase() }
         </li>
     )
 }
