@@ -1,5 +1,5 @@
 import {MongoClient} from 'mongodb';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import React, { useState } from 'react'
 import { Container } from 'react-bootstrap';
 
@@ -41,7 +41,7 @@ const ExperiencePage = (props: Experience ) => {
     )
 }
 
-export const getStaticProps: GetStaticProps<Experience> = async () => {
+export const getServerSideProps: GetServerSideProps<Experience> = async () => {
 
     const client = new MongoClient(process.env.DB_CONN_STRING!)
     const db = client.db(process.env.DB_NAME)
