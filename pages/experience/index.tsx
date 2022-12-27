@@ -93,9 +93,8 @@ export const getServerSideProps: GetServerSideProps<Experience> = async () => {
                 date: result.date,
                 details: result.details,
                 id: result._id.toString()
-            })),
-        },
-        revalidate: 10,
+            }))
+        }
     }
 }
 
