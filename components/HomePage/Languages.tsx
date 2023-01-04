@@ -22,7 +22,7 @@ const Languages = () => {
                     <span> HTML5 </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={1}
+                        optimum={0} value={5}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -30,7 +30,7 @@ const Languages = () => {
                     <span> CSS3 </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={1}
+                        optimum={0} value={5}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -38,7 +38,7 @@ const Languages = () => {
                     <span> JavaScript </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={1}
+                        optimum={0} value={5}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -46,7 +46,7 @@ const Languages = () => {
                     <span> TypeScript </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={1}
+                        optimum={0} value={5}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -54,7 +54,7 @@ const Languages = () => {
                     <span> Markdown </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -62,7 +62,7 @@ const Languages = () => {
                     <span> Python </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -70,7 +70,7 @@ const Languages = () => {
                     <span> SQL </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -78,7 +78,7 @@ const Languages = () => {
                     <span> GraphQL </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -86,7 +86,7 @@ const Languages = () => {
                     <span> Scratch </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -110,7 +110,7 @@ const Languages = () => {
                     <span> GO </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -118,7 +118,7 @@ const Languages = () => {
                     <span> Swift </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -126,7 +126,7 @@ const Languages = () => {
                     <span> C/C++ </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={5}
+                        optimum={0} value={1}
                     />
                 </Col>
             </div>
