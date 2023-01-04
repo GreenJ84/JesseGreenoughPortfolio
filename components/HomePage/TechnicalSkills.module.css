@@ -4,19 +4,20 @@
     flex-wrap: wrap;
     justify-content: center;
     margin: 5em 0;
+    padding: 0 10vw;
 }
 
 .techIcons {
-    font-size: 12vw;
-    margin: 2vw;
-    padding: .2em;
-    opacity: 0.93;
-    border: 1.7px solid var(--detail-terinary);
-    vertical-align: middle;
-    text-align: center;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 19%;
+    max-width: 350px;
+    font-size: 8vw;
+    margin: 2vw;
+    padding: .4em .2em 0;
+    border: 1.7px solid var(--detail-terinary);
+    border-radius: 10px;
     box-shadow: 0px 2px 3px 3px var(--detail-primary);
     overflow: hidden;
     transition: all 0.4s ease 0s;
@@ -27,12 +28,38 @@
     overflow: hidden;
     border: 2.2px solid var(--detail-terinary);
     box-shadow: 0px 4px 3px 2px var(--detail-secondary);
+    background-color: var(--background);
+    z-index: 2000;
 }
 
 .techIcons span{
     margin-top: .6rem;
     font-size: 20%;
 }
+
+.techIcons meter{
+    margin-top: .4em;
+    font-size: 3.7vw;
+    width: 3em;
+    height: 1.28em;
+}
+.techIcons meter::-webkit-meter-bar {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: rgb(1, 198, 54) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text font-size="100" y=".8em" opacity=".2" z-index="2000">★</text></svg>') 0 / auto 100%;
+}
+.techIcons meter::-webkit-meter-optimum-value,
+.techIcons meter::-webkit-meter-suboptimum-value,
+.techIcons meter::-webkit-meter-even-less-good-value{
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>') 0 / auto 100%;
+}
+
+.techIcons meter::-moz-meter-optimum::-moz-meter-bar,
+.techIcons meter::-moz-meter-sub-optimum::-moz-meter-bar,
+.techIcons meter::-moz-meter-sub-sub-optimum::-moz-meter-bar{
+    background:  url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text color="greenyellow" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>') 0 / auto 100%;
+}
+
 
 .projectHeading {
     color: var(--text-primary);
