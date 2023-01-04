@@ -7,11 +7,14 @@ import { Container, Row, Col } from "react-bootstrap";
 import { AiFillGithub, AiOutlineTwitter, AiFillInstagram } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 
-import TechnicalSkills from "./TechnicalSkills";
+import TechnicalSkills from "./Languages";
 import DeveloperTools from "./DeveloperTools";
 import GithubCard from "./GithubCard";
 
 import myImg from "../../public/assets/avatar.svg";
+import Languages from "./Languages";
+import Framework from "./Framework";
+import Databases from "./Databases";
 const css = require('./HomeBottom.module.css')
 
 const HomeBottom = () => {
@@ -63,7 +66,9 @@ const HomeBottom = () => {
                         </Tilt>
                     </Col>
                 </Row>
-                <TechnicalSkills />
+                <Languages />
+                <Framework />
+                <Databases />
                 <DeveloperTools />
                 <GithubCard />
                 <Row>
