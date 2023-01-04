@@ -1,4 +1,7 @@
 .topRow{
+  position: relative;
+  width: 90%;
+  margin: 0 auto;
   display: flex;
   padding: 2rem;
 }
@@ -18,7 +21,7 @@
 
 .homeAboutBody {
   padding: 4vw 4vw;
-  font-size: 2.4vw;
+  font-size: 2vw;
   text-align: left;
 }
 
