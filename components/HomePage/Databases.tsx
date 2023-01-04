@@ -20,7 +20,7 @@ const Databases = () => {
                     <span> MongoDB </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={1}
+                        optimum={0} value={5}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -28,7 +28,7 @@ const Databases = () => {
                     <span> MySQL </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -36,7 +36,7 @@ const Databases = () => {
                     <span> PostgresQL </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={3}
                     />
                 </Col>
                 <Col xs={4} md={4} className={ css.techIcons }>
@@ -44,7 +44,7 @@ const Databases = () => {
                     <span> DynamoDB </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={5}
+                        optimum={0} value={1}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -52,7 +52,7 @@ const Databases = () => {
                     <span> SQLite </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={5}
+                        optimum={0} value={1}
                     />
                 </Col>
             </div>
