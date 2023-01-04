@@ -31,7 +31,7 @@ const DeveloperTools = () => {
                     <span> Trello </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={1}
+                        optimum={0} value={5}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -39,7 +39,7 @@ const DeveloperTools = () => {
                     <span> Balsamiq </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -47,7 +47,7 @@ const DeveloperTools = () => {
                     <span> Figma </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -55,7 +55,7 @@ const DeveloperTools = () => {
                     <span> Notion </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -63,7 +63,7 @@ const DeveloperTools = () => {
                     <span> Mockflow </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
             </div>
@@ -76,7 +76,7 @@ const DeveloperTools = () => {
                     <span> VS Code </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={1}
+                        optimum={0} value={5}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -84,7 +84,7 @@ const DeveloperTools = () => {
                     <span> Git </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -92,7 +92,7 @@ const DeveloperTools = () => {
                     <span> ChromeDev Tools </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -100,7 +100,7 @@ const DeveloperTools = () => {
                     <span> GitKraken </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -156,7 +156,7 @@ const DeveloperTools = () => {
                     <span> Spring Tools Suite </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -164,7 +164,7 @@ const DeveloperTools = () => {
                     <span> GitPod </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={5}
+                        optimum={0} value={1}
                     />
                 </Col>
             </div>
@@ -177,7 +177,7 @@ const DeveloperTools = () => {
                     <span> npm </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -214,7 +214,7 @@ const DeveloperTools = () => {
                     <span> Vercel </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={1}
+                        optimum={0} value={5}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -222,7 +222,7 @@ const DeveloperTools = () => {
                     <span> Github Pages </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -246,7 +246,7 @@ const DeveloperTools = () => {
                     <span> Gunicorn </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -254,7 +254,7 @@ const DeveloperTools = () => {
                     <span> Nginx </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -262,7 +262,7 @@ const DeveloperTools = () => {
                     <span> Apache Tomcat </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -270,7 +270,7 @@ const DeveloperTools = () => {
                     <span> Kubernetes </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -278,7 +278,7 @@ const DeveloperTools = () => {
                     <span> PM2 </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={5}
+                        optimum={0} value={1}
                     />
                 </Col>
             </div>
@@ -291,7 +291,7 @@ const DeveloperTools = () => {
                     <span> Jinja </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={1}
+                        optimum={0} value={5}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -299,7 +299,7 @@ const DeveloperTools = () => {
                     <span> Java Server Pages </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
@@ -307,7 +307,7 @@ const DeveloperTools = () => {
                     <span> Socket.io </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
             </div>
