@@ -54,7 +54,7 @@ const Languages = () => {
                     <span> Markdown </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={1}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
