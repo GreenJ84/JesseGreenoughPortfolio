@@ -1,11 +1,19 @@
 import React from 'react'
+import Image from 'next/image';
 import { Col } from 'react-bootstrap';
 
-import { SiVisualstudiocode, SiPostman, SiVercel, SiGitkraken, SiApollographql, SiFigma, SiNotion } from "react-icons/si";
+import { SiVisualstudiocode, SiPostman, SiVercel, SiGitkraken, SiApollographql, SiFigma, SiNotion, SiSocketdotio, SiJinja, SiPm2, SiKubernetes, SiApachetomcat, SiNodemon, SiYarn, SiGitpod, SiSpring } from "react-icons/si";
 import { VscSmiley } from 'react-icons/vsc';
-import { FaTrello } from 'react-icons/fa';
+import { FaAws, FaHardHat, FaTrello } from 'react-icons/fa';
 import { WiSmog } from 'react-icons/wi';
+import { GrDocker } from 'react-icons/gr';
+import { DiChrome, DiGit, DiJava, DiNginx, DiNpm, DiVim } from 'react-icons/di';
+import { AiFillGithub } from 'react-icons/ai';
+import { BsPip } from 'react-icons/bs';
+import { GiUnicorn } from 'react-icons/gi';
 
+const truffle = require('../../public/assets/truffle-logo-dark.svg')
+const ganache = require('../../public/assets/ganache-logo-dark.svg')
 const css = require('./TechnicalSkills.module.css')
 
 const DeveloperTools = () => {
@@ -72,7 +80,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVisualstudiocode />
+                    <DiGit />
                     <span> Git </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -80,7 +88,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
+                    <DiChrome />
                     <span> ChromeDev Tools </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -104,7 +112,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVisualstudiocode />
+                    <FaHardHat />
                     <span> Hardhat </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -112,7 +120,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVisualstudiocode />
+                    <Image alt={"Truffle Logo"} src={truffle} width={ 10 } height={ 10 } className={ css.icon } />
                     <span> Truffle </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -120,7 +128,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVisualstudiocode />
+                    <Image alt={"Ganache Logo"} src={ganache} width={ 10 } height={ 10 } className={ css.icon }/>
                     <span> Ganache </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -136,7 +144,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVisualstudiocode />
+                    <DiVim />
                     <span> VIM </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -144,7 +152,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVisualstudiocode />
+                    <SiSpring />
                     <span> Spring Tools Suite </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -152,7 +160,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVisualstudiocode />
+                    <SiGitpod />
                     <span> GitPod </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -165,7 +173,7 @@ const DeveloperTools = () => {
             <h5> Runtime </h5>
             <div className={css.body}>
             <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVisualstudiocode />
+                    <DiNpm />
                     <span> npm </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -173,7 +181,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVisualstudiocode />
+                    <SiYarn />
                     <span> yarn </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -181,7 +189,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVisualstudiocode />
+                    <BsPip />
                     <span> pip </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -189,7 +197,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVisualstudiocode />
+                    <SiNodemon />
                     <span> nodemon </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -210,7 +218,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
+                    <AiFillGithub />
                     <span> Github Pages </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -218,7 +226,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
+                    <GrDocker />
                     <span> Docker </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -226,7 +234,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
+                    <FaAws />
                     <span> AWS EC2 </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -234,7 +242,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
+                    <GiUnicorn />
                     <span> Gunicorn </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -242,7 +250,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
+                    <DiNginx />
                     <span> Nginx </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -250,7 +258,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
+                    <SiApachetomcat />
                     <span> Apache Tomcat </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -258,7 +266,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
+                    <SiKubernetes />
                     <span> Kubernetes </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -266,7 +274,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
+                    <SiPm2 />
                     <span> PM2 </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -279,7 +287,7 @@ const DeveloperTools = () => {
             <h5> Extras </h5>
             <div className={css.body}>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
+                    <SiJinja />
                     <span> Jinja </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -287,7 +295,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
+                    <DiJava />
                     <span> Java Server Pages </span>
                     <meter min={0} max={5}
                         high={4} low={2}
@@ -295,23 +303,7 @@ const DeveloperTools = () => {
                     />
                 </Col>
                 <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
-                    <span> Axios </span>
-                    <meter min={0} max={5}
-                        high={4} low={2}
-                        optimum={0} value={2}
-                    />
-                </Col>
-                <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
-                    <span> Bcrypt </span>
-                    <meter min={0} max={5}
-                        high={4} low={2}
-                        optimum={0} value={3}
-                    />
-                </Col>
-                <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiVercel />
+                    <SiSocketdotio />
                     <span> Socket.io </span>
                     <meter min={0} max={5}
                         high={4} low={2}
