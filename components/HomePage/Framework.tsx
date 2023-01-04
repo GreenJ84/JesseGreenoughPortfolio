@@ -18,7 +18,7 @@ const Framework = () => {
                     <span> NodeJS </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={1}
+                        optimum={0} value={5}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -26,7 +26,7 @@ const Framework = () => {
                     <span> NextJS </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={1}
+                        optimum={0} value={5}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -34,7 +34,7 @@ const Framework = () => {
                     <span> ReactJS </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -42,7 +42,7 @@ const Framework = () => {
                     <span> ReduxJS </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -50,7 +50,7 @@ const Framework = () => {
                     <span> BootStrap </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={2}
+                        optimum={0} value={4}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -98,7 +98,7 @@ const Framework = () => {
                     <span> Materials-UI </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -106,7 +106,7 @@ const Framework = () => {
                     <span> MochaJS </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -114,7 +114,7 @@ const Framework = () => {
                     <span> ChaiJS </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -122,7 +122,7 @@ const Framework = () => {
                     <span> EthersJS </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -130,7 +130,7 @@ const Framework = () => {
                     <span> Django </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -138,7 +138,7 @@ const Framework = () => {
                     <span> Tailwind </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={4}
+                        optimum={0} value={2}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -146,7 +146,7 @@ const Framework = () => {
                     <span> SvelteJS </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={5}
+                        optimum={0} value={1}
                     />
                 </Col>
                 <Col xs={4} md={2} className={css.techIcons}>
@@ -154,7 +154,7 @@ const Framework = () => {
                     <span> Web3JS </span>
                     <meter min={0} max={5}
                         high={4} low={2}
-                        optimum={0} value={5}
+                        optimum={0} value={1}
                     />
                 </Col>
                 
