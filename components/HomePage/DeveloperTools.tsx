@@ -21,9 +21,10 @@ import {
   SiYarn,
   SiGitpod,
   SiSpring,
+  SiJsonwebtokens,
 } from "react-icons/si";
 import { VscSmiley } from "react-icons/vsc";
-import { FaAws, FaHardHat, FaTrello } from "react-icons/fa";
+import { FaAws, FaHardHat, FaShieldAlt, FaTrello } from "react-icons/fa";
 import { WiSmog } from "react-icons/wi";
 import { GrDocker } from "react-icons/gr";
 import { DiChrome, DiGit, DiJava, DiNginx, DiNpm, DiVim } from "react-icons/di";
@@ -582,6 +583,38 @@ const DeveloperTools = () => {
             low={2}
             optimum={0}
             value={4}
+          />
+        </Col>
+        <Col
+          xs={4}
+          md={2}
+          className={css.techIcons}
+        >
+          <SiJsonwebtokens />
+          <span> JSON Web Tokens </span>
+          <meter
+            min={0}
+            max={5}
+            high={4}
+            low={2}
+            optimum={0}
+            value={3}
+          />
+        </Col>
+        <Col
+          xs={4}
+          md={2}
+          className={css.techIcons}
+        >
+          <FaShieldAlt />
+          <span> NextAuth.js </span>
+          <meter
+            min={0}
+            max={5}
+            high={4}
+            low={2}
+            optimum={0}
+            value={3}
           />
         </Col>
         <Col
