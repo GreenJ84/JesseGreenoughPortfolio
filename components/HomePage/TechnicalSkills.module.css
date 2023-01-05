@@ -1,100 +1,105 @@
-.body{
-    display: flex;
-    color: var(--text-primary);
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 0 0 4em;
-    padding: 0 10vw;
+/** @format */
+
+.body {
+  display: flex;
+  color: var(--text-primary);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 0 4em;
+  padding: 0 10vw;
 }
 
 .techIcons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 19%;
-    max-width: 350px;
-    font-size: 8vw;
-    margin: 0 2vw 2vw;
-    padding: .4em .2em 0;
-    border: 1.7px solid var(--detail-terinary);
-    border-radius: 10px;
-    box-shadow: 0px 2px 3px 3px var(--detail-primary);
-    overflow: hidden;
-    transition: all 0.4s ease 0s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 19%;
+  max-width: 350px;
+  font-size: 8vw;
+  margin: 0 2vw 2vw;
+  padding: 0.4em 0.2em 0;
+  border: 1.7px solid var(--detail-terinary);
+  border-radius: 10px;
+  box-shadow: 0px 2px 3px 3px var(--detail-primary);
+  overflow: hidden;
+  transition: all 0.4s ease 0s;
 }
 
 .techIcons:hover {
-    transform: scale(1.35);
-    overflow: hidden;
-    border: 2.2px solid var(--detail-terinary);
-    box-shadow: 0px 4px 3px 2px var(--detail-secondary);
-    background-color: var(--background);
-    z-index: 2000;
+  transform: scale(1.35);
+  overflow: hidden;
+  border: 2.2px solid var(--detail-terinary);
+  box-shadow: 0px 4px 3px 2px var(--detail-secondary);
+  background-color: var(--background);
+  z-index: 2000;
 }
 
-.techIcons span{
-    margin-top: .6rem;
-    font-size: 20%;
+.techIcons span {
+  margin-top: 0.6rem;
+  font-size: 20%;
 }
 
-.techIcons meter{
-    margin-top: .4em;
-    font-size: .4em;
-    width: 3em;
-    height: 1.28em;
+.techIcons meter {
+  margin-top: 0.4em;
+  font-size: 0.4em;
+  width: 3em;
+  height: 1.28em;
 }
 .techIcons meter::-webkit-meter-bar {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        background: var(--nav-shadow) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text font-size="100" y=".8em" opacity=".3" z-index="2000">★</text></svg>') 0 / auto 100%;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: var(--nav-shadow)
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text font-size="100" y=".8em" opacity=".3" z-index="2000">★</text></svg>')
+    0 / auto 100%;
 }
 .techIcons meter::-webkit-meter-optimum-value,
 .techIcons meter::-webkit-meter-suboptimum-value,
-.techIcons meter::-webkit-meter-even-less-good-value{
-    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>') 0 / auto 100%;
+.techIcons meter::-webkit-meter-even-less-good-value {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+    0 / auto 100%;
 }
 
 .techIcons meter::-moz-meter-optimum::-moz-meter-bar,
 .techIcons meter::-moz-meter-sub-optimum::-moz-meter-bar,
-.techIcons meter::-moz-meter-sub-sub-optimum::-moz-meter-bar{
-    background:  url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text color="greenyellow" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>') 0 / auto 100%;
+.techIcons meter::-moz-meter-sub-sub-optimum::-moz-meter-bar {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text color="greenyellow" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+    0 / auto 100%;
 }
-
 
 .projectHeading {
-    color: var(--text-primary);
-    font-size: 4vw;
-    font-weight: 800;
-    padding-top: 10px;
-    text-align: center;
-    margin: 2em 0 1em;
+  color: var(--text-primary);
+  font-size: 4vw;
+  font-weight: 800;
+  padding-top: 10px;
+  text-align: center;
+  margin: 2em 0 1em;
 }
 
-.body~h5{
-    text-decoration: underline;
-    font-size: 1.8vw;
-    font-weight: 800;
-    color: var(--detail-terinary);
-    text-align: center;
-    margin-bottom: .6em;
+.body ~ h5 {
+  text-decoration: underline;
+  font-size: 1.8vw;
+  font-weight: 800;
+  color: var(--detail-terinary);
+  text-align: center;
+  margin-bottom: 0.6em;
 }
 
-.icon{
-    filter: grayscale();
-    width: auto;
-    height: auto;
+.icon {
+  filter: grayscale();
+  width: auto;
+  height: auto;
 }
 
 @media only screen and (max-width: 900px) {
-    .projectHeading {
-        font-size: 7vw;
-    }
+  .projectHeading {
+    font-size: 7vw;
+  }
 }
 
 @media only screen and (min-width: 1500px) {
-    .techIcons {
-        font-size: 7vw;
-        margin: 2vw;
-    }
+  .techIcons {
+    font-size: 7vw;
+    margin: 2vw;
+  }
 }

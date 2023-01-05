@@ -1,28 +1,42 @@
-import React from 'react'
-import { NavItem } from 'react-bootstrap'
+/** @format */
 
-const css = require('./ExpNavbar.module.css')
+import React from "react";
+import { NavItem } from "react-bootstrap";
 
-interface expNavProps{
-    workActive: boolean
-    changeActive: Function
+const css = require("./ExpNavbar.module.css");
+
+interface expNavProps {
+  workActive: boolean;
+  changeActive: Function;
 }
 
 const ExpNavbar = (props: expNavProps) => {
-    return (
-        <div className={ css.nav }>
-            <NavItem className={props.workActive ? css.navItem : css.activeNav} onClick={() => {
-                if (props.workActive) {
-                    props.changeActive()
-                }
-            }}> Education </NavItem>
-            <NavItem className={props.workActive ? css.activeNav : css.navItem} onClick={() => {
-                if (!props.workActive) {
-                    props.changeActive()
-                }
-            }}> Work </NavItem>
-        </div>
-    )
-}
+  return (
+    <div className={css.nav}>
+      <NavItem
+        className={props.workActive ? css.navItem : css.activeNav}
+        onClick={() => {
+          if (props.workActive) {
+            props.changeActive();
+          }
+        }}
+      >
+        {" "}
+        Education{" "}
+      </NavItem>
+      <NavItem
+        className={props.workActive ? css.activeNav : css.navItem}
+        onClick={() => {
+          if (!props.workActive) {
+            props.changeActive();
+          }
+        }}
+      >
+        {" "}
+        Work{" "}
+      </NavItem>
+    </div>
+  );
+};
 
-export default ExpNavbar
+export default ExpNavbar;

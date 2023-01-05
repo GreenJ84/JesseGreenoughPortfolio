@@ -1,3 +1,5 @@
-declare module '*.pdf'
-declare module '*.txt'
-declare module '*.html'
+/** @format */
+
+declare module "*.pdf";
+declare module "*.txt";
+declare module "*.html";

@@ -1,21 +1,22 @@
-import React from 'react'
+/** @format */
 
-import EduImage from './EduImage'
+import React from "react";
 
-const css = require('./EduBody.module.css')
+import EduImage from "./EduImage";
+
+const css = require("./EduBody.module.css");
 
 const EduBody = () => {
-    return (
-        <div className={ css.eduBody}>
-            <h1>
-                Basic Qualifications and Certifications 
-            </h1>
-            <EduImage />
-            <p> 
-                I activiely participate in tech-related activities and partake in courses to further my understanding and knowledge. 
-            </p>
-        </div>
-    )
-}
+  return (
+    <div className={css.eduBody}>
+      <h1>Basic Qualifications and Certifications</h1>
+      <EduImage />
+      <p>
+        I activiely participate in tech-related activities and partake in
+        courses to further my understanding and knowledge.
+      </p>
+    </div>
+  );
+};
 
-export default EduBody
+export default EduBody;

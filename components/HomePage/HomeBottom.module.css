@@ -1,4 +1,6 @@
-.topRow{
+/** @format */
+
+.topRow {
   position: relative;
   width: 90%;
   margin: 0 auto;
@@ -13,7 +15,7 @@
   text-align: center;
 }
 
-.homeAboutTitle{
+.homeAboutTitle {
   font-size: 3.4vw;
   position: relative;
   left: 10vw;
@@ -27,13 +29,13 @@
 
 .myAvtar {
   display: flex;
-    justify-content: center;
-    align-items:flex-start;
-    position: relative;
-    top: 16rem;
+  justify-content: center;
+  align-items: flex-start;
+  position: relative;
+  top: 16rem;
 }
 
-.myAvatarImage{
+.myAvatarImage {
   height: 20vw;
   width: 15vw;
   max-width: 400px;
@@ -60,7 +62,7 @@
 .socialIcons {
   display: inline-block;
   padding-right: 5vw;
-  padding-left:5vw;
+  padding-left: 5vw;
 }
 
 .homeSocialIcons {
@@ -106,7 +108,7 @@
   box-shadow: 0 0 8px var(--detail-secondary);
 }
 
-@media only screen and (max-width: 900px){
+@media only screen and (max-width: 900px) {
   .homeAboutDescription {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -118,7 +120,7 @@
     font-size: 4.5vw;
     margin-top: -1rem;
   }
-  .myAvtar{
+  .myAvtar {
     top: 5rem;
   }
 }

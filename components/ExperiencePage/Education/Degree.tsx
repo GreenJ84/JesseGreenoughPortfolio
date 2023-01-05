@@ -1,28 +1,40 @@
-import React, { useState } from 'react'
-import Image from 'next/image'
+/** @format */
 
-import DegreeCard from './DegreeCard'
+import React, { useState } from "react";
+import Image from "next/image";
 
-import {  educationType } from '../../../Utils/data/EducationData'
-const css = require('./Degree.module.css')
+import DegreeCard from "./DegreeCard";
+
+import { educationType } from "../../../Utils/data/EducationData";
+const css = require("./Degree.module.css");
 
 interface Education {
-    educationData: educationType[]
+  educationData: educationType[];
 }
 
-const Degree = ( props: Education) => {
+const Degree = (props: Education) => {
+  return (
+    <>
+      <h1 className={css.title}> Degrees Recieved </h1>
+      {props.educationData.map((exp) => (
+        <div
+          key={exp.college}
+          className={css.degrees}
+        >
+          <a href={exp.website}>
+            <Image
+              src={exp.icon}
+              width={200}
+              height={200}
+              alt={`${exp.college} icon`}
+              className={css.image}
+            />
+          </a>
+          <DegreeCard education={exp} />
+        </div>
+      ))}
+    </>
+  );
+};
 
-    return (
-        <>
-            <h1 className={ css.title }> Degrees Recieved </h1>
-            {props.educationData.map((exp) => <div key={exp.college} className={css.degrees}>
-                <a href={ exp.website }>
-                    <Image src={exp.icon} width={200} height={200} alt={`${exp.college} icon`} className={css.image} />
-                </a>
-                    <DegreeCard education={exp} />
-            </div>)}
-        </>
-    )
-}
-
-export default Degree
+export default Degree;

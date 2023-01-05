@@ -1,37 +1,43 @@
-.workFilter{
-    margin: 0;
-    display: flex;
-    align-items: flex-end;
-    height: 6vw;
-    background-color: rgb(0, 221, 136);
+/** @format */
+
+.workFilter {
+  margin: 0;
+  display: flex;
+  align-items: flex-end;
+  height: 6vw;
+  background-color: rgb(0, 221, 136);
 }
 
-.workFilter p{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto auto 0;
-    width: 49.5%;
-    height: 5.2vw;
-    font-size: 2.3vw;
-    color: white;
-    background-color: rgb(0, 85, 25);
+.workFilter p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto auto 0;
+  width: 49.5%;
+  height: 5.2vw;
+  font-size: 2.3vw;
+  color: white;
+  background-color: rgb(0, 85, 25);
 }
 
-.workFilter p:hover{
-    background-color: rgb(1, 240, 128) !important;
-    color: black;
+.workFilter p:hover {
+  background-color: rgb(1, 240, 128) !important;
+  color: black;
 }
 
-.activeFilter{
-    background-color: rgb(2, 136, 74) !important;
+.activeFilter {
+  background-color: rgb(2, 136, 74) !important;
 }
 
-.workFilter p:first-child{margin-right: 0;}
+.workFilter p:first-child {
+  margin-right: 0;
+}
 
-.workFilter p:nth-child(2){margin-left: 0;}
+.workFilter p:nth-child(2) {
+  margin-left: 0;
+}
 
-.workCardHolder{
-    background-color: rgba(0, 75, 40, 0.561);
-    padding: 2rem;
+.workCardHolder {
+  background-color: rgba(0, 75, 40, 0.561);
+  padding: 2rem;
 }

@@ -1,29 +1,43 @@
-import React, { useEffect } from 'react'
+/** @format */
 
-import NavItem from './NavItem'
+import React, { useEffect } from "react";
 
-const css = require('./ProjectNavbar.module.css')
+import NavItem from "./NavItem";
+
+const css = require("./ProjectNavbar.module.css");
 export interface ProjectNavProps {
-    filterHandler: Function,
-    active: string
+  filterHandler: Function;
+  active: string;
 }
 
 const ProjectNavbar = (props: ProjectNavProps) => {
-    
-    useEffect(() => {
-        
-    }, [props.active])
-    
-    return (
-        <div className={ css.projectNavbar }>
-            <NavItem value="all" {...props} />
-            {/* <NavItem value="react" {...props} /> */}
-            <NavItem value="js" {...props} />
-            <NavItem value="python" {...props} />
-            <NavItem value="java" {...props} />
-            <NavItem value="static" {...props} />
-        </div>
-    )
-}
+  useEffect(() => {}, [props.active]);
 
-export default ProjectNavbar
+  return (
+    <div className={css.projectNavbar}>
+      <NavItem
+        value="all"
+        {...props}
+      />
+      {/* <NavItem value="react" {...props} /> */}
+      <NavItem
+        value="js"
+        {...props}
+      />
+      <NavItem
+        value="python"
+        {...props}
+      />
+      <NavItem
+        value="java"
+        {...props}
+      />
+      <NavItem
+        value="static"
+        {...props}
+      />
+    </div>
+  );
+};
+
+export default ProjectNavbar;

@@ -1,3 +1,5 @@
+/** @format */
+
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
 * {
   box-sizing: border-box;
@@ -24,33 +26,39 @@ html {
 body {
   padding: 0;
   margin: 0;
-  font-family: "Raleway", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serifserif !important;
+  font-family: "Raleway", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serifserif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: var(--background-image);
 }
 
-body[data-theme='dark'] {
+body[data-theme="dark"] {
   /* App Global */
   --text-primary: rgb(206, 255, 208);
   --text-secondary: rgb(0, 255, 13);
 
-  --background-image: linear-gradient(to left, rgb(20, 41, 34), rgb(18, 54, 42));
+  --background-image: linear-gradient(
+    to left,
+    rgb(20, 41, 34),
+    rgb(18, 54, 42)
+  );
   --background: rgb(12, 43, 33);
   --background2: rgb(12, 27, 22);
   --background3: rgb(24, 60, 24);
-  
+
   --detail-primary: rgb(36, 94, 36);
   --detail-secondary: rgb(6, 255, 19);
   --detail-terinary: rgba(14, 215, 165, 0.924);
-  
+
   --card-background: rgb(60, 60, 60);
   --card-background2: rgb(25, 25, 25);
   --card-background3: rgb(179, 255, 158);
-  
+
   --button-bg1: rgb(17, 114, 0);
-  --button-bg2:rgb(24, 158, 0);
-  
+  --button-bg2: rgb(24, 158, 0);
+
   /* Navbar */
   --sticky-bg: rgba(1, 56, 4, 0.462);
   --nav-bg: rgb(1, 56, 4);
@@ -69,25 +77,29 @@ body[data-theme='dark'] {
   --hue-rotate-about: hue-rotate(260deg);
 }
 
-body[data-theme='light'] {
+body[data-theme="light"] {
   /* App Global */
   --text-primary: rgb(78, 80, 78);
   --text-secondary: rgb(1, 66, 36);
-  --background-image: linear-gradient(to left, rgb(119, 255, 196), rgb(133, 255, 214));
+  --background-image: linear-gradient(
+    to left,
+    rgb(119, 255, 196),
+    rgb(133, 255, 214)
+  );
   --background: rgb(26, 171, 98);
   --background2: rgb(18, 237, 164);
   --background3: rgb(21, 203, 244);
-  
+
   --detail-primary: rgb(1, 153, 135);
   --detail-secondary: rgb(0, 69, 3);
   --detail-terinary: rgb(0, 81, 151);
-  
+
   --card-background: rgb(61, 252, 242);
   --card-background2: rgb(29, 159, 252);
   --card-background3: rgb(24, 73, 121);
-  
+
   --button-bg1: rgb(1, 248, 244);
-  --button-bg2:rgb(44, 74, 74);
+  --button-bg2: rgb(44, 74, 74);
 
   /* Navbar */
   --sticky-bg: rgba(2, 255, 242, 0.588);
@@ -112,11 +124,11 @@ a {
   text-decoration: none;
 }
 
-.detail, .blockquote-footer {
+.detail,
+.blockquote-footer {
   color: var(--text-secondary);
   font-weight: bold;
 }
-
 
 .github-btn {
   font-size: 1.1em !important;
@@ -144,4 +156,3 @@ a {
 .github-btn-inner::after {
   display: none !important;
 }
-

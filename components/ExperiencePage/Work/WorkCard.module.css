@@ -1,83 +1,84 @@
-.workCard{
+/** @format */
+
+.workCard {
+  position: relative;
+  display: flex;
+  margin: 1rem 0 2.5rem;
+  padding: 3rem 1.5rem;
+  border-radius: 20px;
+  color: var(--text-primary);
+  background-color: var(--card-background);
+}
+
+.workCard:hover {
+  transform: scale(1.05, 1.05);
+  box-shadow: 0 0 12px var(--detail-terinary);
+}
+
+.workImageHolder {
+  width: 20%;
+}
+
+.workImage {
+  display: flex;
+  width: 12vw;
+  height: 12vw;
+  margin: 1rem auto 0;
+  border-radius: 50%;
+}
+
+.workCardBody {
+  width: 100%;
+}
+
+.workCardBody div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.workCardBody div:first-child p:first-child {
+  color: var(--text-secondary);
+  font-size: 3vw;
+  margin: 0;
+}
+
+.workCardBody div p {
+  margin: 0;
+  font-size: 1vw;
+}
+
+.workCardBody div p:first-child {
+  font-size: 1.8vw;
+  font-weight: bold;
+}
+.workCardBody div p:nth-child(2) {
+  position: absolute;
+  right: 10%;
+  font-size: 1.2vw;
+}
+
+.details {
+  position: relative;
+  left: 4%;
+  font-size: 1.6vw;
+}
+
+@media only screen and (max-width: 625px) {
+  .workImage {
     position: relative;
-    display: flex;
-    margin: 1rem 0 2.5rem;
-    padding: 3rem 1.5rem;
-    border-radius: 20px;
-    color: var(--text-primary);
-    background-color: var(--card-background);
-}
-
-.workCard:hover{
-    transform: scale(1.05, 1.05);
-    box-shadow: 0 0 12px var(--detail-terinary);
-}
-
-.workImageHolder{
-    width: 20%;
-}
-
-.workImage{
-    display: flex;
-    width: 12vw;
-    height: 12vw;
-    margin: 1rem auto 0;
-    border-radius: 50%;
-}
-
-.workCardBody{
-    width: 100%;
-}
-
-.workCardBody div{
-    display: flex;
-    justify-content:space-between;
-}
-
-.workCardBody div:first-child p:first-child{
-    color: var(--text-secondary);
-    font-size: 3vw;
-    margin: 0;
-}
-
-.workCardBody div p{
-    margin: 0;
-    font-size: 1vw
-}
-
-.workCardBody div p:first-child{
+    right: 1rem;
+  }
+  .workCardBody div:first-child p:first-child {
+    font-size: 4vw;
+  }
+  .workCardBody div p:last-child {
     font-size: 1.8vw;
-    font-weight: bold;
-}
-.workCardBody div p:nth-child(2){
-    position: absolute;
-    right: 10%;
-    font-size: 1.2vw;
-}
+  }
 
-.details{
-    position: relative;
-    left: 4%;
-    font-size: 1.6vw;
-}
-
-@media only screen and (max-width: 625px){
-    .workImage{
-        position: relative;
-        right: 1rem
-    }
-    .workCardBody div:first-child p:first-child{
-        font-size: 4vw;
-    }
-    .workCardBody div p:last-child{
-        font-size: 1.8vw
-    }
-    
-    .workCardBody div p:first-child{
-        font-size: 2.4vw;
-    }
-    .details{
-        font-size: 2vw;
-    }
-
+  .workCardBody div p:first-child {
+    font-size: 2.4vw;
+  }
+  .details {
+    font-size: 2vw;
+  }
 }

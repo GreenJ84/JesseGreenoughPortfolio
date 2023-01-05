@@ -1,95 +1,101 @@
-.cardBody{
-    background-color: var(--card-background2);
-    border-radius: 30px;
-    height: auto;
-    width: 70%;
-    box-shadow: inset 2px -2px 14px var(--detail-secondary), inset -2px -2px 14px var(--detail-secondary);
+/** @format */
+
+.cardBody {
+  background-color: var(--card-background2);
+  border-radius: 30px;
+  height: auto;
+  width: 70%;
+  box-shadow: inset 2px -2px 14px var(--detail-secondary),
+    inset -2px -2px 14px var(--detail-secondary);
 }
-.cardBody:hover{
-    box-shadow: inset 2px -2px 14px var(--detail-secondary), inset -2px -2px 14px var(--detail-secondary), 0 0 15px var(--detail-secondary);
+.cardBody:hover {
+  box-shadow: inset 2px -2px 14px var(--detail-secondary),
+    inset -2px -2px 14px var(--detail-secondary),
+    0 0 15px var(--detail-secondary);
 }
 
-.cardHead{
-    color: var(--text-secondary);
-    background-color: var(--card-background);
-    padding: 2vw;
-    border-radius: 30px 30px 0 0;
-    margin-bottom: 0;
+.cardHead {
+  color: var(--text-secondary);
+  background-color: var(--card-background);
+  padding: 2vw;
+  border-radius: 30px 30px 0 0;
+  margin-bottom: 0;
 }
-.cardHead>p, .cardHead>h1 {
-    margin: 0;
-    padding: 0;
-}
-
-.cardHead>h1{
-    text-align: center;
-    margin: 1vw 0;
-    font-size: 2.8vw;
+.cardHead > p,
+.cardHead > h1 {
+  margin: 0;
+  padding: 0;
 }
 
-.cardHead h1+p{
-    font-size: 1.1vw;
-    text-align: center;
+.cardHead > h1 {
+  text-align: center;
+  margin: 1vw 0;
+  font-size: 2.8vw;
 }
 
-.cardHead h1+p+p{
-    position: relative;
-    left: 1.4vw;
-    margin: 3.4vw 0 1.4vw;
+.cardHead h1 + p {
+  font-size: 1.1vw;
+  text-align: center;
+}
+
+.cardHead h1 + p + p {
+  position: relative;
+  left: 1.4vw;
+  margin: 3.4vw 0 1.4vw;
+  font-size: 1.8vw;
+}
+
+.cardText {
+  position: relative;
+  background-color: var(--card-background3);
+  color: var(--background2);
+  height: 24vw;
+  width: 94%;
+  margin: 0 auto 3.5vw;
+  border-radius: 0 0 20px 20px;
+  padding: 0.5vw 0 0 1vw;
+}
+
+.cardText li {
+  text-indent: 0.5rem;
+  list-style: none;
+  margin: 2vw 0;
+  font-size: 1.6vw;
+  line-height: 2.4vw;
+  margin-top: 2vw;
+}
+
+.button {
+  font-size: 1.4vw;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 8vw;
+  bottom: 3vw;
+  width: 14vw;
+  height: 2.7vw;
+  color: var(--background2);
+  background-color: var(--button-bg2);
+  border: 2px solid var(--background2);
+  border-radius: 10px;
+}
+.button:hover {
+  color: rgb(1, 202, 1);
+  background-color: rgb(0, 30, 0);
+  box-shadow: 2px -2px 18px 5px rgb(32, 111, 14);
+}
+
+@media only screen and (max-width: 625px) {
+  .cardHead > h1 {
+    font-size: 3.8vw;
+  }
+
+  .cardHead h1 + p {
     font-size: 1.8vw;
-}
+  }
 
-.cardText{
-    position: relative;
-    background-color: var(--card-background3);
-    color: var(--background2);
-    height: 24vw;
-    width: 94%;
-    margin: 0 auto 3.5vw;
-    border-radius: 0 0 20px 20px;
-    padding: .5vw 0 0 1vw;
-}
-
-.cardText li{
-    text-indent: .5rem;
-    list-style: none;
-    margin: 2vw 0;
-    font-size: 1.6vw;
-    line-height: 2.4vw;
-    margin-top: 2vw;
-}
-
-.button{
-    font-size: 1.4vw;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    right: 8vw;
-    bottom: 3vw;
-    width: 14vw;
-    height: 2.7vw;
-    color: var(--background2);
-    background-color: var(--button-bg2);
-    border: 2px solid var(--background2);
-    border-radius: 10px;
-}
-.button:hover{
-    color: rgb(1, 202, 1);
-    background-color: rgb(0, 30, 0);
-    box-shadow: 2px -2px 18px 5px rgb(32, 111, 14);
-}
-
-@media only screen and (max-width: 625px){
-    .cardHead>h1{
-        font-size: 3.8vw;
-    }
-    
-    .cardHead h1+p{
-        font-size: 1.8vw;
-    }
-    
-    .cardHead h1+p+p{
-        font-size: 2.4vw;
-    }
+  .cardHead h1 + p + p {
+    font-size: 2.4vw;
+  }
 }

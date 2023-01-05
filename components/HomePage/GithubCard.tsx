@@ -1,30 +1,31 @@
-import React from 'react'
-import GitHubCalendar from 'react-github-calendar'
+/** @format */
 
-const css = require('./TechnicalSkills.module.css')
+import React from "react";
+import GitHubCalendar from "react-github-calendar";
+
+const css = require("./TechnicalSkills.module.css");
 
 const calenderStyle = {
-    margin: '1rem auto 4rem',
-    color: 'var(--text-ternary)',
-    height: '150px',
-}
+  margin: "1rem auto 4rem",
+  color: "var(--text-ternary)",
+  height: "150px",
+};
 
 const githubCard = () => {
+  return (
+    <>
+      <h1 className={css.projectHeading}>
+        Days I <strong className="detail">Code</strong>
+      </h1>
+      <GitHubCalendar
+        username="GreenJ84"
+        color="#229955"
+        style={calenderStyle}
+        blockSize={14}
+        blockMargin={6}
+      />
+    </>
+  );
+};
 
-    return (
-        <>
-            <h1 className={ css.projectHeading } >
-                Days I <strong className="detail">Code</strong>
-            </h1>
-            <GitHubCalendar
-            username="GreenJ84"
-            color="#229955"
-            style={calenderStyle}
-            blockSize={14}
-            blockMargin={6}
-            />
-        </>
-    )
-}
-
-export default githubCard
+export default githubCard;

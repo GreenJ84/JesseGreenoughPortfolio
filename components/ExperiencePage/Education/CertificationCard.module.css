@@ -1,109 +1,112 @@
-.certCard{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    width: 26%;
-    height: auto;
-    margin: 5% 3%;
-    padding:1%;
-    color: var(--text-primary);
-    background-color: var(--card-background2);
-    border-radius: 20px;
-    box-shadow: 0 0 1rem var(--detail-secondary);
+/** @format */
+
+.certCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  width: 26%;
+  height: auto;
+  margin: 5% 3%;
+  padding: 1%;
+  color: var(--text-primary);
+  background-color: var(--card-background2);
+  border-radius: 20px;
+  box-shadow: 0 0 1rem var(--detail-secondary);
 }
 
-.certDisplay{
-    background-color: var(--card-background);
-    border-radius: 20px;
-    padding: 2%;
+.certDisplay {
+  background-color: var(--card-background);
+  border-radius: 20px;
+  padding: 2%;
 }
 
-.certImage{
-    margin: 4%;
-    border-radius: 50%;
-    width: 15vw;
-    height: 15vw;
+.certImage {
+  margin: 4%;
+  border-radius: 50%;
+  width: 15vw;
+  height: 15vw;
 }
 
-.certDisplay h3, .certDisplay p{
-    margin:  6% 0 10%;
+.certDisplay h3,
+.certDisplay p {
+  margin: 6% 0 10%;
 }
-.certDisplay h3{
-    font-size: 1.6vw;
-}
-
-.certDisplay p{
-    font-size: 1.2vw;
+.certDisplay h3 {
+  font-size: 1.6vw;
 }
 
-@media only screen and (max-width: 625px){
-    .certCard{
-        width: 45%;
-        margin: 5% 2%;
-        padding:1%;
-    }
-    .certDisplay h3{
-        font-size: 2.6vw;
-    }
-    .certDisplay p{
-        font-size: 2.2vw;
-    }
+.certDisplay p {
+  font-size: 1.2vw;
 }
 
-.certDetailCard{
-    position: absolute;
-    z-index: 500;
-    right: -3%;
-    margin: 0 auto;
-    width: 100%;
-    height: 150%;
-    margin: 5% 3%;
-    padding:3%;
-    color: var(--background2);
-    background-color: var(--card-background2);
-    border-radius: 20px;
-    box-shadow: 0 0 1rem var(--detail-secondary);
+@media only screen and (max-width: 625px) {
+  .certCard {
+    width: 45%;
+    margin: 5% 2%;
+    padding: 1%;
+  }
+  .certDisplay h3 {
+    font-size: 2.6vw;
+  }
+  .certDisplay p {
+    font-size: 2.2vw;
+  }
 }
 
-.certDetails{
-    display:flex;
-    align-items: center;
-    background-color: var(--card-background3);
-    box-shadow: 0 0 3rem var(--detail-secondary);
-    border-radius: 20px;
-    height: 100%;
-    padding: 2% 1.5vw 2.5rem;
+.certDetailCard {
+  position: absolute;
+  z-index: 500;
+  right: -3%;
+  margin: 0 auto;
+  width: 100%;
+  height: 150%;
+  margin: 5% 3%;
+  padding: 3%;
+  color: var(--background2);
+  background-color: var(--card-background2);
+  border-radius: 20px;
+  box-shadow: 0 0 1rem var(--detail-secondary);
 }
 
-.certDetails p{
-    font-size: 2vw;
-    max-height: 80%;
-    overflow: scroll;
-    font-weight: bolder;
-    margin-bottom: 3rem;
-    line-height: 140%;
-    vertical-align: center;
+.certDetails {
+  display: flex;
+  align-items: center;
+  background-color: var(--card-background3);
+  box-shadow: 0 0 3rem var(--detail-secondary);
+  border-radius: 20px;
+  height: 100%;
+  padding: 2% 1.5vw 2.5rem;
 }
 
-.certDetails a{
-    position: absolute;
-    bottom: 2rem;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1vw;
-    width: 40%;
-    height: 2vw;
-    text-decoration: none;
-    color: var(--text-secondary);
-    background-color: var(--background2);
-    border: 1px solid var(--detail-secondary);
+.certDetails p {
+  font-size: 2vw;
+  max-height: 80%;
+  overflow: scroll;
+  font-weight: bolder;
+  margin-bottom: 3rem;
+  line-height: 140%;
+  vertical-align: center;
 }
-.certDetails a:hover{
-    box-shadow: 0 0 1.5px 2px var(--detail-secondary);
+
+.certDetails a {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1vw;
+  width: 40%;
+  height: 2vw;
+  text-decoration: none;
+  color: var(--text-secondary);
+  background-color: var(--background2);
+  border: 1px solid var(--detail-secondary);
+}
+.certDetails a:hover {
+  box-shadow: 0 0 1.5px 2px var(--detail-secondary);
 }

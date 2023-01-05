@@ -1,27 +1,32 @@
-.navItem, .activeNav{
-    font-size: 2.4vw;
-    width: 15%;
-    color: var(--text-secondary);
-    background-color: var(--background2);
-    text-align: center;
-    padding: 2vw 0;
-    border-radius: 20px 20px 0 0;
-    box-shadow: 2px -2px 3px var(--detail-secondary), -2px -2px 3px var(--detail-secondary), 0 2px rgb(0, 0, 0);
-    transform: translateY(.5vw);
+/** @format */
+
+.navItem,
+.activeNav {
+  font-size: 2.4vw;
+  width: 15%;
+  color: var(--text-secondary);
+  background-color: var(--background2);
+  text-align: center;
+  padding: 2vw 0;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 2px -2px 3px var(--detail-secondary),
+    -2px -2px 3px var(--detail-secondary), 0 2px rgb(0, 0, 0);
+  transform: translateY(0.5vw);
 }
 
-.navItem:hover{
-    color: rgb(1, 30, 1);
-    z-index: 200;
-    background-color: var(--detail-secondary);
-    box-shadow: 6px -2px 6px 2px black, -6px -2px 6px 2px black;
-    transform: scale(1, 1.2) translateY(-.2vw);
+.navItem:hover {
+  color: rgb(1, 30, 1);
+  z-index: 200;
+  background-color: var(--detail-secondary);
+  box-shadow: 6px -2px 6px 2px black, -6px -2px 6px 2px black;
+  transform: scale(1, 1.2) translateY(-0.2vw);
 }
 
-.activeNav{
-    color: red;
-    font-size: 3vw;
-    font-weight: bolder;
-    padding: 1.2rem 0;
-    box-shadow: 4px -2px 3px 2px rgb(247, 4, 4), -4px -2px 3px 2px rgb(247, 4, 4);    transform: scale(1, 1.2) translateY(-.4vw);
+.activeNav {
+  color: red;
+  font-size: 3vw;
+  font-weight: bolder;
+  padding: 1.2rem 0;
+  box-shadow: 4px -2px 3px 2px rgb(247, 4, 4), -4px -2px 3px 2px rgb(247, 4, 4);
+  transform: scale(1, 1.2) translateY(-0.4vw);
 }

@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from "react";
 import { MongoClient } from "mongodb";
 import { GetServerSideProps } from "next";
@@ -53,9 +55,15 @@ const ProjectPage = (props: Projects) => {
   };
 
   return (
-    <Container fluid style={projectBody}>
+    <Container
+      fluid
+      style={projectBody}
+    >
       <div style={{ padding: "0 3vw" }}>
-        <ProjectNavbar filterHandler={filterHandler} active={activeNav} />
+        <ProjectNavbar
+          filterHandler={filterHandler}
+          active={activeNav}
+        />
         <div style={container as React.CSSProperties}>
           <p style={title as React.CSSProperties}>
             {" "}
@@ -65,7 +73,10 @@ const ProjectPage = (props: Projects) => {
           </p>
           <div style={flexbox as React.CSSProperties}>
             {projectData.map((project) => (
-              <ProjectCard project={project} key={project.name} />
+              <ProjectCard
+                project={project}
+                key={project.name}
+              />
             ))}
           </div>
         </div>

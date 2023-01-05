@@ -1,6 +1,8 @@
+/** @format */
+
 import React from "react";
 
-const css = require('./EduBody.module.css')
+const css = require("./EduBody.module.css");
 
 export default function EducationImg() {
   return (
@@ -12,7 +14,7 @@ export default function EducationImg() {
       width="50vw"
       height="40vw"
       viewBox="0 0 795.39431 574.03802"
-      className={ css.eduImage }
+      className={css.eduImage}
     >
       <defs>
         <linearGradient
@@ -24,9 +26,21 @@ export default function EducationImg() {
           gradientTransform="translate(3217.53309 1009.65784) rotate(90)"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0" stopColor="gray" stopOpacity="0.25" />
-          <stop offset="0.53514" stopColor="gray" stopOpacity="0.12" />
-          <stop offset="1" stopColor="gray" stopOpacity="0.1" />
+          <stop
+            offset="0"
+            stopColor="gray"
+            stopOpacity="0.25"
+          />
+          <stop
+            offset="0.53514"
+            stopColor="gray"
+            stopOpacity="0.12"
+          />
+          <stop
+            offset="1"
+            stopColor="gray"
+            stopOpacity="0.1"
+          />
         </linearGradient>
       </defs>
       <title></title>
@@ -37,7 +51,7 @@ export default function EducationImg() {
         rx="35.09476"
         ry="5.26421"
         transform="translate(-476.55674 294.92367) rotate(-63.61079)"
-        fill='black'
+        fill="black"
       />
       {/* Sroll End */}
       <ellipse
@@ -46,7 +60,7 @@ export default function EducationImg() {
         rx="35.09476"
         ry="3.57677"
         transform="translate(-428.03695 808.73554) rotate(-63.61079)"
-        fill='black'
+        fill="black"
       />
       <rect
         x="397.95325"
@@ -84,7 +98,7 @@ export default function EducationImg() {
       <path
         d="M655.01556,699.105c-8.584-4.11751-444.8438-220.718-438.55625-217.5983,24.21371-36.95739,31.19689-62.87545,31.19689-62.87545l438.55625,217.5983S670.81132,663.25857,655.01556,699.105Z"
         transform="translate(-0202.30284 -162.98099)"
-        fill='var(--card-background)'
+        fill="var(--card-background)"
       />
       <rect
         x="421.72508"
@@ -118,9 +132,20 @@ export default function EducationImg() {
         transform="translate(89.80867 -301.33512) rotate(26.38921)"
         fill="#f55f44"
       />
-      <circle cx="261.30557" cy="563.92499" r="2.92569" fill="#dbdbdb" />
+      <circle
+        cx="261.30557"
+        cy="563.92499"
+        r="2.92569"
+        fill="#dbdbdb"
+      />
       <g opacity="0.5">
-        <rect x="29.39431" y="482" width="3" height="17" fill="#47e6b1" />
+        <rect
+          x="29.39431"
+          y="482"
+          width="3"
+          height="17"
+          fill="#47e6b1"
+        />
         <rect
           x="231.69716"
           y="644.98099"
@@ -131,7 +156,13 @@ export default function EducationImg() {
         />
       </g>
       <g opacity="0.5">
-        <rect x="785.39431" y="270" width="3" height="17" fill="#47e6b1" />
+        <rect
+          x="785.39431"
+          y="270"
+          width="3"
+          height="17"
+          fill="#47e6b1"
+        />
         <rect
           x="987.69716"
           y="432.98099"
@@ -143,7 +174,13 @@ export default function EducationImg() {
       </g>
       {/*  Stars */}
       <g opacity="0.5">
-        <rect x="47.39431" y="59" width="3" height="17" fill="#47e6b1" />
+        <rect
+          x="47.39431"
+          y="59"
+          width="3"
+          height="17"
+          fill="#47e6b1"
+        />
         <rect
           x="249.69716"
           y="221.98099"
@@ -155,7 +192,13 @@ export default function EducationImg() {
       </g>
       {/*  Stars */}
       <g opacity="0.5">
-        <rect x="695.39431" y="33" width="3" height="17" fill="#47e6b1" />
+        <rect
+          x="695.39431"
+          y="33"
+          width="3"
+          height="17"
+          fill="#47e6b1"
+        />
         <rect
           x="897.69716"
           y="195.98099"
@@ -187,10 +230,34 @@ export default function EducationImg() {
         opacity="0.5"
       />
       {/* Stars */}
-      <circle cx="759.39431" cy="444" r="6" fill="#f55f44" opacity="0.5" />
-      <circle cx="627.39431" cy="482" r="6" fill="#4d8af0" opacity="0.5" />
-      <circle cx="103.39431" cy="541" r="6" fill="#47e6b1" opacity="0.5" />
-      <circle cx="411.39431" cy="6" r="6" fill="#f55f44" opacity="0.5" />
+      <circle
+        cx="759.39431"
+        cy="444"
+        r="6"
+        fill="#f55f44"
+        opacity="0.5"
+      />
+      <circle
+        cx="627.39431"
+        cy="482"
+        r="6"
+        fill="#4d8af0"
+        opacity="0.5"
+      />
+      <circle
+        cx="103.39431"
+        cy="541"
+        r="6"
+        fill="#47e6b1"
+        opacity="0.5"
+      />
+      <circle
+        cx="411.39431"
+        cy="6"
+        r="6"
+        fill="#f55f44"
+        opacity="0.5"
+      />
       {/* Hat Inside circle */}
       <path
         d="M407.19716,520.481l-24,36s8,37,185,36,191-36,191-36l-33-48-101-69Z"
@@ -222,7 +289,13 @@ export default function EducationImg() {
         transform="translate(-202.30284 -162.98099)"
         fill="var(--detail-primary)"
       />
-      <ellipse cx="553.39431" cy="272" rx="29" ry="20" fill="#f5f5f5" />
+      <ellipse
+        cx="553.39431"
+        cy="272"
+        rx="29"
+        ry="20"
+        fill="#f5f5f5"
+      />
     </svg>
   );
 }

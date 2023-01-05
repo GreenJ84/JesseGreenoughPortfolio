@@ -1,13 +1,15 @@
+/** @format */
+
 .footer {
-    height: auto;
-    background-color: var(--footer-background);
-    bottom: 0;
-    padding: 1rem 3rem 2rem;
+  height: auto;
+  background-color: var(--footer-background);
+  bottom: 0;
+  padding: 1rem 3rem 2rem;
 }
 .footerCopywright {
-    font-size: 3vw;
-    color: var(--text-primary);
-    text-align: center;
+  font-size: 3vw;
+  color: var(--text-primary);
+  text-align: center;
 }
 
 .footerIcons {
@@ -22,10 +24,10 @@
   padding: 0 4vw;
 }
 
-.socialIcons a{
+.socialIcons a {
   color: var(--text-primary);
 }
 
-.footIcons{
+.footIcons {
   font-size: 7vw;
 }
