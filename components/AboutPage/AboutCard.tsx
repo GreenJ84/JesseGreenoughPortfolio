@@ -19,7 +19,7 @@ const AboutCard = () => {
             <br />
             <br />
             I am a Full-stack Developer with 5+ years of operations, management,
-            and cusomer success experience
+            and customer success experience.
             <br />
             <br />
             Can you tell my favorite color is{" "}
@@ -34,16 +34,22 @@ const AboutCard = () => {
               <ImPointRight /> Spending time with my amazing family
             </li>
             <li className={css.aboutActivity}>
-              <ImPointRight /> Playing video games or watching anime
+              <ImPointRight /> Enjoying the outdoors!
+            </li>
+            <li className={css.aboutActivity}>
+              <ImPointRight /> NFT Art collecting (Currently have Eth, HBAR, and XRP NFTs)
+            </li>
+            <li className={css.aboutActivity}>
+              <ImPointRight /> Web3 community participation
+            </li>
+            <li className={css.aboutActivity}>
+              <ImPointRight /> Play Sports (Basketball!)
+            </li>
+            <li className={css.aboutActivity}>
+              <ImPointRight /> Playing video games and watching anime 
             </li>
             <li className={css.aboutActivity}>
               <ImPointRight /> Doing sudoku and word puzzles
-            </li>
-            <li className={css.aboutActivity}>
-              <ImPointRight /> Play Sports ( basketball! )
-            </li>
-            <li className={css.aboutActivity}>
-              <ImPointRight /> Enjoying the outdoors!
             </li>
           </ul>
           <p className={css.quote}>&quot;Build to make a difference!&quot;</p>
