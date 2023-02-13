@@ -95,22 +95,6 @@ const Languages = () => {
           md={2}
           className={css.techIcons}
         >
-          <BsFillMarkdownFill />
-          <span> Markdown </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={4}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
           <DiPython />
           <span> Python </span>
           <meter
@@ -175,6 +159,22 @@ const Languages = () => {
           md={2}
           className={css.techIcons}
         >
+          <SiSolidity />
+          <span> Solidity </span>
+          <meter
+            min={0}
+            max={5}
+            high={4}
+            low={2}
+            optimum={0}
+            value={3}
+          />
+        </Col>
+        <Col
+          xs={4}
+          md={2}
+          className={css.techIcons}
+        >
           <SiJava />
           <span> Java </span>
           <meter
@@ -191,8 +191,8 @@ const Languages = () => {
           md={2}
           className={css.techIcons}
         >
-          <SiSolidity />
-          <span> Solidity </span>
+          <BsFillMarkdownFill />
+          <span> Markdown </span>
           <meter
             min={0}
             max={5}
@@ -215,7 +215,7 @@ const Languages = () => {
             high={4}
             low={2}
             optimum={0}
-            value={2}
+            value={1}
           />
         </Col>
         <Col
@@ -225,22 +225,6 @@ const Languages = () => {
         >
           <FaSwift />
           <span> Swift </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={2}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <BsKeyboard />
-          <span> C/C++ </span>
           <meter
             min={0}
             max={5}
