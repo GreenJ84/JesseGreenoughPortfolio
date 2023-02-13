@@ -22,12 +22,13 @@ import {
   SiGitpod,
   SiSpring,
   SiJsonwebtokens,
+  SiFirebase,
 } from "react-icons/si";
 import { VscSmiley } from "react-icons/vsc";
 import { FaAws, FaHardHat, FaShieldAlt, FaTrello } from "react-icons/fa";
 import { WiSmog } from "react-icons/wi";
 import { GrDocker } from "react-icons/gr";
-import { DiChrome, DiGit, DiJava, DiNginx, DiNpm, DiVim } from "react-icons/di";
+import { DiChrome, DiGit, DiJava, DiNginx, DiNodejs, DiNpm, DiVim } from "react-icons/di";
 import { AiFillGithub } from "react-icons/ai";
 import { BsPip } from "react-icons/bs";
 import { GiUnicorn } from "react-icons/gi";
@@ -100,22 +101,6 @@ const DeveloperTools = () => {
         >
           <SiNotion />
           <span> Notion </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={2}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <WiSmog />
-          <span> Mockflow </span>
           <meter
             min={0}
             max={5}
@@ -337,6 +322,22 @@ const DeveloperTools = () => {
 
       <h5> Runtime </h5>
       <div className={css.body}>
+        <Col
+          xs={4}
+          md={2}
+          className={css.techIcons}
+        >
+          <DiNodejs />
+          <span> NodeJS </span>
+          <meter
+            min={0}
+            max={5}
+            high={4}
+            low={2}
+            optimum={0}
+            value={5}
+          />
+        </Col>
         <Col
           xs={4}
           md={2}
@@ -590,8 +591,8 @@ const DeveloperTools = () => {
           md={2}
           className={css.techIcons}
         >
-          <SiJsonwebtokens />
-          <span> JSON Web Tokens </span>
+          <SiFirebase />
+          <span> Firebase </span>
           <meter
             min={0}
             max={5}
@@ -608,6 +609,22 @@ const DeveloperTools = () => {
         >
           <FaShieldAlt />
           <span> NextAuth.js </span>
+          <meter
+            min={0}
+            max={5}
+            high={4}
+            low={2}
+            optimum={0}
+            value={3}
+          />
+        </Col>
+        <Col
+          xs={4}
+          md={2}
+          className={css.techIcons}
+        >
+          <SiJsonwebtokens />
+          <span> JSON Web Tokens </span>
           <meter
             min={0}
             max={5}
