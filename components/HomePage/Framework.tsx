@@ -36,22 +36,6 @@ const Framework = () => {
           md={2}
           className={css.techIcons}
         >
-          <DiNodejs />
-          <span> NodeJS </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={5}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
           <SiNextdotjs />
           <span> NextJS </span>
           <meter
@@ -76,7 +60,7 @@ const Framework = () => {
             high={4}
             low={2}
             optimum={0}
-            value={4}
+            value={5}
           />
         </Col>
         <Col
@@ -100,15 +84,15 @@ const Framework = () => {
           md={2}
           className={css.techIcons}
         >
-          <SiBootstrap />
-          <span> BootStrap </span>
+          <SiTailwindcss />
+          <span> Tailwind </span>
           <meter
             min={0}
             max={5}
             high={4}
             low={2}
             optimum={0}
-            value={4}
+            value={3}
           />
         </Col>
         <Col
@@ -132,8 +116,8 @@ const Framework = () => {
           md={2}
           className={css.techIcons}
         >
-          <SiJest />
-          <span> Jest </span>
+          <SiFlask />
+          <span> Flask </span>
           <meter
             min={0}
             max={5}
@@ -148,8 +132,8 @@ const Framework = () => {
           md={2}
           className={css.techIcons}
         >
-          <SiFlask />
-          <span> Flask </span>
+          <SiJest />
+          <span> Jest </span>
           <meter
             min={0}
             max={5}
@@ -189,6 +173,22 @@ const Framework = () => {
             low={2}
             optimum={0}
             value={3}
+          />
+        </Col>
+        <Col
+          xs={4}
+          md={2}
+          className={css.techIcons}
+        >
+          <SiBootstrap />
+          <span> BootStrap </span>
+          <meter
+            min={0}
+            max={5}
+            high={4}
+            low={2}
+            optimum={0}
+            value={2}
           />
         </Col>
         <Col
@@ -276,8 +276,8 @@ const Framework = () => {
           md={2}
           className={css.techIcons}
         >
-          <SiTailwindcss />
-          <span> Tailwind </span>
+          <SiWeb3Dotjs />
+          <span> Web3JS </span>
           <meter
             min={0}
             max={5}
@@ -287,60 +287,6 @@ const Framework = () => {
             value={2}
           />
         </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <SiSvelte />
-          <span> SvelteJS </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={1}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <SiWeb3Dotjs />
-          <span> Web3JS </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={1}
-          />
-        </Col>
-
-        {/*
-                <Col xs={4} md={2} className={ css.techIcons }>
-                    <DiMongodb />
-                    <span> MongoDB </span>
-                </Col>
-                <Col xs={4} md={2} className={ css.techIcons }>
-                    <DiMysql />
-                    <span> MySQL </span>
-                </Col>
-                <Col xs={4} md={2} className={css.techIcons}>
-                    <SiPostgresql />
-                    <span> PostgreSQL </span>
-                </Col>
-                <Col xs={4} md={2} className={ css.techIcons }>
-                    <DiGit />
-                    <span> Git </span>
-                </Col>
-                <Col xs={4} md={2} className={ css.techIcons }>
-                    <SiFirebase />
-                    <span> Firebase </span>
-                </Col> */}
       </div>
     </>
   );
