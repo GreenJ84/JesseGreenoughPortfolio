@@ -15,6 +15,7 @@ import {
 } from "react-icons/si";
 import { BsFillMarkdownFill, BsKeyboard } from "react-icons/bs";
 import { AiFillHtml5, AiOutlineConsoleSql } from "react-icons/ai";
+import TechnicalSkill from "./TechnicalSkill";
 
 const css = require("./TechnicalSkills.module.css");
 
@@ -26,214 +27,19 @@ const Languages = () => {
       </h1>
       <div className={css.body}>
         {/* Languages */}
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <AiFillHtml5 />
-          <span> HTML5 </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={5}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <DiCss3 />
-          <span> CSS3 </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={5}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <DiJavascript1 />
-          <span> JavaScript </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={5}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <SiTypescript />
-          <span> TypeScript </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={5}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <DiPython />
-          <span> Python </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={4}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <AiOutlineConsoleSql />
-          <span> SQL </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={4}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <SiGraphql />
-          <span> GraphQL </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={4}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <SiScratch />
-          <span> Scratch </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={4}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <SiSolidity />
-          <span> Solidity </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={3}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <SiJava />
-          <span> Java </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={3}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <BsFillMarkdownFill />
-          <span> Markdown </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={3}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <SiGoland />
-          <span> GO </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={1}
-          />
-        </Col>
-        <Col
-          xs={4}
-          md={2}
-          className={css.techIcons}
-        >
-          <FaSwift />
-          <span> Swift </span>
-          <meter
-            min={0}
-            max={5}
-            high={4}
-            low={2}
-            optimum={0}
-            value={1}
-          />
-        </Col>
+        <TechnicalSkill name="HTML5" rating={5} icon={<AiFillHtml5 />} />
+        <TechnicalSkill name="CSS3" rating={5} icon={<DiCss3 />} />
+        <TechnicalSkill name="JavaScript" rating={5} icon={<DiJavascript1 />} />
+        <TechnicalSkill name="TypeScript" rating={5} icon={<SiTypescript />} />
+        <TechnicalSkill name="Python" rating={4} icon={<DiPython />} />
+        <TechnicalSkill name="SQL" rating={4} icon={<AiOutlineConsoleSql />} />
+        <TechnicalSkill name="GraphQL" rating={4} icon={<SiGraphql />} />
+        <TechnicalSkill name="Scratch" rating={4} icon={<SiScratch />} />
+        <TechnicalSkill name="Solidity" rating={3} icon={<SiSolidity />} />
+        <TechnicalSkill name="Java" rating={3} icon={<SiJava />} />
+        <TechnicalSkill name="Markdown" rating={3} icon={<BsFillMarkdownFill />} />
+        <TechnicalSkill name="GO" rating={1} icon={<SiGoland />} />
+        <TechnicalSkill name="Swift" rating={1} icon={<FaSwift />} />
       </div>
     </>
   );
