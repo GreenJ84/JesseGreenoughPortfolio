@@ -14,43 +14,36 @@ interface Projects {
   projectData: IProject[];
 }
 
-const projectBody = {
-  padding: "9rem 2vw 10vw",
-};
-
-const container = {
-  backgroundColor: "var(--background2)",
-  padding: "4vw 4vw 8vw",
-  border: "2px solid black",
-};
-const title = {
-  marginBottom: "8vw",
-  textAlign: "center",
-  color: "var(--text-primary)",
-  fontSize: "2vw",
-};
-const flexbox = {
-  display: "flex",
-  flexWrap: "wrap",
-};
-
 const ProjectPage = (props: Projects) => {
-  const [projectData, setProjectData] = useState(props.projectData);
-  const [activeNav, setActiveNav] = useState("all");
+  const [projectData, setProjectData] = useState(props.projectData.slice(0, 10));
+  const [fresh, setFresh] = useState(true);
 
-  console.log(projectData);
+  const tech = projectData.map((item) => item.key_techs)
+  const cat = projectData.map((item) => item.category)
+  console.log(tech, cat)
 
-  const filterHandler = (category: Category | "all") => {
+  const langHandler = (category: Category | "all") => {
     if (category === "all") {
       setProjectData(props.projectData);
-      setActiveNav(category);
-      return;
-    } else {
+    }
+    else {
       const newArray = props.projectData.filter((project) =>
         project.category.includes(category)
       );
       setProjectData(newArray);
-      setActiveNav(category);
+      setFresh(false);
+    }
+  };
+  const techHandler = (category: string) => {
+    if (category === "all") {
+      setProjectData(props.projectData);
+    }
+    else {
+      const newArray = props.projectData.filter((project) =>
+        project.key_techs.includes(category)
+      );
+      setProjectData(newArray);
+      setFresh(false);
     }
   };
 
@@ -59,18 +52,23 @@ const ProjectPage = (props: Projects) => {
       fluid
       style={projectBody}
     >
-      <div style={{ padding: "0 3vw" }}>
-        <ProjectNavbar
-          filterHandler={filterHandler}
-          active={activeNav}
-        />
+      <div style={{ position: "relative", margin: "6vw 0 0",padding: "0 3vw" }}>
         <div style={container as React.CSSProperties}>
-          <p style={title as React.CSSProperties}>
+          <ProjectNavbar
+            langHandler={langHandler}
+            techHandler={techHandler}
+          />
+          {fresh ?
+            <p style={title as React.CSSProperties}>
+              My current <span className="detail">top 10</span> projects
+            </p>
+          :
+            <p style={title as React.CSSProperties}>
             {" "}
             I have created{" "}
             <span className="detail">over {projectData.length}</span> projects
             related to the filtered category{" "}
-          </p>
+          </p>}
           <div style={flexbox as React.CSSProperties}>
             {projectData.map((project) => (
               <ProjectCard
@@ -115,3 +113,23 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 export default ProjectPage;
+
+const projectBody = {
+  padding: "8rem 2vw 10vw",
+};
+
+const container = {
+  backgroundColor: "var(--background2)",
+  padding: "clamp(120px, 10vw, 260px) 4vw 8vw",
+  border: "2px solid black",
+};
+const title = {
+  marginBottom: "8vw",
+  textAlign: "center",
+  color: "var(--text-primary)",
+  fontSize: "clamp(16px, 2.4vw, 36px)",
+};
+const flexbox = {
+  display: "flex",
+  flexWrap: "wrap",
+};
