@@ -15,7 +15,6 @@ interface projectProps {
 
 const ProjectCard = (props: projectProps) => {
   const [showDetail, setShowDetail] = useState(false);
-  console.log(props.project);
 
   return (
     <>
@@ -27,7 +26,14 @@ const ProjectCard = (props: projectProps) => {
           src={props.project.image_path}
           alt={props.project.name}
           className={css.displayImage}
-          layout="responsive"
+          priority={
+            props.project.image_path ==
+              "https://github.com/GreenJ84/JesseGreenoughPortfolio/raw/main/public/projectImages/myPortfolio.png"
+            ?
+              true
+            : 
+              false
+          }
           height="150"
           width="300"
         />
@@ -40,7 +46,6 @@ const ProjectCard = (props: projectProps) => {
               src={props.project.image_path}
               alt={props.project.name}
               className={css.detailImage}
-              layout="responsive"
               height="150"
               width="300"
             />
