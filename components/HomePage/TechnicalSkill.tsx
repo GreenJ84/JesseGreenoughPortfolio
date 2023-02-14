@@ -8,7 +8,7 @@ const css = require("./TechnicalSkills.module.css");
 interface skillProps{
     name: string
     rating: number
-    icon: IconBaseProps
+    icon: IconBaseProps | JSX.Element
 }
 
 const TechnicalSkill = (props: skillProps ) => {
