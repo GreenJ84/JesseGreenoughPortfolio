@@ -15,10 +15,11 @@
   align-items: center;
   text-align: center;
   width: 19%;
-  max-width: 350px;
+  min-width: 70px;
+  max-width: 300px;
   font-size: 8vw;
   margin: 0 2vw 2vw;
-  padding: 0.4em 0.2em 0;
+  padding: 0.4em 0.2em 0.2em;
   border: 1.7px solid var(--detail-terinary);
   border-radius: 10px;
   box-shadow: 0px 2px 3px 3px var(--detail-primary);
@@ -78,11 +79,11 @@
 
 .body ~ h5 {
   text-decoration: underline;
-  font-size: 1.8vw;
+  font-size: max(1.8vw, 11px);
   font-weight: 800;
   color: var(--detail-terinary);
   text-align: center;
-  margin-bottom: 0.6em;
+  margin-bottom: 0.8em;
 }
 
 .icon {
@@ -92,6 +93,14 @@
 }
 
 @media only screen and (max-width: 900px) {
+  .techIcons {
+    box-shadow: 0px 1px 3px 2px var(--detail-primary);
+  }
+  .techIcons:hover {
+    transform: scale(1.15);
+    border: 1.8px solid var(--detail-terinary);
+    box-shadow: 0px 2px 2px 1px var(--detail-secondary);
+  }
   .projectHeading {
     font-size: 7vw;
   }
