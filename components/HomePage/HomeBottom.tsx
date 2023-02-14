@@ -1,6 +1,6 @@
 /** @format */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
 import Image from "next/image";
 
@@ -24,6 +24,22 @@ import Databases from "./Databases";
 const css = require("./HomeBottom.module.css");
 
 const HomeBottom = () => {
+  const [wide, setWide] = useState(true);
+
+  useEffect(() => {
+    const checkWindow = () => {
+      if (window.innerWidth > 1000) {
+        setWide(true)
+      }
+      else {
+        setWide(false)
+      }
+    }
+    window.addEventListener("resize", checkWindow);
+    return () => {
+      window.removeEventListener("resize", checkWindow);
+    }
+  })
   return (
     <Container
       fluid
@@ -96,7 +112,7 @@ const HomeBottom = () => {
         <Framework />
         <Databases />
         <DeveloperTools />
-        <GithubCard />
+        {wide ? <GithubCard /> : ""}
         <Row>
           <Col
             md={12}
