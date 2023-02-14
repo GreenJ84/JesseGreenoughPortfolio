@@ -40,10 +40,7 @@
   justify-content: center;
   align-items: center;
   z-index: -500;
-  width: 10vw;
-  color: var(--detail-primary);
-  font-weight: 900;
-  font-size: 8vw;
+  font-size: max(8vw, 35px);
   display: none;
 }
 
@@ -84,14 +81,6 @@
   border-radius: 20px;
 }
 
-.navItem a {
-  font-weight: 400;
-  font-size: 1.5vw;
-  transition: all 0.3s ease-out 0s;
-  position: relative;
-  z-index: 1;
-}
-
 .navItem a::after {
   content: "";
   position: relative;
@@ -123,7 +112,9 @@
   text-shadow: 0.7px 0.7px var(--nav-shadow);
   flex-direction: column;
   align-items: center;
-  font-size: 110%;
+  font-weight: 400;
+  font-size: max(1.5vw, 16px);
+  transition: all 0.3s ease-out 0s;
 }
 
 .navFork {
@@ -157,7 +148,7 @@
   .navbarNav {
     flex-direction: column;
     position: relative;
-    top: -3rem;
+    margin: 0 2rem;
   }
 
   .navItem {
@@ -247,6 +238,20 @@
   .navLink {
     flex-direction: row;
     padding: 0.5rem 1rem;
-    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (min-width: 1600px){
+  .navBarBrand > p {
+    top: -8vw;
+    left: 4.75vw;
+    font-size: 7vw;
+  }
+}
+@media only screen and (min-width: 1900px){
+  .navBarBrand > p {
+    top: -6.9vw;
+    left: 4.75vw;
+    font-size: 6vw;
   }
 }
