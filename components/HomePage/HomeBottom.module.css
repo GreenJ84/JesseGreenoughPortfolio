@@ -22,7 +22,7 @@
 }
 
 .homeAboutBody {
-  padding: 4vw 4vw;
+  padding: 4vw 3vw;
   font-size: 2vw;
   text-align: left;
 }
@@ -53,16 +53,14 @@
 
 .homeAboutSocialLinks {
   display: flex;
-  justify-content: center;
-  padding: 8vw 0 10rem;
+  justify-content: space-around;
+  padding: 8vw 3vw 10rem;
   position: relative;
   padding-inline-start: 0;
 }
 
 .socialIcons {
   display: inline-block;
-  padding-right: 5vw;
-  padding-left: 5vw;
 }
 
 .homeSocialIcons {
@@ -71,8 +69,10 @@
   align-items: center;
   justify-content: center;
   margin: 6vw 0 0;
+  min-width: 60px;
   width: 10vw;
   max-width: 180px;
+  min-height: 60px;
   height: 10vw;
   max-height: 180px;
   font-size: 4vw;
@@ -114,11 +114,15 @@
     padding-bottom: 20px;
   }
   .homeAboutBody {
-    font-size: 2.8vw;
+    font-size: 3.4vw;
+    padding: 4vw 0;
   }
   .homeAboutSocial p {
     font-size: 4.5vw;
     margin-top: -1rem;
+  }
+  .homeAboutSocialLinks {
+    padding: 8vw 3vw 10vw;
   }
   .myAvtar {
     top: 5rem;

@@ -1,18 +1,29 @@
 /** @format */
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 import { Container, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { AiOutlineDownload } from "react-icons/ai";
 
-import resume from "../../public/assets/JesseGreenough.React.Resume.png";
+import { GetServerSideProps } from "next";
+import { MongoClient } from "mongodb";
 
 const css = require("../../styles/Resume.module.css");
 
-const ReumePage = () => {
+interface resumeProps{
+  resumeData: [
+    {
+      link: string
+      download: string
+      categories: string[]
+    }
+  ]
+}
+const ReumePage = (props: resumeProps) => {
   const [width, setWidth] = useState(0);
+  const [resNum, setResNum] = useState(0);
 
   React.useEffect(() => {
     const checkWindow = (width: number) => {
@@ -32,6 +43,20 @@ const ReumePage = () => {
     };
   }, []);
 
+  const changeResNum = (dir: string) => {
+    if (dir == "left") {
+      if (resNum <= 0) {
+        setResNum(props.resumeData.length-1)
+      }
+      else {
+        setResNum(resNum-1)
+      }
+    }
+    else if (dir == "right") {
+      setResNum(resNum+1%(props.resumeData.length-1))
+    }
+  }
+
   return (
     <Container
       fluid
@@ -41,7 +66,7 @@ const ReumePage = () => {
         <Button
           variant="primary"
           href={
-            "https://github.com/GreenJ84/GreenJ84.github.io/raw/main/images/JesseGreenough.React.Resume.pdf"
+            props.resumeData[resNum].download
           }
           target="_blank"
           className={css.downloadButton}
@@ -53,7 +78,7 @@ const ReumePage = () => {
 
       <Row className={css.resume}>
         <Image
-          src={resume}
+          src={props.resumeData[resNum].link}
           alt="MyResume"
           width={width * 0.6}
           height={width * 0.6 * 1.3}
@@ -64,7 +89,7 @@ const ReumePage = () => {
         <Button
           variant="primary"
           href={
-            "https://github.com/GreenJ84/GreenJ84.github.io/raw/main/images/JesseGreenough.React.Resume.pdf"
+            props.resumeData[resNum].download
           }
           target="_blank"
           className={css.downloadButton}
@@ -78,3 +103,26 @@ const ReumePage = () => {
 };
 
 export default ReumePage;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const client = new MongoClient(process.env.DB_CONN_STRING!);
+  const db = client.db(process.env.DB_NAME);
+
+  const resumeData = db.collection(process.env.RES_COLL!);
+
+  const results = await resumeData
+    .find()
+    .sort({ _id: 1 })
+    .toArray();
+
+  return {
+    props: {
+      resumeData: results.map((result) => ({
+        id: result._id.toString(),
+        link: result.link,
+        download: result.download,
+        categories: result.categories,
+      })),
+    },
+  };
+};

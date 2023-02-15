@@ -15,7 +15,6 @@ interface projectProps {
 
 const ProjectCard = (props: projectProps) => {
   const [showDetail, setShowDetail] = useState(false);
-  console.log(props.project);
 
   return (
     <>
@@ -27,7 +26,14 @@ const ProjectCard = (props: projectProps) => {
           src={props.project.image_path}
           alt={props.project.name}
           className={css.displayImage}
-          layout="responsive"
+          priority={
+            props.project.image_path ==
+              "https://github.com/GreenJ84/JesseGreenoughPortfolio/raw/main/public/projectImages/myPortfolio.png"
+            ?
+              true
+            : 
+              false
+          }
           height="150"
           width="300"
         />
@@ -40,11 +46,9 @@ const ProjectCard = (props: projectProps) => {
               src={props.project.image_path}
               alt={props.project.name}
               className={css.detailImage}
-              layout="responsive"
               height="150"
               width="300"
             />
-            <br />
             <div>
               <a href={props.project.github_url}>
                 <AiFillGithub /> <span>Github</span>
@@ -59,17 +63,19 @@ const ProjectCard = (props: projectProps) => {
 
           <div className={css.detailRight}>
             <h2>{props.project.name}</h2>
-            <h3>{props.project.description}</h3>
+            <div>
+              <h3>{props.project.description}</h3>
 
-            <div className={css.techs}>
-              {props.project.key_techs.map((tech) => (
-                <span
-                  key={tech}
-                  className={css.detailTech}
-                >
-                  {tech}
-                </span>
-              ))}
+              <div className={css.techs}>
+                {props.project.key_techs.map((tech) => (
+                  <span
+                    key={tech}
+                    className={css.detailTech}
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
 

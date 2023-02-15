@@ -5,6 +5,7 @@ const nextConfig = {
   images: {
     domains: [
       "github.com",
+      "raw.githubusercontent.com",
       "imgs.search.brave.com",
       "media.glassdoor.com",
       "trufflesuite.com",
