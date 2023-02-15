@@ -49,7 +49,6 @@ const ProjectCard = (props: projectProps) => {
               height="150"
               width="300"
             />
-            <br />
             <div>
               <a href={props.project.github_url}>
                 <AiFillGithub /> <span>Github</span>
@@ -64,17 +63,19 @@ const ProjectCard = (props: projectProps) => {
 
           <div className={css.detailRight}>
             <h2>{props.project.name}</h2>
-            <h3>{props.project.description}</h3>
+            <div>
+              <h3>{props.project.description}</h3>
 
-            <div className={css.techs}>
-              {props.project.key_techs.map((tech) => (
-                <span
-                  key={tech}
-                  className={css.detailTech}
-                >
-                  {tech}
-                </span>
-              ))}
+              <div className={css.techs}>
+                {props.project.key_techs.map((tech) => (
+                  <span
+                    key={tech}
+                    className={css.detailTech}
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
 
