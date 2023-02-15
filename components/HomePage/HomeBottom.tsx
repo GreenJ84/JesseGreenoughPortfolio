@@ -35,6 +35,7 @@ const HomeBottom = () => {
         setWide(false)
       }
     }
+    checkWindow();
     window.addEventListener("resize", checkWindow);
     return () => {
       window.removeEventListener("resize", checkWindow);
