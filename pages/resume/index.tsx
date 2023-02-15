@@ -112,7 +112,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   const results = await resumeData
     .find()
-    .sort({ _id: 1 })
+    .sort({ _id: -1 })
     .toArray();
 
   return {
