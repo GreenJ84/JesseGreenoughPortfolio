@@ -1,8 +1,6 @@
 /** @format */
 
-import React, { useEffect } from "react";
-
-import NavItem from "./NavItem";
+import React from "react";
 
 const css = require("./ProjectNavbar.module.css");
 export interface ProjectNavProps {
