@@ -1,7 +1,5 @@
 /** @format */
 
-export type Category = "js" | "react" | "python" | "java" | "static";
-
 export interface IProject {
   id: string;
   priority?: number;
@@ -11,6 +9,6 @@ export interface IProject {
   image_path: string;
   deployed_url: string | null;
   github_url: string;
-  category: Category[];
+  category: string[];
   key_techs: string[];
 }
