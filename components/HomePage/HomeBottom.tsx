@@ -55,43 +55,42 @@ const HomeBottom = () => {
               LET ME <span className="detail"> INTRODUCE </span> MYSELF
             </h1>
             <p className={css.homeAboutBody}>
-              I fell in love with programming over 3 years ago and have
+              I fell in love with programming over 4 years ago and have
               constantly pushed learning more and more at every opportunity I
-              had! This year I got the opportunity to attend{" "}
+              had! In 2022, I got the opportunity to attend the{" "}
               <i>
                 <b className="detail"> Coding Dojo </b>
               </i>{" "}
               bootcamp and change my hobby into a full-time career pursuit.
               <br />
-              <br />I am fluent in classics like
+              <br />I am fluent in like
               <i>
-                <b className="detail"> Java, Javascript and Python </b> with
-                Typings.
+                <span className="detail"> TypeScript and JavaScript </span>with significant knowledge of <span className="detail">Python</span> (with
+                Typings) and <span className="detail">Java</span>
               </i>
               <br />
               <br />
-              My interest in coding is the ability it provides to to build new
+              I am interested in coding because of the ability to utilize it to build new
               &nbsp;
               <i>
-                <b className="detail">
+                <span className="detail">
                   Web technologies and Products that help society{" "}
-                </b>
-                , especilly around topics within areas relating to{" "}
-                <b className="detail">Web3/Blockchain development.</b>
+                </span>
               </i>
               <br />
               <br />
-              Whenever possible, I apply my passion for developing products with
-              <b className="detail"> Node.js</b> and
+              Whenever possible, I apply my passion for developing with
+              <span className="detail"> TypeScript</span>,
+              <span className="detail"> Node.js</span>,
               <i>
-                <b className="detail">
+                <span className="detail">
                   {" "}
-                  Modern Javascript Library and Frameworks
-                </b>
+                  Modern Javascript Libraries and Frameworks
+                </span>
               </i>
               &nbsp; like
               <i>
-                <b className="detail"> React.js and Next.js</b>
+                <span className="detail"> React.js and Next.js</span>
               </i>
             </p>
           </Col>
