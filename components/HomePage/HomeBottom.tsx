@@ -13,7 +13,6 @@ import {
 } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 
-import TechnicalSkills from "./Languages";
 import DeveloperTools from "./DeveloperTools";
 import GithubCard from "./GithubCard";
 

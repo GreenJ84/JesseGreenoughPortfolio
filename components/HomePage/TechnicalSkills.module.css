@@ -5,7 +5,7 @@
   color: var(--text-primary);
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0 0 4em;
+  margin: 0 0 clamp(40px, 5vw, 80px);
   padding: 0 10vw;
 }
 
@@ -70,11 +70,11 @@
 
 .projectHeading {
   color: var(--text-primary);
-  font-size: clamp(18px, 4vw, 60px);
+  font-size: clamp(22px, 4vw, 60px);
   font-weight: 800;
   padding-top: 10px;
   text-align: center;
-  margin: 2em 0 1em;
+  margin: 0 0 1em;
 }
 
 .body ~ h5 {
@@ -83,7 +83,7 @@
   font-weight: 800;
   color: var(--detail-terinary);
   text-align: center;
-  margin-bottom: 0.8em;
+  margin: 0 0 0.8em;
 }
 
 .icon {
