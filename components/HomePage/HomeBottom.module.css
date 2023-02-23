@@ -16,14 +16,15 @@
 }
 
 .homeAboutTitle {
-  font-size: 3.4vw;
+  font-size: clamp( 18px, 4vw, 64px);
   position: relative;
-  left: 10vw;
+  left: 6vw;
+  width: 120%;
 }
 
 .homeAboutBody {
   padding: 4vw 3vw;
-  font-size: 2vw;
+  font-size: clamp(16px,2.5vw, 38px);
   text-align: left;
 }
 
@@ -48,7 +49,7 @@
 }
 
 .homeAboutSocial p {
-  font-size: 3vw;
+  font-size: clamp(18px, 3vw, 60px);
 }
 
 .homeAboutSocialLinks {
@@ -114,11 +115,9 @@
     padding-bottom: 20px;
   }
   .homeAboutBody {
-    font-size: 3.4vw;
     padding: 4vw 0;
   }
   .homeAboutSocial p {
-    font-size: 4.5vw;
     margin-top: -1rem;
   }
   .homeAboutSocialLinks {

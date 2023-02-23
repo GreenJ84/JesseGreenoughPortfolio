@@ -127,7 +127,6 @@ a {
 .detail,
 .blockquote-footer {
   color: var(--text-secondary);
-  font-weight: bold;
 }
 
 .github-btn {
