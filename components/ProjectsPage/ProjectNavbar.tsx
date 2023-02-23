@@ -6,9 +6,11 @@ const css = require("./ProjectNavbar.module.css");
 export interface ProjectNavProps {
   langHandler: Function;
   techHandler: Function;
+  options: [Set<string>, Set<string>]
 }
 
 const ProjectNavbar = (props: ProjectNavProps) => {
+  const [categories, techs] = props.options;
   const changeHandler = (e: React.ChangeEvent<HTMLSelectElement>, type: string) => {
     e.preventDefault()
     if (type == "lang") {
@@ -29,37 +31,23 @@ const ProjectNavbar = (props: ProjectNavProps) => {
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "lang")}
         >
           <option value="all">All</option>
-          <option value="js">JavaScript</option>
-          <option value="ts">TypeScript</option>
-          <option value="python">Python</option>
-          <option value="java">Java</option>
-          <option value="sql">SQL</option>
-          <option value="nosql">NoSQL</option>
-          <option value="static">Static App</option>
+          {[...categories].map((cat) =>
+            <option key={cat} value={cat}>{cat.toUpperCase()}</option>
+          )}
         </select>
       </div>
 
       <div>
-        <h4>Filter by Tech</h4>
+        <h4>Filter by Key Tech</h4>
         <select
           name="TechSelect"
           id="techSelect"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "tech")}
         >
           <option value="all">All</option>
-          <option value="NodeJS">NodeJS</option>
-          <option value="ReactJS">ReactJS</option>
-          <option value="NextJS">NextJS</option>
-          <option value="CSS">Vanilla CSS</option>
-          <option value="CSSFrame">CSS Frameworks</option>
-          <option value="Redux">Redux</option>
-          <option value="Apollo Services">Apollo GraphQL</option>
-          <option value="ExpressJS">ExpressJS</option>
-          <option value="Flask">Flask</option>
-          <option value="Spring Boot">Spring Boot</option>
-          <option value="Jest">Jest</option>
-          <option value="AWS EC2">AWS EC2</option>
-          <option value="Vercel">Vercel</option>
+          {[...techs].map((tech) =>
+            <option key={tech} value={tech}>{tech}</option>
+          )}
         </select>
       </div>
     </div>

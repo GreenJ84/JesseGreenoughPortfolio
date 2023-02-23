@@ -8,21 +8,23 @@ import { Container } from "react-bootstrap";
 import ProjectCard from "../../components/ProjectsPage/ProjectCard";
 import ProjectNavbar from "../../components/ProjectsPage/ProjectNavbar";
 
-import { Category, IProject } from "../../Utils/data/ProjectData";
+import { IProject } from "../../Utils/data/ProjectData";
 
 interface Projects {
   projectData: IProject[];
 }
 
 const ProjectPage = (props: Projects) => {
+  let cat = new Set<string>()
+  props.projectData.forEach(project => project.category.map((item) => cat.add(item)))
+  let tech = new Set<string>()
+  props.projectData.forEach(project => project.key_techs.map((item) => tech.add(item)))
+
   const [projectData, setProjectData] = useState(props.projectData.slice(0, 10));
   const [fresh, setFresh] = useState(true);
 
-  const tech = projectData.map((item) => item.key_techs)
-  const cat = projectData.map((item) => item.category)
-  console.log(tech, cat)
 
-  const langHandler = (category: Category | "all") => {
+  const langHandler = (category: string) => {
     if (category === "all") {
       setProjectData(props.projectData);
     }
@@ -57,6 +59,7 @@ const ProjectPage = (props: Projects) => {
           <ProjectNavbar
             langHandler={langHandler}
             techHandler={techHandler}
+            options={[cat, tech]}
           />
           {fresh ?
             <p style={title as React.CSSProperties}>
