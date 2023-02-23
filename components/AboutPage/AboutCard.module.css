@@ -1,18 +1,8 @@
 /** @format */
 
 .blockquote {
-  font-size: 2vw;
+  font-size: clamp(16px, 2vw, 38px);
   margin: 0;
-}
-
-.quote {
-  font-size: 4.2vw;
-  margin: 8rem 0 2rem 15%;
-}
-
-.quote + footer {
-  margin-left: 60%;
-  font-size: 3vw;
 }
 
 .quoteCardView {
@@ -22,21 +12,6 @@
 .aboutActivity {
   list-style: none;
   text-align: left;
-  padding-left: 1px;
+  margin-bottom: 10px;
   color: var(--text-ternary);
-}
-
-@media only screen and (max-width: 900px) {
-  .blockquote {
-    font-size: 4vw;
-  }
-
-  .quote {
-    font-size: 5vw;
-    margin: 5rem 0 1rem 8%;
-  }
-
-  .quote + footer {
-    font-size: 4vw;
-  }
 }
