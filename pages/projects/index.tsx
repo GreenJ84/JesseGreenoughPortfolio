@@ -15,20 +15,24 @@ interface Projects {
 }
 
 const ProjectPage = (props: Projects) => {
-  let cat = new Set<string>()
-  props.projectData.forEach(project => project.category.map((item) => cat.add(item)))
-  let tech = new Set<string>()
-  props.projectData.forEach(project => project.key_techs.map((item) => tech.add(item)))
+  let cat = new Set<string>();
+  props.projectData.forEach((project) =>
+    project.category.map((item) => cat.add(item))
+  );
+  let tech = new Set<string>();
+  props.projectData.forEach((project) =>
+    project.key_techs.map((item) => tech.add(item))
+  );
 
-  const [projectData, setProjectData] = useState(props.projectData.slice(0, 10));
+  const [projectData, setProjectData] = useState(
+    props.projectData.slice(0, 10)
+  );
   const [fresh, setFresh] = useState(true);
-
 
   const langHandler = (category: string) => {
     if (category === "all") {
       setProjectData(props.projectData);
-    }
-    else {
+    } else {
       const newArray = props.projectData.filter((project) =>
         project.category.includes(category)
       );
@@ -39,8 +43,7 @@ const ProjectPage = (props: Projects) => {
   const techHandler = (category: string) => {
     if (category === "all") {
       setProjectData(props.projectData);
-    }
-    else {
+    } else {
       const newArray = props.projectData.filter((project) =>
         project.key_techs.includes(category)
       );
@@ -54,24 +57,28 @@ const ProjectPage = (props: Projects) => {
       fluid
       style={projectBody}
     >
-      <div style={{ position: "relative", margin: "6vw 0 0",padding: "0 3vw" }}>
+      <div
+        style={{ position: "relative", margin: "6vw 0 0", padding: "0 3vw 0" }}
+      >
         <div style={container as React.CSSProperties}>
           <ProjectNavbar
             langHandler={langHandler}
             techHandler={techHandler}
             options={[cat, tech]}
           />
-          {fresh ?
+          <hr style={{border: ".5px solid var(--text-secondary)"}} />
+          {fresh ? (
             <p style={title as React.CSSProperties}>
               My current <span className="detail">top 10</span> projects
             </p>
-          :
+          ) : (
             <p style={title as React.CSSProperties}>
-            {" "}
-            I have created{" "}
-            <span className="detail">over {projectData.length}</span> projects
-            related to the filtered category{" "}
-          </p>}
+              {" "}
+              I have created{" "}
+              <span className="detail">over {projectData.length}</span> projects
+              related to the filtered category{" "}
+            </p>
+          )}
           <div style={flexbox as React.CSSProperties}>
             {projectData.map((project) => (
               <ProjectCard
@@ -123,14 +130,14 @@ const projectBody = {
 
 const container = {
   backgroundColor: "var(--background2)",
-  padding: "clamp(120px, 10vw, 260px) 4vw 8vw",
+  padding: "clamp(160px, 14vw, 200px) 4vw 8vw",
   border: "2px solid black",
 };
 const title = {
   marginBottom: "8vw",
   textAlign: "center",
   color: "var(--text-primary)",
-  fontSize: "clamp(16px, 2.4vw, 36px)",
+  fontSize: "clamp(22px, 3vw, 52px)",
 };
 const flexbox = {
   display: "flex",
