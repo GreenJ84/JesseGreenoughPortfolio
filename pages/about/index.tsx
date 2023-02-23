@@ -10,7 +10,7 @@ const AboutPage = () => {
   return (
     <Container
       fluid
-      style={{ padding: "10vw 4vw 0" }}
+      style={{ padding: "0 4vw 0" }}
     >
       <AboutMain />
       <AboutInfo />
