@@ -38,7 +38,7 @@ const ProjectNavbar = (props: ProjectNavProps) => {
       </div>
 
       <div>
-        <h4>Filter by Key Tech</h4>
+        <h4>Filter by Key&nbsp;Tech</h4>
         <select
           name="TechSelect"
           id="techSelect"
