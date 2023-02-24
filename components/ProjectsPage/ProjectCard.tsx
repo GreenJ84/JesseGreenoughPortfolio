@@ -67,6 +67,7 @@ const ProjectCard = (props: projectProps) => {
               <h3>{props.project.description}</h3>
 
               <div className={css.techs}>
+                <h3> Key Techs: </h3>
                 {props.project.key_techs.map((tech) => (
                   <span
                     key={tech}
