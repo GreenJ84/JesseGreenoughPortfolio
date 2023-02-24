@@ -137,9 +137,10 @@ const title = {
   marginBottom: "8vw",
   textAlign: "center",
   color: "var(--text-primary)",
-  fontSize: "clamp(22px, 3vw, 52px)",
+  fontSize: "clamp(24px, 3.6vw, 62px)",
 };
 const flexbox = {
   display: "flex",
   flexWrap: "wrap",
+  justifyContent: "space-around"
 };
