@@ -20,9 +20,11 @@ const DegreeCard = (props: degreeCard) => {
         <p>{props.education.degree}</p>
       </div>
       <div className={css.cardText}>
-        {props.education.description.map((item, idx) => (
-          <li key={idx}> ☞ {item} </li>
-        ))}
+        <ul>
+          {props.education.description.map((item, idx) => (
+            <li key={idx}> ☞ {item} </li>
+          ))}
+        </ul>
         <a
           target="blank"
           href={props.education.website}
