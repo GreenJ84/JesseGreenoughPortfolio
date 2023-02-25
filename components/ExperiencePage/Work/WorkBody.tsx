@@ -12,10 +12,9 @@ const WorkBody = () => {
       <div className={css.workBody}>
         <WorkImg />
         <p>
-          I have over 5 year of customer success and operations management
-          experience. Areas of team relations, inventories, operations and more
-          in a variety of environents from a fast-paced college dining
-          destination to a top department at my local groccery store.
+          I have over 5 years of customer success, operations management, and leadership
+          experience with proven results
+          in a variety of fast-paced environents.
         </p>
       </div>
     </>

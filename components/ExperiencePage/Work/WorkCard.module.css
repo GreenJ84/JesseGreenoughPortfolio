@@ -3,8 +3,8 @@
 .workCard {
   position: relative;
   display: flex;
-  margin: 1rem 0 2.5rem;
-  padding: 3rem 1.5rem;
+  margin: 2rem 0;
+  padding: 2rem 1.5rem;
   border-radius: 20px;
   color: var(--text-primary);
   background-color: var(--card-background);
@@ -20,15 +20,17 @@
 }
 
 .workImage {
+  position: relative;
+  right: 1rem;
   display: flex;
   width: 12vw;
   height: 12vw;
   margin: 1rem auto 0;
-  border-radius: 50%;
+  border-radius: 30%;
 }
 
 .workCardBody {
-  width: 100%;
+  width: 80%;
 }
 
 .workCardBody div {
@@ -36,49 +38,42 @@
   justify-content: space-between;
 }
 
+.workCardBody div p {
+  margin: 9px;
+  font-size: clamp(8px, 1.5vw, 24px);
+}
+
 .workCardBody div:first-child p:first-child {
   color: var(--text-secondary);
-  font-size: 3vw;
-  margin: 0;
-}
-
-.workCardBody div p {
-  margin: 0;
-  font-size: 1vw;
-}
-
-.workCardBody div p:first-child {
-  font-size: 1.8vw;
+  font-size: clamp(13px, 3vw, 30px);
   font-weight: bold;
 }
-.workCardBody div p:nth-child(2) {
-  position: absolute;
-  right: 10%;
-  font-size: 1.2vw;
+
+.workCardBody div:nth-child(2) p:first-child {
+  font-size: clamp(11px, 2vw, 30px);
+  font-weight: bold;
 }
 
 .details {
   position: relative;
-  left: 4%;
-  font-size: 1.6vw;
+  margin-top: 20px;
+  font-size: clamp(10px, 1.7vw, 24px);
+  text-indent: 6px;
 }
 
-@media only screen and (max-width: 625px) {
-  .workImage {
+@media only screen and (max-width: 500px){
+  .workCardBody div {
+    flex-direction: column;
+  }
+  .workCardBody div p {
+    margin: 0;
+  }
+  .workCardBody div p:nth-child(2) {
     position: relative;
-    right: 1rem;
+    text-align: right;
   }
-  .workCardBody div:first-child p:first-child {
-    font-size: 4vw;
-  }
-  .workCardBody div p:last-child {
-    font-size: 1.8vw;
-  }
-
-  .workCardBody div p:first-child {
-    font-size: 2.4vw;
-  }
-  .details {
-    font-size: 2vw;
+  .workCardBody div:nth-child(2) p:first-child {
+    position: relative;
+    left: 2vw;
   }
 }
