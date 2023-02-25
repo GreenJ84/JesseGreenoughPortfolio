@@ -12,23 +12,24 @@
   margin-top: 8vw;
   transform: translateX(12vw);
   text-align: center;
-  font-size: clamp(22px, 4vw, 52px);
+  font-size: clamp(26px, 4.5vw, 80px);
   color: var(--text-secondary);
   text-shadow: 1px 1px 15px var(--detail-secondary);
 }
 
 .eduBody p {
   position: relative;
-  margin-top: 6vw;
-  width: min(60%, 900px);
+  margin-top: 4vw;
+  width: min(80%, 900px);
   text-align: center;
-  font-size: clamp(16px, 3vw, 44px);
+  font-size: clamp(16px, 3vw, 52px);
   color: var(--text-primary);
 }
 
 .eduImage {
   position: relative;
   transform: translateX(-10vw);
-  margin-top: 4vw;
+  margin-top: 2vw;
+  min-width: 250px;
   max-width: 900px;
 }
