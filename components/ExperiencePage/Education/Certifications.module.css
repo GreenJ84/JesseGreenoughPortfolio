@@ -3,14 +3,14 @@
 .certTitle {
   margin: 14vw 0 8vw;
   text-align: center;
-  font-size: clamp(22px, 4vw, 52px);
+  font-size: clamp(26px, 4.5vw, 60px);
   color: var(--text-secondary);
   text-shadow: 0 0 2rem var(--detail-secondary);
 }
 
 .certTitle + p {
   text-align: center;
-  font-size: clamp(12px, 1.8vw, 36px);
+  font-size: clamp(18px, 3vw, 42px);
   color: var(--text-primary);
 }
 
