@@ -6,7 +6,7 @@
   justify-content: center;
   text-align: center;
   position: relative;
-  width: clamp(120px, 34%, 320px);
+  width: clamp(120px, 34%, 400px);
   height: auto;
   margin: 5% 3%;
   padding: 1%;
