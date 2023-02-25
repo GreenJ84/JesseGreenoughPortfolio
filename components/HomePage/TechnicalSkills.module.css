@@ -5,7 +5,7 @@
   color: var(--text-primary);
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0 0 4em;
+  margin: 0 0 clamp(40px, 5vw, 80px);
   padding: 0 10vw;
 }
 
@@ -17,7 +17,7 @@
   width: 19%;
   min-width: 70px;
   max-width: 300px;
-  font-size: 8vw;
+  font-size: 7vw;
   margin: 0 2vw 2vw;
   padding: 0.4em 0.2em 0.2em;
   border: 1.7px solid var(--detail-terinary);
@@ -29,7 +29,6 @@
 
 .techIcons:hover {
   transform: scale(1.35);
-  overflow: hidden;
   border: 2.2px solid var(--detail-terinary);
   box-shadow: 0px 4px 3px 2px var(--detail-secondary);
   background-color: var(--background);
@@ -39,14 +38,14 @@
 .techIcons span {
   text-align: center;
   margin-top: 0.6rem;
-  font-size: max(20%, 9px);
+  font-size: clamp(10px, 2vw, 36px);
 }
 
 .techIcons meter {
   margin-top: 0.4em;
-  font-size: 0.4em;
+  font-size: clamp(18px, 0.4em, 46px);
   width: 3em;
-  height: 1.28em;
+  height: clamp(24px, 1.24em, 56px);
 }
 .techIcons meter::-webkit-meter-bar {
   -webkit-appearance: none;
@@ -71,20 +70,20 @@
 
 .projectHeading {
   color: var(--text-primary);
-  font-size: 4vw;
+  font-size: clamp(22px, 4vw, 60px);
   font-weight: 800;
   padding-top: 10px;
   text-align: center;
-  margin: 2em 0 1em;
+  margin: 0 0 1em;
 }
 
 .body ~ h5 {
   text-decoration: underline;
-  font-size: max(1.8vw, 11px);
+  font-size: clamp(12px, 1.8vw, 42px);
   font-weight: 800;
   color: var(--detail-terinary);
   text-align: center;
-  margin-bottom: 0.8em;
+  margin: 0 0 0.8em;
 }
 
 .icon {
@@ -102,19 +101,10 @@
     border: 1.8px solid var(--detail-terinary);
     box-shadow: 0px 2px 2px 1px var(--detail-secondary);
   }
-  .projectHeading {
-    font-size: 7vw;
-  }
-  .techIcons meter {
-    font-size: 0.6em;
-    width: 3em;
-    height: 1.4em;
-  }
 }
 
 @media only screen and (min-width: 1500px) {
   .techIcons {
-    font-size: 7vw;
     margin: 2vw;
   }
 }

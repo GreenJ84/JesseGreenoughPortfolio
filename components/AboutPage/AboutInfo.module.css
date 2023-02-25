@@ -2,30 +2,20 @@
 
 .title {
   color: var(--text-primary);
-  font-size: 6vw;
+  font-size: clamp( 24px, 5vw, 70px);
   text-align: center;
 }
 
 .aboutMe {
+  position: relative;
+  margin: 2rem auto;
+  width: min(1200px, 80vw);
+  font-size: clamp(15px, 2vw, 32px);
   text-indent: 3rem;
+  line-height: max(22px, 4vw);
   color: var(--text-primary);
-  margin: 2rem 8vw;
-  font-size: 1.7vw;
-  line-height: 5vw;
 }
 
 .aboutMe:last-child {
   margin-bottom: 15rem;
-}
-
-@media only screen and (max-width: 900px) {
-  .title {
-    font-size: 7vw;
-  }
-
-  .aboutMe {
-    margin: 2rem 4vw;
-    font-size: 4vw;
-    line-height: 7vw;
-  }
 }

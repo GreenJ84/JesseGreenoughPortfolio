@@ -6,8 +6,15 @@
 
 .resume {
   display: flex;
-  margin: 0 auto;
+  margin: 20px auto;
   justify-content: center;
+}
+
+.download{
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  width: 70vw;
 }
 
 .downloadButton {
@@ -20,7 +27,7 @@
   text-align: center;
   margin: 5vw auto;
   background-color: var(--detail-primary);
-  color: var(--detail-terinary);
+  color: var(--text-secondary);
   font-weight: 900;
   font-size: 1.8vw;
   border: 1px solid var(--detail-terinary);

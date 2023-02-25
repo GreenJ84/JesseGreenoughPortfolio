@@ -1,7 +1,10 @@
 /** @format */
 
 .body {
-  padding: 8rem 2vw 4rem;
+  position: relative;
+  margin: 0 auto;
+  width: min(1200px, 80vw);
+  padding: 8rem 0 4rem;
   color: var(--text-primary);
 }
 .image {

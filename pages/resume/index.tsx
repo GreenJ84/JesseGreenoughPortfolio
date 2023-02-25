@@ -9,6 +9,7 @@ import { AiOutlineDownload } from "react-icons/ai";
 
 import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
+import ButtonGroup from "../../components/ResumePage/ButtonGroup";
 
 const css = require("../../styles/Resume.module.css");
 
@@ -17,6 +18,7 @@ interface resumeProps{
     {
       link: string
       download: string
+      view: string
       categories: string[]
     }
   ]
@@ -62,19 +64,9 @@ const ReumePage = (props: resumeProps) => {
       fluid
       className={css.resumeSection}
     >
-      <Row className={css.download}>
-        <Button
-          variant="primary"
-          href={
-            props.resumeData[resNum].download
-          }
-          target="_blank"
-          className={css.downloadButton}
-        >
-          <AiOutlineDownload />
-          &nbsp;Download CV
-        </Button>
-      </Row>
+      <ButtonGroup
+        download={props.resumeData[resNum].download} view={props.resumeData[resNum].view}
+      />
 
       <Row className={css.resume}>
         <Image
@@ -85,19 +77,10 @@ const ReumePage = (props: resumeProps) => {
         />
       </Row>
 
-      <Row className={css.download}>
-        <Button
-          variant="primary"
-          href={
-            props.resumeData[resNum].download
-          }
-          target="_blank"
-          className={css.downloadButton}
-        >
-          <AiOutlineDownload />
-          &nbsp;Download CV
-        </Button>
-      </Row>
+      <ButtonGroup
+        download={props.resumeData[resNum].download} view={props.resumeData[resNum].view}
+      />
+
     </Container>
   );
 };
@@ -121,6 +104,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
         id: result._id.toString(),
         link: result.link,
         download: result.download,
+        view: result.view,
         categories: result.categories,
       })),
     },

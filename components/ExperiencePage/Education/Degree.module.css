@@ -1,9 +1,9 @@
 /** @format */
 
 .title {
-  margin: 14vw 0;
-  font-size: 4.4vw;
+  margin: 11vw 0 9vw;
   text-align: center;
+  font-size: clamp(26px, 4.5vw, 60px);
   color: var(--text-secondary);
   text-shadow: 0 0 18px var(--detail-secondary);
 }
@@ -12,12 +12,15 @@
   position: relative;
   justify-content: space-between;
   align-items: center;
-  padding: 0 6.5vw 0 9.5vw;
-  margin-bottom: 12vw;
+  padding: 0 4.5vw;
+  margin-bottom: 10vw;
 }
+
 .image {
+  border: 10px solid red;
   width: 16vw;
   height: 16vw;
+  margin-right: 10px;
   border-radius: 50%;
   border: 1.5px solid var(--detail-secondary);
   box-shadow: 0 0 10px var(--detail-secondary);

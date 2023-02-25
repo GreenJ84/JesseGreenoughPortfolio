@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { RiExternalLinkFill } from "react-icons/ri";
@@ -14,6 +14,7 @@ interface certificateCardProps {
 
 const CertificationCard = (props: certificateCardProps) => {
   const [showDetail, setShowDetail] = useState(false);
+  const [mobile, setMobile] = useState(false);
 
   const enterCard = () => {
     setShowDetail(true);
@@ -22,35 +23,73 @@ const CertificationCard = (props: certificateCardProps) => {
     setShowDetail(false);
   };
 
+  useEffect(() => {
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)){
+      setMobile(true);
+    }
+  }, [])
+  
+
   return (
     <div
-      onMouseEnter={() => enterCard()}
       className={css.certCard}
     >
       {showDetail ? (
-        <div
-          onMouseLeave={() => exitCard()}
-          className={css.certDetailCard}
-        >
-          <div className={css.certDetails}>
-            <p>{props.certificate.description}</p>
-            <a href={props.certificate.url}>
-              View <RiExternalLinkFill />
-            </a>
+        !mobile ?
+          <div
+            onMouseLeave={exitCard}
+            className={css.certDetailCard}
+          >
+            <div className={css.certDetails}>
+              <p>{props.certificate.description}</p>
+              <a href={props.certificate.url}>
+                View <RiExternalLinkFill />
+              </a>
+            </div>
           </div>
-        </div>
+        : 
+          <div
+            onTouchEnd={exitCard}
+            className={css.certDetailCard}
+          >
+            <div className={css.certDetails}>
+              <p>{props.certificate.description}</p>
+              <a href={props.certificate.url}>
+                View <RiExternalLinkFill />
+              </a>
+            </div>
+          </div>
       ) : (
-        <div className={css.certDisplay}>
-          <Image
-            src={props.certificate.image}
-            alt={props.certificate.title}
-            className={css.certImage}
-            width={100}
-            height={100}
-          />
-          <h3>{props.certificate.title}</h3>
-          <p>{props.certificate.issuer}</p>
-        </div>
+        !mobile ?
+          <div
+            className={css.certDisplay}
+            onMouseEnter={enterCard}
+          >
+            <Image
+              src={props.certificate.image}
+              alt={props.certificate.title}
+              className={css.certImage}
+              width={100}
+              height={100}
+            />
+            <h3>{props.certificate.title}</h3>
+            <p>{props.certificate.issuer}</p>
+          </div>
+        :
+          <div
+            className={css.certDisplay}
+            onTouchStart={enterCard}
+          >
+            <Image
+              src={props.certificate.image}
+              alt={props.certificate.title}
+              className={css.certImage}
+              width={100}
+              height={100}
+            />
+            <h3>{props.certificate.title}</h3>
+            <p>{props.certificate.issuer}</p>
+          </div>
       )}
     </div>
   );

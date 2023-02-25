@@ -4,13 +4,13 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  padding: 0 6vw 5rem;
+  padding: 0 6vw 1rem;
 }
 
 .workBodyTitle {
-  text-align: center;
-  font-size: 6vw;
   margin: 6rem 0 0;
+  text-align: center;
+  font-size: clamp(26px, 5vw, 66px);
   color: var(--text-secondary);
 }
 
@@ -23,7 +23,7 @@
   width: 120%;
   position: relative;
   text-align: center;
-  font-size: 4.5vw;
+  font-size: clamp(24px, 4vw, 50px);
   color: var(--text-primary);
   margin: 10rem 0;
 }
@@ -33,15 +33,6 @@
     display: none;
   }
   .workBody p {
-    margin: 6rem 0;
-  }
-}
-@media only screen and (min-width: 1400px) {
-  .workBodyTitle {
-    font-size: 80px;
-  }
-
-  .workBody p {
-    font-size: 60px;
+    margin: 4rem 0;
   }
 }

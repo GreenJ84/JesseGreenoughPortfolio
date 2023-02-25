@@ -13,13 +13,13 @@ const AboutCard = () => {
       <Card.Body>
         <blockquote className={css.blockquote}>
           <p style={{ textAlign: "left" }}>
-            Hi Everyone, I am <span className="detail">Jesse Greenough </span>{" "}
+            Hi everyone, I am <span className="detail">Jesse Greenough </span>{" "}
             currently residing in{" "}
             <span className="detail"> Shoreline, Washington USA.</span>
             <br />
             <br />
-            I am a Full-stack Developer with 5+ years of operations, management,
-            and customer success experience.
+            I am a Full-Stack Developer with 5+ years of previous experience in team operations, business management,
+            and customer success.
             <br />
             <br />
             Can you tell my favorite color is{" "}
@@ -31,10 +31,10 @@ const AboutCard = () => {
           </p>
           <ul>
             <li className={css.aboutActivity}>
-              <ImPointRight /> Spending time with my amazing family
+              <ImPointRight /> Spend time with my amazing family
             </li>
             <li className={css.aboutActivity}>
-              <ImPointRight /> Enjoying the outdoors!
+              <ImPointRight /> Enjoy the outdoors!
             </li>
             <li className={css.aboutActivity}>
               <ImPointRight /> NFT Art collecting (Currently have Eth, HBAR, and XRP NFTs)
@@ -46,16 +46,12 @@ const AboutCard = () => {
               <ImPointRight /> Play Sports (Basketball!)
             </li>
             <li className={css.aboutActivity}>
-              <ImPointRight /> Playing video games and watching anime 
+              <ImPointRight /> Play video games/Watch anime 
             </li>
             <li className={css.aboutActivity}>
-              <ImPointRight /> Doing sudoku and word puzzles
+              <ImPointRight /> Do Sudoku or word puzzles
             </li>
           </ul>
-          <p className={css.quote}>&quot;Build to make a difference!&quot;</p>
-          <footer className={css.blockquoteFooter}>
-            - <span className="detail">Jesse</span>
-          </footer>
         </blockquote>
       </Card.Body>
     </Card>

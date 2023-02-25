@@ -1,24 +1,24 @@
 /** @format */
 
 .certTitle {
-  text-align: center;
-  font-size: 4.4vw;
   margin: 14vw 0 8vw;
+  text-align: center;
+  font-size: clamp(26px, 4.5vw, 60px);
   color: var(--text-secondary);
   text-shadow: 0 0 2rem var(--detail-secondary);
 }
 
 .certTitle + p {
   text-align: center;
-  font-size: 2.4vw;
+  font-size: clamp(18px, 3vw, 42px);
   color: var(--text-primary);
 }
 
 .certCardHolder {
   display: flex;
   flex-wrap: wrap;
-  padding: 7vw 3vw;
   justify-content: space-evenly;
+  padding: 4vw 3vw;
   height: 231vw;
   overflow: scroll;
 }

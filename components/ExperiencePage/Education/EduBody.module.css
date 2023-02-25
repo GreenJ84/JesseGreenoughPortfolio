@@ -8,27 +8,28 @@
 
 .eduBody h1 {
   position: relative;
+  width: 70%;
+  margin-top: 8vw;
+  transform: translateX(12vw);
+  text-align: center;
+  font-size: clamp(26px, 4.5vw, 80px);
   color: var(--text-secondary);
   text-shadow: 1px 1px 15px var(--detail-secondary);
-  width: 70%;
-  text-align: center;
-  margin-top: 8vw;
-  font-size: 4vw;
-  transform: translateX(12vw);
 }
 
 .eduBody p {
   position: relative;
-  color: var(--text-primary);
-  width: 60%;
-  margin: 10vw 0 0;
-  font-size: 3vw;
+  margin-top: 4vw;
+  width: min(80%, 900px);
   text-align: center;
+  font-size: clamp(16px, 3vw, 52px);
+  color: var(--text-primary);
 }
 
 .eduImage {
   position: relative;
   transform: translateX(-10vw);
-  margin-top: 6vw;
+  margin-top: 2vw;
+  min-width: 250px;
   max-width: 900px;
 }

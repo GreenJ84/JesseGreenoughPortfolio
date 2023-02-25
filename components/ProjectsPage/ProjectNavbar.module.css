@@ -2,14 +2,14 @@
 
 .projectNavbar {
   position: absolute;
-  top: 0px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   width: 80vw;
   align-items: center;
   justify-content: space-around;
-  padding: 0;
+  height: 100px;
 }
 
 .projectNavbar > div{
@@ -18,24 +18,18 @@
   align-items: center;
 }
 .projectNavbar > div > h4{
-  margin-bottom: 10px;
-  font-size: min(2vw, 40px);
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: clamp(22px, 2.2vw, 40px);
   color: var(--text-primary);
 }
 
 .projectNavbar > div > select{
   height: 50px;
-  width: 36vw;
-  max-width: 400px;
+  width: min(30vw, 460px);
   padding-left: 10px;
   border-radius: 12px;
   font-size: 20px;
   color: var(--detail-terinary);
   background-color: var(--background3);
-}
-
-@media only screen and (max-width: 900px){
-  .projectNavbar > div > h4{
-    font-size: max(2vw, 12px);
-  }
 }
