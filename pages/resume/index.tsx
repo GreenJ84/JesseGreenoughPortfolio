@@ -68,8 +68,6 @@ const ReumePage = (props: resumeProps) => {
       <ButtonGroup
         download={props.resumeData[resNum].download} view={props.resumeData[resNum].view}
       />
-      {resNum}
-      {props.resumeData.length}
       <Row className={css.resume}>
         <div
           className={css.leftArrow}
