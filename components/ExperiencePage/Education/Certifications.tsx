@@ -13,8 +13,9 @@ interface Certification {
 }
 
 const Certifications = (props: Certification) => {
-  const [certData, setCertData] = useState(props.certificationData);
+  const [certData, setCertData] = useState(props.certificationData.slice(0, 10));
   const [fresh, setFresh] = useState(true);
+  const [all, setAll] = useState(false);
 
   let issuers = new Set<string>();
   let techs = new Set<string>();
@@ -25,9 +26,12 @@ const Certifications = (props: Certification) => {
   );
 
   const issueHandler = (category: string) => {
-    if (category === "all") {
-      setCertData(props.certificationData);
+    if (category === "top") {
+      setCertData(props.certificationData.slice(0, 10));
       setFresh(true);
+    } else if (category === "all") {
+      setCertData(props.certificationData);
+      setAll(true);
     } else {
       const newArray = props.certificationData.filter((cert) =>
         cert.issuer.includes(category)
@@ -37,9 +41,12 @@ const Certifications = (props: Certification) => {
     }
   };
   const techHandler = (category: string) => {
-    if (category === "all") {
-      setCertData(props.certificationData);
+    if (category === "top") {
+      setCertData(props.certificationData.slice(0, 10));
       setFresh(true);
+    } else if (category === "all") {
+      setCertData(props.certificationData);
+      setAll(true);
     } else {
       const newArray = props.certificationData.filter((cert) =>
         cert.tech?.includes(category)
@@ -58,6 +65,10 @@ const Certifications = (props: Certification) => {
         options={[issuers, techs]}
       />
       {fresh ?
+        <p className={css.certSubTitle}>
+          My current <strong className="detail">Top 10</strong> certifications
+        </p>
+      : all ?
         <p className={css.certSubTitle}>
           I have completed{" "}
           <strong className="detail">
