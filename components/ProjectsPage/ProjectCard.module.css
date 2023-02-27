@@ -97,9 +97,12 @@
 }
 
 .detailRight > h2 {
+  position: relative;
+  right: min(5vw, 1600px);
   text-align: center;
   font-size: clamp(15px, 4vw, 56px);
-  margin: 2rem 0 1.6vw 0;
+  margin: 2rem 0 min(1.6vw, 50px) 0;
+  width: 120%;
 }
 
 .detailRight > div{
@@ -117,7 +120,7 @@
   text-indent: 4vw;
   overflow: scroll;
   font-size: clamp(10px, 2.6vw, 36px);
-  line-height: max(2.6vw, 14px);
+  line-height: clamp(14px, 2.4vw, 30px);
   color: var(--text-primary);
 }
 

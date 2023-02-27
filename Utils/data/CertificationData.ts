@@ -9,4 +9,5 @@ export interface certificationType {
   description: string;
   image: string;
   url: string;
+  tech?: string[]
 }

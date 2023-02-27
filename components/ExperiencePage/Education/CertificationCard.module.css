@@ -7,8 +7,8 @@
   text-align: center;
   position: relative;
   width: clamp(120px, 34%, 400px);
-  height: auto;
-  margin: 5% 3%;
+  height: clamp(200px, 35vw, 550px);
+  margin: 20px 3%;
   padding: 1%;
   color: var(--text-primary);
   background-color: var(--card-background2);

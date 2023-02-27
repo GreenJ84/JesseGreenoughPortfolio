@@ -10,6 +10,7 @@ import { AiOutlineDownload } from "react-icons/ai";
 import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
 import ButtonGroup from "../../components/ResumePage/ButtonGroup";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const css = require("../../styles/Resume.module.css");
 
@@ -55,7 +56,7 @@ const ReumePage = (props: resumeProps) => {
       }
     }
     else if (dir == "right") {
-      setResNum(resNum+1%(props.resumeData.length-1))
+      setResNum((resNum+1)%props.resumeData.length)
     }
   }
 
@@ -67,15 +68,28 @@ const ReumePage = (props: resumeProps) => {
       <ButtonGroup
         download={props.resumeData[resNum].download} view={props.resumeData[resNum].view}
       />
-
+      {resNum}
+      {props.resumeData.length}
       <Row className={css.resume}>
+        <div
+          className={css.leftArrow}
+          onClick={() => changeResNum("left")}
+        >
+          <BsArrowLeft />
+        </div>
         <Image
           src={props.resumeData[resNum].link}
           alt="MyResume"
-          width={width * 0.6}
-          height={width * 0.6 * 1.3}
+          width={Math.min(width * 0.6, 900)}
+          height={Math.min(width * 0.6 * 1.2, 1100)}
         />
-      </Row>
+        <div
+          className={css.rightArrow}
+          onClick={() => changeResNum("right")}
+        >
+          <BsArrowRight />
+        </div>
+      </Row >
 
       <ButtonGroup
         download={props.resumeData[resNum].download} view={props.resumeData[resNum].view}

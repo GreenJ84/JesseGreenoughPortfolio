@@ -5,9 +5,29 @@
 }
 
 .resume {
+  position: relative;
   display: flex;
   margin: 20px auto;
   justify-content: center;
+}
+
+.leftArrow, .rightArrow{
+  position: absolute;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .5vw;
+  font-size: clamp(20px, 4vw, 70px);
+  color: var(--text-secondary);
+  background-color: rgba(210,210,210, .3);
+  border-radius: 50%;
+}
+.leftArrow{
+  left: 14vw;
+}
+.rightArrow{
+  right: 14vw;
 }
 
 .download{
@@ -43,12 +63,8 @@
   border-radius: 30px;
 }
 
-@media only screen and(max-width: 900px) {
-  .resume {
-    margin: 0 !important;
-  }
-
-  .downloadButton {
-    margin: 2vw auto;
+@media screen and (max-width: 900px) {
+  .leftArrow, .rightArrow{
+    visibility: hidden;
   }
 }
