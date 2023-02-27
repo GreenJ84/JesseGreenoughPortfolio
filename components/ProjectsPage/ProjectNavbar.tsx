@@ -30,6 +30,7 @@ const ProjectNavbar = (props: ProjectNavProps) => {
           id="langSelect"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "lang")}
         >
+          <option selected>Top 10</option>
           <option value="all">All</option>
           {[...categories].map((cat) =>
             <option key={cat} value={cat}>{cat.toUpperCase()}</option>
@@ -44,6 +45,7 @@ const ProjectNavbar = (props: ProjectNavProps) => {
           id="techSelect"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "tech")}
         >
+          <option selected>Top 10</option>
           <option value="all">All</option>
           {[...techs].map((tech) =>
             <option key={tech} value={tech}>{tech}</option>

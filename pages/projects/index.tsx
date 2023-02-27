@@ -15,19 +15,19 @@ interface Projects {
 }
 
 const ProjectPage = (props: Projects) => {
-  let cat = new Set<string>();
-  props.projectData.forEach((project) =>
-    project.category.map((item) => cat.add(item))
-  );
-  let tech = new Set<string>();
-  props.projectData.forEach((project) =>
-    project.key_techs.map((item) => tech.add(item))
-  );
-
   const [projectData, setProjectData] = useState(
     props.projectData.slice(0, 10)
   );
   const [fresh, setFresh] = useState(true);
+
+  let cat = new Set<string>();
+  let tech = new Set<string>();
+  props.projectData.forEach((project) => {
+    project.category.map((item) => cat.add(item));
+    project.key_techs.map((item) => tech.add(item));
+  }
+  );
+
 
   const langHandler = (category: string) => {
     if (category === "all") {
