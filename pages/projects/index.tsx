@@ -19,6 +19,7 @@ const ProjectPage = (props: Projects) => {
     props.projectData.slice(0, 10)
   );
   const [fresh, setFresh] = useState(true);
+  const [all, setAll] = useState(false);
 
   let cat = new Set<string>();
   let tech = new Set<string>();
@@ -30,25 +31,47 @@ const ProjectPage = (props: Projects) => {
 
 
   const langHandler = (category: string) => {
-    if (category === "all") {
+    const select = document.getElementById("techSelect")! as HTMLSelectElement;
+    if (category === "top") {
+      setProjectData(props.projectData.slice(0, 10));
+      setFresh(true);
+      setAll(false);
+      select.getElementsByTagName('option')[1]!.selected = true;
+    } else if (category === "all") {
       setProjectData(props.projectData);
+      setFresh(false);
+      setAll(true);
+      select.getElementsByTagName('option')[2]!.selected = true;
     } else {
       const newArray = props.projectData.filter((project) =>
         project.category.includes(category)
       );
       setProjectData(newArray);
       setFresh(false);
+      setAll(false);
+      select.getElementsByTagName('option')[0]!.selected = true;
     }
   };
   const techHandler = (category: string) => {
-    if (category === "all") {
+    const select = document.getElementById("langSelect")! as HTMLSelectElement;
+    if (category === "top") {
+      setProjectData(props.projectData.slice(0, 10));
+      setFresh(true);
+      setAll(false);
+      select.getElementsByTagName('option')[1]!.selected = true;
+    } else if (category === "all") {
       setProjectData(props.projectData);
+      setFresh(false);
+      setAll(true);
+      select.getElementsByTagName('option')[2]!.selected = true;
     } else {
       const newArray = props.projectData.filter((project) =>
         project.key_techs.includes(category)
       );
       setProjectData(newArray);
       setFresh(false);
+      setAll(false);
+      select.getElementsByTagName('option')[0]!.selected = true;
     }
   };
 
@@ -71,14 +94,21 @@ const ProjectPage = (props: Projects) => {
             <p style={title as React.CSSProperties}>
               My current <span className="detail">top 10</span> projects
             </p>
-          ) : (
+          ) : all ? (
             <p style={title as React.CSSProperties}>
               {" "}
               I have created{" "}
               <span className="detail">over {projectData.length}</span> projects
               related to the filtered category{" "}
-            </p>
-          )}
+              </p>
+            ) : (
+              <p style={title as React.CSSProperties}>
+                {" "}
+                I have created{" "}
+                <span className="detail">over {projectData.length}</span> projects
+                related to the filtered category{" "}
+              </p>
+            )}
           <div style={flexbox as React.CSSProperties}>
             {projectData.map((project) => (
               <ProjectCard
