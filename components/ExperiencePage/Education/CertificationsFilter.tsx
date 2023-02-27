@@ -29,6 +29,7 @@ const CertificationsFilter = (props: filterProps) => {
           id="issuerSelect"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "issuer")}
         >
+          <option disabled></option>
           <option value="top" selected>Top 10</option>
           <option value="all">All</option>
           {[...issuers].map((cat) =>
@@ -37,20 +38,21 @@ const CertificationsFilter = (props: filterProps) => {
         </select>
       </div>
 
-      {/* <div>
+      <div>
         <h4>Filter by Techs&nbsp;Involved</h4>
         <select
           name="TechSelect"
           id="techSelect"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "tech")}
         >
+          <option disabled></option>
           <option value="top" selected>Top 10</option>
           <option value="all">All</option>
           {[...techs].map((tech) =>
             <option key={tech} value={tech}>{tech}</option>
           )}
         </select>
-      </div> */}
+      </div>
     </div>
   );
 };

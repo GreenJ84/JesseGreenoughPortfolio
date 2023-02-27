@@ -26,33 +26,47 @@ const Certifications = (props: Certification) => {
   );
 
   const issueHandler = (category: string) => {
+    const select = document.getElementById("techSelect")! as HTMLSelectElement;
     if (category === "top") {
       setCertData(props.certificationData.slice(0, 10));
       setFresh(true);
+      setAll(false);
+      select.getElementsByTagName('option')[1]!.selected = true;
     } else if (category === "all") {
       setCertData(props.certificationData);
       setAll(true);
+      setFresh(false);
+      select.getElementsByTagName('option')[2]!.selected = true;
     } else {
       const newArray = props.certificationData.filter((cert) =>
         cert.issuer.includes(category)
       );
       setCertData(newArray);
       setFresh(false);
+      setAll(false);
+      select.getElementsByTagName('option')[0]!.selected = true;
     }
   };
   const techHandler = (category: string) => {
+    const select = document.getElementById("issuerSelect")! as HTMLSelectElement;
     if (category === "top") {
       setCertData(props.certificationData.slice(0, 10));
       setFresh(true);
+      setAll(false);
+      select.getElementsByTagName('option')[1]!.selected = true;
     } else if (category === "all") {
       setCertData(props.certificationData);
       setAll(true);
+      setFresh(false);
+      select.getElementsByTagName('option')[2]!.selected = true;
     } else {
       const newArray = props.certificationData.filter((cert) =>
         cert.tech?.includes(category)
       );
       setCertData(newArray);
       setFresh(false);
+      setAll(false);
+      select.getElementsByTagName('option')[0]!.selected = true;
     }
   };
 
