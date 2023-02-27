@@ -29,6 +29,7 @@ const CertificationsFilter = (props: filterProps) => {
           id="issuerSelect"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "issuer")}
         >
+          <option value="top" selected>Top 10</option>
           <option value="all">All</option>
           {[...issuers].map((cat) =>
             <option key={cat} value={cat}>{cat.toUpperCase()}</option>
@@ -43,6 +44,7 @@ const CertificationsFilter = (props: filterProps) => {
           id="techSelect"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "tech")}
         >
+          <option value="top" selected>Top 10</option>
           <option value="all">All</option>
           {[...techs].map((tech) =>
             <option key={tech} value={tech}>{tech}</option>
