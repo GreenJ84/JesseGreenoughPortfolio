@@ -47,9 +47,9 @@
   position: absolute;
   bottom: 4px;
   margin-top: 0.4em;
-  font-size: clamp(18px, 0.4em, 46px);
+  font-size: clamp(18px, 0.45em, 46px);
   width: 3em;
-  height: clamp(24px, 1.24em, 56px);
+  height: clamp(24px, 1.29em, 56px);
   justify-content: baseline;
 }
 .techIcons meter::-webkit-meter-bar {
