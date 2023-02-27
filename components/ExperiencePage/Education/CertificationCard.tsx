@@ -69,8 +69,8 @@ const CertificationCard = (props: certificateCardProps) => {
               src={props.certificate.image}
               alt={props.certificate.title}
               className={css.certImage}
-              width={100}
-              height={100}
+              width={200}
+              height={200}
             />
             <h3>{props.certificate.title}</h3>
             <p>{props.certificate.issuer}</p>
