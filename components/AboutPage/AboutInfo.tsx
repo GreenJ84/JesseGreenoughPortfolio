@@ -51,7 +51,7 @@ const AboutInfo = () => {
         taking over manager positions at multiple locations. It was in the
         customer service industry, specifially working at Fred Meyer, that led me
         to me my amazing fiancé and the blessing of a
-        beautful daughter that has become the love of my life.
+        beautiful daughter that has become the love of my life.
       </p>
       <p className={css.aboutMe}>
         {" "}

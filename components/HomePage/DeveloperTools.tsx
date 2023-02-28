@@ -78,7 +78,7 @@ const DeveloperTools = () => {
         <TechnicalSkill name="NPM" rating={4} icon={<DiNpm />} />
         <TechnicalSkill name="Yarn" rating={3} icon={<SiYarn />} />
         <TechnicalSkill name="PIP" rating={3} icon={<BsPip />} />
-        <TechnicalSkill name="Nodeon" rating={3} icon={<SiNodemon />} />
+        <TechnicalSkill name="Nodemon" rating={3} icon={<SiNodemon />} />
       </div>
 
       <h5> DevOps/Serving </h5>
