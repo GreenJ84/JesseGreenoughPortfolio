@@ -18,19 +18,18 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
-
     setTheme(matchMedia.matches ? "light" : "dark");
-  }, []);
 
-  useEffect(() => {
-    document.body.dataset.theme = theme;
-    // Initial App loading display
     const timer = setTimeout(() => {
       setLoad(false);
     }, 1000);
     return () => {
       clearTimeout(timer);
     }
+  }, []);
+
+  useEffect(() => {
+    document.body.dataset.theme = theme;
   }, [theme]);
 
   const switchMode = () => {
