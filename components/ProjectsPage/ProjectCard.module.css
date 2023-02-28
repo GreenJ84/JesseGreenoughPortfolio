@@ -43,7 +43,7 @@
   transform: translateX(-50%);
   bottom: 80px;
   width: min(92%, 1600px);
-  height: clamp(460px, 80vw, 1000px);
+  height: clamp(460px, 80vw, 80vh);
   padding: 3vw;
   border-radius: 30px;
   background-color: var(--card-background2);
@@ -119,7 +119,7 @@
   max-height: min(250px, 50vw, 700px);
   text-indent: 4vw;
   overflow: scroll;
-  font-size: clamp(10px, 2.6vw, 36px);
+  font-size: clamp(10px, 2.6vw, 32px);
   line-height: clamp(14px, 2.4vw, 30px);
   color: var(--text-primary);
 }
@@ -140,7 +140,7 @@
   padding: 1vw;
   min-height: 10px;
   overflow-y: scroll;
-  font-size: clamp(10px, 1.8vw, 26px);
+  font-size: clamp(10px, 1.8vw, 22px);
   color: var(--text-primary);
   background-color: var(--background3);
   border-radius: 10px;
