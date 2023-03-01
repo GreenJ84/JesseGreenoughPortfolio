@@ -58,6 +58,11 @@
   justify-content: space-between;
   width: 70%;
 }
+@media only screen and (min-width: 1350px){
+  .detailLeft {
+    padding-left: 3vw;
+  }
+}
 
 .detailImage {
   margin-top: 2rem;
@@ -112,16 +117,17 @@
   height: 80%;
   margin-top: min(3vw, 7vh);
 }
+.detailRight > div > div > h3,
 .detailRight > div > h3 {
   transform: translateX(-2vw) scaleX(1.2);
   height: auto;
   font-size: clamp(10px, 2.6vw, 32px);
-  text-indent: 4vw;
   line-height: clamp(14px, 2.4vw, 30px);
   color: var(--text-primary);
 }
-.detailRight > div > h3:first-of-type{
+.detailRight > div > h3{
   overflow: scroll;
+  text-indent: 4vw;
   max-height: min(250px, 50vw, 700px);
 }
 
