@@ -107,11 +107,13 @@ const NavBar = (props: { mode: Function; theme: String }) => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav
             className={
-              wideScreen
-                ? css.navbarNav
-                : expandBar
-                ? css.navbarNav
-                : css.navClosed
+              wideScreen ? 
+                css.navbarNav
+              : 
+                expandBar ? 
+                  css.navbarNav
+                : 
+                  css.navClosed
             }
             defaultActiveKey="#home"
           >

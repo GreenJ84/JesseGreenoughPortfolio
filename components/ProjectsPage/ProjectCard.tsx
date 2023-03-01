@@ -66,8 +66,8 @@ const ProjectCard = (props: projectProps) => {
             <div>
               <h3>{props.project.description}</h3>
 
+              <h3> Key Techs: </h3>
               <div className={css.techs}>
-                <h3> Key Techs: </h3>
                 {props.project.key_techs.map((tech) => (
                   <span
                     key={tech}

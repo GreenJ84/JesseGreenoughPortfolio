@@ -36,15 +36,15 @@
 }
 
 .detail {
-  display: flex;
   position: fixed;
-  z-index: 3000;
   left: 50%;
   transform: translateX(-50%);
   bottom: 80px;
+  z-index: 3000;
+  display: flex;
+  padding: min(2vw, 5vh) 3vw;
   width: min(92%, 1600px);
   height: clamp(460px, 80vw, 80vh);
-  padding: 3vw;
   border-radius: 30px;
   background-color: var(--card-background2);
   box-shadow: inset 2px 4px 10px var(--detail-terinary),
@@ -61,8 +61,8 @@
 
 .detailImage {
   margin-top: 2rem;
-  width: min(86%, 700px);
-  height: clamp(200px, 40vw, 560px);
+  width: min(86%, 630px);
+  height: clamp(200px, 40vw, 510px);
 }
 .detailImage:hover {
   transform: scale(1.1) translate(10px, 10px);
@@ -73,14 +73,14 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .detailLeft > div > a {
-  padding: min(3vw, 25px) min(4vw, 40px);
+  padding: min(3vw, 20px) min(4vw, 30px);
   margin: 0 0.5rem;
   text-align: center;
-  max-width: 40%;
-  font-size: clamp(11px, 2.8vw, 32px);
+  max-width: 38%;
+  font-size: clamp(11px, 2.8vw, 28px);
   color: var(--text-primary);
   background-color: var(--button-bg1);
   border-radius: 30px;
@@ -98,7 +98,7 @@
 
 .detailRight > h2 {
   position: relative;
-  right: min(5vw, 1600px);
+  right: min(6vw, 1600px);
   text-align: center;
   font-size: clamp(15px, 4vw, 56px);
   margin: 2rem 0 min(1.6vw, 50px) 0;
@@ -109,19 +109,20 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 75%;
-  margin-top: 5vw;
+  height: 80%;
+  margin-top: min(3vw, 7vh);
 }
-.techs > h3,
 .detailRight > div > h3 {
   transform: translateX(-2vw) scaleX(1.2);
   height: auto;
-  max-height: min(250px, 50vw, 700px);
-  text-indent: 4vw;
-  overflow: scroll;
   font-size: clamp(10px, 2.6vw, 32px);
+  text-indent: 4vw;
   line-height: clamp(14px, 2.4vw, 30px);
   color: var(--text-primary);
+}
+.detailRight > div > h3:first-of-type{
+  overflow: scroll;
+  max-height: min(250px, 50vw, 700px);
 }
 
 .techs {
@@ -140,7 +141,7 @@
   padding: 1vw;
   min-height: 10px;
   overflow-y: scroll;
-  font-size: clamp(10px, 1.8vw, 22px);
+  font-size: clamp(10px, 1.8vw, 18px);
   color: var(--text-primary);
   background-color: var(--background3);
   border-radius: 10px;

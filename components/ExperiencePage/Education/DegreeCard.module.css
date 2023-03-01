@@ -1,7 +1,7 @@
 /** @format */
 
 .cardBody {
-  width: clamp(200px, 50vw, 1000px);
+  width: clamp(200px, 50vw, 800px);
   height: auto;
   border-radius: 30px;
   background-color: var(--card-background2);
@@ -15,7 +15,7 @@
 }
 
 .cardHead {
-  padding: 2vw 2vw 2px;
+  padding: 1.5vw 1.5vw 2px;
   color: var(--text-secondary);
   background-color: var(--card-background);
   border-radius: 28px 28px 0 0;
@@ -26,21 +26,21 @@
 }
 
 .cardHead > h1 {
-  margin: 1vw 0;
+  margin: .5vw 0 1vw;
   text-align: center;
-  font-size: clamp(20px, 2.8vw, 42px);
+  font-size: clamp(20px, 2.8vw, 40px);
 }
 
 .cardHead > h1 + p {
   text-align: center;
-  font-size: clamp(10px, 1.1vw, 32px);
+  font-size: clamp(10px, 1.1vw, 28px);
 }
 
 .cardHead > h1 + p + p {
   position: relative;
   left: 1.4vw;
   margin: 3.4vw 0 .4vw;
-  font-size: clamp(12px, 1.8vw, 36px);
+  font-size: clamp(12px, 1.8vw, 32px);
 }
 
 .cardText {
@@ -75,12 +75,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: max(14vw, 70px);
+  width: max(14vw, 60px);
   height: max(2.7vw, 20px);
   left: 50%;
   margin-top: 20px;
   transform: translateX(-10%);
-  font-size: clamp(10px, 1.2vw, 28px);
+  font-size: clamp(10px, 1.2vw, 24px);
   color: var(--background2);
   background-color: var(--button-bg2);
   border: 2px solid var(--background2);
