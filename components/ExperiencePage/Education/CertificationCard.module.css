@@ -44,6 +44,7 @@
 
 .certDetailCard {
   position: absolute;
+  top: -5%;
   right: 0;
   padding: 3%;
   width: 100%;

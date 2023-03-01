@@ -43,7 +43,7 @@
   z-index: 3000;
   display: flex;
   padding: min(2vw, 5vh) 3vw;
-  width: min(92%, 1600px);
+  width: min(92%, 1300px);
   height: clamp(460px, 80vw, 80vh);
   border-radius: 30px;
   background-color: var(--card-background2);
@@ -79,6 +79,8 @@
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 20px;
+  min-width: 70%;
+  align-self: center;
 }
 .detailLeft > div > a {
   padding: min(3vw, 20px) min(4vw, 30px);
@@ -113,9 +115,9 @@
 .detailRight > div{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   height: 80%;
-  margin-top: min(3vw, 7vh);
+  margin-top: min(3vw, 4vh);
 }
 .detailRight > div > div > h3,
 .detailRight > div > h3 {
