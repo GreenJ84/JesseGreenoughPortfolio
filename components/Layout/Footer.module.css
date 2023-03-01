@@ -7,7 +7,7 @@
   padding: 1rem 3rem 2rem;
 }
 .footerCopywright {
-  font-size: clamp(10px, 2.7vw, 36px);
+  font-size: clamp(10px, 2.7vw, 30px);
   color: var(--text-primary);
   text-align: center;
 }

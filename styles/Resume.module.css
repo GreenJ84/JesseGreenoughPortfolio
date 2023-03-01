@@ -41,8 +41,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30vw;
-  height: 5vw;
+  width: min(30vw, 400px);
+  height: clamp(25px, 5vw, 80px);
   min-height: 25px;
   text-align: center;
   margin: 5vw auto;
