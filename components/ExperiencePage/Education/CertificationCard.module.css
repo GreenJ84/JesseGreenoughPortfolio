@@ -6,8 +6,8 @@
   justify-content: center;
   text-align: center;
   position: relative;
-  width: clamp(120px, 34%, 400px);
-  height: clamp(220px, 35vw, 550px);
+  width: clamp(120px, 34%, 350px);
+  height: clamp(220px, 35vw, 450px);
   margin: 20px 3%;
   padding: 1%;
   color: var(--text-primary);
@@ -26,8 +26,8 @@
 .certImage {
   margin: 4%;
   border-radius: 50%;
-  width: clamp(90px, 15vw, 260px);
-  height: clamp(90px, 15vw, 260px);
+  width: clamp(90px, 15vw, 240px);
+  height: clamp(90px, 15vw, 240px);
 }
 
 .certDisplay h3,
@@ -36,7 +36,7 @@
 }
 
 .certDisplay h3 {
-  font-size: clamp(12px, 2vw, 30px);
+  font-size: clamp(12px, 2vw, 28px);
 }
 .certDisplay p {
   font-size: clamp(10px, 1.5vw, 24px);
