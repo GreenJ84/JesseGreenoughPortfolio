@@ -3,11 +3,11 @@
 .certCard {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   text-align: center;
   position: relative;
   width: clamp(120px, 34%, 350px);
-  height: clamp(220px, 35vw, 450px);
+  height: clamp(220px, 35vw, 480px);
   margin: 20px 3%;
   padding: 1%;
   color: var(--text-primary);
@@ -18,7 +18,7 @@
 
 .certDisplay {
   height: 100%;
-  padding: 2%;
+  padding: 1% 2%;
   background-color: var(--card-background);
   border-radius: 20px;
 }
@@ -26,14 +26,14 @@
 .certImage {
   margin: 4%;
   border-radius: 50%;
-  width: clamp(90px, 15vw, 240px);
-  height: clamp(90px, 15vw, 240px);
+  width: clamp(90px, 15vw, 200px);
+  height: clamp(90px, 15vw, 200px);
 }
-
+/* 
 .certDisplay h3,
 .certDisplay p {
-  margin: 6% 1% 10%;
-}
+  margin: 4% 1% 6%;
+} */
 
 .certDisplay h3 {
   font-size: clamp(12px, 2vw, 28px);
