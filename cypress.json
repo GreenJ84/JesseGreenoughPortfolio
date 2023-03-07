@@ -1,0 +1,18 @@
+{
+    "baseUrl": "http://localhost:3000",
+    "defaultCommandTimeout": 10000,
+    "requestTimeout": 10000,
+    "responseTimeout": 10000,
+    "pageLoadTimeout": 10000,
+    "video": true,
+    "videoUploadOnPasses": false,
+    "videosFolder": "cypress/videos",
+    "screenshotsFolder": "cypress/screenshots",
+    "supportFile": "cypress/support/index.js",
+    "pluginsFile": "cypress/plugins/index.js",
+    "integrationFolder": "cypress/integration",
+    "testFiles": "**/*.spec.ts",
+    "env": {
+
+    }
+}
