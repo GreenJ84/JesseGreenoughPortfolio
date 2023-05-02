@@ -79,6 +79,7 @@ const NavBar = (props: { mode: Function; theme: String }) => {
       fixed="top"
       expand="md"
       className={navFade ? css.sticky : css.navbar}
+      id="navbar"
     >
       <Container className={css.navbarContainer}>
         <Navbar.Brand className={css.navBarBrand}>
@@ -116,6 +117,7 @@ const NavBar = (props: { mode: Function; theme: String }) => {
                   css.navClosed
             }
             defaultActiveKey="#home"
+            id="nav"
           >
             <Nav.Item className={css.navItem}>
               <Nav.Link
