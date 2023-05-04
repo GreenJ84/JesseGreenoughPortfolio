@@ -5,7 +5,7 @@ import { Col, Container, Row } from "react-bootstrap";
 // import Particle from "../Layout/Particle";
 import TypeWrite from "./TypeWrite";
 
-const homeLogo = "../../public/assets/home-main.svg";
+const homeLogo = "/assets/home-main.svg";
 const css = require("./HomeTop.module.css");
 
 const HomeTop = () => {
@@ -22,7 +22,7 @@ const HomeTop = () => {
               </span>
             </h1>
 
-            <h1 className={css.headingName}>
+            <h1 id="developerName" className={css.headingName}>
               I&apos;M
               <strong className={css.mainName}> JESSE GREENOUGH </strong>
             </h1>
@@ -36,9 +36,12 @@ const HomeTop = () => {
 
           <Col md={5} className={ css.imageHolder }>
             <Image
+              id="homeDeveloperLogo"
               src={homeLogo}
-              alt="home pic"
-              className={ css.topImage }
+              alt="A animated image of a developer at work"
+              className={css.topImage}
+              width={ 400 }
+              height={ 400 }
             />
           </Col>
         </Row>
