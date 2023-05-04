@@ -14,7 +14,7 @@ const Databases = () => {
       <h1 className={css.projectHeading}>
         <strong className="detail">Databases </strong>
       </h1>
-      <div className={css.body}>
+      <div id="databases" className={css.body}>
         <TechnicalSkill name="MongoDB" rating={5} icon={<SiMongodb />} />
         <TechnicalSkill name="MySQL" rating={4} icon={<GrMysql />} />
         <TechnicalSkill name="SQLite" rating={3} icon={<DiSqllite />} />

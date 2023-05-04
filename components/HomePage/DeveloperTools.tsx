@@ -14,8 +14,8 @@ import { AiFillGithub } from "react-icons/ai";
 import { BsPip } from "react-icons/bs";
 import { GiUnicorn } from "react-icons/gi";
 
-const truffle = "../../public/assets/truffle-logo-dark.svg";
-const ganache = "../../public/assets/ganache-logo-dark.svg";
+const truffle = "/assets/truffle-logo-dark.svg";
+const ganache = "/assets/ganache-logo-dark.svg";
 const css = require("./TechnicalSkills.module.css");
 
 const DeveloperTools = () => {
@@ -33,7 +33,7 @@ const DeveloperTools = () => {
         <TechnicalSkill name="Notion" rating={2} icon={<SiNotion />} />
       </div>
 
-      <h5> Devlopment </h5>
+      <h5> Development </h5>
       <div className={css.body}>
         <TechnicalSkill name="VS Code" rating={5} icon={<SiVisualstudiocode />} />
         <TechnicalSkill name="Git" rating={4} icon={<DiGit/>} />

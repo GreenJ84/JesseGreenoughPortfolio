@@ -31,8 +31,7 @@ const Framework = () => {
       <h1 className={css.projectHeading}>
         Programming <strong className="detail">Frameworks </strong>
       </h1>
-      <div className={css.body}>
-
+      <div id="frameworks" className={css.body}>
         <TechnicalSkill name="NextJS" rating={5} icon={<SiNextdotjs />} />
         <TechnicalSkill name="ReactJS" rating={5} icon={<DiReact />} />
         <TechnicalSkill name="ReduxJS" rating={4} icon={<SiRedux />} />

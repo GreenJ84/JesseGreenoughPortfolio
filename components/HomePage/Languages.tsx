@@ -25,7 +25,7 @@ const Languages = () => {
       <h1 className={css.projectHeading}>
         Programming <strong className="detail">Languages </strong>
       </h1>
-      <div className={css.body}>
+      <div id="languages" className={css.body}>
         {/* Languages */}
         <TechnicalSkill name="HTML5" rating={5} icon={<AiFillHtml5 />} />
         <TechnicalSkill name="CSS3" rating={5} icon={<DiCss3 />} />
