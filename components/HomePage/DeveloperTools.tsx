@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import { Col } from "react-bootstrap";
 
 import TechnicalSkill from "./TechnicalSkill";
 
@@ -15,14 +14,13 @@ import { AiFillGithub } from "react-icons/ai";
 import { BsPip } from "react-icons/bs";
 import { GiUnicorn } from "react-icons/gi";
 
-const truffle = require("../../public/assets/truffle-logo-dark.svg");
-const ganache = require("../../public/assets/ganache-logo-dark.svg");
-
+const truffle = "../../public/assets/truffle-logo-dark.svg";
+const ganache = "../../public/assets/ganache-logo-dark.svg";
 const css = require("./TechnicalSkills.module.css");
 
 const DeveloperTools = () => {
   return (
-    <>
+    <div id="developer-tools">
       <h1 className={css.projectHeading}>
         Development <strong className="detail">Tools</strong>
       </h1>
@@ -103,7 +101,7 @@ const DeveloperTools = () => {
         <TechnicalSkill name="JSON Web Tokens" rating={3} icon={<SiJsonwebtokens />} />
         <TechnicalSkill name="Socket.io" rating={2} icon={<SiSocketdotio />} />
       </div>
-    </>
+    </div>
   );
 };
 
