@@ -1,36 +1,33 @@
-import React from 'react'
-import { Col } from 'react-bootstrap'
-import { IconBaseProps } from 'react-icons'
+/** @format */
+
+import React from "react";
+import { IconBaseProps } from "react-icons";
 
 const css = require("./TechnicalSkills.module.css");
 
-
-interface skillProps{
-    name: string
-    rating: number
-    icon: IconBaseProps | JSX.Element
+interface skillProps {
+  name: string;
+  rating: number;
+  icon: IconBaseProps | JSX.Element;
 }
 
-const TechnicalSkill = (props: skillProps ) => {
-    return (
-        <Col
-            xs={4}
-            md={2}
-            className={css.techIcons}
-        >
-        <>
-            { props.icon }
-            <span> {props.name} </span>
-            <meter
-                min={0}
-                max={5}
-                high={4}
-                low={2}
-                optimum={5}
-                value={props.rating}
-            />
-        </>
-        </Col>)
-}
+const TechnicalSkill = (props: skillProps) => {
+  return (
+    <li className={css.skillContainer}>
+      <>
+        {props.icon}
+        <span> {props.name} </span>
+        <meter
+          min={0}
+          max={5}
+          high={4}
+          low={2}
+          optimum={5}
+          value={props.rating}
+        />
+      </>
+    </li>
+  );
+};
 
-export default TechnicalSkill
+export default TechnicalSkill;
