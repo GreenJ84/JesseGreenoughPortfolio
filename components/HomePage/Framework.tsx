@@ -1,8 +1,8 @@
 /** @format */
 
 import React from "react";
-import { Col } from "react-bootstrap";
-import { DiNodejs, DiReact } from "react-icons/di";
+
+import { DiReact } from "react-icons/di";
 import {
   SiBootstrap,
   SiChai,
@@ -16,11 +16,11 @@ import {
   SiRedux,
   SiSpring,
   SiSpringboot,
-  SiSvelte,
   SiTailwindcss,
   SiWeb3Dotjs,
 } from "react-icons/si";
 import { TiWeatherWindyCloudy } from "react-icons/ti";
+
 import TechnicalSkill from "./TechnicalSkill";
 
 const css = require("./TechnicalSkills.module.css");
@@ -28,10 +28,10 @@ const css = require("./TechnicalSkills.module.css");
 const Framework = () => {
   return (
     <div id="development-frameworks">
-      <h1 className={css.projectHeading}>
-        Programming <strong className="detail">Frameworks </strong>
-      </h1>
-      <div id="frameworks" className={css.body}>
+      <h3 className={css.skillSectionTitle}>
+        Programming <b className="detail">Frameworks </b>
+      </h3>
+      <ul id="frameworks" className={css.skillsListContainer}>
         <TechnicalSkill name="NextJS" rating={5} icon={<SiNextdotjs />} />
         <TechnicalSkill name="ReactJS" rating={5} icon={<DiReact />} />
         <TechnicalSkill name="ReduxJS" rating={4} icon={<SiRedux />} />
@@ -49,7 +49,7 @@ const Framework = () => {
         <TechnicalSkill name="EthersJS" rating={2} icon={<TiWeatherWindyCloudy />} />
         <TechnicalSkill name="Django" rating={1} icon={<SiDjango />} />
         <TechnicalSkill name="Web3JS" rating={1} icon={<SiWeb3Dotjs />} />
-      </div>
+      </ul>
     </div>
   );
 };
