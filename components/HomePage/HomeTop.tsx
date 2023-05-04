@@ -5,7 +5,7 @@ import { Col, Container, Row } from "react-bootstrap";
 // import Particle from "../Layout/Particle";
 import TypeWrite from "./TypeWrite";
 
-import homeLogo from "../../public/assets/home-main.svg";
+const homeLogo = "../../public/assets/home-main.svg";
 const css = require("./HomeTop.module.css");
 
 const HomeTop = () => {

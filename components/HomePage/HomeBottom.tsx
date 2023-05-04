@@ -15,11 +15,11 @@ import { FaLinkedinIn } from "react-icons/fa";
 
 import DeveloperTools from "./DeveloperTools";
 import GithubCard from "./GithubCard";
-
-import myImg from "../../public/assets/avatar.svg";
 import Languages from "./Languages";
 import Framework from "./Framework";
 import Databases from "./Databases";
+
+const myImg = "../../public/assets/avatar.svg";
 const css = require("./HomeBottom.module.css");
 
 const HomeBottom = () => {
@@ -107,7 +107,7 @@ const HomeBottom = () => {
             </Tilt>
           </Col>
         </Row>
-        <Languages />
+        <Languages/>
         <Framework />
         <Databases />
         <DeveloperTools />
