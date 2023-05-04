@@ -1,9 +1,10 @@
+/// <reference types="cypress" />
 export class MainPage{
-    homeTop = cy.get(".homeSection");
-    homeDesctription = cy.get(".homeAboutDescription");
+    homeTop = cy.get("#home");
+    homeDesctription = cy.get("#homeAboutDescription");
     languages = cy.get("#development-languages");
     framework = cy.get("#development-frameworks");
     databases = cy.get("#development-databases");
     developerTools = cy.get("#developer-tools");
-    socialSection = cy.get(".homeAboutSocial");
+    socialSection = cy.get("#homeAboutSocial");
 }
