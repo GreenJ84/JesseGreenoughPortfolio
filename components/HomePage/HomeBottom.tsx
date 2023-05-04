@@ -19,7 +19,7 @@ import Languages from "./Languages";
 import Framework from "./Framework";
 import Databases from "./Databases";
 
-const myImg = "../../public/assets/avatar.svg";
+const myImg = "/assets/avatar.svg";
 const css = require("./HomeBottom.module.css");
 
 const HomeBottom = () => {
@@ -48,6 +48,7 @@ const HomeBottom = () => {
       <Container>
         <Row className={css.topRow}>
           <Col
+            id="homeAboutDescription"
             md={8}
             className={css.homeAboutDescription}
           >
@@ -103,6 +104,8 @@ const HomeBottom = () => {
                 src={myImg}
                 className={css.myAvatarImage}
                 alt="avatar"
+                width={ 400 }
+                height={ 400 }
               />
             </Tilt>
           </Col>
@@ -114,6 +117,7 @@ const HomeBottom = () => {
         {wide ? <GithubCard /> : ""}
         <Row>
           <Col
+            id="homeAboutSocial"
             md={12}
             className={css.homeAboutSocial}
           >
