@@ -13,10 +13,13 @@ export default defineConfig({
   screenshotsFolder: "cypress/screenshots",
   fixturesFolder: "cypress/fixtures",
   chromeWebSecurity: false,
+
   env: {
-    NODE_TLS_REJECT_UNAUTHORIZED: "0"
+    NODE_TLS_REJECT_UNAUTHORIZED: "0",
   },
+
   numTestsKeptInMemory: 5,
+
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
@@ -26,5 +29,12 @@ export default defineConfig({
     excludeSpecPattern: "cypress/e2e/examples/*.cy.{ts,tsx}",
     slowTestThreshold: 10000,
     testIsolation: true,
+  },
+
+  component: {
+    devServer: {
+      framework: "next",
+      bundler: "webpack",
+    },
   },
 });
