@@ -1,47 +1,64 @@
+/** @format */
+
 import React from "react";
 import Image from "next/image";
 import { Col, Container, Row } from "react-bootstrap";
 
-// import Particle from "../Layout/Particle";
 import TypeWrite from "./TypeWrite";
 
-const homeLogo = "/assets/home-main.svg";
+const homeDeveloperLogo = "/assets/home-main.svg";
 const css = require("./HomeTop.module.css");
 
 const HomeTop = () => {
   return (
-    <Container fluid className={css.homeSection} id="home">
-      {/* <Particle /> */}
-      <Container className={css.homeContent}>
+    <Container
+      fluid
+      className={css.homeIntro}
+      id="homeIntro"
+    >
+      <Container className={css.homeIntroContent}>
         <Row>
-          <Col md={7} className={css.homeHeader}>
-            <h1 className={css.heading}>
+          <Col
+            md={7}
+            className={css.homeHeader}
+          >
+            <h1>
               Hi There!{" "}
-              <span className={css.wave} role="img" aria-labelledby="wave">
+              <span
+                className={css.wave}
+                role="img"
+                aria-labelledby="wave"
+              >
                 👋🏻
               </span>
             </h1>
 
-            <h1 id="developerName" className={css.headingName}>
+            <h1
+              id="developerName"
+              className={css.developerName}
+            >
               I&apos;M
-              <strong className={css.mainName}> JESSE GREENOUGH </strong>
+              <b className={css.nameDetail}> JESSE GREENOUGH </b>
             </h1>
 
             <div className={css.typeText}>
-              <TypeWrite typePrompts={props1} />
+              <TypeWrite typePrompts={type_props1} />
               <br />
-              <TypeWrite typePrompts={props2} />
+              <TypeWrite typePrompts={type_props2} />
             </div>
           </Col>
 
-          <Col md={5} className={ css.imageHolder }>
+          <Col
+            md={5}
+            className={css.homeIntroImage}
+          >
             <Image
               id="homeDeveloperLogo"
-              src={homeLogo}
+              src={homeDeveloperLogo}
               alt="A animated image of a developer at work"
-              className={css.topImage}
-              width={ 400 }
-              height={ 400 }
+              className={css.homeDeveloperLogo}
+              width={400}
+              height={400}
             />
           </Col>
         </Row>
@@ -52,13 +69,13 @@ const HomeTop = () => {
 
 export default HomeTop;
 
-const props1 = [
+const type_props1 = [
   "Full-stack Developer",
   "TypeScript React focused Software Engineer",
   "Open Source Contributor",
 ];
 
-const props2 = [
+const type_props2 = [
   "Web/Web3 Development",
   "SQL/NoSQL Database, Python, & Java skills",
   "Always actively learning",
