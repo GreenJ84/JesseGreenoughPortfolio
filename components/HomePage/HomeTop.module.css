@@ -5,16 +5,13 @@
   width: min(100%, 1400px);
   padding: 2rem 0 0;
   z-index: -1;
+  color: white;
+  text-align: left;
   background-image: var(--image-gradient), url(../../public/assets/home-bg.jpg);
   filter: var(--hue-rotate-home) opacity(0.9);
   background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-.homeIntroContent {
-  color: white;
-  text-align: left;
 }
 
 .homeHeader {
@@ -44,19 +41,19 @@
     transform: rotate(14deg);
   } /* The following five values can be played with to make the waving more or less extreme */
   20% {
-    transform: rotate(-8deg);
+    transform: rotate(-14deg);
   }
   30% {
     transform: rotate(14deg);
   }
   40% {
-    transform: rotate(-4deg);
+    transform: rotate(-8deg);
   }
   50% {
-    transform: rotate(10deg);
+    transform: rotate(8deg);
   }
   60% {
-    transform: rotate(0deg);
+    transform: rotate(-4deg);
   } /* Reset for the last half to pause */
   100% {
     transform: rotate(0deg);

@@ -16,7 +16,6 @@ const HomeTop = () => {
       className={css.homeIntro}
       id="homeIntro"
     >
-      <Container className={css.homeIntroContent}>
         <Row>
           <Col
             md={7}
@@ -62,7 +61,6 @@ const HomeTop = () => {
             />
           </Col>
         </Row>
-      </Container>
     </Container>
   );
 };
