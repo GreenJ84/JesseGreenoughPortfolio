@@ -1,5 +1,8 @@
 /** @format */
 
+import React from "react";
+import Head from "next/head";
+import { Router } from "next/router";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import useLocalStorage from "use-local-storage";
@@ -9,43 +12,42 @@ import NavBar from "../components/Layout/NavBar";
 import Footer from "../components/Layout/Footer";
 
 import "../styles/globals.css";
-import { Router } from "next/router";
-const css = require("./App.module.css");
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [load, setLoad] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useLocalStorage("theme", "dark");
 
+  // Initial loading theme setter && load animation
   useEffect(() => {
     const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
     setTheme(matchMedia.matches ? "light" : "dark");
 
     const timer = setTimeout(() => {
-      setLoad(false);
+      setInitialLoad(true);
     }, 1000);
     return () => {
       clearTimeout(timer);
     }
   }, []);
 
+  // Theme change handling
   useEffect(() => {
     document.body.dataset.theme = theme;
   }, [theme]);
-
   const switchMode = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
+  // Route loading handler set-up
   useEffect(() => {
     let body = document.getElementsByTagName('body')[0]
     const start = () => {
-      console.log("start");
-      setLoad(true);
+      setLoading(true);
       body.style.cursor = "wait";
     };
     const end = () => {
-      console.log("finished");
-      setLoad(false);
+      setLoading(false);
       body.style.cursor = "default";
     };
     Router.events.on("routeChangeStart", start);
@@ -60,8 +62,11 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      {!load ? (
-        <div className={load ? css.noScroll : "Scroll"}>
+      <Head>
+        <link rel="preload" href="/assets/pre.svg" as="image" />
+      </Head>
+      {!loading && initialLoad ? (
+        <div className={"Scroll"}>
           <NavBar
             theme={theme}
             mode={() => switchMode()}
