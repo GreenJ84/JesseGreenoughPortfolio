@@ -33,72 +33,72 @@ const Languages = () => {
         <TechnicalSkill
           name="HTML5"
           rating={5}
-          icon={<AiFillHtml5 />}
+          icon={<AiFillHtml5 className={css.icon} />}
         />
         <TechnicalSkill
           name="CSS3"
           rating={5}
-          icon={<DiCss3 />}
+          icon={<DiCss3 className={css.icon} />}
         />
         <TechnicalSkill
           name="JavaScript"
           rating={5}
-          icon={<DiJavascript1 />}
+          icon={<DiJavascript1 className={css.icon}/>}
         />
         <TechnicalSkill
           name="TypeScript"
           rating={5}
-          icon={<SiTypescript />}
+          icon={<SiTypescript className={css.icon}/>}
         />
         <TechnicalSkill
           name="Python"
           rating={4}
-          icon={<DiPython />}
+          icon={<DiPython className={css.icon}/>}
         />
         <TechnicalSkill
           name="GraphQL"
           rating={4}
-          icon={<SiGraphql />}
+          icon={<SiGraphql className={css.icon}/>}
         />
         <TechnicalSkill
           name="SQL"
           rating={4}
-          icon={<AiOutlineConsoleSql />}
+          icon={<AiOutlineConsoleSql className={css.icon}/>}
         />
         <TechnicalSkill
           name="Scratch"
           rating={4}
-          icon={<SiScratch />}
+          icon={<SiScratch className={css.icon}/>}
         />
         <TechnicalSkill
           name="Markdown"
           rating={3}
-          icon={<BsFillMarkdownFill />}
+          icon={<BsFillMarkdownFill className={css.icon}/>}
         />
         <TechnicalSkill
           name="Rust"
           rating={3}
-          icon={<FaRust />}
+          icon={<FaRust className={css.icon}/>}
         />
         <TechnicalSkill
           name="Java"
           rating={3}
-          icon={<SiJava />}
+          icon={<SiJava className={css.icon}/>}
         />
         <TechnicalSkill
           name="Solidity"
           rating={2}
-          icon={<SiSolidity />}
+          icon={<SiSolidity className={css.icon}/>}
         />
         <TechnicalSkill
           name="GO"
           rating={1}
-          icon={<SiGoland />}
+          icon={<SiGoland className={css.icon}/>}
         />
         <TechnicalSkill
           name="Swift"
           rating={1}
-          icon={<FaSwift />}
+          icon={<FaSwift className={css.icon}/>}
         />
       </ul>
     </div>
