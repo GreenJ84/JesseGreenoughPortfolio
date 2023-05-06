@@ -57,22 +57,22 @@ const DeveloperTools = () => {
         <TechnicalSkill
           name="Trello"
           rating={5}
-          icon={<FaTrello />}
+          icon={<FaTrello className={css.icon}/>}
         />
         <TechnicalSkill
           name="Balsamiq"
           rating={4}
-          icon={<VscSmiley />}
+          icon={<VscSmiley className={css.icon}/>}
         />
         <TechnicalSkill
           name="Figma"
           rating={4}
-          icon={<SiFigma />}
+          icon={<SiFigma className={css.icon}/>}
         />
         <TechnicalSkill
           name="Notion"
           rating={2}
-          icon={<SiNotion />}
+          icon={<SiNotion className={css.icon}/>}
         />
       </ul>
 
@@ -81,32 +81,32 @@ const DeveloperTools = () => {
         <TechnicalSkill
           name="VS Code"
           rating={5}
-          icon={<SiVisualstudiocode />}
+          icon={<SiVisualstudiocode className={css.icon}/>}
         />
         <TechnicalSkill
           name="Git"
           rating={4}
-          icon={<DiGit />}
+          icon={<DiGit className={css.icon}/>}
         />
         <TechnicalSkill
           name="ChromeDev Tools"
           rating={4}
-          icon={<DiChrome />}
+          icon={<DiChrome className={css.icon}/>}
         />
         <TechnicalSkill
           name="GitKraken"
           rating={4}
-          icon={<SiGitkraken />}
+          icon={<SiGitkraken className={css.icon}/>}
         />
         <TechnicalSkill
           name="Apollo"
           rating={3}
-          icon={<SiApollographql />}
+          icon={<SiApollographql className={css.icon}/>}
         />
         <TechnicalSkill
           name="HardHat"
           rating={3}
-          icon={<FaHardHat />}
+          icon={<FaHardHat className={css.icon}/>}
         />
         <TechnicalSkill
           name="Truffle"
@@ -117,7 +117,7 @@ const DeveloperTools = () => {
               src={truffle}
               width={10}
               height={10}
-              className={css.icon}
+              className={css.manualIcon}
             />
           }
         />
@@ -130,30 +130,30 @@ const DeveloperTools = () => {
               src={ganache}
               width={10}
               height={10}
-              className={css.icon}
+              className={css.manualIcon}
             />
           }
         />
         <TechnicalSkill
           name="Postman"
           rating={3}
-          icon={<SiPostman />}
+          icon={<SiPostman className={css.icon}/>}
         />
         <TechnicalSkill
           name="VIM"
           rating={3}
-          icon={<DiVim />}
+          icon={<DiVim className={css.icon}/>}
         />
 
         <TechnicalSkill
           name="Spring Tools Suite"
           rating={2}
-          icon={<SiSpring />}
+          icon={<SiSpring className={css.icon}/>}
         />
         <TechnicalSkill
           name="GitPod"
           rating={1}
-          icon={<SiGitpod />}
+          icon={<SiGitpod className={css.icon}/>}
         />
       </ul>
 
@@ -162,27 +162,27 @@ const DeveloperTools = () => {
         <TechnicalSkill
           name="NodeJS"
           rating={5}
-          icon={<DiNodejs />}
+          icon={<DiNodejs className={css.icon}/>}
         />
         <TechnicalSkill
           name="NPM"
           rating={4}
-          icon={<DiNpm />}
+          icon={<DiNpm className={css.icon}/>}
         />
         <TechnicalSkill
           name="Yarn"
           rating={3}
-          icon={<SiYarn />}
+          icon={<SiYarn className={css.icon}/>}
         />
         <TechnicalSkill
           name="PIP"
           rating={3}
-          icon={<BsPip />}
+          icon={<BsPip className={css.icon}/>}
         />
         <TechnicalSkill
           name="Nodemon"
           rating={3}
-          icon={<SiNodemon />}
+          icon={<SiNodemon className={css.icon}/>}
         />
       </ul>
 
@@ -191,47 +191,47 @@ const DeveloperTools = () => {
         <TechnicalSkill
           name="Vercel"
           rating={5}
-          icon={<SiVercel />}
+          icon={<SiVercel className={css.icon}/>}
         />
         <TechnicalSkill
           name="Github Pages"
           rating={4}
-          icon={<AiFillGithub />}
+          icon={<AiFillGithub className={css.icon}/>}
         />
         <TechnicalSkill
           name="Docker"
           rating={3}
-          icon={<GrDocker />}
+          icon={<GrDocker className={css.icon}/>}
         />
         <TechnicalSkill
           name="AWS EC2"
           rating={3}
-          icon={<FaAws />}
+          icon={<FaAws className={css.icon}/>}
         />
         <TechnicalSkill
           name="Gunicorn"
           rating={2}
-          icon={<GiUnicorn />}
+          icon={<GiUnicorn className={css.icon}/>}
         />
         <TechnicalSkill
           name="Nginx"
           rating={2}
-          icon={<DiNginx />}
+          icon={<DiNginx className={css.icon}/>}
         />
         <TechnicalSkill
           name="Apache Tomcat"
           rating={2}
-          icon={<SiApachetomcat />}
+          icon={<SiApachetomcat className={css.icon}/>}
         />
         <TechnicalSkill
           name="Kubernetes"
           rating={2}
-          icon={<SiKubernetes />}
+          icon={<SiKubernetes className={css.icon}/>}
         />
         <TechnicalSkill
           name="PM2"
           rating={1}
-          icon={<SiPm2 />}
+          icon={<SiPm2 className={css.icon}/>}
         />
       </ul>
 
@@ -240,32 +240,32 @@ const DeveloperTools = () => {
         <TechnicalSkill
           name="Jinja"
           rating={5}
-          icon={<SiJinja />}
+          icon={<SiJinja className={css.icon}/>}
         />
         <TechnicalSkill
           name="Java Server Pages"
           rating={5}
-          icon={<DiJava />}
+          icon={<DiJava className={css.icon}/>}
         />
         <TechnicalSkill
           name="Firebase"
           rating={3}
-          icon={<SiFirebase />}
+          icon={<SiFirebase className={css.icon}/>}
         />
         <TechnicalSkill
           name="NextAuth.js"
           rating={3}
-          icon={<FaShieldAlt />}
+          icon={<FaShieldAlt className={css.icon}/>}
         />
         <TechnicalSkill
           name="JSON Web Tokens"
           rating={3}
-          icon={<SiJsonwebtokens />}
+          icon={<SiJsonwebtokens className={css.icon}/>}
         />
         <TechnicalSkill
           name="Socket.io"
           rating={2}
-          icon={<SiSocketdotio />}
+          icon={<SiSocketdotio className={css.icon}/>}
         />
       </ul>
     </div>
