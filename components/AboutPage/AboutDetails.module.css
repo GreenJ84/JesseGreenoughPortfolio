@@ -1,12 +1,12 @@
 /** @format */
 
-.title {
+.aboutTitle {
   color: var(--text-primary);
   font-size: clamp( 24px, 5vw, 70px);
   text-align: center;
 }
 
-.aboutMe {
+.aboutDev {
   position: relative;
   margin: 2rem auto;
   width: min(1200px, 80vw);
@@ -16,6 +16,6 @@
   color: var(--text-primary);
 }
 
-.aboutMe:last-child {
+.aboutDev:last-child {
   margin-bottom: 15rem;
 }
