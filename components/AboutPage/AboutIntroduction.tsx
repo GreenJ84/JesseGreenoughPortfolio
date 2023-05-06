@@ -6,7 +6,7 @@ import { ImPointRight } from "react-icons/im";
 
 const css = require("./AboutIntroduction.module.css");
 
-const AboutCard = () => {
+const AboutIntroduction = () => {
   return (
     <div className={css.aboutOpener}>
       <p style={{ textAlign: "left" }}>
@@ -59,4 +59,4 @@ const AboutCard = () => {
   );
 };
 
-export default AboutCard;
+export default AboutIntroduction;
