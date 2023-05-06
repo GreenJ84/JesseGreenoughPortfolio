@@ -2,9 +2,9 @@
 
 import React from "react";
 
-const css = require("./AboutInfo.module.css");
+const css = require("./AboutDetails.module.css");
 
-const AboutInfo = () => {
+const AboutDetails = () => {
   return (
     <>
       <h1 className={css.title}>
@@ -68,4 +68,4 @@ const AboutInfo = () => {
   );
 };
 
-export default AboutInfo;
+export default AboutDetails;

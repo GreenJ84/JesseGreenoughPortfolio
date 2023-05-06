@@ -4,7 +4,7 @@ import React from "react";
 
 import { ImPointRight } from "react-icons/im";
 
-const css = require("./AboutCard.module.css");
+const css = require("./AboutIntroduction.module.css");
 
 const AboutCard = () => {
   return (
