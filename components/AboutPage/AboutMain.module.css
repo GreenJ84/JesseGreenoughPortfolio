@@ -1,13 +1,13 @@
 /** @format */
 
-.body {
+.aboutMain {
   position: relative;
   margin: 0 auto;
   width: min(1200px, 80vw);
   padding: 8rem 0 4rem;
   color: var(--text-primary);
 }
-.image {
+.aboutDevLogo {
   height: 40vw;
   max-height: 45rem;
   width: 60vw;
@@ -16,15 +16,9 @@
   margin: 5rem auto;
   filter: var(--hue-rotate-about);
 }
-.title {
-  font-size: 6vw;
-  padding-bottom: 20px;
-  margin: 8vw 0;
-  text-align: center;
-}
 
 @media only screen and (max-width: 900px) {
-  .image {
+  .aboutDevLogo {
     margin: 4rem auto 0.5rem;
   }
 }
