@@ -1,41 +1,42 @@
-import React from 'react'
-import { Button, Row } from 'react-bootstrap'
-import { AiOutlineDownload } from 'react-icons/ai'
+/** @format */
+
+import React from "react";
+import { Button, Row } from "react-bootstrap";
+import { AiOutlineDownload } from "react-icons/ai";
 
 const css = require("../../styles/Resume.module.css");
 
-interface resumeButtons{
-    download: string
-    view: string
+interface resumeButtons {
+  section: string;
+  download: string;
+  view: string;
 }
 
 const ButtonGroup = (props: resumeButtons) => {
   return (
-    <Row className={css.download}>
-        <Button
+    <Row className={css.resumeButtonHolder}>
+      <Button
+        id={`${props.section}-download`}
         variant="primary"
-        href={
-            props.download
-        }
+        href={props.download}
         target="_blank"
-        className={css.downloadButton}
-        >
+        className={css.resumeButton}
+      >
         <AiOutlineDownload />
         &nbsp;Download
-        </Button>
-        <Button
+      </Button>
+      <Button
+        id={`${props.section}-view`}
         variant="primary"
-        href={
-            props.view
-        }
+        href={props.view}
         target="_blank"
-        className={css.downloadButton}
-        >
+        className={css.resumeButton}
+      >
         <AiOutlineDownload />
         &nbsp;View
-        </Button>
+      </Button>
     </Row>
-  )
-}
+  );
+};
 
-export default ButtonGroup
+export default ButtonGroup;
