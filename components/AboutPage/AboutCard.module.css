@@ -1,17 +1,18 @@
 /** @format */
 
-.blockquote {
+.aboutOpener {
   font-size: clamp(16px, 2vw, 38px);
   margin: 0;
-}
-
-.quoteCardView {
   color: var(--text-primary);
 }
 
-.aboutActivity {
+.aboutOpener li {
   list-style: none;
   text-align: left;
   margin-bottom: 10px;
   color: var(--text-ternary);
+}
+
+.pointer{
+  color: var(--text-secondary);
 }
