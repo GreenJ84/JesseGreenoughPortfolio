@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
     return () => {
       clearTimeout(timer);
     }
-  }, []);
+  });
 
   // Theme change handling
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function App({ Component, pageProps }: AppProps) {
       Router.events.off("routeChangeComplete", end);
       Router.events.off("routeChangeError", end);
     };
-  }, []);
+  });
 
   return (
     <>
