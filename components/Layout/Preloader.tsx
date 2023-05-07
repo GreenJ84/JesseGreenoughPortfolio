@@ -9,6 +9,7 @@ const css = require("./Preloader.module.css");
 const Preloader = () => {
   return (
     <Image
+      priority
       src={loaderLogo}
       alt="Loading Icon"
       width={100}
