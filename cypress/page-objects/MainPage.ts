@@ -8,7 +8,7 @@ export class MainPage{
     framework: Cypress.Chainable<JQuery<HTMLElement>>;
     databases: Cypress.Chainable<JQuery<HTMLElement>>;
     developerTools: Cypress.Chainable<JQuery<HTMLElement>>;
-    socialSection: Cypress.Chainable<JQuery<HTMLElement>>;
+    developerSocials: Cypress.Chainable<JQuery<HTMLElement>>;
 
     constructor() {
         cy.visit(BASEURL);
@@ -18,6 +18,6 @@ export class MainPage{
         this.framework = cy.get("#development-frameworks");
         this.databases = cy.get("#development-databases");
         this.developerTools = cy.get("#developer-tools");
-        this.socialSection = cy.get("#developerSocial");
+        this.developerSocials = cy.get("#developerSocial");
     }
 }
