@@ -7,29 +7,39 @@ import { before } from 'mocha';
 import { MainPage } from "../../page-objects/MainPage";
 import { BASEURL } from "../../support/e2e";
 
+let mainPage: MainPage;
+const setUpStandard = () => {
+  cy.viewport(1280, 800);
+  cy.visit(BASEURL);
+}
 
-describe("Ensuring HomePage Layout conformity", () => {
-  let mainPage: MainPage;
+
+describe("Home page Introduction visable and as expected", () => {
   before(() => {
-    cy.visit(BASEURL);
     mainPage = new MainPage()
   });
-  
-  beforeEach(() => {
-    cy.viewport(1280, 800);
-    cy.visit(BASEURL);
-  });
+  beforeEach(setUpStandard);
 
-  it("home navigation should have all six navigation tags", () => {
-    cy.get("#nav")
-      .should("be.visible")
-      .children()
-      .should("have.length", 6);
-  });
-
-  it("The introdutory titles should be correct and visible", () => {
+  //! Move to navigation testing
+  // it("home navigation should have all six navigation tags", () => {
+  //   cy.get("#nav")
+  //     .should("be.visible")
+  //     .children()
+  //     .should("have.length", 6);
+  // });
+  it("The Greeting is rendering correctly", () => {
     mainPage.homeTop
-      .find(".HomeTop_homeHeader__m6NJl")
+      .find("h1")
+      .first()
+      .should("be.visible")
+      .contains("Hi There!")
+      .children()
+      .should("have.length", 2);
+  });
+
+  it("The Developers Name is rendering correctly", () => {
+    mainPage.homeTop
+      .find("#developerName")
       .should("be.visible")
       .contains("I'M JESSE GREENOUGH")
       .next()
@@ -37,7 +47,16 @@ describe("Ensuring HomePage Layout conformity", () => {
       .should("have.length", 3);
   });
 
-  it("The introdutory image should be correct and visible", () => {
+  it("The TypeWrite section has all components rendering", () => {
+    mainPage.homeTop
+      .find("#developerName")
+      .should("be.visible")
+      .next()
+      .children()
+      .should("have.length", 3);
+  });
+
+  it("The Home developer logo should be correct and visible", () => {
     mainPage.homeTop
       .find("#homeDeveloperLogo")
       .should("be.visible")
@@ -45,28 +64,51 @@ describe("Ensuring HomePage Layout conformity", () => {
       .and("include", "home-main.svg");
   });
 
-  it("The Language section should have the correct number of languages", () => {
+});
+
+describe("Technical Sections are rendering as expected", () => {
+  before(() => {
+    mainPage = new MainPage();
+  });
+  beforeEach(setUpStandard);
+
+  it("The Language section titles and lists are rendering correctly", () => {
     mainPage.languages
+      .should("be.visible")
+      .and("have.length", 2)
+      .children()
+      .first()
+      .should("have.text", "Programming Languages")
       .find("#languages")
       .children()
       .should("have.length", 14);
   });
 
-  it("The Framework section should have the correct number of frameworks", () => {
+  it("The Framework section titles and lists are rendering correctly", () => {
     mainPage.framework
+      .should("be.visible")
+      .and("have.length", 2)
+      .children()
+      .first()
+      .should("have.text", "Programming Frameworks")
       .find("#frameworks")
       .children()
       .should("have.length", 17);
   });
 
-  it("The Database section should have the correct number of databases", () => {
+  it("The Database section titles and lists are rendering correctly", () => {
     mainPage.databases
+      .should("be.visible")
+      .and("have.length", 2)
+      .children()
+      .first()
+      .should("have.text", "Databases")
       .find("#databases")
       .children()
       .should("have.length", 6);
   });
 
-  it("The Developer tool section should have the correct number of developer tools", () => {
+  it("The Developer tools section titles and lists are rendering correctly", () => {
     mainPage.developerTools
       .within(() => {
         cy.get("h1")
@@ -109,3 +151,17 @@ describe("Ensuring HomePage Layout conformity", () => {
     });
   });
 });
+
+describe("Technical Skills blocks are rendering as expected", () => {
+  before(() => {
+    mainPage = new MainPage()
+  });
+  beforeEach(setUpStandard);
+})
+
+describe("Developer Socials are rendering as expected and missing in the footer", () => {
+  before(() => {
+    mainPage = new MainPage()
+  });
+  beforeEach(setUpStandard);
+})
