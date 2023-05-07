@@ -108,6 +108,17 @@ describe("Technical Sections are rendering as expected", () => {
       .should("have.length", 6);
   });
 
+  it("The Github card is being displayed", () => {
+    cy.get("#githubCard")
+      .should("be.visible")
+      .children()
+      .should("have.length", 2)
+      .first()
+      .should("have.text", "Days I Code")
+      .next()
+      .should("be.visible")
+  });
+
   it("The Developer tools section titles and lists are rendering correctly", () => {
     mainPage.developerTools
       .within(() => {
@@ -157,6 +168,76 @@ describe("Technical Skills blocks are rendering as expected", () => {
     mainPage = new MainPage()
   });
   beforeEach(setUpStandard);
+
+  it("The Technical skills containers in the languages section works correctly", () => { 
+    mainPage.languages
+      .should("be.visible")
+      .find("#languages")
+      .children()
+      .eq(Math.floor(Math.random() * 14))
+      .should("have.length", 3)
+      .and("be.visible");
+  })
+
+  it("The Technical skills containers in the frameworks section works correctly", () => { 
+    mainPage.framework
+      .should("be.visible")
+      .find("#frameworks")
+      .children()
+      .eq(Math.floor(Math.random() * 17))
+      .should("have.length", 3)
+      .and("be.visible");
+  })
+
+  it("The Technical skills containers in the databases section works correctly", () => { 
+    mainPage.databases
+      .should("be.visible")
+      .find("#databases")
+      .children()
+      .eq(Math.floor(Math.random() * 6))
+      .should("have.length", 3)
+      .and("be.visible");
+  })
+
+  it("The Technical skills containers in the developer tools section works correctly", () => {
+    mainPage.developerTools
+      .within(() => {
+        cy.get("ul")
+          .eq(0)
+          .children()
+          .eq(Math.floor(Math.random() * 4))
+          .should("have.length", 3)
+          .and("be.visible");
+
+        cy.get("ul")
+          .eq(1)
+          .children()
+          .eq(Math.floor(Math.random() * 12))
+          .should("have.length", 3)
+          .and("be.visible");
+
+        cy.get("ul")
+          .eq(2)
+          .children()
+          .eq(Math.floor(Math.random() * 5))
+          .should("have.length", 3)
+          .and("be.visible");
+
+        cy.get("ul")
+          .eq(3)
+          .children()
+          .eq(Math.floor(Math.random() * 9))
+          .should("have.length", 3)
+          .and("be.visible");
+
+        cy.get("ul")
+          .eq(4)
+          .children()
+          .eq(Math.floor(Math.random() * 6))
+          .should("have.length", 3)
+          .and("be.visible");
+      });
+  })
 })
 
 describe("Developer Socials are rendering as expected and missing in the footer", () => {
@@ -164,4 +245,52 @@ describe("Developer Socials are rendering as expected and missing in the footer"
     mainPage = new MainPage()
   });
   beforeEach(setUpStandard);
+
+  it("The Developer Socials section component and title are rendering correctly", () => { 
+    mainPage.developerSocials
+      .should("be.visible")
+      .and("have.length", 2)
+      .find("p")
+      .should("have.length", 2)
+      .and("have.text", "Feel free to connect with me!");
+  })
+
+  it("The Developer Socials section list, logos, and links are rendering", () => {
+    mainPage.developerSocials
+      .find("ul")
+      .within(() => {
+        cy.get("li")
+          .should("have.length", 4)
+          .eq(0)
+          .find("a")
+          .should("have.attr", "href")
+          .and("include", "https://www.linkedin.com")
+          .children()
+          .should("have.length", 1)
+        
+        cy.get("li")
+          .eq(1)
+          .find("a")
+          .should("have.attr", "href")
+          .and("include", "https://twitter.com")
+          .children()
+          .should("have.length", 1)
+        
+        cy.get("li")
+          .eq(3)
+          .find("a")
+          .should("have.attr", "href")
+          .and("include", "https://www.linkedin.com")
+          .children()
+          .should("have.length", 1)
+        
+        cy.get("li")
+          .eq(4)
+          .find("a")
+          .should("have.attr", "href")
+          .and("include", "https://www.instagram.com")
+          .children()
+          .should("have.length", 1)
+      })
+  });
 })
