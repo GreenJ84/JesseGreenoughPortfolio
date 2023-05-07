@@ -27,7 +27,7 @@ const GithubCard = () => {
   }, []);
 
   return (
-    <>
+    <div id="githubCard">
       <h1 className={css.skillSectionTitle}>
         Days I <strong className="detail">Code</strong>
       </h1>
@@ -40,7 +40,7 @@ const GithubCard = () => {
         blockMargin={8}
         fontSize={Math.min(width, 34)}
       />
-    </>
+    </div>
   );
 };
 
