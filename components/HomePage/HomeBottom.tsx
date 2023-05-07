@@ -108,7 +108,7 @@ const HomeBottom = () => {
           className={css.developerSocial}
         >
             <p>
-              Feel free to <span className="detail">connect </span>with me on
+              Feel free to <span className="detail">connect </span>with me!
             </p>
             <ul className={css.developerSocialLinks}>
               <li>
