@@ -24,6 +24,7 @@ cypress/screenshots/
 cypress/fixtures/
 cypress/results/
 cypress/logs/
+cypress/downloads/
 cypress/e2e/examples
 
 # next.js
