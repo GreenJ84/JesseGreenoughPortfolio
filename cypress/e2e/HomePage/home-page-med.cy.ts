@@ -3,27 +3,7 @@
 // / <reference types="cypress" />
 
 import { MainPage } from "../../page-objects/MainPage";
-import { BASEURL } from "../../support/e2e";
-
-interface Viewport{
-  width: number;
-  height: number;
-}
-type VIEW = Viewport | string;
-const viewports: VIEW[] = [
-  // Desktop viewports
-  { width: 1366, height: 768 },  // Windows
-  { width: 1440, height: 900 },  // macOS
-  { width: 1920, height: 1080 }, // Windows/macOS
-  { width: 2560, height: 1440 }, // macOS
-  // Tablet viewports
-  { width: 1024, height: 768 },  // iPad (Landscape)
-  "ipad-2",
-  // Mobile viewports
-  "iphone-6",
-  "iphone-8",
-  { width: 414, height: 736 },   // iPhone 6/7/8 Plus (or equivalent)
-];
+import { BASEURL, VIEW, viewports } from "../../support/e2e";
 
 let mainPage: MainPage;
 const setUpStandard = (viewport: VIEW) => {
@@ -42,12 +22,11 @@ const setUpStandard = (viewport: VIEW) => {
 describe("Home page Compatibility at all viewports", () => {
   before(() => {
     mainPage = new MainPage()
-    cy.viewport(2500, 1400);
   });
 
   viewports.forEach((viewport) => {
     describe(`Home page Introduction visable and as expected at size: ${typeof viewport == "string" ? viewport : `${viewport.width} x ${viewport.height}`}`, () => {
-      beforeEach(() => {
+      before(() => {
         setUpStandard(viewport)
       });
 
@@ -97,7 +76,7 @@ describe("Home page Compatibility at all viewports", () => {
     });
 
     describe(`Technical Sections are rendering as expected at size: ${typeof viewport == "string" ? viewport : `${viewport.width} x ${viewport.height}`}`, () => {
-      beforeEach(() => {
+      before(() => {
         setUpStandard(viewport);
       });
 
@@ -202,7 +181,7 @@ describe("Home page Compatibility at all viewports", () => {
     });
 
     describe(`Technical Skills blocks are rendering as expected  at size: ${typeof viewport == "string" ? viewport : `${viewport.width} x ${viewport.height}`}`, () => {
-      beforeEach(() => setUpStandard(viewport));
+      before(() => setUpStandard(viewport));
 
 
       it("The Technical skills containers in the languages section works correctly", () => {
@@ -277,7 +256,7 @@ describe("Home page Compatibility at all viewports", () => {
     })
 
     describe(`Developer Socials are rendering as expected and missing in the footer at size: ${typeof viewport == "string" ? viewport : `${viewport.width} x ${viewport.height}`}`, () => {
-      beforeEach(() => setUpStandard(viewport));
+      before(() => setUpStandard(viewport));
 
 
       it("The Developer Socials section component and title are rendering correctly", () => {
