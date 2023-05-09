@@ -11,14 +11,17 @@ const css = require("./AboutMain.module.css");
 
 const AboutMain = () => {
   return (
-    <Container className={css.aboutMain}>
+    <Container
+      id="aboutMain"
+      className={css.aboutMain}
+    >
       <AboutIntroduction />
       <Image
         src={aboutDevLogo}
-        alt="about"
+        alt="An animated image of a developer, happily working away with code at a standing office desk of the future with holographic displays"
         className={css.aboutDevLogo}
-        width={ 800 }
-        height={ 800 }
+        width={800}
+        height={800}
       />
     </Container>
   );
