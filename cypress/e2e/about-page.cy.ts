@@ -10,7 +10,7 @@ const ABOUTURL = `${BASEURL}/about`;
 
 describe("About Page render testing at all viewport sizes", () => {
   before(() => {
-    aboutPage = new AboutPage();
+    aboutPage = new AboutPage(ABOUTURL);
     cy.window().then((win) => {
       win.localStorage.setItem("theme", "dark");
     });

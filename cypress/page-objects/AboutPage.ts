@@ -13,8 +13,8 @@ export class AboutPage {
     aboutIntro: Cypress.Chainable<JQuery<HTMLElement>>;
     aboutDetail: Cypress.Chainable<JQuery<HTMLElement>>;
 
-    constructor() {
-        cy.visit(BASEURL + "/about");
+    constructor(url: string) {
+        cy.visit(url);
         this.aboutMain = cy.get('#aboutMain');
         this.aboutIntro = cy.get('#aboutIntro');
         this.aboutDetail = cy.get('#aboutDetail');
