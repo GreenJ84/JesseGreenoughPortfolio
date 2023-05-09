@@ -33,10 +33,12 @@ const buttonStyleTesting = (button: Cypress.Chainable<JQuery<HTMLButtonElement>>
 export class ResumePage {
   topButton: Cypress.Chainable<JQuery<HTMLElement>>;
   resumeHolder: Cypress.Chainable<JQuery<HTMLElement>>;
+  resume: Cypress.Chainable<JQuery<HTMLElement>>;
   bottomButton: Cypress.Chainable<JQuery<HTMLElement>>;
   constructor() {
     this.topButton = cy.get("#top-buttons");
-    this.resumeHolder = cy.get("#resume-holder");
+    this.resumeHolder = cy.get("#resumePage");
+    this.resume = cy.get("#resume");
     this.bottomButton = cy.get("#bottom-buttons");
   }
 
