@@ -10,8 +10,8 @@ export class HomePage {
     developerTools: Cypress.Chainable<JQuery<HTMLElement>>;
     developerSocials: Cypress.Chainable<JQuery<HTMLElement>>;
 
-    constructor() {
-        cy.visit(BASEURL);
+    constructor(url: string) {
+        cy.visit(url);
         this.homeTop = cy.get("#homeIntro");
         this.developerInto = cy.get("#developerIntro");
         this.languages = cy.get("#development-languages");

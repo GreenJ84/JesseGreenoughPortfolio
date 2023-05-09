@@ -10,7 +10,7 @@ const HOMEURL = `${BASEURL}/`;
 
 describe("Home Page render testing at all viewport sizes", () => {
   before(() => {
-    homePage = new HomePage();
+    homePage = new HomePage(HOMEURL);
     cy.window().then((win) => {
       win.localStorage.setItem("theme", "dark");
     });
@@ -171,7 +171,6 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it(`The Github card is being displayed`, () => {
-        cy.wait(1000);
         cy.window().then((win) => {
           cy.log("" + win.innerWidth);
           if (win.innerWidth > 1000) {
