@@ -42,8 +42,8 @@ export class ResumePage {
     this.bottomButton = cy.get("#bottom-buttons");
   }
 
-  testButtonLayout(buttons: Cypress.Chainable<JQuery<HTMLElement>>) {
-    buttons
+  testButtonLayout(buttonGroup: Cypress.Chainable<JQuery<HTMLElement>>) {
+    buttonGroup
       .children()
       .should("have.length", 2)
       .first()
@@ -51,7 +51,7 @@ export class ResumePage {
       .children()
       .should("have.length", 2)
 
-    buttons
+    buttonGroup
       .children()
       .last()
       .should("have.text", "View")
@@ -59,16 +59,15 @@ export class ResumePage {
       .should("have.length", 2)
   }
 
-  testButtonStyle(buttons: Cypress.Chainable<JQuery<HTMLElement>>) {
-    let button: Cypress.Chainable<JQuery<HTMLButtonElement>> = buttons
+  testButtonStyle(buttonGroup: Cypress.Chainable<JQuery<HTMLElement>>) {
+    let button: Cypress.Chainable<JQuery<HTMLButtonElement>> = buttonGroup
       .get("button")
       .first();
     buttonStyleTesting(button);
 
-    button = buttons
+    button = buttonGroup
       .get("button")
       .last();
     buttonStyleTesting(button);
-    
   }
 }
