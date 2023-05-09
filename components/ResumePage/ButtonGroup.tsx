@@ -14,9 +14,8 @@ interface resumeButtons {
 
 const ButtonGroup = (props: resumeButtons) => {
   return (
-    <Row className={css.resumeButtonHolder}>
+    <Row id={`${props.section}-buttons`} className={css.resumeButtonHolder}>
       <Button
-        id={`${props.section}-download`}
         variant="primary"
         href={props.download}
         target="_blank"
@@ -26,7 +25,6 @@ const ButtonGroup = (props: resumeButtons) => {
         &nbsp;Download
       </Button>
       <Button
-        id={`${props.section}-view`}
         variant="primary"
         href={props.view}
         target="_blank"
