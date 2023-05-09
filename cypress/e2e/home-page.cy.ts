@@ -2,18 +2,19 @@
 
 /// <reference types="cypress" />
 
-import { MainPage } from "../page-objects/MainPage";
+import { HomePage } from "../page-objects/HomePage";
 import { BASEURL, viewports, setUpStandard } from "../support/e2e";
 
-let mainPage: MainPage;
+let homePage: HomePage;
 const HOMEURL = `${BASEURL}/`;
 
 describe("Home Page render testing at all viewport sizes", () => {
   before(() => {
-    mainPage = new MainPage();
+    homePage = new HomePage();
     cy.window().then((win) => {
       win.localStorage.setItem("theme", "dark");
     });
+    cy.visit(HOMEURL);
   });
 
   viewports.forEach((viewport) => {
@@ -22,10 +23,7 @@ describe("Home Page render testing at all viewport sizes", () => {
         ? viewport
         : `${viewport.width} x ${viewport.height}`
     }`, () => {
-      before(() => {
-        setUpStandard(viewport);
-        cy.visit(HOMEURL);
-      });
+      before(() => setUpStandard(viewport));
 
       //! Move to navigation testing
       // it("home navigation should have all six navigation tags", () => {
@@ -34,8 +32,19 @@ describe("Home Page render testing at all viewport sizes", () => {
       //     .children()
       //     .should("have.length", 6);
       // });
+      it("Main Page greeting section has the correct css and image background rendering", () => {
+        homePage.homeTop
+          .should("have.css", "margin", "auto")
+          .and("have.css", "z-index", "-1")
+          .and("have.css", "background-image")
+          .and("contain", "url(/assets/home-bg.jpg)")
+          .and("have.css", "background-size", "cover")
+          .and("have.css", "background-repeat", "no-repeat")
+          .and("have.css", "background-position", "center");
+      });
+
       it("The Greeting is rendering correctly", () => {
-        mainPage.homeTop
+        homePage.homeTop
           .find("h1")
           .first()
           .should("be.visible")
@@ -45,7 +54,7 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Developers Name is rendering correctly", () => {
-        mainPage.homeTop
+        homePage.homeTop
           .find("#developerName")
           .should("be.visible")
           .contains("I'M JESSE GREENOUGH")
@@ -55,7 +64,7 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The TypeWrite section has all components rendering", () => {
-        mainPage.homeTop
+        homePage.homeTop
           .find("#developerName")
           .should("be.visible")
           .next()
@@ -64,11 +73,60 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Home developer logo should be correct and visible", () => {
-        mainPage.homeTop
+        homePage.homeTop
           .find("#homeDeveloperLogo")
           .should("be.visible")
           .and("have.attr", "src")
           .and("include", "home-main.svg");
+      });
+    });
+
+    describe(`The Developer's Introduction section is rendering correctly at size: at size: ${
+      typeof viewport == "string"
+        ? viewport
+        : `${viewport.width} x ${viewport.height}`
+      }`, () => {
+      before(() => setUpStandard(viewport));
+
+      it("The Developer's Introduction section has all components rendering", () => {
+        homePage.developerInto
+          .should("be.visible")
+          .children()
+          .should("have.length", 3);
+      });
+
+      it("The Developer's intro Title and Image are rendering correctly", () => { 
+        homePage.developerInto
+          .find("h2")
+          .should("be.visible")
+          .and("have.length", 1)
+          .and("contain", "LET ME INTRODUCE MYSELF")
+          .next()
+          .should("be.visible")
+          .children()
+          .should("have.length", 1)
+          .find("img")
+          .should("be.visible")
+          .and("have.attr", "src")
+          .and("include", "/assets/avatar.svg")
+          .and("have.attr", "alt")
+          .and("contain", "Human Avatar Icon");
+      });
+
+      it("The Developer's intro Text is rendering correctly", () => { 
+        homePage.developerInto
+          .find("p")
+          .should("be.visible")
+          .should('contain', 'Coding Dojo')
+          .should('contain', 'TypeScript')
+          .should('contain', 'JavaScript')
+          .should('contain', 'Python')
+          .should('contain', 'Rust')
+          .should('contain', 'Java')
+          .should('contain', 'React.js')
+          .should('contain', 'Next.js')
+          .find("b")
+          .should("have.length", 11)
       });
     });
 
@@ -77,12 +135,10 @@ describe("Home Page render testing at all viewport sizes", () => {
         ? viewport
         : `${viewport.width} x ${viewport.height}`
     }`, () => {
-      before(() => {
-        setUpStandard(viewport);
-      });
+      before(() => setUpStandard(viewport));
 
       it("The Language section titles and lists are rendering correctly", () => {
-        mainPage.languages
+        homePage.languages
           .should("be.visible")
           .and("have.length", 2)
           .children()
@@ -94,7 +150,7 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Framework section titles and lists are rendering correctly", () => {
-        mainPage.framework
+        homePage.framework
           .should("be.visible")
           .and("have.length", 2)
           .children()
@@ -106,7 +162,7 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Database section titles and lists are rendering correctly", () => {
-        mainPage.databases
+        homePage.databases
           .should("be.visible")
           .and("have.length", 2)
           .children()
@@ -138,7 +194,7 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Developer tools section titles and lists are rendering correctly", () => {
-        mainPage.developerTools.within(() => {
+        homePage.developerTools.within(() => {
           cy.get("h1").should("have.text", "Development Tools");
 
           cy.get("h5")
@@ -187,8 +243,8 @@ describe("Home Page render testing at all viewport sizes", () => {
       before(() => setUpStandard(viewport));
 
       it("The Language Technical skills containers renders correctly", () => {
-        mainPage.testSkillContainer(
-          mainPage.languages
+        homePage.testSkillContainer(
+          homePage.languages
             .should("be.visible")
             .find("#languages")
             .children()
@@ -197,8 +253,8 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Language Technical skills container is interactive", () => {
-        mainPage.hoverSkillContainer(
-          mainPage.languages
+        homePage.hoverSkillContainer(
+          homePage.languages
             .should("be.visible")
             .find("#languages")
             .children()
@@ -207,8 +263,8 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Framework Technical skills containers renders correctly", () => {
-        mainPage.testSkillContainer(
-          mainPage.framework
+        homePage.testSkillContainer(
+          homePage.framework
             .should("be.visible")
             .find("#frameworks")
             .children()
@@ -217,8 +273,8 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Framework Technical skills containers is interactive", () => {
-        mainPage.hoverSkillContainer(
-          mainPage.framework
+        homePage.hoverSkillContainer(
+          homePage.framework
             .should("be.visible")
             .find("#frameworks")
             .children()
@@ -227,8 +283,8 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Database Technical skills containers renders correctly", () => {
-        mainPage.testSkillContainer(
-          mainPage.databases
+        homePage.testSkillContainer(
+          homePage.databases
             .should("be.visible")
             .find("#databases")
             .children()
@@ -237,8 +293,8 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Database Technical skills containers is interactive", () => {
-        mainPage.hoverSkillContainer(
-          mainPage.databases
+        homePage.hoverSkillContainer(
+          homePage.databases
             .should("be.visible")
             .find("#databases")
             .children()
@@ -247,82 +303,82 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Developer Tool Technical skills containers renders correctly", () => {
-        mainPage.developerTools.within(() => {
+        homePage.developerTools.within(() => {
           let container: Cypress.Chainable<JQuery<HTMLElement>>;
           container = cy
             .get("ul")
             .eq(0)
             .children()
             .eq(Math.floor(Math.random() * 4));
-          mainPage.testSkillContainer(container);
+          homePage.testSkillContainer(container);
 
           container = container = cy
             .get("ul")
             .eq(1)
             .children()
             .eq(Math.floor(Math.random() * 12));
-          mainPage.testSkillContainer(container);
+          homePage.testSkillContainer(container);
 
           container = cy
             .get("ul")
             .eq(2)
             .children()
             .eq(Math.floor(Math.random() * 5));
-          mainPage.testSkillContainer(container);
+          homePage.testSkillContainer(container);
 
           container = cy
             .get("ul")
             .eq(3)
             .children()
             .eq(Math.floor(Math.random() * 9));
-          mainPage.testSkillContainer(container);
+          homePage.testSkillContainer(container);
 
           container = cy
             .get("ul")
             .eq(4)
             .children()
             .eq(Math.floor(Math.random() * 6));
-          mainPage.testSkillContainer(container);
+          homePage.testSkillContainer(container);
         });
       });
 
       it("The Developer Tool Technical skills containers are interactive", () => {
-        mainPage.developerTools.within(() => {
+        homePage.developerTools.within(() => {
           let container: Cypress.Chainable<JQuery<HTMLElement>>;
           container = cy
             .get("ul")
             .eq(0)
             .children()
             .eq(Math.floor(Math.random() * 4));
-          mainPage.hoverSkillContainer(container);
+          homePage.hoverSkillContainer(container);
 
           container = container = cy
             .get("ul")
             .eq(1)
             .children()
             .eq(Math.floor(Math.random() * 12));
-          mainPage.hoverSkillContainer(container);
+          homePage.hoverSkillContainer(container);
 
           container = cy
             .get("ul")
             .eq(2)
             .children()
             .eq(Math.floor(Math.random() * 5));
-          mainPage.hoverSkillContainer(container);
+          homePage.hoverSkillContainer(container);
 
           container = cy
             .get("ul")
             .eq(3)
             .children()
             .eq(Math.floor(Math.random() * 9));
-          mainPage.hoverSkillContainer(container);
+          homePage.hoverSkillContainer(container);
 
           container = cy
             .get("ul")
             .eq(4)
             .children()
             .eq(Math.floor(Math.random() * 6));
-          mainPage.hoverSkillContainer(container);
+          homePage.hoverSkillContainer(container);
         });
       });
     });
@@ -335,7 +391,7 @@ describe("Home Page render testing at all viewport sizes", () => {
       before(() => setUpStandard(viewport));
 
       it("The Developer Socials section component and title are rendering correctly", () => {
-        mainPage.developerSocials
+        homePage.developerSocials
           .should("be.visible")
           .and("have.length", 2)
           .find("p")
@@ -344,7 +400,7 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Developer Socials section list, logos, and links are rendering correctly", () => {
-        mainPage.developerSocials.find("ul").within(() => {
+        homePage.developerSocials.find("ul").within(() => {
           cy.get("li")
             .should("have.length", 4)
             .eq(0)
