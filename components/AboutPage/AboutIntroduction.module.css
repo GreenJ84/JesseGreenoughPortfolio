@@ -10,9 +10,5 @@
   list-style: none;
   text-align: left;
   margin-bottom: 10px;
-  color: var(--text-ternary);
-}
-
-.pointer{
   color: var(--text-secondary);
 }
