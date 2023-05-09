@@ -1,12 +1,12 @@
 /** @format */
 
-.aboutTitle {
+.aboutDetail > h1 {
   color: var(--text-primary);
   font-size: clamp( 24px, 5vw, 70px);
   text-align: center;
 }
 
-.aboutDev {
+.aboutDetail > p {
   position: relative;
   margin: 2rem auto;
   width: min(1200px, 80vw);
@@ -16,6 +16,6 @@
   color: var(--text-primary);
 }
 
-.aboutDev:last-child {
+.aboutDetail:last-child {
   margin-bottom: 15rem;
 }
