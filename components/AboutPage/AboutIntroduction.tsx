@@ -8,7 +8,7 @@ const css = require("./AboutIntroduction.module.css");
 
 const AboutIntroduction = () => {
   return (
-    <div className={css.aboutOpener}>
+    <div id="aboutIntro" className={css.aboutOpener}>
       <p style={{ textAlign: "left" }}>
         Hi everyone, I am<span className="detail"> Jesse Greenough </span>
         currently residing in
@@ -28,30 +28,30 @@ const AboutIntroduction = () => {
       </p>
       <ul>
         <li>
-          <ImPointRight className={css.pointer} /> &emsp;Spend time with my
+          <ImPointRight /> &emsp;Spend time with my
           amazing family
         </li>
         <li>
-          <ImPointRight className={css.pointer} /> &emsp;Enjoy the outdoors!
+          <ImPointRight /> &emsp;Enjoy the outdoors!
         </li>
         <li>
-          <ImPointRight className={css.pointer} /> &emsp;NFT Art collecting
+          <ImPointRight /> &emsp;NFT Art collecting
           (Currently have Eth, HBAR, and XRP NFTs)
         </li>
         <li>
-          <ImPointRight className={css.pointer} /> &emsp;Web3 community
+          <ImPointRight /> &emsp;Web3 community
           participation
         </li>
         <li>
-          <ImPointRight className={css.pointer} /> &emsp;Play Sports
+          <ImPointRight /> &emsp;Play Sports
           (Basketball!)
         </li>
         <li>
-          <ImPointRight className={css.pointer} /> &emsp;Play video games/Watch
+          <ImPointRight /> &emsp;Play video games/Watch
           anime
         </li>
         <li>
-          <ImPointRight className={css.pointer} /> &emsp;Do Sudoku or word
+          <ImPointRight /> &emsp;Do Sudoku or word
           puzzles
         </li>
       </ul>
