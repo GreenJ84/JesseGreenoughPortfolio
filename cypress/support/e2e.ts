@@ -1,3 +1,5 @@
+/** @format */
+
 // ***********************************************************
 // This example support/e2e.ts is processed and
 // loaded automatically before your test files.
@@ -14,26 +16,43 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
-export const BASEURL = "http://localhost:3000/";
-export interface Viewport{
-    width: number;
-    height: number;
+import "./commands";
+export const BASEURL = "http://localhost:3000";
+export interface Viewport {
+  width: number;
+  height: number;
 }
 export type VIEW = Viewport | string;
 export const viewports: VIEW[] = [
-// Desktop viewports
-{ width: 1366, height: 768 },  // Windows
-{ width: 1440, height: 900 },  // macOS
-{ width: 1920, height: 1080 }, // Windows/macOS
-{ width: 2560, height: 1440 }, // macOS
-// Tablet viewports
-{ width: 1024, height: 768 },  // iPad (Landscape)
-"ipad-2",
-// Mobile viewports
-"iphone-6",
-"iphone-8",
-{ width: 414, height: 736 },   // iPhone 6/7/8 Plus (or equivalent)
+  // Desktop viewports
+  { width: 1366, height: 768 }, // Windows
+  { width: 1440, height: 900 }, // macOS
+  { width: 1920, height: 1080 }, // Windows/macOS
+  { width: 2560, height: 1440 }, // macOS
+  // Tablet viewports
+  { width: 1024, height: 768 }, // iPad (Landscape)
+  "ipad-2",
+  // Mobile viewports
+  "iphone-6",
+  "iphone-8",
+  { width: 414, height: 736 }, // iPhone 6/7/8 Plus (or equivalent)
 ];
+export const setUpStandard = (viewport: VIEW) => {
+  cy.log(`Viewport set to: ${
+      typeof viewport == "string"
+        ? viewport
+        : `${viewport.width} x ${viewport.height}`
+    }`
+  );
+  if (typeof viewport === "string") {
+    cy.viewport(viewport as Cypress.ViewportPreset).then(() =>
+      cy.window().trigger("resize")
+    );
+  } else {
+    cy.viewport(viewport.width, viewport.height).then(() =>
+      cy.window().trigger("resize")
+    );
+  }
+};
 
-export { };
+export {};
