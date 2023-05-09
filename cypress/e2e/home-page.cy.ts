@@ -76,8 +76,7 @@ describe("Home Page render testing at all viewport sizes", () => {
         homePage.homeTop
           .find("#homeDeveloperLogo")
           .should("be.visible")
-          .and("have.attr", "src")
-          .and("include", "home-main.svg");
+          .and("have.attr", "src", "home-main.svg");
       });
     });
 
@@ -107,10 +106,8 @@ describe("Home Page render testing at all viewport sizes", () => {
           .should("have.length", 1)
           .find("img")
           .should("be.visible")
-          .and("have.attr", "src")
-          .and("include", "/assets/avatar.svg")
-          .and("have.attr", "alt")
-          .and("contain", "Human Avatar Icon");
+          .and("have.attr", "src", "/assets/avatar.svg")
+          .and("have.attr", "alt", "Human Avatar Icon");
       });
 
       it("The Developer's intro Text is rendering correctly", () => { 
@@ -405,32 +402,28 @@ describe("Home Page render testing at all viewport sizes", () => {
             .should("have.length", 4)
             .eq(0)
             .find("a")
-            .should("have.attr", "href")
-            .and("include", "https://www.linkedin.com")
+            .should("have.attr", "href", "https://github.com/GreenJ84")
             .children()
             .should("have.length", 1);
 
           cy.get("li")
             .eq(1)
             .find("a")
-            .should("have.attr", "href")
-            .and("include", "https://twitter.com")
+            .should("have.attr", "href", "https://twitter.com/GoodGreens84")
             .children()
             .should("have.length", 1);
 
           cy.get("li")
             .eq(3)
             .find("a")
-            .should("have.attr", "href")
-            .and("include", "https://www.linkedin.com")
+            .should("have.attr", "href", "https://www.linkedin.com/in/jessegreenough/")
             .children()
             .should("have.length", 1);
 
           cy.get("li")
             .eq(4)
             .find("a")
-            .should("have.attr", "href")
-            .and("include", "https://www.instagram.com")
+            .should("have.attr", "href", "https://www.instagram.com/jesse.greenough/")
             .children()
             .should("have.length", 1);
         });
