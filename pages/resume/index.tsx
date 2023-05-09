@@ -57,6 +57,7 @@ const ReumePage = (props: resumeProps) => {
 
   return (
     <Container
+      id="resumePage"
       fluid
       className={css.resumeSection}
     >
@@ -65,7 +66,10 @@ const ReumePage = (props: resumeProps) => {
         download={props.resumeData[resNum].download}
         view={props.resumeData[resNum].view}
       />
-      <Row className={css.resume}>
+      <Row
+        id="resume"
+        className={css.resume}
+      >
         <div
           className={css.leftArrow}
           onClick={() => changeResNum("left")}
@@ -73,7 +77,6 @@ const ReumePage = (props: resumeProps) => {
           <BsArrowLeft />
         </div>
         <Image
-          id="resume"
           src={props.resumeData[resNum].link}
           alt="MyResume"
           width={Math.min(width * 0.6, 900)}
@@ -86,7 +89,6 @@ const ReumePage = (props: resumeProps) => {
           <BsArrowRight />
         </div>
       </Row>
-
       <ButtonGroup
         section="bottom"
         download={props.resumeData[resNum].download}
