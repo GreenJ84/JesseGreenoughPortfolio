@@ -56,7 +56,7 @@ const HomeBottom = () => {
               <Image
                 src={myImg}
                 className={css.myAvatarImage}
-                alt="avatar"
+                alt="Human Avatar Icon"
                 width={ 400 }
                 height={ 400 }
               />
@@ -71,30 +71,30 @@ const HomeBottom = () => {
               <br />
               <br />
               I am fluent in
-              <span className="detail"> TypeScript </span> 
+              <b className="detail"> TypeScript </b> 
               and 
-              <span className="detail"> JavaScript </span>
+              <b className="detail"> JavaScript </b>
               with significant knowledge of
-              <span className="detail"> Python </span>
+              <b className="detail"> Python </b>
               (with
               Typings),
-              <span className="detail"> Rust </span>
+              <b className="detail"> Rust </b>
               , and 
-              <span className="detail">Java</span>
+              <b className="detail">Java</b>
               <br />
               <br />
               I am passionate about coding because it enables me to leverage technology to create innovative web technologies and products that have a positive
-              <span className="detail"> impact on society. </span>
+              <b className="detail"> impact on society. </b>
               <br />
               <br />
               Whenever possible, I apply my passion for developing with
-              <span className="detail"> TypeScript </span>
+              <b className="detail"> TypeScript </b>
               and
-              <span className="detail"> Node.js </span>
+              <b className="detail"> Node.js </b>
               combined with modern JavaScript libraries and frameworks like
-              <span className="detail"> React.js </span>
+              <b className="detail"> React.js </b>
               and
-              <span className="detail"> Next.js</span>
+              <b className="detail"> Next.js</b>
             </p>
         </Row>
         <Languages/>
