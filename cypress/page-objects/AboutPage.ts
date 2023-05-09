@@ -14,6 +14,9 @@ export class AboutPage {
 
     testIntroListItem(item: Cypress.Chainable<JQuery<HTMLElement>>) { 
         item
+            .should("have.css", "list-style", "none")
+            .should("have.css", "margin-bottom", "10px")
+            .should("have.css", "color", "rgb(0, 255, 13)")
             .children()
             .first()
             .should("have.attr", "height", "1em")
