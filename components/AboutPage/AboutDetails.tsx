@@ -6,11 +6,11 @@ const css = require("./AboutDetails.module.css");
 
 const AboutDetails = () => {
   return (
-    <>
-      <h1 className={css.aboutTitle}>
+    <div id="aboutDetail" className={css.aboutDetail}>
+      <h1>
         All About <span className="detail">Me</span>
       </h1>
-      <p className={css.aboutDev}>
+      <p>
         {" "}
         I was born and raise in the border city of
         <span className="detail"> El Paso, Texas.</span> Ever since I was young,
@@ -21,7 +21,7 @@ const AboutDetails = () => {
         (GREEN-ery =&gt; GREEN-ough 🤣) and my love of math began. Both are big
         parts of my identity to this day.
       </p>
-      <p className={css.aboutDev}>
+      <p>
         {" "}
         I attended a Running Start focused high school where, through my
         determination and effort, attained distinguished achievements and was
@@ -31,7 +31,7 @@ const AboutDetails = () => {
         introduced to coding for the first time throught the robotics club and
         where I started coding as a hobby.
       </p>
-      <p className={css.aboutDev}>
+      <p>
         {" "}
         College ended up being one of the hardest times of my life. I traveled
         across the states to attend college at the University of Washington
@@ -42,7 +42,7 @@ const AboutDetails = () => {
         unstable environment for me mentally and concluded with my withdrawal as
         I faced my own mental health crisis.
       </p>
-      <p className={css.aboutDev}>
+      <p>
         {" "}
         From there I re-established myself and entered the workforce as my only
         forseeable option to start earning towards paying off accumulated debt.
@@ -54,7 +54,7 @@ const AboutDetails = () => {
         the latter position that where I found my amazing fiancé and was blessed
         with a beautiful daughter that has become the love of my life.
       </p>
-      <p className={css.aboutDev}>
+      <p>
         {" "}
         While life went on I had kept learning bits and pieces of code here and
         there in my leisure, tring expanding my knowledge with what free time
@@ -66,7 +66,7 @@ const AboutDetails = () => {
         though online course consumption, building and deploying applications,
         and continual algorithm practice.
       </p>
-    </>
+    </div>
   );
 };
 
