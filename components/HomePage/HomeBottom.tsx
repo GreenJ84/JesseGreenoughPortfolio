@@ -3,8 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Tilt from "react-parallax-tilt";
 import Image from "next/image";
-
-import { Container, Row, Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 
 import {
   AiFillGithub,
