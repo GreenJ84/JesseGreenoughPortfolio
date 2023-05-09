@@ -20,4 +20,31 @@ export class MainPage{
         this.developerTools = cy.get("#developer-tools");
         this.developerSocials = cy.get("#developerSocial");
     }
+
+    testSkillContainer(skill: Cypress.Chainable<JQuery<HTMLElement>>) {
+        skill
+            .should("have.length", 3)
+            .and("be.visible")
+            .find('meter')
+            .should('have.attr', 'min', '0')
+            .and('have.attr', 'low', '2')
+            .and('have.attr', 'high', '4')
+            .and('have.attr', 'max', '5')
+            .and('have.attr', 'optimum', '5')
+    }
+
+    hoverSkillContainer(skill: Cypress.Chainable<JQuery<HTMLElement>>) { 
+        skill
+            .should('have.css', 'border', '1.7px solid rgba(14, 215, 165, 0.924)')
+            .should('have.css', 'list-style', 'none')
+            .trigger('mouseover')
+            .should('have.css', 'border', '2.2px solid rgba(14, 215, 165, 0.924)')
+            .should('have.css', 'transform', 'matrix(1.35, 0, 0, 1.35, 0, 0)')
+            .should('have.css', 'background-color', 'rgb(12, 43, 33)')
+            .should('have.css', 'box-shadow', '0px 4px 3px 2px rgb(6, 255, 19)')
+            .trigger('mouseout')
+            .should('have.css', 'border', '1.7px solid rgba(14, 215, 165, 0.924)')
+            .should('have.css', 'transform', 'none')
+            .should('have.css', 'box-shadow', '0px 2px 3px 3px rgb(36, 94, 36)');
+    }
 }
