@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
   // Initial loading theme setter && load animation
   useEffect(() => {
     const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
-    setTheme(matchMedia.matches ? "light" : "dark");
+    setTheme(matchMedia.matches ? "dark" : "light");
 
     const timer = setTimeout(() => {
       setInitialLoad(true);
