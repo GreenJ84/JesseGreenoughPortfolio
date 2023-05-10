@@ -12,7 +12,7 @@ const Databases = () => {
   return (
     <div id="development-databases">
       <h3 className={css.skillSectionTitle}>
-        <b className="detail">Databases </b>
+        <b className="detail">Databases</b>
       </h3>
       <ul
         id="databases"

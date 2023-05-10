@@ -23,7 +23,7 @@ const Languages = () => {
   return (
     <div id="development-languages">
       <h3 className={css.skillSectionTitle}>
-        Programming <b className="detail">Languages </b>
+        Programming <b className="detail">Languages</b>
       </h3>
       <ul
         id="languages"

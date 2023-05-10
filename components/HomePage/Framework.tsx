@@ -29,7 +29,7 @@ const Framework = () => {
   return (
     <div id="development-frameworks">
       <h3 className={css.skillSectionTitle}>
-        Programming <b className="detail">Frameworks </b>
+        Programming <b className="detail">Frameworks</b>
       </h3>
       <ul
         id="frameworks"
