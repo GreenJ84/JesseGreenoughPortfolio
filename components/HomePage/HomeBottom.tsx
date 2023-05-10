@@ -49,7 +49,7 @@ const HomeBottom = () => {
         className={css.developerIntro}
       >
             <h2>
-              LET ME <span className="detail"> INTRODUCE </span> MYSELF
+              LET ME <span className="detail">INTRODUCE</span> MYSELF
             </h2>
             <Tilt className={css.myAvtar}>
               <Image
