@@ -16,7 +16,6 @@ const HomeTop = () => {
       className={css.homeIntro}
       id="homeIntro"
     >
-        <Row>
           <Col
             md={7}
             className={css.homeHeader}
@@ -60,7 +59,6 @@ const HomeTop = () => {
               height={400}
             />
           </Col>
-        </Row>
     </Container>
   );
 };
