@@ -15,8 +15,8 @@ describe("Home Page render testing at all viewport sizes", () => {
       win.localStorage.setItem("theme", "dark");
     });
   });
-  let viewport = viewports[0]
-  // viewports.forEach((viewport) => {
+  // let viewport = viewports[0]
+  viewports.forEach((viewport) => {
     describe(`Home page Introduction visable and rendering as expected at size: ${
       typeof viewport == "string"
         ? viewport
@@ -479,5 +479,5 @@ describe("Home Page render testing at all viewport sizes", () => {
         });
       });
     });
-  // });
+  });
 });

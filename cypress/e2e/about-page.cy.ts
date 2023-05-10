@@ -15,8 +15,8 @@ describe("About Page render testing at all viewport sizes", () => {
       win.localStorage.setItem("theme", "dark");
     });
   });
-  let viewport = viewports[0];
-  // viewports.forEach((viewport) => {
+  // let viewport = viewports[0];
+  viewports.forEach((viewport) => {
   describe(`About Page Main section is rendering as expected at size: ${
     typeof viewport == "string"
       ? viewport
@@ -244,5 +244,5 @@ describe("About Page render testing at all viewport sizes", () => {
     });
   });
 
-  // });
+  });
 });
