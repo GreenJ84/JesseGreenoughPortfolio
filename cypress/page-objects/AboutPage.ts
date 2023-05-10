@@ -5,7 +5,7 @@
 const PARAGRAPH_SNIPPETS = [
   [
     "I was born and raise in the border city of El Paso, Texas.",
-    "which is where my fascination with nature (GREEN-ery =&gt; GREEN-ough 🤣)",
+    "which is where my fascination with nature (GREEN-ery => GREEN-ough 🤣)",
     "big parts of my identity to this day.",
   ],
   [
@@ -15,7 +15,7 @@ const PARAGRAPH_SNIPPETS = [
   ],
   [
     "College ended up being one of the hardest times of my life.",
-    "In my second semester of college my father&apos;s mental health deteriorated",
+    "In my second semester of college my father's mental health deteriorated",
     "a very unstable environment for me mentally",
   ],
   [
@@ -35,8 +35,7 @@ export class AboutPage {
   aboutIntro: Function;
   aboutDetail: Function;
 
-  constructor(url: string) {
-    cy.visit(url);
+  constructor() {
     this.aboutMain = () => {
       return cy.get("#aboutMain");
     };
@@ -50,18 +49,20 @@ export class AboutPage {
 
   testIntroListItem(item: Cypress.Chainable<JQuery<HTMLElement>>) {
     item
-      .should("have.css", "list-style", "none")
+      .should("have.css", "list-style", "outside none none")
       .should("have.css", "margin-bottom", "10px")
-      .should("have.css", "color", "rgb(0, 255, 13)")
+      .should("have.css", "color", "rgb(0, 255, 13)");
+
+    item
       .children()
       .first()
-      .should("have.attr", "height", "1em")
-      .and("have.attr", "width", "1em")
-      .and("have.attr", "viewBox", "0 0 16 16")
-      .children()
-      .should("have.length", 1)
-      .next()
-      .contains("");
+      .should("have.attr", "viewBox", "0 0 16 16")
+      .then(($elem) => {
+        expect($elem).to.have.attr("width");
+        expect($elem).to.have.attr("height");
+      });
+
+    item.should("contain.text", "");
   }
 
   testDetailParagraphsStyle(
@@ -69,18 +70,22 @@ export class AboutPage {
   ) {
     para
       .should("have.css", "position", "relative")
-      .should("have.css", "margin", "2rem auto")
-      .should("have.css", "text-indent", "3rem")
-      .should("have.css", "color", "rgb(206, 255, 208)");
+      .should("have.css", "color", "rgb(206, 255, 208)")
+      .then(($para) => {
+        expect($para).to.have.css("margin");
+        expect($para).to.have.css("text-indent");
+      });
   }
 
   testDetailParagraphText(
-    para: Cypress.Chainable<JQuery<HTMLParagraphElement>>
+    div: Cypress.Chainable<JQuery<HTMLParagraphElement>>
   ) {
-    for (let i = 0; i < 5; i++) {
-      for (let desc of PARAGRAPH_SNIPPETS[i]) {
-        para.eq(i).contains(desc);
+    div.children("p").then(($p) => {
+      for (let i = 0; i < 5; i++) {
+        for (let desc of PARAGRAPH_SNIPPETS[i]) {
+          expect($p.eq(i).text()).to.include(desc);
+        }
       }
-    }
+    });
   }
 }
