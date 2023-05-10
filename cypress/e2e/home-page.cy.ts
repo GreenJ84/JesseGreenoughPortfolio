@@ -22,7 +22,7 @@ describe("Home Page render testing at all viewport sizes", () => {
         ? viewport
         : `${viewport.width} x ${viewport.height}`
     }`, () => {
-      before(() => setUpStandard(viewport, HOMEURL));
+      before(() => setUpStandard(viewport));
       beforeEach(() => { cy.visit(HOMEURL); cy.wait(1000); });
 
       //! Move to navigation testing
@@ -111,7 +111,7 @@ describe("Home Page render testing at all viewport sizes", () => {
         ? viewport
         : `${viewport.width} x ${viewport.height}`
       }`, () => {
-      before(() => setUpStandard(viewport, HOMEURL));
+      before(() => setUpStandard(viewport));
       beforeEach(() => { cy.visit(HOMEURL); cy.wait(1000); });
 
       it("The Developer's Introduction section has all components rendering", () => {
@@ -166,7 +166,7 @@ describe("Home Page render testing at all viewport sizes", () => {
         ? viewport
         : `${viewport.width} x ${viewport.height}`
     }`, () => {
-      before(() => setUpStandard(viewport, HOMEURL));
+      before(() => setUpStandard(viewport));
       beforeEach(() => { cy.visit(HOMEURL); cy.wait(1000); });
 
       it("The Language section titles and lists are rendering correctly", () => {
@@ -282,7 +282,7 @@ describe("Home Page render testing at all viewport sizes", () => {
         ? viewport
         : `${viewport.width} x ${viewport.height}`
     }`, () => {
-      before(() => setUpStandard(viewport, HOMEURL));
+      before(() => setUpStandard(viewport));
       beforeEach(() => { cy.visit(HOMEURL); cy.wait(1000); });
 
       it("The Language Technical skills containers renders correctly", () => {
@@ -431,7 +431,7 @@ describe("Home Page render testing at all viewport sizes", () => {
         ? viewport
         : `${viewport.width} x ${viewport.height}`
     }`, () => {
-      before(() => setUpStandard(viewport, HOMEURL));
+      before(() => setUpStandard(viewport));
       beforeEach(() => { cy.visit(HOMEURL); cy.wait(1000); });
 
       it("The Developer Socials section component and title are rendering correctly", () => {
