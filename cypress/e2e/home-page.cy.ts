@@ -3,7 +3,7 @@
 /// <reference types="cypress" />
 
 import { HomePage } from "../page-objects/HomePage";
-import { BASEURL, viewports, setUpStandard } from "../support/e2e";
+import { BASEURL, setupPageWithTheme, viewports, viewPortSetup } from "../support/e2e";
 
 let homePage: HomePage;
 const HOMEURL = `${BASEURL}/`;
@@ -11,9 +11,6 @@ const HOMEURL = `${BASEURL}/`;
 describe("Home Page render testing at all viewport sizes", () => {
   before(() => {
     homePage = new HomePage();
-    cy.window().then((win) => {
-      win.localStorage.setItem("theme", "dark");
-    });
   });
   // let viewport = viewports[0]
   viewports.forEach((viewport) => {
@@ -22,8 +19,8 @@ describe("Home Page render testing at all viewport sizes", () => {
         ? viewport
         : `${viewport.width} x ${viewport.height}`
     }`, () => {
-      before(() => setUpStandard(viewport));
-      beforeEach(() => { cy.visit(HOMEURL); cy.wait(1000); });
+      before(() => viewPortSetup(viewport));
+      beforeEach(() => { setupPageWithTheme(HOMEURL, "dark") });
 
       //! Move to navigation testing
       // it("home navigation should have all six navigation tags", () => {
@@ -111,8 +108,8 @@ describe("Home Page render testing at all viewport sizes", () => {
         ? viewport
         : `${viewport.width} x ${viewport.height}`
       }`, () => {
-      before(() => setUpStandard(viewport));
-      beforeEach(() => { cy.visit(HOMEURL); cy.wait(1000); });
+      before(() => viewPortSetup(viewport));
+      beforeEach(() => { setupPageWithTheme(HOMEURL, "dark") });
 
       it("The Developer's Introduction section has all components rendering", () => {
         homePage.developerInto()
@@ -148,14 +145,14 @@ describe("Home Page render testing at all viewport sizes", () => {
         homePage.developerInto()
           .find("p")
           .should("be.visible")
-          .should('contain', 'Coding Dojo')
-          .should('contain', 'TypeScript')
-          .should('contain', 'JavaScript')
-          .should('contain', 'Python')
-          .should('contain', 'Rust')
-          .should('contain', 'Java')
-          .should('contain', 'React.js')
-          .should('contain', 'Next.js')
+          .and('contain', 'Coding Dojo')
+          .and('contain', 'TypeScript')
+          .and('contain', 'JavaScript')
+          .and('contain', 'Python')
+          .and('contain', 'Rust')
+          .and('contain', 'Java')
+          .and('contain', 'React.js')
+          .and('contain', 'Next.js')
           .find("b")
           .should("have.length", 11)
       });
@@ -166,8 +163,8 @@ describe("Home Page render testing at all viewport sizes", () => {
         ? viewport
         : `${viewport.width} x ${viewport.height}`
     }`, () => {
-      before(() => setUpStandard(viewport));
-      beforeEach(() => { cy.visit(HOMEURL); cy.wait(1000); });
+      before(() => viewPortSetup(viewport));
+      beforeEach(() => { setupPageWithTheme(HOMEURL, "dark") });
 
       it("The Language section titles and lists are rendering correctly", () => {
         homePage.languages()
@@ -282,8 +279,8 @@ describe("Home Page render testing at all viewport sizes", () => {
         ? viewport
         : `${viewport.width} x ${viewport.height}`
     }`, () => {
-      before(() => setUpStandard(viewport));
-      beforeEach(() => { cy.visit(HOMEURL); cy.wait(1000); });
+      before(() => viewPortSetup(viewport));
+      beforeEach(() => { setupPageWithTheme(HOMEURL, "dark") });
 
       it("The Language Technical skills containers renders correctly", () => {
         homePage.testSkillContainer(
@@ -431,8 +428,8 @@ describe("Home Page render testing at all viewport sizes", () => {
         ? viewport
         : `${viewport.width} x ${viewport.height}`
     }`, () => {
-      before(() => setUpStandard(viewport));
-      beforeEach(() => { cy.visit(HOMEURL); cy.wait(1000); });
+      before(() => viewPortSetup(viewport));
+      beforeEach(() => { setupPageWithTheme(HOMEURL, "dark") });
 
       it("The Developer Socials section component and title are rendering correctly", () => {
         homePage.developerSocials()
