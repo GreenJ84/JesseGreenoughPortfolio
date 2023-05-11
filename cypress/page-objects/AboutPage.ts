@@ -50,8 +50,8 @@ export class AboutPage {
   testIntroListItem(item: Cypress.Chainable<JQuery<HTMLElement>>) {
     item
       .should("have.css", "list-style", "outside none none")
-      .should("have.css", "margin-bottom", "10px")
-      .should("have.css", "color", "rgb(0, 255, 13)");
+      .and("have.css", "margin-bottom", "10px")
+      .and("have.css", "color", "rgb(0, 255, 13)");
 
     item
       .children()
