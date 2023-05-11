@@ -17,12 +17,13 @@
 
 // Import commands.js using ES2015 syntax:
 import "./commands";
-export const BASEURL = "http://localhost:3000";
 export interface Viewport {
   width: number;
   height: number;
 }
 export type VIEW = Viewport | string;
+
+export const BASEURL = "http://localhost:3000";
 export const viewports: VIEW[] = [
   // Desktop viewports
   { width: 1366, height: 768 }, // Windows
@@ -37,8 +38,10 @@ export const viewports: VIEW[] = [
   "iphone-8",
   { width: 414, height: 736 }, // iPhone 6/7/8 Plus (or equivalent)
 ];
-export const setUpStandard = (viewport: VIEW) => {
-  cy.log(`Viewport set to: ${
+
+export const viewPortSetup = (viewport: VIEW) => {
+  cy.log(
+    `Viewport set to: ${
       typeof viewport == "string"
         ? viewport
         : `${viewport.width} x ${viewport.height}`
@@ -55,4 +58,14 @@ export const setUpStandard = (viewport: VIEW) => {
   }
 };
 
-export {};
+export const setupPageWithTheme = (url: string, type: string) => {
+  cy.visit(url, {
+    onBeforeLoad(win) {
+      cy.stub(win, "matchMedia")
+        .withArgs(`(prefers-color-scheme: ${type})`)
+        .returns({
+          matches: true,
+        });
+    },
+  });
+};
