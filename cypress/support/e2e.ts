@@ -17,6 +17,7 @@
 
 // Import commands.js using ES2015 syntax:
 import "./commands";
+import "cypress-real-events";
 export interface Viewport {
   width: number;
   height: number;
