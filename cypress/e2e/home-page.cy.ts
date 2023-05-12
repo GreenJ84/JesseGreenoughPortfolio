@@ -12,7 +12,7 @@ describe("Home Page render testing at all viewport sizes", () => {
   before(() => {
     homePage = new HomePage();
   });
-  // let viewport = viewports[0]
+  // let viewport = viewports[0];
   viewports.forEach((viewport) => {
     describe(`Home page Introduction visable and rendering as expected at size: ${
       typeof viewport == "string"
