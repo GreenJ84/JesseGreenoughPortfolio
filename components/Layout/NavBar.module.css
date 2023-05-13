@@ -1,5 +1,10 @@
 /** @format */
 
+.navbar, .sticky{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 .sticky {
   position: fixed;
   width: 100%;
@@ -22,12 +27,6 @@
   font-size: 1.2rem;
 }
 
-.navbarContainer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
 .navBarBrand {
   position: relative;
 }
@@ -44,7 +43,7 @@
   display: none;
 }
 
-.logo {
+.themeLogo {
   position: relative;
   height: clamp(34px, 8vw, 105px);
   width: clamp(34px, 8vw, 105px);
@@ -134,13 +133,12 @@
     min-height: 8rem;
     background-color: var(--nav-bg) !important;
     padding: 2rem 0;
+    justify-content: center;
   }
   .navbar {
     box-shadow: 0px 2px 4px 0px var(--nav-shadow);
   }
-  .navbarContainer {
-    justify-content: center;
-  }
+
   .navbarNav {
     position: relative;
     top: -20px;
