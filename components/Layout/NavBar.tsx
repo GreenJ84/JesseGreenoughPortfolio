@@ -61,6 +61,7 @@ const NavBar = (props: { mode: Function; theme: String }) => {
       />
       <NavBarCollapse toggle={[expandBar, setExpandBar]} />
       <Navbar.Toggle
+        id="navbarToggle"
         className={expandBar ? css.navbarToggler : css.navbarTogglerClosed}
         aria-controls="responsive-navbar-nav"
         onClick={() => {

@@ -11,15 +11,14 @@ const css = require("./NavBar.module.css");
 
 const NavBarBrand = (props: { mode: Function; theme: String }) => {
   return (
-    <Navbar.Brand className={css.navBarBrand}>
+    <Navbar.Brand id="navbarBrand" className={css.navBarBrand}>
       {props.theme === "dark" ? <p id="mode">🌞</p> : <p id="mode">🌙</p>}
       <Image
         src={props.theme === "dark" ? logo1 : logo2}
         className={css.themeLogo}
-        alt="brand"
+        alt="Theme changing Navigation logo"
         width={250}
         height={250}
-        id="themeLogo"
         onMouseEnter={() => {
           document.getElementById("themeLogo")!.style.filter =
             "grayscale(100%) contrast(200%) opacity(0.1)";

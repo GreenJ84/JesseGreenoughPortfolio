@@ -48,7 +48,6 @@ const NavBarCollapse = (props: {
           wideScreen ? css.navbarNav : expandBar ? css.navbarNav : css.navClosed
         }
         defaultActiveKey="#home"
-        id="nav"
       >
         <Nav.Item className={css.navItem}>
           <Nav.Link
