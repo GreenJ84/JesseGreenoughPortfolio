@@ -222,42 +222,43 @@ context("All layout components render correctly across pages", () => {
                         .children()
                         .first()
                     
-                    if (getWindowInnerWidth() > 900) {
-                        nav.children()
-                            .should("have.length", 6)
-                    } else {
-                        nav.children()
-                            .should("have.length", 5)
+                        if (getWindowInnerWidth() > 900) {
+                            // Navbar Nav
+                            nav
+                                .should("have.css", "display", "flex")
+                                .and("have.css", "justify-content", "space-between")
+                                .and("have.css", "justify-content", "center")
+                                .and("have.css", "transition", "all 0.3s ease-out 0s")
+                                .and("have.css", "margin")
+                        } else {
+                            // NavClosed
+                            nav
+                                .should("have.css", "display", "none")
+                                .and("have.css", "transition", "all 0.3s ease-out 0s")
+                        }
+                });
+
+                it("Each of the Nav Links has the correct layout", () => {
+                    let navItems: Cypress.Chainable<JQuery<HTMLElement>> = layoutComp.collapse()
+                        .children()
+                        .first()
+                        .children()
+                    
+                    for (let i = 0; i < 6; i++) { 
+                        layoutComp.testNavItemLayout(navItems.eq(i))
                     }
                 });
-                it("Each of the Nav Links has the correct layout", () => {
+
+                it("Each of the Nav Links has the correct CSS stylings", () => {
                     let navItems: Cypress.Chainable<JQuery<HTMLElement>> = layoutComp.collapse()
                         .children()
                         .first()
                         .children()
 
                     for (let i = 0; i < 6; i++) {
-                        navItems.eq(i)
-                            .then(($item: JQuery<HTMLElement>) => {
-                                expect($item).to.be.visible;
-                                if (getWindowInnerWidth() > 900) {
-                                    expect($item).to.have.css("position", "relative");;
-
-                                } else {
-
-                                }
-                            })
-                            .find("a")
-                            .then(($link: JQuery<HTMLElement>) => {
-                                expect($link).to.be.visible;
-                            })
-                            .should("contain.text", "")
-                            .children()
-                            .should("have.length", 1)
+                        layoutComp.testNavItemStyle(navItems.eq(i))
                     }
                 });
-                it("Each of the Nav Links render the correct CSS", () => { });
-
             });
 
             describe(`The NavBar Toggle renders correctly at viewport: ${viewportDisplay(viewport)}`, () => {
