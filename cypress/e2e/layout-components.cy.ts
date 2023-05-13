@@ -193,6 +193,7 @@ context("All layout components render correctly across pages", () => {
             describe(`The NavBar's Collapsable Navigation renders correctly at viewport: ${viewportDisplay(viewport)}`, () => {
                 before(() => { viewPortSetup(viewport) });
                 beforeEach(() => { setupPageWithTheme(url, "dark") })
+
                 // NavBar Collapse
                 it("The Collapse section renders and has the Nav inside", () => {
                     layoutComp.collapse()
@@ -237,8 +238,19 @@ context("All layout components render correctly across pages", () => {
                                 .and("have.css", "transition", "all 0.3s ease-out 0s")
                         }
                 });
+                
+                it("Each of the Nav Items has the correct layout", () => {
+                    let navItems: Cypress.Chainable<JQuery<HTMLElement>> = layoutComp.collapse()
+                        .children()
+                        .first()
+                        .children()
+                    
+                    for (let i = 0; i < 6; i++) { 
+                        layoutComp.testNavItemLayout(navItems.eq(i))
+                    }
+                });
 
-                it("Each of the Nav Links has the correct layout", () => {
+                it("Each of the Nav Items has the correct CSS stylings", () => {
                     let navItems: Cypress.Chainable<JQuery<HTMLElement>> = layoutComp.collapse()
                         .children()
                         .first()
@@ -250,13 +262,14 @@ context("All layout components render correctly across pages", () => {
                 });
 
                 it("Each of the Nav Links has the correct CSS stylings", () => {
+                    const width = getWindowInnerWidth();
                     let navItems: Cypress.Chainable<JQuery<HTMLElement>> = layoutComp.collapse()
                         .children()
                         .first()
                         .children()
 
                     for (let i = 0; i < 6; i++) {
-                        layoutComp.testNavItemStyle(navItems.eq(i))
+                        layoutComp.testNavLinkStyle(navItems.eq(i), width)
                     }
                 });
             });
