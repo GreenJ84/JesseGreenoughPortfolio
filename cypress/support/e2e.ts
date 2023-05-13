@@ -77,3 +77,11 @@ export const setupPageWithTheme = (url: string, type: string) => {
     },
   });
 };
+
+export const getWindowInnerWidth = (): number => {
+  let width = 0;
+  cy.window().then((win) => {
+    width = win.innerWidth
+  });
+  return width;
+};
