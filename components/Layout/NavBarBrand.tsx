@@ -10,13 +10,9 @@ const logo2 = "/assets/CyberHedera1.png";
 const css = require("./NavBar.module.css");
 
 const NavBarBrand = (props: { mode: Function; theme: String }) => {
-
   return (
     <Navbar.Brand className={css.navBarBrand}>
-          { props.theme === "dark" ?
-              <p id="mode">🌞</p> :
-              <p id="mode">🌙</p>
-          }
+      {props.theme === "dark" ? <p id="mode">🌞</p> : <p id="mode">🌙</p>}
       <Image
         src={props.theme === "dark" ? logo1 : logo2}
         className={css.themeLogo}
