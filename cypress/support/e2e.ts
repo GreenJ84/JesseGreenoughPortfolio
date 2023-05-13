@@ -58,6 +58,13 @@ export const viewPortSetup = (viewport: VIEW) => {
     );
   }
 };
+export const viewportDisplay = (viewport: VIEW): string => { 
+  if (typeof viewport == "string") {
+    return viewport
+  } else {
+    return `${viewport.width} x ${viewport.height}`
+  }
+}
 
 export const setupPageWithTheme = (url: string, type: string) => {
   cy.visit(url, {
