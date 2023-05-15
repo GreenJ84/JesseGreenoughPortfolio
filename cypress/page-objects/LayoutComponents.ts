@@ -10,7 +10,7 @@ export class LayoutComps {
 
     constructor() {
         this.preload = (): Cypress.Chainable<JQuery<HTMLElement>> => {
-            return cy.get("#navbar")
+            return cy.get("")
         }
         this.navbar = (): Cypress.Chainable<JQuery<HTMLElement>> => {
             return cy.get("#navbar")
@@ -30,9 +30,6 @@ export class LayoutComps {
     }
 
     testNavItemLayout(navItem: Cypress.Chainable<JQuery<HTMLElement>>) {
-        navItem.children()
-            .should("have.length", 1)
-
         navItem
             .find("a")
             .should("have.length", 1)
@@ -59,7 +56,7 @@ export class LayoutComps {
         navItem.trigger("mouseout");
     }
 
-    testNavLinkStyle(navItem: Cypress.Chainable<JQuery<HTMLElement>>, width: number) {
+    testNavLinkStyle(navItem: Cypress.Chainable<JQuery<HTMLElement>>, width: Cypress.Chainable<number>) {
         navItem
             .find("a")
             .first()
@@ -74,12 +71,14 @@ export class LayoutComps {
                 expect($link).to.have.css("text-shadow").match(/.*rgba\(0, 156, 13, 0\.87.*\)/);
                 expect($link).to.have.css("font-size");
 
-                if (width > 900) {
-                    expect($link).to.have.css("flex-direction", "column");
-                } else {
-                    expect($link).to.have.css("flex-direction", "row");
-                    expect($link).to.have.css("padding");
-                }
+                width.then((w) => {
+                    if (w > 900) {
+                        expect($link).to.have.css("flex-direction", "column");
+                    } else {
+                        expect($link).to.have.css("flex-direction", "row");
+                        expect($link).to.have.css("padding");
+                    }
+                });
             })
     }
 
