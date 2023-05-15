@@ -58,6 +58,7 @@ export const viewPortSetup = (viewport: VIEW) => {
     );
   }
 };
+
 export const viewportDisplay = (viewport: VIEW): string => { 
   if (typeof viewport == "string") {
     return viewport
@@ -78,10 +79,11 @@ export const setupPageWithTheme = (url: string, type: string) => {
   });
 };
 
-export const getWindowInnerWidth = (): number => {
-  let width = 0;
-  cy.window().then((win) => {
-    width = win.innerWidth
+export const getWindowInnerWidth = (): Cypress.Chainable<number> => {
+  
+  return cy.window().then((win) => {
+    const width = win.innerWidth
+    expect(width).to.be.greaterThan(0);
+    return width;
   });
-  return width;
 };
