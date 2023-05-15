@@ -30,7 +30,7 @@ const Footer = () => {
           md="4"
           className={css.footerCopywright}
         >
-          <h3>Designed and Developed by Jesse Greenough </h3>
+          <h3>Designed and Developed by Jesse Greenough</h3>
         </Col>
         <Col
           md="4"
