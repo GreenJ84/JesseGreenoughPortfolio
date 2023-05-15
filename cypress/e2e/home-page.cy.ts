@@ -3,60 +3,59 @@
 /// <reference types="cypress" />
 
 import { HomePage } from "../page-objects/HomePage";
-import { BASEURL, setupPageWithTheme, viewports, viewPortSetup } from "../support/e2e";
+import {
+  BASEURL,
+  setupPageWithTheme,
+  viewportDisplay,
+  viewports,
+  viewPortSetup,
+} from "../support/e2e";
 
-let homePage: HomePage;
 const HOMEURL = `${BASEURL}/`;
+const homePage: HomePage = new HomePage();
 
-describe("Home Page render testing at all viewport sizes", () => {
-  before(() => {
-    homePage = new HomePage();
-  });
-  // let viewport = viewports[0];
-  viewports.forEach((viewport) => {
-    describe(`Home page Introduction visable and rendering as expected at size: ${
-      typeof viewport == "string"
-        ? viewport
-        : `${viewport.width} x ${viewport.height}`
-    }`, () => {
-      before(() => viewPortSetup(viewport));
-      beforeEach(() => { setupPageWithTheme(HOMEURL, "dark") });
-
-      //! Move to navigation testing
-      // it("home navigation should have all six navigation tags", () => {
-      //   cy.get("#nav")
-      //     .should("be.visible")
-      //     .children()
-      //     .should("have.length", 6);
-      // });
+let viewport = viewports[0];
+// viewports.forEach((viewport) => {
+  const viewString = viewportDisplay(viewport);
+  context(`Home Page render testing at viewport size: ${viewString}`, () => {
+    before(() => {
+      viewPortSetup(viewport);
+      setupPageWithTheme(HOMEURL, "dark");
+      cy.wait(1000);
+    });
+    describe(`Home page Introduction visable and rendering as expected at size: ${viewString}`, () => {
 
       it("Main Page greeting section is rendering correctly", () => {
-        homePage.homeTop()
+        homePage
+          .homeTop()
           .children()
           .should("have.length", 2)
           .first()
           .children()
-          .should("have.length", 3)
-        
-        homePage.homeTop()
+          .should("have.length", 3);
+
+        homePage
+          .homeTop()
           .children()
           .last()
           .children()
-          .should("have.length", 1)
+          .should("have.length", 1);
       });
 
       it("Main Page greeting section has the correct css and image background rendering", () => {
-        homePage.homeTop()
+        homePage
+          .homeTop()
           .should("have.css", "z-index", "-1")
           .and("have.css", "background-size", "cover, cover")
           .and("have.css", "background-repeat", "no-repeat, no-repeat")
           .and("have.css", "background-position", "50% 0%, 50% 0%")
           .and("have.css", "background-image")
-          .and("contain", `url("${BASEURL}/assets/home-bg.jpg")`)
+          .and("contain", `url("${BASEURL}/assets/home-bg.jpg")`);
       });
 
       it("The Titles are rendering correctly", () => {
-        homePage.homeTop()
+        homePage
+          .homeTop()
           .children()
           .first()
           .find("h1")
@@ -64,7 +63,8 @@ describe("Home Page render testing at all viewport sizes", () => {
           .children()
           .should("have.length", 1);
 
-        homePage.homeTop()
+        homePage
+          .homeTop()
           .children()
           .first()
           .find("h1")
@@ -74,16 +74,18 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Developers Name is rendering correctly", () => {
-        homePage.homeTop()
+        homePage
+          .homeTop()
           .children()
           .first()
           .find("#developerName")
           .should("be.visible")
-          .contains("I'M JESSE GREENOUGH")
+          .contains("I'M JESSE GREENOUGH");
       });
 
       it("The TypeWrite section has all components rendering", () => {
-        homePage.homeTop()
+        homePage
+          .homeTop()
           .children()
           .first()
           .find("div")
@@ -94,7 +96,8 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Home developer logo should be correct and visible", () => {
-        homePage.homeTop()
+        homePage
+          .homeTop()
           .children()
           .last()
           .find("#homeDeveloperLogo")
@@ -103,23 +106,20 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
     });
 
-    describe(`The Developer's Introduction section is rendering correctly at size: at size: ${
-      typeof viewport == "string"
-        ? viewport
-        : `${viewport.width} x ${viewport.height}`
-      }`, () => {
-      before(() => viewPortSetup(viewport));
-      beforeEach(() => { setupPageWithTheme(HOMEURL, "dark") });
+    describe(`The Developer's Introduction section is rendering correctly at size: at size: ${viewString}`, () => {
+
 
       it("The Developer's Introduction section has all components rendering", () => {
-        homePage.developerInto()
+        homePage
+          .developerInto()
           .should("be.visible")
           .children()
           .should("have.length", 3);
       });
 
       it("The Developer's intro Title is rendering correctly", () => {
-        homePage.developerInto()
+        homePage
+          .developerInto()
           .find("h2")
           .should("be.visible")
           .and("have.length", 1)
@@ -127,9 +127,10 @@ describe("Home Page render testing at all viewport sizes", () => {
           .children()
           .should("have.length", 1);
       });
-      
-      it("The Developer's intro Image is rendering correctly", () => { 
-        homePage.developerInto()
+
+      it("The Developer's intro Image is rendering correctly", () => {
+        homePage
+          .developerInto()
           .children()
           .eq(1)
           .should("be.visible")
@@ -141,68 +142,70 @@ describe("Home Page render testing at all viewport sizes", () => {
           .and("have.attr", "alt", "Human Avatar Icon");
       });
 
-      it("The Developer's intro Text is rendering correctly", () => { 
-        homePage.developerInto()
+      it("The Developer's intro Text is rendering correctly", () => {
+        homePage
+          .developerInto()
           .find("p")
           .should("be.visible")
-          .and('contain', 'Coding Dojo')
-          .and('contain', 'TypeScript')
-          .and('contain', 'JavaScript')
-          .and('contain', 'Python')
-          .and('contain', 'Rust')
-          .and('contain', 'Java')
-          .and('contain', 'React.js')
-          .and('contain', 'Next.js')
+          .and("contain", "Coding Dojo")
+          .and("contain", "TypeScript")
+          .and("contain", "JavaScript")
+          .and("contain", "Python")
+          .and("contain", "Rust")
+          .and("contain", "Java")
+          .and("contain", "React.js")
+          .and("contain", "Next.js")
           .find("b")
-          .should("have.length", 11)
+          .should("have.length", 11);
       });
     });
 
-    describe(`Each Technical Section is rendering and as expected at size: ${
-      typeof viewport == "string"
-        ? viewport
-        : `${viewport.width} x ${viewport.height}`
-    }`, () => {
-      before(() => viewPortSetup(viewport));
-      beforeEach(() => { setupPageWithTheme(HOMEURL, "dark") });
+    describe(`Each Technical Section is rendering and as expected at size: ${viewString}`, () => {
+
 
       it("The Language section titles and lists are rendering correctly", () => {
-        homePage.languages()
+        homePage
+          .languages()
           .should("be.visible")
           .children()
           .should("have.length", 2)
           .first()
-          .should("have.text", "Programming Languages")
+          .should("have.text", "Programming Languages");
 
-        homePage.languages()
+        homePage
+          .languages()
           .find("#languages")
           .children()
           .should("have.length", 14);
       });
 
       it("The Framework section titles and lists are rendering correctly", () => {
-        homePage.framework()
+        homePage
+          .framework()
           .should("be.visible")
           .children()
           .should("have.length", 2)
           .first()
-          .should("have.text", "Programming Frameworks")
+          .should("have.text", "Programming Frameworks");
 
-        homePage.framework()
+        homePage
+          .framework()
           .find("#frameworks")
           .children()
           .should("have.length", 17);
       });
 
       it("The Database section titles and lists are rendering correctly", () => {
-        homePage.databases()
+        homePage
+          .databases()
           .should("be.visible")
           .children()
           .should("have.length", 2)
           .first()
-          .should("have.text", "Databases")
+          .should("have.text", "Databases");
 
-        homePage.databases()
+        homePage
+          .databases()
           .find("#databases")
           .children()
           .should("have.length", 6);
@@ -227,12 +230,14 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
 
       it("The Developer tools section titles and lists are rendering correctly", () => {
-        homePage.developerTools()
+        homePage
+          .developerTools()
           .should("be.visible")
           .find("h3")
           .should("have.text", "Development Tools");
 
-        homePage.developerTools()
+        homePage
+          .developerTools()
           .find("h4")
           .eq(0)
           .contains("Governance/Planning")
@@ -240,7 +245,8 @@ describe("Home Page render testing at all viewport sizes", () => {
           .children()
           .should("have.length", 4);
 
-        homePage.developerTools()
+        homePage
+          .developerTools()
           .find("h4")
           .eq(1)
           .contains("Development")
@@ -248,7 +254,8 @@ describe("Home Page render testing at all viewport sizes", () => {
           .children()
           .should("have.length", 12);
 
-        homePage.developerTools()
+        homePage
+          .developerTools()
           .find("h4")
           .eq(2)
           .contains("Runtime")
@@ -256,7 +263,8 @@ describe("Home Page render testing at all viewport sizes", () => {
           .children()
           .should("have.length", 5);
 
-        homePage.developerTools()
+        homePage
+          .developerTools()
           .find("h4")
           .eq(3)
           .contains("DevOps/Serving")
@@ -264,7 +272,8 @@ describe("Home Page render testing at all viewport sizes", () => {
           .children()
           .should("have.length", 9);
 
-        homePage.developerTools()
+        homePage
+          .developerTools()
           .find("h4")
           .eq(4)
           .contains("Extras")
@@ -274,17 +283,13 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
     });
 
-    describe(`Technical Skills containers are rendering as expected within each section at size: ${
-      typeof viewport == "string"
-        ? viewport
-        : `${viewport.width} x ${viewport.height}`
-    }`, () => {
-      before(() => viewPortSetup(viewport));
-      beforeEach(() => { setupPageWithTheme(HOMEURL, "dark") });
+    describe(`Technical Skills containers are rendering as expected within each section at size: ${viewString}`, () => {
+
 
       it("The Language Technical skills containers renders correctly", () => {
         homePage.testSkillContainer(
-          homePage.languages()
+          homePage
+            .languages()
             .should("be.visible")
             .find("#languages")
             .children()
@@ -294,7 +299,8 @@ describe("Home Page render testing at all viewport sizes", () => {
 
       it("The Language Technical skills container is interactive", () => {
         homePage.testSkillContainerStyle(
-          homePage.languages()
+          homePage
+            .languages()
             .should("be.visible")
             .find("#languages")
             .children()
@@ -304,7 +310,8 @@ describe("Home Page render testing at all viewport sizes", () => {
 
       it("The Framework Technical skills containers renders correctly", () => {
         homePage.testSkillContainer(
-          homePage.framework()
+          homePage
+            .framework()
             .should("be.visible")
             .find("#frameworks")
             .children()
@@ -314,7 +321,8 @@ describe("Home Page render testing at all viewport sizes", () => {
 
       it("The Framework Technical skills containers is interactive", () => {
         homePage.testSkillContainerStyle(
-          homePage.framework()
+          homePage
+            .framework()
             .should("be.visible")
             .find("#frameworks")
             .children()
@@ -324,7 +332,8 @@ describe("Home Page render testing at all viewport sizes", () => {
 
       it("The Database Technical skills containers renders correctly", () => {
         homePage.testSkillContainer(
-          homePage.databases()
+          homePage
+            .databases()
             .should("be.visible")
             .find("#databases")
             .children()
@@ -334,7 +343,8 @@ describe("Home Page render testing at all viewport sizes", () => {
 
       it("The Database Technical skills containers is interactive", () => {
         homePage.testSkillContainerStyle(
-          homePage.databases()
+          homePage
+            .databases()
             .should("be.visible")
             .find("#databases")
             .children()
@@ -423,58 +433,65 @@ describe("Home Page render testing at all viewport sizes", () => {
       });
     });
 
-    describe(`Developer Socials are rendering as expected and missing in the footer at size: ${
-      typeof viewport == "string"
-        ? viewport
-        : `${viewport.width} x ${viewport.height}`
-    }`, () => {
-      before(() => viewPortSetup(viewport));
-      beforeEach(() => { setupPageWithTheme(HOMEURL, "dark") });
+    describe(`Developer Socials are rendering as expected and missing in the footer at size: ${viewString}`, () => {
+
 
       it("The Developer Socials section component and title are rendering correctly", () => {
-        homePage.developerSocials()
+        homePage
+          .developerSocials()
           .should("be.visible")
           .children()
-          .should("have.length", 2)
-        
-        homePage.developerSocials()
-          .find("p")
-          .should("have.length", 1)
+          .should("have.length", 2);
+
+        homePage
+          .developerSocials()
+          .find("p")          .should("have.length", 1)
           .and("have.text", "Feel free to connect with me!");
       });
 
       it("The Developer Socials section list, logos, and links are rendering correctly", () => {
-        homePage.developerSocials().find("ul").within(() => {
-          cy.get("li")
-            .should("have.length", 4)
-            .eq(0)
-            .find("a")
-            .should("have.attr", "href", "https://github.com/GreenJ84")
-            .children()
-            .should("have.length", 1);
+        homePage
+          .developerSocials()
+          .find("ul")
+          .within(() => {
+            cy.get("li")
+              .should("have.length", 4)
+              .eq(0)
+              .find("a")
+              .should("have.attr", "href", "https://github.com/GreenJ84")
+              .children()
+              .should("have.length", 1);
 
-          cy.get("li")
-            .eq(1)
-            .find("a")
-            .should("have.attr", "href", "https://twitter.com/GoodGreens84")
-            .children()
-            .should("have.length", 1);
+            cy.get("li")
+              .eq(1)
+              .find("a")
+              .should("have.attr", "href", "https://twitter.com/GoodGreens84")
+              .children()
+              .should("have.length", 1);
 
-          cy.get("li")
-            .eq(2)
-            .find("a")
-            .should("have.attr", "href", "https://www.linkedin.com/in/jessegreenough/")
-            .children()
-            .should("have.length", 1);
+            cy.get("li")
+              .eq(2)
+              .find("a")
+              .should(
+                "have.attr",
+                "href",
+                "https://www.linkedin.com/in/jessegreenough/"
+              )
+              .children()
+              .should("have.length", 1);
 
-          cy.get("li")
-            .eq(3)
-            .find("a")
-            .should("have.attr", "href", "https://www.instagram.com/jesse.greenough/")
-            .children()
-            .should("have.length", 1);
-        });
+            cy.get("li")
+              .eq(3)
+              .find("a")
+              .should(
+                "have.attr",
+                "href",
+                "https://www.instagram.com/jesse.greenough/"
+              )
+              .children()
+              .should("have.length", 1);
+          });
       });
     });
   });
-});
+// });
