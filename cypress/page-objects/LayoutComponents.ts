@@ -1,5 +1,5 @@
-import { getWindowInnerWidth } from "../support/e2e";
 
+const platforms = ["github", "twitter", "linkedin", "instagram"]
 export class LayoutComps {
     preload: Function;
     navbar: Function;
@@ -9,27 +9,27 @@ export class LayoutComps {
     footer: Function;
 
     constructor() {
-        this.preload = () => { 
-            cy.get("#navbar")
+        this.preload = (): Cypress.Chainable<JQuery<HTMLElement>> => {
+            return cy.get("#navbar")
         }
-        this.navbar = () => {
-            cy.get("#navbar")
+        this.navbar = (): Cypress.Chainable<JQuery<HTMLElement>> => {
+            return cy.get("#navbar")
         }
-        this.brand = () => {
-            cy.get("#navbarBrand")
+        this.brand = (): Cypress.Chainable<JQuery<HTMLElement>> => {
+            return cy.get("#navbarBrand")
         }
-        this.collapse = () => {
-            cy.get("#responsive-navbar-nav")
+        this.collapse = (): Cypress.Chainable<JQuery<HTMLElement>> => {
+            return cy.get("#responsive-navbar-nav")
         }
-        this.toggle = () => {
-            cy.get("#navbarToggle")
+        this.toggle = (): Cypress.Chainable<JQuery<HTMLElement>> => {
+            return cy.get("#navbarToggle")
         }
-        this.footer = () => {
-            cy.get("#footer")
+        this.footer = (): Cypress.Chainable<JQuery<HTMLElement>> => {
+            return cy.get("#footer")
         }
     }
 
-    testNavItemLayout(navItem: Cypress.Chainable<JQuery<HTMLElement>>) { 
+    testNavItemLayout(navItem: Cypress.Chainable<JQuery<HTMLElement>>) {
         navItem.children()
             .should("have.length", 1)
 
@@ -81,5 +81,40 @@ export class LayoutComps {
                     expect($link).to.have.css("padding");
                 }
             })
+    }
+
+    testFooterItemLayout(footerLink: Cypress.Chainable<JQuery<HTMLElement>>, idx: number) {
+        footerLink
+            .should("have.attr", "role", "presentation")
+            .find("a")
+            .should("have.length", 1)
+            .first()
+            .should("have.attr", "target", "_blank")
+            .and("have.attr", "rel", "noopener noreferrer")
+            .then((li) => {
+                expect(li).to.have.attr("href").contains(platforms[idx])
+            })
+            .children()
+            .should("have.length", 1)
+    }
+
+    testFooterItemStyle(footerLink: Cypress.Chainable<JQuery<HTMLElement>>) {
+        footerLink
+            .then(($item: JQuery<HTMLElement>) => {
+                expect($item).to.have.css("padding");
+            })
+            .find("a")
+            .first()
+            .should("be.visible")
+            .and("have.css", "color", /.*rgb\(206, 255, 208\).*/)
+            .then(($link: JQuery<HTMLElement>) => {
+                $link.trigger("mouseover");
+                expect($link).to.have.css("color").match(/.*rgb\(0, 255, 13\).*/);
+                $link.trigger("mouseout");
+            })
+            .children()
+            .first()
+            .should("be.visible")
+            .and("have.css", "font-size");
     }
 }
