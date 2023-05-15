@@ -13,15 +13,16 @@ import {
 
 
 const ABOUTURL = `${BASEURL}/about`;
+const aboutPage: AboutPage = new AboutPage();
+
 let viewport = viewports[0];
 // viewports.forEach((viewport) => {
-  const aboutPage: AboutPage = new AboutPage();
   const viewString = viewportDisplay(viewport);
   context(`About Page render testing at viewport size: ${viewString}`, () => {
     before(() => {
       viewPortSetup(viewport);
       setupPageWithTheme(ABOUTURL, "dark");
-      cy.wait(2000);
+      cy.wait(1000);
     });
 
     // let viewport = viewports[0];
@@ -35,7 +36,6 @@ let viewport = viewports[0];
       });
 
       it("About Main is correctly rendering all CSS", () => {
-        cy.pause();
         aboutPage
           .aboutMain()
           .should("have.css", "position", "relative")
