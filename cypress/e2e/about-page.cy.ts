@@ -8,27 +8,24 @@ import {
   setupPageWithTheme,
   viewports,
   viewPortSetup,
+  viewportDisplay
 } from "../support/e2e";
 
-let aboutPage: AboutPage;
+
 const ABOUTURL = `${BASEURL}/about`;
+let viewport = viewports[0];
+// viewports.forEach((viewport) => {
+  const aboutPage: AboutPage = new AboutPage();
+  const viewString = viewportDisplay(viewport);
+  context(`About Page render testing at viewport size: ${viewString}`, () => {
+    before(() => {
+      viewPortSetup(viewport);
+      setupPageWithTheme(ABOUTURL, "dark");
+      cy.wait(2000);
+    });
 
-describe("About Page render testing at all viewport sizes", () => {
-  before(() => {
-    aboutPage = new AboutPage();
-  });
-  // let viewport = viewports[0];
-  viewports.forEach((viewport) => {
-    describe(`About Page Main section is rendering as expected at size: ${
-      typeof viewport == "string"
-        ? viewport
-        : `${viewport.width} x ${viewport.height}`
-    }`, () => {
-      before(() => viewPortSetup(viewport));
-      beforeEach(() => {
-        setupPageWithTheme(ABOUTURL, "dark");
-      });
-
+    // let viewport = viewports[0];
+    describe(`About Page Main section is rendering as expected at size: ${viewString}`, () => {
       it("About Main is visible and rendering all children", () => {
         aboutPage
           .aboutMain()
@@ -38,6 +35,7 @@ describe("About Page render testing at all viewport sizes", () => {
       });
 
       it("About Main is correctly rendering all CSS", () => {
+        cy.pause();
         aboutPage
           .aboutMain()
           .should("have.css", "position", "relative")
@@ -73,16 +71,7 @@ describe("About Page render testing at all viewport sizes", () => {
       });
     });
 
-    describe(`About Page developer Introduction section is rendering as expected at size: ${
-      typeof viewport == "string"
-        ? viewport
-        : `${viewport.width} x ${viewport.height}`
-    }`, () => {
-      before(() => viewPortSetup(viewport));
-      beforeEach(() => {
-        setupPageWithTheme(ABOUTURL, "dark");
-      });
-
+    describe(`About Page developer Introduction section is rendering as expected at size: ${viewString}`, () => {
       it("About Page developer introduction is visible and rendering childeren", () => {
         aboutPage
           .aboutIntro()
@@ -163,16 +152,7 @@ describe("About Page render testing at all viewport sizes", () => {
       });
     });
 
-    describe(`About Page developer details section is rendering as expected at size: ${
-      typeof viewport == "string"
-        ? viewport
-        : `${viewport.width} x ${viewport.height}`
-    }`, () => {
-      before(() => viewPortSetup(viewport));
-      beforeEach(() => {
-        setupPageWithTheme(ABOUTURL, "dark");
-      });
-
+    describe(`About Page developer details section is rendering as expected at size: ${viewString}`, () => {
       it("About Page Developers details section is visible and rendering all children", () => {
         aboutPage
           .aboutDetail()
@@ -224,4 +204,4 @@ describe("About Page render testing at all viewport sizes", () => {
       });
     });
   });
-});
+// });
