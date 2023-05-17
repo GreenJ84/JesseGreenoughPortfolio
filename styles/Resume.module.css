@@ -30,20 +30,19 @@
   right: 14vw;
 }
 
-.download{
+.resumeButtonHolder{
   position: relative;
   margin: 0 auto;
   display: flex;
   width: 70vw;
 }
 
-.downloadButton {
+.resumeButton {
   display: flex;
   align-items: center;
   justify-content: center;
   width: min(25vw, 400px);
   height: clamp(25px, 5vw, 80px);
-  min-height: 25px;
   text-align: center;
   margin: 5vw auto;
   background-color: var(--detail-primary);
@@ -55,7 +54,7 @@
   border-radius: 8px;
 }
 
-.downloadButton:hover {
+.resumeButton:hover {
   background-color: var(--detail-terinary);
   color: var(--detail-primary);
   font-weight: 800;

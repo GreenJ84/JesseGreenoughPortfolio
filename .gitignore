@@ -9,6 +9,24 @@
 # testing
 /coverage
 
+# Jest
+*.log
+*.pid
+*.seed
+*.map
+*.rpt
+*.lcov
+*.json
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+cypress/fixtures/
+cypress/results/
+cypress/logs/
+cypress/downloads/
+cypress/e2e/examples
+
 # next.js
 /.next/
 /out/

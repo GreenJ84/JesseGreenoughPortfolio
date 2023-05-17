@@ -3,12 +3,13 @@
 import React from "react";
 import Image from "next/image";
 
-import loaderLogo from "../../public/assets/pre.svg";
+const loaderLogo = "/assets/pre.svg";
 const css = require("./Preloader.module.css");
 
 const Preloader = () => {
   return (
     <Image
+      priority
       src={loaderLogo}
       alt="Loading Icon"
       width={100}

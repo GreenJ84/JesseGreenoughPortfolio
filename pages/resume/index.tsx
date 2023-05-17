@@ -1,34 +1,32 @@
 /** @format */
 
-import React, { useState } from "react";
-import Image from "next/image";
-
-import { Container, Row } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import { AiOutlineDownload } from "react-icons/ai";
-
+import React, { useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
+import Image from "next/image";
 import { MongoClient } from "mongodb";
-import ButtonGroup from "../../components/ResumePage/ButtonGroup";
+import { Container, Row } from "react-bootstrap";
+
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+
+import ButtonGroup from "../../components/ResumePage/ButtonGroup";
 
 const css = require("../../styles/Resume.module.css");
 
-interface resumeProps{
+interface resumeProps {
   resumeData: [
     {
-      link: string
-      download: string
-      view: string
-      categories: string[]
+      link: string;
+      download: string;
+      view: string;
+      categories: string[];
     }
-  ]
+  ];
 }
 const ReumePage = (props: resumeProps) => {
   const [width, setWidth] = useState(0);
   const [resNum, setResNum] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkWindow = (width: number) => {
       if (width < 900) {
         setWidth(width / 0.62);
@@ -38,7 +36,6 @@ const ReumePage = (props: resumeProps) => {
     };
     checkWindow(window.innerWidth);
     window.addEventListener("resize", () => checkWindow(window.innerWidth));
-
     return () => {
       window.removeEventListener("resize", () =>
         checkWindow(window.innerWidth)
@@ -49,26 +46,30 @@ const ReumePage = (props: resumeProps) => {
   const changeResNum = (dir: string) => {
     if (dir == "left") {
       if (resNum <= 0) {
-        setResNum(props.resumeData.length-1)
+        setResNum(props.resumeData.length - 1);
+      } else {
+        setResNum(resNum - 1);
       }
-      else {
-        setResNum(resNum-1)
-      }
+    } else if (dir == "right") {
+      setResNum((resNum + 1) % props.resumeData.length);
     }
-    else if (dir == "right") {
-      setResNum((resNum+1)%props.resumeData.length)
-    }
-  }
+  };
 
   return (
     <Container
+      id="resumePage"
       fluid
       className={css.resumeSection}
     >
       <ButtonGroup
-        download={props.resumeData[resNum].download} view={props.resumeData[resNum].view}
+        section="top"
+        download={props.resumeData[resNum].download}
+        view={props.resumeData[resNum].view}
       />
-      <Row className={css.resume}>
+      <Row
+        id="resume"
+        className={css.resume}
+      >
         <div
           className={css.leftArrow}
           onClick={() => changeResNum("left")}
@@ -87,12 +88,12 @@ const ReumePage = (props: resumeProps) => {
         >
           <BsArrowRight />
         </div>
-      </Row >
-
+      </Row>
       <ButtonGroup
-        download={props.resumeData[resNum].download} view={props.resumeData[resNum].view}
+        section="bottom"
+        download={props.resumeData[resNum].download}
+        view={props.resumeData[resNum].view}
       />
-
     </Container>
   );
 };
@@ -105,10 +106,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   const resumeData = db.collection(process.env.RES_COLL!);
 
-  const results = await resumeData
-    .find()
-    .sort({ _id: -1 })
-    .toArray();
+  const results = await resumeData.find().sort({ _id: -1 }).toArray();
 
   return {
     props: {

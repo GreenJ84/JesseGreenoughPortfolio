@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useRouter } from "next/router";
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import {
   AiFillGithub,
   AiOutlineTwitter,
@@ -21,8 +21,8 @@ const Footer = () => {
   }
 
   return (
-    <Container
-      fluid
+    <footer
+      id="footer"
       className={css.footer}
     >
       <Row>
@@ -30,7 +30,7 @@ const Footer = () => {
           md="4"
           className={css.footerCopywright}
         >
-          <h3>Designed and Developed by Jesse Greenough </h3>
+          <h3>Designed and Developed by Jesse Greenough</h3>
         </Col>
         <Col
           md="4"
@@ -39,9 +39,9 @@ const Footer = () => {
           <h3>Copyright © {year} JLG</h3>
         </Col>
         {router.pathname != "/" && (
-          <Col md="4">
-            <ul className={css.footerIcons}>
-              <li className={css.socialIcons}>
+          <nav aria-label="Personal Social Links">
+            <ul className={css.footerIconList}>
+              <li role="presentation">
                 <a
                   href="https://github.com/GreenJ84"
                   target="_blank"
@@ -50,7 +50,7 @@ const Footer = () => {
                   <AiFillGithub className={css.footIcons} />
                 </a>
               </li>
-              <li className={css.socialIcons}>
+              <li role="presentation">
                 <a
                   href="https://twitter.com/GoodGreens84"
                   target="_blank"
@@ -59,7 +59,7 @@ const Footer = () => {
                   <AiOutlineTwitter className={css.footIcons} />
                 </a>
               </li>
-              <li className={css.socialIcons}>
+              <li role="presentation">
                 <a
                   href="https://www.linkedin.com/in/jessegreenough/"
                   target="_blank"
@@ -68,7 +68,7 @@ const Footer = () => {
                   <FaLinkedinIn className={css.footIcons} />
                 </a>
               </li>
-              <li className={css.socialIcons}>
+              <li role="presentation">
                 <a
                   href="https://www.instagram.com/jesse.greenough/"
                   target="_blank"
@@ -78,10 +78,10 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
-          </Col>
+          </nav>
         )}
       </Row>
-    </Container>
+    </footer>
   );
 };
 

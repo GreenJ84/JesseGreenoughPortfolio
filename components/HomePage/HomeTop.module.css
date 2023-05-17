@@ -1,44 +1,26 @@
 /** @format */
 
-.homeSection {
-  position: relative;
-  left: 50%;
+.homeIntro {
+  margin: auto;
+  width: min(100%, 1400px);
+  padding: 2rem 0 0;
   z-index: -1;
-  background-image: var(--image-gradient), url(../../public/assets/home-bg.jpg);
+  color: white;
+  text-align: center;
+  background-image: var(--image-gradient), url(/assets/home-bg.jpg);
   filter: var(--hue-rotate-home) opacity(0.9);
   background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 2rem 0 0;
-  transform: translate(-50%);
-  max-width: 1700px;
-}
-
-.homeContent {
-  padding: min(6vw, 9rem) 0 min(6vw, 6rem);
-  color: white;
-  text-align: left;
 }
 
 .homeHeader {
   padding-top: 2vw;
 }
 
-.heading {
-  font-size: clamp(24px, 4vw, 72px);
-  text-align: center;
+.homeHeader > h1 {
+  font-size: clamp(24px, 3vw, 52px);
   margin-bottom: 8vw;
-}
-
-.headingName {
-  font-size: clamp( 18px, 3.2vw, 66px);
-  text-align: center;
-  margin-bottom: 10vw;
-}
-
-.mainName,
-.typeText {
-  color: var(--image-match);
 }
 
 .wave {
@@ -50,14 +32,6 @@
   display: inline-block;
 }
 
-.typeText {
-  text-align: left;
-  font-size: clamp(12px, 3vw, 56px);
-  font-weight: 700;
-  margin: 2.5rem;
-  text-align: center;
-}
-
 @keyframes wave-animation {
   0% {
     transform: rotate(0deg);
@@ -66,50 +40,56 @@
     transform: rotate(14deg);
   } /* The following five values can be played with to make the waving more or less extreme */
   20% {
-    transform: rotate(-8deg);
+    transform: rotate(-14deg);
   }
   30% {
     transform: rotate(14deg);
   }
   40% {
-    transform: rotate(-4deg);
+    transform: rotate(-8deg);
   }
   50% {
-    transform: rotate(10deg);
+    transform: rotate(8deg);
   }
   60% {
-    transform: rotate(0deg);
+    transform: rotate(-4deg);
   } /* Reset for the last half to pause */
   100% {
     transform: rotate(0deg);
   }
 }
 
-.imageHolder {
+.developerName {
+  font-size: clamp( 18px, 2.6vw, 46px);
+  margin-bottom: 10vw;
+}
+
+.nameDetail,
+.typeText {
+  color: var(--image-match);
+}
+
+.typeText {
+  font-size: clamp(12px, 2.4vw, 42px);
+  font-weight: 800;
+  margin: 2.5rem 0;
+  text-align: center;
+}
+
+.homeIntroImage {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.topImage {
+.homeDeveloperLogo {
   position: relative;
   margin: 0 auto;
   height: 50vw;
   max-height: 650px;
 }
 @media only screen and (max-width: 900px) {
-  .homeSection{
+  .homeIntro{
     margin-top: 40px;
-  }
-}
-
-@media only screen and (min-width: 1500px) {
-  .headingName {
-    font-size: 2.4vw;
-    margin-bottom: 6vw;
-  }
-
-  .typeText {
-    font-size: 2.4vw;
   }
 }

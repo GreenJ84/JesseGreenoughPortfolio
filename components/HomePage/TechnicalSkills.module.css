@@ -1,49 +1,68 @@
 /** @format */
 
-.body {
-  display: flex;
+.skillSectionTitle {
+  margin: 0.2rem 0 1.4em;
   color: var(--text-primary);
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 0 0 clamp(40px, 5vw, 80px);
-  padding: 0 10vw;
+  font-size: clamp(20px, 3.2vw, 50px);
+  font-weight: 800;
+  text-align: center;
 }
 
-.techIcons {
+div.skillsListContainer ~ h4,
+h3.skillSectionTitle ~ h4 {
+  margin: 0 0 0.8em;
+  font-size: clamp(12px, 1.8vw, 42px);
+  font-weight: 800;
+  color: var(--detail-terinary);
+  text-decoration: underline;
+  text-align: center;
+}
+
+.skillsListContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 60px auto 100px;
+  width: min(96%, 1600px);
+  color: var(--text-primary);
+}
+
+.skillContainer {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  width: 19%;
-  min-width: 70px;
-  max-width: 300px;
-  min-height: 90px;
-  font-size: 7vw;
   margin: 0 2vw 2vw;
-  padding: 0.4em 0.2em clamp(32px, 1.8em, 64px);
   border: 1.7px solid var(--detail-terinary);
+  width: clamp(120px, 20%, 220px);
+  aspect-ratio: 6/9;
+  padding: 0.2em 0.2em clamp(32px, 1.8em, 64px);
+  font-size: 7vw;
+  list-style: none;
   border-radius: 10px;
   box-shadow: 0px 2px 3px 3px var(--detail-primary);
   overflow: hidden;
   transition: all 0.4s ease 0s;
 }
 
-.techIcons:hover {
-  transform: scale(1.35);
+.skillContainer:hover {
   border: 2.2px solid var(--detail-terinary);
-  box-shadow: 0px 4px 3px 2px var(--detail-secondary);
-  background-color: var(--background);
   z-index: 2000;
+  transform: scale(1.35);
+  background-color: var(--background);
+  box-shadow: 0px 4px 3px 2px var(--detail-secondary);
 }
 
-.techIcons span {
+.skillContainer span {
+  margin: 1rem 0 .2rem;
+  font-size: clamp(12px, 1.8vw, 26px);
   text-align: center;
-  margin-top: 0.6rem;
-  font-size: clamp(10px, 2vw, 36px);
+  height: clamp(10px, 2vw, 60px);
 }
 
-.techIcons meter {
+.skillContainer meter {
   position: absolute;
   bottom: 4px;
   margin-top: 0.4em;
@@ -52,69 +71,53 @@
   height: clamp(24px, 1.29em, 56px);
   justify-content: baseline;
 }
-.techIcons meter::-webkit-meter-bar {
+
+.skillContainer meter::-webkit-meter-bar {
   -webkit-appearance: none;
   -moz-appearance: none;
   background: var(--nav-shadow)
     url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text font-size="100" y=".8em" opacity=".3" z-index="2000">★</text></svg>')
     0 / auto 100%;
 }
-.techIcons meter::-webkit-meter-optimum-value,
-.techIcons meter::-webkit-meter-suboptimum-value,
-.techIcons meter::-webkit-meter-even-less-good-value {
+.skillContainer meter::-webkit-meter-optimum-value,
+.skillContainer meter::-webkit-meter-suboptimum-value,
+.skillContainer meter::-webkit-meter-even-less-good-value {
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
     0 / auto 100%;
 }
 
-.techIcons meter::-moz-meter-optimum::-moz-meter-bar,
-.techIcons meter::-moz-meter-sub-optimum::-moz-meter-bar,
-.techIcons meter::-moz-meter-sub-sub-optimum::-moz-meter-bar {
+.skillContainer meter::-moz-meter-optimum::-moz-meter-bar,
+.skillContainer meter::-moz-meter-sub-optimum::-moz-meter-bar,
+.skillContainer meter::-moz-meter-sub-sub-optimum::-moz-meter-bar {
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text color="greenyellow" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
     0 / auto 100%;
 }
 
-.projectHeading {
+.icon, .manualIcon {
   color: var(--text-primary);
-  font-size: clamp(22px, 4vw, 60px);
-  font-weight: 800;
-  padding-top: 10px;
-  text-align: center;
-  margin: 0 0 1em;
+  width: min(20vw, 210px);
+  height: min(7vw, 140px);
 }
-
-.body ~ h5 {
-  text-decoration: underline;
-  font-size: clamp(12px, 1.8vw, 42px);
-  font-weight: 800;
-  color: var(--detail-terinary);
-  text-align: center;
-  margin: 0 0 0.8em;
+.manualIcon{
+  filter: grayscale(80%);
 }
-
-.icon {
-  filter: grayscale();
-  width: 10vw;
-  height: 7vw;
-}
-
 @media only screen and (max-width: 900px) {
-  .techIcons {
+  .skillContainer {
     box-shadow: 0px 1px 3px 2px var(--detail-primary);
+    padding-top: 20px;
   }
-  .techIcons:hover {
+  .skillContainer:hover {
     transform: scale(1.15);
     border: 1.8px solid var(--detail-terinary);
     box-shadow: 0px 2px 2px 1px var(--detail-secondary);
   }
-  .icon {
-    filter: grayscale();
-    width: 8.5vw;
-    height: 6.5vw;
+  .skillContainer span{
+    height: 10px;
   }
 }
 
 @media only screen and (min-width: 1500px) {
-  .techIcons {
+  .skillContainer {
     margin: 2vw;
   }
 }

@@ -4,19 +4,24 @@ import Image from "next/image";
 import React from "react";
 import { Container } from "react-bootstrap";
 
-import AboutCard from "./AboutCard";
+import AboutIntroduction from "./AboutIntroduction";
 
-import laptopImage from "../../public/assets/about.png";
+const aboutDevLogo = "/assets/about.png";
 const css = require("./AboutMain.module.css");
 
 const AboutMain = () => {
   return (
-    <Container className={css.body}>
-      <AboutCard />
+    <Container
+      id="aboutMain"
+      className={css.aboutMain}
+    >
+      <AboutIntroduction />
       <Image
-        src={laptopImage}
-        alt="about"
-        className={css.image}
+        src={aboutDevLogo}
+        alt="An animated image of a developer, happily working away with code at a standing office desk of the future with holographic displays"
+        className={css.aboutDevLogo}
+        width={800}
+        height={800}
       />
     </Container>
   );

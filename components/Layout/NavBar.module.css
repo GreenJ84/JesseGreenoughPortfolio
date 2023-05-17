@@ -1,31 +1,26 @@
 /** @format */
 
-.sticky {
+.navbar, .sticky{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   position: fixed;
   width: 100%;
   max-height: 12rem;
-  padding: 0.4rem 2rem;
   z-index: 2000;
-  background-color: var(--sticky-bg);
   transition: all 0.3s ease-out 0s;
+}
+
+.sticky {
+  padding: 0.4rem 2rem;
+  background-color: var(--sticky-bg);
   box-shadow: 0px 2px 4px 0px var(--nav-shadow);
   backdrop-filter: blur(15px);
 }
 
 .navbar {
-  max-height: 12rem;
-  position: fixed;
-  width: 100%;
-  z-index: 2000;
-  transition: all 0.3s ease-out 0s;
   padding: 0.3rem 2rem;
   font-size: 1.2rem;
-}
-
-.navbarContainer {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
 }
 
 .navBarBrand {
@@ -33,18 +28,17 @@
 }
 
 .navBarBrand > p {
+  display: none;
   position: absolute;
   top: -9vw;
   left: 4.75vw;
-  display: flex;
   justify-content: center;
   align-items: center;
   z-index: -500;
   font-size: max(8vw, 30px);
-  display: none;
 }
 
-.logo {
+.themeLogo {
   position: relative;
   height: clamp(34px, 8vw, 105px);
   width: clamp(34px, 8vw, 105px);
@@ -106,8 +100,6 @@
   align-items: center;
   color: var(--nav-color);
   text-shadow: 0.7px 0.7px var(--nav-shadow);
-  flex-direction: column;
-  align-items: center;
   font-weight: 400;
   font-size: max(1.5vw, 16px);
   transition: all 0.3s ease-out 0s;
@@ -134,13 +126,12 @@
     min-height: 8rem;
     background-color: var(--nav-bg) !important;
     padding: 2rem 0;
+    justify-content: center;
   }
   .navbar {
     box-shadow: 0px 2px 4px 0px var(--nav-shadow);
   }
-  .navbarContainer {
-    justify-content: center;
-  }
+
   .navbarNav {
     position: relative;
     top: -20px;

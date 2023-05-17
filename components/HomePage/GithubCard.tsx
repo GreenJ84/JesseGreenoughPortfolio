@@ -6,8 +6,9 @@ import GitHubCalendar from "react-github-calendar";
 const css = require("./TechnicalSkills.module.css");
 
 const calenderStyle = {
+  width: "min(90%, 1400px)",
   margin: "3vw auto 10vw",
-  color: "var(--text-ternary)",
+  color: "var(--text-primary)",
   height: "150px",
 };
 
@@ -26,8 +27,8 @@ const GithubCard = () => {
   }, []);
 
   return (
-    <>
-      <h1 className={css.projectHeading}>
+    <div id="githubCard">
+      <h1 className={css.skillSectionTitle}>
         Days I <strong className="detail">Code</strong>
       </h1>
       <GitHubCalendar
@@ -37,9 +38,9 @@ const GithubCard = () => {
         blockSize={width}
         blockRadius={4}
         blockMargin={8}
-        fontSize={Math.min(width, 30)}
+        fontSize={Math.min(width, 34)}
       />
-    </>
+    </div>
   );
 };
 
