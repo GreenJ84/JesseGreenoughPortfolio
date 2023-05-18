@@ -21,10 +21,10 @@ const LAYOUTURLS = () => {
   return extentions;
 };
 
-let viewport = viewports[0];
-// viewports.forEach((viewport) => {
+// let viewport = viewports[0];
+viewports.forEach((viewport) => {
 const viewString = viewportDisplay(viewport);
-for (let url of LAYOUTURLS().slice(0, 2)) {
+for (let url of LAYOUTURLS()) {
   const urlString =
     url.length > 1 ? url.replace("/", "").toLocaleUpperCase() : "Home";
   context(
@@ -465,4 +465,4 @@ for (let url of LAYOUTURLS().slice(0, 2)) {
     }
   );
 }
-// });
+});
