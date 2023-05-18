@@ -8,15 +8,14 @@ import {
   setupPageWithTheme,
   viewports,
   viewPortSetup,
-  viewportDisplay
+  viewportDisplay,
 } from "../support/e2e";
-
 
 const ABOUTURL = `${BASEURL}/about`;
 const aboutPage: AboutPage = new AboutPage();
 
-let viewport = viewports[0];
-// viewports.forEach((viewport) => {
+// let viewport = viewports[0];
+viewports.forEach((viewport) => {
   const viewString = viewportDisplay(viewport);
   context(`About Page render testing at viewport size: ${viewString}`, () => {
     before(() => {
@@ -204,4 +203,4 @@ let viewport = viewports[0];
       });
     });
   });
-// });
+});

@@ -14,8 +14,8 @@ import {
 const RESUMEURL = `${BASEURL}/resume`;
 const resumePage: ResumePage = new ResumePage();
 
-let viewport = viewports[0];
-// viewports.forEach((viewport) => {
+// let viewport = viewports[0];
+viewports.forEach((viewport) => {
   const viewString = viewportDisplay(viewport);
   context(`Resume Page render testing at viewport size: ${viewString}`, () => {
     before(() => {
@@ -113,4 +113,4 @@ let viewport = viewports[0];
       });
     });
   });
-// });
+});

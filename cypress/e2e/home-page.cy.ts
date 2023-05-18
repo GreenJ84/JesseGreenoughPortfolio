@@ -14,8 +14,8 @@ import {
 const HOMEURL = `${BASEURL}/`;
 const homePage: HomePage = new HomePage();
 
-let viewport = viewports[0];
-// viewports.forEach((viewport) => {
+// let viewport = viewports[0];
+viewports.forEach((viewport) => {
   const viewString = viewportDisplay(viewport);
   context(`Home Page render testing at viewport size: ${viewString}`, () => {
     before(() => {
@@ -24,7 +24,6 @@ let viewport = viewports[0];
       cy.wait(1000);
     });
     describe(`Home page Introduction visable and rendering as expected at size: ${viewString}`, () => {
-
       it("Main Page greeting section is rendering correctly", () => {
         homePage
           .homeTop()
@@ -107,8 +106,6 @@ let viewport = viewports[0];
     });
 
     describe(`The Developer's Introduction section is rendering correctly at size: at size: ${viewString}`, () => {
-
-
       it("The Developer's Introduction section has all components rendering", () => {
         homePage
           .developerInto()
@@ -161,8 +158,6 @@ let viewport = viewports[0];
     });
 
     describe(`Each Technical Section is rendering and as expected at size: ${viewString}`, () => {
-
-
       it("The Language section titles and lists are rendering correctly", () => {
         homePage
           .languages()
@@ -284,8 +279,6 @@ let viewport = viewports[0];
     });
 
     describe(`Technical Skills containers are rendering as expected within each section at size: ${viewString}`, () => {
-
-
       it("The Language Technical skills containers renders correctly", () => {
         homePage.testSkillContainer(
           homePage
@@ -434,8 +427,6 @@ let viewport = viewports[0];
     });
 
     describe(`Developer Socials are rendering as expected and missing in the footer at size: ${viewString}`, () => {
-
-
       it("The Developer Socials section component and title are rendering correctly", () => {
         homePage
           .developerSocials()
@@ -445,7 +436,8 @@ let viewport = viewports[0];
 
         homePage
           .developerSocials()
-          .find("p")          .should("have.length", 1)
+          .find("p")
+          .should("have.length", 1)
           .and("have.text", "Feel free to connect with me!");
       });
 
@@ -494,4 +486,4 @@ let viewport = viewports[0];
       });
     });
   });
-// });
+});
