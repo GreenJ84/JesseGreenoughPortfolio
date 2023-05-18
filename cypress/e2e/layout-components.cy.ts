@@ -23,10 +23,13 @@ const LAYOUTURLS = () => {
 
 let viewport = viewports[0];
 // viewports.forEach((viewport) => {
-  const viewString = viewportDisplay(viewport);
-  for (let url of LAYOUTURLS().slice(0, 2)) {
-    const urlString = url.length > 1 ? url.replace("/", "").toLocaleUpperCase() : "Home";
-    context(`All layout components render correctly on page: ${urlString} at viewport: ${viewString}`, () => {
+const viewString = viewportDisplay(viewport);
+for (let url of LAYOUTURLS().slice(0, 2)) {
+  const urlString =
+    url.length > 1 ? url.replace("/", "").toLocaleUpperCase() : "Home";
+  context(
+    `All layout components render correctly on page: ${urlString} at viewport: ${viewString}`,
+    () => {
       before(() => {
         viewPortSetup(viewport);
         setupPageWithTheme(url, "dark");
@@ -82,31 +85,30 @@ let viewport = viewports[0];
             .and("have.css", "align-items", "center")
             .and("have.css", "position", "fixed")
             .and("have.css", "transition", "all 0.3s ease-out 0s")
-            .and("have.css", "z-index", "2000")
-            
+            .and("have.css", "z-index", "2000");
+
           cy.scrollTo(0, 400);
           cy.wait(500);
 
           nav.then(($nav: JQuery<HTMLElement>) => {
-              expect($nav).to.have.css("width");
-              expect($nav).to.have.css("max-height");
-              expect($nav).to.have.css("padding");
-              expect($nav)
-                .to.have.css("background-color")
-                .match(/.*rgba\(1, 56, 4, 0.46.*/);
-              expect($nav)
-                .to.have.css("box-shadow")
-                .match(/.*rgba\(0, 156, 13, 0.87.*/);
-              expect($nav)
-                .to.have.css("backdrop-filter")
-                .match(/.*blur.*/);
-            });
-            cy.scrollTo("top");
+            expect($nav).to.have.css("width");
+            expect($nav).to.have.css("max-height");
+            expect($nav).to.have.css("padding");
+            expect($nav)
+              .to.have.css("background-color")
+              .match(/.*rgba\(1, 56, 4, 0.46.*/);
+            expect($nav)
+              .to.have.css("box-shadow")
+              .match(/.*rgba\(0, 156, 13, 0.87.*/);
+            expect($nav)
+              .to.have.css("backdrop-filter")
+              .match(/.*blur.*/);
+          });
+          cy.scrollTo("top");
         });
       });
 
       describe(`The NavBar's Brand Logo renders correctly on page: ${urlString} at viewport: ${viewString}`, () => {
-
         // NavBar Brand
         it("The Brand container has the correct css stylings", () => {
           getWindowInnerWidth().then((width: number) => {
@@ -132,7 +134,7 @@ let viewport = viewports[0];
             .should("be.visible")
             .children()
             .should("have.length", 2);
-          
+
           layoutComp
             .brand()
             .should("be.visible")
@@ -141,7 +143,7 @@ let viewport = viewports[0];
             .first()
             .should("not.be.visible")
             .and("have.attr", "id", "mode");
-          
+
           layoutComp
             .brand()
             .should("be.visible")
@@ -189,12 +191,22 @@ let viewport = viewports[0];
         });
 
         it("The Brand mouse hover effects are functional", () => {
-          let overlay =layoutComp.brand().find("p").first().should("not.be.visible");
-          let logo =layoutComp.brand().find("img").first().should("be.visible");
+          let overlay = layoutComp
+            .brand()
+            .find("p")
+            .first()
+            .should("not.be.visible");
+          let logo = layoutComp
+            .brand()
+            .find("img")
+            .first()
+            .should("be.visible");
 
           logo.trigger("mouseover");
           logo.then((logo) => {
-            expect(logo).to.have.css("filter").match(/.*grayscale.*contrast.*opacity.*/);
+            expect(logo)
+              .to.have.css("filter")
+              .match(/.*grayscale.*contrast.*opacity.*/);
           });
           overlay.should("have.css", "display", "block");
 
@@ -208,13 +220,13 @@ let viewport = viewports[0];
             .brand()
             .find("p")
             .first()
-            .invoke('text');
+            .invoke("text");
 
           let logo = layoutComp
-              .brand()
-              .find("img")
-              .first()
-              .should("be.visible");
+            .brand()
+            .find("img")
+            .first()
+            .should("be.visible");
 
           logo.click();
           logo
@@ -225,13 +237,13 @@ let viewport = viewports[0];
                 .match(/.*assets.*logo\.png.*/);
             });
 
-          expect(overlay).to.not.equal(layoutComp
-            .brand().find("p").first().invoke('text'));
+          expect(overlay).to.not.equal(
+            layoutComp.brand().find("p").first().invoke("text")
+          );
         });
       });
 
       describe(`The NavBar's Collapsable Navigation renders correctly on page: ${urlString} at viewport: ${viewString}`, () => {
-
         // NavBar Collapse
         it("The Collapse section renders and has the Nav inside", () => {
           layoutComp
@@ -288,11 +300,11 @@ let viewport = viewports[0];
             .first()
             .children("div");
 
-            for (let i = 0; i < 6; i++) {
-              navItems.each(($item) => {
-                layoutComp.testNavItemLayout(cy.wrap($item));
-              });
-            }
+          for (let i = 0; i < 6; i++) {
+            navItems.each(($item) => {
+              layoutComp.testNavItemLayout(cy.wrap($item));
+            });
+          }
         });
 
         it("Each of the Nav Links has the correct CSS stylings", () => {
@@ -312,7 +324,6 @@ let viewport = viewports[0];
       });
 
       describe(`The NavBar Toggle renders correctly on page: ${urlString} at viewport: ${viewString}`, () => {
-
         // NavBar Toggle
         it("The Toggle renders with the correct number of elements", () => {});
         it("The Toggle renders with the correct css styles", () => {});
@@ -320,7 +331,6 @@ let viewport = viewports[0];
       });
 
       describe(`The footer renders correctly on page: ${urlString} at viewport: ${viewString}`, () => {
-
         it("The Footer is rendering with the correct layout", () => {
           layoutComp
             .footer()
@@ -345,22 +355,23 @@ let viewport = viewports[0];
             .first()
             .children("div");
 
-            textItems.then((texts: JQuery<HTMLElement>) => {
-              cy.wrap(texts)
+          textItems.then((texts: JQuery<HTMLElement>) => {
+            cy.wrap(texts)
               .first()
-              .invoke('text')
-              .should('match', /.*Designed and Developed by.*/);
-              
+              .invoke("text")
+              .should("match", /.*Designed and Developed by.*/);
+
             cy.wrap(texts)
               .last()
-              .invoke('text')
-              .should('match', /.*Copyright.*/);
-            });
+              .invoke("text")
+              .should("match", /.*Copyright.*/);
+          });
         });
 
         it("The Footer Nav is correctly rendering the navigation links", () => {
           if (urlString === "Home") {
-            layoutComp.footer()
+            layoutComp
+              .footer()
               .children()
               .first()
               .should("be.visible")
@@ -401,7 +412,7 @@ let viewport = viewports[0];
               .then(($ul: Cypress.Chainable<JQuery<HTMLElement>>) => {
                 expect($ul).to.have.css("margin-top");
                 expect($ul).to.have.css("padding");
-            });
+              });
           }
         });
 
@@ -442,7 +453,6 @@ let viewport = viewports[0];
         });
       });
 
-
       //! Not implemented yet
       // describe(`The particle renders correctly  at viewport: on page: ${urlString} at viewport: ${viewString}`, () => {
       //     before(() => { viewPortSetup(viewport) });
@@ -452,6 +462,7 @@ let viewport = viewports[0];
 
       //     })
       // });
-    });
-  }
+    }
+  );
+}
 // });
