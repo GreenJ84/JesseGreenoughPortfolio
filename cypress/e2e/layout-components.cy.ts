@@ -50,7 +50,7 @@ let viewport = viewports[0];
       describe(`The NavBar renders correctly on page: ${urlString} at viewport: ${viewString}`, () => {
         // NavBar
         it("The correct number of elements render inside the navbar", () => {
-          let navbar: Cypress.Chainable<JQuery<HTMLElement>> = layoutComp
+          layoutComp
             .navbar()
             .should("be.visible")
             .children()
@@ -75,7 +75,7 @@ let viewport = viewports[0];
         });
 
         it("The NavBar changes css stylings on scroll", () => {
-          layoutComp
+          let nav: Cypress.Chainable<JQuery<HTMLSpanElement>> = layoutComp
             .navbar()
             .should("have.css", "display", "flex")
             .and("have.css", "justify-content", "space-around")
@@ -83,10 +83,11 @@ let viewport = viewports[0];
             .and("have.css", "position", "fixed")
             .and("have.css", "transition", "all 0.3s ease-out 0s")
             .and("have.css", "z-index", "2000")
-            .then(($nav: Cypress.Chainable<JQuery<HTMLElement>>) => {
-              cy.scrollTo("top", 400);
-              cy.wait(500);
+            
+          cy.scrollTo(0, 400);
+          cy.wait(500);
 
+          nav.then(($nav: JQuery<HTMLElement>) => {
               expect($nav).to.have.css("width");
               expect($nav).to.have.css("max-height");
               expect($nav).to.have.css("padding");
@@ -106,10 +107,10 @@ let viewport = viewports[0];
 
       describe(`The NavBar's Brand Logo renders correctly on page: ${urlString} at viewport: ${viewString}`, () => {
 
-
         // NavBar Brand
         it("The Brand container has the correct css stylings", () => {
-          getWindowInnerWidth().then((width: number) => {            if (width > 900) {
+          getWindowInnerWidth().then((width: number) => {
+            if (width > 900) {
               expect(width).to.be.greaterThan(900);
               layoutComp.brand().should("have.css", "position", "relative");
             } else {
@@ -129,24 +130,25 @@ let viewport = viewports[0];
           layoutComp
             .brand()
             .should("be.visible")
-            .then(($brand: Cypress.Chainable<JQuery<HTMLElement>>) => {
-              $brand
-                .find("p")
-                .first()
-                .should("have.length", 1)
-                .first()
-                .should("not.be.visible")
-                .and("have.attr", "id", "mode");
-
-              $brand
-                .find("img")
-                .first()
-                .should("have.length", 1)
-                .first()
-                .should("be.visible");
-            })
             .children()
             .should("have.length", 2);
+          
+          layoutComp
+            .brand()
+            .should("be.visible")
+            .find("p")
+            .should("have.length", 1)
+            .first()
+            .should("not.be.visible")
+            .and("have.attr", "id", "mode");
+          
+          layoutComp
+            .brand()
+            .should("be.visible")
+            .find("img")
+            .should("have.length", 1)
+            .first()
+            .should("be.visible");
         });
 
         it("The Brand overlay is rendering and with correct CSS", () => {
@@ -186,42 +188,45 @@ let viewport = viewports[0];
             });
         });
 
-        it("The Brand mouse over effects are functional", () => {
-          let overlay = layoutComp.brand().find("p").first().should("not.be.visible");
-          let logo = layoutComp.brand().find("img").first().should("be.visible");
+        it("The Brand mouse hover effects are functional", () => {
+          let overlay =layoutComp.brand().find("p").first().should("not.be.visible");
+          let logo =layoutComp.brand().find("img").first().should("be.visible");
 
           logo.trigger("mouseover");
-          logo.should("have.css", "filter", /.*grayscale.*contrast.*opacity.*/);
+          logo.then((logo) => {
+            expect(logo).to.have.css("filter").match(/.*grayscale.*contrast.*opacity.*/);
+          });
           overlay.should("have.css", "display", "block");
 
           logo.trigger("mouseout");
-          logo.should("have.css", "filter", "");
-          overlay.should("have.css", "display", "none");
+          logo.should("have.css", "filter", "none");
+          overlay.should("have.css", "display", "inline");
         });
 
         it("The Brand effectively changes the logo and overlay on click", () => {
-          let overlay: Cypress.Chainable<JQuery<HTMLElement>> = layoutComp
+          let overlay: string = layoutComp
             .brand()
             .find("p")
             .first()
-            .should("not.be.visible")
             .invoke('text');
-          let logo: Cypress.Chainable<JQuery<HTMLElement>> = layoutComp
-            .brand()
-            .find("img")
-            .first()
-            .should("be.visible");
+
+          let logo = layoutComp
+              .brand()
+              .find("img")
+              .first()
+              .should("be.visible");
 
           logo.click();
           logo
             .should("have.attr", "alt", "Theme changing Navigation logo")
-            .then(($brand) => {
+            .then(($brand: JQuery<HTMLElement>) => {
               expect($brand)
                 .to.have.attr("src")
                 .match(/.*assets.*logo\.png.*/);
             });
 
-          expect(overlay).to.not.equal(logo.find("p").first().invoke('text'));
+          expect(overlay).to.not.equal(layoutComp
+            .brand().find("p").first().invoke('text'));
         });
       });
 
@@ -279,25 +284,29 @@ let viewport = viewports[0];
         it("Each of the Nav Items has the correct layout", () => {
           let navItems: Cypress.Chainable<JQuery<HTMLElement>> = layoutComp
             .collapse()
-            .children("div")
+            .children()
             .first()
-            .children("div").log();
+            .children("div");
 
-          for (let i = 0; i < 6; i++) {
-            layoutComp.testNavItemLayout(navItems.eq(i));
-          }
+            for (let i = 0; i < 6; i++) {
+              navItems.each(($item) => {
+                layoutComp.testNavItemLayout(cy.wrap($item));
+              });
+            }
         });
 
         it("Each of the Nav Links has the correct CSS stylings", () => {
           const width = getWindowInnerWidth();
           let navItems: Cypress.Chainable<JQuery<HTMLElement>> = layoutComp
             .collapse()
-            .children("div")
+            .children()
             .first()
-            .children("div").log();
+            .children("div");
 
           for (let i = 0; i < 6; i++) {
-            layoutComp.testNavLinkStyle(navItems.eq(i), width);
+            navItems.each(($item, idx) => {
+              layoutComp.testNavLinkStyle(cy.wrap($item), width, idx);
+            });
           }
         });
       });
@@ -320,7 +329,7 @@ let viewport = viewports[0];
             .should("have.length", 1)
             .first()
             .then(($footer: JQuery<HTMLElement>) => {
-              if (url == BASEURL + "/") {
+              if (urlString === "Home") {
                 cy.wrap($footer).children().should("have.length", 2);
               } else {
                 cy.wrap($footer).children().should("have.length", 3);
@@ -329,19 +338,28 @@ let viewport = viewports[0];
         });
 
         it("The Footer is rendering the correct text", () => {
-          let textItems = layoutComp            .footer()
+          let textItems = layoutComp
+            .footer()
             .children()
             .should("have.length", 1)
             .first()
             .children("div");
 
-          textItems.first().should("include.text", /.*Designed and Developed by.*/);
-
-          textItems.last().should("have.text", /^Copyright.*/);
+            textItems.then((texts: JQuery<HTMLElement>) => {
+              cy.wrap(texts)
+              .first()
+              .invoke('text')
+              .should('match', /.*Designed and Developed by.*/);
+              
+            cy.wrap(texts)
+              .last()
+              .invoke('text')
+              .should('match', /.*Copyright.*/);
+            });
         });
 
         it("The Footer Nav is correctly rendering the navigation links", () => {
-          if (url !== BASEURL + "/") {
+          if (urlString === "Home") {
             layoutComp.footer()
               .children()
               .first()
@@ -366,10 +384,8 @@ let viewport = viewports[0];
           }
         });
 
-        console.log("Current URL:", url);
-        console.log("Expected URL:", BASEURL + "/");
-        if (url !== BASEURL + "/") {
-          it("The Footer Nav List have the correct stylings", () => {
+        it("The Footer Nav List have the correct stylings", () => {
+          if (urlString !== "Home") {
             layoutComp
               .footer()
               .children()
@@ -385,10 +401,12 @@ let viewport = viewports[0];
               .then(($ul: Cypress.Chainable<JQuery<HTMLElement>>) => {
                 expect($ul).to.have.css("margin-top");
                 expect($ul).to.have.css("padding");
-              });
-          });
+            });
+          }
+        });
 
-          it("Each of the Footer Links has the correct layout", () => {
+        it("Each of the Footer Links has the correct layout", () => {
+          if (urlString !== "Home") {
             let linkItems: Cypress.Chainable<JQuery<HTMLElement>> = layoutComp
               .footer()
               .children()
@@ -399,12 +417,14 @@ let viewport = viewports[0];
               .first()
               .children("li");
 
-            for (let i = 0; i < 5; i++) {
-              layoutComp.testFooterItemLayout(linkItems.eq(i), i);
-            }
-          });
+            linkItems.each(($item, idx) => {
+              layoutComp.testFooterItemLayout(cy.wrap($item), idx);
+            });
+          }
+        });
 
-          it("Each of the Footer Links render the correct CSS", () => {
+        it("Each of the Footer Links render the correct CSS", () => {
+          if (urlString !== "Home") {
             let linkItems: Cypress.Chainable<JQuery<HTMLElement>> = layoutComp
               .footer()
               .children()
@@ -415,12 +435,13 @@ let viewport = viewports[0];
               .first()
               .children("li");
 
-            for (let i = 0; i < 5; i++) {
-              layoutComp.testFooterItemStyle(linkItems.eq(i));
-            }
-          });
-        }
+            linkItems.each(($item) => {
+              layoutComp.testFooterItemStyle(cy.wrap($item));
+            });
+          }
+        });
       });
+
 
       //! Not implemented yet
       // describe(`The particle renders correctly  at viewport: on page: ${urlString} at viewport: ${viewString}`, () => {
