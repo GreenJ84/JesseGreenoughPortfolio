@@ -15,6 +15,7 @@ const NavBarBrand = (props: { mode: Function; theme: String }) => {
       {props.theme === "dark" ? <p id="mode">🌞</p> : <p id="mode">🌙</p>}
       <Image
         src={props.theme === "dark" ? logo1 : logo2}
+        id="themeLogo"
         className={css.themeLogo}
         alt="Theme changing Navigation logo"
         width={250}
