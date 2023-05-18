@@ -29,12 +29,14 @@ export default function App({ Component, pageProps }: AppProps) {
     return () => {
       clearTimeout(timer);
     }
-  });
+  }, []);
 
   // Theme change handling
   useEffect(() => {
+    console.log(theme);
     document.body.dataset.theme = theme;
   }, [theme]);
+
   const switchMode = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
