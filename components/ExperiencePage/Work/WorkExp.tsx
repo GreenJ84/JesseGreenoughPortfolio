@@ -6,8 +6,6 @@ import WorkBody from "./WorkBody";
 import WorkCard from "./WorkCard";
 
 import { workItem } from "../../../Utils/data/WorkData";
-// import workHistory from "../../../Utils/data/WorkData"
-// import secondaryWorkData from '../../../Utils/data/SecondaryWorkData';
 
 const css = require("./WorkExp.module.css");
 

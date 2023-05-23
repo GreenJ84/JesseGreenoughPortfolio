@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Button, Nav, Navbar } from "react-bootstrap";
 
+import { Button, Nav, Navbar } from "react-bootstrap";
 import {
   AiFillStar,
   AiOutlineHome,

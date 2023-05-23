@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+
 import Navbar from "react-bootstrap/Navbar";
 
 import NavBarBrand from "./NavBarBrand";

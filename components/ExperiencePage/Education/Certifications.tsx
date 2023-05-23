@@ -3,9 +3,10 @@
 import React, { useState } from "react";
 
 import CertificationCard from "./CertificationCard";
+import CertificationsFilter from "./CertificationsFilter";
 
 import { certificationType } from "../../../Utils/data/CertificationData";
-import CertificationsFilter from "./CertificationsFilter";
+
 const css = require("./Certifications.module.css");
 
 interface Certification {

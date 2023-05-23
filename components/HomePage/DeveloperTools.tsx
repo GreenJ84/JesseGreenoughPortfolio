@@ -3,8 +3,6 @@
 import React from "react";
 import Image from "next/image";
 
-import TechnicalSkill from "./TechnicalSkill";
-
 import {
   SiVisualstudiocode,
   SiPostman,
@@ -40,6 +38,8 @@ import {
 import { AiFillGithub } from "react-icons/ai";
 import { BsPip } from "react-icons/bs";
 import { GiUnicorn } from "react-icons/gi";
+
+import TechnicalSkill from "./TechnicalSkill";
 
 const truffle = "/assets/truffle-logo-dark.svg";
 const ganache = "/assets/ganache-logo-dark.svg";

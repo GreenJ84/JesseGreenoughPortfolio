@@ -1,11 +1,12 @@
 /** @format */
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 
 import DegreeCard from "./DegreeCard";
 
 import { educationType } from "../../../Utils/data/EducationData";
+
 const css = require("./Degree.module.css");
 
 interface Education {

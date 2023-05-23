@@ -1,6 +1,7 @@
 /** @format */
 
 import React from "react";
+
 import { IconBaseProps } from "react-icons";
 
 const css = require("./TechnicalSkills.module.css");

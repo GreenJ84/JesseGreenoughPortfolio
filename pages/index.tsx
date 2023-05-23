@@ -1,6 +1,7 @@
 /** @format */
 
 import React from "react";
+
 import HomeBottom from "../components/HomePage/HomeBottom";
 import HomeTop from "../components/HomePage/HomeTop";
 

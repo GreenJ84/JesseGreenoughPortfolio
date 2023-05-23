@@ -3,9 +3,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-import { IProject } from "../../Utils/data/ProjectData";
 import { AiFillGithub, AiFillProject } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
+
+import { IProject } from "../../Utils/data/ProjectData";
 
 const css = require("./ProjectCard.module.css");
 

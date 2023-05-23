@@ -2,7 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
-import { Col, Container, Row } from "react-bootstrap";
+
+import { Col, Container } from "react-bootstrap";
 
 import TypeWrite from "./TypeWrite";
 

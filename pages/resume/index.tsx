@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { MongoClient } from "mongodb";
-import { Container, Row } from "react-bootstrap";
 
+import { Container, Row } from "react-bootstrap";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 import ButtonGroup from "../../components/ResumePage/ButtonGroup";

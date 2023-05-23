@@ -1,10 +1,10 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import Tilt from "react-parallax-tilt";
 import Image from "next/image";
-import { Row } from "react-bootstrap";
 
+import Tilt from "react-parallax-tilt";
+import { Row } from "react-bootstrap";
 import {
   AiFillGithub,
   AiOutlineTwitter,

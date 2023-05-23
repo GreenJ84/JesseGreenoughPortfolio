@@ -1,13 +1,13 @@
 /** @format */
 
 import React from "react";
-import { Experience } from "../../../pages/experience";
-import { certificationType } from "../../../Utils/data/CertificationData";
-import { educationType } from "../../../Utils/data/EducationData";
 
 import Certifications from "./Certifications";
 import Degree from "./Degree";
 import EduBody from "./EduBody";
+
+import { certificationType } from "../../../Utils/data/CertificationData";
+import { educationType } from "../../../Utils/data/EducationData";
 
 const bodyStyle = {
   backgroundColor: "var(--background2)",
