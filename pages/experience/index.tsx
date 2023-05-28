@@ -6,13 +6,18 @@ import React, { useState } from "react";
 
 import { Container } from "react-bootstrap";
 
-import EduExp from "../../components/ExperiencePage/Education/EduExp";
 import ExpNavbar from "../../components/ExperiencePage/ExpNavbar";
 import WorkExp from "../../components/ExperiencePage/Work/WorkExp";
+import Certifications from "../../components/ExperiencePage/Education/Certifications";
+import Degree from "../../components/ExperiencePage/Education/Degree";
+import EduBody from "../../components/ExperiencePage/Education/EduBody";
 
-import { certificationType } from "../../Utils/data/CertificationData";
-import { educationType } from "../../Utils/data/EducationData";
-import { workItem } from "../../Utils/data/WorkData";
+import {
+  certificationType,
+  educationType,
+  workItem,
+} from "../../Utils/dataTypes";
+
 export interface Experience {
   educationData: educationType[];
   certificationData: certificationType[];
@@ -31,6 +36,11 @@ const ExperiencePage = (props: Experience) => {
     }
   };
 
+  const bodyStyle = {
+    backgroundColor: "var(--background2)",
+    padding: "0 2.5vw 6rem",
+  };
+
   return (
     <Container style={{ padding: "12rem 3vw 1rem", margin: "0 2vw" }}>
       <ExpNavbar
@@ -44,10 +54,11 @@ const ExperiencePage = (props: Experience) => {
             secondaryWorkData={props.secondaryWorkData}
           />
         ) : (
-          <EduExp
-            educationData={props.educationData}
-            certificationData={props.certificationData}
-          />
+          <div style={bodyStyle}>
+            <EduBody />
+            <Degree educationData={props.educationData} />
+            <Certifications certificationData={props.certificationData} />
+          </div>
         )}
       </div>
     </Container>
@@ -58,17 +69,23 @@ export const getServerSideProps: GetServerSideProps<Experience> = async () => {
   const client = new MongoClient(process.env.DB_CONN_STRING!);
   const db = client.db(process.env.DB_NAME);
 
+  // Get all Education experience data
   const educationData = db.collection(process.env.DEG_COLL!);
-  const cetificationData = db.collection(process.env.CERT_COLL!);
-  const workData = db.collection(process.env.WORK_COLL!);
-  const secWorkData = db.collection(process.env.SWORK_COLL!);
-
   const eduResults = await educationData.find().sort({ _id: -1 }).toArray();
+
+  // Get all Certifications achieved
+  const cetificationData = db.collection(process.env.CERT_COLL!);
   const certResults = await cetificationData
     .find()
     .sort({ priority: 1, date: 1, issuer: 1, _id: -1 })
     .toArray();
+
+  // Get all Primary work Experience
+  const workData = db.collection(process.env.WORK_COLL!);
   const workResults = await workData.find().sort({ _id: -1 }).toArray();
+
+  // Get all Secondary Volunteer Work
+  const secWorkData = db.collection(process.env.SWORK_COLL!);
   const secWorkResults = await secWorkData.find().sort({ _id: -1 }).toArray();
 
   return {
@@ -82,6 +99,7 @@ export const getServerSideProps: GetServerSideProps<Experience> = async () => {
         website: result.website,
         id: result._id.toString(),
       })),
+
       certificationData: certResults.map((result) => ({
         title: result.title,
         issuer: result.issuer,
@@ -91,6 +109,7 @@ export const getServerSideProps: GetServerSideProps<Experience> = async () => {
         image: result.image,
         id: result._id.toString(),
       })),
+
       workData: workResults.map((result) => ({
         company: result.company,
         logo: result.logo,
@@ -100,6 +119,7 @@ export const getServerSideProps: GetServerSideProps<Experience> = async () => {
         details: result.details,
         id: result._id.toString(),
       })),
+
       secondaryWorkData: secWorkResults.map((result) => ({
         company: result.company,
         logo: result.logo,
