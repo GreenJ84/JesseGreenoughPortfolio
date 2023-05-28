@@ -22,7 +22,7 @@ interface resumeProps {
     }
   ];
 }
-const ReumePage = (props: resumeProps) => {
+const ResumePage = (props: resumeProps) => {
   const [width, setWidth] = useState(0);
   const [resNum, setResNum] = useState(0);
 
@@ -98,7 +98,7 @@ const ReumePage = (props: resumeProps) => {
   );
 };
 
-export default ReumePage;
+export default ResumePage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const client = new MongoClient(process.env.DB_CONN_STRING!);
