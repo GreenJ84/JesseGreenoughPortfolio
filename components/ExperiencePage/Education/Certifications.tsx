@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import CertificationCard from "./CertificationCard";
 import CertificationsFilter from "./CertificationsFilter";
 
-import { certificationType } from "../../../Utils/data/CertificationData";
+import { certificationType } from "../../../Utils/dataTypes";
 
 const css = require("./Certifications.module.css");
 
@@ -14,101 +14,90 @@ interface Certification {
 }
 
 const Certifications = (props: Certification) => {
-  const [certData, setCertData] = useState(props.certificationData.slice(0, 10));
+  const [certData, setCertData] = useState(
+    props.certificationData.slice(0, 10)
+  );
   const [fresh, setFresh] = useState(true);
-  const [all, setAll] = useState(false);
 
   let issuers = new Set<string>();
   let techs = new Set<string>();
   props.certificationData.forEach((cert) => {
     issuers.add(cert.issuer);
     cert.tech?.map((item) => techs.add(item));
-  }
-  );
+  });
 
+  // Filter Certifications by Issuers Category
   const issueHandler = (category: string) => {
     const select = document.getElementById("techSelect")! as HTMLSelectElement;
     if (category === "top") {
+      select.getElementsByTagName("option")[1]!.selected = true;
       setCertData(props.certificationData.slice(0, 10));
       setFresh(true);
-      setAll(false);
-      select.getElementsByTagName('option')[1]!.selected = true;
     } else if (category === "all") {
+      select.getElementsByTagName("option")[2]!.selected = true;
       setCertData(props.certificationData);
-      setAll(true);
       setFresh(false);
-      select.getElementsByTagName('option')[2]!.selected = true;
     } else {
+      select.getElementsByTagName("option")[0]!.selected = true;
       const newArray = props.certificationData.filter((cert) =>
         cert.issuer.includes(category)
       );
       setCertData(newArray);
       setFresh(false);
-      setAll(false);
-      select.getElementsByTagName('option')[0]!.selected = true;
     }
   };
+
+  // Filter Certifications by Technologies Category
   const techHandler = (category: string) => {
-    const select = document.getElementById("issuerSelect")! as HTMLSelectElement;
+    const select = document.getElementById(
+      "issuerSelect"
+    )! as HTMLSelectElement;
     if (category === "top") {
+      select.getElementsByTagName("option")[1]!.selected = true;
       setCertData(props.certificationData.slice(0, 10));
       setFresh(true);
-      setAll(false);
-      select.getElementsByTagName('option')[1]!.selected = true;
     } else if (category === "all") {
+      select.getElementsByTagName("option")[2]!.selected = true;
       setCertData(props.certificationData);
-      setAll(true);
       setFresh(false);
-      select.getElementsByTagName('option')[2]!.selected = true;
     } else {
+      select.getElementsByTagName("option")[0]!.selected = true;
       const newArray = props.certificationData.filter((cert) =>
         cert.tech?.includes(category)
       );
       setCertData(newArray);
       setFresh(false);
-      setAll(false);
-      select.getElementsByTagName('option')[0]!.selected = true;
     }
   };
 
   return (
-    <>
-      <h1 className={css.certTitle}> Certifications Achieved </h1>
+    <article>
+      <h2 className={css.certTitle}> Certifications Achieved </h2>
       <CertificationsFilter
         issuerHandler={issueHandler}
         techHandler={techHandler}
         options={[issuers, techs]}
       />
-      {fresh ?
-        <p className={css.certSubTitle}>
+      {fresh ? (
+        <h3 className={css.certSubTitle}>
           My current <strong className="detail">Top 10</strong> certifications
-        </p>
-      : all ?
-        <p className={css.certSubTitle}>
+        </h3>
+      ) : (
+        <h3 className={css.certSubTitle}>
           I have completed{" "}
-          <strong className="detail">
-            ~{props.certificationData.length}
-          </strong>{" "}
-          courses and exams to date
-        </p>
-      :
-        <p className={css.certSubTitle}>
-          I have completed{" "}
-          <strong className="detail">
-            ~{certData.length}
-          </strong>{" "}
-          courses/exams in this category
-        </p>
-      }
-      <div className={css.certCardHolder}>
+          <strong className="detail">~{certData.length}</strong> courses and
+          exams to date
+        </h3>
+      )}
+      <section className={css.certCardHolder}>
         {certData.map((item) => (
           <CertificationCard
             certificate={item}
             key={item.id}
           />
         ))}
-      </div>
-    </>
+      </section>
+    </article>
   );
 };
 
