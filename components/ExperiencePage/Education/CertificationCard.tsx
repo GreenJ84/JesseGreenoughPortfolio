@@ -33,7 +33,7 @@ const CertificationCard = (props: certificateCardProps) => {
   }, []);
 
   return (
-    <div className={css.certCard}>
+    <li className={css.certCard}>
       {showDetail ? (
         <div
           onMouseLeave={exitCard}
@@ -65,7 +65,7 @@ const CertificationCard = (props: certificateCardProps) => {
           <p>{props.certificate.issuer}</p>
         </div>
       )}
-    </div>
+    </li>
   );
 };
 

@@ -11,7 +11,7 @@ interface expNavProps {
 
 const ExpNavbar = (props: expNavProps) => {
   return (
-    <nav className={css.nav}>
+    <nav id="experienceToggle" className={css.nav}>
       <button
         type="button"
         role="radio"

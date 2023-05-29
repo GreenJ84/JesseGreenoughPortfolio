@@ -15,10 +15,11 @@ interface Education {
 
 const Degree = (props: Education) => {
   return (
-    <article>
+    <article id="degreeContainer">
       <h2 className={css.title}> Degrees Recieved </h2>
+      <ul id="degreeList">
       {props.educationData.map((exp) => (
-        <section
+        <li
           key={exp.college}
           className={css.degrees}
         >
@@ -32,8 +33,9 @@ const Degree = (props: Education) => {
             />
           </a>
           <DegreeCard education={exp} />
-        </section>
+        </li>
       ))}
+      </ul>
     </article>
   );
 };

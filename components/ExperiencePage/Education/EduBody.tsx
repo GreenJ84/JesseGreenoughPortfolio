@@ -7,7 +7,7 @@ const css = require("./EduBody.module.css");
 
 const EduBody = () => {
   return (
-    <section className={css.eduBody}>
+    <section id="educationIntro" className={css.eduBody}>
       <h1>Basic Qualifications and Certifications</h1>
       <EducationImg />
       <p>

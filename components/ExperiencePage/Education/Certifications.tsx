@@ -71,7 +71,7 @@ const Certifications = (props: Certification) => {
   };
 
   return (
-    <article>
+    <article id="certificationContainer">
       <h2 className={css.certTitle}> Certifications Achieved </h2>
       <CertificationsFilter
         issuerHandler={issueHandler}
@@ -89,14 +89,14 @@ const Certifications = (props: Certification) => {
           exams to date
         </h3>
       )}
-      <section className={css.certCardHolder}>
+      <ul id="certificationList" className={css.certCardHolder}>
         {certData.map((item) => (
           <CertificationCard
             certificate={item}
             key={item.id}
           />
         ))}
-      </section>
+      </ul>
     </article>
   );
 };

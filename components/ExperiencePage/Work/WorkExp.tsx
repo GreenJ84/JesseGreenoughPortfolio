@@ -6,6 +6,7 @@ import WorkBody from "./WorkBody";
 import WorkCard from "./WorkCard";
 
 import { workItem } from "../../../Utils/dataTypes";
+import { ServerDescription } from "mongodb";
 
 const css = require("./WorkExp.module.css");
 
@@ -26,9 +27,9 @@ const WorkExp = (props: Work) => {
   };
 
   return (
-    <>
+    <section id="workContainer">
       <WorkBody />
-      <nav className={css.workFilter}>
+      <nav id="workToggle" className={css.workFilter}>
         <button
           className={showWork ? css.activeFilter : ""}
           onClick={() => {
@@ -50,7 +51,7 @@ const WorkExp = (props: Work) => {
           Internship/ Volunteer
         </button>
       </nav>
-      <section className={css.workCardHolder}>
+      <ul id="workList" className={css.workCardHolder}>
         {showWork
           ? props.workData.map((item) => (
               <WorkCard
@@ -64,8 +65,8 @@ const WorkExp = (props: Work) => {
                 work={item}
               />
             ))}
-      </section>
-    </>
+      </ul>
+    </section>
   );
 };
 

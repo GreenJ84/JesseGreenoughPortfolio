@@ -14,7 +14,7 @@ interface workCard {
 
 const WorkCard = (props: workCard) => {
   return (
-    <section className={css.workCard}>
+    <li className={css.workCard}>
       <div className={css.workImageHolder}>
         <Image
           src={props.work.logo}
@@ -33,17 +33,19 @@ const WorkCard = (props: workCard) => {
           <p>{props.work.company}</p>
           <p>{props.work.location}</p>
         </div>
+        <ul>
         {props.work.details.map((item, idx) => (
-          <p
+          <li
             key={idx}
             className={css.details}
           >
             {" "}
             <ImPointRight /> {item}{" "}
-          </p>
+          </li>
         ))}
+        </ul>
       </div>
-    </section>
+    </li>
   );
 };
 

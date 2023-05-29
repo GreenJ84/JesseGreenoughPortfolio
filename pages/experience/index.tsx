@@ -40,7 +40,7 @@ const ExperiencePage = (props: Experience) => {
   };
 
   return (
-    <main style={{ padding: "12rem 3vw 1rem", margin: "0 2vw" }}>
+    <main id="experienceContainer" style={{ padding: "12rem 3vw 1rem", margin: "0 2vw" }}>
       <ExpNavbar
         changeActive={changeActive}
         workActive={showWork}
@@ -51,11 +51,11 @@ const ExperiencePage = (props: Experience) => {
           secondaryWorkData={props.secondaryWorkData}
         />
       ) : (
-        <div style={bodyStyle}>
+        <section id="educationContainer" style={bodyStyle}>
           <EduBody />
           <Degree educationData={props.educationData} />
           <Certifications certificationData={props.certificationData} />
-        </div>
+        </section>
       )}
     </main>
   );

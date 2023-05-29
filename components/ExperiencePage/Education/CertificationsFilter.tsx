@@ -26,7 +26,7 @@ const CertificationsFilter = (props: filterProps) => {
   };
 
   return (
-    <nav className={css.certificationsFilter}>
+    <nav id="certificationFilter" className={css.certificationsFilter}>
       <div>
         <h4 id="issuerSelectLabel">Filter by Issuer</h4>
         <select
