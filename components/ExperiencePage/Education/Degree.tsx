@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import DegreeCard from "./DegreeCard";
 
-import { educationType } from "../../../Utils/data/EducationData";
+import { educationType } from "../../../Utils/dataTypes";
 
 const css = require("./Degree.module.css");
 
@@ -15,10 +15,10 @@ interface Education {
 
 const Degree = (props: Education) => {
   return (
-    <>
-      <h1 className={css.title}> Degrees Recieved </h1>
+    <article>
+      <h2 className={css.title}> Degrees Recieved </h2>
       {props.educationData.map((exp) => (
-        <div
+        <section
           key={exp.college}
           className={css.degrees}
         >
@@ -32,9 +32,9 @@ const Degree = (props: Education) => {
             />
           </a>
           <DegreeCard education={exp} />
-        </div>
+        </section>
       ))}
-    </>
+    </article>
   );
 };
 
