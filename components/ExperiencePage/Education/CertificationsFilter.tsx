@@ -32,18 +32,13 @@ const CertificationsFilter = (props: filterProps) => {
         <select
           id="issuerSelect"
           name="IssuerSelect"
-          aria-labelledby=""
+          defaultValue="top"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             changeHandler(e, "issuer")
           }
         >
           <option disabled></option>
-          <option
-            value="top"
-            selected
-          >
-            Top 10
-          </option>
+          <option value="top">Top 10</option>
           <option value="all">All</option>
           {[...issuers].map((cat) => (
             <option
@@ -61,18 +56,14 @@ const CertificationsFilter = (props: filterProps) => {
         <select
           id="techSelect"
           name="TechSelect"
+          defaultValue="top"
           aria-labelledby="techSelectLabel"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             changeHandler(e, "tech")
           }
         >
           <option disabled></option>
-          <option
-            value="top"
-            selected
-          >
-            Top 10
-          </option>
+          <option value="top">Top 10</option>
           <option value="all">All</option>
           {[...techs].map((tech) => (
             <option

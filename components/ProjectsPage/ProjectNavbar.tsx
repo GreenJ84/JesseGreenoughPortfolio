@@ -6,20 +6,22 @@ const css = require("./ProjectNavbar.module.css");
 export interface ProjectNavProps {
   langHandler: Function;
   techHandler: Function;
-  options: [Set<string>, Set<string>]
+  options: [Set<string>, Set<string>];
 }
 
 const ProjectNavbar = (props: ProjectNavProps) => {
   const [categories, techs] = props.options;
-  const changeHandler = (e: React.ChangeEvent<HTMLSelectElement>, type: string) => {
-    e.preventDefault()
+  const changeHandler = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    type: string
+  ) => {
+    e.preventDefault();
     if (type == "lang") {
-      props.langHandler(e.currentTarget.value)
+      props.langHandler(e.currentTarget.value);
+    } else if (type == "tech") {
+      props.techHandler(e.currentTarget.value);
     }
-    else if (type == "tech") {
-      props.techHandler(e.currentTarget.value)
-    }
-  }
+  };
 
   return (
     <nav className={css.projectNavbar}>
@@ -29,14 +31,21 @@ const ProjectNavbar = (props: ProjectNavProps) => {
           id="langSelect"
           name="LanguageSelect"
           defaultValue="top"
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "lang")}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            changeHandler(e, "lang")
+          }
         >
           <option disabled></option>
-          <option value="top" selected>Top 10</option>
+          <option value="top">Top 10</option>
           <option value="all">All</option>
-          {[...categories].map((cat) =>
-            <option key={cat} value={cat}>{cat.toUpperCase()}</option>
-          )}
+          {[...categories].map((cat) => (
+            <option
+              key={cat}
+              value={cat}
+            >
+              {cat.toUpperCase()}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -46,14 +55,21 @@ const ProjectNavbar = (props: ProjectNavProps) => {
           id="techSelect"
           name="TechSelect"
           defaultValue="top"
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "tech")}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            changeHandler(e, "tech")
+          }
         >
           <option disabled></option>
-          <option value="top" selected>Top 10</option>
+          <option value="top">Top 10</option>
           <option value="all">All</option>
-          {[...techs].map((tech) =>
-            <option key={tech} value={tech}>{tech}</option>
-          )}
+          {[...techs].map((tech) => (
+            <option
+              key={tech}
+              value={tech}
+            >
+              {tech}
+            </option>
+          ))}
         </select>
       </div>
     </nav>
