@@ -1,21 +1,20 @@
 /** @format */
 
 import React from "react";
-
-import EduImage from "./EduImage";
+import EducationImg from "./EduImage";
 
 const css = require("./EduBody.module.css");
 
 const EduBody = () => {
   return (
-    <div className={css.eduBody}>
+    <section className={css.eduBody}>
       <h1>Basic Qualifications and Certifications</h1>
-      <EduImage />
+      <EducationImg />
       <p>
-        I activiely participate in tech-related activities and partake in
+        I actively participate in tech-related activities and partake in
         courses to further my understanding and knowledge.
       </p>
-    </div>
+    </section>
   );
 };
 

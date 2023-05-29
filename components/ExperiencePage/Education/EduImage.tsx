@@ -7,10 +7,9 @@ const css = require("./EduBody.module.css");
 export default function EducationImg() {
   return (
     <svg
-      id="eb113788-f1f1-4c1f-be62-f1d0ea2e1eb6"
+      role="presentation"
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
-      // xmlns:xlink="http://www.w3.org/1999/xlink"
       width="50vw"
       height="40vw"
       viewBox="0 0 795.39431 574.03802"
@@ -18,7 +17,6 @@ export default function EducationImg() {
     >
       <defs>
         <linearGradient
-          id="b2a81085-935f-40be-bb27-75940df8c338"
           x1="-450.78971"
           y1="2803.04671"
           x2="-450.78971"
