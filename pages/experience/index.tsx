@@ -1,10 +1,8 @@
 /** @format */
 
-import { MongoClient } from "mongodb";
-import { GetServerSideProps } from "next";
 import React, { useState } from "react";
-
-import { Container } from "react-bootstrap";
+import { GetServerSideProps } from "next";
+import { MongoClient } from "mongodb";
 
 import ExpNavbar from "../../components/ExperiencePage/ExpNavbar";
 import WorkExp from "../../components/ExperiencePage/Work/WorkExp";
@@ -42,26 +40,24 @@ const ExperiencePage = (props: Experience) => {
   };
 
   return (
-    <Container style={{ padding: "12rem 3vw 1rem", margin: "0 2vw" }}>
+    <main style={{ padding: "12rem 3vw 1rem", margin: "0 2vw" }}>
       <ExpNavbar
         changeActive={changeActive}
         workActive={showWork}
       />
-      <div>
-        {showWork ? (
-          <WorkExp
-            workData={props.workData}
-            secondaryWorkData={props.secondaryWorkData}
-          />
-        ) : (
-          <div style={bodyStyle}>
-            <EduBody />
-            <Degree educationData={props.educationData} />
-            <Certifications certificationData={props.certificationData} />
-          </div>
-        )}
-      </div>
-    </Container>
+      {showWork ? (
+        <WorkExp
+          workData={props.workData}
+          secondaryWorkData={props.secondaryWorkData}
+        />
+      ) : (
+        <div style={bodyStyle}>
+          <EduBody />
+          <Degree educationData={props.educationData} />
+          <Certifications certificationData={props.certificationData} />
+        </div>
+      )}
+    </main>
   );
 };
 

@@ -8,7 +8,7 @@ const css = require("./WorkBody.module.css");
 
 const WorkBody = () => {
   return (
-    <>
+    <section>
       <h1 className={css.workBodyTitle}>Professional experience</h1>
       <div className={css.workBody}>
         <WorkImg />
@@ -18,7 +18,7 @@ const WorkBody = () => {
           in a variety of fast-paced environents.
         </p>
       </div>
-    </>
+    </section>
   );
 };
 

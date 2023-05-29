@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import WorkBody from "./WorkBody";
 import WorkCard from "./WorkCard";
 
-import { workItem } from "../../../Utils/data/WorkData";
+import { workItem } from "../../../Utils/dataTypes";
 
 const css = require("./WorkExp.module.css");
 
@@ -28,8 +28,8 @@ const WorkExp = (props: Work) => {
   return (
     <>
       <WorkBody />
-      <div className={css.workFilter}>
-        <p
+      <nav className={css.workFilter}>
+        <button
           className={showWork ? css.activeFilter : ""}
           onClick={() => {
             if (!showWork) {
@@ -38,8 +38,8 @@ const WorkExp = (props: Work) => {
           }}
         >
           Work
-        </p>
-        <p
+        </button>
+        <button
           className={showWork ? "" : css.activeFilter}
           onClick={() => {
             if (showWork) {
@@ -48,9 +48,9 @@ const WorkExp = (props: Work) => {
           }}
         >
           Internship/ Volunteer
-        </p>
-      </div>
-      <div className={css.workCardHolder}>
+        </button>
+      </nav>
+      <section className={css.workCardHolder}>
         {showWork
           ? props.workData.map((item) => (
               <WorkCard
@@ -64,7 +64,7 @@ const WorkExp = (props: Work) => {
                 work={item}
               />
             ))}
-      </div>
+      </section>
     </>
   );
 };
