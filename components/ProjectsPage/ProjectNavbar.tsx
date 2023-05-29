@@ -22,12 +22,13 @@ const ProjectNavbar = (props: ProjectNavProps) => {
   }
 
   return (
-    <div className={css.projectNavbar}>
+    <nav className={css.projectNavbar}>
       <div>
-        <h4>Filter by Language</h4>
+        <h2>Filter by Language</h2>
         <select
-          name="LanguageSelect"
           id="langSelect"
+          name="LanguageSelect"
+          defaultValue="top"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "lang")}
         >
           <option disabled></option>
@@ -40,10 +41,11 @@ const ProjectNavbar = (props: ProjectNavProps) => {
       </div>
 
       <div>
-        <h4>Filter by Key&nbsp;Tech</h4>
+        <h2>Filter by Key&nbsp;Tech</h2>
         <select
-          name="TechSelect"
           id="techSelect"
+          name="TechSelect"
+          defaultValue="top"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "tech")}
         >
           <option disabled></option>
@@ -54,7 +56,7 @@ const ProjectNavbar = (props: ProjectNavProps) => {
           )}
         </select>
       </div>
-    </div>
+    </nav>
   );
 };
 

@@ -1,15 +1,13 @@
 /** @format */
 
 import React, { useState } from "react";
-import { MongoClient } from "mongodb";
 import { GetServerSideProps } from "next";
-
-import { Container } from "react-bootstrap";
+import { MongoClient } from "mongodb";
 
 import ProjectCard from "../../components/ProjectsPage/ProjectCard";
 import ProjectNavbar from "../../components/ProjectsPage/ProjectNavbar";
 
-import { IProject } from "../../Utils/data/ProjectData";
+import { IProject } from "../../Utils/dataTypes";
 
 interface Projects {
   projectData: IProject[];
@@ -20,7 +18,6 @@ const ProjectPage = (props: Projects) => {
     props.projectData.slice(0, 10)
   );
   const [fresh, setFresh] = useState(true);
-  const [all, setAll] = useState(false);
 
   let cat = new Set<string>();
   let tech = new Set<string>();
@@ -30,18 +27,16 @@ const ProjectPage = (props: Projects) => {
   }
   );
 
-
+  // Filter Projects by languages used
   const langHandler = (category: string) => {
     const select = document.getElementById("techSelect")! as HTMLSelectElement;
     if (category === "top") {
       setProjectData(props.projectData.slice(0, 10));
       setFresh(true);
-      setAll(false);
       select.getElementsByTagName('option')[1]!.selected = true;
     } else if (category === "all") {
       setProjectData(props.projectData);
       setFresh(false);
-      setAll(true);
       select.getElementsByTagName('option')[2]!.selected = true;
     } else {
       const newArray = props.projectData.filter((project) =>
@@ -49,21 +44,20 @@ const ProjectPage = (props: Projects) => {
       );
       setProjectData(newArray);
       setFresh(false);
-      setAll(false);
       select.getElementsByTagName('option')[0]!.selected = true;
     }
   };
+
+  // Filter projects by Technologies used
   const techHandler = (category: string) => {
     const select = document.getElementById("langSelect")! as HTMLSelectElement;
     if (category === "top") {
       setProjectData(props.projectData.slice(0, 10));
       setFresh(true);
-      setAll(false);
       select.getElementsByTagName('option')[1]!.selected = true;
     } else if (category === "all") {
       setProjectData(props.projectData);
       setFresh(false);
-      setAll(true);
       select.getElementsByTagName('option')[2]!.selected = true;
     } else {
       const newArray = props.projectData.filter((project) =>
@@ -71,20 +65,18 @@ const ProjectPage = (props: Projects) => {
       );
       setProjectData(newArray);
       setFresh(false);
-      setAll(false);
       select.getElementsByTagName('option')[0]!.selected = true;
     }
   };
 
   return (
-    <Container
-      fluid
+    <main
       style={projectBody}
     >
       <div
         style={{ position: "relative", margin: "6vw 0 0", padding: "0 3vw 0" }}
       >
-        <div style={container as React.CSSProperties}>
+        <section style={container as React.CSSProperties}>
           <ProjectNavbar
             langHandler={langHandler}
             techHandler={techHandler}
@@ -92,35 +84,27 @@ const ProjectPage = (props: Projects) => {
           />
           <hr style={{border: ".5px solid var(--text-secondary)"}} />
           {fresh ? (
-            <p style={title as React.CSSProperties}>
+            <h1 style={title as React.CSSProperties}>
               My current <span className="detail">top 10</span> projects
-            </p>
-          ) : all ? (
-            <p style={title as React.CSSProperties}>
-              {" "}
-              I have created{" "}
-              <span className="detail">over {projectData.length}</span> projects
-              related to the filtered category{" "}
-              </p>
-            ) : (
-              <p style={title as React.CSSProperties}>
-                {" "}
-                I have created{" "}
-                <span className="detail">over {projectData.length}</span> projects
-                related to the filtered category{" "}
-              </p>
+            </h1>
+          ) : (
+              <h1 style={title as React.CSSProperties}>
+                I have created
+                <span className="detail"> over {projectData.length} </span>
+                projects to date
+              </h1>
             )}
-          <div style={flexbox as React.CSSProperties}>
+          <section style={flexbox as React.CSSProperties}>
             {projectData.map((project) => (
               <ProjectCard
                 project={project}
                 key={project.name}
               />
             ))}
-          </div>
-        </div>
+          </section>
+        </section>
       </div>
-    </Container>
+    </main>
   );
 };
 

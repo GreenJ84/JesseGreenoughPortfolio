@@ -6,7 +6,7 @@ import Image from "next/image";
 import { AiFillGithub, AiFillProject } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
 
-import { IProject } from "../../Utils/data/ProjectData";
+import { IProject } from "../../Utils/dataTypes";
 
 const css = require("./ProjectCard.module.css");
 
