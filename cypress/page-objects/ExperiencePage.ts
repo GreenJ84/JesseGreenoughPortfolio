@@ -6,6 +6,7 @@ export class ExperiencePage {
   // Main Layout
   pageContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
   experienceToggle: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  toggleExperienceSections: (idx: number) => Cypress.Chainable<JQuery<HTMLElement>>;
 
   // Education Section
   educationContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
@@ -17,6 +18,7 @@ export class ExperiencePage {
   certificateContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
   certificationList: () => Cypress.Chainable<JQuery<HTMLElement>>;
   certificationFilter: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  filterCertifications: (filterIdx: number, selectionIdx: number) => void;
 
   // Work Section
   workContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
@@ -33,6 +35,9 @@ export class ExperiencePage {
     this.experienceToggle = () => { 
       return cy.get("#experienceToggle");
     }
+    this.toggleExperienceSections = (idx) => {
+      return cy.get("#experienceToggle").children("button").eq(idx).click();
+    };
 
 
     // Education Section
@@ -58,6 +63,9 @@ export class ExperiencePage {
     }
     this.certificationFilter = () => {
       return cy.get("#certificationFilter");
+    }
+    this.filterCertifications = (fIdx, sIdx) => {
+      cy.get("#certificationFilter").children("div").eq(fIdx).children("select").first().select(sIdx);
     }
 
 
