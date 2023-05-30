@@ -6,7 +6,7 @@ export class ExperiencePage {
   // Main Layout
   pageContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
   experienceToggle: () => Cypress.Chainable<JQuery<HTMLElement>>;
-  toggleExperienceSections: (idx: number) => Cypress.Chainable<JQuery<HTMLElement>>;
+  toggleExperienceSections: (idx: number) => void;
 
   // Education Section
   educationContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
@@ -25,6 +25,7 @@ export class ExperiencePage {
   workInto: () => Cypress.Chainable<JQuery<HTMLElement>>; 
   workToggle: () => Cypress.Chainable<JQuery<HTMLElement>>;
   workList: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  toggleWorkSections: (idx: number) => void;
 
 
   constructor() {
@@ -82,5 +83,8 @@ export class ExperiencePage {
     this.workList = () => { 
       return cy.get("#workList");
     }
+    this.toggleWorkSections = (idx: number) => {
+      return cy.get("#workToggle").children("button").eq(idx).click();
+    };
   }
 }
