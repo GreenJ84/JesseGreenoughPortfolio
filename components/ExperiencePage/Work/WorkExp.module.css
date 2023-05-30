@@ -24,13 +24,13 @@
 }
 
 .workFilter button:hover {
-  background-color: rgb(1, 240, 128) !important;
+  background-color: rgb(1, 240, 128);
   color: black;
 }
 
-.activeFilter {
-  color: black !important;
-  background-color: rgb(0, 221, 136) !important;
+button.activeFilter {
+  color: black;
+  background-color: rgb(0, 221, 136);
 }
 
 .workFilter button:first-child {

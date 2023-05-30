@@ -72,7 +72,7 @@ const Certifications = (props: Certification) => {
 
   return (
     <article id="certificationContainer">
-      <h2 className={css.certTitle}> Certifications Achieved </h2>
+      <h2 className={css.certTitle}>Certifications Achieved</h2>
       <CertificationsFilter
         issuerHandler={issueHandler}
         techHandler={techHandler}
@@ -84,9 +84,8 @@ const Certifications = (props: Certification) => {
         </h3>
       ) : (
         <h3 className={css.certSubTitle}>
-          I have completed{" "}
-          <strong className="detail">~{certData.length}</strong> courses and
-          exams to date
+          I have recieved{" "}
+          <strong className="detail">~{certData.length}</strong> certifications to date
         </h3>
       )}
       <ul id="certificationList" className={css.certCardHolder}>

@@ -25,9 +25,9 @@
 
 .certImage {
   margin: 4%;
-  border-radius: 50%;
   width: clamp(90px, 15vw, 200px);
   height: clamp(90px, 15vw, 200px);
+  border-radius: 50%;
 }
 /* 
 .certDisplay h3,

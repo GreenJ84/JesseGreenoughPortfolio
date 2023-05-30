@@ -16,25 +16,28 @@ interface Education {
 const Degree = (props: Education) => {
   return (
     <article id="degreeContainer">
-      <h2 className={css.title}> Degrees Recieved </h2>
-      <ul id="degreeList">
-      {props.educationData.map((exp) => (
-        <li
-          key={exp.college}
-          className={css.degrees}
-        >
-          <a href={exp.website}>
-            <Image
-              src={exp.icon}
-              width={200}
-              height={200}
-              alt={`${exp.college} icon`}
-              className={css.image}
-            />
-          </a>
-          <DegreeCard education={exp} />
-        </li>
-      ))}
+      <h2 className={css.title}>Degrees Recieved</h2>
+      <ul
+        id="degreeList"
+        style={{ all: "unset" }}
+      >
+        {props.educationData.map((exp) => (
+          <li
+            key={exp.college}
+            className={css.degrees}
+          >
+            <a href={exp.website}>
+              <Image
+                src={exp.icon}
+                width={200}
+                height={200}
+                alt={`${exp.college} icon`}
+                className={css.image}
+              />
+            </a>
+            <DegreeCard education={exp} />
+          </li>
+        ))}
       </ul>
     </article>
   );
