@@ -73,9 +73,6 @@ const ProjectPage = (props: Projects) => {
       id="pageContainer"
       style={projectBody}
     >
-      <div
-        style={{ position: "relative", margin: "6vw 0 0", padding: "0 3vw 0" }}
-      >
         <section id="projectsContainer" style={container as React.CSSProperties}>
           <ProjectNavbar
             langHandler={langHandler}
@@ -95,16 +92,15 @@ const ProjectPage = (props: Projects) => {
               projects to date
             </h1>
           )}
-          <section id="projectsList" style={flexbox as React.CSSProperties}>
+          <ul id="projectsList" style={flexbox as React.CSSProperties}>
             {projectData.map((project) => (
               <ProjectCard
                 project={project}
                 key={project.name}
               />
             ))}
-          </section>
+          </ul>
         </section>
-      </div>
     </main>
   );
 };
@@ -141,10 +137,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
 export default ProjectPage;
 
 const projectBody = {
-  padding: "8rem 2vw 10vw",
+  padding: "12rem 2vw 10vw",
 };
 
 const container = {
+  position: "relative",
   backgroundColor: "var(--background2)",
   padding: "clamp(160px, 14vw, 200px) 4vw 8vw",
   border: "2px solid black",

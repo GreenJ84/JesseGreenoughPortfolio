@@ -19,7 +19,7 @@ const ProjectCard = (props: projectProps) => {
 
   return (
     <>
-      <div
+      <li
         className={css.display}
         onClick={() => setShowDetail(true)}
       >
@@ -29,67 +29,69 @@ const ProjectCard = (props: projectProps) => {
           className={css.displayImage}
           priority={
             props.project.image_path ==
-              "https://github.com/GreenJ84/JesseGreenoughPortfolio/raw/main/public/projectImages/myPortfolio.png"
-            ?
-              true
-            : 
-              false
+            "https://github.com/GreenJ84/JesseGreenoughPortfolio/raw/main/public/projectImages/myPortfolio.png"
+              ? true
+              : false
           }
           height="150"
           width="300"
         />
         <p className={css.displayTitle}>{props.project.name}</p>
-      </div>
+      </li>
       {showDetail && (
-        <div className={css.detail}>
-          <div className={css.detailLeft}>
-            <Image
-              src={props.project.image_path}
-              alt={props.project.name}
-              className={css.detailImage}
-              height="150"
-              width="300"
-            />
-            <div>
-              <a href={props.project.github_url}>
-                <AiFillGithub /> <span>Github</span>
-              </a>
-              {props.project.deployed_url && (
-                <a href={props.project.deployed_url}>
-                  <AiFillProject /> <span>Project</span>
+        <>
+          <div
+            className={css.cover}
+            onClick={() => setShowDetail(false)}
+          ></div>
+          <dialog className={css.detail}>
+            <div
+              id="projectLeft"
+              className={css.detailLeft}
+            >
+              <Image
+                src={props.project.image_path}
+                alt={props.project.name}
+                className={css.detailImage}
+                height="150"
+                width="300"
+              />
+              <div id="projectLinks">
+                <a href={props.project.github_url}>
+                  <AiFillGithub /> <span>Github</span>
                 </a>
-              )}
-            </div>
-          </div>
-
-          <div className={css.detailRight}>
-            <h2>{props.project.name}</h2>
-            <div>
-              <h3>{props.project.description}</h3>
-
-              <div>
-                <h3> Key Techs: </h3>
-                <div className={css.techs}>
-                  {props.project.key_techs.map((tech) => (
-                    <span
-                      key={tech}
-                      className={css.detailTech}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
+                {props.project.deployed_url && (
+                  <a href={props.project.deployed_url}>
+                    <AiFillProject /> <span>Project</span>
+                  </a>
+                )}
               </div>
             </div>
-          </div>
 
-          <button
-            onClick={() => setShowDetail(false)}
-            className={css.detailClose}
-          >
-            <MdClose />
-          </button>
-        </div>
+            <div className={css.detailRight}>
+              <h2>{props.project.name}</h2>
+              <p>{props.project.description}</p>
+              <h3>Key Techs:</h3>
+              <ul className={css.techs}>
+                {props.project.key_techs.map((tech) => (
+                  <li
+                    key={tech}
+                    className={css.detailTech}
+                  >
+                    {tech}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <button
+              onClick={() => setShowDetail(false)}
+              className={css.detailClose}
+            >
+              <MdClose />
+            </button>
+          </dialog>
+        </>
       )}
     </>
   );

@@ -5,12 +5,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: clamp( 120px, 38%, 460px);
-  height: clamp( 140px, 34vw, 480px);
+  width: clamp(120px, 38%, 460px);
+  height: clamp(140px, 34vw, 480px);
   margin: 0 clamp(10px, 3vw, 50px) min(8vw, 140px);
   background-color: var(--card-background);
   box-shadow: 0px -3px 3px 2px var(--detail-secondary),
-  0px 3px 3px 2px var(--detail-secondary);
+    0px 3px 3px 2px var(--detail-secondary);
   border-radius: 20px;
 }
 .display:hover {
@@ -29,10 +29,21 @@
 
 .displayTitle {
   color: var(--text-secondary);
-  margin: .6rem 0 ;
+  margin: 0.6rem 0;
   font-size: clamp(12px, 3vw, 40px);
   text-align: center;
   font-weight: 800;
+}
+
+.cover {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  background-color: transparent;
 }
 
 .detail {
@@ -40,7 +51,7 @@
   left: 50%;
   transform: translateX(-50%);
   bottom: 80px;
-  z-index: 3000;
+  z-index: 2001;
   display: flex;
   padding: min(2vw, 5vh) 3vw;
   width: min(92%, 1300px);
@@ -58,9 +69,9 @@
   justify-content: space-between;
   width: 70%;
 }
-@media only screen and (min-width: 1350px){
+@media only screen and (min-width: 1350px) {
   .detailLeft {
-    padding-left: 3vw;
+    padding-left: 1.3vw;
   }
 }
 
@@ -70,7 +81,7 @@
   height: clamp(200px, 40vw, 510px);
 }
 .detailImage:hover {
-  transform: scale(1.1) translate(10px, 10px);
+  transform: scale(1.05) translate(10px, 10px);
   z-index: 500;
 }
 
@@ -80,8 +91,12 @@
   justify-content: flex-start;
   margin-bottom: 20px;
   min-width: 70%;
-  align-self: center;
+  /* align-self: center; */
 }
+.detailLeft > div > a:first-of-type {
+  margin-right: calc(4vw * 2);
+}
+
 .detailLeft > div > a {
   padding: min(3vw, 20px) min(4vw, 30px);
   margin: 0 0.5rem;
@@ -105,55 +120,48 @@
 
 .detailRight > h2 {
   position: relative;
-  right: min(6vw, 1600px);
-  text-align: center;
+  text-align: left;
   font-size: clamp(15px, 4vw, 56px);
   margin: 2rem 0 min(1.6vw, 50px) 0;
   width: 120%;
 }
 
-.detailRight > div{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 80%;
-  margin-top: min(3vw, 4vh);
-}
-.detailRight > div > div > h3,
-.detailRight > div > h3 {
+.detailRight > p,
+.detailRight > h3 {
   transform: translateX(-2vw) scaleX(1.2);
   height: auto;
   font-size: clamp(10px, 2.6vw, 32px);
   line-height: clamp(14px, 2.4vw, 30px);
-  color: var(--text-primary);
 }
-.detailRight > div > h3{
+
+.detailRight > p {
   overflow: scroll;
-  text-indent: 4vw;
-  max-height: min(250px, 50vw, 700px);
+  text-indent: 3vw;
+  margin-top: 20px;
+  height: clamp(150px, 24vw, 350px);
+  color: var(--text-primary);
 }
 
 .techs {
   display: flex;
   flex-wrap: wrap;
-  padding-right: 5px;
-  transform: translateX(-2vw) scaleX(1.1);
-  overflow: scroll;
   height: auto;
+  padding: 2px 0 0;
+  transform: translateX(-2vw) scaleX(1.3);
+  overflow: scroll;
 }
-.techs > h3{
-  width: 100%;
-}
+
 .detailTech {
   margin: 0 0.5vw 0.5vw;
   padding: 1vw;
   min-height: 10px;
   overflow-y: scroll;
-  font-size: clamp(10px, 1.8vw, 18px);
+  font-size: clamp(10px, 1.6vw, 18px);
   color: var(--text-primary);
   background-color: var(--background3);
   border-radius: 10px;
 }
+
 .detailTech:hover {
   transform: scale(1.1);
   box-shadow: 2px 2px 3px var(--detail-terinary);
