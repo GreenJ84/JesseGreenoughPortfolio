@@ -73,34 +73,45 @@ const ProjectPage = (props: Projects) => {
       id="pageContainer"
       style={projectBody}
     >
-        <section id="projectsContainer" style={container as React.CSSProperties}>
-          <ProjectNavbar
-            langHandler={langHandler}
-            techHandler={techHandler}
-            options={[cat, tech]}
-          />
-          <hr style={{ border: ".5px solid var(--text-secondary)" }} />
-          {fresh ? (
-      
-            <h1 id="projectsTitle" style={title as React.CSSProperties}>
-              My current <span className="detail">top 10</span> projects
-            </h1>
-          ) : (
-            <h1 id="projectsTitle" style={title as React.CSSProperties}>
-              I have created
-              <span className="detail"> over {projectData.length} </span>
-              projects to date
-            </h1>
-          )}
-          <ul id="projectsList" style={flexbox as React.CSSProperties}>
-            {projectData.map((project) => (
-              <ProjectCard
-                project={project}
-                key={project.name}
-              />
-            ))}
-          </ul>
-        </section>
+      <section
+        id="projectsContainer"
+        style={container as React.CSSProperties}
+      >
+        <ProjectNavbar
+          langHandler={langHandler}
+          techHandler={techHandler}
+          options={[cat, tech]}
+        />
+        <hr style={{ border: ".5px solid var(--text-secondary)" }} />
+        {fresh ? (
+          <h1
+            id="projectsTitle"
+            style={title as React.CSSProperties}
+          >
+            My current <span className="detail">top 10</span> projects
+          </h1>
+        ) : (
+          <h1
+            id="projectsTitle"
+            style={title as React.CSSProperties}
+          >
+            I have created
+            <span className="detail"> over {projectData.length} </span>
+            projects to date
+          </h1>
+        )}
+        <ul
+          id="projectsList"
+          style={flexbox as React.CSSProperties}
+        >
+          {projectData.map((project) => (
+            <ProjectCard
+              project={project}
+              key={project.name}
+            />
+          ))}
+        </ul>
+      </section>
     </main>
   );
 };
