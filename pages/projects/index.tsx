@@ -24,8 +24,7 @@ const ProjectPage = (props: Projects) => {
   props.projectData.forEach((project) => {
     project.category.map((item) => cat.add(item));
     project.key_techs.map((item) => tech.add(item));
-  }
-  );
+  });
 
   // Filter Projects by languages used
   const langHandler = (category: string) => {
@@ -33,18 +32,18 @@ const ProjectPage = (props: Projects) => {
     if (category === "top") {
       setProjectData(props.projectData.slice(0, 10));
       setFresh(true);
-      select.getElementsByTagName('option')[1]!.selected = true;
+      select.getElementsByTagName("option")[1]!.selected = true;
     } else if (category === "all") {
       setProjectData(props.projectData);
       setFresh(false);
-      select.getElementsByTagName('option')[2]!.selected = true;
+      select.getElementsByTagName("option")[2]!.selected = true;
     } else {
       const newArray = props.projectData.filter((project) =>
         project.category.includes(category)
       );
       setProjectData(newArray);
       setFresh(false);
-      select.getElementsByTagName('option')[0]!.selected = true;
+      select.getElementsByTagName("option")[0]!.selected = true;
     }
   };
 
@@ -54,47 +53,49 @@ const ProjectPage = (props: Projects) => {
     if (category === "top") {
       setProjectData(props.projectData.slice(0, 10));
       setFresh(true);
-      select.getElementsByTagName('option')[1]!.selected = true;
+      select.getElementsByTagName("option")[1]!.selected = true;
     } else if (category === "all") {
       setProjectData(props.projectData);
       setFresh(false);
-      select.getElementsByTagName('option')[2]!.selected = true;
+      select.getElementsByTagName("option")[2]!.selected = true;
     } else {
       const newArray = props.projectData.filter((project) =>
         project.key_techs.includes(category)
       );
       setProjectData(newArray);
       setFresh(false);
-      select.getElementsByTagName('option')[0]!.selected = true;
+      select.getElementsByTagName("option")[0]!.selected = true;
     }
   };
 
   return (
     <main
+      id="pageContainer"
       style={projectBody}
     >
       <div
         style={{ position: "relative", margin: "6vw 0 0", padding: "0 3vw 0" }}
       >
-        <section style={container as React.CSSProperties}>
+        <section id="projectsContainer" style={container as React.CSSProperties}>
           <ProjectNavbar
             langHandler={langHandler}
             techHandler={techHandler}
             options={[cat, tech]}
           />
-          <hr style={{border: ".5px solid var(--text-secondary)"}} />
+          <hr style={{ border: ".5px solid var(--text-secondary)" }} />
           {fresh ? (
-            <h1 style={title as React.CSSProperties}>
+      
+            <h1 id="projectsTitle" style={title as React.CSSProperties}>
               My current <span className="detail">top 10</span> projects
             </h1>
           ) : (
-              <h1 style={title as React.CSSProperties}>
-                I have created
-                <span className="detail"> over {projectData.length} </span>
-                projects to date
-              </h1>
-            )}
-          <section style={flexbox as React.CSSProperties}>
+            <h1 id="projectsTitle" style={title as React.CSSProperties}>
+              I have created
+              <span className="detail"> over {projectData.length} </span>
+              projects to date
+            </h1>
+          )}
+          <section id="projectsList" style={flexbox as React.CSSProperties}>
             {projectData.map((project) => (
               <ProjectCard
                 project={project}
@@ -157,5 +158,5 @@ const title = {
 const flexbox = {
   display: "flex",
   flexWrap: "wrap",
-  justifyContent: "space-around"
+  justifyContent: "space-around",
 };

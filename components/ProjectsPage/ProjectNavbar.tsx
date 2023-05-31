@@ -24,7 +24,7 @@ const ProjectNavbar = (props: ProjectNavProps) => {
   };
 
   return (
-    <nav className={css.projectNavbar}>
+    <nav id="projectsFilter" className={css.projectNavbar}>
       <div>
         <h2>Filter by Language</h2>
         <select
