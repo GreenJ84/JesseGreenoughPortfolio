@@ -85,3 +85,7 @@ export const getWindowInnerWidth = (): Cypress.Chainable<number> => {
     return width;
   });
 };
+
+export const getOddEven = (): number => { 
+  return Math.floor(Math.random() * 1000) % 2;
+}

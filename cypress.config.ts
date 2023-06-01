@@ -4,10 +4,10 @@ import { defineConfig } from "cypress";
 
 export default defineConfig({
   defaultCommandTimeout: 5000,
-  requestTimeout: 50000,
+  requestTimeout: 5000,
   responseTimeout: 5000,
   pageLoadTimeout: 10000,
-  video: false,
+  video: true,
   videoUploadOnPasses: false,
   videosFolder: "cypress/videos",
   screenshotsFolder: "cypress/screenshots",
@@ -16,7 +16,7 @@ export default defineConfig({
   env: {
     NODE_TLS_REJECT_UNAUTHORIZED: "0",
   },
-  numTestsKeptInMemory: 5,
+  numTestsKeptInMemory: 35,
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
