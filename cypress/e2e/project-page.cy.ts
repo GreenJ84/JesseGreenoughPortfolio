@@ -88,44 +88,11 @@ context(`Project page testing at Viewport ${viewportDisplay(viewport)}`, () => {
         .children()
         .then(($children) => {
           cy.wrap($children)
-            .eq(0)
-            .then(($nav) => {
-              expect($nav).to.have.css("position", "absolute");
-              expect($nav).to.have.css("top");
-              expect($nav).to.have.css("left");
-              expect($nav).to.have.css("transform");
-              expect($nav).to.have.css("display", "flex");
-              expect($nav).to.have.css("align-items", "center");
-              expect($nav).to.have.css("justify-content", "space-around");
-              expect($nav).to.have.css("width");
-              expect($nav).to.have.css("height");
-            });
-
-          cy.wrap($children)
             .eq(1)
             .then(($hr) => {
               expect($hr)
                 .to.have.css("border")
                 .match(/^0\.5px solid rgb\(0, 255, 13\)/);
-            });
-
-          cy.wrap($children)
-            .eq(2)
-            .then(($h1) => {
-              expect($h1).to.have.css("margin-bottom");
-              expect($h1).to.have.css("text-align", "center");
-              expect($h1)
-                .to.have.css("color")
-                .match(/^rgb\(206, 255, 208\)$/);
-              expect($h1).to.have.css("font-size");
-            });
-
-          cy.wrap($children)
-            .eq(3)
-            .then(($ul) => {
-              expect($ul).to.have.css("display", "flex");
-              expect($ul).to.have.css("flex-wrap", "wrap");
-              expect($ul).to.have.css("justify-content", "space-around");
             });
         });
     });
@@ -182,7 +149,7 @@ context(`Project page testing at Viewport ${viewportDisplay(viewport)}`, () => {
           expect($nav).to.have.css("transform");
         })
         .children()
-        .each(($child, idx) => {
+        .each(($child) => {
           expect($child).to.have.css("display", "flex");
           expect($child).to.have.css("flex-direction", "column");
           expect($child).to.have.css("align-items", "center");
@@ -302,19 +269,19 @@ context(`Project page testing at Viewport ${viewportDisplay(viewport)}`, () => {
           expect(txt).to.match(/I have created over \d+ projects to date/);
           expect(txt).to.not.equal(text);
         });
-      
+
       // Reset to Top 10 for next tests
       projPage.filterProjects(0, 1);
     });
 
-    it ("The Filters adjust the displayed projects correctly", async () => {
+    it("The Filters adjust the displayed projects correctly", async () => {
       // check Top 10 render first
       projPage
         .projectsList()
         .should("be.visible")
         .children()
         .should("have.length", 10);
-      
+
       // Filter All and expect to be more than 10 and save length
       projPage.filterProjects(0, 2);
       let allLength = 0;
@@ -322,19 +289,20 @@ context(`Project page testing at Viewport ${viewportDisplay(viewport)}`, () => {
         .projectsList()
         .children()
         .should("have.length.greaterThan", 10)
-        .its("length").then((length) => { 
+        .its("length")
+        .then((length) => {
           allLength = length;
         });
-      
+
       // Get a random filter to sort
-      let filter = Math.floor(Math.random() * 1000) % 2
+      let filter = Math.floor(Math.random() * 1000) % 2;
       // Get the length of that filter
-      let filterLen = await projPage.getFilterLength(filter);
+      let filterLen = await projPage.getFilterOptionsLength(filter);
       // Get a random option from the select
       let selection = Math.floor(Math.random() * 1000) % filterLen;
       // Make sure its not the beginning default types
-      if (selection <= 2) { 
-        selection = 4
+      if (selection <= 2) {
+        selection = 4;
       }
       cy.log(`Filter: ${filter}, Selection: ${selection}`);
 
@@ -343,34 +311,156 @@ context(`Project page testing at Viewport ${viewportDisplay(viewport)}`, () => {
       projPage
         .projectsList()
         .children()
-        .its("length").then((length) => { 
+        .its("length")
+        .then((length) => {
           expect(length).to.be.lessThan(allLength);
         });
-      
+
       // Reset to Top 10 for next tests
       projPage.filterProjects(0, 1);
     });
   });
 
-  // describe(`The projects list renders correctly at Viewport ${viewportDisplay(
-  //   viewport
-  // )}`, () => {
-  //   it("The project list title has the correct styling", () => {
-  //     projPage.projectsTitle().should("be.visible");
-  //   });
+  describe(`The projects list renders correctly at Viewport ${viewportDisplay(
+    viewport
+  )}`, () => {
+    it("The project list title has the correct styling", () => {
+      projPage
+        .projectsTitle()
+        .should("be.visible")
+        .then(($h1) => {
+          expect($h1).to.have.css("margin-bottom");
+          expect($h1).to.have.css("text-align", "center");
+          expect($h1)
+            .to.have.css("color")
+            .match(/^rgb\(206, 255, 208\)$/);
+          expect($h1).to.have.css("font-size");
+        });
+    });
 
-  //   it("The projects list renders the correct styling", () => {
-  //     projPage.projectsList().should("be.visible");
-  //   });
+    it("The projects list renders the correct styling", () => {
+      projPage
+        .projectsList()
+        .should("be.visible")
+        .then(($ul) => {
+          expect($ul).to.have.css("display", "flex");
+          expect($ul).to.have.css("flex-wrap", "wrap");
+          expect($ul).to.have.css("justify-content", "space-around");
+        });
+    });
 
-  //   it("Projects items are rendering the correct layout", () => {
-  //     projPage.projectItem(0).should("be.visible");
-  //   });
+    it("Projects items are rendering the correct layout", async () => {
+      let projects = await projPage.getProjectsLength(0);
+      let oddEven = Math.floor(Math.random() * 1000) % 2;
+      for (let i = 0; i < projects; i++) {
+        if (i % 2 == oddEven) {
+          projPage
+            .projectItem(i)
+            .should("be.visible")
+            .then(($li) => {
+              expect($li).to.have.prop("tagName", "LI");
+            })
+            .children()
+            .should("have.length", 2)
+            .then(($children) => {
+              cy.wrap($children)
+                .eq(0)
+                .then(($img) => {
+                  expect($img).to.have.prop("tagName", "IMG");
+                });
 
-  //   it("Projects items are rendering the correct styling", () => {
-  //     projPage.projectItem(0).should("be.visible");
-  //   });
-  // });
+              cy.wrap($children)
+                .eq(1)
+                .then(($p) => {
+                  expect($p).to.have.prop("tagName", "P");
+                });
+            });
+        }
+      }
+    });
+
+    it("Projects items are rendering the correct styling", async () => {
+      let projects = await projPage.getProjectsLength(0);
+      let oddEven = Math.floor(Math.random() * 1000) % 2;
+      for (let i = 0; i < projects; i++) {
+        if (i % 2 == oddEven) {
+          projPage
+            .projectItem(i)
+            .should("be.visible")
+            .then(($li) => {
+              expect($li).to.have.css("position", "relative");
+              expect($li).to.have.css("display", "flex");
+              expect($li).to.have.css("flex-direction", "column");
+              expect($li).to.have.css("justify-content", "space-around");
+              expect($li).to.have.css("width");
+              expect($li).to.have.css("height");
+              expect($li).to.have.css("margin");
+              expect($li)
+                .to.have.css("background-color")
+                .match(/^rgb\(60, 60, 60\)$/);
+              expect($li).to.have.css("border-radius", "20px");
+              expect($li)
+                .to.have.css("box-shadow")
+                .match(/^(\s?rgb\(6, 255, 19\)(\s\d+px){4}){2}$/);
+            })
+            .children()
+            .should("have.length", 2)
+            .then(($children) => {
+              cy.wrap($children)
+                .eq(0)
+                .then(($img) => {
+                  expect($img).to.have.css("display", "flex");
+                  expect($img).to.have.css("width");
+                  expect($img).to.have.css("height");
+                  expect($img).to.have.css("margin");
+                });
+
+              cy.wrap($children)
+                .eq(1)
+                .then(($p) => {
+                  expect($p).to.have.css("margin");
+                  expect($p).to.have.css("text-align", "center");
+                  expect($p)
+                    .to.have.css("color")
+                    .match(/^rgb\(0, 255, 13\)$/);
+                  expect($p).to.have.css("font-size");
+                  expect($p).to.have.css("font-weight", "800");
+                });
+            });
+        }
+      }
+    });
+
+    it("Projects Items hover styling renders correctly", async () => {
+      let projects = await projPage.getProjectsLength(0);
+      let oddEven = Math.floor(Math.random() * 1000) % 2;
+      for (let i = 0; i < projects; i++) {
+        if (i % 2 == oddEven) {
+          projPage
+            .projectItem(i)
+            .should("be.visible")
+            .then(($li) => {
+              expect($li)
+                .to.have.css("background-color")
+                .match(/^rgb\(60, 60, 60\)$/);
+              expect($li)
+                .to.have.css("box-shadow")
+                .match(/^(\s?rgb\(6, 255, 19\)(\s\d+px){4}){2}$/);
+            })
+            .realHover()
+            .then(($li) => {
+              expect($li)
+                .to.have.css("background-color")
+                .match(/^rgb\(12, 27, 22\)$/);
+              expect($li)
+                .to.have.css("box-shadow")
+                .match(/^(\s?rgba\(14, 215, 165, 0\.925\)(\s\d+px){4}){2}$/);
+              expect($li).to.have.css("transform");
+            });
+        }
+      }
+    });
+  });
 
   // describe(`The projects detail cards render correctly at Viewport ${viewportDisplay(
   //   viewport

@@ -10,11 +10,12 @@ export class ProjectPage {
   filterSelect: (
     filter: number
   ) => Cypress.Chainable<JQuery<HTMLSelectElement>>;
-  getFilterLength: (filter: number) => Promise<number>;
+  getFilterOptionsLength: (filter: number) => Promise<number>;
   filterProjects: (filter: number, choice: number) => void;
 
   projectsTitle: () => Cypress.Chainable<JQuery<HTMLElement>>;
   projectsList: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  getProjectsLength: (filter: number) => Promise<number>;
   projectItem: (idx: number) => Cypress.Chainable<JQuery<HTMLElement>>;
 
   constructor() {
@@ -36,9 +37,8 @@ export class ProjectPage {
         .children("select")
         .first();
     };
-    this.getFilterLength = async (filter: number) => {
+    this.getFilterOptionsLength = async (filter: number) => {
       return new Promise((resolve) => {
-        let filterLength = 0;
         cy.get("#projectsFilter")
           .children("div")
           .eq(filter)
@@ -49,9 +49,7 @@ export class ProjectPage {
           .then((length) => {
             expect(length).to.be.greaterThan(0);
             cy.log(`${length} projects selected`);
-            filterLength = length;
-            expect(filterLength).to.be.greaterThan(0);
-            resolve(filterLength);
+            resolve(length);
           });
       });
     };
@@ -70,12 +68,19 @@ export class ProjectPage {
     this.projectsList = () => {
       return cy.get("#projectsList");
     };
+    this.getProjectsLength = async () => {
+      return new Promise((resolve) => { 
+        cy.get("#projectsList")
+          .children("li")
+          .its("length")
+          .then((length) => {
+            expect(length).to.be.greaterThan(0);
+            cy.log(`${length} projects`);
+            resolve(length);
+          });
+      })
+    }
     this.projectItem = (idx: number) => {
-      cy.get("#projectsList")
-        .children()
-        .then(($children) => {
-          idx %= $children.length;
-        });
       return cy.get("#projectsList").children().eq(idx);
     };
   }
