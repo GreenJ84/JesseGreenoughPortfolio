@@ -1,3 +1,5 @@
+/** @format */
+
 /// <reference types="cypress" />
 
 export class ProjectPage {
@@ -5,6 +7,10 @@ export class ProjectPage {
   projectsContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
 
   projectsFilter: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  filterSelect: (
+    filter: number
+  ) => Cypress.Chainable<JQuery<HTMLSelectElement>>;
+  getFilterLength: (filter: number) => Promise<number>;
   filterProjects: (filter: number, choice: number) => void;
 
   projectsTitle: () => Cypress.Chainable<JQuery<HTMLElement>>;
@@ -13,32 +19,64 @@ export class ProjectPage {
 
   constructor() {
     this.pageContainer = () => {
-      return cy.get('#pageContainer');
-    }
+      return cy.get("#pageContainer");
+    };
     this.projectsContainer = () => {
-      return cy.get('#projectsContainer');
-    }
-
+      return cy.get("#projectsContainer");
+    };
 
     this.projectsFilter = () => {
-      return cy.get('#projectsFilter');
-    }
-    this.filterProjects = (fIdx: number, sIdx: number) => {
-      cy.get('#projectsFilter').children("div").eq(fIdx).children("select").first().select(sIdx);;
-    }
-
+      return cy.get("#projectsFilter");
+    };
+    this.filterSelect = (filter: number) => {
+      return cy
+        .get("#projectsFilter")
+        .children("div")
+        .eq(filter)
+        .children("select")
+        .first();
+    };
+    this.getFilterLength = async (filter: number) => {
+      return new Promise((resolve) => {
+        let filterLength = 0;
+        cy.get("#projectsFilter")
+          .children("div")
+          .eq(filter)
+          .children("select")
+          .first()
+          .children("option")
+          .its("length")
+          .then((length) => {
+            expect(length).to.be.greaterThan(0);
+            cy.log(`${length} projects selected`);
+            filterLength = length;
+            expect(filterLength).to.be.greaterThan(0);
+            resolve(filterLength);
+          });
+      });
+    };
+    this.filterProjects = (filter: number, sIdx: number) => {
+      cy.get("#projectsFilter")
+        .children("div")
+        .eq(filter)
+        .children("select")
+        .first()
+        .select(sIdx);
+    };
 
     this.projectsTitle = () => {
-      return cy.get('#projectsTitle');
-    }
+      return cy.get("#projectsTitle");
+    };
     this.projectsList = () => {
-      return cy.get('#projectsList');
-    }
+      return cy.get("#projectsList");
+    };
     this.projectItem = (idx: number) => {
-      cy.get('#projectsList').children().then(($children) => {
-        idx %= $children.length;
-      });
-      return cy.get('#projectsList').children().eq(idx);
-    }
+      cy.get("#projectsList")
+        .children()
+        .then(($children) => {
+          idx %= $children.length;
+        });
+      return cy.get("#projectsList").children().eq(idx);
+    };
   }
 }
