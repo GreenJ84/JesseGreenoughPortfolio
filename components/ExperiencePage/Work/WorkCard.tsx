@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { ImPointRight } from "react-icons/im";
 
-import { workItem } from "../../../Utils/data/WorkData";
+import { workItem } from "../../../Utils/dataTypes";
 const css = require("./WorkCard.module.css");
 
 interface workCard {
@@ -14,7 +14,7 @@ interface workCard {
 
 const WorkCard = (props: workCard) => {
   return (
-    <div className={css.workCard}>
+    <li className={css.workCard}>
       <div className={css.workImageHolder}>
         <Image
           src={props.work.logo}
@@ -26,24 +26,26 @@ const WorkCard = (props: workCard) => {
       </div>
       <div className={css.workCardBody}>
         <div>
-          <p>{props.work.position + " "}</p>
+          <h2>{props.work.position }</h2>
           <p>{props.work.date}</p>
         </div>
         <div>
           <p>{props.work.company}</p>
           <p>{props.work.location}</p>
         </div>
+        <ul>
         {props.work.details.map((item, idx) => (
-          <p
+          <li
             key={idx}
             className={css.details}
           >
             {" "}
             <ImPointRight /> {item}{" "}
-          </p>
+          </li>
         ))}
+        </ul>
       </div>
-    </div>
+    </li>
   );
 };
 

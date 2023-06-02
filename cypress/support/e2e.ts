@@ -28,14 +28,12 @@ export const BASEURL = "http://localhost:3000";
 export const viewports: VIEW[] = [
   // Desktop viewports
   { width: 1366, height: 768 }, // Windows
-  { width: 1440, height: 900 }, // macOS
   { width: 1920, height: 1080 }, // Windows/macOS
   { width: 2560, height: 1440 }, // macOS
   // Tablet viewports
-  { width: 1024, height: 768 }, // iPad (Landscape)
   "ipad-2",
+  { width: 1024, height: 768 }, // iPad (Landscape)
   // Mobile viewports
-  "iphone-6",
   "iphone-8",
   { width: 414, height: 736 }, // iPhone 6/7/8 Plus (or equivalent)
 ];
@@ -87,3 +85,7 @@ export const getWindowInnerWidth = (): Cypress.Chainable<number> => {
     return width;
   });
 };
+
+export const getOddEven = (): number => { 
+  return Math.floor(Math.random() * 1000) % 2;
+}

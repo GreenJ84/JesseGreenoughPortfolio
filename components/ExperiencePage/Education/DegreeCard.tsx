@@ -4,7 +4,8 @@ import React from "react";
 
 import { HiOutlineExternalLink } from "react-icons/hi";
 
-import { educationType } from "../../../Utils/data/EducationData";
+import { educationType } from "../../../Utils/dataTypes";
+
 const css = require("./DegreeCard.module.css");
 
 interface degreeCard {
@@ -13,13 +14,13 @@ interface degreeCard {
 
 const DegreeCard = (props: degreeCard) => {
   return (
-    <div className={css.cardBody}>
+    <div className={css.cardContainer}>
       <div className={css.cardHead}>
-        <h1>{props.education.college}</h1>
+        <h3>{props.education.college}</h3>
         <p>{props.education.date}</p>
         <p>{props.education.degree}</p>
       </div>
-      <div className={css.cardText}>
+      <div className={css.cardBody}>
         <ul>
           {props.education.description.map((item, idx) => (
             <li key={idx}> ☞ {item} </li>
@@ -28,10 +29,9 @@ const DegreeCard = (props: degreeCard) => {
         <a
           target="blank"
           href={props.education.website}
-          className={css.button}
+          className={css.siteLink}
         >
-          {" "}
-          Visit Site <HiOutlineExternalLink />{" "}
+          Visit Site <HiOutlineExternalLink />
         </a>
       </div>
     </div>

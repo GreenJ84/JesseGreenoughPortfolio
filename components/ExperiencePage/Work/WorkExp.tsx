@@ -5,9 +5,8 @@ import React, { useState } from "react";
 import WorkBody from "./WorkBody";
 import WorkCard from "./WorkCard";
 
-import { workItem } from "../../../Utils/data/WorkData";
-// import workHistory from "../../../Utils/data/WorkData"
-// import secondaryWorkData from '../../../Utils/data/SecondaryWorkData';
+import { workItem } from "../../../Utils/dataTypes";
+import { ServerDescription } from "mongodb";
 
 const css = require("./WorkExp.module.css");
 
@@ -28,10 +27,10 @@ const WorkExp = (props: Work) => {
   };
 
   return (
-    <>
+    <section id="workContainer">
       <WorkBody />
-      <div className={css.workFilter}>
-        <p
+      <nav id="workToggle" className={css.workFilter}>
+        <button
           className={showWork ? css.activeFilter : ""}
           onClick={() => {
             if (!showWork) {
@@ -40,8 +39,8 @@ const WorkExp = (props: Work) => {
           }}
         >
           Work
-        </p>
-        <p
+        </button>
+        <button
           className={showWork ? "" : css.activeFilter}
           onClick={() => {
             if (showWork) {
@@ -50,9 +49,9 @@ const WorkExp = (props: Work) => {
           }}
         >
           Internship/ Volunteer
-        </p>
-      </div>
-      <div className={css.workCardHolder}>
+        </button>
+      </nav>
+      <ul id="workList" className={css.workCardHolder}>
         {showWork
           ? props.workData.map((item) => (
               <WorkCard
@@ -66,8 +65,8 @@ const WorkExp = (props: Work) => {
                 work={item}
               />
             ))}
-      </div>
-    </>
+      </ul>
+    </section>
   );
 };
 

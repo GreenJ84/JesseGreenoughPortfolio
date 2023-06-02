@@ -25,9 +25,9 @@
 
 .certImage {
   margin: 4%;
-  border-radius: 50%;
   width: clamp(90px, 15vw, 200px);
   height: clamp(90px, 15vw, 200px);
+  border-radius: 50%;
 }
 /* 
 .certDisplay h3,
@@ -35,7 +35,7 @@
   margin: 4% 1% 6%;
 } */
 
-.certDisplay h3 {
+.certDisplay h5 {
   font-size: clamp(12px, 2vw, 28px);
 }
 .certDisplay p {
@@ -56,7 +56,7 @@
   box-shadow: 0 0 1rem var(--detail-secondary);
 }
 
-@media only screen and (max-width: 500px){
+@media only screen and (max-width: 500px) {
   .certDetailCard {
     position: relative;
   }
@@ -79,7 +79,7 @@
   max-height: 80%;
   overflow: scroll;
   font-weight: bolder;
-  margin-bottom: .3rem;
+  margin-bottom: 0.3rem;
   line-height: 140%;
   vertical-align: center;
 }
@@ -101,7 +101,7 @@
   border: 1px solid var(--detail-secondary);
 }
 .certDetails a:hover {
-  box-shadow: 0 0 .5px 1px var(--background2);
+  box-shadow: 0 0 0.5px 1px var(--background2);
   color: var(--text-primary);
   background-color: var(--card-background);
 }

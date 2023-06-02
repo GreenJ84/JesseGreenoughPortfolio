@@ -1,6 +1,6 @@
 /** @format */
 
-.cardBody {
+.cardContainer {
   width: clamp(200px, 50vw, 800px);
   height: auto;
   border-radius: 30px;
@@ -8,7 +8,7 @@
   box-shadow: inset 2px -2px 14px var(--detail-secondary),
     inset -2px -2px 14px var(--detail-secondary);
 }
-.cardBody:hover {
+.cardContainer:hover {
   box-shadow: inset 2px -2px 14px var(--detail-secondary),
     inset -2px -2px 14px var(--detail-secondary),
     0 0 15px var(--detail-secondary);
@@ -25,25 +25,25 @@
   padding: 0;
 }
 
-.cardHead > h1 {
-  margin: .5vw 0 1vw;
+.cardHead > h3 {
+  margin: 0.5vw 0 1vw;
   text-align: center;
   font-size: clamp(20px, 2.8vw, 40px);
 }
 
-.cardHead > h1 + p {
+.cardHead > h3 + p {
   text-align: center;
   font-size: clamp(10px, 1.1vw, 28px);
 }
 
-.cardHead > h1 + p + p {
+.cardHead > h3 + p + p {
   position: relative;
   left: 1.4vw;
-  margin: 3.4vw 0 .4vw;
+  margin: 3.4vw 0 0.4vw;
   font-size: clamp(12px, 1.8vw, 32px);
 }
 
-.cardText {
+.cardBody {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -57,12 +57,12 @@
   box-shadow: inset 0 -2px 5px 2px var(--card-background2);
 }
 
-.cardText > ul{
+.cardBody > ul {
   margin: 0;
   padding: 0 2vw;
 }
 
-.cardText > ul > li {
+.cardBody > ul > li {
   padding: 2vw 0 0;
   text-indent: 10px;
   list-style: none;
@@ -70,7 +70,7 @@
   line-height: max(2.4vw, 12px);
 }
 
-.button {
+.siteLink {
   position: relative;
   display: flex;
   align-items: center;
@@ -86,7 +86,7 @@
   border: 2px solid var(--background2);
   border-radius: 10px;
 }
-.button:hover {
+.siteLink:hover {
   color: rgb(1, 202, 1);
   background-color: rgb(0, 30, 0);
   box-shadow: 2px -2px 18px 5px rgb(32, 111, 14);

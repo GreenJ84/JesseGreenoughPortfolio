@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { MongoClient } from "mongodb";
-import { Container, Row } from "react-bootstrap";
 
+import { Container, Row } from "react-bootstrap";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 import ButtonGroup from "../../components/ResumePage/ButtonGroup";
@@ -22,7 +22,7 @@ interface resumeProps {
     }
   ];
 }
-const ReumePage = (props: resumeProps) => {
+const ResumePage = (props: resumeProps) => {
   const [width, setWidth] = useState(0);
   const [resNum, setResNum] = useState(0);
 
@@ -98,7 +98,7 @@ const ReumePage = (props: resumeProps) => {
   );
 };
 
-export default ReumePage;
+export default ResumePage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const client = new MongoClient(process.env.DB_CONN_STRING!);

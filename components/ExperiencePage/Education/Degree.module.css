@@ -7,6 +7,7 @@
   color: var(--text-secondary);
   text-shadow: 0 0 18px var(--detail-secondary);
 }
+
 .degrees {
   display: flex;
   position: relative;
@@ -17,7 +18,6 @@
 }
 
 .image {
-  border: 10px solid red;
   width: 16vw;
   height: 16vw;
   margin-right: 10px;

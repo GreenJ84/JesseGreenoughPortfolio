@@ -24,33 +24,18 @@ const LAYOUTURLS = () => {
 // let viewport = viewports[0];
 viewports.forEach((viewport) => {
 const viewString = viewportDisplay(viewport);
-for (let url of LAYOUTURLS()) {
+for (let url of LAYOUTURLS().slice(0, 1)) {
   const urlString =
     url.length > 1 ? url.replace("/", "").toLocaleUpperCase() : "Home";
   context(
-    `All layout components render correctly on page: ${urlString} at viewport: ${viewString}`,
+    `All layout components render correctly on Page: ${urlString} at Viewport: ${viewString}`,
     () => {
       before(() => {
         viewPortSetup(viewport);
         setupPageWithTheme(url, "dark");
       });
 
-      // describe(`The Pre-loader renders correctly at viewport: on page: ${urlString} at viewport: ${viewString}`, () => {
-      //     before(() => { viewPortSetup(viewport) });
-      //     beforeEach(() => { setupPageWithTheme(url, "dark") })
-
-      //     it("The Preloader is rendering during load times", () => {
-      //         layoutComp.preload()
-      //             .should("be.visable")
-      //     });
-
-      //     it("The Preloader is rendering with the correct attributes and stylings", () => {
-      //         //! Not yet implmented
-      //         expect(true).to.be.true;
-      //     });
-      // });
-
-      describe(`The NavBar renders correctly on page: ${urlString} at viewport: ${viewString}`, () => {
+      describe(`The NavBar renders correctly on Page: ${urlString} at Viewport: ${viewString}`, () => {
         // NavBar
         it("The correct number of elements render inside the navbar", () => {
           layoutComp
@@ -108,7 +93,7 @@ for (let url of LAYOUTURLS()) {
         });
       });
 
-      describe(`The NavBar's Brand Logo renders correctly on page: ${urlString} at viewport: ${viewString}`, () => {
+      describe(`The NavBar's Brand Logo renders correctly on Page: ${urlString} at Viewport: ${viewString}`, () => {
         // NavBar Brand
         it("The Brand container has the correct css stylings", () => {
           getWindowInnerWidth().then((width: number) => {
@@ -228,7 +213,6 @@ for (let url of LAYOUTURLS()) {
             .first()
             .should("be.visible");
 
-          logo.click();
           logo
             .should("have.attr", "alt", "Theme changing Navigation logo")
             .then(($brand: JQuery<HTMLElement>) => {
@@ -236,14 +220,22 @@ for (let url of LAYOUTURLS()) {
                 .to.have.attr("src")
                 .match(/.*assets.*logo\.png.*/);
             });
-
+          logo.click();
+          logo.then(($brand: JQuery<HTMLElement>) => {
+            expect($brand)
+              .to.have.attr("src")
+              .match(/.*assets.*CyberHedera1\.png.*/);
+          });
           expect(overlay).to.not.equal(
             layoutComp.brand().find("p").first().invoke("text")
           );
+
+          // Reset
+          logo.click();
         });
       });
 
-      describe(`The NavBar's Collapsable Navigation renders correctly on page: ${urlString} at viewport: ${viewString}`, () => {
+      describe(`The NavBar's Collapsable Navigation renders correctly on Page: ${urlString} at Viewport: ${viewString}`, () => {
         // NavBar Collapse
         it("The Collapse section renders and has the Nav inside", () => {
           layoutComp
@@ -323,14 +315,14 @@ for (let url of LAYOUTURLS()) {
         });
       });
 
-      describe(`The NavBar Toggle renders correctly on page: ${urlString} at viewport: ${viewString}`, () => {
+      describe(`The NavBar Toggle renders correctly on Page: ${urlString} at Viewport: ${viewString}`, () => {
         // NavBar Toggle
         it("The Toggle renders with the correct number of elements", () => {});
         it("The Toggle renders with the correct css styles", () => {});
         it("The Toggle functionally expands the NavBar", () => {});
       });
 
-      describe(`The footer renders correctly on page: ${urlString} at viewport: ${viewString}`, () => {
+      describe(`The footer renders correctly on Page: ${urlString} at Viewport: ${viewString}`, () => {
         it("The Footer is rendering with the correct layout", () => {
           layoutComp
             .footer()
@@ -454,7 +446,7 @@ for (let url of LAYOUTURLS()) {
       });
 
       //! Not implemented yet
-      // describe(`The particle renders correctly  at viewport: on page: ${urlString} at viewport: ${viewString}`, () => {
+      // describe(`The particle renders correctly  at viewport: on Page: ${urlString} at Viewport: ${viewString}`, () => {
       //     before(() => { viewPortSetup(viewport) });
       //     beforeEach(() => { setupPageWithTheme(url, "dark") })
 

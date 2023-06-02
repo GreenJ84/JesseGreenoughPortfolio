@@ -1,13 +1,14 @@
 /** @format */
 
 import React from "react";
+
 import WorkImg from "./WorkImg";
 
 const css = require("./WorkBody.module.css");
 
 const WorkBody = () => {
   return (
-    <>
+    <section id="workIntro">
       <h1 className={css.workBodyTitle}>Professional experience</h1>
       <div className={css.workBody}>
         <WorkImg />
@@ -17,7 +18,7 @@ const WorkBody = () => {
           in a variety of fast-paced environents.
         </p>
       </div>
-    </>
+    </section>
   );
 };
 

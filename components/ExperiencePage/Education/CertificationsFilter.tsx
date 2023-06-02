@@ -1,59 +1,81 @@
+/** @format */
+
 import React from "react";
 
-const css = require("./CertificationsFilters.module.css")
+const css = require("./CertificationsFilters.module.css");
 
 interface filterProps {
   issuerHandler: Function;
   techHandler: Function;
-  options: [Set<string>, Set<string>]
+  options: [Set<string>, Set<string>];
 }
 
 const CertificationsFilter = (props: filterProps) => {
   const [issuers, techs] = props.options;
-  const changeHandler = (e: React.ChangeEvent<HTMLSelectElement>, type: string) => {
-    e.preventDefault()
+
+  const changeHandler = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    type: string
+  ) => {
+    e.preventDefault();
     if (type == "issuer") {
-      props.issuerHandler(e.currentTarget.value)
+      props.issuerHandler(e.currentTarget.value);
+    } else if (type == "tech") {
+      props.techHandler(e.currentTarget.value);
     }
-    else if (type == "tech") {
-      props.techHandler(e.currentTarget.value)
-    }
-  }
+  };
 
   return (
-    <div className={css.certificationsFilter}>
+    <nav id="certificationFilter" className={css.certificationsFilter}>
       <div>
-        <h4>Filter by Issuer</h4>
+        <h4 id="issuerSelectLabel">Filter by Issuer</h4>
         <select
-          name="IssuerSelect"
           id="issuerSelect"
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "issuer")}
+          name="IssuerSelect"
+          defaultValue="top"
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            changeHandler(e, "issuer")
+          }
         >
           <option disabled></option>
-          <option value="top" selected>Top 10</option>
+          <option value="top">Top 10</option>
           <option value="all">All</option>
-          {[...issuers].map((cat) =>
-            <option key={cat} value={cat}>{cat.toUpperCase()}</option>
-          )}
+          {[...issuers].map((cat) => (
+            <option
+              key={cat}
+              value={cat}
+            >
+              {cat.toUpperCase()}
+            </option>
+          ))}
         </select>
       </div>
 
       <div>
-        <h4>Filter by Techs&nbsp;Involved</h4>
+        <h4 id="techSelectLabel">Filter by Techs&nbsp;Involved</h4>
         <select
-          name="TechSelect"
           id="techSelect"
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => changeHandler(e, "tech")}
+          name="TechSelect"
+          defaultValue="top"
+          aria-labelledby="techSelectLabel"
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+            changeHandler(e, "tech")
+          }
         >
           <option disabled></option>
-          <option value="top" selected>Top 10</option>
+          <option value="top">Top 10</option>
           <option value="all">All</option>
-          {[...techs].map((tech) =>
-            <option key={tech} value={tech}>{tech}</option>
-          )}
+          {[...techs].map((tech) => (
+            <option
+              key={tech}
+              value={tech}
+            >
+              {tech}
+            </option>
+          ))}
         </select>
       </div>
-    </div>
+    </nav>
   );
 };
 

@@ -35,6 +35,7 @@
   margin: 0 auto;
   display: flex;
   width: 70vw;
+  height: auto;
 }
 
 .resumeButton {

@@ -11,7 +11,7 @@
   background-color: rgba(0, 75, 40, 0.561);
 }
 
-.workFilter p {
+.workFilter button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,21 +23,21 @@
   background-color: rgb(0, 85, 25);
 }
 
-.workFilter p:hover {
-  background-color: rgb(1, 240, 128) !important;
+.workFilter button:hover {
+  background-color: rgb(1, 240, 128);
   color: black;
 }
 
-.activeFilter {
-  color: black !important;
-  background-color: rgb(0, 221, 136) !important;
+button.activeFilter {
+  color: black;
+  background-color: rgb(0, 221, 136);
 }
 
-.workFilter p:first-child {
+.workFilter button:first-child {
   margin-right: 0;
 }
 
-.workFilter p:nth-child(2) {
+.workFilter button:nth-child(2) {
   margin-left: 0;
 }
 
