@@ -16,7 +16,7 @@ export default defineConfig({
   env: {
     NODE_TLS_REJECT_UNAUTHORIZED: "0",
   },
-  numTestsKeptInMemory: 35,
+  numTestsKeptInMemory: 5,
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
