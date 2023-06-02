@@ -8,9 +8,9 @@ import { MongoClient } from "mongodb";
 import { Container, Row } from "react-bootstrap";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
-import ButtonGroup from "../../components/ResumePage/ButtonGroup";
+import ButtonGroup from "../components/ResumePage/ButtonGroup";
 
-const css = require("../../styles/Resume.module.css");
+const css = require("../styles/Resume.module.css");
 
 interface resumeProps {
   resumeData: [

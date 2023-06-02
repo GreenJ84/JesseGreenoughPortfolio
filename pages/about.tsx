@@ -4,8 +4,8 @@ import React from "react";
 
 import { Container } from "react-bootstrap";
 
-import AboutDetails from "../../components/AboutPage/AboutDetails";
-import AboutMain from "../../components/AboutPage/AboutMain";
+import AboutDetails from "../components/AboutPage/AboutDetails";
+import AboutMain from "../components/AboutPage/AboutMain";
 
 const AboutPage = () => {
   return (

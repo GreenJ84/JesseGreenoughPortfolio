@@ -4,10 +4,10 @@ import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
 
-import ProjectCard from "../../components/ProjectsPage/ProjectCard";
-import ProjectNavbar from "../../components/ProjectsPage/ProjectNavbar";
+import ProjectCard from "../components/ProjectsPage/ProjectCard";
+import ProjectNavbar from "../components/ProjectsPage/ProjectNavbar";
 
-import { IProject } from "../../Utils/dataTypes";
+import { IProject } from "../Utils/dataTypes";
 
 interface Projects {
   projectData: IProject[];

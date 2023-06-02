@@ -4,17 +4,17 @@ import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
 
-import ExpNavbar from "../../components/ExperiencePage/ExpNavbar";
-import WorkExp from "../../components/ExperiencePage/Work/WorkExp";
-import Certifications from "../../components/ExperiencePage/Education/Certifications";
-import Degree from "../../components/ExperiencePage/Education/Degree";
-import EduBody from "../../components/ExperiencePage/Education/EduBody";
+import ExpNavbar from "../components/ExperiencePage/ExpNavbar";
+import WorkExp from "../components/ExperiencePage/Work/WorkExp";
+import Certifications from "../components/ExperiencePage/Education/Certifications";
+import Degree from "../components/ExperiencePage/Education/Degree";
+import EduBody from "../components/ExperiencePage/Education/EduBody";
 
 import {
   certificationType,
   educationType,
   workItem,
-} from "../../Utils/dataTypes";
+} from "../Utils/dataTypes";
 
 export interface Experience {
   educationData: educationType[];
