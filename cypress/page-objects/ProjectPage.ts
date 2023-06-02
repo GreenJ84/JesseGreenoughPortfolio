@@ -15,8 +15,12 @@ export class ProjectPage {
 
   projectsTitle: () => Cypress.Chainable<JQuery<HTMLElement>>;
   projectsList: () => Cypress.Chainable<JQuery<HTMLElement>>;
-  getProjectsLength: (filter: number) => Promise<number>;
+  getProjectsLength: () => Promise<number>;
   projectItem: (idx: number) => Cypress.Chainable<JQuery<HTMLElement>>;
+
+  projectDetailModal: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  modalUnderlay: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  closeDetailModal: () => void;
 
   constructor() {
     this.pageContainer = () => {
@@ -83,5 +87,15 @@ export class ProjectPage {
     this.projectItem = (idx: number) => {
       return cy.get("#projectsList").children().eq(idx);
     };
+
+    this.projectDetailModal = () => {
+      return cy.get("#projectDetailModal");
+    }
+    this.modalUnderlay = () => { 
+      return cy.get("#modalUnderlay");
+    }
+    this.closeDetailModal = () => {
+      cy.get("#projectDetailModal").should("be.visible").find("button#modalClose").first().realClick();
+    }
   }
 }
