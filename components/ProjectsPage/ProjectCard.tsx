@@ -41,12 +41,16 @@ const ProjectCard = (props: projectProps) => {
       {showDetail && (
         <>
           <div
+            id="modalUnderlay"
             className={css.cover}
             onClick={() => setShowDetail(false)}
           ></div>
-          <dialog className={css.detail}>
+          <dialog
+            id="projectDetailModal"
+            className={css.detail}
+          >
             <div
-              id="projectLeft"
+              id="detailLeft"
               className={css.detailLeft}
             >
               <Image
@@ -68,7 +72,10 @@ const ProjectCard = (props: projectProps) => {
               </div>
             </div>
 
-            <div className={css.detailRight}>
+            <div
+              id="detailRight"
+              className={css.detailRight}
+            >
               <h2>{props.project.name}</h2>
               <p>{props.project.description}</p>
               <h3>Key Techs:</h3>
@@ -85,6 +92,7 @@ const ProjectCard = (props: projectProps) => {
             </div>
 
             <button
+              id="modalClose"
               onClick={() => setShowDetail(false)}
               className={css.detailClose}
             >

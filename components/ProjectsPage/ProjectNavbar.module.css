@@ -33,3 +33,9 @@
   color: var(--detail-terinary);
   background-color: var(--background3);
 }
+
+.projectNavbar > div > select:hover{
+  font-size: 24px;
+  background-color: var(--card-background);
+  border: 2px solid var(--text-secondary);
+}

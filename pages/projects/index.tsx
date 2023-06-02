@@ -88,7 +88,7 @@ const ProjectPage = (props: Projects) => {
             id="projectsTitle"
             style={title as React.CSSProperties}
           >
-            My current <span className="detail">top 10</span> projects
+            My current <span className="detail">Top 10</span> projects
           </h1>
         ) : (
           <h1
