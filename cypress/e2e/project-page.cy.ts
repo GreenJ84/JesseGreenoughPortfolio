@@ -15,7 +15,6 @@ import {
 const PROJURL = BASEURL + "/projects";
 const projPage = new ProjectPage();
 
-// let viewport = viewports[0];
 for (let viewport of viewports) {
   context(
     `Project page testing at Viewport ${viewportDisplay(viewport)}`,
@@ -1013,4 +1012,7 @@ for (let viewport of viewports) {
       });
     }
   );
-}
+  if (!Cypress.env("FULL_SPECTRUM")) {
+    break;
+  }
+};

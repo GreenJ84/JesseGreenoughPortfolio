@@ -14,8 +14,7 @@ import { viewportDisplay } from "../support/e2e";
 const EXPURL = BASEURL + "/experience";
 const expPage = new ExperiencePage();
 
-// let viewport = viewports[0];
-viewports.forEach((viewport) => {
+for (let viewport of viewports) {
   context(
     `Experience Page is rendering correctly at Viewport: ${viewportDisplay(
       viewport
@@ -1061,4 +1060,7 @@ viewports.forEach((viewport) => {
       });
     }
   );
-});
+  if (!Cypress.env("FULL_SPECTRUM")) {
+    break;
+  }
+}
