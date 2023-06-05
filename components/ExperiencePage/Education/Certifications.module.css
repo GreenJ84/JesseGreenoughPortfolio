@@ -19,7 +19,7 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-content: flex-start;
-  padding: 4vw 3vw;
+  padding: 8vw 3vw;
   height: 130%;
   overflow: scroll;
 }
