@@ -15,6 +15,7 @@ export default defineConfig({
   chromeWebSecurity: false,
   env: {
     NODE_TLS_REJECT_UNAUTHORIZED: "0",
+    FULL_SPECTRUM: false,
   },
   numTestsKeptInMemory: 5,
   e2e: {

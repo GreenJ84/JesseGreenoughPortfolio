@@ -1,11 +1,9 @@
 /** @format */
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { Router } from "next/router";
 import type { AppProps } from "next/app";
-import { useEffect, useState } from "react";
-import useLocalStorage from "use-local-storage";
 
 import Preloader from "../components/Layout/Preloader";
 import NavBar from "../components/Layout/NavBar";
@@ -16,34 +14,15 @@ import "../styles/globals.css";
 export default function App({ Component, pageProps }: AppProps) {
   const [initialLoad, setInitialLoad] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [theme, setTheme] = useLocalStorage("theme", "dark");
 
-  // Initial loading theme setter && load animation
   useEffect(() => {
-    const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
-    setTheme(matchMedia.matches ? "dark" : "light");
-
+    //==== Initial loading theme setter && load animation
     const timer = setTimeout(() => {
       setInitialLoad(true);
     }, 1000);
-    return () => {
-      clearTimeout(timer);
-    }
-  }, []);
 
-  // Theme change handling
-  useEffect(() => {
-    console.log(theme);
-    document.body.dataset.theme = theme;
-  }, [theme]);
-
-  const switchMode = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
-
-  // Route loading handler set-up
-  useEffect(() => {
-    let body = document.getElementsByTagName('body')[0]
+    //==== Inter-Route loading handler set-up
+    let body = document.getElementsByTagName("body")[0];
     const start = () => {
       setLoading(true);
       body.style.cursor = "wait";
@@ -56,23 +35,38 @@ export default function App({ Component, pageProps }: AppProps) {
     Router.events.on("routeChangeComplete", end);
     Router.events.on("routeChangeError", end);
     return () => {
+      clearTimeout(timer);
       Router.events.off("routeChangeStart", start);
       Router.events.off("routeChangeComplete", end);
       Router.events.off("routeChangeError", end);
     };
-  });
+  }, []);
 
   return (
     <>
       <Head>
-        <link rel="preload" href="/assets/pre.svg" as="image" />
+        <meta
+          name="author"
+          content="Jesse Grenough"
+        />
+        <link
+          rel="preload"
+          href="/assets/pre.svg"
+          as="image"
+        />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        ></meta>
+        <link
+          rel="icon"
+          type="image/png"
+          href="/assets/logo.png"
+        ></link>
       </Head>
       {!loading && initialLoad ? (
         <div className={"Scroll"}>
-          <NavBar
-            theme={theme}
-            mode={() => switchMode()}
-          />
+          <NavBar />
           <Component {...pageProps} />
           <Footer />
         </div>

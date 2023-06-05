@@ -1,20 +1,17 @@
 /** @format */
 
 import React, { useState } from "react";
+import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
 
-import ExpNavbar from "../../components/ExperiencePage/ExpNavbar";
-import WorkExp from "../../components/ExperiencePage/Work/WorkExp";
-import Certifications from "../../components/ExperiencePage/Education/Certifications";
-import Degree from "../../components/ExperiencePage/Education/Degree";
-import EduBody from "../../components/ExperiencePage/Education/EduBody";
+import ExpNavbar from "../components/ExperiencePage/ExpNavbar";
+import WorkExp from "../components/ExperiencePage/Work/WorkExp";
+import Certifications from "../components/ExperiencePage/Education/Certifications";
+import Degree from "../components/ExperiencePage/Education/Degree";
+import EduBody from "../components/ExperiencePage/Education/EduBody";
 
-import {
-  certificationType,
-  educationType,
-  workItem,
-} from "../../Utils/dataTypes";
+import { certificationType, educationType, workItem } from "../Utils/dataTypes";
 
 export interface Experience {
   educationData: educationType[];
@@ -40,24 +37,52 @@ const ExperiencePage = (props: Experience) => {
   };
 
   return (
-    <main id="experienceContainer" style={{ padding: "12rem 3vw 1rem", margin: "0 2vw" }}>
-      <ExpNavbar
-        changeActive={changeActive}
-        workActive={showWork}
-      />
-      {showWork ? (
-        <WorkExp
-          workData={props.workData}
-          secondaryWorkData={props.secondaryWorkData}
+    <>
+      <Head>
+        <title>Educational and Wrok Experience for Jesse Greenough</title>
+        <meta
+          property="og:title"
+          content="Educational and Wrok Experience for Jesse Greenough"
         />
-      ) : (
-        <section id="educationContainer" style={bodyStyle}>
-          <EduBody />
-          <Degree educationData={props.educationData} />
-          <Certifications certificationData={props.certificationData} />
-        </section>
-      )}
-    </main>
+        <meta
+          name="description"
+          content="View the Educational and work experience attained by Jesse Greenough"
+          key="desc"
+        />
+        <meta
+          property="og:description"
+          content="View the Educational and work experience attained by Jesse Greenough"
+        />
+        <meta
+          name="keywords"
+          content="Software, Developer, Engineer, Education, Work, Experience"
+        ></meta>
+      </Head>
+      <main
+        id="experienceContainer"
+        style={{ padding: "12rem 3vw 1rem", margin: "0 2vw" }}
+      >
+        <ExpNavbar
+          changeActive={changeActive}
+          workActive={showWork}
+        />
+        {showWork ? (
+          <WorkExp
+            workData={props.workData}
+            secondaryWorkData={props.secondaryWorkData}
+          />
+        ) : (
+          <section
+            id="educationContainer"
+            style={bodyStyle}
+          >
+            <EduBody />
+            <Degree educationData={props.educationData} />
+            <Certifications certificationData={props.certificationData} />
+          </section>
+        )}
+      </main>
+    </>
   );
 };
 

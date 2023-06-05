@@ -14,8 +14,7 @@ import {
 const ABOUTURL = `${BASEURL}/about`;
 const aboutPage: AboutPage = new AboutPage();
 
-// let viewport = viewports[0];
-viewports.forEach((viewport) => {
+for (let viewport of viewports) {
   const viewString = viewportDisplay(viewport);
   context(`About Page render testing at viewport size: ${viewString}`, () => {
     before(() => {
@@ -203,4 +202,7 @@ viewports.forEach((viewport) => {
       });
     });
   });
-});
+  if (!Cypress.env("FULL_SPECTRUM")) {
+    break;
+  }
+}

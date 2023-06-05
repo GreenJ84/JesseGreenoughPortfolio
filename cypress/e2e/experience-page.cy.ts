@@ -14,8 +14,7 @@ import { viewportDisplay } from "../support/e2e";
 const EXPURL = BASEURL + "/experience";
 const expPage = new ExperiencePage();
 
-// let viewport = viewports[0];
-viewports.forEach((viewport) => {
+for (let viewport of viewports) {
   context(
     `Experience Page is rendering correctly at Viewport: ${viewportDisplay(
       viewport
@@ -669,14 +668,10 @@ viewports.forEach((viewport) => {
                     .eq(i)
                     .then(($li) => {
                       // Item container style
-                      expect($li).to.have.css("display", "flex");
-                      expect($li).to.have.css("flex-direction", "column");
-                      expect($li).to.have.css(
-                        "justify-content",
-                        "space-between"
-                      );
-                      expect($li).to.have.css("text-align", "center");
+                      expect($li).to.have.css("display", "list-item");
+                      expect($li).to.have.css("list-style-type", "none");
                       expect($li).to.have.css("position", "relative");
+                      expect($li).to.have.css("text-align", "center");
                       expect($li).to.have.css("width");
                       expect($li).to.have.css("height");
                       expect($li).to.have.css("margin");
@@ -697,6 +692,9 @@ viewports.forEach((viewport) => {
                         .first()
                         // Display container style
                         .then(($div) => {
+                          expect($div).to.have.css("display", "flex");
+                          expect($div).to.have.css("flex-direction", "column");
+                          expect($div).to.have.css("justify-content", "space-around");
                           expect($div).to.have.css("height");
                           expect($div).to.have.css("padding");
                           expect($div).to.have.css("border-radius", "20px");
@@ -1061,4 +1059,7 @@ viewports.forEach((viewport) => {
       });
     }
   );
-});
+  if (!Cypress.env("FULL_SPECTRUM")) {
+    break;
+  }
+}
