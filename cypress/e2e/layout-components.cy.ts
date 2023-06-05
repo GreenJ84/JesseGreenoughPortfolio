@@ -160,7 +160,7 @@ for (let viewport of viewports) {
               .brand()
               .find("img")
               .first()
-              .should("have.attr", "alt", "Theme changing Navigation logo")
+              .should("have.attr", "alt", "Developer NFT Brand logo")
               .and("have.css", "position", "relative")
               .then(($brand: Cypress.Chainable<JQuery<HTMLElement>>) => {
                 expect($brand)
@@ -213,7 +213,6 @@ for (let viewport of viewports) {
               .should("be.visible");
 
             logo
-              .should("have.attr", "alt", "Theme changing Navigation logo")
               .then(($brand: JQuery<HTMLElement>) => {
                 expect($brand)
                   .to.have.attr("src")

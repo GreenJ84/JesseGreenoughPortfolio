@@ -120,7 +120,7 @@ const NavBar = () => {
           src={theme === "dark" ? logo1 : logo2}
           id="themeLogo"
           className={css.themeLogo}
-          alt="Developer NFT Navigation logo"
+          alt="Developer NFT Brand logo"
           width={250}
           height={250}
         />
