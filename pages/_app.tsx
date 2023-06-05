@@ -11,7 +11,6 @@ import Footer from "../components/Layout/Footer";
 
 import "../styles/globals.css";
 
-
 export default function App({ Component, pageProps }: AppProps) {
   const [initialLoad, setInitialLoad] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -46,11 +45,24 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
+        <meta
+          name="author"
+          content="Jesse Grenough"
+        />
         <link
           rel="preload"
           href="/assets/pre.svg"
           as="image"
         />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0"
+        ></meta>
+        <link
+          rel="icon"
+          type="image/png"
+          href="/assets/logo.png"
+        ></link>
       </Head>
       {!loading && initialLoad ? (
         <div className={"Scroll"}>

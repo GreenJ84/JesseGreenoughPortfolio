@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
+import Head from "next/head";
 import Image from "next/image";
 import { MongoClient } from "mongodb";
 
@@ -56,45 +57,67 @@ const ResumePage = (props: resumeProps) => {
   };
 
   return (
-    <Container
-      id="resumePage"
-      fluid
-      className={css.resumeSection}
-    >
-      <ButtonGroup
-        section="top"
-        download={props.resumeData[resNum].download}
-        view={props.resumeData[resNum].view}
-      />
-      <Row
-        id="resume"
-        className={css.resume}
-      >
-        <div
-          className={css.leftArrow}
-          onClick={() => changeResNum("left")}
-        >
-          <BsArrowLeft />
-        </div>
-        <Image
-          src={props.resumeData[resNum].link}
-          alt="MyResume"
-          width={Math.min(width * 0.6, 900)}
-          height={Math.min(width * 0.6 * 1.2, 1100)}
+    <>
+      <Head>
+        <title>Jesse Greenough&apos;s Software Engineer Resumes</title>
+        <meta
+          property="og:title"
+          content="Jesse Greenough's Software Engineer Resumes"
         />
-        <div
-          className={css.rightArrow}
-          onClick={() => changeResNum("right")}
+        <meta
+          name="description"
+          content="View and Download Jesse Greenough's Software Engineer Resumes"
+          key="desc"
+        />
+        <meta
+          property="og:description"
+          content="View and Download Jesse Greenough's Software Engineer Resumes"
+        />
+        <meta
+          name="keywords"
+          content="Resume, Full-Stack, Software, Developer, Engineer"
+        ></meta>
+      </Head>
+      <Container
+        id="resumePage"
+        fluid
+        className={css.resumeSection}
+      >
+        <ButtonGroup
+          section="top"
+          download={props.resumeData[resNum].download}
+          view={props.resumeData[resNum].view}
+        />
+        <Row
+          id="resume"
+          className={css.resume}
         >
-          <BsArrowRight />
-        </div>
-      </Row>
-      <ButtonGroup
-        section="bottom"
-        download={props.resumeData[resNum].download}
-        view={props.resumeData[resNum].view}
-      />
-    </Container>
+          <div
+            className={css.leftArrow}
+            onClick={() => changeResNum("left")}
+          >
+            <BsArrowLeft />
+          </div>
+          <Image
+            src={props.resumeData[resNum].link}
+            alt="MyResume"
+            width={Math.min(width * 0.6, 900)}
+            height={Math.min(width * 0.6 * 1.2, 1100)}
+          />
+          <div
+            className={css.rightArrow}
+            onClick={() => changeResNum("right")}
+          >
+            <BsArrowRight />
+          </div>
+        </Row>
+        <ButtonGroup
+          section="bottom"
+          download={props.resumeData[resNum].download}
+          view={props.resumeData[resNum].view}
+        />
+      </Container>
+    </>
   );
 };
 

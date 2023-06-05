@@ -1,6 +1,7 @@
 /** @format */
 
 import React, { useState } from "react";
+import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
 
@@ -69,50 +70,72 @@ const ProjectPage = (props: Projects) => {
   };
 
   return (
-    <main
-      id="pageContainer"
-      style={projectBody}
-    >
-      <section
-        id="projectsContainer"
-        style={container as React.CSSProperties}
-      >
-        <ProjectNavbar
-          langHandler={langHandler}
-          techHandler={techHandler}
-          options={[cat, tech]}
+    <>
+      <Head>
+        <title>Software Development projects by Jesse Greenough</title>
+        <meta
+          property="og:title"
+          content="Software Development projects by Jesse Greenough"
         />
-        <hr style={{ border: ".5px solid var(--text-secondary)" }} />
-        {fresh ? (
-          <h1
-            id="projectsTitle"
-            style={title as React.CSSProperties}
-          >
-            My current <span className="detail">Top 10</span> projects
-          </h1>
-        ) : (
-          <h1
-            id="projectsTitle"
-            style={title as React.CSSProperties}
-          >
-            I have created
-            <span className="detail"> over {projectData.length} </span>
-            projects to date
-          </h1>
-        )}
-        <ul
-          id="projectsList"
-          style={flexbox as React.CSSProperties}
+        <meta
+          name="description"
+          content="View the software engineering projects completed by Jesse Greenough"
+          key="desc"
+        />
+        <meta
+          property="og:description"
+          content="View the software engineering projects completed by Jesse Greenough"
+        />
+        <meta
+          name="keywords"
+          content="Software, Developer, Engineer, Projects, Deployments, Repositories"
+        ></meta>
+      </Head>
+      <main
+        id="pageContainer"
+        style={projectBody}
+      >
+        <section
+          id="projectsContainer"
+          style={container as React.CSSProperties}
         >
-          {projectData.map((project) => (
-            <ProjectCard
-              project={project}
-              key={project.name}
-            />
-          ))}
-        </ul>
-      </section>
-    </main>
+          <ProjectNavbar
+            langHandler={langHandler}
+            techHandler={techHandler}
+            options={[cat, tech]}
+          />
+          <hr style={{ border: ".5px solid var(--text-secondary)" }} />
+          {fresh ? (
+            <h1
+              id="projectsTitle"
+              style={title as React.CSSProperties}
+            >
+              My current <span className="detail">Top 10</span> projects
+            </h1>
+          ) : (
+            <h1
+              id="projectsTitle"
+              style={title as React.CSSProperties}
+            >
+              I have created
+              <span className="detail"> over {projectData.length} </span>
+              projects to date
+            </h1>
+          )}
+          <ul
+            id="projectsList"
+            style={flexbox as React.CSSProperties}
+          >
+            {projectData.map((project) => (
+              <ProjectCard
+                project={project}
+                key={project.name}
+              />
+            ))}
+          </ul>
+        </section>
+      </main>
+    </>
   );
 };
 
