@@ -1,99 +1,93 @@
 /** @format */
 
-.navbar, .sticky{
+/* Nav Container */
+.navbar,
+.sticky {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   position: fixed;
   width: 100%;
-  max-height: 12rem;
-  z-index: 2000;
+  height: 10rem;
+  z-index: 20;
+  font-size: 1.2rem;
   transition: all 0.3s ease-out 0s;
+  background-color: var(--nav-bg);
+  box-shadow: 0px 2px 5px 0px var(--nav-shadow);
 }
-
 .sticky {
   padding: 0.4rem 2rem;
-  background-color: var(--sticky-bg);
-  box-shadow: 0px 2px 4px 0px var(--nav-shadow);
-  backdrop-filter: blur(15px);
+  backdrop-filter: blur(4px);
 }
-
 .navbar {
   padding: 0.3rem 2rem;
-  font-size: 1.2rem;
+  backdrop-filter: blur(25px);
 }
 
+/* Brand Image */
 .navBarBrand {
   position: relative;
+  flex: 1;
 }
-
-.navBarBrand > p {
-  display: none;
-  position: absolute;
-  top: -9vw;
-  left: 4.75vw;
-  justify-content: center;
-  align-items: center;
-  z-index: -500;
-  font-size: max(8vw, 30px);
-}
-
 .themeLogo {
   position: relative;
-  height: clamp(34px, 8vw, 105px);
-  width: clamp(34px, 8vw, 105px);
-  left: 4.6vw;
+  height: clamp(70px, 10vw, 100px);
+  width: clamp(70px, 10vw, 100px);
   border-radius: 50%;
-  transform: scale(1.2, 1.2);
 }
 
+/* Nav Link Section */
+.navbarCollpase {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex: 5;
+}
 .navbarNav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 2rem 2rem;
+  margin: 2rem 2rem 2rem 0;
   transition: all 0.3s ease-out 0s;
 }
-
-.navClosed {
+.navClosed,
+.navClosed + .themeSwitch {
   display: none;
   transition: all 0.3s ease-out 0s;
 }
 
+/* Nav Links */
 .navItem {
   position: relative;
-  margin: 0 1rem;
-  padding: 1.3vw;
+  margin: 0 min(2vw, 20px);
+  padding: 1vw;
+  font-size: clamp(14px, 1.4vw, 22px);
 }
-
 .navItem:hover {
   background-color: var(--nav-hover);
   border-radius: 20px;
 }
-
-.navItem a::after {
+.navItem::after {
   content: "";
   position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -0.2vw;
   display: block;
-  height: 5px;
+  height: 3px;
   width: 0;
   border-radius: 16px;
   background: var(--nav-shadow);
-  bottom: 1px;
-  left: 0;
   z-index: -1;
   transition: all 0.3s ease-out 0s;
 }
-
-.navItem a:hover::after {
+.navItem:hover::after {
   width: 100%;
 }
 
 .navIcon {
-  font-size: 2vw;
-  margin: 0 0 0.4rem;
+  margin-bottom: 0.4rem;
 }
-
 .navLink {
   display: flex;
   flex-direction: column;
@@ -101,18 +95,63 @@
   color: var(--nav-color);
   text-shadow: 0.7px 0.7px var(--nav-shadow);
   font-weight: 400;
-  font-size: max(1.5vw, 16px);
   transition: all 0.3s ease-out 0s;
 }
 
+/* Github Fork */
 .navFork {
-  position: relative;
-  right: 1%;
+  margin-right: 60px;
+}
+.forkIcon {
+  font-size: 120%;
+  margin: 0.2rem;
 }
 
-.forkIcon {
-  font-size: 150%;
-  margin: 0.2rem;
+/* Theme Mode Toggle */
+.themeSwitch {
+  position: relative;
+  display: inline-block;
+  width: clamp(40px, 6vw, 70px);
+  height: clamp(30px, 4vw, 45px);
+}
+.themeInput {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.themeSlider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--nav-color);
+  border-radius: 10px;
+
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.themeSlider::after {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+  width: 60%;
+  border-radius: 10px;
+  background: var(--background);
+  transition: transform 0.2s, width 0.2s, background 0.2s;
+  font-size: clamp(12px, 2vw, 30px);
+}
+.themeInput:not(:checked) + .themeSlider::after {
+  content: "☀️";
+  right: 2%;
+}
+.themeInput:checked + .themeSlider::after {
+  content: "🌙";
+  left: 2%;
 }
 
 .navbarToggler,
@@ -120,47 +159,52 @@
   display: none;
 }
 
-@media only screen and (max-width: 900px) {
-  .navbar,
-  .sticky {
-    min-height: 8rem;
-    background-color: var(--nav-bg) !important;
-    padding: 2rem 0;
-    justify-content: center;
+@media only screen and (max-width: 1000px) {
+  .navItem {
+    margin: 0 min(1vw, 10px);
+    padding: 1vw;
   }
+  .navItem:hover {
+    border-radius: 10px;
+  }
+  .navbarNav .navItem a::after {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .sticky,
   .navbar {
-    box-shadow: 0px 2px 4px 0px var(--nav-shadow);
+    backdrop-filter: blur(25px);
+    max-height: none;
   }
 
   .navbarNav {
-    position: relative;
     flex-direction: column;
-    position: relative;
-    margin: 0 2rem;
+    margin: 1rem 1.5rem 0 0;
   }
-
-  .navItem {
-    padding: 0;
+  .navItem:hover::after {
+    width: 80%;
   }
-  .navItem:hover {
-    background-color: var(--nav-hover);
+  .navLink {
+    flex-direction: row;
+    justify-content: center;
   }
   .navIcon {
-    font-size: 1rem;
-    margin: 0 1vw 0 0;
+    margin-right: 0.4rem;
   }
-  .navBarBrand {
+  .themeSwitch {
     position: absolute;
-    top: 2rem;
-    left: 2rem;
+    right: 6vw;
+    bottom: 20%;
   }
 
   .navbarToggler,
   .navbarTogglerClosed {
     display: block;
     position: absolute;
-    top: 2rem;
-    right: 2rem;
+    top: 15%;
+    right: 8vw;
     background-color: transparent;
     border-color: transparent;
   }
@@ -168,7 +212,7 @@
   .navbarToggler span,
   .navbarTogglerClosed span {
     display: block;
-    background-color: var(--nav-toggle);
+    background-color: var(--nav-color);
     height: 4px;
     width: 27px;
     margin-top: 5px;
@@ -179,20 +223,14 @@
   }
 
   .navbarToggler:focus,
-  .navbarToggler:active {
-    outline: 0;
-  }
-
+  .navbarToggler:active,
   .navbarTogglerClosed:focus,
   .navbarTogglerClosed:active {
     outline: 0;
   }
 
   .navbarToggler span:nth-child(1),
-  .navbarToggler span:nth-child(3) {
-    transition: transform 0.35s ease-in-out;
-  }
-
+  .navbarToggler span:nth-child(3),
   .navbarTogglerClosed span:nth-child(1),
   .navbarTogglerClosed span:nth-child(3) {
     transition: transform 0.35s ease-in-out;
@@ -218,28 +256,5 @@
     top: 10px;
     transform: rotate(-135deg);
     opacity: 0.9;
-  }
-
-  .navbarNav .navItem a::after {
-    display: none;
-  }
-  .navLink {
-    flex-direction: row;
-    padding: 0.5rem 1rem;
-  }
-}
-
-@media only screen and (min-width: 1600px){
-  .navBarBrand > p {
-    top: -8vw;
-    left: 4.75vw;
-    font-size: 7vw;
-  }
-}
-@media only screen and (min-width: 1900px){
-  .navBarBrand > p {
-    top: -6.9vw;
-    left: 4.75vw;
-    font-size: 6vw;
   }
 }
