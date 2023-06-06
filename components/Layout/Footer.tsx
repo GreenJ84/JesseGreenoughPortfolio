@@ -1,86 +1,128 @@
 /** @format */
+/* eslint-disable react/jsx-key */
 
-import React from "react";
+import React, { BaseSyntheticEvent, useContext } from "react";
 import { useRouter } from "next/router";
 
-import { Row, Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import {
   AiFillGithub,
   AiOutlineTwitter,
   AiFillInstagram,
 } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
+import { AppContext, WindowWidth } from "../../Utils/AppContext";
 
 const css = require("./Footer.module.css");
 
 const Footer = () => {
-  let date = new Date();
-  let year = date.getFullYear();
   const router = useRouter();
+  const { windowWidth } = useContext(AppContext);
 
-  if (router.pathname == "/") {
-  }
+  const date = new Date();
+  const year = date.getFullYear();
+
+  const handleLink = (e: BaseSyntheticEvent) => {
+    e.preventDefault();
+    router.push(e.target.href);
+  };
 
   return (
     <footer
       id="footer"
       className={css.footer}
     >
-      <Row>
-        <Col
-          md="4"
-          className={css.footerCopywright}
-        >
-          <h3>Designed and Developed by Jesse Greenough</h3>
-        </Col>
-        <Col
-          md="4"
-          className={css.footerCopywright}
-        >
-          <h3>Copyright © {year} JLG</h3>
-        </Col>
+      <section>
+        <div className={css.footerDetails}>
+          <h3>Jesse Greenough</h3>
+          <p>
+            A passionate and detail-oriented Full Stack developer constantly
+            exploring new technologies.{" "}
+            {windowWidth === WindowWidth.LARGE &&
+              "I thrive on problem-solving and enjoythe challenge of tackling complex issues. With a strong focus on delivering clean and efficient code, I strive to create polished solutions that exceed expectations. Let me bring my expertise and enthusiasm for innovative development to your next project."}
+          </p>
+        </div>
         {router.pathname != "/" && (
-          <nav aria-label="Personal Social Links">
-            <ul className={css.footerIconList}>
-              <li role="presentation">
-                <a
-                  href="https://github.com/GreenJ84"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <AiFillGithub className={css.footIcons} />
-                </a>
-              </li>
-              <li role="presentation">
-                <a
-                  href="https://twitter.com/GoodGreens84"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <AiOutlineTwitter className={css.footIcons} />
-                </a>
-              </li>
-              <li role="presentation">
-                <a
-                  href="https://www.linkedin.com/in/jessegreenough/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <FaLinkedinIn className={css.footIcons} />
-                </a>
-              </li>
-              <li role="presentation">
-                <a
-                  href="https://www.instagram.com/jesse.greenough/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <AiFillInstagram className={css.footIcons} />
-                </a>
-              </li>
+          <nav
+            className={css.footerConnect}
+            aria-label="Personal Social Links"
+          >
+            <ul>
+              {[
+                [
+                  "https://github.com/GreenJ84",
+                  <AiFillGithub className={css.footIcons} />,
+                ],
+                [
+                  "https://twitter.com/GoodGreens84",
+                  <AiOutlineTwitter className={css.footIcons} />,
+                ],
+                [
+                  "https://www.linkedin.com/in/jessegreenough/",
+                  <FaLinkedinIn className={css.footIcons} />,
+                ],
+                [
+                  "https://www.instagram.com/jesse.greenough/",
+                  <AiFillInstagram className={css.footIcons} />,
+                ],
+              ].map((item, idx) => {
+                return (
+                  <li
+                    key={idx}
+                    role="presentation"
+                  >
+                    <a
+                      href={item[0] as string}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {item[1]}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
+            <button>Contact Me</button>
           </nav>
         )}
+      </section>
+      <hr
+        style={{
+          marginTop: "max(1.8vw, 20px)",
+          border: "1px solid var(--text-primary)",
+        }}
+      />
+      <Row
+        className={css.footerCopywright}
+        z
+      >
+        <nav aria-label="Personal Social Links">
+          <ul className={css.footerLinkList}>
+            {[
+              ["/", "Home"],
+              ["/about", "About Me"],
+              ["/projects", "My Projects"],
+              ["/experience", "My Experience"],
+              ["/resume", "My Resumes"],
+            ].map((item, idx) => {
+              return (
+                <li
+                  key={idx}
+                  role="presentation"
+                >
+                  <a
+                    href={item[0] as string}
+                    rel="noopener noreferrer"
+                    onClick={handleLink}
+                  >
+                    {item[1]}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+        <h4>© Copyright {year}. Designed and Developed by Jesse Greenough</h4>
       </Row>
     </footer>
   );
