@@ -61,7 +61,6 @@
   position: relative;
   margin: 0 min(2vw, 20px);
   padding: 1vw;
-  font-size: clamp(14px, 1.4vw, 22px);
 }
 .navItem:hover {
   background-color: var(--nav-hover);
@@ -87,6 +86,7 @@
 
 .navIcon {
   margin-bottom: 0.4rem;
+  font-size: clamp(16px, 2vw, 26px);
 }
 .navLink {
   display: flex;
@@ -95,6 +95,7 @@
   color: var(--nav-color);
   text-shadow: 0.7px 0.7px var(--nav-shadow);
   font-weight: 400;
+  font-size: clamp(14px, 1.6vw, 22px);
   transition: all 0.3s ease-out 0s;
 }
 

@@ -1,9 +1,10 @@
 /** @format */
 /* eslint-disable react/jsx-key */
 
-import React, { useEffect, useState } from "react";
+import React, { BaseSyntheticEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import { Button, Nav, Navbar } from "react-bootstrap";
 import Particle from "./Particle";
@@ -36,8 +37,13 @@ const NavLinkData = [
 ];
 
 const NavBar = () => {
+  const router = useRouter();
   const { windowWidth, theme, setTheme } = React.useContext(AppContext);
 
+  const handleLink = (e: BaseSyntheticEvent, href: string) => {
+    e.preventDefault();
+    router.push(href);
+  };
   // Control Navigation Rendering
   const [expandedNav, setExpandedNav] = useState(true);
   const [navFade, setNavFade] = useState(false);
@@ -55,6 +61,16 @@ const NavBar = () => {
         setNavFade(true);
       } else {
         setNavFade(false);
+      }
+
+      if (
+        window.scrollY >
+        document.body.scrollHeight - window.innerHeight - 350
+      ) {
+        document.getElementById("navbar")!.style.transform =
+          "translateY(-100%)";
+      } else {
+        document.getElementById("navbar")!.style.transform = "translateY(0)";
       }
     };
     window.addEventListener("scroll", scrollHandler);
@@ -117,7 +133,10 @@ const NavBar = () => {
                     href={item[0] as string}
                     className={css.navLink}
                     rel="noreferrer"
-                    onClick={() => setExpandedNav(false)}
+                    onClick={(e) => {
+                      setExpandedNav(false);
+                      handleLink(e, item[0] as string);
+                    }}
                   >
                     {item[1]}
                     {item[2]}
