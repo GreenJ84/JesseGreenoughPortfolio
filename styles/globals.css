@@ -31,7 +31,6 @@ body {
     sans-serifserif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: var(--background-image);
 }
 
 body[data-theme="dark"] {
@@ -39,11 +38,6 @@ body[data-theme="dark"] {
   --text-primary: rgb(206, 255, 208);
   --text-secondary: rgb(0, 255, 13);
 
-  --background-image: linear-gradient(
-    to left,
-    rgb(20, 41, 34),
-    rgb(18, 54, 42)
-  );
   --background: rgb(12, 43, 33);
   --background2: rgb(12, 27, 22);
   --background3: rgb(24, 60, 24);
@@ -53,15 +47,14 @@ body[data-theme="dark"] {
   --detail-terinary: rgba(14, 215, 165, 0.925);
 
   --card-background: rgb(60, 60, 60);
-  --card-background2: rgb(25, 25, 25);
+  --card-background2: rgb(18, 15, 15);
   --card-background3: rgb(179, 255, 158);
 
   --button-bg1: rgb(17, 114, 0);
   --button-bg2: rgb(24, 158, 0);
 
   /* Navbar */
-  --sticky-bg: rgba(1, 56, 4, 0.462);
-  --nav-bg: rgb(1, 56, 4);
+  --nav-bg: rgba(1, 56, 4, 0.462);
   --nav-shadow: rgba(0, 156, 13, 0.874);
   --nav-color: rgb(111, 255, 118);
   --nav-hover: rgba(2, 252, 48, 0.1);
@@ -102,8 +95,7 @@ body[data-theme="light"] {
   --button-bg2: rgb(44, 74, 74);
 
   /* Navbar */
-  --sticky-bg: rgba(2, 255, 242, 0.588);
-  --nav-bg: rgb(0, 162, 135);
+  --nav-bg: rgba(0, 157, 255, 0.588);
   --nav-shadow: rgb(6, 135, 205);
   --nav-color: rgb(1, 49, 36);
   --nav-hover: rgba(2, 84, 84, 0.15);

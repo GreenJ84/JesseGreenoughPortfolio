@@ -73,11 +73,11 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <AppContextProvider>
         {!loading && initialLoad ? (
-          <div className={"Scroll"}>
+          <>
             <NavBar />
             <Component {...pageProps} />
             <Footer />
-          </div>
+          </>
         ) : (
           <Preloader />
         )}
