@@ -1,19 +1,12 @@
 /** @format */
 
 import React, { useCallback } from "react";
-
-import Particles from "react-tsparticles";
+import type { Container, Engine } from "tsparticles-engine";
+import Particles from "react-particles";
 import { loadFull } from "tsparticles";
-import { Container, Engine } from "tsparticles-engine";
 
-const css = require("./Particle.module.css");
-
-const Particle = () => {
+const Particle = ({theme}: {theme: string}) => {
   const particlesInit = useCallback(async (engine: Engine) => {
-    console.log(engine);
-    // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-    // starting from v2 you can add only the features you need reducing the bundle size
     await loadFull(engine);
   }, []);
 
@@ -23,56 +16,79 @@ const Particle = () => {
     },
     []
   );
-
   return (
     <Particles
       id="tsparticles"
-      className={css.tsparticles}
-      url="http://foo.bar/particles.json"
+      style={{ "position": "fixed", "width": "100%", "height": "100%" }}
       init={particlesInit}
       loaded={particlesLoaded}
-      params={{
-        particles: {
-          number: {
-            value: 160,
-            density: {
-              enable: true,
-              value_area: 1500,
-            },
-          },
-          line_linked: {
-            enable: false,
-            opacity: 0.03,
-          },
-          move: {
-            direction: "right",
-            speed: 0.05,
-          },
-          size: {
-            value: 1,
-          },
-          opacity: {
-            anim: {
-              enable: true,
-              speed: 1,
-              opacity_min: 0.05,
-            },
-          },
+      options={{
+        background: {
+          image: theme == "dark" ? "radial-gradient(rgb(36, 94, 36), rgb(12, 27, 22))": "radial-gradient(rgb(119, 255, 201), rgb(75, 255, 240))",
         },
+        fpsLimit: 30,
         interactivity: {
+          detectsOn: "window",
           events: {
-            onclick: {
+            onClick: {
               enable: true,
               mode: "push",
             },
+            onHover: {
+              enable: true,
+              mode: "repulse",
+            },
+            resize: true,
           },
           modes: {
             push: {
-              particles_nb: 1,
+              quantity: 4,
+            },
+            repulse: {
+              distance: 150,
+              duration: 0.4,
             },
           },
         },
-        retina_detect: true,
+        particles: {
+          color: {
+            value: theme == "dark" ? ["#01ffff", "#01ff80"] : ["#184747", "#103522"],
+          },
+          links: {
+            color: theme == "dark" ? "#65fffa" : "#013e3c",
+            distance: 100,
+            enable: true,
+            opacity: 0.4,
+            width: 1,
+          },
+          move: {
+            direction: "none",
+            enable: true,
+            outModes: {
+              default: "bounce",
+            },
+            random: false,
+            speed: 3,
+            straight: false,
+          },
+          number: {
+            value: 150,
+            density: {
+              enable: true,
+              area: 900,
+            },
+          },
+          opacity: {
+            value: { min: 0.1, max: 0.8 },
+          },
+          shape: {
+            type: "triangle",
+          },
+          size: {
+            value: { min: 1, max: 3 },
+          },
+        },
+        detectRetina: true,
       }}
     />
   );
