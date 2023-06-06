@@ -8,32 +8,31 @@
   align-items: center;
   position: fixed;
   width: 100%;
-  height: 10rem;
+  height: auto;
   z-index: 20;
-  font-size: 1.2rem;
   transition: all 0.3s ease-out 0s;
-  background-color: var(--nav-bg);
-  box-shadow: 0px 2px 5px 0px var(--nav-shadow);
+  background-color: var(--layout-bg);
 }
 .sticky {
   padding: 0.4rem 2rem;
   backdrop-filter: blur(4px);
+  box-shadow: 0px 2px 5px 0px var(--layout-shadow);
 }
 .navbar {
   padding: 0.3rem 2rem;
-  backdrop-filter: blur(25px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 1px 2px 0px var(--layout-shadow);
 }
 
 /* Brand Image */
 .navBarBrand {
-  position: relative;
   flex: 1;
 }
 .themeLogo {
-  position: relative;
   height: clamp(70px, 10vw, 100px);
   width: clamp(70px, 10vw, 100px);
   border-radius: 50%;
+  border: 3px solid var(--text-secondary);
 }
 
 /* Nav Link Section */
@@ -58,12 +57,13 @@
 
 /* Nav Links */
 .navItem {
-  position: relative;
   margin: 0 min(2vw, 20px);
-  padding: 1vw;
+  padding: 1.2vw;
+  color: var(--text-secondary);
 }
 .navItem:hover {
-  background-color: var(--nav-hover);
+  color: var(--text-primary);
+  background-color: var(--nav-bg);
   border-radius: 20px;
 }
 .navItem::after {
@@ -76,32 +76,46 @@
   height: 3px;
   width: 0;
   border-radius: 16px;
-  background: var(--nav-shadow);
+  background: var(--nav-detail);
   z-index: -1;
   transition: all 0.3s ease-out 0s;
 }
 .navItem:hover::after {
   width: 100%;
 }
-
-.navIcon {
-  margin-bottom: 0.4rem;
-  font-size: clamp(16px, 2vw, 26px);
-}
 .navLink {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: var(--nav-color);
-  text-shadow: 0.7px 0.7px var(--nav-shadow);
+  text-shadow: 0.7px 0.7px 1px var(--nav-detail);
   font-weight: 400;
   font-size: clamp(14px, 1.6vw, 22px);
   transition: all 0.3s ease-out 0s;
 }
+.navIcon {
+  margin-bottom: 0.4rem;
+  font-size: clamp(16px, 2vw, 26px);
+}
 
 /* Github Fork */
-.navFork {
+.githubBtn {
+  display: flex;
+  flex-direction: column;
   margin-right: 60px;
+  margin-left: 2rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  color: var(--text-secondary);
+  background-color: var(--background);
+  border: 1px solid var(--text-secondary);
+  border-radius: 10px;
+}
+.githubBtn:hover {
+  transform: translateY(-2px);
+  color: var(--background);
+  background-color: var(--text-secondary);
+  border-color: var(--background);
+  box-shadow: 0px 0px 6px var(--detail-terinary);
 }
 .forkIcon {
   font-size: 120%;
@@ -126,11 +140,13 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--nav-color);
+  background: var(--text-secondary);
   border-radius: 10px;
-
   transition: background 0.2s;
   cursor: pointer;
+}
+.themeInput:hover + .themeSlider {
+  background: var(--nav-detail);
 }
 .themeSlider::after {
   position: absolute;
@@ -145,6 +161,9 @@
   background: var(--background);
   transition: transform 0.2s, width 0.2s, background 0.2s;
   font-size: clamp(12px, 2vw, 30px);
+}
+.themeInput:hover + .themeSlider::after {
+  text-shadow: 0px 0px 15px var(--nav-detail);
 }
 .themeInput:not(:checked) + .themeSlider::after {
   content: "☀️";
@@ -176,13 +195,16 @@
 @media only screen and (max-width: 600px) {
   .sticky,
   .navbar {
+    align-items: flex-start;
     backdrop-filter: blur(25px);
     max-height: none;
+    padding-top: 15px;
   }
 
   .navbarNav {
     flex-direction: column;
-    margin: 1rem 1.5rem 0 0;
+    margin: auto 1.5rem auto 0;
+    padding-top: 10px;
   }
   .navItem:hover::after {
     width: 80%;
@@ -204,7 +226,7 @@
   .navbarTogglerClosed {
     display: block;
     position: absolute;
-    top: 15%;
+    top: 15px;
     right: 8vw;
     background-color: transparent;
     border-color: transparent;
@@ -213,7 +235,7 @@
   .navbarToggler span,
   .navbarTogglerClosed span {
     display: block;
-    background-color: var(--nav-color);
+    background-color: var(--text-secondary);
     height: 4px;
     width: 27px;
     margin-top: 5px;
@@ -242,20 +264,16 @@
     left: 12px;
     top: 10px;
     transform: rotate(135deg);
-    opacity: 0.9;
   }
 
   .navbarToggler:not(.collapsed) span:nth-child(2) {
-    height: 12px;
     visibility: hidden;
     background-color: transparent;
   }
-
   .navbarToggler:not(.collapsed) span:nth-child(3) {
     position: absolute;
     left: 12px;
     top: 10px;
     transform: rotate(-135deg);
-    opacity: 0.9;
   }
 }

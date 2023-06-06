@@ -96,6 +96,10 @@ const NavBar = () => {
           className={css.navBarBrand}
           aria-label="Click to change Color Theme"
           href="/"
+          onClick={(e) => {
+            setExpandedNav(false);
+            handleLink(e, "/");
+          }}
         >
           <Image
             src={theme === "dark" ? logo1 : logo2}
@@ -145,16 +149,14 @@ const NavBar = () => {
               );
             })}
             {windowWidth === WindowWidth.LARGE && (
-              <Nav.Item className={css.navFork}>
-                <Button
-                  href="https://github.com/GreenJ84"
-                  target="_blank"
-                  className="github-btn-inner center"
-                >
-                  <CgGitFork className={css.forkIcon} />{" "}
-                  <AiFillStar className={css.forkIcon} />
-                </Button>
-              </Nav.Item>
+              <Button
+                href="https://github.com/GreenJ84"
+                target="_blank"
+                className={css.githubBtn}
+              >
+                <CgGitFork className={css.forkIcon} />{" "}
+                <AiFillStar className={css.forkIcon} />
+              </Button>
             )}
           </Nav>
           <label className={css.themeSwitch}>
@@ -163,7 +165,7 @@ const NavBar = () => {
               type="checkbox"
               checked={theme === "dark"}
               data-theme-toggle
-              onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+              onClick={() => {
                 setTheme();
               }}
             />
