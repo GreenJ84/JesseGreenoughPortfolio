@@ -3,11 +3,12 @@
 import React from "react";
 
 import Head from "next/head";
+import FlipCard from "../../components/Layout/FlipCard";
 import Link from "next/link";
 
+const css = require("../../components/ExperiencePage/Experience.module.css");
 
 const ExperiencePage = () => {
-
   return (
     <>
       <Head>
@@ -28,10 +29,31 @@ const ExperiencePage = () => {
       </Head>
       <main
         id="experienceContainer"
-        style={{ padding: "12rem 3vw 1rem", margin: "0 2vw" }}
+        className={css.experienceContainer}
       >
-        <Link href={"/experience/education"}> Education Animation Card </Link>
-        <Link href={"/experience/work"}> Work Animation Card </Link>
+        <FlipCard
+          frontDisplay={<h1>Education</h1>}
+          backDisplay={
+            <>
+              <p>
+                Learn more about my Personal Educational achievements and
+                persuits
+              </p>
+              <Link href="">Visit</Link>
+            </>
+          }
+        />
+        <FlipCard
+          frontDisplay={<h1>Work</h1>}
+          backDisplay={
+            <>
+              <p>
+                Learn more about the Work and Volunter experience I have attianed to date
+              </p>
+              <Link href="">Visit</Link>
+            </>
+          }
+        />
       </main>
     </>
   );

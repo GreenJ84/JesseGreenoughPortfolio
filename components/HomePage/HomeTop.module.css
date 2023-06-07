@@ -3,35 +3,26 @@
 .homeIntro {
   margin: auto;
   width: min(100%, 1400px);
-  padding: 2rem 0 0;
-  z-index: -1;
-  color: white;
   text-align: center;
-  background-image: var(--image-gradient), url(/assets/home-bg.jpg);
-  filter: var(--hue-rotate-home) opacity(0.9);
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  color: var(--text-primary);
+  background-color: transparent;
+  filter: hue-rotate(0deg);
 }
 
 .homeHeader {
-  padding-top: 2vw;
+  margin-bottom: clamp(50px, 8vw, 100px);
+  font-size: clamp(26px, 4.5vw, 60px);
+  font-weight: 900;
+  text-shadow: .5px .5px 2px var(--text-negative), 0 0 5px var(--text-primary), 0 0 15px var(--text-detail);
 }
-
-.homeHeader > h1 {
-  font-size: clamp(24px, 3vw, 52px);
-  margin-bottom: 8vw;
-}
-
 .wave {
+  display: inline-block;
   margin-left: 2vw;
   animation-name: wave-animation;
   animation-duration: 1.8s;
   animation-iteration-count: infinite;
   transform-origin: 70% 70%;
-  display: inline-block;
 }
-
 @keyframes wave-animation {
   0% {
     transform: rotate(0deg);
@@ -59,27 +50,18 @@
   }
 }
 
-.developerName {
-  font-size: clamp( 18px, 2.6vw, 46px);
-  margin-bottom: 10vw;
-}
-
-.nameDetail,
 .typeText {
-  color: var(--image-match);
-}
-
-.typeText {
-  font-size: clamp(12px, 2.4vw, 42px);
-  font-weight: 800;
-  margin: 2.5rem 0;
+  margin-bottom: min(2vw, 30px);
   text-align: center;
+  font-size: clamp(12px, 2.8vw, 42px);
+  font-weight: 700;
 }
 
-.homeIntroImage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.typeText > div{
+  display: inline-block;
+  margin : min(5vw, 60px) 0;
+  letter-spacing: 2px;
+  text-shadow: .5px .5px 1px var(--text-primary), 0 0 3px var(--text-secondary), 0 0 10px var(--text-detail);
 }
 
 .homeDeveloperLogo {
@@ -88,9 +70,5 @@
   height: 50vw;
   width: auto;
   max-height: 650px;
-}
-@media only screen and (max-width: 900px) {
-  .homeIntro{
-    margin-top: 40px;
-  }
+  filter: var(--hue-rotate-home);
 }

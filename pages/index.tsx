@@ -29,10 +29,10 @@ const HomePage = () => {
           content="Software, Developer, Engineer, Full-Stack, Portfolio, Skills, Development"
         ></meta>
       </Head>
-      <section style={{ padding: "min(14vw, 210px) 2vw 0" }}>
+      <main style={{ padding: "clamp(160px, 14vw, 240px) 0 0" }}>
         <HomeTop />
         <HomeBottom />
-      </section>
+      </main>
     </>
   );
 };
