@@ -13,7 +13,7 @@
   margin-bottom: clamp(50px, 8vw, 100px);
   font-size: clamp(26px, 4.5vw, 60px);
   font-weight: 900;
-  text-shadow: .5px .5px 2px var(--text-negative), 0 0 5px var(--text-primary), 0 0 15px var(--text-detail);
+  text-shadow: .5px .5px 4px var(--background), 0 0 6px var(--text-negative), 0 0 10px var(--text-detail);
 }
 .wave {
   display: inline-block;
@@ -61,7 +61,7 @@
   display: inline-block;
   margin : min(5vw, 60px) 0;
   letter-spacing: 2px;
-  text-shadow: .5px .5px 1px var(--text-primary), 0 0 3px var(--text-secondary), 0 0 10px var(--text-detail);
+  text-shadow: .5px .5px 1px var(--background), 0 0 2px var(--text-secondary), 0 0 6px var(--text-detail);
 }
 
 .homeDeveloperLogo {

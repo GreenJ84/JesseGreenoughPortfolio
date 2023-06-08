@@ -21,9 +21,9 @@ const css = require("./TechnicalSkills.module.css");
 
 const Languages = () => {
   return (
-    <div id="development-languages">
+    <section id="development-languages">
       <h3 className={css.skillSectionTitle}>
-        Programming <b className="detail">Languages</b>
+        Programming <span className="detail_plus">Languages</span>
       </h3>
       <ul
         id="languages"
@@ -101,7 +101,7 @@ const Languages = () => {
           icon={<FaSwift className={css.icon}/>}
         />
       </ul>
-    </div>
+    </section>
   );
 };
 

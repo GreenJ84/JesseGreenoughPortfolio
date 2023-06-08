@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Image from "next/image";
 
 import Tilt from "react-parallax-tilt";
@@ -10,27 +10,47 @@ import GithubCard from "./GithubCard";
 import Languages from "./Languages";
 import Framework from "./Framework";
 import Databases from "./Databases";
+import { AppContext, WindowWidth } from "../../Utils/AppContext";
+import { BsArrowDownCircle } from "react-icons/bs";
 
 const myImg = "/assets/avatar.svg";
 const css = require("./HomeBottom.module.css");
 
 const HomeBottom = () => {
-  const [wide, setWide] = useState(true);
+  const { windowWidth } = useContext(AppContext);
 
-  // Watch screen size for GitHub display rendering
-  useEffect(() => {
-    const checkWindow = () => {
-      if (window.innerWidth > 1000) {
-        setWide(true);
+  useEffect(() => { 
+    const animateScroll = () => {
+      const slide = document.getElementById("slideTitle")!;
+      const down = document.getElementById("titleDown")!;
+      const rect = slide.getBoundingClientRect();
+
+
+      if ( (rect.bottom <= window.innerHeight && rect.bottom >= 0) || (rect.top <= window.innerHeight && rect.top >= 0) ) {
+        let mid = (rect.bottom + rect.top) / 2;
+        slide.style.visibility = "visible";
+        down.style.visibility = "visible";
+
+        let scale = 2 - Math.abs(mid - (window.innerHeight / 2)) / 400;
+        scale = Math.min(scale, 1.6);
+        const translateY = (mid / window.innerHeight * 80) - 80;
+        const opacity = Math.min(scale - 0.5, 1)
+
+        slide.style.transform = `translateY(${translateY * 3}px) scale(${scale})`;
+        slide.style.opacity = `${opacity}`;
+        down.style.transform = `translateY(${translateY * .75}px) scale(${scale})`;
+        down.style.opacity = `${opacity}`;
       } else {
-        setWide(false);
+        slide.style.visibility = "hidden";
+        down.style.visibility = "hidden";
       }
-    };
-    checkWindow();
-    window.addEventListener("resize", checkWindow);
+    
+    }
+
+    window.addEventListener("scroll", animateScroll)
     return () => {
-      window.removeEventListener("resize", checkWindow);
-    };
+      window.removeEventListener("scroll", animateScroll)
+    }
   });
 
   return (
@@ -58,11 +78,10 @@ const HomeBottom = () => {
           opportunity! In 2022, one such significant opportunity that I recieved
           was the ability to attend the
           <span className="detail_plus"> Coding Dojo </span>
-          Web Development bootcamp and change my side work into a full-time career
-          pursuit.
+          Web Development bootcamp and change my side work into a full-time
+          career pursuit.
           <br />
-          <br />
-          I am passionate about coding because it enables me to leverage
+          <br />I am passionate about coding because it enables me to leverage
           technology to create innovative web technologies and products that
           have a positive
           <span className="detail_plus"> impact on society. </span>
@@ -79,11 +98,18 @@ const HomeBottom = () => {
           <span className="detail_plus"> Java.</span>
         </p>
       </section>
-      <Languages />
-      <Framework />
-      <Databases />
-      <DeveloperTools />
-      {wide ? <GithubCard /> : ""}
+      <section className={css.developerSkills}>
+        <h2 id="slideTitle">
+          Check out my <span className="detail">Technical Skillset</span>
+          <br/>
+          <BsArrowDownCircle style={{"marginTop": "100px"}} id="titleDown"/>
+        </h2>
+        <Languages />
+        <Framework />
+        <Databases />
+        <DeveloperTools />
+        {windowWidth === WindowWidth.LARGE && <GithubCard />}
+      </section>
     </>
   );
 };

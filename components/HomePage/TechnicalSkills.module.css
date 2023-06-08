@@ -1,6 +1,7 @@
 /** @format */
 
 .skillSectionTitle {
+  position: relative;
   margin: 0.2rem 0 1.4em;
   color: var(--text-primary);
   font-size: clamp(20px, 3.2vw, 50px);
@@ -10,10 +11,11 @@
 
 div.skillsListContainer ~ h4,
 h3.skillSectionTitle ~ h4 {
+  position: relative;
   margin: 0 0 0.8em;
   font-size: clamp(12px, 1.8vw, 42px);
   font-weight: 800;
-  color: var(--detail-terinary);
+  color: var(--text-detail);
   text-decoration: underline;
   text-align: center;
 }
@@ -23,11 +25,12 @@ h3.skillSectionTitle ~ h4 {
   flex-wrap: wrap;
   justify-content: center;
   margin: 60px auto 100px;
-  width: min(96%, 1600px);
-  color: var(--text-primary);
+  width: min(80%, 1500px);
+  color: var(--text-secondary);
 }
 
 .skillContainer {
+  list-style: none;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -35,12 +38,12 @@ h3.skillSectionTitle ~ h4 {
   justify-content: center;
   text-align: center;
   margin: 0 2vw 2vw;
-  border: 1.7px solid var(--detail-terinary);
-  width: clamp(120px, 20%, 220px);
-  aspect-ratio: 6/9;
   padding: 0.2em 0.2em clamp(32px, 1.8em, 64px);
+  width: clamp(120px, 15%, 220px);
+  aspect-ratio: 6/8;
   font-size: 7vw;
-  list-style: none;
+  background-color: var(--layout-bg);
+  border: 1.7px solid var(--detail-terinary);
   border-radius: 10px;
   box-shadow: 0px 2px 3px 3px var(--detail-primary);
   overflow: hidden;
@@ -49,7 +52,7 @@ h3.skillSectionTitle ~ h4 {
 
 .skillContainer:hover {
   border: 2.2px solid var(--detail-terinary);
-  z-index: 2000;
+  z-index: 10;
   transform: scale(1.35);
   background-color: var(--background);
   box-shadow: 0px 4px 3px 2px var(--detail-secondary);
@@ -65,6 +68,7 @@ h3.skillSectionTitle ~ h4 {
 .skillContainer meter {
   position: absolute;
   bottom: 4px;
+  padding: 1px;
   margin-top: 0.4em;
   font-size: clamp(18px, 0.45em, 46px);
   width: 3em;
@@ -74,27 +78,43 @@ h3.skillSectionTitle ~ h4 {
 
 .skillContainer meter::-webkit-meter-bar {
   -webkit-appearance: none;
-  -moz-appearance: none;
-  background: var(--nav-shadow)
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text font-size="100" y=".8em" opacity=".3" z-index="2000">★</text></svg>')
-    0 / auto 100%;
-}
-.skillContainer meter::-webkit-meter-optimum-value,
-.skillContainer meter::-webkit-meter-suboptimum-value,
-.skillContainer meter::-webkit-meter-even-less-good-value {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+  background: var(--layout-shadow)
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text color="red" font-size="100" y=".8em" opacity=".3" z-index="2000">★</text></svg>')
     0 / auto 100%;
 }
 
-.skillContainer meter::-moz-meter-optimum::-moz-meter-bar,
-.skillContainer meter::-moz-meter-sub-optimum::-moz-meter-bar,
+.skillContainer meter::-webkit-meter-optimum-value {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgb(0,255,42)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+    0 / auto 100%;
+}
+
+.skillContainer meter::-webkit-meter-suboptimum-value {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgb(230,230,0)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+    0 / auto 100%;
+}
+
+.skillContainer meter::-webkit-meter-even-less-good-value {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgba(250, 0, 0)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+    0 / auto 100%;
+}
+
+.skillContainer meter::-moz-meter-optimum::-moz-meter-bar {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgb(0,255,42)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+    0 / auto 100%;
+}
+
+.skillContainer meter::-moz-meter-sub-optimum::-moz-meter-bar {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgb(230,230,0)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+    0 / auto 100%;
+}
+
 .skillContainer meter::-moz-meter-sub-sub-optimum::-moz-meter-bar {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text color="greenyellow" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgba(250, 0, 0)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
     0 / auto 100%;
 }
 
 .icon, .manualIcon {
-  color: var(--text-primary);
+  color: var(--text-secondary);
   width: min(20vw, 210px);
   height: min(7vw, 140px);
 }
