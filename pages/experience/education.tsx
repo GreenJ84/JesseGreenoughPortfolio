@@ -7,9 +7,9 @@ import { MongoClient } from "mongodb";
 
 import { certificationType, educationType } from "../../Utils/dataTypes";
 
-import EduBody from "../../Components/EducationPage/EduBody";
-import Degree from "../../Components/EducationPage/Degree";
-import Certifications from "../../Components/EducationPage/Certifications";
+import EduBody from "../../components/EducationPage/EduBody";
+import Degree from "../../components/EducationPage/Degree";
+import Certifications from "../../components/EducationPage/Certifications";
 
 export interface Experience {
   educationData: educationType[];
