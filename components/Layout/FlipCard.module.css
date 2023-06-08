@@ -1,7 +1,7 @@
 .flip_card {
   margin: 10vh auto;
-  width: clamp(300px, 42vw, 750px);
-  height: clamp(200px, 32vw, 500px);
+  width: clamp(200px, 42vw, 750px);
+  height: clamp(150px, 32vw, 500px);
   background-color: transparent;
   perspective: 1000px;
 }
@@ -40,6 +40,8 @@
 
 /* Front Card */
 .flip_card_front {
+  padding: 5%;
+  font-size: clamp(16px, 2vw, 34px);
   color: var(--text-primary);
   background-color: var(--card-background);
   box-shadow: inset 0px 0px 4px 2px var(--text-secondary), 0px 0px 4px 3px var(--text-detail), 8px 8px 30px 10px black;
@@ -58,10 +60,10 @@
   transform-style: preserve-3d;
 }
 .flip_card_back > section {
-  padding: 10px 20px;
+  padding: 0 20px;
   background-color: var(--card-background2);
   box-shadow: inset 0px 0px 4px 2px var(--text-secondary), 0px 0px 20px 1px var(--background), 8px 8px 20px 5px black;;
-  font-size: clamp(16px, 2.2vw, 34px);
+  font-size: clamp(10px, 2.2vw, 34px);
   font-weight: 900;
   visibility: hidden;
   transform: rotate(180deg);
