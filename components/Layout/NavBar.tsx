@@ -1,13 +1,13 @@
 /** @format */
 /* eslint-disable react/jsx-key */
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React, { BaseSyntheticEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import useLocalStorage from "use-local-storage";
+import { useRouter } from "next/router";
 
 import { Button, Nav, Navbar } from "react-bootstrap";
+import Particle from "./Particle";
 
 import {
   AiFillStar,
@@ -18,9 +18,12 @@ import {
 import { CgFileDocument, CgGitFork } from "react-icons/cg";
 import { ImBlog } from "react-icons/im";
 
+import { AppContext, WindowWidth } from "../../Utils/AppContext";
+
 const logo1 = "/assets/logo.png";
 const logo2 = "/assets/CyberHedera1.png";
 const css = require("./NavBar.module.css");
+
 const NavLinkData = [
   ["/", <AiOutlineHome className={css.navIcon} />, "Home"],
   ["/about", <AiOutlineUser className={css.navIcon} />, "About"],
@@ -34,32 +37,22 @@ const NavLinkData = [
 ];
 
 const NavBar = () => {
-  const [theme, setTheme] = useLocalStorage("theme", "dark");
+  const router = useRouter();
+  const { windowWidth, theme, setTheme } = React.useContext(AppContext);
 
+  const handleLink = (e: BaseSyntheticEvent, href: string) => {
+    e.preventDefault();
+    router.push(href);
+  };
   // Control Navigation Rendering
-  const [wideScreen, setWideScreen] = useState(true);
-  const [expandedNav, setExpandedNav] = useState(false);
+  const [expandedNav, setExpandedNav] = useState(true);
   const [navFade, setNavFade] = useState(false);
 
-  // Grab User theme preference on initial app load
   useEffect(() => {
-    const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
-    setTheme(matchMedia.matches ? "dark" : "light");
-  }, [setTheme]);
-
-  // Theme change handling
-  useEffect(() => {
-    document.body.dataset.theme = theme;
-  }, [theme]);
-  const switchMode = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
-
-  // Window Scroll handler for page transitions
-  const { pathname } = useRouter();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (windowWidth !== WindowWidth.SMALL) {
+      setExpandedNav(true);
+    }
+  }, [windowWidth]);
 
   // Scroll mapping for Navigation display
   useEffect(() => {
@@ -69,123 +62,132 @@ const NavBar = () => {
       } else {
         setNavFade(false);
       }
-    };
-    const sizeHandler = () => {
-      if (window.innerWidth > 900) {
-        setExpandedNav(false);
-        setWideScreen(true);
+
+      if (
+        window.scrollY >
+        document.body.scrollHeight - window.innerHeight - 350
+      ) {
+        document.getElementById("navbar")!.style.transform =
+          "translateY(-100%)";
       } else {
-        setWideScreen(false);
+        document.getElementById("navbar")!.style.transform = "translateY(0)";
       }
     };
-    sizeHandler();
-    window.addEventListener("resize", sizeHandler);
-
     window.addEventListener("scroll", scrollHandler);
     return () => {
-      window.removeEventListener("resize", sizeHandler);
       window.removeEventListener("scroll", scrollHandler);
     };
   }, []);
 
   return (
-    <Navbar
-      expanded={expandedNav}
-      fixed="top"
-      expand="md"
-      className={navFade ? css.sticky : css.navbar}
-      id="navbar"
-    >
-      {/* Developer NFT Theme Changing Logo */}
-      <Navbar.Brand
-        id="navbarBrand"
-        className={css.navBarBrand}
-        aria-label="Click to change Color Theme"
-        onMouseEnter={() => {
-          document.getElementById("themeLogo")!.style.filter =
-            "grayscale(100%) contrast(200%) opacity(0.1)";
-          document.getElementById("mode")!.style.display = "block";
-        }}
-        onMouseLeave={() => {
-          document.getElementById("mode")!.style.display = "none";
-          document.getElementById("themeLogo")!.style.filter = "";
-        }}
-        onClick={(e: React.MouseEvent<HTMLImageElement>) => {
-          e.preventDefault();
-          switchMode();
-        }}
+    <>
+      {theme == "dark" && <Particle theme="dark" />}
+      {theme == "light" && <Particle theme="light" />}
+      <Navbar
+        expanded={expandedNav}
+        fixed="top"
+        expand="md"
+        className={navFade ? css.sticky : css.navbar}
+        id="navbar"
       >
-        {theme === "dark" ? <p id="mode">🌞</p> : <p id="mode">🌙</p>}
-        <Image
-          src={theme === "dark" ? logo1 : logo2}
-          id="themeLogo"
-          className={css.themeLogo}
-          alt="Developer NFT Brand logo"
-          width={250}
-          height={250}
-        />
-      </Navbar.Brand>
-
-      {/* Collapse-able Navbar Links */}
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Nav
-          className={
-            wideScreen
-              ? css.navbarNav
-              : expandedNav
-              ? css.navbarNav
-              : css.navClosed
-          }
-          defaultActiveKey="#home"
+        {/* Developer NFT Theme Changing Logo */}
+        <Navbar.Brand
+          id="navbarBrand"
+          className={css.navBarBrand}
+          aria-label="Click to change Color Theme"
+          href="/"
+          onClick={(e) => {
+            setExpandedNav(false);
+            handleLink(e, "/");
+          }}
         >
-          {NavLinkData.map((item, idx) => {
-            return (
-              <Nav.Item
-                key={idx}
-                className={css.navItem}
-              >
-                <Nav.Link
-                  as={Link}
-                  href={item[0] as string}
-                  className={css.navLink}
-                  rel="noreferrer"
-                  onClick={() => setExpandedNav(false)}
+          <Image
+            src={theme === "dark" ? logo1 : logo2}
+            id="themeLogo"
+            className={css.themeLogo}
+            alt="Developer NFT Brand logo"
+            width={250}
+            height={250}
+          />
+        </Navbar.Brand>
+
+        {/* Collapse-able Navbar Links */}
+        <Navbar.Collapse
+          id="responsive-navbar-nav"
+          className={css.navbarCollpase}
+        >
+          <Nav
+            className={
+              windowWidth === WindowWidth.LARGE
+                ? css.navbarNav
+                : expandedNav
+                ? css.navbarNav
+                : css.navClosed
+            }
+            defaultActiveKey="#home"
+          >
+            {NavLinkData.map((item, idx) => {
+              return (
+                <Nav.Item
+                  key={idx}
+                  className={css.navItem}
                 >
-                  {item[1]}
-                  {item[2]}
-                </Nav.Link>
-              </Nav.Item>
-            );
-          })}
-          {wideScreen && (
-            <Nav.Item className={css.navFork}>
+                  <Nav.Link
+                    as={Link}
+                    href={item[0] as string}
+                    className={css.navLink}
+                    rel="noreferrer"
+                    onClick={(e) => {
+                      setExpandedNav(false);
+                      handleLink(e, item[0] as string);
+                    }}
+                  >
+                    {item[1]}
+                    {item[2]}
+                  </Nav.Link>
+                </Nav.Item>
+              );
+            })}
+            {windowWidth === WindowWidth.LARGE && (
               <Button
                 href="https://github.com/GreenJ84"
                 target="_blank"
-                className="github-btn-inner center"
+                className={css.githubBtn}
               >
                 <CgGitFork className={css.forkIcon} />{" "}
                 <AiFillStar className={css.forkIcon} />
               </Button>
-            </Nav.Item>
-          )}
-        </Nav>
-      </Navbar.Collapse>
+            )}
+          </Nav>
+          <label className={css.themeSwitch}>
+            <input
+              className={css.themeInput}
+              type="checkbox"
+              checked={theme === "dark"}
+              data-theme-toggle
+              onClick={() => {
+                setTheme();
+              }}
+            />
+            <span className={css.themeSlider}></span>
+          </label>
+        </Navbar.Collapse>
 
-      {/* Navbar Collpase Menu Toggle */}
-      <Navbar.Toggle
-        id="navbarToggle"
-        className={expandedNav ? css.navbarToggler : css.navbarTogglerClosed}
-        aria-controls="responsive-navbar-nav"
-        onClick={() => {
-          setExpandedNav(expandedNav ? false : true);
-        }}
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </Navbar.Toggle>
-    </Navbar>
+        {/* Navbar Collpase Menu Toggle */}
+        <Navbar.Toggle
+          id="navbarToggle"
+          className={expandedNav ? css.navbarToggler : css.navbarTogglerClosed}
+          aria-controls="responsive-navbar-nav"
+          onClick={() => {
+            setExpandedNav(expandedNav ? false : true);
+          }}
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </Navbar.Toggle>
+      </Navbar>
+    </>
   );
 };
 
