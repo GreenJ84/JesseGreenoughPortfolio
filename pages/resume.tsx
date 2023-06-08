@@ -78,9 +78,8 @@ const ResumePage = (props: resumeProps) => {
           content="Resume, Full-Stack, Software, Developer, Engineer"
         ></meta>
       </Head>
-      <Container
+      <main
         id="resumePage"
-        fluid
         className={css.resumeSection}
       >
         <ButtonGroup
@@ -88,7 +87,7 @@ const ResumePage = (props: resumeProps) => {
           download={props.resumeData[resNum].download}
           view={props.resumeData[resNum].view}
         />
-        <Row
+        <section
           id="resume"
           className={css.resume}
         >
@@ -110,13 +109,13 @@ const ResumePage = (props: resumeProps) => {
           >
             <BsArrowRight />
           </div>
-        </Row>
+        </section>
         <ButtonGroup
           section="bottom"
           download={props.resumeData[resNum].download}
           view={props.resumeData[resNum].view}
         />
-      </Container>
+      </main>
     </>
   );
 };
