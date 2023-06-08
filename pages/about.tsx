@@ -3,10 +3,8 @@
 import React from "react";
 import Head from "next/head";
 
-import { Container } from "react-bootstrap";
-
 import AboutDetails from "../components/AboutPage/AboutDetails";
-import AboutMain from "../components/AboutPage/AboutMain";
+import AboutIntroduction from "../components/AboutPage/AboutIntroduction";
 
 const AboutPage = () => {
   return (
@@ -31,13 +29,12 @@ const AboutPage = () => {
           content="About, Biography, Developer, Engineer"
         ></meta>
       </Head>
-      <Container
-        fluid
-        style={{ padding: "10vw 4vw 0" }}
+      <main
+        style={{ position: "relative", padding: "10vw 4vw 0" }}
       >
-        <AboutMain />
+        <AboutIntroduction />
         <AboutDetails />
-      </Container>
+      </main>
     </>
   );
 };
