@@ -4,7 +4,7 @@ import React from "react";
 
 import { HiOutlineExternalLink } from "react-icons/hi";
 
-import { educationType } from "../../../Utils/dataTypes";
+import { educationType } from "../../Utils/dataTypes";
 
 const css = require("./DegreeCard.module.css");
 
