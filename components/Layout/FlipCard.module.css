@@ -1,7 +1,4 @@
 .flip_card {
-  margin: 10vh auto;
-  width: clamp(200px, 42vw, 750px);
-  height: clamp(150px, 32vw, 500px);
   background-color: transparent;
   perspective: 1000px;
 }

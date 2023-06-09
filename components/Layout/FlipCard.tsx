@@ -1,18 +1,21 @@
 /** @format */
+import { Properties } from "csstype";
 import React from "react";
 import Tilt from "react-parallax-tilt";
 
 const css = require("./FlipCard.module.css");
 
 const FlipCard = ({
+  style,
   frontDisplay,
   backDisplay,
 }: {
+    style: Properties<string | number, string>;
   frontDisplay: JSX.Element;
   backDisplay: JSX.Element;
 }) => {
   return (
-    <article className={css.flip_card}>
+    <article style={ style } className={css.flip_card}>
       <div className={css.flip_card_inner}>
         <section className={css.flip_card_front}>{frontDisplay}</section>
         <Tilt

@@ -40,6 +40,7 @@ const ExperiencePage = () => {
         className={css.experienceContainer}
       >
         <FlipCard
+          style={{"margin": "10vh auto", "width": "clamp(200px, 42vw, 750px)","height": "clamp(150px, 32vw, 500px)" }}
           frontDisplay={
             <h1 className={css.cardTitle}>
               Want to see my <span>Education</span>?
@@ -56,9 +57,6 @@ const ExperiencePage = () => {
               <Link
                 href="/experience/education"
                 className={css.experienceLink}
-                onClick={(e: React.MouseEvent<HTMLElement>) => {
-                  handleRedirect(e, "/experience/education");
-                }}
               >
                 Check it Out!
               </Link>
@@ -66,6 +64,7 @@ const ExperiencePage = () => {
           }
         />
         <FlipCard
+          style={{"margin": "10vh auto", "width": "clamp(200px, 42vw, 750px)","height": "clamp(150px, 32vw, 500px)" }}
           frontDisplay={
             <h1 className={css.cardTitle} >
               Want to see my <span>Work</span>?
@@ -81,9 +80,6 @@ const ExperiencePage = () => {
               <Link
                 className={css.experienceLink}
                 href="/experience/work"
-                onClick={(e: React.MouseEvent<HTMLElement>) => {
-                  handleRedirect(e, "/experience/work");
-                }}
               >
                 Check it Out!
               </Link>
