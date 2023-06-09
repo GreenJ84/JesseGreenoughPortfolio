@@ -14,7 +14,12 @@
   padding: min(8px, 2vw);
   background-color: var(--text-negative);
   border-radius: 10px;
-  box-shadow: min(2px, .5vw) min(2px, .5vw) 0px min(2px, .5vw) var(--text-detail), min(4px, 1.5vw) min(4px, 1.5vw) min(15px, 3vw) min(2px, .3vw) black;
+  box-shadow: min(4px, 1.5vw) min(4px, 1.5vw) min(15px, 3vw) min(2px, .3vw) black;
+}
+.experienceLink:hover{
+  background-color: var(--text-negative);
+  border-radius: 10px;
+  box-shadow: min(2px, .5vw) min(2px, .5vw) 1px 0px var(--background2), min(6px, 1.8vw) min(6px, 1.8vw) min(15px, 3vw) min(2px, .3vw) black;
 }
 
 @media only screen and (min-width: 1300px){

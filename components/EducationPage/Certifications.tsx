@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import CertificationCard from "./CertificationCard";
 import CertificationsFilter from "./CertificationsFilter";
 
-import { certificationType } from "../../../Utils/dataTypes";
+import { certificationType } from "../../Utils/dataTypes";
 
 const css = require("./Certifications.module.css");
 
