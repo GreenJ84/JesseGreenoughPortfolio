@@ -1,35 +1,22 @@
 /** @format */
 
-.eduBody {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.eduBody h1 {
+.eduBody > p {
   position: relative;
-  width: 70%;
-  margin-top: 8vw;
-  transform: translateX(12vw);
-  text-align: center;
-  font-size: clamp(26px, 4.5vw, 80px);
-  color: var(--text-secondary);
-  text-shadow: 1px 1px 15px var(--detail-secondary);
-}
-
-.eduBody p {
-  position: relative;
-  margin-top: 4vw;
+  margin: 4vw auto 0;
   width: min(80%, 900px);
   text-align: center;
   font-size: clamp(16px, 3vw, 52px);
   color: var(--text-primary);
 }
 
-.eduImage {
+.eduBody > h1 {
   position: relative;
-  transform: translateX(-10vw);
-  margin-top: 2vw;
-  min-width: 250px;
-  max-width: 900px;
+  width: 70%;
+  margin: 8vw auto 0;
+  text-align: center;
+  font-size: clamp(26px, 4.5vw, 80px);
+  color: var(--text-secondary);
+  text-shadow: 1px 1px 15px var(--detail-secondary);
+  transform: translateY(100px);
 }
