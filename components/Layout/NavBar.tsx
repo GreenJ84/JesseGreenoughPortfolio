@@ -62,7 +62,7 @@ const NavBar = () => {
       } else {
         setNavFade(false);
       }
-      console.log(window.scrollY, document.body.scrollHeight, window.innerHeight)
+
       if (
         window.scrollY + window.innerHeight >
         document.body.scrollHeight - 350 && window.scrollY >= 350

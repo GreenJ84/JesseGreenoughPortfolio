@@ -103,7 +103,7 @@ const WorkPage = (props: WorkExp) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Experience> = async () => {
+export const getServerSideProps: GetServerSideProps<WorkExp> = async () => {
   const client = new MongoClient(process.env.DB_CONN_STRING!);
   const db = client.db(process.env.DB_NAME);
 
