@@ -2,48 +2,83 @@
 
 .display {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   width: clamp(120px, 38%, 460px);
   height: clamp(140px, 34vw, 480px);
   margin: 0 clamp(10px, 3vw, 50px) min(8vw, 140px);
-  background-color: var(--card-background);
-  box-shadow: 0px -3px 3px 2px var(--detail-secondary),
-    0px 3px 3px 2px var(--detail-secondary);
-  border-radius: 20px;
+  /* background-color: var(--card-background2); */
 }
-.display:hover {
+
+.projectDisplay{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 5%;
   background-color: var(--card-background2);
-  box-shadow: 0px -3px 3px 2px var(--detail-terinary),
-    0px 3px 3px 2px var(--detail-terinary);
-  transform: scale(1.15);
+  box-shadow: 0px -3px 6px 1px var(--detail-secondary),
+    0px 3px 6px 1px var(--detail-secondary);
+  border-radius: 20px;
 }
 
 .displayImage {
-  display: flex;
   margin: 1rem auto 0;
-  width: min(80%, 440px) !important;
-  height: clamp(70px, 18vw, 340px) !important;
+  width: min(80%, 440px);
+  height: clamp(70px, 18vw, 340px);
 }
 
 .displayTitle {
   margin: 0.6rem 0;
   text-align: center;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   font-size: clamp(12px, 3vw, 40px);
   font-weight: 800;
 }
 
-.cover {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vw;
-  height: 100vh;
-  z-index: 2000;
-  background-color: transparent;
+.projectDetail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 110%;
+  height: 110%;
+  padding: 5% 5% 10%;
+  border-radius: 30px;
+  background-color: var(--card-background2);
+  box-shadow: inset 2px 4px 10px var(--detail-terinary),
+    inset -2px -4px 10px var(--detail-terinary);
+  color: var(--text-primary);
+}
+
+.projectDetail > h2 {
+  color: var(--text-secondary);
+  font-size: clamp(20px, 3vw, 50px);
+  flex: 1;
+}
+.projectDetail > p {
+  width: 80%;
+  font-size: clamp(15px, 2vw, 42px);
+  overflow: scroll;
+  flex: 2;
+  transform: translateY(-20%);
+}
+
+.projectDetail > button {
+  aspect-ratio: 6/2;
+  width: 30%;
+  color: var(--text-negative);
+
+  background-color: var(--detail-terinary);
+  box-shadow: 1px 1px 2px .5px var(--text-secondary);
+  border: none;
+}
+.projectDetail > button:hover {
+  width: 32%;
+  background-color: var(--text-secondary);
+  border: 1pc solid var(--text-negative);
+  box-shadow: 2px 2px 4px .5px var(--detail-terinary);
+  border: none;
 }
 
 .detail {
@@ -192,3 +227,4 @@ button.detailClose {
     -2px -2px 2px var(--detail-secondary), -2px 2px 2px var(--detail-secondary),
     2px -2px 2px var(--detail-secondary);
 }
+

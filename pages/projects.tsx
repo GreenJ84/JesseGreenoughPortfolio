@@ -95,10 +95,6 @@ const ProjectPage = (props: Projects) => {
         id="pageContainer"
         style={projectBody}
       >
-        <section
-          id="projectsContainer"
-          style={container as React.CSSProperties}
-        >
           <ProjectNavbar
             langHandler={langHandler}
             techHandler={techHandler}
@@ -133,7 +129,6 @@ const ProjectPage = (props: Projects) => {
               />
             ))}
           </ul>
-        </section>
       </main>
     </>
   );
@@ -171,15 +166,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
 export default ProjectPage;
 
 const projectBody = {
-  padding: "12rem 2vw 10vw",
+  position: "relative" as "relative",
+  padding: "20vh 4vw 8vw",
 };
 
-const container = {
-  position: "relative",
-  backgroundColor: "var(--background2)",
-  padding: "clamp(160px, 14vw, 200px) 4vw 8vw",
-  border: "2px solid black",
-};
 const title = {
   marginBottom: "8vw",
   textAlign: "center",
