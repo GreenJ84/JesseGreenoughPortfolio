@@ -46,7 +46,7 @@ const EducationPage = (props: Experience) => {
     return () => {
       window.removeEventListener("scroll", popupScroll);
     };
-  }, []);
+  }, [windowWidth]);
 
   return (
     <>

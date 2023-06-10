@@ -2,7 +2,7 @@
 
 import React from "react";
 
-const css = require("./WorkBody.module.css");
+const css = require("./WorkExp.module.css");
 
 const WorkImg = () => {
   const theme = { accentColor: "green", dark: "black", imageDark: "#041A00" };

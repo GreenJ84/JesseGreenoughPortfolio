@@ -3,28 +3,35 @@
 .workCard {
   position: relative;
   display: flex;
-  margin: 2rem 0;
+  align-items: center;
+  margin: max(3rem, 6vw) 0;
   padding: 2rem 1.5rem;
   border-radius: 20px;
   color: var(--text-primary);
   background-color: var(--card-background);
+  box-shadow: 0 0 min(2vw, 12px) var(--text-primary); 
 }
 
 .workCard:hover {
-  transform: scale(1.05, 1.05);
-  box-shadow: 0 0 12px var(--detail-terinary);
+  transform: scale(1.09, 1.09);
+  box-shadow: 0 0 min(2vw, 10px) 0 var(--text-primary), 4px 4px min(4vw, 30px) 5px black;
+}
+.workCard:hover *{
+  text-shadow: .5px .5px var(--text-secondary);
 }
 
 .workImageHolder {
   width: 20%;
 }
-
+.workCard:hover .workImage {
+  filter: drop-shadow(4px 4px 3px var(--text-secondary))
+}
 .workImage {
   position: relative;
   right: 1rem;
   display: flex;
-  width: 12vw;
-  height: 12vw;
+  width: clamp(70px, 11vw, 160px);
+  height: clamp(70px, 11vw, 160px);
   margin: 1rem auto 0;
   border-radius: 30%;
 }
