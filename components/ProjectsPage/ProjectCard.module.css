@@ -5,7 +5,6 @@
   width: clamp(120px, 38%, 460px);
   height: clamp(140px, 34vw, 480px);
   margin: 0 clamp(10px, 3vw, 50px) min(8vw, 140px);
-  /* background-color: var(--card-background2); */
 }
 
 .projectDisplay{

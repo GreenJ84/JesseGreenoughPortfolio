@@ -2,24 +2,46 @@
   padding: 8vh 0 10vh;
 }
 
+.cardTitle, .cardBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 5%;
+  color: var(--text-primary);
+  background-color: var(--card-background2);
+  box-shadow: 0px -3px 6px 1px var(--detail-secondary),
+    0px 3px 6px 1px var(--detail-secondary);
+  border-radius: 20px;
+}
 .cardTitle > h1 {
-  max-width: 50%;
+  max-width: 70%;
   font-size: clamp(16px, 2vw, 38px);
 }
 .cardTitle span{
   color: var(--text-secondary)
 }
 
+.cardBody{
+  padding: 5% 10%;
+}
+.cardBody > p{
+  font-size: clamp(15px, 2vw, 42px);
+}
 .experienceLink{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: min(8px, 2vw);
   background-color: var(--text-negative);
+  border: 1.5px solid var(--text-primary);
   border-radius: 10px;
-  box-shadow: min(4px, 1.5vw) min(4px, 1.5vw) min(15px, 3vw) min(2px, .3vw) black;
 }
 .experienceLink:hover{
-  background-color: var(--text-negative);
-  border-radius: 10px;
-  box-shadow: min(2px, .5vw) min(2px, .5vw) 1px 0px var(--background2), min(6px, 1.8vw) min(6px, 1.8vw) min(15px, 3vw) min(2px, .3vw) black;
+  border: .5px solid var(--text-primary);
+  box-shadow: min(2px, .5vw) min(2px, .5vw) 1px 0px var(--text-primary), min(6px, 1.8vw) min(6px, 1.8vw) min(15px, 3vw) min(2px, .3vw) black;
 }
 
 @media only screen and (min-width: 1300px){

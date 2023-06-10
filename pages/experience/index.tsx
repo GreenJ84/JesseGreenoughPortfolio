@@ -40,11 +40,17 @@ const ExperiencePage = () => {
         className={css.experienceContainer}
       >
         <FlipCard
-          style={{"margin": "10vh auto", "width": "clamp(200px, 42vw, 750px)","height": "clamp(150px, 32vw, 500px)" }}
+          style={{
+            margin: "10vh auto",
+            width: "clamp(200px, 42vw, 750px)",
+            height: "clamp(150px, 32vw, 500px)",
+          }}
           frontDisplay={
-            <h1 className={css.cardTitle}>
-              Want to see my <span>Education</span>?
-            </h1>
+            <div className={css.cardTitle}>
+              <h1 >
+                Want to see my <span>Education?</span>
+              </h1>
+            </div>
           }
           backDisplay={
             <div className={css.cardBody}>
@@ -64,11 +70,16 @@ const ExperiencePage = () => {
           }
         />
         <FlipCard
-          style={{"margin": "10vh auto", "width": "clamp(200px, 42vw, 750px)","height": "clamp(150px, 32vw, 500px)" }}
+          style={{
+            margin: "10vh auto",
+            width: "clamp(200px, 42vw, 750px)",
+            height: "clamp(150px, 32vw, 500px)",
+          }}
           frontDisplay={
-            <h1 className={css.cardTitle} >
-              Want to see my <span>Work</span>?
-            </h1>
+            <div className={css.cardTitle}>
+            <h1>
+              Want to see my <span>Work?</span>
+            </h1></div>
           }
           backDisplay={
             <div className={css.cardBody}>

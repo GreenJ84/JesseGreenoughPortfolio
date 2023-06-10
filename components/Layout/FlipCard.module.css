@@ -76,7 +76,7 @@
   /* color: var(--text-primary);
   text-shadow: .5px .5px .5px var(--text-negative), 1px 1px 2px var(--text-primary); */
   visibility: visible;
-  transition: all 0.4s ease-in 0.4s;
+  transition: all 0.4s ease-in;
 }
 .flip_card:hover .flip_card_back > section * {
   opacity: 1;
