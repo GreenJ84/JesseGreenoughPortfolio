@@ -21,8 +21,8 @@ const FlipCard = ({
         <Tilt
           className={css.flip_card_back}
           tiltReverse={true}
-          tiltMaxAngleX={20}
-          tiltMaxAngleY={30}
+          tiltMaxAngleX={10}
+          tiltMaxAngleY={10}
           perspective={700}
           glareEnable={true}
           glareBorderRadius="20px"
