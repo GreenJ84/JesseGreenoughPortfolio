@@ -4,16 +4,25 @@
   position: relative;
   margin: 0.2rem 0 1.4em;
   color: var(--text-primary);
-  font-size: clamp(20px, 3.2vw, 50px);
+  font-size: var(--text3);
   font-weight: 800;
   text-align: center;
+}
+
+.icon,
+.manualIcon {
+  width: min(20vw, 210px);
+  height: min(7vw, 140px);
+}
+.manualIcon {
+  filter: grayscale(80%);
 }
 
 div.skillsListContainer ~ h4,
 h3.skillSectionTitle ~ h4 {
   position: relative;
   margin: 0 0 0.8em;
-  font-size: clamp(12px, 1.8vw, 42px);
+  font-size: var(--text4);
   font-weight: 800;
   color: var(--text-detail);
   text-decoration: underline;
@@ -25,8 +34,7 @@ h3.skillSectionTitle ~ h4 {
   flex-wrap: wrap;
   justify-content: center;
   margin: 60px auto 100px;
-  width: min(80%, 1500px);
-  color: var(--text-secondary);
+  width: min(80%, 1300px);
 }
 
 .skillContainer {
@@ -35,32 +43,35 @@ h3.skillSectionTitle ~ h4 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
-  margin: 0 2vw 2vw;
-  padding: 0.2em 0.2em clamp(32px, 1.8em, 64px);
-  width: clamp(120px, 15%, 220px);
-  aspect-ratio: 6/8;
-  font-size: 7vw;
+  margin: 0 2vw 3vh;
+  padding: 0.2em 0.2em;
+  width: clamp(100px, 18%, 220px);
+  aspect-ratio: 6/9;
+  color: var(--text-primary);
   background-color: var(--layout-bg);
-  border: 1.7px solid var(--detail-terinary);
+  border: 2.7px solid black;
   border-radius: 10px;
-  box-shadow: 0px 2px 3px 3px var(--detail-primary);
+  box-shadow: var(--shadow);
   overflow: hidden;
   transition: all 0.4s ease 0s;
+  /* For Meter's Star inlay */
+  font-size: 7vw;
 }
 
 .skillContainer:hover {
-  border: 2.2px solid var(--detail-terinary);
-  z-index: 10;
-  transform: scale(1.35);
+  color: var(--text-secondary);
   background-color: var(--background);
-  box-shadow: 0px 4px 3px 2px var(--detail-secondary);
+  border: 2.2px solid black;
+  box-shadow: var(--shadow-hover);
+  transform: scale(1.35);
+  z-index: 10;
 }
 
 .skillContainer span {
-  margin: 1rem 0 .2rem;
-  font-size: clamp(12px, 1.8vw, 26px);
+  margin: 0.8rem 0 0.2rem;
+  font-size: var(--text5);
   text-align: center;
   height: clamp(10px, 2vw, 60px);
 }
@@ -72,7 +83,7 @@ h3.skillSectionTitle ~ h4 {
   margin-top: 0.4em;
   font-size: clamp(18px, 0.45em, 46px);
   width: 3em;
-  height: clamp(24px, 1.29em, 56px);
+  height: clamp(25.5px, 1.29em, 57px);
   justify-content: baseline;
 }
 
@@ -111,29 +122,6 @@ h3.skillSectionTitle ~ h4 {
 .skillContainer meter::-moz-meter-sub-sub-optimum::-moz-meter-bar {
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgba(250, 0, 0)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
     0 / auto 100%;
-}
-
-.icon, .manualIcon {
-  color: var(--text-secondary);
-  width: min(20vw, 210px);
-  height: min(7vw, 140px);
-}
-.manualIcon{
-  filter: grayscale(80%);
-}
-@media only screen and (max-width: 900px) {
-  .skillContainer {
-    box-shadow: 0px 1px 3px 2px var(--detail-primary);
-    padding-top: 20px;
-  }
-  .skillContainer:hover {
-    transform: scale(1.15);
-    border: 1.8px solid var(--detail-terinary);
-    box-shadow: 0px 2px 2px 1px var(--detail-secondary);
-  }
-  .skillContainer span{
-    height: 10px;
-  }
 }
 
 @media only screen and (min-width: 1500px) {

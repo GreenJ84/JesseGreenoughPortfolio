@@ -2,7 +2,7 @@
 
 import React, { useContext, useEffect, useState } from "react";
 
-import GitHubCalendar, {Theme} from "react-github-calendar";
+import GitHubCalendar, { Theme } from "react-github-calendar";
 import { AppContext } from "../../Utils/AppContext";
 
 const css = require("./TechnicalSkills.module.css");
@@ -29,38 +29,39 @@ const lightTheme: Theme = {
   level4: "rgb(0, 0, 82)",
 };
 
-
 const GithubCard = () => {
   const [width, setWidth] = useState(20);
   const { theme } = useContext(AppContext);
 
   useEffect(() => {
     const windowObserver = () => {
-      setWidth(Math.round(window.innerWidth/100*3))
-    }
-    window.addEventListener("resize", windowObserver)
+      setWidth(Math.round((window.innerWidth / 100) * 3));
+    };
+    window.addEventListener("resize", windowObserver);
     return () => {
-      window.removeEventListener('resize', windowObserver)
-    }
+      window.removeEventListener("resize", windowObserver);
+    };
   }, []);
 
   return (
-    <div style={{"margin": "10vh 0 40vh"}} id="githubCard">
+    <section
+      style={{ margin: "10vh 0 40vh" }}
+      id="githubCard"
+    >
       <h1 className={css.skillSectionTitle}>
         Days I <strong className="detail">Code</strong>
       </h1>
       <GitHubCalendar
         username="GreenJ84"
-        theme={theme === "dark"? darkTheme : lightTheme}
-        color={ theme === "dark" ? "rgb(180, 255, 190)" : "rgb(33, 51, 132)" }
+        theme={theme === "dark" ? darkTheme : lightTheme}
+        color={theme === "dark" ? "rgb(180, 255, 190)" : "rgb(33, 51, 132)"}
         style={calenderStyle}
         blockSize={width}
         blockRadius={4}
         blockMargin={8}
         fontSize={Math.min(width, 34)}
-        // eventHandlers={() => { }}
       />
-    </div>
+    </section>
   );
 };
 

@@ -27,7 +27,7 @@ const css = require("./TechnicalSkills.module.css");
 
 const Framework = () => {
   return (
-    <div id="development-frameworks">
+    <section id="development-frameworks">
       <h3 className={css.skillSectionTitle}>
         Programming <b className="detail">Frameworks</b>
       </h3>
@@ -66,6 +66,11 @@ const Framework = () => {
           icon={<SiJest className={css.icon} />}
         />
         <TechnicalSkill
+          name="Cypress"
+          rating={3}
+          icon={<SiChai className={css.icon} />}
+        />
+        <TechnicalSkill
           name="BootStrap"
           rating={3}
           icon={<SiBootstrap className={css.icon} />}
@@ -89,11 +94,6 @@ const Framework = () => {
           name="Materials-UI"
           rating={2}
           icon={<SiMaterialui className={css.icon} />}
-        />
-        <TechnicalSkill
-          name="Cypress"
-          rating={2}
-          icon={<SiChai className={css.icon} />}
         />
         <TechnicalSkill
           name="MochaJS"
@@ -121,7 +121,7 @@ const Framework = () => {
           icon={<SiWeb3Dotjs className={css.icon} />}
         />
       </ul>
-    </div>
+    </section>
   );
 };
 
