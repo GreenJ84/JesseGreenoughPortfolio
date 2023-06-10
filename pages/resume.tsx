@@ -1,12 +1,11 @@
 /** @format */
 
 import React, { useState, useEffect } from "react";
-import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
 
-import { Container, Row } from "react-bootstrap";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 import ButtonGroup from "../components/ResumePage/ButtonGroup";
@@ -27,6 +26,7 @@ const ResumePage = (props: resumeProps) => {
   const [width, setWidth] = useState(0);
   const [resNum, setResNum] = useState(0);
 
+  // Dynamic Resume Size Rendering
   useEffect(() => {
     const checkWindow = (width: number) => {
       if (width < 900) {
@@ -44,6 +44,7 @@ const ResumePage = (props: resumeProps) => {
     };
   }, []);
 
+  // Resume Flip Through
   const changeResNum = (dir: string) => {
     if (dir == "left") {
       if (resNum <= 0) {
@@ -59,28 +60,28 @@ const ResumePage = (props: resumeProps) => {
   return (
     <>
       <Head>
-        <title>Jesse Greenough&apos;s Software Engineer Resumes</title>
+        <title>Jesse Greenough&apos;s Software Engineering Resumes</title>
         <meta
           property="og:title"
-          content="Jesse Greenough's Software Engineer Resumes"
+          content="Jesse Greenough's Software Engineering Resumes"
         />
         <meta
           name="description"
-          content="View and Download Jesse Greenough's Software Engineer Resumes"
+          content="View and Download Jesse Greenough's Software Engineering Resumes"
           key="desc"
         />
         <meta
           property="og:description"
-          content="View and Download Jesse Greenough's Software Engineer Resumes"
+          content="View and Download Jesse Greenough's Software Engineering Resumes"
         />
         <meta
           name="keywords"
-          content="Resume, Full-Stack, Software, Developer, Engineer"
+          content="Resume, Full-Stack, Software, Developer, Engineer, TypeScript, React, NextJS"
         ></meta>
       </Head>
       <main
         id="resumePage"
-        className={css.resumeSection}
+        className={css.resumeContainer}
       >
         <ButtonGroup
           section="top"
@@ -98,10 +99,24 @@ const ResumePage = (props: resumeProps) => {
             <BsArrowLeft />
           </div>
           <Image
+            id="resumeImage"
             src={props.resumeData[resNum].link}
             alt="MyResume"
             width={Math.min(width * 0.6, 900)}
             height={Math.min(width * 0.6 * 1.2, 1100)}
+            onClick={() => {
+              let image = document.getElementById("resumeImage")!;
+              if (window.innerWidth < 900) {
+                return;
+              }
+              if (image.style.transform === "scale(1)") {
+                image.style.transform = "scale(1.2)";
+                image.style.zIndex = "30";
+              } else {
+                image.style.transform = "scale(1)";
+                image.style.zIndex = "1";
+              }
+            }}
           />
           <div
             className={css.rightArrow}

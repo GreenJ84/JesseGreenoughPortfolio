@@ -1,6 +1,6 @@
 /** @format */
 
-.resumeSection {
+.resumeContainer {
   padding: 20vh 0 15vh;
 }
 
@@ -11,39 +11,43 @@
   justify-content: center;
 }
 
-.leftArrow, .rightArrow{
+.leftArrow,
+.rightArrow {
   position: absolute;
   top: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: .5vw;
+  padding: 0.5vw;
   font-size: clamp(20px, 4vw, 70px);
   color: var(--text-negative);
   background-color: var(--text-secondary);
   border-radius: 30%;
-  box-shadow: 3px 3px 0px var(--detail-terinary), 4px 4px 8px 3px var(--text-primary);
+  box-shadow: 3px 3px 0px var(--detail);
 }
-.leftArrow:hover, .rightArrow:hover{
+.leftArrow:hover,
+.rightArrow:hover {
   color: var(--text-secondary);
   background-color: var(--text-negative);
   /* border-radius: 50%; */
-  box-shadow: 4px 4px 8px 3px var(--text-primary);
+  box-shadow: 0px 0px 8px 3px var(--text-primary);
 }
-.leftArrow{
+.leftArrow {
   left: 10vw;
 }
-.rightArrow{
+.rightArrow {
   right: 10vw;
 }
 
-.resume > img{
+.resume > img {
+  max-width: 90vw;
   border-radius: 15px;
-  box-shadow: 5px 10px 30px 10px var(--background), 0 5px 30px var(--background), 0 0 200px 60px var(--nav-bg);
-z-index: 10;
+  box-shadow: 5px 5px 10px 2px black, 5px 5px 40px black;
+  z-index: 10;
+  transform: scale(1);
 }
 
-.resumeButtonHolder{
+.resumeButtonHolder {
   position: relative;
   margin: 0 auto;
   display: flex;
@@ -55,30 +59,32 @@ z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: min(25vw, 400px);
+  width: clamp(100px, 25vw, 400px);
   height: clamp(25px, 5vw, 80px);
   text-align: center;
   margin: 5vw auto;
+  padding: 1vw;
   color: var(--text-secondary);
-  background-color: var(--detail-primary);
+  background-color: var(--layout-bg);
   font-weight: 900;
-  font-size: 1.8vw;
+  font-size: clamp(15px, 2vw, 42px);
+  letter-spacing: 1px;
   border: 1px solid var(--text-secondary);
-  box-shadow: 3px 3px 1px var(--text-secondary), 5px 5px 15px 3px var(--detail-primary);
+  box-shadow: 3px 3px 1px var(--text-secondary),
+    5px 5px 15px 3px var(--layout-bg);
   border-radius: 8px;
 }
 
 .resumeButton:hover {
-  background-color: var(--detail-terinary);
+  background-color: var(--detail);
   color: var(--text-negative);
-  font-weight: 800;
-  box-shadow: 5px 5px 15px 3px var(--detail-primary);
+  box-shadow: 5px 5px 15px 3px var(--background);
   transform: translate(3px, 3px);
-  /* border-radius: 30px; */
 }
 
 @media screen and (max-width: 900px) {
-  .leftArrow, .rightArrow{
+  .leftArrow,
+  .rightArrow {
     visibility: hidden;
   }
 }
