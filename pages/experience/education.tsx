@@ -1,15 +1,16 @@
 /** @format */
 
 import React, { useContext, useEffect } from "react";
-import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
 
 import { certificationType, educationType } from "../../Utils/dataTypes";
 import { AppContext, WindowWidth } from "../../Utils/AppContext";
 
+import MetaHead from "../../components/Layout/MetaHead";
 import Degree from "../../components/EducationPage/Degree";
 import Certifications from "../../components/EducationPage/Certifications";
+
 
 export interface Experience {
   educationData: educationType[];
@@ -50,26 +51,11 @@ const EducationPage = (props: Experience) => {
 
   return (
     <>
-      <Head>
-        <title>Educational Experience for Jesse Greenough</title>
-        <meta
-          property="og:title"
-          content="Educational Experience for Jesse Greenough"
-        />
-        <meta
-          name="description"
-          content="View the Educational experience attained by Jesse Greenough"
-          key="desc"
-        />
-        <meta
-          property="og:description"
-          content="View the Educational experience attained by Jesse Greenough"
-        />
-        <meta
-          name="keywords"
-          content="Software, Developer, Engineer, Education, Work, Experience"
-        ></meta>
-      </Head>
+      <MetaHead
+        title="Educational experience attained by Jesse Greenough"
+        description="View the Profession Educational and self-driven experience attained by Jesse Greenough"
+        keywords="College,Bootcamp,Software,Developer,Engineer,Education,Experience,Certifications,Courses,Trainings"
+      />
       <main
         id="educationContainer"
         className={css.eduBody}

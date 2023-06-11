@@ -16,7 +16,8 @@ interface Education {
 }
 
 const Degree = (props: Education) => {
-  const {windowWidth} = useContext(AppContext);
+  const { windowWidth } = useContext(AppContext);
+
   useEffect(() => {
     const title: HTMLElement = document.querySelector("#degreeContainer > h2")!;
     const locDefault = title.getBoundingClientRect().top;
@@ -37,7 +38,7 @@ const Degree = (props: Education) => {
     return () => {
       window.removeEventListener("scroll", animateTitle);
     };
-  }, []);
+  }, [windowWidth]);
 
   return (
     <article id="degreeContainer">

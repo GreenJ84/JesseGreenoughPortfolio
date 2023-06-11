@@ -6,7 +6,7 @@
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  margin: 10vh 0;
+  margin: 0 0 8vh;
   width: 80vw;
   height: auto;
   align-items: center;
@@ -26,23 +26,26 @@
   font-size: clamp(22px, 2.2vw, 40px);
   font-weight: 900;
   color: var(--text-primary);
+  text-shadow: .15vw .15vw var(--text-negative);
 }
 
 .certificationsFilter > div > select {
+  width: min(25vw, 400px);
   height: 50px;
   padding-left: 10px;
-  width: min(30vw, 460px);
-  border-radius: 12px;
   font-size: clamp(20px, 1.8vw, 34px);
   font-weight: 600;
+  letter-spacing: 1px;
   color: var(--text-primary);
-  border-color: var(--text-primary);
   background-color: var(--layout-bg);
+  border: 2px solid var(--text-secondary);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
 }
 
 .certificationsFilter > div > select:hover{
   letter-spacing: 2px;
-  backdrop-filter: blur(2px);
-  border: 2px solid var(--text-primary);
-  box-shadow: 2px 2px 8px rgba(0,0,0);
+  background-color: var(--card-background);
+  border: 2px solid var(--text-secondary);
+  box-shadow: var(--shadow-hover);
 }

@@ -15,15 +15,7 @@ interface certificateCardProps {
 }
 
 const CertificationCard = (props: certificateCardProps) => {
-  const [showDetail, setShowDetail] = useState(false);
   const [mobile, setMobile] = useState(false);
-
-  const enterCard = () => {
-    setShowDetail(true);
-  };
-  const exitCard = () => {
-    setShowDetail(false);
-  };
 
   useEffect(() => {
     if (
@@ -36,7 +28,7 @@ const CertificationCard = (props: certificateCardProps) => {
   return (
     <li className={css.certCard}>
       <FlipCard
-        style={{"margin": "30px 3%", "width": "clamp(120px, 34vw, 350px)","height": "clamp(220px, 35vw, 480px)" }}
+        style={{"width": "100%","height": "100%" }}
         frontDisplay={
           <div
             className={css.certDisplay}

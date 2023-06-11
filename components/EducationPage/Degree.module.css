@@ -7,7 +7,7 @@
   font-size: clamp(26px, 4.5vw, 60px);
   width: 60vw;
   color: var(--text-secondary);
-  text-shadow: 0 0 18px var(--detail-secondary);
+  text-shadow: 0 0 18px var(--text-secondary);
 }
 
 .degreeImage {
@@ -82,10 +82,10 @@
   margin-right: 10px;
   border-radius: 50%;
   border: 1.5px solid var(--text-detail);
-  box-shadow: 0 0 10px var(--text-detail), 5px 5px 20px 5px rgb(0, 0, 0);
+  box-shadow: 0 0 5px var(--text-detail), var(--shadow);
 }
 .image:hover {
   border-radius: 50%;
-  box-shadow: 0 0 20px 5px var(--text-detail), 10px 10px 20px 10px rgb(0, 0, 0);
+  box-shadow: 0 0 8px 2px var(--text-detail), var(--shadow-hover);
   transform: scale(1.3);
 }

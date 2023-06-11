@@ -6,7 +6,7 @@
   text-align: center;
   font-size: clamp(26px, 4.5vw, 60px);
   color: var(--text-secondary);
-  text-shadow: 0 0 2rem var(--detail-secondary);
+  text-shadow: 0 0 .5vw var(--text-primary);
 }
 
 .certSubTitle {
@@ -17,13 +17,15 @@
 }
 
 .certCardHolder {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-content: flex-start;
-  padding: 8vw 2vw;
+  align-content: center;
   width: 100vw;
   height: auto;
+  padding: 8vw 2vw;
   overflow: scroll;
-  transform: translateX(-5vw);
 }
