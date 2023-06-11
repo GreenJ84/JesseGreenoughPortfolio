@@ -16,12 +16,12 @@
 .sticky {
   padding: 0.4rem 2rem;
   backdrop-filter: blur(4px);
-  box-shadow: 0px 2px 5px 0px var(--layout-shadow);
+  box-shadow: var(--shadow);
 }
 .navbar {
   padding: 0.3rem 2rem;
   backdrop-filter: blur(10px);
-  box-shadow: 0px 1px 2px 0px var(--layout-shadow);
+  box-shadow: 0px -1px 15px 3px black;
 }
 
 /* Brand Image */
@@ -33,6 +33,10 @@
   width: clamp(70px, 10vw, 100px);
   border-radius: 50%;
   border: 3px solid var(--text-secondary);
+  box-shadow: var(--shadow);
+}
+.themeLogo:hover {
+  box-shadow: none;
 }
 
 /* Nav Link Section */

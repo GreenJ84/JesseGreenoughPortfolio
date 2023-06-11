@@ -1,32 +1,34 @@
 /** @format */
 
 import React, { useCallback } from "react";
-import type { Container, Engine } from "tsparticles-engine";
 import Particles from "react-particles";
 import { loadFull } from "tsparticles";
+import type { Container, Engine } from "tsparticles-engine";
 
 const Particle = ({ theme }: { theme: string }) => {
   const particlesInit = useCallback(async (engine: Engine) => {
-    await loadFull(engine);
-  }, []);
+    console.log(engine);
 
-  const particlesLoaded = useCallback(
-    async (container: Container | undefined) => {
-      await console.log(container);
-    },
-    []
-  );
+    // you can initialize the tsParticles instance (engine) here, adding custom shapes or presets
+    // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+    // starting from v2 you can add only the features you need reducing the bundle size
+    await loadFull(engine);
+}, []);
+
+const particlesLoaded = useCallback(async (container: Container | undefined) => {
+    await console.log(container);
+}, []);
   return (
     <Particles
       id="tsparticles"
+      init={particlesInit}
+      loaded={particlesLoaded}
       style={{
         position: "fixed",
         width: "100%",
         height: "100%",
-        zIndex: -100,
+        zIndex: -10,
       }}
-      init={particlesInit}
-      loaded={particlesLoaded}
       options={{
         background: {
           image:
@@ -50,10 +52,11 @@ const Particle = ({ theme }: { theme: string }) => {
           },
           modes: {
             push: {
-              quantity: 4,
+              quantity: 8,
+              duration: 1,
             },
             repulse: {
-              distance: 150,
+              distance: 100,
               duration: 0.4,
             },
           },
@@ -70,25 +73,29 @@ const Particle = ({ theme }: { theme: string }) => {
             opacity: 0.4,
             width: 1,
           },
+          collisions: {
+            enable: true,
+          },
           move: {
             direction: "none",
             enable: true,
             outModes: {
               default: "bounce",
             },
-            random: false,
-            speed: 3,
-            straight: false,
+            random: true,
+            speed: 6,
+            straight: true,
+            bounce: true,
           },
           number: {
-            value: 150,
+            value: 200,
             density: {
               enable: true,
-              area: 900,
+              area: 800,
             },
           },
           opacity: {
-            value: { min: 0.1, max: 0.8 },
+            value: { min: 0.3, max: 0.6 },
           },
           shape: {
             type: "triangle",

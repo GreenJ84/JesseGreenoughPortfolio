@@ -24,11 +24,13 @@
 
 /* Footer Containers */
 .footer {
+  position: relative;
   padding: 1rem max(2rem, 6vw) 0.5rem;
   height: auto;
   width: 100%;
   background-color: var(--nav-bg);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 15px 5px black;
   z-index: 10;
 }
 
@@ -55,6 +57,7 @@
   text-indent: 20px;
   font-size: clamp(16px, 1.5vw, 24px);
   letter-spacing: 1.6px;
+  font-weight: 600;
 }
 
 .footerConnect {
@@ -65,7 +68,7 @@
 .footerConnect > ul {
   display: flex;
   flex-wrap: wrap;
-  width: min(15vw, 200px);
+  width: min(18vw, 200px);
   text-align: center;
   margin: 10px auto;
   padding: 2px 6px 0;
@@ -77,26 +80,27 @@
   padding: 0 0.7vw;
 }
 .footerConnect a:hover {
-  color: var(--detail-terinary);
-  filter: drop-shadow(0px 0px 1px var(--detail-terinary));
+  color: var(--detail);
+  filter: drop-shadow(0px 0px 1px var(--detail));
 }
 .footIcons {
   font-size: clamp(24px, 4.2vw, 70px);
 }
 .footerConnect button {
-  border: none;
   width: min(15vw, 200px);
   height: 30px;
   margin: 0 auto;
+  padding:  .1vw;
+  text-align: center;
   color: var(--text-negative);
   background-color: var(--text-primary);
   border: 2px solid var(--text-negative);
-  font-size: clamp(12px, 1.8vw, 24px);
+  font-size: var(--text5)
 }
 .footerConnect button:hover {
-  color: var(--detail-terinary);
-  border: 2px solid var(--detail-terinary);
-  background-color: var(--card-background);
+  color: var(--card-background);
+  border: 2px solid var(--card-background);
+  background-color: var(--detail);
   cursor: pointer;
 }
 
@@ -108,15 +112,15 @@
   right: 2%;
   margin-bottom: 40px;
   list-style: none;
-  font-size: clamp(10px, 1.8vw, 24px);
+  font-size: var(--text4);
   font-weight: 600;
 }
 .footerLinkList li:hover {
-  color: var(--detail-terinary);
+  color: var(--detail);
 }
 
 .footerCopywright {
-  font-size: clamp(10px, 1.4vw, 22px);
+  font-size:var(--text5);
   color: var(--text-primary);
   text-align: center;
   font-weight: 200;

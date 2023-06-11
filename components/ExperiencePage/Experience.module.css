@@ -12,9 +12,9 @@
   padding: 5%;
   color: var(--text-primary);
   background-color: var(--card-background2);
-  border: 1.5px solid var(--text-negative);
+  border: 1.5px solid var(--text-secondary);
   border-radius: 20px;
-  box-shadow: inset 0 0 10px 5px var(--text-negative), var(--shadow-hover);
+  box-shadow: inset 0 0 10px 5px var(--text-secondary), var(--shadow-hover);
 }
 .cardTitle > h1 {
   max-width: 70%;
