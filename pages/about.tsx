@@ -7,7 +7,7 @@ import { ImPointRight } from "react-icons/im";
 import AboutDetails from "../components/AboutPage/AboutDetails";
 import MetaHead from "../components/Layout/MetaHead";
 
-const css = require("../components/AboutPage/AboutIntroduction.module.css");
+const css = require("../components/AboutPage/About.module.css");
 
 const AboutPage = () => {
   return (

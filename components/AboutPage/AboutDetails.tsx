@@ -2,7 +2,7 @@
 
 import React from "react";
 
-const css = require("./AboutDetails.module.css");
+const css = require("./About.module.css");
 
 const AboutDetails = () => {
   return (

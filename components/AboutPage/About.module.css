@@ -9,10 +9,14 @@
   color: var(--text-primary);
 }
 
-.aboutOpener h1 {
-  font-size: var(--text-1);
+.aboutOpener > h1 {
+  font-size: var(--text1);
   text-align: center;
   margin-bottom: 60px;
+}
+
+.aboutOpener > p {
+  font-size: var(--text4);
 }
 
 .aboutOpener li {
