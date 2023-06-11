@@ -5,10 +5,10 @@ import Image from "next/image";
 
 import { AiFillGithub, AiFillProject } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
+
 import FlipCard from "../Layout/FlipCard";
 
 import { IProject } from "../../Utils/dataTypes";
-import { divMode } from "tsparticles-engine";
 
 const css = require("./ProjectCard.module.css");
 
@@ -20,10 +20,9 @@ const ProjectCard = (props: projectProps) => {
   const [showDetail, setShowDetail] = useState(false);
 
   return (
-    <>
       <li className={css.display}>
         <FlipCard
-          style={{ width: "100%", height: "100%" }}
+          style={{ width: "100%", height: "100%", margin: "0", padding: "0" }}
           frontDisplay={
             <div className={css.projectDisplay}>
               <Image
@@ -117,7 +116,6 @@ const ProjectCard = (props: projectProps) => {
           </>
         )}
       </li>
-    </>
   );
 };
 
