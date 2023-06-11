@@ -5,7 +5,7 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import { AiOutlineDownload, AiOutlineEye } from "react-icons/ai";
 
-const css = require("../../styles/Resume.module.css");
+const css = require("./Resume.module.css");
 
 interface resumeButtons {
   section: string;

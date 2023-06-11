@@ -9,8 +9,9 @@ import { MongoClient } from "mongodb";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 import ButtonGroup from "../components/ResumePage/ButtonGroup";
+import MetaHead from "../components/Layout/MetaHead";
 
-const css = require("../styles/Resume.module.css");
+const css = require("../components/ResumePage/Resume.module.css");
 
 interface resumeProps {
   resumeData: [
@@ -59,26 +60,12 @@ const ResumePage = (props: resumeProps) => {
 
   return (
     <>
-      <Head>
-        <title>Jesse Greenough&apos;s Software Engineering Resumes</title>
-        <meta
-          property="og:title"
-          content="Jesse Greenough's Software Engineering Resumes"
-        />
-        <meta
-          name="description"
-          content="View and Download Jesse Greenough's Software Engineering Resumes"
-          key="desc"
-        />
-        <meta
-          property="og:description"
-          content="View and Download Jesse Greenough's Software Engineering Resumes"
-        />
-        <meta
-          name="keywords"
-          content="Resume, Full-Stack, Software, Developer, Engineer, TypeScript, React, NextJS"
-        ></meta>
-      </Head>
+      <MetaHead
+        title="Jesse Greenough&apos;s Software Engineering Resumes"
+        description="View and Download Jesse Greenough&apos;s Software Engineering Resumes"
+        keywords="Resume,Full-Stack,Software,Developer,Engineer,TypeScript,React,NextJS"
+      />
+
       <main
         id="resumePage"
         className={css.resumeContainer}
