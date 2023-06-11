@@ -1,3 +1,5 @@
+/** @format */
+
 .flip_card {
   background-color: transparent;
   perspective: 1000px;
@@ -16,9 +18,10 @@
   transform: rotateX(180deg) rotateY(180deg);
 }
 
-
 /* Position the front and back side with the Tilt */
-.flip_card_front, .flip_card_back, .flip_card_back > section,
+.flip_card_front,
+.flip_card_back,
+.flip_card_back > section,
 .flip_card_back > section > * {
   position: absolute;
   width: 100%;
@@ -29,7 +32,8 @@
 }
 
 /* Style the content hodling sections */
-.flip_card_front, .flip_card_back > section {
+.flip_card_front,
+.flip_card_back > section {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,14 +49,14 @@
   box-shadow: inset 0px 0px 4px 2px var(--text-secondary), 0px 0px 4px 3px var(--text-detail), 8px 8px 30px 10px black; */
   transition: all 0.4s ease-in 0.4s;
 }
-.flip_card:hover .flip_card_front{
+.flip_card:hover .flip_card_front,
+.flip_card:active .flip_card_front {
   visibility: hidden;
   transition: all 0.2s ease-in 0.2s;
 }
 
-
 /* Back Card */
-.flip_card_back{
+.flip_card_back {
   z-index: 20;
   transition: all 0.2s ease-in 0.2s;
   transform-style: preserve-3d;
@@ -72,13 +76,16 @@
   transition: opacity 0.3s ease-in-out 0.4s;
 }
 .flip_card:hover .flip_card_back,
-.flip_card:hover .flip_card_back > section {
+.flip_card:active .flip_card_back,
+.flip_card:hover .flip_card_back > section,
+.flip_card:active .flip_card_back > section {
   /* color: var(--text-primary);
   text-shadow: .5px .5px .5px var(--text-negative), 1px 1px 2px var(--text-primary); */
   visibility: visible;
   transition: all 0.4s ease-in;
 }
-.flip_card:hover .flip_card_back > section * {
+.flip_card:hover .flip_card_back > section *,
+.flip_card:active .flip_card_back > section * {
   opacity: 1;
   transition: opacity 0.3s ease-in-out 0.1s;
 }

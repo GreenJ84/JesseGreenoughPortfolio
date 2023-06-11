@@ -10,12 +10,15 @@ const FlipCard = ({
   frontDisplay,
   backDisplay,
 }: {
-    style: Properties<string | number, string>;
+  style: Properties<string | number, string>;
   frontDisplay: JSX.Element;
   backDisplay: JSX.Element;
 }) => {
   return (
-    <article style={ style } className={css.flip_card}>
+    <article
+      style={style}
+      className={css.flip_card}
+    >
       <div className={css.flip_card_inner}>
         <section className={css.flip_card_front}>{frontDisplay}</section>
         <Tilt
@@ -24,11 +27,15 @@ const FlipCard = ({
           tiltMaxAngleX={10}
           tiltMaxAngleY={10}
           perspective={700}
-          glareEnable={true}
-          glareBorderRadius="20px"
         >
           <section id="flip_card_back">
-            <Tilt tiltEnable={false} perspective={0}>{backDisplay}</Tilt></section>
+            <Tilt
+              tiltEnable={false}
+              perspective={0}
+            >
+              {backDisplay}
+            </Tilt>
+          </section>
         </Tilt>
       </div>
     </article>

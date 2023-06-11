@@ -137,6 +137,7 @@ const NavBar = () => {
                 >
                   {item[2] == "Experience" && windowWidth !== WindowWidth.SMALL && <dialog className={css.experience}>
                     <div></div>
+                    <div></div>
                     <Link href={"/experience/education"}>Education</Link>
                     <Link href={"/experience/work"}>Work</Link>
                   </dialog>}

@@ -60,7 +60,7 @@
   position: relative;
   margin: 0 min(2vw, 20px);
   padding: 1.2vw;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 .navItem:hover {
   color: var(--text-primary);
@@ -84,13 +84,13 @@
 .navItem:hover::after {
   width: 100%;
 }
-.navItem:hover .experience{
+.navItem:hover .experience {
   visibility: visible;
 }
 .experience {
   display: inline;
   position: absolute;
-  top: 102%;
+  top: 101%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -100,23 +100,33 @@
   width: 120%;
   height: 10vh;
   text-align: center;
-  background-color: var(--text-primary);
-  border: none;
+  color: var(--text-primary);
+  background-color: var(--text-negative);
+  border: 1px solid var(--text-primary);
   border-radius: 10px;
   visibility: hidden;
   transition: all 0s ease-in;
 }
-.experience > div{
+.experience > div:first-of-type,
+.experience > div:last-of-type {
   display: block;
   position: absolute;
-  top: -10px;
   left: 50%;
   transform: translateX(-50%);
   width: 0;
   height: 0;
-  border-bottom: 10px solid var(--text-primary);
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
+}
+.experience > div:first-of-type {
+  top: -5px;
+  border-bottom: 7px solid var(--text-primary);
+  border-left: 17px solid transparent;
+  border-right: 17px solid transparent;
+}
+.experience > div:last-of-type {
+  top: -4px;
+  border-bottom: 8px solid var(--text-negative);
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
 }
 
 .navLink {
