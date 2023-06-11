@@ -1,44 +1,27 @@
 /** @format */
 
 import React from "react";
-
 import Head from "next/head";
-import FlipCard from "../../components/Layout/FlipCard";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
+import FlipCard from "../../components/Layout/FlipCard";
+import MetaHead from "../../components/Layout/MetaHead";
 const css = require("../../components/ExperiencePage/Experience.module.css");
 
 const ExperiencePage = () => {
-  const router = useRouter();
-
-  const handleRedirect = (e: React.MouseEvent<HTMLElement>, url: string) => {
-    e.preventDefault();
-    router.push(url);
-  };
-
   return (
     <>
-      <Head>
-        <title>Dive into the Experience of Jesse Greenough</title>
-        <meta
-          property="og:title"
-          content="Dive into the Experience of Jesse Greenough"
-        />
-        <meta
-          name="description"
-          content="A landing page to direct viewers to the Education and Work experiences of Jesse Greenough"
-          key="desc"
-        />
-        <meta
-          property="og:description"
-          content="A landing page to direct viewers to the Education and Work experiences of Jesse Greenough"
-        />
-      </Head>
+      <MetaHead
+        title="Dive into the Experience of Jesse Greenough"
+        description="This experience landing page will help direct you to the Education or Work experiences of Jesse Greenough"
+        keywords="Experience, Education, Work, Software Development, Management"
+      />
+
       <main
         id="experienceContainer"
         className={css.experienceContainer}
       >
+        {/* Education */}
         <FlipCard
           style={{
             margin: "10vh auto",
@@ -47,8 +30,8 @@ const ExperiencePage = () => {
           }}
           frontDisplay={
             <div className={css.cardTitle}>
-              <h1 >
-                Want to see my <span>Education?</span>
+              <h1>
+                Want to see my <br/><span>Education?</span>
               </h1>
             </div>
           }
@@ -69,6 +52,8 @@ const ExperiencePage = () => {
             </div>
           }
         />
+
+        {/* Work */}
         <FlipCard
           style={{
             margin: "10vh auto",
@@ -77,9 +62,10 @@ const ExperiencePage = () => {
           }}
           frontDisplay={
             <div className={css.cardTitle}>
-            <h1>
-              Want to see my <span>Work?</span>
-            </h1></div>
+              <h1>
+                Want to see my <br/><span>Work?</span>
+              </h1>
+            </div>
           }
           backDisplay={
             <div className={css.cardBody}>
