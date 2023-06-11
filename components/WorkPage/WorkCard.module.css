@@ -9,12 +9,12 @@
   border-radius: 20px;
   color: var(--text-primary);
   background-color: var(--card-background);
-  box-shadow: 0 0 min(2vw, 12px) var(--text-primary); 
+  box-shadow: var(--shadow); 
 }
 
 .workCard:hover {
   transform: scale(1.09, 1.09);
-  box-shadow: 0 0 min(2vw, 10px) 0 var(--text-primary), 4px 4px min(4vw, 30px) 5px black;
+  box-shadow: var(--shadow-hover);
 }
 .workCard:hover *{
   text-shadow: .5px .5px var(--text-secondary);
@@ -24,7 +24,7 @@
   width: 20%;
 }
 .workCard:hover .workImage {
-  filter: drop-shadow(4px 4px 3px var(--text-secondary))
+  box-shadow: var(--shadow-hover);
 }
 .workImage {
   position: relative;
@@ -34,6 +34,7 @@
   height: clamp(70px, 11vw, 160px);
   margin: 1rem auto 0;
   border-radius: 30%;
+  box-shadow: var(--shadow);
 }
 
 .workCardBody {

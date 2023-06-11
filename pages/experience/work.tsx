@@ -6,6 +6,7 @@ import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
 
 import WorkCard from "../../components/WorkPage/WorkCard";
+import MetaHead from "../../components/Layout/MetaHead";
 
 import { workItem } from "../../Utils/dataTypes";
 import WorkImg from "../../components/WorkPage/WorkImg";
@@ -30,26 +31,11 @@ const WorkPage = (props: WorkExp) => {
 
   return (
     <>
-      <Head>
-        <title>Work Experience for Jesse Greenough</title>
-        <meta
-          property="og:title"
-          content="Work Experience for Jesse Greenough"
-        />
-        <meta
-          name="description"
-          content="View the Work experience attained by Jesse Greenough"
-          key="desc"
-        />
-        <meta
-          property="og:description"
-          content="View the Work experience attained by Jesse Greenough"
-        />
-        <meta
-          name="keywords"
-          content="Software, Developer, Engineer, Work, Experience"
-        ></meta>
-      </Head>
+      <MetaHead
+        title="Lifetime Work Experience for Jesse Greenough"
+        description="View the Work experience attained by Jesse Greenough of his life"
+        keywords="Work,Experience,Management,Software,Development,Engineering,Retail"
+      />
       <main
         id="workContainer"
         style={{ padding: "12rem 3vw 1rem", margin: "0 2vw" }}

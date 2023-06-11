@@ -59,7 +59,7 @@ const HomePage = () => {
     return () => {
       window.removeEventListener("scroll", animateScroll);
     };
-  }, []);
+  }, [windowWidth]);
 
   return (
     <>
