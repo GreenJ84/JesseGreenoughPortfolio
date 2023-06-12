@@ -75,7 +75,7 @@
   padding: 2vw 0 0;
   text-indent: 10px;
   list-style: none;
-  font-size: clamp(10px, 1.2vw, 28px);
+  font-size: var(--text5);
   line-height: max(2.4vw, 12px);
 }
 
