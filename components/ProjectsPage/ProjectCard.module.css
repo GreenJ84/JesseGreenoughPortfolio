@@ -3,9 +3,9 @@
 .display {
   list-style: none;
   position: relative;
-  width: clamp(120px, 38%, 460px);
-  height: clamp(140px, 34vw, 480px);
-  margin: 0 clamp(10px, 3vw, 50px) min(8vw, 140px);
+  width: clamp(200px, 38%, 460px);
+  height: clamp(220px, 34vw, 480px);
+  margin: 0 auto 8vw;
 }
 
 .projectDisplay {
@@ -25,7 +25,7 @@
 .displayImage {
   margin: 1rem auto 0;
   width: min(80%, 440px);
-  height: clamp(70px, 18vw, 340px);
+  height: clamp(120px, 18vw, 340px);
 }
 
 .displayTitle {
@@ -87,7 +87,7 @@
 .detail {
   position: fixed;
   left: 50%;
-  bottom: 80px;
+  bottom: min(8vw, 60px);
   transform: translateX(-50%);
   z-index: 20;
   display: flex;
@@ -136,6 +136,10 @@
 }
 
 .detailLeft > div > a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: min(3vw, 20px) min(4vw, 30px);
   margin: 0 0.5rem;
   text-align: center;
@@ -152,7 +156,11 @@
   box-shadow: var(--shadow-hover);
   transform: translate(2px, 2px) scale(1.02);
 }
-
+@media only screen and (max-width: 600px) {
+  .detailLeft > div > a{
+    font-size: var(--text5);
+  }
+}
 .detailRight {
   width: 35%;
 }
@@ -173,7 +181,7 @@
   height: 45%;
   color: var(--text-primary);
   font-size: var(--text4);
-  line-height: clamp(24px, 3vw, 50px);
+  line-height: clamp(16px, 3vw, 50px);
   text-indent: 3vw;
   overflow: scroll;
   transform: translateX(-2vw) scaleX(1.2);
@@ -190,13 +198,14 @@
 .techs {
   display: flex;
   flex-wrap: wrap;
-  padding: min(2vw, 20px);
+  padding: 0;
   height: 25%;
-  width: 130%;
+  width: 120%;
   margin-bottom: 2vw;
   transform: translateX(-20%);
   background: transparent;
-  overflow: scroll;
+  overflow-x: visible;
+  overflow-y: scroll;
   list-style-type: none;
 }
 
@@ -205,11 +214,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 0.5vw 0.5vw;
-  padding: 0 1vw;
-  max-height: 25%;
+  margin: 0.5vw 0.8vw;
+  padding: 0 2vw;
   overflow-y: scroll;
-  font-size: var(--text5);
+  font-size: var(--text6);
   color: var(--text-primary);
   background-color: var(--background);
   box-shadow: var(--shadow);
@@ -222,7 +230,7 @@
 
 button.detailClose {
   position: absolute;
-  top: 1rem;
+  top: 2%;
   right: 3%;
   display: flex;
   justify-content: center;

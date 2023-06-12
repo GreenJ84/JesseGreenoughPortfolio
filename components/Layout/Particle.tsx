@@ -36,7 +36,7 @@ const particlesLoaded = useCallback(async (container: Container | undefined) => 
               ? "radial-gradient(rgb(36, 94, 36), rgb(12, 27, 22))"
               : "radial-gradient(rgb(119, 255, 201), rgb(75, 255, 240))",
         },
-        fpsLimit: 30,
+        fpsLimit: 50,
         interactivity: {
           detectsOn: "window",
           events: {

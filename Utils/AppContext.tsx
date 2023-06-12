@@ -13,18 +13,21 @@ export interface AppContextProps {
   setWindowWidth: React.Dispatch<React.SetStateAction<WindowWidth>>;
   theme: string;
   setTheme: Function;
+  mobile: boolean;
 }
 
 export const AppContext = createContext<AppContextProps>({
   windowWidth: WindowWidth.LARGE,
   setWindowWidth: () => {},
   theme: "dark",
-  setTheme: () => {},
+  setTheme: () => { },
+  mobile: false,
 });
 
 export const AppContextProvider = ({ children }) => {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
   const [windowWidth, setWindowWidth] = useState(WindowWidth.LARGE);
+  const [mobile, setMobile] = useState(false);
 
   // Grab User theme preference on initial app load
   useEffect(() => {
@@ -41,6 +44,11 @@ export const AppContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
+    ) {
+      setMobile(true);
+    }
     const handleResize = () => {
       setWindowWidth(window.innerWidth < 600 ? WindowWidth.SMALL : window.innerWidth < 1000 ? WindowWidth.MEDIUM : WindowWidth.LARGE);
     };
@@ -53,7 +61,7 @@ export const AppContextProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ windowWidth, setWindowWidth, theme, setTheme: switchMode }}
+      value={{ windowWidth, setWindowWidth, theme, setTheme: switchMode, mobile }}
     >
       {children}
     </AppContext.Provider>

@@ -25,8 +25,8 @@ const ExperiencePage = () => {
         <FlipCard
           style={{
             margin: "10vh auto",
-            width: "clamp(200px, 42vw, 750px)",
-            height: "clamp(150px, 32vw, 500px)",
+            width: "clamp(220px, 42vw, 750px)",
+            height: "clamp(180px, 32vw, 500px)",
           }}
           frontDisplay={
             <div className={css.cardTitle}>
@@ -57,8 +57,8 @@ const ExperiencePage = () => {
         <FlipCard
           style={{
             margin: "10vh auto",
-            width: "clamp(200px, 42vw, 750px)",
-            height: "clamp(150px, 32vw, 500px)",
+            width: "clamp(220px, 42vw, 750px)",
+            height: "clamp(180px, 32vw, 500px)",
           }}
           frontDisplay={
             <div className={css.cardTitle}>

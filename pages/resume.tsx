@@ -1,7 +1,6 @@
 /** @format */
 
-import React, { useState, useEffect } from "react";
-import Head from "next/head";
+import React, { useState, useEffect, useContext } from "react";
 import Image from "next/image";
 import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
@@ -10,6 +9,8 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 import ButtonGroup from "../components/ResumePage/ButtonGroup";
 import MetaHead from "../components/Layout/MetaHead";
+
+import { AppContext } from "../Utils/AppContext";
 
 const css = require("../components/ResumePage/Resume.module.css");
 
@@ -24,6 +25,8 @@ interface resumeProps {
   ];
 }
 const ResumePage = (props: resumeProps) => {
+  const { mobile } = useContext(AppContext);
+  const [modal, closeModal] = useState(mobile);
   const [width, setWidth] = useState(0);
   const [resNum, setResNum] = useState(0);
 
@@ -65,32 +68,37 @@ const ResumePage = (props: resumeProps) => {
         description="View and Download Jesse Greenough&apos;s Software Engineering Resumes"
         keywords="Resume,Full-Stack,Software,Developer,Engineer,TypeScript,React,NextJS"
       />
-
       <main
         id="resumePage"
         className={css.resumeContainer}
-      >
+        >
         <ButtonGroup
           section="top"
           download={props.resumeData[resNum].download}
           view={props.resumeData[resNum].view}
-        />
+          />
         <section
           id="resume"
           className={css.resume}
-        >
+          >
           <div
             className={css.leftArrow}
             onClick={() => changeResNum("left")}
-          >
+            >
             <BsArrowLeft />
           </div>
+          {modal && <div className={css.mobileModal}>
+              <p>
+                <button onClick={() => {closeModal(false)}}>X</button>
+                If you are viewing on mobile it is best to use the view button to get a better PDF viewing experience.
+              </p>
+            </div>}
           <Image
             id="resumeImage"
             src={props.resumeData[resNum].link}
             alt="MyResume"
-            width={Math.min(width * 0.6, 900)}
-            height={Math.min(width * 0.6 * 1.2, 1100)}
+            width={Math.max(width, 900)}
+            height={Math.max(width * 1.2, 1100)}
             onClick={() => {
               let image = document.getElementById("resumeImage")!;
               if (window.innerWidth < 900) {

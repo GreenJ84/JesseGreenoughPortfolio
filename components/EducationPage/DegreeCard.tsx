@@ -26,14 +26,14 @@ const DegreeCard = (props: degreeCard) => {
             <li key={idx}> ☞ {item} </li>
           ))}
         </ul>
-        <a
-          target="blank"
-          href={props.education.website}
-          className={css.siteLink}
-        >
-          Visit Site <HiOutlineExternalLink />
-        </a>
       </div>
+      <a
+        target="blank"
+        href={props.education.website}
+        className={css.siteLink}
+      >
+        Visit Site <HiOutlineExternalLink />
+      </a>
     </div>
   );
 };

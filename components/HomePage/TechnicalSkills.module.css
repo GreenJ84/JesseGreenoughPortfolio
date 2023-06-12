@@ -4,7 +4,7 @@
   position: relative;
   margin: 0.2rem 0 1.4em;
   color: var(--text-primary);
-  font-size: var(--text3);
+  font-size: var(--text2);
   font-weight: 800;
   text-align: center;
 }
@@ -46,7 +46,7 @@ h3.skillSectionTitle ~ h4 {
   justify-content: flex-start;
   text-align: center;
   margin: 0 2vw 3vh;
-  padding: 0.2em 0.2em;
+  padding: max(2vw, 30px) 0.2em 0.2vw;
   width: clamp(100px, 18%, 220px);
   aspect-ratio: 6/9;
   color: var(--text-primary);
@@ -70,7 +70,7 @@ h3.skillSectionTitle ~ h4 {
 }
 
 .skillContainer span {
-  margin: 0.8rem 0 0.2rem;
+  margin: 2vw 0 1vw;
   font-size: var(--text5);
   text-align: center;
   height: clamp(10px, 2vw, 60px);
@@ -78,13 +78,18 @@ h3.skillSectionTitle ~ h4 {
 
 .skillContainer meter {
   position: absolute;
-  bottom: 4px;
-  padding: 1px;
-  margin-top: 0.4em;
+  bottom: 0;
+  margin-top: 4vw;
   font-size: clamp(18px, 0.45em, 46px);
-  width: 3em;
+  width: 3.1em;
   height: clamp(26.5px, 1.34em, 60px);
   justify-content: baseline;
+}
+
+@media only screen and (max-width: 600px){
+  .skillContainer meter {
+    bottom: 3%;
+  }
 }
 
 .skillContainer meter::-webkit-meter-bar {

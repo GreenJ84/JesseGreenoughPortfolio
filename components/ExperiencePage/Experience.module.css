@@ -29,13 +29,17 @@
   padding: 5% 10%;
 }
 .cardBody > p{
-  font-size: clamp(15px, 2vw, 42px);
+  font-size: var(--text4);
+  overflow: scroll;
 }
 .experienceLink{
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: min(8px, 2vw);
+  width: 60%;
+  height: min(10vw, 40px);
+  margin-bottom: min(1vw, 10px);
+  font-size: var(--text5);
   background-color: var(--text-negative);
   border: .5px solid var(--text-primary);
   box-shadow: min(2px, .5vw) min(2px, .5vw) 1px 0px var(--text-primary), min(6px, 1.8vw) min(6px, 1.8vw) min(15px, 3vw) min(2px, .3vw) black;
@@ -44,12 +48,4 @@
 .experienceLink:hover{
   border: 1.5px solid var(--text-primary);
   box-shadow: none;
-}
-
-@media only screen and (min-width: 1300px){
-  .experienceContainer{
-    display: flex;
-    justify-content: space-around;
-    padding: 20vh 0 25vh;
-  }
 }

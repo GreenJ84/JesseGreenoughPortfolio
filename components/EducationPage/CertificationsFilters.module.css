@@ -1,14 +1,15 @@
 /** @format */
 
 .certificationsFilter {
-  display: flex;
-  flex-wrap: wrap;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   margin: 0 0 8vh;
   width: 80vw;
-  height: auto;
+  height: 100px;
   align-items: center;
   justify-content: space-around;
 }
@@ -17,25 +18,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 280px;
 }
 
 .certificationsFilter > div > h4 {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   text-align: center;
-  font-size: clamp(22px, 2.2vw, 40px);
+  font-size: var(--text2);
   font-weight: 900;
+  letter-spacing: 2px;
   color: var(--text-primary);
   text-shadow: .15vw .15vw var(--text-negative);
 }
 
 .certificationsFilter > div > select {
-  width: min(25vw, 400px);
+  width: min(30vw, 460px);
   height: 50px;
   padding-left: 10px;
   font-size: clamp(20px, 1.8vw, 34px);
-  font-weight: 600;
-  letter-spacing: 1px;
   color: var(--text-primary);
   background-color: var(--layout-bg);
   border: 2px solid var(--text-secondary);
