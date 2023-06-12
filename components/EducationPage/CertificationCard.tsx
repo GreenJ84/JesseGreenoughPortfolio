@@ -1,12 +1,13 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 
 import { RiExternalLinkFill } from "react-icons/ri";
 import FlipCard from "../../components/Layout/FlipCard";
 
 import { certificationType } from "../../Utils/dataTypes";
+import { AppContext } from "../../Utils/AppContext";
 
 const css = require("./CertificationCard.module.css");
 
@@ -15,15 +16,7 @@ interface certificateCardProps {
 }
 
 const CertificationCard = (props: certificateCardProps) => {
-  const [mobile, setMobile] = useState(false);
-
-  useEffect(() => {
-    if (
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
-    ) {
-      setMobile(true);
-    }
-  }, []);
+  const { mobile } = useContext(AppContext);
 
   return (
     <li className={css.certCard}>
@@ -37,8 +30,8 @@ const CertificationCard = (props: certificateCardProps) => {
               src={props.certificate.image}
               alt={props.certificate.title}
               className={css.certImage}
-              width={mobile ? 100 : 200}
-              height={mobile ? 100 : 200}
+              width={mobile ? 60 : 200}
+              height={mobile ? 60 : 200}
               loading="lazy"
             />
             <h5>{props.certificate.title}</h5>

@@ -38,7 +38,7 @@ const WorkPage = (props: WorkExp) => {
       />
       <main
         id="workContainer"
-        style={{ padding: "12rem 3vw 1rem", margin: "0 2vw" }}
+        style={{ padding: "min(12vw, 12vh) 3vw 1rem", margin: "0 2vw" }}
       >
         <section id="workIntro">
           <h1 className={css.workBodyTitle}>Professional experience</h1>

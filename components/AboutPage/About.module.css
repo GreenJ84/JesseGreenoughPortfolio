@@ -7,6 +7,7 @@
   padding: 8rem 0 4rem;
   width: min(1200px, 80vw);
   color: var(--text-primary);
+  backdrop-filter: var(--text-bg-blur);
 }
 
 .aboutOpener > h1 {
@@ -29,7 +30,9 @@
 
 /* About Details */
 .aboutDetail {
+  padding: 5%;
   color: var(--text-primary);
+  backdrop-filter: var(--text-bg-blur);
 }
 .aboutDetail > h1 {
   font-size: clamp( 24px, 5vw, 70px);

@@ -7,14 +7,13 @@
   width: min(100%, 1400px);
   text-align: center;
   color: var(--text-primary);
+  text-shadow: var(--text-shadow);
 }
 
 .homeHeader {
   margin-bottom: clamp(50px, 8vw, 100px);
   font-size: var(--text1);
   font-weight: 900;
-  text-shadow: 0.5px 0.5px 4px var(--background), 0 0 6px var(--text-negative),
-    0 0 10px var(--text-detail);
 }
 .wave {
   display: inline-block;
@@ -62,8 +61,7 @@
   display: inline-block;
   margin: min(5vw, 60px) 0;
   letter-spacing: 2px;
-  text-shadow: 0.5px 0.5px 1px var(--background), 0 0 2px var(--text-secondary),
-    0 0 6px var(--text-detail);
+  text-shadow: var(--text-shadow);
 }
 
 .homeDeveloperLogo {
@@ -85,6 +83,8 @@
   color: var(--text-primary);
   text-align: center;
   font-weight: 600;
+  background-color: transparent;
+  backdrop-filter: var(--text-bg-blur);
 }
 .developerIntro > h2 {
   font-size: var(--text2);
@@ -114,7 +114,7 @@
   letter-spacing: 2.5px;
   font-weight: 800;
   color: var(--text-primary);
-  margin: 30vh 0 10vh;
+  margin: 30vh 0 0;
 }
 
 @media only screen and (max-width: 900px) {

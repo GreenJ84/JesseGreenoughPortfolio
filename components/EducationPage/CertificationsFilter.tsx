@@ -58,7 +58,7 @@ const CertificationsFilter = (props: filterProps) => {
 
       <div>
         <h4 id="techSelectLabel">
-          Filter by <span className="detail">Techs&nbsp;Involved</span>
+          Filter by <span className="detail">Technology</span>
         </h4>
         <select
           id="techSelect"

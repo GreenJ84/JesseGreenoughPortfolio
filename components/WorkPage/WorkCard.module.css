@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   margin: max(3rem, 6vw) 0;
-  padding: 2rem 1.5rem;
+  padding: 4vw 3vw;
   border-radius: 20px;
   color: var(--text-primary);
   background-color: var(--card-background);
@@ -72,8 +72,11 @@
 }
 
 @media only screen and (max-width: 500px){
-  .workCardBody div {
+  .workCard, .workCardBody div {
     flex-direction: column;
+  }
+  .workCardBody{
+    width: 100%;
   }
   .workCardBody div p {
     margin: 0;
