@@ -4,8 +4,9 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { RiExternalLinkFill } from "react-icons/ri";
+import FlipCard from "../../components/Layout/FlipCard";
 
-import { certificationType } from "../../../Utils/dataTypes";
+import { certificationType } from "../../Utils/dataTypes";
 
 const css = require("./CertificationCard.module.css");
 
@@ -14,15 +15,7 @@ interface certificateCardProps {
 }
 
 const CertificationCard = (props: certificateCardProps) => {
-  const [showDetail, setShowDetail] = useState(false);
   const [mobile, setMobile] = useState(false);
-
-  const enterCard = () => {
-    setShowDetail(true);
-  };
-  const exitCard = () => {
-    setShowDetail(false);
-  };
 
   useEffect(() => {
     if (
@@ -34,37 +27,35 @@ const CertificationCard = (props: certificateCardProps) => {
 
   return (
     <li className={css.certCard}>
-      {showDetail ? (
-        <div
-          onMouseLeave={exitCard}
-          onTouchEnd={exitCard}
-          className={css.certDetailCard}
-        >
-          <div className={css.certDetails}>
-            <p>{props.certificate.description}</p>
-            <a href={props.certificate.url}>
-              View <RiExternalLinkFill />
-            </a>
+      <FlipCard
+        style={{"width": "100%","height": "100%" }}
+        frontDisplay={
+          <div
+            className={css.certDisplay}
+          >
+            <Image
+              src={props.certificate.image}
+              alt={props.certificate.title}
+              className={css.certImage}
+              width={mobile ? 100 : 200}
+              height={mobile ? 100 : 200}
+              loading="lazy"
+            />
+            <h5>{props.certificate.title}</h5>
+            <p>{props.certificate.issuer}</p>
           </div>
-        </div>
-      ) : (
-        <div
-          className={css.certDisplay}
-          onMouseEnter={enterCard}
-          onTouchStart={enterCard}
-        >
-          <Image
-            src={props.certificate.image}
-            alt={props.certificate.title}
-            className={css.certImage}
-            width={mobile ? 100 : 200}
-            height={mobile ? 100 : 200}
-            loading="lazy"
-          />
-          <h5>{props.certificate.title}</h5>
-          <p>{props.certificate.issuer}</p>
-        </div>
-      )}
+        }
+        backDisplay={
+          <div className={css.certDetailCard}>
+            <div className={css.certDetails}>
+              <p>{props.certificate.description}</p>
+              <a href={props.certificate.url}>
+                View <RiExternalLinkFill />
+              </a>
+            </div>
+          </div>
+        }
+      />
     </li>
   );
 };

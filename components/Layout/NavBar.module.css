@@ -15,13 +15,13 @@
 }
 .sticky {
   padding: 0.4rem 2rem;
-  backdrop-filter: blur(4px);
-  box-shadow: 0px 2px 5px 0px var(--layout-shadow);
+  backdrop-filter: blur(28px);
+  box-shadow: var(--shadow);
 }
 .navbar {
   padding: 0.3rem 2rem;
-  backdrop-filter: blur(10px);
-  box-shadow: 0px 1px 2px 0px var(--layout-shadow);
+  backdrop-filter: blur(2px);
+  box-shadow: 0px -1px 15px 3px black;
 }
 
 /* Brand Image */
@@ -33,6 +33,10 @@
   width: clamp(70px, 10vw, 100px);
   border-radius: 50%;
   border: 3px solid var(--text-secondary);
+  box-shadow: var(--shadow);
+}
+.themeLogo:hover {
+  box-shadow: none;
 }
 
 /* Nav Link Section */
@@ -57,9 +61,10 @@
 
 /* Nav Links */
 .navItem {
+  position: relative;
   margin: 0 min(2vw, 20px);
   padding: 1.2vw;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 .navItem:hover {
   color: var(--text-primary);
@@ -83,6 +88,51 @@
 .navItem:hover::after {
   width: 100%;
 }
+.navItem:hover .experience {
+  visibility: visible;
+}
+.experience {
+  display: inline;
+  position: absolute;
+  top: 101%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 120%;
+  height: 10vh;
+  text-align: center;
+  color: var(--text-primary);
+  background-color: var(--text-negative);
+  border: 1px solid var(--text-primary);
+  border-radius: 10px;
+  visibility: hidden;
+  transition: all 0s ease-in;
+}
+.experience > div:first-of-type,
+.experience > div:last-of-type {
+  display: block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+}
+.experience > div:first-of-type {
+  top: -5px;
+  border-bottom: 7px solid var(--text-primary);
+  border-left: 17px solid transparent;
+  border-right: 17px solid transparent;
+}
+.experience > div:last-of-type {
+  top: -4px;
+  border-bottom: 8px solid var(--text-negative);
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+}
+
 .navLink {
   display: flex;
   flex-direction: column;

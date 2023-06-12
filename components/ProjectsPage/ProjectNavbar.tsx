@@ -2,7 +2,7 @@
 
 import React from "react";
 
-const css = require("./ProjectNavbar.module.css");
+const css = require("./Project.module.css");
 export interface ProjectNavProps {
   langHandler: Function;
   techHandler: Function;

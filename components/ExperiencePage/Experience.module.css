@@ -1,68 +1,55 @@
 .experienceContainer{
-  border-top: 100px solid transparent;
-  border-bottom: 200px solid transparent;
+  padding: 8vh 0 10vh;
 }
 
-.flip_card {
-  margin: 40px auto;
-  width: clamp(300px, 45vw, 550px);
-  height: clamp(200px, 30vw, 300px);
-  background-color: transparent;
-  perspective: 1000px;
-}
-
-/* This container is needed to position the front and back side */
-.flip_card_inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: all 0.8s ease-in-out;
-  transform-style: preserve-3d;
-}
-
-
-/* Do an horizontal flip when you move the mouse over the flip box container */
-.flip_card:hover .flip_card_inner {
-  transform: rotateX(180deg) rotateY(180deg);
-}
-
-/* .flip_card:hover .flip_card_front {
-  
-} */
-
-.flip_card:hover .flip_card_back {
-  visibility: visible;
-  transition: all 0.3s ease-in 0.45s;
-}
-
-/* Position the front and back side */
-.flip_card_front, .flip_card_back {
-  position: absolute;
+.cardTitle, .cardBody {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   width: 100%;
   height: 100%;
+  padding: 5%;
+  color: var(--text-primary);
+  background-color: var(--card-background2);
+  border: 1.5px solid var(--text-secondary);
   border-radius: 20px;
-  box-shadow: 0px 0px 4px 3px black;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
+  box-shadow: inset 0 0 10px 5px var(--text-secondary), var(--shadow-hover);
+}
+.cardTitle > h1 {
+  max-width: 70%;
+  font-size: clamp(16px, 2vw, 38px);
+  letter-spacing: 1.5px;
+}
+.cardTitle span{
+  color: var(--text-secondary)
 }
 
-/* Style the front side (fallback if image is missing) */
-.flip_card_front {
-  background-color: #bbb;
-  color: black;
-  box-shadow: inset 0px 0px 4px 2px white, 0px 0px 4px 3px black;
+.cardBody{
+  padding: 5% 10%;
+}
+.cardBody > p{
+  font-size: clamp(15px, 2vw, 42px);
+}
+.experienceLink{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: min(8px, 2vw);
+  background-color: var(--text-negative);
+  border: .5px solid var(--text-primary);
+  box-shadow: min(2px, .5vw) min(2px, .5vw) 1px 0px var(--text-primary), min(6px, 1.8vw) min(6px, 1.8vw) min(15px, 3vw) min(2px, .3vw) black;
+  border-radius: 10px;
+}
+.experienceLink:hover{
+  border: 1.5px solid var(--text-primary);
+  box-shadow: none;
 }
 
-/* Style the back side */
-.flip_card_back {
-  background-color: dodgerblue;
-  color: white;
-  transform: rotateZ(180deg);
-  box-shadow: inset 0px 0px 4px 2px black, 0px 0px 2px 1px black;
-  visibility: hidden;
+@media only screen and (min-width: 1300px){
+  .experienceContainer{
+    display: flex;
+    justify-content: space-around;
+    padding: 20vh 0 25vh;
+  }
 }

@@ -5,15 +5,16 @@ import React from "react";
 import { DiSqllite, DiRedis } from "react-icons/di";
 import { GrMysql } from "react-icons/gr";
 import { SiAmazondynamodb, SiMongodb, SiPostgresql } from "react-icons/si";
+
 import TechnicalSkill from "./TechnicalSkill";
 
 const css = require("./TechnicalSkills.module.css");
 
 const Databases = () => {
   return (
-    <div id="development-databases">
+    <section id="development-databases">
       <h3 className={css.skillSectionTitle}>
-        <b className="detail">Databases</b>
+        <span className="detail">Databases</span>
       </h3>
       <ul
         id="databases"
@@ -32,25 +33,25 @@ const Databases = () => {
         <TechnicalSkill
           name="SQLite"
           rating={3}
-          icon={<DiSqllite className={css.icon}/>}
+          icon={<DiSqllite className={css.icon} />}
         />
         <TechnicalSkill
           name="Redis"
           rating={3}
-          icon={<DiRedis className={css.icon}/>}
+          icon={<DiRedis className={css.icon} />}
         />
         <TechnicalSkill
           name="PostgresQL"
           rating={2}
-          icon={<SiPostgresql className={css.icon}/>}
+          icon={<SiPostgresql className={css.icon} />}
         />
         <TechnicalSkill
           name="DynamoDB"
           rating={1}
-          icon={<SiAmazondynamodb className={css.icon}/>}
+          icon={<SiAmazondynamodb className={css.icon} />}
         />
       </ul>
-    </div>
+    </section>
   );
 };
 

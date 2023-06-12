@@ -1,19 +1,42 @@
 /** @format */
+import { Properties } from "csstype";
 import React from "react";
+import Tilt from "react-parallax-tilt";
 
-const css = require("../../components/ExperiencePage/Experience.module.css");
+const css = require("./FlipCard.module.css");
 
-
-const FlipCard = ({frontDisplay, backDisplay}: {frontDisplay: JSX.Element, backDisplay: JSX.Element}) => {
+const FlipCard = ({
+  style,
+  frontDisplay,
+  backDisplay,
+}: {
+  style: Properties<string | number, string>;
+  frontDisplay: JSX.Element;
+  backDisplay: JSX.Element;
+}) => {
   return (
-    <article className={css.flip_card}>
+    <article
+      style={style}
+      className={css.flip_card}
+    >
       <div className={css.flip_card_inner}>
-        <section className={css.flip_card_front}>
-          {frontDisplay}
-        </section>
-        <section className={css.flip_card_back}>
-          {backDisplay}
-        </section>
+        <section className={css.flip_card_front}>{frontDisplay}</section>
+        <Tilt
+          className={css.flip_card_back}
+          tiltReverse={true}
+          tiltMaxAngleX={10}
+          tiltMaxAngleY={10}
+          perspective={700}
+        >
+          <section id="flip_card_back">
+            <Tilt
+              tiltEnable={false}
+              perspective={0}
+            >
+              {backDisplay}
+            </Tilt>
+          </section>
+        </Tilt>
       </div>
     </article>
   );

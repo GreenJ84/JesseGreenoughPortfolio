@@ -1,57 +1,95 @@
 /** @format */
 
 .display {
+  list-style: none;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   width: clamp(120px, 38%, 460px);
   height: clamp(140px, 34vw, 480px);
   margin: 0 clamp(10px, 3vw, 50px) min(8vw, 140px);
-  background-color: var(--card-background);
-  box-shadow: 0px -3px 3px 2px var(--detail-secondary),
-    0px 3px 3px 2px var(--detail-secondary);
-  border-radius: 20px;
 }
-.display:hover {
+
+.projectDisplay {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 5%;
   background-color: var(--card-background2);
-  box-shadow: 0px -3px 3px 2px var(--detail-terinary),
-    0px 3px 3px 2px var(--detail-terinary);
-  transform: scale(1.15);
+  border: 1.5px solid var(--text-secondary);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
 }
 
 .displayImage {
-  display: flex;
   margin: 1rem auto 0;
-  width: min(80%, 440px) !important;
-  height: clamp(70px, 18vw, 340px) !important;
+  width: min(80%, 440px);
+  height: clamp(70px, 18vw, 340px);
 }
 
 .displayTitle {
   margin: 0.6rem 0;
   text-align: center;
-  color: var(--text-secondary);
-  font-size: clamp(12px, 3vw, 40px);
+  color: var(--text-primary);
+  font-size: var(--text3);
   font-weight: 800;
+  letter-spacing: 2px;
 }
 
-.cover {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vw;
-  height: 100vh;
-  z-index: 2000;
-  background-color: transparent;
+.projectDetail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 110%;
+  height: 110%;
+  padding: 5% 5% 10%;
+  border-radius: 30px;
+  color: var(--text-primary);
+  background-color: var(--card-background2);
+  border: 1.5px solid var(--text-secondary);
+  box-shadow: inset 2px 4px 10px var(--text-negative),
+    inset -2px -4px 10px var(--text-negative), var(--shadow-hover);
 }
 
+.projectDetail > h2 {
+  color: var(--text-secondary);
+  font-size: var(--text2);
+  flex: 1;
+}
+.projectDetail > p {
+  width: 80%;
+  font-size: var(--text5);
+  overflow: scroll;
+  flex: 4;
+  transform: translateY(-10%) scaleY(120%);
+}
+
+.projectDetail > button {
+  aspect-ratio: 6/2;
+  width: 33%;
+  font-size: var(--text5);
+  color: var(--text-secondary);
+  background-color: var(--card-background);
+  border: 1px solid var(--text-secondary);
+  box-shadow: 1.5px 1.5px 2px 0.5px var(--text-secondary);
+}
+.projectDetail > button:hover {
+  color: var(--text-negative);
+  background-color: var(--text-secondary);
+  border: 1px solid var(--text-negative);
+  box-shadow: none
+}
+
+
+/* Pop Up Project Modal */
 .detail {
   position: fixed;
   left: 50%;
   bottom: 80px;
   transform: translateX(-50%);
-  z-index: 2001;
+  z-index: 20;
   display: flex;
   padding: min(2vw, 5vh) 3vw;
   width: min(92%, 1300px);
@@ -76,9 +114,10 @@
 }
 
 .detailImage {
-  margin-top: 2rem;
+  margin-top: 1rem;
   width: min(86%, 630px);
   height: clamp(200px, 40vw, 510px);
+  border-radius: 20px;
 }
 .detailImage:hover {
   transform: scale(1.05) translate(10px, 10px);
@@ -90,8 +129,7 @@
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 20px;
-  min-width: 70%;
-  /* align-self: center; */
+  width: 80%;
 }
 .detailLeft > div > a:first-of-type {
   margin-right: calc(4vw * 2);
@@ -102,16 +140,17 @@
   margin: 0 0.5rem;
   text-align: center;
   max-width: 38%;
-  font-size: clamp(11px, 2.8vw, 28px);
+  font-size: var(--text4);
   color: var(--text-primary);
-  background-color: var(--button-bg1);
-  border-radius: 30px;
+  background-color: var(--card-background);
+  box-shadow: 2px 2px 2px .8px var(--text-primary);
+  border-radius: 2vw;
 }
 .detailLeft > div a:hover {
-  color: var(--background2);
-  background-color: var(--detail-secondary);
-  box-shadow: 0px 2px 2px 2px var(--detail-terinary);
-  transform: scale(1.2);
+  color: var(--background);
+  background-color: var(--text-secondary);
+  box-shadow: var(--shadow-hover);
+  transform: translate(2px, 2px) scale(1.02);
 }
 
 .detailRight {
@@ -120,52 +159,65 @@
 
 .detailRight > h2 {
   position: relative;
-  margin: 2rem 0 min(1.6vw, 50px) 0;
+  margin: 20% 0 min(1.6vw, 50px);
+  height: 10%;
   width: 120%;
   text-align: left;
-  font-size: clamp(15px, 4vw, 56px);
+  color: var(--text-secondary);
+  font-size: var(--text2);
+  transform: translateX(-10%);
 }
 
-.detailRight > p,
+.detailRight > p {
+  flex: 3;
+  height: 45%;
+  color: var(--text-primary);
+  font-size: var(--text4);
+  line-height: clamp(24px, 3vw, 50px);
+  text-indent: 3vw;
+  overflow: scroll;
+  transform: translateX(-2vw) scaleX(1.2);
+}
+
 .detailRight > h3 {
   transform: translateX(-2vw) scaleX(1.2);
-  height: auto;
+  height: 2%;
   font-size: clamp(10px, 2.6vw, 32px);
   line-height: clamp(14px, 2.4vw, 30px);
 }
 
-.detailRight > p {
-  margin-top: 20px;
-  height: clamp(150px, 24vw, 350px);
-  overflow: scroll;
-  text-indent: 3vw;
-  color: var(--text-primary);
-}
 
 .techs {
   display: flex;
   flex-wrap: wrap;
-  padding: 2px 0 0;
-  height: auto;
-  transform: translateX(-2vw) scaleX(1.3);
+  padding: min(2vw, 20px);
+  height: 25%;
+  width: 130%;
+  margin-bottom: 2vw;
+  transform: translateX(-20%);
+  background: transparent;
   overflow: scroll;
   list-style-type: none;
 }
 
 .detailTech {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0 0.5vw 0.5vw;
-  padding: 1vw;
-  min-height: 10px;
+  padding: 0 1vw;
+  max-height: 25%;
   overflow-y: scroll;
-  font-size: clamp(10px, 1.6vw, 18px);
+  font-size: var(--text5);
   color: var(--text-primary);
-  background-color: var(--background3);
-  border-radius: 10px;
+  background-color: var(--background);
+  box-shadow: var(--shadow);
+  border-radius: 1vw;
 }
-
 .detailTech:hover {
   transform: scale(1.1);
-  box-shadow: 2px 2px 3px var(--detail-terinary);
+  box-shadow: var(--shadow-hover);
 }
 
 button.detailClose {
@@ -180,15 +232,12 @@ button.detailClose {
   height: clamp(25px, 5vw, 60px);
   font-size: clamp(20px, 3vw, 36px);
   color: var(--text-primary);
-  background-color: var(--button-bg1);
+  background-color: var(--background);
+  border: 1.5px solid var(--text-primary);
   border-radius: 50%;
 }
 
 .detailClose:hover {
-  color: var(--background2);
-  background-color: var(--detail-secondary);
-  border: 1.5px solid black;
-  box-shadow: 2px 2px 2px var(--detail-secondary),
-    -2px -2px 2px var(--detail-secondary), -2px 2px 2px var(--detail-secondary),
-    2px -2px 2px var(--detail-secondary);
+  background-color: var(--card-background);
+  box-shadow: 0 0 .5vw .3vw var(--text-negative), 0 0 1vw .3vw black, 0 0 3vw .5vw black;
 }

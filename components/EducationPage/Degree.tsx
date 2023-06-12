@@ -1,11 +1,13 @@
 /** @format */
 
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Image from "next/image";
 
 import DegreeCard from "./DegreeCard";
 
-import { educationType } from "../../../Utils/dataTypes";
+import { educationType } from "../../Utils/dataTypes";
+import { AppContext, WindowWidth } from "../../Utils/AppContext";
+import EducationImg from "./EduImage";
 
 const css = require("./Degree.module.css");
 
@@ -14,9 +16,35 @@ interface Education {
 }
 
 const Degree = (props: Education) => {
+  const { windowWidth } = useContext(AppContext);
+
+  useEffect(() => {
+    const title: HTMLElement = document.querySelector("#degreeContainer > h2")!;
+    const locDefault = title.getBoundingClientRect().bottom;
+    const isSmall = windowWidth === WindowWidth.SMALL;
+
+    const animateTitle = () => {
+      if (window.scrollY > locDefault) {
+        title.style.transform = `scale(1)`;
+      } else if (window.scrollY < 10) { 
+        title.style.opacity = "0";
+      } 
+      else {
+        title.style.transform = `scale(${window.scrollY / locDefault + .4 + (isSmall ? .15 : 0)})`;
+        title.style.opacity = `${window.scrollY / locDefault + .4}`;
+      }
+    };
+
+    window.addEventListener("scroll", animateTitle);
+    return () => {
+      window.removeEventListener("scroll", animateTitle);
+    };
+  }, [windowWidth]);
+
   return (
     <article id="degreeContainer">
       <h2 className={css.title}>Degrees Recieved</h2>
+      <EducationImg />
       <ul
         id="degreeList"
         style={{ all: "unset" }}

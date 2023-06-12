@@ -2,10 +2,10 @@
 
 import React from "react";
 
-import { Button, Row } from "react-bootstrap";
-import { AiOutlineDownload } from "react-icons/ai";
+import { Button } from "react-bootstrap";
+import { AiOutlineDownload, AiOutlineEye } from "react-icons/ai";
 
-const css = require("../../styles/Resume.module.css");
+const css = require("./Resume.module.css");
 
 interface resumeButtons {
   section: string;
@@ -15,7 +15,10 @@ interface resumeButtons {
 
 const ButtonGroup = (props: resumeButtons) => {
   return (
-    <Row id={`${props.section}-buttons`} className={css.resumeButtonHolder}>
+    <section
+      id={`${props.section}-buttons`}
+      className={css.resumeButtonHolder}
+    >
       <Button
         variant="primary"
         href={props.download}
@@ -23,7 +26,7 @@ const ButtonGroup = (props: resumeButtons) => {
         className={css.resumeButton}
       >
         <AiOutlineDownload />
-        &nbsp;Download
+        &nbsp;Save
       </Button>
       <Button
         variant="primary"
@@ -31,10 +34,10 @@ const ButtonGroup = (props: resumeButtons) => {
         target="_blank"
         className={css.resumeButton}
       >
-        <AiOutlineDownload />
+        <AiOutlineEye />
         &nbsp;View
       </Button>
-    </Row>
+    </section>
   );
 };
 

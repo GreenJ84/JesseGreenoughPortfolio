@@ -5,10 +5,11 @@ import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
 
-import WorkBody from "../../components/WorkPage/WorkBody";
 import WorkCard from "../../components/WorkPage/WorkCard";
+import MetaHead from "../../components/Layout/MetaHead";
 
 import { workItem } from "../../Utils/dataTypes";
+import WorkImg from "../../components/WorkPage/WorkImg";
 
 const css = require("../../components/WorkPage/WorkExp.module.css");
 
@@ -30,37 +31,32 @@ const WorkPage = (props: WorkExp) => {
 
   return (
     <>
-      <Head>
-        <title>Work Experience for Jesse Greenough</title>
-        <meta
-          property="og:title"
-          content="Work Experience for Jesse Greenough"
-        />
-        <meta
-          name="description"
-          content="View the Work experience attained by Jesse Greenough"
-          key="desc"
-        />
-        <meta
-          property="og:description"
-          content="View the Work experience attained by Jesse Greenough"
-        />
-        <meta
-          name="keywords"
-          content="Software, Developer, Engineer, Work, Experience"
-        ></meta>
-      </Head>
+      <MetaHead
+        title="Lifetime Work Experience for Jesse Greenough"
+        description="View the Work experience attained by Jesse Greenough of his life"
+        keywords="Work,Experience,Management,Software,Development,Engineering,Retail"
+      />
       <main
         id="workContainer"
         style={{ padding: "12rem 3vw 1rem", margin: "0 2vw" }}
       >
-        <WorkBody />
+        <section id="workIntro">
+          <h1 className={css.workBodyTitle}>Professional experience</h1>
+          <div className={css.workBody}>
+            <WorkImg />
+            <p>
+              I have over 5 years of customer success, operations management,
+              and leadership experience with proven results in a variety of
+              fast-paced environents.
+            </p>
+          </div>
+        </section>
         <nav
           id="workToggle"
           className={css.workFilter}
         >
           <button
-            className={showWork ? css.activeFilter : ""}
+            className={showWork ? css.activeFilter : css.inactiveFilter}
             onClick={() => {
               if (!showWork) {
                 filterHandler();
@@ -70,14 +66,14 @@ const WorkPage = (props: WorkExp) => {
             Work
           </button>
           <button
-            className={showWork ? "" : css.activeFilter}
+            className={showWork ? css.inactiveFilter : css.activeFilter}
             onClick={() => {
               if (showWork) {
                 filterHandler();
               }
             }}
           >
-            Internship/ Volunteer
+            Internship / Volunteer
           </button>
         </nav>
         <ul
@@ -103,7 +99,7 @@ const WorkPage = (props: WorkExp) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Experience> = async () => {
+export const getServerSideProps: GetServerSideProps<WorkExp> = async () => {
   const client = new MongoClient(process.env.DB_CONN_STRING!);
   const db = client.db(process.env.DB_NAME);
 

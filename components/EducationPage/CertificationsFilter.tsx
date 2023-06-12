@@ -26,9 +26,14 @@ const CertificationsFilter = (props: filterProps) => {
   };
 
   return (
-    <nav id="certificationFilter" className={css.certificationsFilter}>
+    <nav
+      id="certificationFilter"
+      className={css.certificationsFilter}
+    >
       <div>
-        <h4 id="issuerSelectLabel">Filter by Issuer</h4>
+        <h4 id="issuerSelectLabel">
+          Filter by <span className="detail">Issuer</span>
+        </h4>
         <select
           id="issuerSelect"
           name="IssuerSelect"
@@ -45,14 +50,16 @@ const CertificationsFilter = (props: filterProps) => {
               key={cat}
               value={cat}
             >
-              {cat.toUpperCase()}
+              {cat.toLocaleUpperCase()}
             </option>
           ))}
         </select>
       </div>
 
       <div>
-        <h4 id="techSelectLabel">Filter by Techs&nbsp;Involved</h4>
+        <h4 id="techSelectLabel">
+          Filter by <span className="detail">Techs&nbsp;Involved</span>
+        </h4>
         <select
           id="techSelect"
           name="TechSelect"

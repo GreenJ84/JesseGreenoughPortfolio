@@ -31,9 +31,12 @@ const Footer = () => {
   return (
     <>
       {emailConnect && (
-        <div className={css.emailConnect} onClick={() => setEmailConnect(false)}>
+        <div
+          className={css.emailConnect}
+          onClick={() => setEmailConnect(false)}
+        >
           <div>
-          <button onClick={() => setEmailConnect(false)}>Close</button>
+            <button onClick={() => setEmailConnect(false)}>Close</button>
           </div>
         </div>
       )}
@@ -103,32 +106,34 @@ const Footer = () => {
           className={css.footerCopywright}
           z
         >
-          <nav aria-label="Personal Social Links">
-            <ul className={css.footerLinkList}>
-              {[
-                ["/", "Home"],
-                ["/about", "About Me"],
-                ["/projects", "My Projects"],
-                ["/experience", "My Experience"],
-                ["/resume", "My Resumes"],
-              ].map((item, idx) => {
-                return (
-                  <li
-                    key={idx}
-                    role="presentation"
-                  >
-                    <a
-                      href={item[0] as string}
-                      rel="noopener noreferrer"
-                      onClick={handleLink}
+          {windowWidth !== WindowWidth.SMALL && (
+            <nav aria-label="Personal Social Links">
+              <ul className={css.footerLinkList}>
+                {[
+                  ["/", "Home"],
+                  ["/about", "About Me"],
+                  ["/projects", "My Projects"],
+                  ["/experience", "My Experience"],
+                  ["/resume", "My Resumes"],
+                ].map((item, idx) => {
+                  return (
+                    <li
+                      key={idx}
+                      role="presentation"
                     >
-                      {item[1]}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
+                      <a
+                        href={item[0] as string}
+                        rel="noopener noreferrer"
+                        onClick={handleLink}
+                      >
+                        {item[1]}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </nav>
+          )}
           <h4>© Copyright {year}. Designed and Developed by Jesse Greenough</h4>
         </Row>
       </footer>

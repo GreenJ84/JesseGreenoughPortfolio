@@ -2,35 +2,50 @@
 
 .certificationsFilter {
   display: flex;
+  flex-wrap: wrap;
   position: relative;
-  top: -20px;
   left: 50%;
+  transform: translateX(-50%);
+  margin: 0 0 8vh;
   width: 80vw;
-  height: 100px;
+  height: auto;
   align-items: center;
   justify-content: space-around;
-  transform: translateX(-50%);
 }
 
 .certificationsFilter > div {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 280px;
 }
 
 .certificationsFilter > div > h4 {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   text-align: center;
   font-size: clamp(22px, 2.2vw, 40px);
+  font-weight: 900;
   color: var(--text-primary);
+  text-shadow: .15vw .15vw var(--text-negative);
 }
 
 .certificationsFilter > div > select {
-  padding-left: 10px;
+  width: min(25vw, 400px);
   height: 50px;
-  width: min(30vw, 460px);
+  padding-left: 10px;
+  font-size: clamp(20px, 1.8vw, 34px);
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--text-primary);
+  background-color: var(--layout-bg);
+  border: 2px solid var(--text-secondary);
   border-radius: 12px;
-  font-size: 20px;
-  color: var(--detail-terinary);
-  background-color: var(--background3);
+  box-shadow: var(--shadow);
+}
+
+.certificationsFilter > div > select:hover{
+  letter-spacing: 2px;
+  background-color: var(--card-background);
+  border: 2px solid var(--text-secondary);
+  box-shadow: var(--shadow-hover);
 }

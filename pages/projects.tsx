@@ -1,14 +1,15 @@
 /** @format */
 
 import React, { useState } from "react";
-import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
 
+import MetaHead from "../components/Layout/MetaHead";
 import ProjectCard from "../components/ProjectsPage/ProjectCard";
 import ProjectNavbar from "../components/ProjectsPage/ProjectNavbar";
 
 import { IProject } from "../Utils/dataTypes";
+const css = require("../components/ProjectsPage/Project.module.css");
 
 interface Projects {
   projectData: IProject[];
@@ -71,69 +72,44 @@ const ProjectPage = (props: Projects) => {
 
   return (
     <>
-      <Head>
-        <title>Software Development projects by Jesse Greenough</title>
-        <meta
-          property="og:title"
-          content="Software Development projects by Jesse Greenough"
-        />
-        <meta
-          name="description"
-          content="View the software engineering projects completed by Jesse Greenough"
-          key="desc"
-        />
-        <meta
-          property="og:description"
-          content="View the software engineering projects completed by Jesse Greenough"
-        />
-        <meta
-          name="keywords"
-          content="Software, Developer, Engineer, Projects, Deployments, Repositories"
-        ></meta>
-      </Head>
+      <MetaHead
+        title="Software Development projects created by Jesse Greenough"
+        description="View and sort through the software engineering projects completed by Jesse Greenough"
+        keywords="Software, Developer, Engineer, Projects, Deployments, Repositories"
+      />
+
       <main
         id="pageContainer"
-        style={projectBody}
+        className={css.projectsBody}
       >
-        <section
-          id="projectsContainer"
-          style={container as React.CSSProperties}
+        <ProjectNavbar
+          langHandler={langHandler}
+          techHandler={techHandler}
+          options={[cat, tech]}
+        />
+        <hr style={{ border: ".5px solid var(--text-secondary)" }} />
+        {fresh ? (
+          <h1 id="projectsTitle">
+            My current <span className="detail">Top 10</span> projects
+          </h1>
+        ) : (
+          <h1 id="projectsTitle">
+            I have created over
+            <span className="detail"> {projectData.length} </span>
+            projects to date
+          </h1>
+        )}
+        <ul
+          id="projectsList"
+          className={css.projectsListHolder}
         >
-          <ProjectNavbar
-            langHandler={langHandler}
-            techHandler={techHandler}
-            options={[cat, tech]}
-          />
-          <hr style={{ border: ".5px solid var(--text-secondary)" }} />
-          {fresh ? (
-            <h1
-              id="projectsTitle"
-              style={title as React.CSSProperties}
-            >
-              My current <span className="detail">Top 10</span> projects
-            </h1>
-          ) : (
-            <h1
-              id="projectsTitle"
-              style={title as React.CSSProperties}
-            >
-              I have created
-              <span className="detail"> over {projectData.length} </span>
-              projects to date
-            </h1>
-          )}
-          <ul
-            id="projectsList"
-            style={flexbox as React.CSSProperties}
-          >
-            {projectData.map((project) => (
-              <ProjectCard
-                project={project}
-                key={project.name}
-              />
-            ))}
-          </ul>
-        </section>
+          {projectData.map((project) => (
+            <ProjectCard
+              project={project}
+              key={project.name}
+            />
+          ))}
+        </ul>
       </main>
     </>
   );
@@ -169,25 +145,3 @@ export const getServerSideProps: GetServerSideProps = async () => {
 };
 
 export default ProjectPage;
-
-const projectBody = {
-  padding: "12rem 2vw 10vw",
-};
-
-const container = {
-  position: "relative",
-  backgroundColor: "var(--background2)",
-  padding: "clamp(160px, 14vw, 200px) 4vw 8vw",
-  border: "2px solid black",
-};
-const title = {
-  marginBottom: "8vw",
-  textAlign: "center",
-  color: "var(--text-primary)",
-  fontSize: "clamp(24px, 3.6vw, 62px)",
-};
-const flexbox = {
-  display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "space-around",
-};

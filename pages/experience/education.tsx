@@ -1,54 +1,73 @@
 /** @format */
 
-import React from "react";
-import Head from "next/head";
+import React, { useContext, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
 
 import { certificationType, educationType } from "../../Utils/dataTypes";
+import { AppContext, WindowWidth } from "../../Utils/AppContext";
 
-import EduBody from "../../components/EducationPage/EduBody";
+import MetaHead from "../../components/Layout/MetaHead";
 import Degree from "../../components/EducationPage/Degree";
 import Certifications from "../../components/EducationPage/Certifications";
+
 
 export interface Experience {
   educationData: educationType[];
   certificationData: certificationType[];
 }
 
+const css = require("../../components/EducationPage/EduBody.module.css");
+
 const EducationPage = (props: Experience) => {
-  const bodyStyle = {
-    backgroundColor: "var(--background2)",
-    padding: "0 2.5vw 6rem",
-  };
+  const { windowWidth } = useContext(AppContext);
+
+  useEffect(() => {
+    const eduTitle = document.getElementById("educationTitle")!;
+    const eduSnippet: HTMLElement = document.querySelector(
+      "#educationContainer > p:first-of-type"
+    )!;
+    const topDefault = eduTitle.getBoundingClientRect().top;
+    const isSmall = windowWidth === WindowWidth.SMALL;
+
+
+    const popupScroll = () => {
+      if (window.scrollY > topDefault) { 
+        eduSnippet.style.transform = "scale(1)";
+      } else {
+        eduTitle.style.opacity = `${1.5 - window.scrollY / topDefault * 1.2 - (isSmall? 0.6 : 0)}`;
+  
+        // Description animations
+        eduSnippet.style.transform = `scale(${1 - window.scrollY / topDefault})`;
+        eduSnippet.style.opacity = `${1 - window.scrollY / topDefault * 2}`;
+      }
+    };
+
+    window.addEventListener("scroll", popupScroll);
+    return () => {
+      window.removeEventListener("scroll", popupScroll);
+    };
+  }, [windowWidth]);
 
   return (
     <>
-      <Head>
-        <title>Educational Experience for Jesse Greenough</title>
-        <meta
-          property="og:title"
-          content="Educational Experience for Jesse Greenough"
-        />
-        <meta
-          name="description"
-          content="View the Educational experience attained by Jesse Greenough"
-          key="desc"
-        />
-        <meta
-          property="og:description"
-          content="View the Educational experience attained by Jesse Greenough"
-        />
-        <meta
-          name="keywords"
-          content="Software, Developer, Engineer, Education, Work, Experience"
-        ></meta>
-      </Head>
+      <MetaHead
+        title="Educational experience attained by Jesse Greenough"
+        description="View the Profession Educational and self-driven experience attained by Jesse Greenough"
+        keywords="College,Bootcamp,Software,Developer,Engineer,Education,Experience,Certifications,Courses,Trainings"
+      />
       <main
         id="educationContainer"
+        className={css.eduBody}
         style={{ padding: "12rem 3vw 1rem", margin: "0 2vw" }}
       >
-        <EduBody />
+        <p>
+          I actively participate in tech-related activities and partake in
+          courses to further my understanding and knowledge.
+        </p>
+        <h1 id="educationTitle">
+          Educational Experience, Qualifications and Certifications
+        </h1>
         <Degree educationData={props.educationData} />
         <Certifications certificationData={props.certificationData} />
       </main>

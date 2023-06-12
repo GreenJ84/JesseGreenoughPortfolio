@@ -1,0 +1,91 @@
+/** @format */
+
+.flip_card {
+  background-color: transparent;
+  perspective: 1000px;
+}
+
+/* This container is needed to position the front and back side */
+.flip_card_inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: all 0.8s ease-in-out;
+  transform-style: preserve-3d;
+}
+.flip_card:hover .flip_card_inner {
+  transform: rotateX(180deg) rotateY(180deg);
+}
+
+/* Position the front and back side with the Tilt */
+.flip_card_front,
+.flip_card_back,
+.flip_card_back > section,
+.flip_card_back > section > * {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+/* Style the content hodling sections */
+.flip_card_front,
+.flip_card_back > section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Front Card */
+.flip_card_front {
+  /* padding: 5%; */
+  font-size: clamp(16px, 2vw, 34px);
+  /* color: var(--text-primary);
+  background-color: var(--card-background);
+  box-shadow: inset 0px 0px 4px 2px var(--text-secondary), 0px 0px 4px 3px var(--text-detail), 8px 8px 30px 10px black; */
+  transition: all 0.4s ease-in 0.4s;
+}
+.flip_card:hover .flip_card_front,
+.flip_card:active .flip_card_front {
+  visibility: hidden;
+  transition: all 0.2s ease-in 0.2s;
+}
+
+/* Back Card */
+.flip_card_back {
+  z-index: 20;
+  transition: all 0.2s ease-in 0.2s;
+  transform-style: preserve-3d;
+}
+.flip_card_back > section {
+  /* background-color: var(--card-background2);
+  box-shadow: inset 0px 0px 4px 2px var(--text-secondary), 0px 0px 20px 1px var(--background), 8px 8px 20px 5px black;; */
+  /* font-size: clamp(10px, 2.2vw, 34px);
+  font-weight: 900; */
+  visibility: hidden;
+  transform: rotate(180deg);
+  transition: all 0.2s ease-in-out 0.2s;
+  z-index: 30;
+}
+.flip_card_back > section * {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out 0.4s;
+}
+.flip_card:hover .flip_card_back,
+.flip_card:active .flip_card_back,
+.flip_card:hover .flip_card_back > section,
+.flip_card:active .flip_card_back > section {
+  /* color: var(--text-primary);
+  text-shadow: .5px .5px .5px var(--text-negative), 1px 1px 2px var(--text-primary); */
+  visibility: visible;
+  transition: all 0.4s ease-in;
+}
+.flip_card:hover .flip_card_back > section *,
+.flip_card:active .flip_card_back > section * {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out 0.1s;
+}

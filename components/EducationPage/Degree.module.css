@@ -1,12 +1,72 @@
 /** @format */
 
 .title {
-  margin: 11vw 0 9vw;
+  position: relative;
+  margin: 20vh auto 5vw;
   text-align: center;
   font-size: clamp(26px, 4.5vw, 60px);
+  width: 60vw;
   color: var(--text-secondary);
-  text-shadow: 0 0 18px var(--detail-secondary);
+  text-shadow: 0 0 18px var(--text-secondary);
+  opacity: 0;
 }
+
+.degreeImage {
+  position: relative;
+  margin: 2vw auto 0;
+  width: 50vw;
+  height: 40vw;
+  min-width: 250px;
+  max-width: 900px;
+  animation: slideImage 14s linear infinite;
+}
+
+@keyframes slideImage {
+  0% {
+    transform: scale(.6) rotate(-10deg);
+  }
+  10% {
+    transform: translateX(8vw) scale(.8);
+  }
+  20% {
+    transform: translateX(15vw) scale(1) rotate(10deg);
+  }
+  25% {
+    transform: translateX(19.5vw) scale(1.1);
+  }
+  30% {
+    transform: translateX(25vw) scale(1) rotate(-10deg);
+  }
+  40% {
+    transform: translateX(33vw) scale(.8);
+  }
+  50% {
+    transform: translateX(42vw) scale(.6) rotate(10deg);
+
+  }
+  60% {
+    transform: translateX(33vw) scale(.8);
+
+  }
+  70% {
+    transform: translateX(24vw) scale(1) rotate(-10deg);
+  }
+  75% {
+    transform: translateX(19.5vw) scale(1.1);
+  }
+  80% {
+    transform: translateX(15vw) scale(1) rotate(10deg);
+
+  }
+  90% {
+    transform: translateX(8vw) scale(.8);
+
+  }
+  100% {
+    transform: scale(.6) rotate(-10deg);
+  }
+}
+
 
 .degrees {
   display: flex;
@@ -22,12 +82,11 @@
   height: 16vw;
   margin-right: 10px;
   border-radius: 50%;
-  border: 1.5px solid var(--detail-secondary);
-  box-shadow: 0 0 10px var(--detail-secondary);
+  border: 1.5px solid var(--text-detail);
+  box-shadow: 0 0 5px var(--text-detail), var(--shadow);
 }
 .image:hover {
   border-radius: 50%;
-  border: 1.5px solid var(--detail-secondary);
-  box-shadow: 0 0 30px var(--detail-secondary);
+  box-shadow: 0 0 8px 2px var(--text-detail), var(--shadow-hover);
   transform: scale(1.3);
 }

@@ -2,11 +2,11 @@
 
 import React from "react";
 
-const css = require("./AboutDetails.module.css");
+const css = require("./About.module.css");
 
 const AboutDetails = () => {
   return (
-    <div id="aboutDetail" className={css.aboutDetail}>
+    <section id="aboutDetail" className={css.aboutDetail}>
       <h1>
         All About <span className="detail">Me</span>
       </h1>
@@ -66,7 +66,7 @@ const AboutDetails = () => {
         though online course consumption, building and deploying applications,
         and continual algorithm practice.
       </p>
-    </div>
+    </section>
   );
 };
 

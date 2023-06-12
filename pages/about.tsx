@@ -1,43 +1,77 @@
 /** @format */
 
 import React from "react";
-import Head from "next/head";
 
-import { Container } from "react-bootstrap";
+import { ImPointRight } from "react-icons/im";
 
 import AboutDetails from "../components/AboutPage/AboutDetails";
-import AboutMain from "../components/AboutPage/AboutMain";
+import MetaHead from "../components/Layout/MetaHead";
+
+const css = require("../components/AboutPage/About.module.css");
 
 const AboutPage = () => {
   return (
     <>
-      <Head>
-        <title>About the Developer: Jesse Greenough</title>
-        <meta
-          property="og:title"
-          content="About the Developer: Jesse Greenough"
-        />
-        <meta
-          name="description"
-          content="Learn about the life of the Jesse Greenough, Full-Stack Engineer."
-          key="desc"
-        />
-        <meta
-          property="og:description"
-          content="Learn about the life of the Jesse Greenough, Full-Stack Engineer."
-        />
-        <meta
-          name="keywords"
-          content="About, Biography, Developer, Engineer"
-        ></meta>
-      </Head>
-      <Container
-        fluid
-        style={{ padding: "10vw 4vw 0" }}
-      >
-        <AboutMain />
+      <MetaHead
+        title="All About the Jesse Greenough...Developer, Father, and Husband"
+        description="Learn a little about the life of the Jesse Greenough, Full-Stack Engineer, and the experience he has partaken in."
+        keywords="Jesse Greenough, About, Biography, Developer, Engineer"
+      />
+
+      <main style={{ position: "relative", padding: "10vw 4vw 0" }}>
+        <section
+          id="aboutIntro"
+          className={css.aboutOpener}
+        >
+          <h1>
+            <span className="detail">Break </span>
+            the Ice
+          </h1>
+          <p style={{ textAlign: "left" }}>
+            Hi everyone, I am<span className="detail"> Jesse Greenough </span>
+            currently residing in
+            <span className="detail"> Shoreline, Washington USA.</span>
+            <br />
+            <br />
+            I am a Full-Stack Developer with 5+ years of previous experience in
+            team operations, business management, and customer success.
+            <br />
+            <br />
+            Can you tell my favorite colors are
+            <span className="detail_plus"> Green</span> and{" "}
+            <span className="detail_plus">Blue</span>??? ( All Shades 😎 )
+            <br />
+            <br />
+            Apart from learning and coding, some other activities that I love to
+            do are:
+          </p>
+          <ul>
+            <li>
+              <ImPointRight /> &emsp;Spend time with my amazing family
+            </li>
+            <li>
+              <ImPointRight /> &emsp;Enjoy the outdoors!
+            </li>
+            <li>
+              <ImPointRight /> &emsp;NFT Art collecting (Currently have Eth,
+              HBAR, and XRP NFTs)
+            </li>
+            <li>
+              <ImPointRight /> &emsp;Web3 community participation
+            </li>
+            <li>
+              <ImPointRight /> &emsp;Play Sports (Basketball!)
+            </li>
+            <li>
+              <ImPointRight /> &emsp;Play video games/Watch anime
+            </li>
+            <li>
+              <ImPointRight /> &emsp;Do Sudoku or word puzzles
+            </li>
+          </ul>
+        </section>
         <AboutDetails />
-      </Container>
+      </main>
     </>
   );
 };

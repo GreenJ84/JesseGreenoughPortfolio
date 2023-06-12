@@ -1,17 +1,17 @@
 /** @format */
 
 import React, { useState, useEffect } from "react";
-import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
 
-import { Container, Row } from "react-bootstrap";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 import ButtonGroup from "../components/ResumePage/ButtonGroup";
+import MetaHead from "../components/Layout/MetaHead";
 
-const css = require("../styles/Resume.module.css");
+const css = require("../components/ResumePage/Resume.module.css");
 
 interface resumeProps {
   resumeData: [
@@ -27,6 +27,7 @@ const ResumePage = (props: resumeProps) => {
   const [width, setWidth] = useState(0);
   const [resNum, setResNum] = useState(0);
 
+  // Dynamic Resume Size Rendering
   useEffect(() => {
     const checkWindow = (width: number) => {
       if (width < 900) {
@@ -44,6 +45,7 @@ const ResumePage = (props: resumeProps) => {
     };
   }, []);
 
+  // Resume Flip Through
   const changeResNum = (dir: string) => {
     if (dir == "left") {
       if (resNum <= 0) {
@@ -58,37 +60,22 @@ const ResumePage = (props: resumeProps) => {
 
   return (
     <>
-      <Head>
-        <title>Jesse Greenough&apos;s Software Engineer Resumes</title>
-        <meta
-          property="og:title"
-          content="Jesse Greenough's Software Engineer Resumes"
-        />
-        <meta
-          name="description"
-          content="View and Download Jesse Greenough's Software Engineer Resumes"
-          key="desc"
-        />
-        <meta
-          property="og:description"
-          content="View and Download Jesse Greenough's Software Engineer Resumes"
-        />
-        <meta
-          name="keywords"
-          content="Resume, Full-Stack, Software, Developer, Engineer"
-        ></meta>
-      </Head>
-      <Container
+      <MetaHead
+        title="Jesse Greenough&apos;s Software Engineering Resumes"
+        description="View and Download Jesse Greenough&apos;s Software Engineering Resumes"
+        keywords="Resume,Full-Stack,Software,Developer,Engineer,TypeScript,React,NextJS"
+      />
+
+      <main
         id="resumePage"
-        fluid
-        className={css.resumeSection}
+        className={css.resumeContainer}
       >
         <ButtonGroup
           section="top"
           download={props.resumeData[resNum].download}
           view={props.resumeData[resNum].view}
         />
-        <Row
+        <section
           id="resume"
           className={css.resume}
         >
@@ -99,10 +86,24 @@ const ResumePage = (props: resumeProps) => {
             <BsArrowLeft />
           </div>
           <Image
+            id="resumeImage"
             src={props.resumeData[resNum].link}
             alt="MyResume"
             width={Math.min(width * 0.6, 900)}
             height={Math.min(width * 0.6 * 1.2, 1100)}
+            onClick={() => {
+              let image = document.getElementById("resumeImage")!;
+              if (window.innerWidth < 900) {
+                return;
+              }
+              if (image.style.transform === "scale(1)") {
+                image.style.transform = "scale(1.2)";
+                image.style.zIndex = "30";
+              } else {
+                image.style.transform = "scale(1)";
+                image.style.zIndex = "1";
+              }
+            }}
           />
           <div
             className={css.rightArrow}
@@ -110,13 +111,13 @@ const ResumePage = (props: resumeProps) => {
           >
             <BsArrowRight />
           </div>
-        </Row>
+        </section>
         <ButtonGroup
           section="bottom"
           download={props.resumeData[resNum].download}
           view={props.resumeData[resNum].view}
         />
-      </Container>
+      </main>
     </>
   );
 };

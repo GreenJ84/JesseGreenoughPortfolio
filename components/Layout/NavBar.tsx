@@ -51,6 +51,8 @@ const NavBar = () => {
   useEffect(() => {
     if (windowWidth !== WindowWidth.SMALL) {
       setExpandedNav(true);
+    } else {
+      setExpandedNav(false);
     }
   }, [windowWidth]);
 
@@ -64,8 +66,9 @@ const NavBar = () => {
       }
 
       if (
-        window.scrollY >
-        document.body.scrollHeight - window.innerHeight - 350
+        window.scrollY + window.innerHeight >
+          document.body.scrollHeight - 350 &&
+        window.scrollY >= 350
       ) {
         document.getElementById("navbar")!.style.transform =
           "translateY(-100%)";
@@ -132,6 +135,12 @@ const NavBar = () => {
                   key={idx}
                   className={css.navItem}
                 >
+                  {item[2] == "Experience" && windowWidth !== WindowWidth.SMALL && <dialog className={css.experience}>
+                    <div></div>
+                    <div></div>
+                    <Link href={"/experience/education"}>Education</Link>
+                    <Link href={"/experience/work"}>Work</Link>
+                  </dialog>}
                   <Nav.Link
                     as={Link}
                     href={item[0] as string}
