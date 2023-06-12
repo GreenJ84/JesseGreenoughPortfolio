@@ -20,18 +20,19 @@ const Degree = (props: Education) => {
 
   useEffect(() => {
     const title: HTMLElement = document.querySelector("#degreeContainer > h2")!;
-    const locDefault = title.getBoundingClientRect().top;
+    const locDefault = title.getBoundingClientRect().bottom;
     const isSmall = windowWidth === WindowWidth.SMALL;
 
     const animateTitle = () => {
       if (window.scrollY > locDefault) {
         title.style.transform = `scale(1)`;
-      } else {
+      } else if (window.scrollY < 10) { 
+        title.style.opacity = "0";
+      } 
+      else {
         title.style.transform = `scale(${window.scrollY / locDefault + .4 + (isSmall ? .15 : 0)})`;
-        title.style.opacity = `${window.scrollY / locDefault}`;
-        console.log(window.scrollY / locDefault + .2);
+        title.style.opacity = `${window.scrollY / locDefault + .4}`;
       }
-      console.log(title.style.transform)
     };
 
     window.addEventListener("scroll", animateTitle);

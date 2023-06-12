@@ -38,7 +38,7 @@ const HomePage = () => {
         down.style.visibility = "visible";
 
         let scale = 2 - Math.abs(mid - window.innerHeight / 2) / 400;
-        scale = mobile ? Math.min(scale, 1.2) : Math.min(scale, 1.6);
+        scale = mobile ? Math.min(scale, 1.2) : Math.min(scale, 1.4);
         const translateY = (mid / window.innerHeight) * 80 - 80;
         const opacity = mobile ? Math.min(scale - 0.3, 1) : Math.min(scale - 0.5, 1);
 

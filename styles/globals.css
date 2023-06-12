@@ -34,7 +34,7 @@ body[data-theme="dark"] {
 
   /* Background/Card Colors */
   --background: rgb(12, 43, 33);
-  --card-background: rgb(49, 49, 49);
+  --card-background: rgb(85, 84, 84);
   --card-background2: rgb(18, 15, 15);
 
   --detail: rgba(14, 215, 165);

@@ -8,6 +8,7 @@
   width: 60vw;
   color: var(--text-secondary);
   text-shadow: 0 0 18px var(--text-secondary);
+  opacity: 0;
 }
 
 .degreeImage {

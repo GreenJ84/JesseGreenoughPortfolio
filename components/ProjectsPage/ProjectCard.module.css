@@ -48,6 +48,7 @@
   border-radius: 30px;
   color: var(--text-primary);
   background-color: var(--card-background2);
+  border: 1.5px solid var(--text-secondary);
   box-shadow: inset 2px 4px 10px var(--text-negative),
     inset -2px -4px 10px var(--text-negative), var(--shadow-hover);
 }
@@ -59,10 +60,10 @@
 }
 .projectDetail > p {
   width: 80%;
-  font-size: var(--text4);
+  font-size: var(--text5);
   overflow: scroll;
-  flex: 2;
-  transform: translateY(-30%) scaleY(120%);
+  flex: 4;
+  transform: translateY(-10%) scaleY(120%);
 }
 
 .projectDetail > button {
