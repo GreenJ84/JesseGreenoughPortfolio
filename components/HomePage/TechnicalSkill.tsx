@@ -20,9 +20,9 @@ const TechnicalSkill = (props: skillProps) => {
         <span> {props.name} </span>
         <meter
           min={0}
-          max={5}
-          high={4}
           low={2}
+          high={4}
+          max={5}
           optimum={5}
           value={props.rating}
         />

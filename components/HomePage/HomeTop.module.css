@@ -18,9 +18,7 @@
 .wave {
   display: inline-block;
   margin-left: 2vw;
-  animation-name: wave-animation;
-  animation-duration: 1.8s;
-  animation-iteration-count: infinite;
+  animation: 1.8s ease-in-out 1s infinite wave-animation;
   transform-origin: 70% 70%;
 }
 @keyframes wave-animation {
@@ -67,8 +65,8 @@
 .homeDeveloperLogo {
   position: relative;
   margin: 0 auto;
-  height: 50vw;
   width: auto;
+  height: 50vw;
   max-height: 650px;
   filter: var(--hue-rotate-home);
 }
@@ -76,12 +74,12 @@
 /* Developers Introduction */
 .developerIntro {
   position: relative;
-  width: min(90%, 1450px);
   margin: 0 auto;
+  width: min(90%, 1450px);
   padding-top: 100px;
   padding-bottom: 20px;
-  color: var(--text-primary);
   text-align: center;
+  color: var(--text-primary);
   font-weight: 600;
   background-color: transparent;
   backdrop-filter: var(--text-bg-blur);
@@ -109,18 +107,17 @@
   position: relative;
 }
 .developerSkills > h2 {
-  font-size: var(--text2);
+  margin: 30vh 0 0;
   text-align: center;
   letter-spacing: 2.5px;
+  font-size: var(--text2);
   font-weight: 800;
   color: var(--text-primary);
-  margin: 30vh 0 0;
 }
 
 @media only screen and (max-width: 900px) {
   .developerIntro {
     padding-top: 20px;
-    padding-bottom: 20px;
   }
   .developerSkills > h2 {
     margin: 22vh 0 0;
