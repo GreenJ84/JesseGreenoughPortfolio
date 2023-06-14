@@ -11,19 +11,22 @@
 }
 
 .aboutOpener > h1 {
-  font-size: var(--text1);
-  text-align: center;
   margin-bottom: 60px;
+  text-align: center;
+  font-size: var(--text1);
 }
 
 .aboutOpener > p {
   font-size: var(--text4);
 }
 
-.aboutOpener li {
+.aboutOpener > ul {
   list-style: none;
-  text-align: left;
+}
+
+.aboutOpener li {
   margin-bottom: 10px;
+  text-align: left;
   color: var(--text-secondary);
 }
 

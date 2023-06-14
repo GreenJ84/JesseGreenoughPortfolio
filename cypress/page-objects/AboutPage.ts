@@ -51,7 +51,7 @@ export class AboutPage {
     item
       .should("have.css", "list-style", "outside none none")
       .and("have.css", "margin-bottom", "10px")
-      .and("have.css", "color", "rgb(0, 255, 13)");
+      .and("have.css", "color", "rgb(164, 255, 182)");
 
     item
       .children()
@@ -68,19 +68,26 @@ export class AboutPage {
   testDetailParagraphsStyle(
     para: Cypress.Chainable<JQuery<HTMLParagraphElement>>
   ) {
-    para
-      .should("have.css", "position", "relative")
-      .should("have.css", "color", "rgb(206, 255, 208)")
-      .then(($para) => {
-        expect($para).to.have.css("margin");
-        expect($para).to.have.css("text-indent");
-      });
+    para.then(($para) => {
+      expect($para).to.have.css("color", "rgb(230, 255, 243)");
+      expect($para).to.have.css("position", "relative");
+      expect($para).to.have.css("margin");
+      expect($para).to.have.css("width");
+      expect(parseFloat($para.css("width"))).to.be.lte(1200);
+      expect($para).to.have.css("font-size");
+      expect(parseFloat($para.css("font-size")))
+        .to.be.lte(34)
+        .and.to.be.gte(14);
+      expect($para).to.have.css("text-indent");
+      expect($para).to.have.css("line-height");
+      expect(parseFloat($para.css("line-height"))).to.be.gte(22);
+    });
   }
 
   testDetailParagraphText(
     div: Cypress.Chainable<JQuery<HTMLParagraphElement>>
   ) {
-    div.children("p").then(($p) => {
+    div.then(($p) => {
       for (let i = 0; i < 5; i++) {
         for (let desc of PARAGRAPH_SNIPPETS[i]) {
           expect($p.eq(i).text()).to.include(desc);

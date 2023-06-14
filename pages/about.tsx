@@ -18,7 +18,7 @@ const AboutPage = () => {
         keywords="Jesse Greenough, About, Biography, Developer, Engineer"
       />
 
-      <main style={{ position: "relative", padding: "10vw 4vw 0" }}>
+      <main id="aboutMain" style={{ position: "relative", padding: "10vw 4vw 0" }}>
         <section
           id="aboutIntro"
           className={css.aboutOpener}
@@ -38,8 +38,8 @@ const AboutPage = () => {
             <br />
             <br />
             Can you tell my favorite colors are
-            <span className="detail_plus"> Green</span> and{" "}
-            <span className="detail_plus">Blue</span>??? ( All Shades 😎 )
+            <span className="detail_plus"> Green </span>and
+            <span className="detail_plus"> Blue </span>??? ( All Shades 😎 )
             <br />
             <br />
             Apart from learning and coding, some other activities that I love to
