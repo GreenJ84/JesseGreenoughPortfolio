@@ -29,12 +29,7 @@ const FlipCard = ({
           perspective={700}
         >
           <section id="flip_card_back">
-            <Tilt
-              tiltEnable={false}
-              perspective={0}
-            >
               {backDisplay}
-            </Tilt>
           </section>
         </Tilt>
       </div>

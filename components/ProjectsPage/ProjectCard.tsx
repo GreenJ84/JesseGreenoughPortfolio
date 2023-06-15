@@ -24,7 +24,7 @@ const ProjectCard = (props: projectProps) => {
         <FlipCard
           style={{ width: "100%", height: "100%", margin: "0", padding: "0" }}
           frontDisplay={
-            <div className={css.projectDisplay}>
+            <div id="projectDisplayCard" className={css.projectDisplay}>
               <Image
                 src={props.project.image_path}
                 alt={props.project.name}
@@ -43,7 +43,7 @@ const ProjectCard = (props: projectProps) => {
           }
           backDisplay={
             <div
-              id="projectDetailModal"
+              id="projectDetailCard"
               className={css.projectDetail}
             >
               <h2>{props.project.name}</h2>

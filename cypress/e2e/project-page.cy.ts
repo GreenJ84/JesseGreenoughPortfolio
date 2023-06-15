@@ -23,87 +23,62 @@ for (let viewport of viewports) {
         viewPortSetup(viewport);
         setupPageWithTheme(PROJURL, "dark");
       });
-      beforeEach(() => {
-        cy.scrollTo(0, -100);
-      });
 
-      describe(`The Page and Projects containers render correctlyat Viewport ${viewportDisplay(
+      describe(`The Projects page container is rendering correctly at Viewport: ${viewportDisplay(
         viewport
       )}`, () => {
-        it("The page container render the correct stying", () => {
+        it("The Project page container is rendering the correct layout", () => {
           projPage
             .pageContainer()
             .should("be.visible")
-            .then(($main) => {
-              expect($main).to.have.css("padding");
-            })
-            .children("section")
-            .should("have.length", 1);
-        });
-
-        it("The project container renders the correct layout", () => {
-          projPage
-            .projectsContainer()
-            .should("be.visible")
             .children()
             .should("have.length", 4)
-            .then(($children) => {
+            .then(($children: JQuery<HTMLElement>) => {
               cy.wrap($children)
                 .eq(0)
-                .then(($nav) => {
-                  expect($nav).to.have.prop("tagName", "NAV");
-                  expect($nav).to.have.id("projectsFilter");
+                .should("be.visible")
+                .then(($filter: JQuery<HTMLElement>) => {
+                  expect($filter).to.have.prop("tagName", "NAV");
+                  expect($filter).to.have.id("projectsFilter");
                 });
+
               cy.wrap($children)
                 .eq(1)
-                .then(($hr) => {
-                  expect($hr).to.have.prop("tagName", "HR");
+                .should("be.visible")
+                .then(($hrule: JQuery<HTMLElement>) => {
+                  expect($hrule).to.have.prop("tagName", "HR");
                 });
+
               cy.wrap($children)
                 .eq(2)
-                .then(($h1) => {
-                  expect($h1).to.have.prop("tagName", "H1");
-                  expect($h1).to.have.id("projectsTitle");
+                .should("be.visible")
+                .then(($title: JQuery<HTMLElement>) => {
+                  expect($title).to.have.prop("tagName", "H1");
+                  expect($title).to.have.id("projectsTitle");
                 });
+
               cy.wrap($children)
                 .eq(3)
-                .then(($ul) => {
-                  expect($ul).to.have.prop("tagName", "UL");
-                  expect($ul).to.have.id("projectsList");
+                .should("be.visible")
+                .then(($projectList: JQuery<HTMLElement>) => {
+                  expect($projectList).to.have.prop("tagName", "UL");
+                  expect($projectList).to.have.id("projectsList");
                 });
             });
         });
 
-        it("The project container render the correct styling", () => {
-          projPage
-            .projectsContainer()
-            .then(($container) => {
-              expect($container).to.have.css("position", "relative");
-              expect($container).to.have.css("padding");
-              expect($container)
-                .to.have.css("background-color")
-                .match(/^rgb\(12, 27, 22\)$/);
-              expect($container)
-                .to.have.css("border")
-                .match(/^2px solid rgb\(0, 0, 0\)$/);
-            })
-            .children()
-            .then(($children) => {
-              cy.wrap($children)
-                .eq(1)
-                .then(($hr) => {
-                  expect($hr)
-                    .to.have.css("border")
-                    .match(/^0\.5px solid rgb\(0, 255, 13\)/);
-                });
-            });
+        it("The Project page container is rendering the correct styling", () => {
+          projPage.pageContainer().then(($main) => {
+            expect($main).to.have.css("position", "relative");
+            expect($main).to.have.css("padding");
+          });
         });
       });
 
-      describe(`The Projects filter render correctly at Viewport ${viewportDisplay(
+      describe(`The Projects filter is rendering correctly at Viewport ${viewportDisplay(
         viewport
       )}`, () => {
-        it("The Filters have the correct layout", () => {
+        it("The Filter contatiner is rendering the correct layout", () => {
           projPage
             .projectsFilter()
             .should("be.visible")
@@ -136,20 +111,24 @@ for (let viewport of viewports) {
             });
         });
 
-        it("The Filters have the correct styling", () => {
+        it("The Filter container is rendering the correct styling", () => {
+          projPage.projectsFilter().then(($nav) => {
+            expect($nav).to.have.css("position", "relative");
+            expect($nav).to.have.css("left");
+            expect($nav).to.have.css("transform");
+            expect($nav).to.have.css("display", "flex");
+            expect($nav).to.have.css("align-items", "center");
+            expect($nav).to.have.css("justify-content", "space-around");
+            expect($nav).to.have.css("margin-bottom");
+            expect($nav).to.have.css("width");
+            expect($nav).to.have.css("height", "100px");
+            expect($nav).to.have.css("text-align", "center");
+          });
+        });
+
+        it("Each of the filters are rendering the correct stlying", () => {
           projPage
             .projectsFilter()
-            .then(($nav) => {
-              expect($nav).to.have.css("position", "absolute");
-              expect($nav).to.have.css("top", "20px");
-              expect($nav).to.have.css("left");
-              expect($nav).to.have.css("display", "flex");
-              expect($nav).to.have.css("align-items", "center");
-              expect($nav).to.have.css("justify-content", "space-around");
-              expect($nav).to.have.css("width");
-              expect($nav).to.have.css("height", "100px");
-              expect($nav).to.have.css("transform");
-            })
             .children()
             .each(($child) => {
               expect($child).to.have.css("display", "flex");
@@ -160,12 +139,14 @@ for (let viewport of viewports) {
                 .children("h2")
                 .first()
                 .then(($h2) => {
+                  expect($h2).to.have.css("margin-bottom", "12px");
                   expect($h2).to.have.css("text-align", "center");
-                  expect($h2).to.have.css("margin-bottom", "8px");
+                  expect($h2).to.have.css("color", "rgb(230, 255, 243)");
                   expect($h2).to.have.css("font-size");
-                  expect($h2)
-                    .to.have.css("color")
-                    .match(/rgb\(206, 255, 208\)/);
+                  expect(parseFloat($h2.css("font-size")))
+                    .to.be.lte(48)
+                    .and.to.be.gte(20);
+                  expect($h2).to.have.css("letter-spacing", "2px");
                 });
 
               cy.wrap($child)
@@ -173,21 +154,24 @@ for (let viewport of viewports) {
                 .first()
                 .then(($select) => {
                   expect($select).to.have.css("width");
+                  expect(parseFloat($select.css("width"))).to.be.lte(460);
                   expect($select).to.have.css("height", "50px");
                   expect($select).to.have.css("padding-left", "10px");
-                  expect($select).to.have.css("border-radius", "12px");
+                  expect($select).to.have.css("color", "rgb(164, 255, 182)");
                   expect($select).to.have.css("font-size", "20px");
                   expect($select)
-                    .to.have.css("color")
-                    .match(/rgba\(14, 215, 165, 0\.925\)/);
-                  expect($select)
                     .to.have.css("background-color")
-                    .match(/rgb\(24, 60, 24\)/);
+                    .match(/rgba\(0, 142, 8, 0\.46\d+\)/);
+                  expect($select).to.have.css(
+                    "border",
+                    "1px solid rgb(164, 255, 182)"
+                  );
+                  expect($select).to.have.css("border-radius", "12px");
                 });
             });
         });
 
-        it("The Filters hover effects function for accessability", () => {
+        it("The Filters hover effects function as expected", () => {
           projPage
             .projectsFilter()
             .children()
@@ -199,23 +183,29 @@ for (let viewport of viewports) {
                   expect($select).to.have.css("font-size", "20px");
                   expect($select)
                     .to.have.css("background-color")
-                    .match(/rgb\(24, 60, 24\)/);
-                })
-                .realHover({ scrollBehavior: "center" })
-                .then(($select) => {
-                  expect($select).to.have.css("font-size", "24px");
-                  expect($select)
-                    .to.have.css("background-color")
-                    .match(/rgb\(60, 60, 60\)/);
+                    .match(/rgba\(0, 142, 8, 0\.46\d+\)/);
                   expect($select).to.have.css(
                     "border",
-                    "2px solid rgb(0, 255, 13)"
+                    "1px solid rgb(164, 255, 182)"
+                  );
+                })
+                .realHover({ position: "center", scrollBehavior: "center" })
+                .wait(2000)
+                .then(($select) => {
+                  expect($select).to.have.css("font-size", "24px");
+                  expect($select).to.have.css(
+                    "background-color",
+                    "rgb(85, 84, 84)"
+                  );
+                  expect($select).to.have.css(
+                    "border",
+                    "2px solid rgb(164, 255, 182)"
                   );
                 });
             });
         });
 
-        it("The Filters functionally change during activation", () => {
+        it("The Filters functionally change values on activation", () => {
           // Both Start on Top projects
           projPage
             .filterSelect(0)
@@ -233,6 +223,7 @@ for (let viewport of viewports) {
             techExpect: number
           ) {
             projPage.filterProjects(filterSet[0], filterSet[1]);
+
             projPage
               .filterSelect(0)
               .should("have.prop", "selectedIndex", issuerExpect);
@@ -323,32 +314,60 @@ for (let viewport of viewports) {
         });
       });
 
-      describe(`The projects list renders correctly at Viewport ${viewportDisplay(
+      describe(`The projects title and list are rendering correctly at Viewport ${viewportDisplay(
         viewport
       )}`, () => {
-        it("The project list title has the correct styling", () => {
+        it("The Projects list title is rendering the correct styling", () => {
           projPage
             .projectsTitle()
             .should("be.visible")
             .then(($h1) => {
               expect($h1).to.have.css("margin-bottom");
               expect($h1).to.have.css("text-align", "center");
-              expect($h1)
-                .to.have.css("color")
-                .match(/^rgb\(206, 255, 208\)$/);
+              expect($h1).to.have.css("color", "rgb(230, 255, 243)");
               expect($h1).to.have.css("font-size");
+              expect(parseFloat($h1.css("font-size")))
+                .to.be.lte(48)
+                .and.to.be.gte(20);
             });
         });
 
-        it("The projects list renders the correct styling", () => {
+        it("The projects list conatiner is rendering the correct styling", () => {
           projPage
             .projectsList()
             .should("be.visible")
             .then(($ul) => {
+              expect($ul).to.have.css("position", "relative");
               expect($ul).to.have.css("display", "flex");
               expect($ul).to.have.css("flex-wrap", "wrap");
-              expect($ul).to.have.css("justify-content", "space-around");
+              expect($ul).to.have.css("justify-content", "center");
+              expect($ul).to.have.css("padding", "0px");
             });
+        });
+      });
+
+      describe(`The project items are rendering correctly at Viewport ${viewportDisplay(
+        viewport
+      )}`, () => {
+        before(() => {
+          projPage.filterProjects(0, 1);
+        });
+
+        it("The projects list item containers are rendering the correct styling", () => {
+          let oddEven = getOddEven();
+          projPage.getProjectsLength().then((projects) => {
+            for (let i = 0; i < projects; i++) {
+              if (i % 2 == oddEven) {
+                projPage.projectItem(i).then(($li) => {
+                  expect($li).to.have.css("list-style", "outside none none");
+                  expect($li).to.have.css("position", "relative");
+                  expect($li).to.have.css("width");
+                  expect($li).to.have.css("height");
+                  expect($li).to.have.css("margin");
+                });
+              }
+            }
+          });
         });
 
         it("Projects items are rendering the correct layout", () => {
@@ -363,15 +382,50 @@ for (let viewport of viewports) {
                     expect($li).to.have.prop("tagName", "LI");
                   })
                   .children()
+                  .should("have.length", 1)
+                  .first()
+                  .then(($flipCard) => {
+                    expect($flipCard).to.have.prop("tagName", "ARTICLE");
+
+                    cy.wrap($flipCard)
+                      .find("#projectDisplayCard")
+                      .should("have.length", 1)
+                      .first()
+                      .should("be.visible");
+
+                    cy.wrap($flipCard)
+                      .find("#projectDetailCard")
+                      .should("have.length", 1)
+                      .first()
+                      .should("not.be.visible");
+                  });
+              }
+            }
+          });
+        });
+
+        it("Project items display cards are rendering the correct layout", () => {
+          let oddEven = getOddEven();
+          projPage.getProjectsLength().then((projects) => {
+            for (let i = 0; i < projects; i++) {
+              if (i % 2 == oddEven) {
+                projPage
+                  .projectItem(i)
+                  .children()
+                  .first()
+                  .find("#projectDisplayCard")
+                  .should("have.length", 1)
+                  .first()
+                  .children()
                   .should("have.length", 2)
-                  .then(($children) => {
-                    cy.wrap($children)
+                  .then(($displayChildren) => {
+                    cy.wrap($displayChildren)
                       .eq(0)
                       .then(($img) => {
                         expect($img).to.have.prop("tagName", "IMG");
                       });
 
-                    cy.wrap($children)
+                    cy.wrap($displayChildren)
                       .eq(1)
                       .then(($p) => {
                         expect($p).to.have.prop("tagName", "P");
@@ -382,52 +436,81 @@ for (let viewport of viewports) {
           });
         });
 
-        it("Projects items are rendering the correct styling", () => {
+        it("Project items display card containers are rendering the correct styling", () => {
           let oddEven = getOddEven();
           projPage.getProjectsLength().then((projects) => {
             for (let i = 0; i < projects; i++) {
               if (i % 2 == oddEven) {
                 projPage
                   .projectItem(i)
-                  .should("be.visible")
-                  .then(($li) => {
-                    expect($li).to.have.css("position", "relative");
-                    expect($li).to.have.css("display", "flex");
-                    expect($li).to.have.css("flex-direction", "column");
-                    expect($li).to.have.css("justify-content", "space-around");
-                    expect($li).to.have.css("width");
-                    expect($li).to.have.css("height");
-                    expect($li).to.have.css("margin");
-                    expect($li)
-                      .to.have.css("background-color")
-                      .match(/^rgb\(60, 60, 60\)$/);
-                    expect($li).to.have.css("border-radius", "20px");
-                    expect($li)
-                      .to.have.css("box-shadow")
-                      .match(/^(rgb\(6, 255, 19\)(\s-?\dpx){4}(,\s)?){2}/);
-                  })
                   .children()
-                  .should("have.length", 2)
-                  .then(($children) => {
-                    cy.wrap($children)
+                  .first()
+                  .find("#projectDisplayCard")
+                  .first()
+                  .then(($display) => {
+                    expect($display).to.have.css("display", "flex");
+                    expect($display).to.have.css("flex-direction", "column");
+                    expect($display).to.have.css(
+                      "justify-content",
+                      "space-evenly"
+                    );
+                    expect($display).to.have.css("align-items", "center");
+                    expect($display).to.have.css("width");
+                    expect($display).to.have.css("height");
+                    expect($display).to.have.css("padding");
+                    expect($display).to.have.css(
+                      "background-color",
+                      "rgb(18, 15, 15)"
+                    );
+                    expect($display).to.have.css(
+                      "border",
+                      "1.5px solid rgb(164, 255, 182)"
+                    );
+                    expect($display).to.have.css("border-radius", "20px");
+                    expect($display).to.have.css("box-shadow");
+                  });
+              }
+            }
+          });
+        });
+
+        it("Project items display card children are rendering the correct styling", () => {
+          let oddEven = getOddEven();
+          projPage.getProjectsLength().then((projects) => {
+            for (let i = 0; i < projects; i++) {
+              if (i % 2 == oddEven) {
+                projPage
+                  .projectItem(i)
+                  .children()
+                  .first()
+                  .find("#projectDisplayCard")
+                  .first()
+                  .children()
+                  .then(($displayChildren) => {
+                    cy.wrap($displayChildren)
                       .eq(0)
                       .then(($img) => {
-                        expect($img).to.have.css("display", "flex");
-                        expect($img).to.have.css("width");
-                        expect($img).to.have.css("height");
                         expect($img).to.have.css("margin");
+                        expect($img).to.have.css("width");
+                        expect(parseFloat($img.css("width"))).to.be.lte(440);
+                        expect($img).to.have.css("height");
+                        expect(parseFloat($img.css("height")))
+                          .to.be.lte(340)
+                          .and.to.be.gte(120);
                       });
 
-                    cy.wrap($children)
+                    cy.wrap($displayChildren)
                       .eq(1)
                       .then(($p) => {
                         expect($p).to.have.css("margin");
                         expect($p).to.have.css("text-align", "center");
-                        expect($p)
-                          .to.have.css("color")
-                          .match(/^rgb\(0, 255, 13\)$/);
+                        expect($p).to.have.css("color", "rgb(230, 255, 243)");
                         expect($p).to.have.css("font-size");
+                        expect(parseFloat($p.css("font-size")))
+                          .to.be.lte(42)
+                          .and.to.be.gte(16);
                         expect($p).to.have.css("font-weight", "800");
+                        expect($p).to.have.css("letter-spacing", "2px");
                       });
                   });
               }
@@ -435,33 +518,182 @@ for (let viewport of viewports) {
           });
         });
 
-        it("Projects Items hover styling renders correctly", () => {
+        it("Projects Items hover flips the project cards rendering side", () => {
+          let oddEven = getOddEven();
+          projPage.getProjectsLength().then((projects) => {
+            for (let i = 0; i < projects; i++) {
+              if (i % 2 == oddEven) {
+              }
+            }
+          });
+        });
+
+        it("Project items detail cards are rendering the correct layout", () => {
           let oddEven = getOddEven();
           projPage.getProjectsLength().then((projects) => {
             for (let i = 0; i < projects; i++) {
               if (i % 2 == oddEven) {
                 projPage
                   .projectItem(i)
-                  .should("be.visible")
+                  .children()
+                  .first()
+                  .realHover({ position: "center", scrollBehavior: "center" })
+                  .wait(4000)
                   .then(($li) => {
-                    expect($li)
-                      .to.have.css("background-color")
-                      .match(/^rgb\(60, 60, 60\)$/);
-                    expect($li)
-                      .to.have.css("box-shadow")
-                      .match(/^(rgb\(6, 255, 19\)(\s-?\dpx){4}(,\s)?){2}/);
-                  })
-                  .realHover()
+                    cy.wrap($li)
+                      .find("#projectDetailCard")
+                      .should("have.length", 1)
+                      .first()
+                      .should("be.visible")
+                      .children()
+                      .should("have.length", 3)
+                      .then(($detailChildren) => {
+                        cy.wrap($detailChildren)
+                          .eq(0)
+                          .should("be.visible")
+                          .then(($title) => {
+                            expect($title).to.have.prop("tagName", "H2");
+                          });
+
+                        cy.wrap($detailChildren)
+                          .eq(1)
+                          .should("be.visible")
+                          .then(($desc) => {
+                            expect($desc).to.have.prop("tagName", "P");
+                          });
+
+                        cy.wrap($detailChildren)
+                          .eq(2)
+                          .should("be.visible")
+                          .then(($button) => {
+                            expect($button).to.have.prop("tagName", "BUTTON");
+                          });
+                      });
+                  });
+              }
+            }
+          });
+        });
+
+        it("Project items detail card containers are rendering the correct styling", () => {
+          let oddEven = getOddEven();
+          projPage.getProjectsLength().then((projects) => {
+            for (let i = 0; i < projects; i++) {
+              if (i % 2 == oddEven) {
+                projPage
+                  .projectItem(i)
+                  .children()
+                  .first()
+                  .realHover({ position: "center", scrollBehavior: "center" })
+                  .wait(1500)
                   .then(($li) => {
-                    expect($li)
-                      .to.have.css("background-color")
-                      .match(/^rgb\(25, 25, 25\)$/);
-                    expect($li)
-                      .to.have.css("box-shadow")
-                      .match(
-                        /^(\s?rgba\(14, 215, 165, 0\.925\)(\s-?\d+px){4}(, )?){2}$/
-                      );
-                    expect($li).to.have.css("transform");
+                    cy.wrap($li)
+                      .find("#projectDetailCard")
+                      .first()
+                      .then(($detail) => {
+                        expect($detail).to.have.css("display", "flex");
+                        expect($detail).to.have.css("flex-direction", "column");
+                        expect($detail).to.have.css(
+                          "justify-content",
+                          "space-evenly"
+                        );
+                        expect($detail).to.have.css("align-items", "center");
+                        expect($detail).to.have.css("width");
+                        expect($detail).to.have.css("height");
+                        expect($detail).to.have.css("padding");
+                        expect($detail).to.have.css(
+                          "color",
+                          "rgb(230, 255, 243)"
+                        );
+                        expect($detail).to.have.css(
+                          "background-color",
+                          "rgb(18, 15, 15)"
+                        );
+                        expect($detail).to.have.css(
+                          "border",
+                          "1.5px solid rgb(164, 255, 182)"
+                        );
+                        expect($detail).to.have.css("border-radius", "20px");
+                        expect($detail).to.have.css("box-shadow");
+                      });
+                  });
+              }
+            }
+          });
+        });
+
+        it("Project items detail cards children are rendering the correct styling", () => {
+          let oddEven = getOddEven();
+          projPage.getProjectsLength().then((projects) => {
+            for (let i = 0; i < projects; i++) {
+              if (i % 2 == oddEven) {
+                projPage
+                  .projectItem(i)
+                  .children()
+                  .first()
+                  .realHover({ position: "center", scrollBehavior: "center" })
+                  .wait(1500)
+                  .then(($li) => {
+                    cy.wrap($li)
+                      .find("#projectDetailCard")
+                      .first()
+                      .children()
+                      .then(($detailChildren) => {
+                        cy.wrap($detailChildren)
+                          .eq(0)
+                          .then(($h2) => {
+                            expect($h2).to.have.css("flex", "1 1 0%");
+                            expect($h2).to.have.css(
+                              "color",
+                              "rgb(164, 255, 182)"
+                            );
+                            expect($h2).to.have.css("font-size");
+                            expect(parseFloat($h2.css("font-size")))
+                              .to.be.lte(48)
+                              .and.to.be.gte(20);
+                          });
+
+                        cy.wrap($detailChildren)
+                          .eq(1)
+                          .then(($p) => {
+                            expect($p).to.have.css("flex", "4 1 0%");
+                            expect($p).to.have.css(
+                              "color",
+                              "rgb(230, 255, 243)"
+                            );
+                            expect($p).to.have.css("width");
+                            expect($p).to.have.css("font-size");
+                            expect(parseFloat($p.css("font-size")))
+                              .to.be.lte(30)
+                              .and.to.be.gte(12);
+                            expect($p).to.have.css("overflow", "scroll");
+                            expect($p).to.have.css("transform");
+                          });
+
+                        cy.wrap($detailChildren)
+                          .eq(2)
+                          .then(($button) => {
+                            expect($button).to.have.css("aspect-ratio");
+                            expect($button).to.have.css("width");
+                            expect($button).to.have.css("font-size");
+                            expect(parseFloat($button.css("font-size")))
+                              .to.be.lte(30)
+                              .and.to.be.gte(12);
+                            expect($button).to.have.css(
+                              "color",
+                              "rgb(164, 255, 182)"
+                            );
+                            expect($button).to.have.css(
+                              "background-color",
+                              "rgb(85, 84, 84)"
+                            );
+                            expect($button).to.have.css(
+                              "border",
+                              "1px solid rgb(164, 255, 182)"
+                            );
+                            expect($button).to.have.css("box-shadow");
+                          });
+                      });
                   });
               }
             }
@@ -469,550 +701,491 @@ for (let viewport of viewports) {
         });
       });
 
-      describe(`The projects detail cards render correctly at Viewport ${viewportDisplay(
+      //! ==================================
+
+      describe(`The projects detail modals are render correctly at Viewport ${viewportDisplay(
         viewport
       )}`, () => {
-        afterEach(() => {
-          // Check if modal is closed
-          projPage
-            .projectsList()
-            .children(":not(li)")
-            .should("have.length.gte", 0)
-            .then(($modal) => {
-              if ($modal.length > 0) {
-                projPage.closeDetailModal();
-              }
-              projPage.projectDetailModal().should("not.exist");
-            });
+        let oddEven: number = 0;
+        before(() => {
+          projPage.filterProjects(0, 1);
+          oddEven = getOddEven();
         });
-
-        it("The projects detail cards activate and close correctly", () => {
-          let oddEven = getOddEven();
-          projPage.getProjectsLength().then((length) => {
-            for (let i = 0; i < length; i++) {
-              if (i % 2 == oddEven) {
-                // Ensure modal is closed before opening
-                projPage.projectDetailModal().should("not.exist");
-                projPage.projectItem(i).should("be.visible").click();
-
-                // Detail Modal covers items
-                projPage.projectDetailModal().should("be.visible");
-                projPage.modalUnderlay().should("be.exist");
-
-                // Detail Modal closes with the closing button
-                projPage.closeDetailModal();
-                projPage.projectDetailModal().should("not.exist");
-              }
-              if (i == length - 1) {
-                return;
-              }
-            }
+        for (let i = oddEven; i < 10; i += 2) {
+          it(`${
+            Math.floor(i / 2) + 1
+          }/5: The project detail modal, ${i} activates correctly`, () => {
+            // Ensure modal is closed before opening
+            projPage.projectDetailModal().should("not.exist");
+            projPage.openDetailModal(projPage.projectItem(i));
+            // Detail Modal covers items
+            projPage.projectDetailModal().should("be.visible");
+            projPage.modalUnderlay().should("be.exist");
+            cy.wait(1000);
           });
-        });
 
-        it("The projects detail cards close button has the correct stylings", () => {
-          let oddEven = getOddEven();
-          projPage.getProjectsLength().then((length) => {
-            for (let i = 0; i < length; i++) {
-              if (i % 2 == oddEven) {
-                // Open Modal
-                projPage.projectDetailModal().should("not.exist");
-                projPage.projectItem(i).should("be.visible").click();
-
-                // Check Modal's Button stylings
-                projPage
-                  .projectDetailModal()
-                  .should("be.visible")
-                  .children()
-                  .then(($children) => {
-                    cy.wrap($children).eq(1).realHover();
-                    cy.wrap($children)
-                      .eq(2)
-                      .then(($button) => {
-                        expect($button).to.have.css("position", "absolute");
-                        expect($button).to.have.css("top");
-                        expect($button).to.have.css("right");
-                        expect($button).to.have.css("display", "flex");
-                        expect($button).to.have.css(
-                          "justify-content",
-                          "center"
-                        );
-                        expect($button).to.have.css("align-items", "center");
-                        expect($button).to.have.css("padding", "0px");
-                        expect($button).to.have.css("width");
-                        expect($button).to.have.css("height");
-                        expect($button).to.have.css("font-size");
-
-                        expect($button)
-                          .to.have.css("color")
-                          .match(/^rgb\(206, 255, 208\)$/);
-                        expect($button)
-                          .to.have.css("background-color")
-                          .match(/^rgb\(17, 114, 0\)$/);
-                        expect($button).to.have.css("border-radius");
-                      });
-                  });
-
-                // Close Modal
-                projPage.closeDetailModal();
-                projPage.projectDetailModal().should("not.exist");
-              }
-            }
-          });
-        });
-
-        it("The projects detail cards have the correct layout", () => {
-          let oddEven = getOddEven();
-          projPage.getProjectsLength().then((length) => {
-            for (let i = 0; i < length; i++) {
-              if (i % 2 == oddEven) {
-                // Open Modal
-                projPage.projectItem(i).should("be.visible").click();
-
-                // Check Modal's layout
-                projPage
-                  .projectDetailModal()
-                  .should("be.visible")
-                  .children()
-                  .should("have.length", 3)
-                  .then(($children) => {
-                    // Left Section
-                    cy.wrap($children)
-                      .eq(0)
-                      .then(($div) => {
-                        expect($div).to.have.prop("tagName", "DIV");
-                        expect($div).to.have.attr("id", "detailLeft");
-                        // Inside Of Left
-                        cy.wrap($div)
-                          .children()
-                          .should("have.length", 2)
-                          .then(($children) => {
-                            // Project Image
-                            cy.wrap($children)
-                              .eq(0)
-                              .then(($img) => {
-                                expect($img).to.have.prop("tagName", "IMG");
-                              });
-
-                            // Project Links
-                            cy.wrap($children)
-                              .eq(1)
-                              .should("have.prop", "tagName", "DIV")
-                              .children()
-                              .each(($a) => {
-                                expect($a).to.have.prop("tagName", "A");
-                                cy.wrap($a)
-                                  .children()
-                                  .should("have.length.gte", 1);
-                              });
-                          });
-                      });
-
-                    // Right Section
-                    cy.wrap($children)
-                      .eq(1)
-                      .then(($div) => {
-                        expect($div).to.have.prop("tagName", "DIV");
-                        expect($div).to.have.attr("id", "detailRight");
-                        // Inside Of Right
-                        cy.wrap($div)
-                          .children()
-                          .should("have.length", 4)
-                          .then(($children) => {
-                            // Project Title
-                            cy.wrap($children)
-                              .eq(0)
-                              .should("have.prop", "tagName", "H2");
-
-                            // Project Desription
-                            cy.wrap($children)
-                              .eq(1)
-                              .should("have.prop", "tagName", "P");
-
-                            // Project Techs
-                            cy.wrap($children)
-                              .eq(2)
-                              .should("have.prop", "tagName", "H3");
-
-                            // Project Link
-                            cy.wrap($children)
-                              .eq(3)
-                              .should("have.prop", "tagName", "UL")
-                              .children()
-                              .should("have.length.greaterThan", 0);
-                          });
-                      });
-
-                    // Close Modal
-                    cy.wrap($children)
-                      .eq(2)
-                      .then(($button) => {
-                        expect($button).to.have.prop("tagName", "BUTTON");
-                        expect($button).to.have.attr("id", "modalClose");
-                      });
-                  });
-
-                // Close Modal
-                projPage.closeDetailModal();
-                projPage.projectDetailModal().should("not.exist");
-              }
-            }
-          });
-        });
-
-        it("The projects detail cards main container has the correct stylings", () => {
-          let oddEven = getOddEven();
-          projPage.getProjectsLength().then((length) => {
-            for (let i = 0; i < length; i++) {
-              if (i % 2 == oddEven) {
-                // Open Modal
-                projPage.projectDetailModal().should("not.exist");
-                projPage.projectItem(i).should("be.visible").click();
-
-                // Check Modal's main stylings
-                projPage
-                  .projectDetailModal()
-                  .should("be.visible")
-                  .then(($div) => {
-                    expect($div).to.have.css("position", "fixed");
-                    expect($div).to.have.css("bottom", "80px");
-                    expect($div).to.have.css("left");
-                    expect($div).to.have.css("transform");
-                    expect($div).to.have.css("z-index");
-                    expect($div).to.have.css("display", "flex");
-                    expect($div).to.have.css("padding");
-                    expect($div).to.have.css("width");
-                    expect($div).to.have.css("height");
-                    expect($div)
-                      .to.have.css("color")
-                      .match(/^rgb\(0, 255, 13\)$/);
-                    expect($div)
-                      .to.have.css("background-color")
-                      .match(/^rgb\(25, 25, 25\)$/);
-                    expect($div).to.have.css("border-radius");
-                    expect($div)
-                      .to.have.css("box-shadow")
-                      .match(
-                        /^(rgba\(14, 215, 165, 0\.925\)(\s(-)?\d+px){4} inset(,\s)?){2}/
-                      );
-                  });
-
-                // Close Modal
-                projPage.closeDetailModal();
-                projPage.projectDetailModal().should("not.exist");
-              }
-            }
-          });
-        });
-
-        it("The projects detail cards left side has the correct stylings", () => {
-          let oddEven = getOddEven();
-          projPage.getProjectsLength().then((length) => {
-            for (let i = 0; i < length; i++) {
-              if (i % 2 == oddEven) {
-                // Open Modal
-                projPage.projectDetailModal().should("not.exist");
-                projPage.projectItem(i).should("be.visible").click();
-
-                // Check Modal's left side stylings
-                projPage
-                  .projectDetailModal()
-                  .should("be.visible")
-                  .children()
+          it(`${
+            Math.floor(i / 2) + 1
+          }/5: The project detail modal, ${i} is rendering the correct layout`, () => {
+            // Check Modal's layout
+            projPage
+              .projectDetailModal()
+              .children()
+              .should("have.length", 3)
+              .then(($children) => {
+                // Left Section
+                cy.wrap($children)
                   .eq(0)
                   .then(($div) => {
-                    // Left container stylings
-                    expect($div).to.have.css("display", "flex");
-                    expect($div).to.have.css("flex-direction", "column");
-                    expect($div).to.have.css(
-                      "justify-content",
-                      "space-between"
-                    );
-                    expect($div).to.have.css("width");
-
+                    expect($div).to.have.prop("tagName", "DIV");
+                    expect($div).to.have.attr("id", "detailLeft");
+                    // Inside Of Left
                     cy.wrap($div)
                       .children()
+                      .should("have.length", 2)
                       .then(($children) => {
-                        // Image stylings
+                        // Project Image
                         cy.wrap($children)
                           .eq(0)
                           .then(($img) => {
-                            expect($img).to.have.css("margin-top");
-                            expect($img).to.have.css("width");
-                            expect($img).to.have.css("height");
+                            expect($img).to.have.prop("tagName", "IMG");
                           });
 
-                        // Project link container stylings
+                        // Project Links
                         cy.wrap($children)
                           .eq(1)
-                          .then(($div) => {
-                            expect($div).to.have.css("display", "flex");
-                            expect($div).to.have.css(
-                              "justify-content",
-                              "flex-start"
-                            );
-                            expect($div).to.have.css("align-items", "center");
-                            expect($div).to.have.css("margin-bottom", "20px");
-
-                            // Project link stylings
-                            cy.wrap($div)
-                              .children()
-                              .each(($children) => {
-                                expect($children).to.have.css("padding");
-                                expect($children).to.have.css("margin");
-                                expect($children).to.have.css(
-                                  "text-align",
-                                  "center"
-                                );
-                                expect($children).to.have.css("max-width");
-                                expect($children).to.have.css("font-size");
-                                expect($children)
-                                  .to.have.css("color")
-                                  .match(/^rgb\(206, 255, 208\)$/);
-                                expect($children)
-                                  .to.have.css("background-color")
-                                  .match(/^rgb\(17, 114, 0\)$/);
-                                expect($children).to.have.css(
-                                  "border-radius",
-                                  "30px"
-                                );
-                              });
+                          .should("have.prop", "tagName", "DIV")
+                          .children()
+                          .each(($a) => {
+                            expect($a).to.have.prop("tagName", "A");
+                            cy.wrap($a).children().should("have.length.gte", 1);
                           });
                       });
                   });
 
+                // Right Section
+                cy.wrap($children)
+                  .eq(1)
+                  .then(($div) => {
+                    expect($div).to.have.prop("tagName", "DIV");
+                    expect($div).to.have.attr("id", "detailRight");
+                    // Inside Of Right
+                    cy.wrap($div)
+                      .children()
+                      .should("have.length", 4)
+                      .then(($children) => {
+                        // Project Title
+                        cy.wrap($children)
+                          .eq(0)
+                          .should("have.prop", "tagName", "H2");
+
+                        // Project Desription
+                        cy.wrap($children)
+                          .eq(1)
+                          .should("have.prop", "tagName", "P");
+
+                        // Project Techs
+                        cy.wrap($children)
+                          .eq(2)
+                          .should("have.prop", "tagName", "H3");
+
+                        // Project Link
+                        cy.wrap($children)
+                          .eq(3)
+                          .should("have.prop", "tagName", "UL")
+                          .children()
+                          .should("have.length.greaterThan", 0);
+                      });
+                  });
+
                 // Close Modal
-                projPage.closeDetailModal();
-                projPage.projectDetailModal().should("not.exist");
-              }
-            }
+                cy.wrap($children)
+                  .eq(2)
+                  .then(($button) => {
+                    expect($button).to.have.prop("tagName", "BUTTON");
+                    expect($button).to.have.attr("id", "modalClose");
+                  });
+              });
+            cy.wait(1000);
           });
-        });
 
-        it("The projects detail cards right side has the correct stylings", () => {
-          let oddEven = getOddEven();
-          projPage.getProjectsLength().then((length) => {
-            for (let i = 0; i < length; i++) {
-              if (i % 2 == oddEven) {
-                // Open Modal
-                projPage.projectDetailModal().should("not.exist");
-                projPage.projectItem(i).should("be.visible").click();
+          it(`${
+            Math.floor(i / 2) + 1
+          }/5: The project detail modal, ${i} close button has the correct stylings`, () => {
+            // Check Modal's Button stylings
+            projPage
+              .projectDetailModal()
+              .children()
+              .then(($children) => {
+                cy.wrap($children)
+                  .eq(2)
+                  .then(($button) => {
+                    expect($button).to.have.css("position", "absolute");
+                    expect($button).to.have.css("top");
+                    expect($button).to.have.css("right");
+                    expect($button).to.have.css("display", "flex");
+                    expect($button).to.have.css("justify-content", "center");
+                    expect($button).to.have.css("align-items", "center");
+                    expect($button).to.have.css("padding", "0px");
+                    expect($button).to.have.css("width");
+                    expect(parseFloat($button.css("width")))
+                      .to.be.lte(60)
+                      .and.to.be.gte(25);
+                    expect($button).to.have.css("height");
+                    expect(parseFloat($button.css("width")))
+                      .to.be.lte(60)
+                      .and.to.be.gte(25);
+                    expect($button).to.have.css("font-size");
+                    expect(parseFloat($button.css("font-size")))
+                      .to.be.lte(36)
+                      .and.to.be.gte(20);
+                    expect($button).to.have.css("color", "rgb(230, 255, 243)");
+                    expect($button).to.have.css(
+                      "background-color",
+                      "rgb(12, 43, 33)"
+                    );
+                    expect($button).to.have.css(
+                      "border",
+                      "1.5px solid rgb(230, 255, 243)"
+                    );
+                    expect($button).to.have.css("border-radius");
+                  });
+              });
+            cy.wait(1000);
+          });
 
-                // Check Modal's right side stylings
-                projPage
-                  .projectDetailModal()
-                  .should("be.visible")
+          it(`${
+            Math.floor(i / 2) + 1
+          }/5: The project detail modal, ${i} main container is rendering the correct stylings`, () => {
+            // Check Modal's main stylings
+            projPage
+              .projectDetailModal()
+              .should("be.visible")
+              .then(($div) => {
+                expect($div).to.have.css("position", "fixed");
+                expect($div).to.have.css("left");
+                expect($div).to.have.css("bottom");
+                expect(parseFloat($div.css("bottom"))).to.be.lte(60);
+                expect($div).to.have.css("transform");
+                expect($div).to.have.css("z-index");
+                expect($div).to.have.css("display", "flex");
+                expect($div).to.have.css("padding");
+                expect($div).to.have.css("width");
+                expect(parseFloat($div.css("width"))).to.be.lte(1300);
+                expect($div).to.have.css("height");
+                expect(parseFloat($div.css("height"))).to.be.gte(460);
+                expect($div).to.have.css("color", "rgb(164, 255, 182)");
+                expect($div).to.have.css("background-color", "rgb(18, 15, 15)");
+                expect($div).to.have.css("border-radius", "30px");
+                expect($div).to.have.css("box-shadow");
+              });
+            cy.wait(1000);
+          });
+
+          it(`${
+            Math.floor(i / 2) + 1
+          }/5: The project detail modal, ${i} left side has the correct stylings`, () => {
+            // Check Modal's left side stylings
+            projPage
+              .projectDetailModal()
+              .children()
+              .eq(0)
+              .then(($div) => {
+                // Left container stylings
+                expect($div).to.have.css("display", "flex");
+                expect($div).to.have.css("flex-direction", "column");
+                expect($div).to.have.css("justify-content", "space-between");
+                expect($div).to.have.css("width");
+
+                cy.wrap($div)
                   .children()
                   .then(($children) => {
+                    // Image stylings
+                    cy.wrap($children)
+                      .eq(0)
+                      .then(($img) => {
+                        expect($img).to.have.css("margin-top");
+                        expect($img).to.have.css("width");
+                        expect(parseFloat($img.css("width"))).to.be.lte(630);
+                        expect($img).to.have.css("height");
+                        expect(parseFloat($img.css("height")))
+                          .to.be.lte(510)
+                          .and.to.be.gte(200);
+                        expect($img).to.have.css("border-radius", "20px");
+                      });
+
+                    // Project link container stylings
                     cy.wrap($children)
                       .eq(1)
                       .then(($div) => {
-                        // Right container stylings
+                        expect($div).to.have.css("display", "flex");
+                        expect($div).to.have.css(
+                          "justify-content",
+                          "flex-start"
+                        );
+                        expect($div).to.have.css("align-items", "center");
+                        expect($div).to.have.css("margin-bottom", "20px");
                         expect($div).to.have.css("width");
 
-                        // Project Title stylings
+                        // Project link stylings
                         cy.wrap($div)
                           .children()
-                          .eq(0)
-                          .then(($h2) => {
-                            expect($h2).to.have.css("position", "relative");
-                            expect($h2).to.have.css("margin");
-                            expect($h2).to.have.css("width");
-                            expect($h2).to.have.css("text-align", "left");
-                            expect($h2).to.have.css("font-size");
-                            expect($h2)
-                              .to.have.css("color")
-                              .match(/^rgb\(0, 255, 13\)$/);
-                          });
-
-                        // Project Description stylings
-                        cy.wrap($div)
-                          .children()
-                          .eq(1)
-                          .then(($p) => {
-                            expect($p).to.have.css("transform");
-                            expect($p).to.have.css("margin-top", "20px");
-                            expect($p).to.have.css("height");
-                            expect($p).to.have.css("overflow", "scroll");
-                            expect($p).to.have.css("font-size");
-                            expect($p).to.have.css("line-height");
-                            expect($p).to.have.css("text-indent");
-                            expect($p)
-                              .to.have.css("color")
-                              .match(/^rgb\(206, 255, 208\)$/);
-                          });
-
-                        // Technologies Title stylings
-                        cy.wrap($div)
-                          .children()
-                          .eq(2)
-                          .then(($h3) => {
-                            expect($h3).to.have.css("transform");
-                            expect($h3).to.have.css("height");
-                            expect($h3).to.have.css("font-size");
-                            expect($h3).to.have.css("line-height");
-                            expect($h3)
-                              .to.have.css("color")
-                              .match(/^rgb\(0, 255, 13\)$/);
-                          });
-
-                        // Technologies Listing stylings
-                        cy.wrap($div)
-                          .children()
-                          .eq(3)
-                          .then(($ul) => {
-                            expect($ul).to.have.css("display", "flex");
-                            expect($ul).to.have.css("flex-wrap", "wrap");
-                            expect($ul).to.have.css("padding");
-                            expect($ul).to.have.css("height");
-                            expect($ul).to.have.css("transform");
-                            expect($ul).to.have.css("overflow", "scroll");
-                            expect($ul).to.have.css("list-style-type", "none");
-                            // Technology Item stylings
-                            cy.wrap($ul)
-                              .children()
-                              .each(($li) => {
-                                expect($li).to.have.css("margin");
-                                expect($li).to.have.css("padding");
-                                expect($li).to.have.css("min-height", "10px");
-                                expect($li).to.have.css("overflow-y", "scroll");
-                                expect($li).to.have.css("font-size");
-                                expect($li)
-                                  .to.have.css("color")
-                                  .match(/^rgb\(206, 255, 208\)$/);
-                                expect($li)
-                                  .to.have.css("background-color")
-                                  .match(/^rgb\(24, 60, 24\)$/);
-                                expect($li).to.have.css(
-                                  "border-radius",
-                                  "10px"
-                                );
-                              });
+                          .each(($children) => {
+                            expect($children).to.have.css("display", "flex");
+                            expect($children).to.have.css(
+                              "flex-direction",
+                              "column"
+                            );
+                            expect($children).to.have.css(
+                              "justify-content",
+                              "center"
+                            );
+                            expect($children).to.have.css(
+                              "align-items",
+                              "center"
+                            );
+                            expect($children).to.have.css("padding");
+                            expect($children).to.have.css("margin");
+                            expect($children).to.have.css(
+                              "text-align",
+                              "center"
+                            );
+                            expect($children).to.have.css("max-width");
+                            expect($children).to.have.css("font-size");
+                            expect(parseFloat($children.css("font-size")))
+                              .to.be.lte(34)
+                              .and.to.be.gte(14);
+                            expect($children).to.have.css(
+                              "color",
+                              "rgb(230, 255, 243)"
+                            );
+                            expect($children).to.have.css(
+                              "background-color",
+                              "rgb(85, 84, 84)"
+                            );
+                            expect($children).to.have.css("border-radius");
+                            expect($children).to.have.css("box-shadow");
                           });
                       });
                   });
-
-                // Close Modal
-                projPage.closeDetailModal();
-                projPage.projectDetailModal().should("not.exist");
-              }
-            }
+              });
+            cy.wait(1000);
           });
-        });
 
-        it("The projects detail cards have the noticable hover effects", () => {
-          let oddEven = getOddEven();
-          projPage.getProjectsLength().then((length) => {
-            for (let i = 0; i < length; i++) {
-              if (i % 2 == oddEven) {
-                // Open Modal
-                projPage.projectDetailModal().should("not.exist");
-                projPage.projectItem(i).should("be.visible").click();
+          it(`${
+            Math.floor(i / 2) + 1
+          }/5: The project detail modal, ${i} right side has the correct stylings`, () => {
+            // Check Modal's right side stylings
+            projPage
+              .projectDetailModal()
+              .children()
+              .eq(1)
+              .then(($div) => {
+                // Right container stylings
+                expect($div).to.have.css("width");
 
-                // Check Modal's interactivity
-                projPage
-                  .projectDetailModal()
-                  .should("be.visible")
+                // Project Title stylings
+                cy.wrap($div)
                   .children()
-                  .then(($children) => {
-                    // Project Links hover effects
-                    cy.wrap($children)
-                      .eq(0)
-                      .find("div#projectLinks")
-                      .first()
-                      .children()
-                      .each(($a) => {
-                        expect($a)
-                          .to.have.css("color")
-                          .match(/^rgb\(206, 255, 208\)$/);
-                        expect($a)
-                          .to.have.css("background-color")
-                          .match(/^rgb\(17, 114, 0\)$/);
+                  .eq(0)
+                  .then(($h2) => {
+                    expect($h2).to.have.css("position", "relative");
+                    expect($h2).to.have.css("margin");
+                    expect($h2).to.have.css("width");
+                    expect($h2).to.have.css("height");
+                    expect($h2).to.have.css("text-align", "left");
+                    expect($h2).to.have.css("color", "rgb(164, 255, 182)");
+                    expect($h2).to.have.css("font-size");
+                    expect(parseFloat($h2.css("font-size")))
+                      .to.be.lte(48)
+                      .and.to.be.gte(20);
+                    expect($h2).to.have.css("transform");
+                  });
 
-                        cy.wrap($a)
-                          .realHover()
-                          .then(($a) => {
-                            expect($a)
-                              .to.have.css("color")
-                              .match(/^rgb\(12, 27, 22\)$/);
-                            expect($a)
-                              .to.have.css("background-color")
-                              .match(/^rgb\(6, 255, 19\)$/);
-                            expect($a)
-                              .to.have.css("box-shadow")
-                              .match(
-                                /^rgba\(14, 215, 165, 0\.925\)(\s-?\dpx){4}$/
-                              );
-                            expect($a).to.have.css("transform");
-                          });
-                      });
+                // Project Description stylings
+                cy.wrap($div)
+                  .children()
+                  .eq(1)
+                  .then(($p) => {
+                    expect($p).to.have.css("flex", "3 1 0%");
+                    expect($p).to.have.css("height");
+                    expect($p).to.have.css("color", "rgb(230, 255, 243)");
+                    expect($p).to.have.css("font-size");
+                    expect(parseFloat($p.css("font-size")))
+                      .to.be.lte(34)
+                      .and.to.be.gte(14);
+                    expect($p).to.have.css("line-height");
+                    expect(parseFloat($p.css("line-height")))
+                      .to.be.lte(50)
+                      .and.to.be.gte(16);
+                    expect($p).to.have.css("text-indent");
+                    expect($p).to.have.css("overflow", "scroll");
+                    expect($p).to.have.css("transform");
+                  });
 
-                    // Projects Techs hovering effects
-                    cy.wrap($children)
-                      .eq(1)
-                      .find("ul")
-                      .first()
+                // Technologies Title stylings
+                cy.wrap($div)
+                  .children()
+                  .eq(2)
+                  .then(($h3) => {
+                    expect($h3).to.have.css("height");
+                    expect($h3).to.have.css("font-size");
+                    expect(parseFloat($h3.css("font-size")))
+                      .to.be.lte(32)
+                      .and.to.be.gte(10);
+                    expect($h3).to.have.css("line-height");
+                    expect(parseFloat($h3.css("line-height")))
+                      .to.be.lte(30)
+                      .and.to.be.gte(14);
+                    expect($h3).to.have.css("transform");
+                  });
+
+                // Technologies Listing stylings
+                cy.wrap($div)
+                  .children()
+                  .eq(3)
+                  .then(($ul) => {
+                    expect($ul).to.have.css("display", "flex");
+                    expect($ul).to.have.css("flex-wrap", "wrap");
+                    expect($ul).to.have.css("padding", "0px");
+                    expect($ul).to.have.css("width");
+                    expect($ul).to.have.css("height");
+                    expect($ul).to.have.css("margin-bottom");
+                    expect($ul).to.have.css("transform");
+                    expect($ul).to.have.css(
+                      "background-color",
+                      "rgba(0, 0, 0, 0)"
+                    );
+                    expect($ul).to.have.css("overflow-x", "auto");
+                    expect($ul).to.have.css("overflow-y", "scroll");
+                    expect($ul).to.have.css("list-style-type", "none");
+                    // Technology Item stylings
+                    cy.wrap($ul)
                       .children()
                       .each(($li) => {
-                        expect($li).to.have.css("transform", "none");
-                        expect($li).to.have.css("box-shadow", "none");
-
-                        cy.wrap($li)
-                          .realHover()
-                          .then(($li) => {
-                            expect($li).to.have.css("transform");
-                            expect($li)
-                              .to.have.css("box-shadow")
-                              .match(
-                                /^rgba\(14, 215, 165, 0\.925\)(\s\dpx){4}/
-                              );
-                          });
+                        expect($ul).to.have.css(
+                          "list-style",
+                          "outside none none"
+                        );
+                        expect($li).to.have.css("display", "flex");
+                        expect($li).to.have.css("align-items", "center");
+                        expect($li).to.have.css("justify-content", "center");
+                        expect($li).to.have.css("margin");
+                        expect($li).to.have.css("padding");
+                        expect($li).to.have.css("overflow-y", "scroll");
+                        expect($li).to.have.css("font-size");
+                        expect($li).to.have.css("color", "rgb(230, 255, 243)");
+                        expect($li).to.have.css(
+                          "background-color",
+                          "rgb(12, 43, 33)"
+                        );
+                        expect($li).to.have.css("border-radius");
+                        expect($li).to.have.css("box-shadow");
                       });
+                  });
+              });
+            cy.wait(1000);
+          });
 
-                    // Close Button hovering effects
-                    cy.wrap($children)
-                      .eq(2)
-                      .then(($button) => {
-                        expect($button)
-                          .to.have.css("color")
-                          .match(/^rgb\(206, 255, 208\)$/);
-                        expect($button)
-                          .to.have.css("background-color")
-                          .match(/^rgb\(17, 114, 0\)$/);
-                        expect($button).to.have.css("box-shadow", "none");
+          it(`${
+            Math.floor(i / 2) + 1
+          }/5: The project detail modal, ${i} has the noticable hover effects`, () => {
+            // Check Modal's interactivity
+            projPage
+              .projectDetailModal()
+              .children()
+              .then(($children) => {
+                // Project Links hover effects
+                cy.wrap($children)
+                  .eq(0)
+                  .find("div#projectLinks")
+                  .first()
+                  .children()
+                  .each(($a) => {
+                    expect($a).to.have.css("color", "rgb(230, 255, 243)");
+                    expect($a).to.have.css(
+                      "background-color",
+                      "rgb(85, 84, 84)"
+                    );
+                    expect($a).to.have.css("transform", "none");
 
-                        cy.wrap($button)
-                          .realHover({ position: "center" })
-                          .then(($hover) => {
-                            expect($hover)
-                              .to.have.css("color")
-                              .match(/^rgb\(12, 27, 22\)$/);
-                            expect($hover)
-                              .to.have.css("background-color")
-                              .match(/^rgb\(6, 255, 19\)$/);
-                            expect($hover)
-                              .to.have.css("border")
-                              .match(/^1\.5px solid rgb\(0, 0, 0\)/);
-                            expect($hover)
-                              .to.have.css("box-shadow")
-                              .match(
-                                /^(rgb\(6, 255, 19\)(\s-?\dpx){4}(, )?){4}$/
-                              );
-                          });
+                    cy.wrap($a)
+                      .realHover()
+                      .then(($a) => {
+                        expect($a).to.have.css("color", "rgb(12, 43, 33)");
+                        expect($a).to.have.css(
+                          "background-color",
+                          "rgb(164, 255, 182)"
+                        );
+                        expect($a).to.have.css("transform").to.not.eq("none");
                       });
                   });
 
-                // Close Modal
-                projPage.closeDetailModal();
-                projPage.projectDetailModal().should("not.exist");
-              }
-            }
+                // Projects Techs hovering effects
+                cy.wrap($children)
+                  .eq(1)
+                  .find("ul")
+                  .first()
+                  .children()
+                  .each(($li) => {
+                    expect($li).to.have.css("color", "rgb(230, 255, 243)");
+                    expect($li).to.have.css("transform", "none");
+
+                    cy.wrap($li)
+                      .realHover()
+                      .then(($li) => {
+                        expect($li).to.have.css("color", "rgb(164, 255, 182)");
+                        expect($li).to.have.css("transform").to.not.eq("none");
+                      });
+                  });
+
+                // Close Button hovering effects
+                cy.wrap($children)
+                  .eq(2)
+                  .then(($button) => {
+                    expect($button).to.have.css("color", "rgb(230, 255, 243)");
+                    expect($button).to.have.css(
+                      "background-color",
+                      "rgb(12, 43, 33)"
+                    );
+                    expect($button).to.have.css("box-shadow", "none");
+
+                    cy.wrap($button)
+                      .realHover({ position: "center" })
+                      .then(($hover) => {
+                        expect($button).to.have.css(
+                          "color",
+                          "rgb(164, 255, 182)"
+                        );
+                        expect($hover).to.have.css(
+                          "background-color",
+                          "rgb(85, 84, 84)"
+                        );
+                        expect($hover)
+                          .to.have.css("box-shadow")
+                          .to.not.eq("none");
+                      });
+                  });
+              });
+            cy.wait(1000);
           });
-        });
+
+          it(`${
+            Math.floor(i / 2) + 1
+          }/5: The project detail modal, ${i} closes correctly`, () => {
+            // Detail Modal closes with the closing button
+            projPage.projectDetailModal().should("be.exist");
+            projPage.closeDetailModal();
+            cy.wait(2000);
+            projPage.projectDetailModal().should("not.be.exist");
+            cy.wait(1000);
+          });
+        }
       });
     }
   );
+
   if (!Cypress.env("FULL_SPECTRUM")) {
     break;
   }
-};
+}
