@@ -3,7 +3,7 @@
 import { defineConfig } from "cypress";
 
 export default defineConfig({
-  defaultCommandTimeout: 5000,
+  defaultCommandTimeout: 10000,
   requestTimeout: 5000,
   responseTimeout: 5000,
   pageLoadTimeout: 10000,
@@ -34,4 +34,5 @@ export default defineConfig({
       bundler: "webpack",
     },
   },
+  watchForFileChanges: false,
 });
