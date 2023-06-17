@@ -18,8 +18,12 @@ for (let viewport of viewports) {
   const viewString = viewportDisplay(viewport);
   context(`About Page render testing at viewport size: ${viewString}`, () => {
     before(() => {
-      viewPortSetup(viewport);
       setupPageWithTheme(ABOUTURL, "dark");
+      cy.wait(1000);
+    });
+
+    beforeEach(() => {
+      viewPortSetup(viewport);
       cy.wait(1000);
     });
 

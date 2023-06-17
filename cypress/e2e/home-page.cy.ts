@@ -19,10 +19,15 @@ for (let viewport of viewports) {
   const viewString = viewportDisplay(viewport);
   context(`Home Page render testing`, () => {
     before(() => {
-      viewPortSetup(viewport);
       setupPageWithTheme(HOMEURL, "dark");
       cy.wait(1000);
     });
+
+    beforeEach(() => {
+      viewPortSetup(viewport);
+      cy.wait(1000);
+    });
+
     describe(`Home page Introduction visable and rendering as expected at size: ${viewString}`, () => {
       it("Page container is rendering the correct layout", () => {
         homePage
