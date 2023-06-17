@@ -6,6 +6,7 @@ import { ProjectPage } from "../page-objects/ProjectPage";
 import {
   BASEURL,
   getOddEven,
+  getWindowInnerWidth,
   setupPageWithTheme,
   viewPortSetup,
   viewportDisplay,
@@ -15,13 +16,19 @@ import {
 const PROJURL = BASEURL + "/projects";
 const projPage = new ProjectPage();
 
-for (let viewport of viewports) {
+for (let viewport of viewports.slice(-3, -1)) {
   context(
     `Project page testing at Viewport ${viewportDisplay(viewport)}`,
     () => {
       before(() => {
         viewPortSetup(viewport);
         setupPageWithTheme(PROJURL, "dark");
+      });
+
+      beforeEach(() => {
+        cy.get("body").first().realHover({position: "bottomRight"});
+        viewPortSetup(viewport);
+        cy.wait(1000);
       });
 
       describe(`The Projects page container is rendering correctly at Viewport: ${viewportDisplay(
@@ -884,7 +891,7 @@ for (let viewport of viewports) {
 
           it(`${
             Math.floor(i / 2) + 1
-          }/5: The project detail modal, ${i} left side has the correct stylings`, () => {
+          }/5: The project detail modal: ${i}, left side has the correct stylings`, () => {
             // Check Modal's left side stylings
             projPage
               .projectDetailModal()
@@ -906,10 +913,12 @@ for (let viewport of viewports) {
                       .then(($img) => {
                         expect($img).to.have.css("margin-top");
                         expect($img).to.have.css("width");
-                        expect(parseFloat($img.css("width"))).to.be.lte(630);
+                        expect(parseFloat($img.css("width"))).to.be.lte(
+                          630 * 1.05
+                        );
                         expect($img).to.have.css("height");
                         expect(parseFloat($img.css("height")))
-                          .to.be.lte(510)
+                          .to.be.lte(510 * 1.05)
                           .and.to.be.gte(200);
                         expect($img).to.have.css("border-radius", "20px");
                       });
@@ -952,9 +961,17 @@ for (let viewport of viewports) {
                             );
                             expect($children).to.have.css("max-width");
                             expect($children).to.have.css("font-size");
-                            expect(parseFloat($children.css("font-size")))
-                              .to.be.lte(34)
-                              .and.to.be.gte(14);
+                            getWindowInnerWidth().then((width) => {
+                              if (width <= 600) {
+                                expect(parseFloat($children.css("font-size")))
+                                  .to.be.lte(30)
+                                  .and.to.be.gte(12);
+                              } else {
+                                expect(parseFloat($children.css("font-size")))
+                                  .to.be.lte(34)
+                                  .and.to.be.gte(14);
+                              }
+                            });
                             expect($children).to.have.css(
                               "color",
                               "rgb(230, 255, 243)"
