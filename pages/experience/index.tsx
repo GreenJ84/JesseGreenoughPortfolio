@@ -29,14 +29,14 @@ const ExperiencePage = () => {
             height: "clamp(180px, 32vw, 500px)",
           }}
           frontDisplay={
-            <div className={css.cardTitle}>
+            <div id="eduFront" className={css.cardTitle}>
               <h1>
                 Want to see my <br/><span>Education?</span>
               </h1>
             </div>
           }
           backDisplay={
-            <div className={css.cardBody}>
+            <div id="eduBack" className={css.cardBody}>
               <p>
                 Learn more about my Personal Educational achievements and
                 persuits. This encompasses both credentials issued from
@@ -61,14 +61,14 @@ const ExperiencePage = () => {
             height: "clamp(180px, 32vw, 500px)",
           }}
           frontDisplay={
-            <div className={css.cardTitle}>
+            <div id="workFront" className={css.cardTitle}>
               <h1>
                 Want to see my <br/><span>Work?</span>
               </h1>
             </div>
           }
           backDisplay={
-            <div className={css.cardBody}>
+            <div id="workBack" className={css.cardBody}>
               <p>
                 Learn more about the Work and Volunter experience I have
                 partaken in to date. This includes all work experiences across
