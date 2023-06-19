@@ -59,7 +59,6 @@ const EducationPage = (props: Experience) => {
       <main
         id="educationContainer"
         className={css.eduBody}
-        style={{ padding: "12rem 3vw 1rem", margin: "0 2vw" }}
       >
         <p>
           I actively participate in tech-related activities and partake in

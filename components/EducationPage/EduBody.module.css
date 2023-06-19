@@ -1,5 +1,8 @@
 /** @format */
-
+.eduBody {
+  padding: 12rem 3vw 1rem;
+  margin: 0 2vw;
+}
 
 .eduBody > p {
   position: relative;
@@ -17,6 +20,6 @@
   text-align: center;
   font-size: clamp(26px, 4.5vw, 80px);
   color: var(--text-secondary);
-  text-shadow: 1px 1px 15px var(--detail-secondary);
+  text-shadow: 1px 1px 15px var(--detail);
   transform: translateY(100px);
 }
