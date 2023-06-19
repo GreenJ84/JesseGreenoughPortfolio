@@ -3,16 +3,50 @@
 /// <reference types="cypress" />
 
 export class EducationPage {
-  pageContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
-  degreeContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
-  degreeList: () => Cypress.Chainable<JQuery<HTMLElement>>;
-  certificationContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  getPageContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
+
+  getDegreeContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  getDegreeList: () => Cypress.Chainable<JQuery<HTMLElement>>;
+
+  getCertificationContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  getCertificationFilters: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  getFilterOptionsLength: (filter: number) => Promise<number>;
+  filterCertifications: (filterIdx: number, selectionIdx: number) => void;
+  getCertificationList: () => Cypress.Chainable<JQuery<HTMLElement>>;
 
   constructor() {
-    this.pageContainer = () => cy.get("#educationContainer");
-    this.degreeContainer = () => cy.get("#degreeContainer");
-    this.degreeList = () => cy.get("#degreeList");
-    this.certificationContainer = () => cy.get("#certificationContainer");
+    this.getPageContainer = () => cy.get("#educationContainer");
+
+    this.getDegreeContainer = () => cy.get("#degreeContainer");
+    this.getDegreeList = () => cy.get("#degreeList");
+
+    this.getCertificationContainer = () => cy.get("#certificationContainer");
+    this.getCertificationFilters = () => cy.get("#certificationFilters");
+    this.getFilterOptionsLength = async (filterIdx: number) => {
+      return new Promise((resolve) => {
+        this.getCertificationFilters()
+          .children("div")
+          .eq(filterIdx)
+          .children("select")
+          .first()
+          .children("option")
+          .its("length")
+          .then((length) => {
+            expect(length).to.be.greaterThan(0);
+            cy.log(`${length} projects selected`);
+            resolve(length);
+          });
+      });
+    };
+    this.filterCertifications = (filterIdx: number, selectionIdx: number) => {
+      this.getCertificationFilters()
+        .children("div")
+        .eq(filterIdx)
+        .children("select")
+        .first()
+        .select(selectionIdx);
+    };
+    this.getCertificationList = () => cy.get("#certificationList");
   }
 }
 
