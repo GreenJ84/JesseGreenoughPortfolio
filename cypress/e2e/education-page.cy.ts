@@ -25,7 +25,7 @@ for (let viewport of viewports) {
 
     beforeEach(() => {
       viewPortSetup(viewport);
-      cy.wait(1000);
+      cy.wait(500);
     });
 
     describe(`Education Page container rendering at Viewport: ${viewportDisplay(

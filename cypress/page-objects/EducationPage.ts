@@ -55,20 +55,3 @@ export class EducationPage {
     this.getCertificationList = () => cy.get("#certificationList");
   }
 }
-
-// Degree
-Cypress.Commands.add(
-  "getDegreeImg",
-  { prevSubject: true },
-  (subject: Cypress.Chainable<JQuery<HTMLLIElement>>) => {
-    return subject.children("a").first().children("img").first();
-  }
-);
-
-Cypress.Commands.add(
-  "getDegreeCard",
-  { prevSubject: true },
-  (subject: Cypress.Chainable<JQuery<HTMLLIElement>>) => {
-    return subject.children("div").first();
-  }
-);
