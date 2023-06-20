@@ -71,7 +71,7 @@ const Certifications = (props: Certification) => {
   };
 
   return (
-    <article id="certificationContainer">
+    <section id="certificationContainer">
       <h2 className={css.certTitle}>Certifications Achieved</h2>
       <CertificationsFilter
         issuerHandler={issueHandler}
@@ -96,7 +96,7 @@ const Certifications = (props: Certification) => {
           />
         ))}
       </ul>
-    </article>
+    </section>
   );
 };
 

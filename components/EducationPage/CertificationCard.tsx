@@ -24,6 +24,7 @@ const CertificationCard = (props: certificateCardProps) => {
         style={{"width": "100%","height": "100%" }}
         frontDisplay={
           <div
+            id="certCardFront"
             className={css.certDisplay}
           >
             <Image
@@ -39,7 +40,7 @@ const CertificationCard = (props: certificateCardProps) => {
           </div>
         }
         backDisplay={
-          <div className={css.certDetailCard}>
+          <div id="certCardBack" className={css.certDetailCard}>
             <div className={css.certDetails}>
               <p>{props.certificate.description}</p>
               <a href={props.certificate.url}>

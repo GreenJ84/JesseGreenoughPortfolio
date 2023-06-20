@@ -27,7 +27,7 @@ const CertificationsFilter = (props: filterProps) => {
 
   return (
     <nav
-      id="certificationFilter"
+      id="certificationFilters"
       className={css.certificationsFilter}
     >
       <div>
@@ -42,7 +42,7 @@ const CertificationsFilter = (props: filterProps) => {
             changeHandler(e, "issuer")
           }
         >
-          <option disabled></option>
+          <option value="disabled" disabled></option>
           <option value="top">Top 10</option>
           <option value="all">All</option>
           {[...issuers].map((cat) => (
@@ -69,7 +69,7 @@ const CertificationsFilter = (props: filterProps) => {
             changeHandler(e, "tech")
           }
         >
-          <option disabled></option>
+          <option value="disabled" disabled></option>
           <option value="top">Top 10</option>
           <option value="all">All</option>
           {[...techs].map((tech) => (

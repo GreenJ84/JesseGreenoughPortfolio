@@ -2,7 +2,7 @@
 
 .cardContainer {
   position: relative;
-  width: clamp(240px, 50vw, 800px);
+  width: clamp(230px, 50vw, 800px);
   height: clamp(260px, 40vw, 600px);
   background-color: var(--card-background2);
   border-radius: 30px;

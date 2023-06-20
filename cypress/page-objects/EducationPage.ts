@@ -10,6 +10,7 @@ export class EducationPage {
 
   getCertificationContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
   getCertificationFilters: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  getCertificationFilter: (filterIdx: number) => Cypress.Chainable<JQuery<HTMLSelectElement>>;
   getFilterOptionsLength: (filter: number) => Promise<number>;
   filterCertifications: (filterIdx: number, selectionIdx: number) => void;
   getCertificationList: () => Cypress.Chainable<JQuery<HTMLElement>>;
@@ -21,7 +22,11 @@ export class EducationPage {
     this.getDegreeList = () => cy.get("#degreeList");
 
     this.getCertificationContainer = () => cy.get("#certificationContainer");
+
     this.getCertificationFilters = () => cy.get("#certificationFilters");
+
+    this.getCertificationFilter = (filterIdx: number) => this.getCertificationFilters().children("div").eq(filterIdx).children("select").first();
+
     this.getFilterOptionsLength = async (filterIdx: number) => {
       return new Promise((resolve) => {
         this.getCertificationFilters()
@@ -46,6 +51,7 @@ export class EducationPage {
         .first()
         .select(selectionIdx);
     };
+
     this.getCertificationList = () => cy.get("#certificationList");
   }
 }
