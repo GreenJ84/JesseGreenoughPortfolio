@@ -1,7 +1,6 @@
 /** @format */
 
 import React, { useState } from "react";
-import Head from "next/head";
 import { GetServerSideProps } from "next";
 import { MongoClient } from "mongodb";
 
@@ -41,13 +40,14 @@ const WorkPage = (props: WorkExp) => {
         style={{ padding: "min(12vw, 12vh) 3vw 1rem", margin: "0 2vw" }}
       >
         <section id="workIntro">
-          <h1 className={css.workBodyTitle}>Professional experience</h1>
+          <h1 className={css.workBodyTitle}>Professional Experience</h1>
           <div className={css.workBody}>
             <WorkImg />
             <p>
               I have over 5 years of customer success, operations management,
               and leadership experience with proven results in a variety of
-              fast-paced environents.
+              fast-paced environents coupled with over 3 years of development
+              experience across numerous technologies.
             </p>
           </div>
         </section>
