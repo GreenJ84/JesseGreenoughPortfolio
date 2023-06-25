@@ -173,7 +173,7 @@ const NavBar = () => {
             <input
               className={css.themeInput}
               type="checkbox"
-              checked={theme === "dark"}
+              defaultChecked={theme === "dark"}
               data-theme-toggle
               onClick={() => {
                 setTheme();
