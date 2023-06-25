@@ -1,6 +1,6 @@
 /** @format */
 
-.emailConnect{
+.emailConnect {
   position: fixed;
   left: 50%;
   top: 50%;
@@ -9,17 +9,92 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--layout-bg);
   transform: translate(-50%, -50%);
   z-index: 20;
 }
+
 .emailConnect > div {
+  position: absolute;
   width: min(75vw, 800px);
-  height: clamp(45vh, 70vw, 70vh);
-  background-color: var(--modal-bg);
+  height: clamp(50vh, 70vw, 70vh);
+  padding: 2% 3%;
+  color: var(--text-secondary);
+  background-color: var(--card-background);
   transform: perspective(300px);
   transform-style: preserve-3d;
   border-radius: 2%;
-  box-shadow: 0 45px 100px rgba(14,21,47,0.4), 0 16px 60px rgba(14,21,47,0.4);
+  box-shadow: 0 45px 100px rgba(14, 21, 47, 0.4),
+    0 16px 60px rgba(14, 21, 47, 0.4);
+  z-index: 30;
+}
+
+.emailConnect > div > button.close {
+  all: unset;
+  position: absolute;
+  top: 2%;
+  right: 3%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1% 1.5%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  color: var(--text-negative);
+  background-color: var(--text-secondary);
+  box-shadow: var(--shadow);
+}
+.emailConnect > div > button.close:hover{
+  color: var(--text-secondary);
+  background-color: var(--card-background2);
+  border: 1.5px solid var(--text-secondary);
+  border-radius: 20px;
+  box-shadow: none;
+  cursor: pointer;
+}
+.emailConnect > div > p {
+  text-align: center;
+  font-size: var(--text6);
+}
+
+.contactForm {
+  width: max(70%, 250px);
+  margin: 5% auto 0;
+  font-weight: 800;
+}
+.contactForm > label {
+  display: block;
+  font-size: var(--text5);
+  margin-bottom: 4px;
+  letter-spacing: 1.5px;
+}
+.contactForm > input,
+.contactForm > textarea {
+  display: block;
+  margin-bottom: min(3vw, 20px);
+  width: 100%;
+  min-height: min(2vw, 30px);
+  padding-left: 2%;
+  border: 1px solid var(--text-secondary);
+  border-radius: .5vw;
+  box-shadow: .5vw .5vw 1vw black;
+}
+.contactForm > button {
+  all: unset;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1.5% 4%;
+  color: var(--text-negative);
+  background-color: var(--text-secondary);
+  box-shadow: var(--shadow);
+}
+.contactForm > button:hover{
+  color: var(--text-secondary);
+  background-color: var(--card-background);
+  border: 1.5px solid var(--text-secondary);
+  border-radius: 20px;
 }
 
 /* Footer Containers */
@@ -90,12 +165,12 @@
   width: min(15vw, 200px);
   height: 30px;
   margin: 0 auto;
-  padding:  .1vw;
+  padding: 0.1vw;
   text-align: center;
   color: var(--text-negative);
   background-color: var(--text-primary);
   border: 2px solid var(--text-negative);
-  font-size: var(--text5)
+  font-size: var(--text5);
 }
 .footerConnect button:hover {
   color: var(--card-background);
@@ -120,7 +195,7 @@
 }
 
 .footerCopywright {
-  font-size:var(--text5);
+  font-size: var(--text5);
   color: var(--text-primary);
   text-align: center;
   font-weight: 200;

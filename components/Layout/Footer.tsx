@@ -12,6 +12,7 @@ import {
 } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 import { AppContext, WindowWidth } from "../../Utils/AppContext";
+import ContactModal from "./contactModal";
 
 const css = require("./Footer.module.css");
 
@@ -30,16 +31,7 @@ const Footer = () => {
 
   return (
     <>
-      {emailConnect && (
-        <div
-          className={css.emailConnect}
-          onClick={() => setEmailConnect(false)}
-        >
-          <div>
-            <button onClick={() => setEmailConnect(false)}>Close</button>
-          </div>
-        </div>
-      )}
+      {emailConnect && (<ContactModal close={() => setEmailConnect(false)} />)}
       <footer
         id="footer"
         className={css.footer}
@@ -104,7 +96,6 @@ const Footer = () => {
         />
         <Row
           className={css.footerCopywright}
-          z
         >
           {windowWidth !== WindowWidth.SMALL && (
             <nav aria-label="Personal Social Links">
