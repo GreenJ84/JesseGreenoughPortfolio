@@ -116,10 +116,10 @@ const NavBar = () => {
 
         {/* Collapse-able Navbar Links */}
         <Navbar.Collapse
-          id="responsive-navbar-nav"
+          id="navbarCollapse"
           className={css.navbarCollpase}
         >
-          <Nav
+          <ul
             className={
               windowWidth === WindowWidth.LARGE
                 ? css.navbarNav
@@ -127,22 +127,23 @@ const NavBar = () => {
                 ? css.navbarNav
                 : css.navClosed
             }
-            defaultActiveKey="#home"
           >
             {NavLinkData.map((item, idx) => {
               return (
-                <Nav.Item
+                <li
                   key={idx}
                   className={css.navItem}
                 >
-                  {item[2] == "Experience" && windowWidth !== WindowWidth.SMALL && <dialog className={css.experience}>
-                    <div></div>
-                    <div></div>
-                    <Link href={"/experience/education"}>Education</Link>
-                    <Link href={"/experience/work"}>Work</Link>
-                  </dialog>}
-                  <Nav.Link
-                    as={Link}
+                  {item[2] == "Experience" &&
+                    windowWidth !== WindowWidth.SMALL && (
+                      <dialog className={css.experience}>
+                        <div></div>
+                        <div></div>
+                        <Link href={"/experience/education"}>Education</Link>
+                        <Link href={"/experience/work"}>Work</Link>
+                      </dialog>
+                    )}
+                  <Link
                     href={item[0] as string}
                     className={css.navLink}
                     rel="noreferrer"
@@ -153,8 +154,8 @@ const NavBar = () => {
                   >
                     {item[1]}
                     {item[2]}
-                  </Nav.Link>
-                </Nav.Item>
+                  </Link>
+                </li>
               );
             })}
             {windowWidth === WindowWidth.LARGE && (
@@ -167,7 +168,7 @@ const NavBar = () => {
                 <AiFillStar className={css.forkIcon} />
               </Button>
             )}
-          </Nav>
+          </ul>
           <label className={css.themeSwitch}>
             <input
               className={css.themeInput}

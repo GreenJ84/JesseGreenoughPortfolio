@@ -4,46 +4,62 @@
 
 const platforms = ["github", "twitter", "linkedin", "instagram"];
 export class LayoutComps {
-  preload: Function;
-  navbar: Function;
-  brand: Function;
-  collapse: Function;
-  toggle: Function;
-  footer: Function;
+  getPreload: () => Cypress.Chainable<JQuery<HTMLElement>>;
+
+
+
+  getNavbar: () => Cypress.Chainable<JQuery<HTMLElement>>;
+
+  getNavbarBrand: () => Cypress.Chainable<JQuery<HTMLElement>>;
+
+  getNavbarCollapse: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  getNavItem: (idx: number) => Cypress.Chainable<JQuery<HTMLLIElement>>;
+  getGithubFork: () => Cypress.Chainable<JQuery<HTMLAnchorElement>>;
+  getThemeSwitch: () => Cypress.Chainable<JQuery<HTMLLabelElement>>;
+
+  getNavbarToggle: () => Cypress.Chainable<JQuery<HTMLElement>>;
+
+
+
+  getFooter: () => Cypress.Chainable<JQuery<HTMLElement>>;
 
   constructor() {
-    this.preload = (): Cypress.Chainable<JQuery<HTMLElement>> => {
+    this.getPreload = (): Cypress.Chainable<JQuery<HTMLElement>> => {
       return cy.get("");
     };
-    this.navbar = (): Cypress.Chainable<JQuery<HTMLElement>> => {
+
+
+
+    this.getNavbar = () => {
       return cy.get("#navbar");
     };
-    this.brand = (): Cypress.Chainable<JQuery<HTMLElement>> => {
+
+    this.getNavbarBrand = () => {
       return cy.get("#navbarBrand");
     };
-    this.collapse = (): Cypress.Chainable<JQuery<HTMLElement>> => {
-      return cy.get("#responsive-navbar-nav");
+
+    this.getNavbarCollapse = () => {
+      return cy.get("#navbarCollapse");
     };
-    this.toggle = (): Cypress.Chainable<JQuery<HTMLElement>> => {
+    this.getNavItem = (idx) => {
+      return this.getNavbarCollapse().children("ul").first().children("li").eq(idx);
+    }
+    this.getGithubFork = () => { 
+      return this.getNavbarCollapse().children("ul").first().children("a").first();
+    }
+    this.getThemeSwitch = () => {
+          return this.getNavbarCollapse().children("label").first();
+        }
+
+    this.getNavbarToggle = () => {
       return cy.get("#navbarToggle");
     };
-    this.footer = (): Cypress.Chainable<JQuery<HTMLElement>> => {
+
+    this.getFooter = () => {
       return cy.get("#footer");
     };
   }
 
-  testNavItemLayout(navItem: Cypress.Chainable<JQuery<HTMLElement>>) {
-    navItem
-      .find("a")
-      .should("have.length", 1)
-      .first()
-      .debug()
-      .should("be.visible")
-      .should("contain.text", "")
-      .debug()
-      .find("svg")
-      .should("be.visible");
-  }
 
   testNavItemStyle(navItem: Cypress.Chainable<JQuery<HTMLElement>>) {
     navItem
