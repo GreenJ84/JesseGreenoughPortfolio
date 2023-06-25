@@ -40,7 +40,7 @@ body[data-theme="dark"] {
   --card-background: rgb(85, 84, 84);
   --card-background2: rgb(18, 15, 15);
 
-  --detail: rgba(14, 215, 165);
+  --detail: rgb(14, 215, 165);
   --shadow: min(6px, 1.8vw) min(6px, 1.8vw) min(15px, 3vw) min(2px, 0.5vw) black;
   --shadow-hover: min(7px, 2.2vw) min(7px, 2.2vw) min(20px, 4vw)
     min(2.4px, 0.7vw) black;

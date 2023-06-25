@@ -17,7 +17,7 @@ const FlipCard = ({
   return (
     <article
       style={style}
-      className={css.flip_card}
+      className={css.flip_card + " flipCard"}
     >
       <div className={css.flip_card_inner}>
         <section className={css.flip_card_front}>{frontDisplay}</section>
