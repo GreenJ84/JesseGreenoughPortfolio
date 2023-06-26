@@ -14,6 +14,7 @@ export interface IProject {
   priority?: number;
   name: string;
   date?: string;
+  brief?: string;
   description: string;
   image_path: string;
   deployed_url: string | null;
