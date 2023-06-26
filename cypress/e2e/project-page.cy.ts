@@ -16,7 +16,7 @@ import {
 const PROJURL = BASEURL + "/projects";
 const projPage = new ProjectPage();
 
-for (let viewport of viewports.slice(-3, -1)) {
+for (let viewport of viewports) {
   context(
     `Project page testing at Viewport ${viewportDisplay(viewport)}`,
     () => {

@@ -16,7 +16,7 @@ import { EducationPage } from "../page-objects/EducationPage";
 const EDUURL = BASEURL + "/experience/education";
 const eduPage = new EducationPage();
 
-for (let viewport of viewports.slice(1,2)) {
+for (let viewport of viewports) {
   context("Education Page render Testing", () => {
     before(() => {
       setupPageWithTheme(EDUURL, "dark");

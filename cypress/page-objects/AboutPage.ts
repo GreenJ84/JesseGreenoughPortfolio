@@ -51,7 +51,10 @@ export class AboutPage {
     item
       .should("have.css", "list-style", "outside none none")
       .and("have.css", "margin-bottom", "10px")
-      .and("have.css", "color", "rgb(164, 255, 182)");
+      .and("have.css", "color", "rgb(164, 255, 182)").then(($listItem) => { 
+        expect($listItem).to.have.css("font-size");
+        expect(parseFloat($listItem.css("font-size"))).to.be.lte(30).and.to.be.gte(12);
+      })
 
     item
       .children()
