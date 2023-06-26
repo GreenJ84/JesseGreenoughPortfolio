@@ -12,7 +12,7 @@ import {
 } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 import { AppContext, WindowWidth } from "../../Utils/AppContext";
-import ContactModal from "./contactModal";
+import ContactModal from "./ContactModal";
 
 const css = require("./Footer.module.css");
 
