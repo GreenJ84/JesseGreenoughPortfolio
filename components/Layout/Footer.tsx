@@ -31,19 +31,19 @@ const Footer = () => {
 
   return (
     <>
-      {emailConnect && (<ContactModal close={() => setEmailConnect(false)} />)}
+      {emailConnect && <ContactModal close={() => setEmailConnect(false)} />}
       <footer
         id="footer"
         className={css.footer}
       >
-        <section>
+        <section id="footerTop">
           <div className={css.footerDetails}>
             <h3>Jesse Greenough</h3>
             <p>
               A passionate and detail-oriented Full Stack developer constantly
               exploring new technologies.{" "}
               {windowWidth === WindowWidth.LARGE &&
-                "I thrive on problem-solving and enjoythe challenge of tackling complex issues. With a strong focus on delivering clean and efficient code, I strive to create polished solutions that exceed expectations. Let me bring my expertise and enthusiasm for innovative development to your next project."}
+                "I thrive on problem-solving and enjoy the challenge of tackling complex issues. With a strong focus on delivering clean and efficient code, I strive to create polished solutions that exceed expectations. Let me bring my expertise and enthusiasm for innovative development to your next project."}
             </p>
           </div>
           <nav
@@ -85,7 +85,7 @@ const Footer = () => {
                 );
               })}
             </ul>
-            <button onClick={() => setEmailConnect(true)}>Contact</button>
+            <button onClick={() => setEmailConnect(true)}>Contact Me</button>
           </nav>
         </section>
         <hr
@@ -94,7 +94,8 @@ const Footer = () => {
             border: "1px solid var(--text-primary)",
           }}
         />
-        <Row
+        <section
+          id="footerBottom"
           className={css.footerCopywright}
         >
           {windowWidth !== WindowWidth.SMALL && (
@@ -126,7 +127,7 @@ const Footer = () => {
             </nav>
           )}
           <h4>© Copyright {year}. Designed and Developed by Jesse Greenough</h4>
-        </Row>
+        </section>
       </footer>
     </>
   );

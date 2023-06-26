@@ -6,8 +6,6 @@ const platforms = ["github", "twitter", "linkedin", "instagram"];
 export class LayoutComps {
   getPreload: () => Cypress.Chainable<JQuery<HTMLElement>>;
 
-
-
   getNavbar: () => Cypress.Chainable<JQuery<HTMLElement>>;
 
   getNavbarBrand: () => Cypress.Chainable<JQuery<HTMLElement>>;
@@ -19,16 +17,15 @@ export class LayoutComps {
 
   getNavbarToggle: () => Cypress.Chainable<JQuery<HTMLElement>>;
 
-
-
   getFooter: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  getFooterTop: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  getFooterBottom: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  openContactForm: () => void;
 
   constructor() {
     this.getPreload = (): Cypress.Chainable<JQuery<HTMLElement>> => {
       return cy.get("");
     };
-
-
 
     this.getNavbar = () => {
       return cy.get("#navbar");
@@ -42,14 +39,22 @@ export class LayoutComps {
       return cy.get("#navbarCollapse");
     };
     this.getNavItem = (idx) => {
-      return this.getNavbarCollapse().children("ul").first().children("li").eq(idx);
-    }
-    this.getGithubFork = () => { 
-      return this.getNavbarCollapse().children("ul").first().children("a").first();
-    }
+      return this.getNavbarCollapse()
+        .children("ul")
+        .first()
+        .children("li")
+        .eq(idx);
+    };
+    this.getGithubFork = () => {
+      return this.getNavbarCollapse()
+        .children("ul")
+        .first()
+        .children("a")
+        .first();
+    };
     this.getThemeSwitch = () => {
-          return this.getNavbarCollapse().children("label").first();
-        }
+      return this.getNavbarCollapse().children("label").first();
+    };
 
     this.getNavbarToggle = () => {
       return cy.get("#navbarToggle");
@@ -58,8 +63,16 @@ export class LayoutComps {
     this.getFooter = () => {
       return cy.get("#footer");
     };
+    this.getFooterTop = () => {
+      return cy.get("#footerTop");
+    };
+    this.getFooterBottom = () => {
+      return cy.get("#footerBottom");
+    };
+    this.openContactForm = () => {
+      this.getFooterTop()
+    };
   }
-
 
   testNavItemStyle(navItem: Cypress.Chainable<JQuery<HTMLElement>>) {
     navItem
