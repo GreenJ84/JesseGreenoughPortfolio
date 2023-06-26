@@ -3,10 +3,10 @@
 .skillSectionTitle {
   position: relative;
   margin: 0.2rem 0 1.4em;
+  text-align: center;
   color: var(--text-primary);
   font-size: var(--text2);
   font-weight: 800;
-  text-align: center;
 }
 
 .icon,
@@ -22,11 +22,11 @@ div.skillsListContainer ~ h4,
 h3.skillSectionTitle ~ h4 {
   position: relative;
   margin: 0 0 0.8em;
+  text-align: center;
+  color: var(--text-detail);
   font-size: var(--text4);
   font-weight: 800;
-  color: var(--text-detail);
   text-decoration: underline;
-  text-align: center;
 }
 
 .skillsListContainer {
@@ -71,19 +71,19 @@ h3.skillSectionTitle ~ h4 {
 
 .skillContainer span {
   margin: 2vw 0 1vw;
-  font-size: var(--text5);
   text-align: center;
+  font-size: var(--text5);
   height: clamp(10px, 2vw, 60px);
 }
 
 .skillContainer meter {
   position: absolute;
   bottom: 0;
-  margin-top: 4vw;
-  font-size: clamp(18px, 0.45em, 46px);
-  width: 3.1em;
-  height: clamp(26.5px, 1.34em, 60px);
   justify-content: baseline;
+  margin-top: 4vw;
+  width: 3.05em;
+  height: clamp(26.5px, 1.34em, 60px);
+  font-size: clamp(18px, 0.45em, 46px);
 }
 
 @media only screen and (max-width: 600px){

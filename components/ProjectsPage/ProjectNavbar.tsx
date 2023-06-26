@@ -24,9 +24,14 @@ const ProjectNavbar = (props: ProjectNavProps) => {
   };
 
   return (
-    <nav id="projectsFilter" className={css.projectNavbar}>
+    <nav
+      id="projectsFilter"
+      className={css.projectNavbar}
+    >
       <div>
-        <h2>Filter by <span className="detail"> Language</span></h2>
+        <h2>
+          Filter by <span className="detail">Language</span>
+        </h2>
         <select
           id="langSelect"
           name="LanguageSelect"
@@ -50,7 +55,9 @@ const ProjectNavbar = (props: ProjectNavProps) => {
       </div>
 
       <div>
-        <h2>Filter by <span className="detail"> Key Tech</span></h2>
+        <h2>
+          Filter by <span className="detail">Key Tech</span>
+        </h2>
         <select
           id="techSelect"
           name="TechSelect"

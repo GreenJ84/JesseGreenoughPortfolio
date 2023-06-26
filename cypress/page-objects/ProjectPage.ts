@@ -20,20 +20,18 @@ export class ProjectPage {
 
   projectDetailModal: () => Cypress.Chainable<JQuery<HTMLElement>>;
   modalUnderlay: () => Cypress.Chainable<JQuery<HTMLElement>>;
+  openDetailModal: (item: Cypress.Chainable<JQuery<HTMLElement>>) => void;
   closeDetailModal: () => void;
 
   constructor() {
     this.pageContainer = () => {
       return cy.get("#pageContainer");
     };
-    this.projectsContainer = () => {
-      return cy.get("#projectsContainer");
-    };
 
     this.projectsFilter = () => {
       return cy.get("#projectsFilter");
     };
-    this.filterSelect = (filter: number) => {
+    this.filterSelect = (filter) => {
       return cy
         .get("#projectsFilter")
         .children("div")
@@ -41,7 +39,7 @@ export class ProjectPage {
         .children("select")
         .first();
     };
-    this.getFilterOptionsLength = async (filter: number) => {
+    this.getFilterOptionsLength = async (filter) => {
       return new Promise((resolve) => {
         cy.get("#projectsFilter")
           .children("div")
@@ -57,7 +55,7 @@ export class ProjectPage {
           });
       });
     };
-    this.filterProjects = (filter: number, sIdx: number) => {
+    this.filterProjects = (filter, sIdx) => {
       cy.get("#projectsFilter")
         .children("div")
         .eq(filter)
@@ -72,8 +70,8 @@ export class ProjectPage {
     this.projectsList = () => {
       return cy.get("#projectsList");
     };
-    this.getProjectsLength = async () => {
-      return new Promise((resolve) => { 
+    this.getProjectsLength = () => {
+      return new Promise((resolve) => {
         cy.get("#projectsList")
           .children("li")
           .its("length")
@@ -82,20 +80,39 @@ export class ProjectPage {
             cy.log(`${length} projects`);
             resolve(length);
           });
-      })
-    }
-    this.projectItem = (idx: number) => {
+      });
+    };
+    this.projectItem = (idx) => {
       return cy.get("#projectsList").children().eq(idx);
     };
 
     this.projectDetailModal = () => {
       return cy.get("#projectDetailModal");
-    }
-    this.modalUnderlay = () => { 
+    };
+    this.modalUnderlay = () => {
       return cy.get("#modalUnderlay");
-    }
+    };
+    this.openDetailModal = (itemCard) => {
+      itemCard
+        .children()
+        .first()
+        .realHover({ position: "center", scrollBehavior: "center" })
+        .wait(4000)
+        .find("#projectDetailCard")
+        .should("be.visible")
+        .first()
+        .children("button")
+        .first()
+        .realClick({ position: "center", scrollBehavior: "center" })
+        .wait(2000);
+    };
+
     this.closeDetailModal = () => {
-      cy.get("#projectDetailModal").should("be.visible").find("button#modalClose").first().realClick();
-    }
+      cy.get("#projectDetailModal")
+        .should("be.visible")
+        .find("button#modalClose")
+        .first()
+        .realClick();
+    };
   }
 }

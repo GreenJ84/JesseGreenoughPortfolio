@@ -17,7 +17,7 @@ const FlipCard = ({
   return (
     <article
       style={style}
-      className={css.flip_card}
+      className={css.flip_card + " flipCard"}
     >
       <div className={css.flip_card_inner}>
         <section className={css.flip_card_front}>{frontDisplay}</section>
@@ -29,12 +29,7 @@ const FlipCard = ({
           perspective={700}
         >
           <section id="flip_card_back">
-            <Tilt
-              tiltEnable={false}
-              perspective={0}
-            >
               {backDisplay}
-            </Tilt>
           </section>
         </Tilt>
       </div>

@@ -4,42 +4,7 @@
   padding: 20vh 0 15vh;
 }
 
-.resume {
-  position: relative;
-  display: flex;
-  margin: 20px auto;
-  justify-content: center;
-}
-
-.leftArrow,
-.rightArrow {
-  position: absolute;
-  top: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5vw;
-  font-size: clamp(20px, 4vw, 70px);
-  color: var(--text-negative);
-  background-color: var(--text-secondary);
-  border-radius: 30%;
-  box-shadow: 3px 3px 0px var(--detail);
-}
-.leftArrow:hover,
-.rightArrow:hover {
-  color: var(--text-secondary);
-  background-color: var(--text-negative);
-  /* border-radius: 50%; */
-  box-shadow: 0px 0px 8px 3px var(--text-primary);
-}
-.leftArrow {
-  left: 10vw;
-}
-.rightArrow {
-  right: 10vw;
-}
-
-.mobileModal{
+.mobileModal {
   position: fixed;
   top: 0;
   left: 0;
@@ -62,7 +27,7 @@
   padding: 5%;
   text-align: center;
   font-size: var(--text3);
-  letter-spacing: .6vw;
+  letter-spacing: 0.6vw;
   color: var(--text-primary);
   background-color: var(--card-background2);
   border-radius: 4vw;
@@ -81,8 +46,69 @@
   border-radius: 50%;
 }
 
+.resume {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px auto;
+}
+
+.leftArrow,
+.rightArrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5vw;
+  width: clamp(40px, 5vw, 80px);
+  aspect-ratio: 5/3;
+  font-size: clamp(20px, 4vw, 70px);
+  color: var(--text-negative);
+  background-color: var(--text-secondary);
+  border-radius: 30%;
+  box-shadow: 3px 3px 0px var(--detail);
+}
+.leftArrow:hover,
+.rightArrow:hover {
+  color: var(--text-secondary);
+  background-color: var(--text-negative);
+  box-shadow: 0px 0px 8px 3px var(--text-primary);
+}
+
+@media screen and (max-width: 1400px) {
+  .leftArrow,
+  .rightArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    opacity: 0.7;
+  }
+  .leftArrow {
+    left: 5vw;
+  }
+  .rightArrow {
+    right: 5vw;
+  }
+  .leftArrow:hover,
+  .rightArrow:hover {
+    opacity: 1;
+  }
+  .disabled:hover {
+    opacity: 0.7;
+  }
+}
+
+.disabled,
+.disabled:hover {
+  color: var(--text-negative);
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 .resume > img {
-  max-width: 90vw;
+  width: min(1200px, 90vw);
   border-radius: 15px;
   box-shadow: 5px 5px 10px 2px black, 5px 5px 40px black;
   z-index: 10;
@@ -101,11 +127,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 5vw auto;
   width: clamp(100px, 25vw, 400px);
   height: clamp(25px, 5vw, 80px);
-  text-align: center;
-  margin: 5vw auto;
   padding: 1vw;
+  text-align: center;
   color: var(--text-secondary);
   background-color: var(--layout-bg);
   font-weight: 900;
@@ -118,15 +144,8 @@
 }
 
 .resumeButton:hover {
-  background-color: var(--detail);
   color: var(--text-negative);
+  background-color: var(--detail);
   box-shadow: 5px 5px 15px 3px var(--background);
   transform: translate(3px, 3px);
-}
-
-@media screen and (max-width: 900px) {
-  .leftArrow,
-  .rightArrow {
-    visibility: hidden;
-  }
 }

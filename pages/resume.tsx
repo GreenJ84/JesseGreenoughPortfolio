@@ -34,9 +34,9 @@ const ResumePage = (props: resumeProps) => {
   useEffect(() => {
     const checkWindow = (width: number) => {
       if (width < 900) {
-        setWidth(width / 0.62);
+        setWidth(width * 0.6);
       } else {
-        setWidth(width);
+        setWidth(width * 0.9);
       }
     };
     checkWindow(window.innerWidth);
@@ -51,57 +51,66 @@ const ResumePage = (props: resumeProps) => {
   // Resume Flip Through
   const changeResNum = (dir: string) => {
     if (dir == "left") {
-      if (resNum <= 0) {
-        setResNum(props.resumeData.length - 1);
-      } else {
+      if (resNum > 0) {
         setResNum(resNum - 1);
       }
     } else if (dir == "right") {
-      setResNum((resNum + 1) % props.resumeData.length);
+      if (resNum < props.resumeData.length - 1) {
+        setResNum(resNum + 1);
+      }
     }
   };
 
   return (
     <>
       <MetaHead
-        title="Jesse Greenough&apos;s Software Engineering Resumes"
-        description="View and Download Jesse Greenough&apos;s Software Engineering Resumes"
+        title="Jesse Greenough's Software Engineering Resumes"
+        description="View and Download Jesse Greenough's Software Engineering Resumes"
         keywords="Resume,Full-Stack,Software,Developer,Engineer,TypeScript,React,NextJS"
       />
       <main
         id="resumePage"
         className={css.resumeContainer}
-        >
+      >
         <ButtonGroup
           section="top"
           download={props.resumeData[resNum].download}
           view={props.resumeData[resNum].view}
-          />
+        />
         <section
           id="resume"
           className={css.resume}
-          >
+        >
           <div
-            className={css.leftArrow}
+            className={`${css.leftArrow} ${resNum === 0 && css.disabled}`}
             onClick={() => changeResNum("left")}
-            >
+          >
             <BsArrowLeft />
           </div>
-          {modal && <div className={css.mobileModal}>
+          {modal && (
+            <div className={css.mobileModal}>
               <p>
-                <button onClick={() => {closeModal(false)}}>X</button>
-                If you are viewing on mobile it is best to use the view button to get a better PDF viewing experience.
+                <button
+                  onClick={() => {
+                    closeModal(false);
+                  }}
+                >
+                  X
+                </button>
+                If you are viewing on mobile it is best to use the view button
+                to get a better PDF viewing experience.
               </p>
-            </div>}
+            </div>
+          )}
           <Image
             id="resumeImage"
             src={props.resumeData[resNum].link}
-            alt="MyResume"
+            alt="My Resume pdf view"
             width={Math.max(width, 900)}
             height={Math.max(width * 1.2, 1100)}
             onClick={() => {
               let image = document.getElementById("resumeImage")!;
-              if (window.innerWidth < 900) {
+              if (window.innerWidth < 1400) {
                 return;
               }
               if (image.style.transform === "scale(1)") {
@@ -109,12 +118,12 @@ const ResumePage = (props: resumeProps) => {
                 image.style.zIndex = "30";
               } else {
                 image.style.transform = "scale(1)";
-                image.style.zIndex = "1";
+                image.style.zIndex = "10";
               }
             }}
           />
           <div
-            className={css.rightArrow}
+            className={`${css.rightArrow} ${resNum === props.resumeData.length - 1 && css.disabled}`}
             onClick={() => changeResNum("right")}
           >
             <BsArrowRight />

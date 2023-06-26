@@ -1,7 +1,7 @@
 /** @format */
 
 .certCard {
-  list-style-type: none;
+  list-style: none;
   position: relative;
   text-align: center;
   margin: 30px 3%;
@@ -46,19 +46,14 @@
   width: 100%;
   height: 100%;
   padding: 5%;
-  z-index: 500;
-  color: var(--background2);
+  z-index: 50;
+  color: var(--text-primary);
   background-color: var(--card-background2);
-  box-shadow: inset 0px 0px 4px 2px var(--text-secondary), 8px 8px 30px 15px black;
   border-radius: 20px;
+  box-shadow: inset 0px 0px 4px 2px var(--text-secondary), 8px 8px 30px 15px black;
   transition: all 0s ease-in-out;
 }
 
-@media only screen and (max-width: 500px) {
-  .certDetailCard {
-    position: relative;
-  }
-}
 
 .certDetails {
   display: flex;
@@ -66,21 +61,21 @@
   height: 100%;
   padding: 0 1.5vw 2.5rem;
   background-color: var(--card-background);
-  box-shadow: inset 0 0 18px 0px var(--text-negative);
   border-radius: 20px;
+  box-shadow: inset 0 0 18px 0px var(--text-negative);
   transition: inherit;
 }
 
 .certDetails p {
   position: relative;
   top: -4%;
-  font-size: var(--text5);
-  max-height: 80%;
-  overflow: scroll;
-  font-weight: bolder;
   margin-bottom: 0.3rem;
-  line-height: 140%;
+  max-height: 80%;
   vertical-align: center;
+  overflow: scroll;
+  font-size: var(--text5);
+  font-weight: 700;
+  line-height: 140%;
 }
 
 .certDetails a {
@@ -91,11 +86,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5%;
   width: 40%;
   height: max(2vw, 16px);
+  padding: 5%;
   font-size: clamp(11px, 1.3vw, 26px);
-  text-shadow: none;
   color: var(--text-primary);
   background-color: var(--background);
   border-radius: 8px;
@@ -109,7 +103,7 @@
 }
 
 @media only screen and (max-width: 600px){
-  .certCard  {
+  .certCard {
     aspect-ratio: 6/9;
   }
   .certDetails p{

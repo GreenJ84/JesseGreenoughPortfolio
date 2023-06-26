@@ -1,6 +1,6 @@
 /** @format */
 
-.emailConnect{
+.emailConnect {
   position: fixed;
   left: 50%;
   top: 50%;
@@ -9,32 +9,107 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: var(--layout-bg);
   transform: translate(-50%, -50%);
   z-index: 20;
 }
+
 .emailConnect > div {
+  position: absolute;
   width: min(75vw, 800px);
-  height: clamp(45vh, 70vw, 70vh);
-  background-color: var(--modal-bg);
+  height: clamp(50vh, 70vw, 70vh);
+  padding: 2% 3%;
+  color: var(--text-secondary);
+  background-color: var(--card-background);
   transform: perspective(300px);
   transform-style: preserve-3d;
   border-radius: 2%;
-  box-shadow: 0 45px 100px rgba(14,21,47,0.4), 0 16px 60px rgba(14,21,47,0.4);
+  box-shadow: 0 45px 100px rgba(14, 21, 47, 0.4),
+    0 16px 60px rgba(14, 21, 47, 0.4);
+  z-index: 30;
+}
+
+.emailConnect > div > button.close {
+  all: unset;
+  position: absolute;
+  top: 2%;
+  right: 3%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1% 1.5%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  color: var(--text-negative);
+  background-color: var(--text-secondary);
+  box-shadow: var(--shadow);
+}
+.emailConnect > div > button.close:hover{
+  color: var(--text-secondary);
+  background-color: var(--card-background2);
+  border: 1.5px solid var(--text-secondary);
+  border-radius: 20px;
+  box-shadow: none;
+  cursor: pointer;
+}
+.emailConnect > div > p {
+  text-align: center;
+  font-size: var(--text6);
+}
+
+.contactForm {
+  width: max(70%, 250px);
+  margin: 5% auto 0;
+  font-weight: 800;
+}
+.contactForm > label {
+  display: block;
+  font-size: var(--text5);
+  margin-bottom: 4px;
+  letter-spacing: 1.5px;
+}
+.contactForm > input,
+.contactForm > textarea {
+  display: block;
+  margin-bottom: min(3vw, 20px);
+  width: 100%;
+  min-height: min(2vw, 30px);
+  padding-left: 2%;
+  border: 1px solid var(--text-secondary);
+  border-radius: .5vw;
+  box-shadow: .5vw .5vw 1vw black;
+}
+.contactForm > button {
+  all: unset;
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1.5% 4%;
+  color: var(--text-negative);
+  background-color: var(--text-secondary);
+  box-shadow: var(--shadow);
+}
+.contactForm > button:hover{
+  color: var(--text-secondary);
+  background-color: var(--card-background);
+  border: 1.5px solid var(--text-secondary);
+  border-radius: 20px;
 }
 
 /* Footer Containers */
 .footer {
   position: relative;
-  padding: 1rem max(2rem, 6vw) 0.5rem;
   height: auto;
   width: 100%;
+  padding: 1rem max(2rem, 6vw) 0.5rem;
   background-color: var(--nav-bg);
   backdrop-filter: blur(4px);
   box-shadow: 0 2px 15px 5px black;
   z-index: 10;
 }
 
-.footer > section {
+.footer > section:first-of-type {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,10 +122,10 @@
   color: var(--text-primary);
 }
 .footerDetails > h3 {
+  margin: 20px 0 20px;
   text-indent: 20px;
   font-size: clamp(20px, 2.4vw, 40px);
   letter-spacing: 2px;
-  margin: 20px 0 20px;
   color: var(--text-detail);
 }
 .footerDetails > p {
@@ -66,13 +141,13 @@
   align-items: center;
 }
 .footerConnect > ul {
+  list-style: none;
   display: flex;
   flex-wrap: wrap;
-  width: min(18vw, 200px);
   text-align: center;
   margin: 10px auto;
+  width: min(18vw, 200px);
   padding: 2px 6px 0;
-  list-style: none;
   color: var(--text-primary);
 }
 .footerConnect li {
@@ -87,31 +162,37 @@
   font-size: clamp(24px, 4.2vw, 70px);
 }
 .footerConnect button {
+  margin: 0 auto;
   width: min(15vw, 200px);
   height: 30px;
-  margin: 0 auto;
-  padding:  .1vw;
+  padding: 0.1vw;
   text-align: center;
+  font-size: var(--text5);
   color: var(--text-negative);
   background-color: var(--text-primary);
   border: 2px solid var(--text-negative);
-  font-size: var(--text5)
 }
 .footerConnect button:hover {
   color: var(--card-background);
-  border: 2px solid var(--card-background);
   background-color: var(--detail);
+  border: 2px solid var(--card-background);
   cursor: pointer;
 }
 
+.footerCopywright {
+  text-align: center;
+  font-size: var(--text5);
+  color: var(--text-primary);
+  font-weight: 200;
+}
 .footerLinkList {
+  list-style: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative;
   right: 2%;
   margin-bottom: 40px;
-  list-style: none;
   font-size: var(--text4);
   font-weight: 600;
 }
@@ -119,9 +200,3 @@
   color: var(--detail);
 }
 
-.footerCopywright {
-  font-size:var(--text5);
-  color: var(--text-primary);
-  text-align: center;
-  font-weight: 200;
-}

@@ -40,7 +40,9 @@ const HomePage = () => {
         let scale = 2 - Math.abs(mid - window.innerHeight / 2) / 400;
         scale = mobile ? Math.min(scale, 1.2) : Math.min(scale, 1.4);
         const translateY = (mid / window.innerHeight) * 80 - 80;
-        const opacity = mobile ? Math.min(scale - 0.3, 1) : Math.min(scale - 0.5, 1);
+        const opacity = mobile
+          ? Math.min(scale - 0.3, 1)
+          : Math.min(scale - 0.5, 1);
 
         slide.style.transform = `translateY(${
           translateY * 3
@@ -69,9 +71,12 @@ const HomePage = () => {
         keywords="Software,Developer,Engineer,Full-Stack,Portfolio,Skills,Projects,Experience,Resumes"
       />
 
-      <main style={{ padding: "clamp(160px, 14vw, 240px) 0 0" }}>
+      <main
+        id="homePage"
+        style={{ padding: "clamp(160px, 14vw, 240px) 0 0" }}
+      >
         <HomeTop />
-        <section className={css.developerSkills}>
+        <section id="skillsIntro" className={css.developerSkills}>
           <h2 id="slideTitle">
             Check out my <span className="detail">Technical Skillsets</span>
             <br />

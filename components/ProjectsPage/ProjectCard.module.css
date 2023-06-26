@@ -45,24 +45,24 @@
   width: 110%;
   height: 110%;
   padding: 5% 5% 10%;
-  border-radius: 30px;
   color: var(--text-primary);
   background-color: var(--card-background2);
   border: 1.5px solid var(--text-secondary);
+  border-radius: 20px;
   box-shadow: inset 2px 4px 10px var(--text-negative),
     inset -2px -4px 10px var(--text-negative), var(--shadow-hover);
 }
 
 .projectDetail > h2 {
+  flex: 1;
   color: var(--text-secondary);
   font-size: var(--text2);
-  flex: 1;
 }
 .projectDetail > p {
+  flex: 4;
   width: 80%;
   font-size: var(--text5);
   overflow: scroll;
-  flex: 4;
   transform: translateY(-10%) scaleY(120%);
 }
 
@@ -94,11 +94,11 @@
   padding: min(2vw, 5vh) 3vw;
   width: min(92%, 1300px);
   height: clamp(460px, 80vw, 80vh);
-  border-radius: 30px;
-  background-color: var(--card-background2);
-  box-shadow: inset 2px 4px 10px var(--detail-terinary),
-    inset -2px -4px 10px var(--detail-terinary);
   color: var(--text-secondary);
+  background-color: var(--card-background2);
+  border-radius: 30px;
+  box-shadow: inset 2px 4px 10px var(--detail-terinary),
+  inset -2px -4px 10px var(--detail-terinary);
 }
 
 .detailLeft {
@@ -147,8 +147,8 @@
   font-size: var(--text4);
   color: var(--text-primary);
   background-color: var(--card-background);
-  box-shadow: 2px 2px 2px .8px var(--text-primary);
   border-radius: 2vw;
+  box-shadow: 2px 2px 2px .8px var(--text-primary);
 }
 .detailLeft > div a:hover {
   color: var(--background);
@@ -168,8 +168,8 @@
 .detailRight > h2 {
   position: relative;
   margin: 20% 0 min(1.6vw, 50px);
-  height: 10%;
   width: 120%;
+  height: 10%;
   text-align: left;
   color: var(--text-secondary);
   font-size: var(--text2);
@@ -188,10 +188,10 @@
 }
 
 .detailRight > h3 {
-  transform: translateX(-2vw) scaleX(1.2);
   height: 2%;
   font-size: clamp(10px, 2.6vw, 32px);
   line-height: clamp(14px, 2.4vw, 30px);
+  transform: translateX(-2vw) scaleX(1.2);
 }
 
 
@@ -199,8 +199,8 @@
   display: flex;
   flex-wrap: wrap;
   padding: 0;
-  height: 25%;
   width: 120%;
+  height: 25%;
   margin-bottom: 2vw;
   transform: translateX(-20%);
   background: transparent;
@@ -220,10 +220,11 @@
   font-size: var(--text6);
   color: var(--text-primary);
   background-color: var(--background);
-  box-shadow: var(--shadow);
   border-radius: 1vw;
+  box-shadow: var(--shadow);
 }
 .detailTech:hover {
+  color: var(--text-secondary);
   transform: scale(1.1);
   box-shadow: var(--shadow-hover);
 }
@@ -246,6 +247,7 @@ button.detailClose {
 }
 
 .detailClose:hover {
+  color: var(--text-secondary);
   background-color: var(--card-background);
   box-shadow: 0 0 .5vw .3vw var(--text-negative), 0 0 1vw .3vw black, 0 0 3vw .5vw black;
 }

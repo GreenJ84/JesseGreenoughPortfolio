@@ -42,8 +42,8 @@ const Degree = (props: Education) => {
   }, [windowWidth]);
 
   return (
-    <article id="degreeContainer">
-      <h2 className={css.title}>Degrees Recieved</h2>
+    <section id="degreeContainer">
+      <h2 className={css.title}>Degrees I Recieved</h2>
       <EducationImg />
       <ul
         id="degreeList"
@@ -67,7 +67,7 @@ const Degree = (props: Education) => {
           </li>
         ))}
       </ul>
-    </article>
+    </section>
   );
 };
 

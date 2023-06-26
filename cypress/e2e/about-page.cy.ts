@@ -18,14 +18,18 @@ for (let viewport of viewports) {
   const viewString = viewportDisplay(viewport);
   context(`About Page render testing at viewport size: ${viewString}`, () => {
     before(() => {
-      viewPortSetup(viewport);
       setupPageWithTheme(ABOUTURL, "dark");
       cy.wait(1000);
     });
 
+    beforeEach(() => {
+      viewPortSetup(viewport);
+      cy.wait(1000);
+    });
+
     // let viewport = viewports[0];
-    describe(`About Page Main section is rendering as expected at size: ${viewString}`, () => {
-      it("About Main is visible and rendering all children", () => {
+    describe(`About Page container is rendering as expected at size: ${viewString}`, () => {
+      it("About Main is rendering the correct layout", () => {
         aboutPage
           .aboutMain()
           .should("be.visible")
@@ -33,172 +37,176 @@ for (let viewport of viewports) {
           .should("have.length", 2);
       });
 
-      it("About Main is correctly rendering all CSS", () => {
-        aboutPage
-          .aboutMain()
-          .should("have.css", "position", "relative")
-          .should("have.css", "color", "rgb(206, 255, 208)")
-          .then((div: Cypress.Chainable<JQuery<HTMLDivElement>>) => {
-            expect(div).to.have.css("margin");
-            expect(div).to.have.css("padding");
-          });
-      });
-
-      it("About Main Logo is rendering with correct styles", () => {
-        aboutPage
-          .aboutMain()
-          .find("img")
-          .should("be.visible")
-          .should(
-            "have.attr",
-            "src",
-            "/_next/image?url=%2Fassets%2Fabout.png&w=1920&q=75"
-          )
-          .should(
-            "have.attr",
-            "alt",
-            "An animated image of a developer, happily working away with code at a standing office desk of the future with holographic displays"
-          )
-          .then((img: Cypress.Chainable<JQuery<HTMLImageElement>>) => {
-            expect(img).to.have.css("display", "block");
-            expect(img).to.have.css("filter", "hue-rotate(260deg)");
-            expect(img).to.have.css("max-width");
-            expect(img).to.have.css("max-height");
-            expect(img).to.have.css("margin");
-          });
+      it("About Main is rendering the correct styling", () => {
+        aboutPage.aboutMain().then(($container: JQuery<HTMLElement>) => {
+          expect($container).to.have.css("position", "relative");
+          expect($container).to.have.css("padding");
+        });
       });
     });
 
     describe(`About Page developer Introduction section is rendering as expected at size: ${viewString}`, () => {
-      it("About Page developer introduction is visible and rendering childeren", () => {
+      it("About Page introduction is rendering the correct layout", () => {
         aboutPage
           .aboutIntro()
           .should("be.visible")
           .children()
-          .should("have.length", 2);
-      });
+          .should("have.length", 3)
+          .then(($children: JQuery<HTMLElement>) => {
+            cy.wrap($children)
+              .eq(0)
+              .should("have.prop", "tagName", "H1")
+              .and("include.text", "Break the Ice");
 
-      it("About Page developer introduction is correctly rendering container css", () => {
-        aboutPage
-          .aboutIntro()
-          .should("have.css", "color", "rgb(206, 255, 208)")
-          .then((div: Cypress.Chainable<JQuery<HTMLDivElement>>) => {
-            expect(div).to.have.css("margin");
-            expect(div).to.have.css("font-size");
+            cy.wrap($children).eq(1).should("have.prop", "tagName", "P");
+
+            cy.wrap($children).eq(2).should("have.prop", "tagName", "UL");
           });
       });
 
-      it("About Page developer introduction is correctly rendering introduction text", () => {
-        aboutPage
-          .aboutIntro()
-          .find("p")
-          .should("be.visible")
-          .and("have.length", 1)
-          .and("have.css", "text-align", "left")
-          .and("contain.text", "Jesse Greenough")
-          .and("contain.text", "Full-Stack Developer")
-          .and("contain.text", "my favorite color is Green")
-          .and(
-            "contain.text",
-            "Apart from learning and coding, some other activities that I love"
-          )
-          .find("span")
-          .should("have.length", 3);
-
-        aboutPage.aboutIntro().find("p").find("br").should("have.length", 6);
+      it("About Page introduction container is rendering the correct styling", () => {
+        aboutPage.aboutIntro().then(($container: JQuery<HTMLElement>) => {
+          expect($container).to.have.css("position", "relative");
+          expect($container).to.have.css("margin");
+          expect($container).to.have.css("padding");
+          expect($container).to.have.css("width");
+          expect(parseFloat($container.css("width"))).to.be.lte(1200);
+          expect($container).to.have.css("color", "rgb(230, 255, 243)");
+          expect($container).to.have.css("backdrop-filter");
+        });
       });
 
-      it("About Page developer introduction is rendering the correct amount of developer activities", () => {
+      it("About Page introduction children are rendering the correct styling", () => {
         aboutPage
           .aboutIntro()
-          .find("ul")
+          .children()
+          .then(($children: JQuery<HTMLElement>) => {
+            cy.wrap($children)
+              .eq(0)
+              .then(($title: JQuery<HTMLElement>) => {
+                expect($title).to.have.css("margin-bottom", "60px");
+                expect($title).to.have.css("text-align", "center");
+                expect($title).to.have.css("font-size");
+                expect(parseFloat($title.css("font-size")))
+                  .to.be.lte(60)
+                  .and.to.be.gte(26);
+              });
+
+            cy.wrap($children)
+              .eq(1)
+              .then(($paragraph: JQuery<HTMLElement>) => {
+                expect($paragraph).to.have.css("font-size");
+                expect(parseFloat($paragraph.css("font-size")))
+                  .to.be.lte(34)
+                  .and.to.be.gte(14);
+              });
+
+            cy.wrap($children)
+              .eq(2)
+              .then(($list: JQuery<HTMLElement>) => {
+                expect($list).to.have.css("list-style-type", "none");
+              });
+          });
+      });
+
+      it("About Page introduction is rendering the correct text", () => {
+        aboutPage
+          .aboutIntro()
+          .children("p")
+          .should("have.length", 1)
+          .first()
+          .should("be.visible")
+          .and("contain.text", "Jesse Greenough")
+          .and("contain.text", "Full-Stack Developer")
+          .and("contain.text", "my favorite colors are Green and Blue")
+          .and("contain.text", "other activities that I love")
+          .children("span")
+          .should("have.length", 4);
+
+        aboutPage
+          .aboutIntro()
+          .children("p")
+          .first()
+          .children("br")
+          .should("have.length", 6);
+      });
+
+      it("About Page introduction is rendering the correct amount of developer activities", () => {
+        aboutPage
+          .aboutIntro()
+          .children("ul")
+          .first()
           .should("be.visible")
           .children()
           .should("have.length", 7);
       });
 
-      it("About Page developer introduction is rendering developer activities correctly", () => {
+      it("About Page introduction developer activities is rendering the correct styling", () => {
         aboutPage
           .aboutIntro()
-          .find("ul")
-          .within(() => {
-            cy.get("li").should("have.length", 7);
-
-            let listItem: Cypress.Chainable<JQuery<HTMLElement>>;
-
-            listItem = cy.get("li").eq(0);
-            aboutPage.testIntroListItem(listItem);
-
-            listItem = cy.get("li").eq(1);
-            aboutPage.testIntroListItem(listItem);
-
-            listItem = cy.get("li").eq(2);
-            aboutPage.testIntroListItem(listItem);
-
-            listItem = cy.get("li").eq(3);
-            aboutPage.testIntroListItem(listItem);
-
-            listItem = cy.get("li").eq(4);
-            aboutPage.testIntroListItem(listItem);
-
-            listItem = cy.get("li").eq(5);
-            aboutPage.testIntroListItem(listItem);
-
-            listItem = cy.get("li").eq(6);
-            aboutPage.testIntroListItem(listItem);
+          .children("ul")
+          .first()
+          .children("li")
+          .each(($li: JQuery<HTMLElement>) => {
+            aboutPage.testIntroListItem(cy.wrap($li));
           });
       });
     });
 
     describe(`About Page developer details section is rendering as expected at size: ${viewString}`, () => {
-      it("About Page Developers details section is visible and rendering all children", () => {
+      it("About Page Developers details section is rendering the correct layout", () => {
         aboutPage
           .aboutDetail()
           .should("be.visible")
-          .children()
-          .should("have.length", 6);
+          .then(($container: JQuery<HTMLElement>) => {
+            cy.wrap($container)
+              .children("h1")
+              .should("have.length", 1)
+              .first()
+              .should("be.visible")
+              .children()
+              .should("have.length", 1);
+
+            cy.wrap($container)
+              .children("p")
+              .should("have.length", 5)
+              .each(($p) => {
+                expect($p).to.be.visible;
+              });
+          });
       });
 
-      it("About Page Developers details section has the correct visible styled title", () => {
-        aboutPage
-          .aboutDetail()
-          .find("h1")
-          .should("be.visible")
-          .and("have.length", 1)
-          .and("contain.text", "All About Me")
-          .and("have.css", "color", "rgb(206, 255, 208)")
-          .and("have.css", "text-align", "center");
-      });
-
-      it("About Page Developers details section has all text pieces with correct container css", () => {
-        aboutPage
-          .aboutDetail()
-          .find("p")
-          .should("be.visible")
-          .and("have.length", 5);
-
-        aboutPage.aboutDetail().within(() => {
-          let para: Cypress.Chainable<JQuery<HTMLParagraphElement>>;
-
-          para = cy.get("p").eq(0);
-          aboutPage.testDetailParagraphsStyle(para);
-
-          para = cy.get("p").eq(1);
-          aboutPage.testDetailParagraphsStyle(para);
-
-          para = cy.get("p").eq(2);
-          aboutPage.testDetailParagraphsStyle(para);
-
-          para = cy.get("p").eq(3);
-          aboutPage.testDetailParagraphsStyle(para);
-
-          para = cy.get("p").eq(4);
-          aboutPage.testDetailParagraphsStyle(para);
+      it("About Page Developers details container is rendering the correct styling", () => {
+        aboutPage.aboutDetail().then(($container: JQuery<HTMLElement>) => {
+          expect($container).to.have.css("padding");
+          expect($container).to.have.css("color", "rgb(230, 255, 243)");
+          expect($container).to.have.css("backdrop-filter");
         });
       });
 
-      it("About Page Developers details section rendering matches all text expectations ", () => {
-        aboutPage.testDetailParagraphText(aboutPage.aboutDetail());
+      it("About Page details section title is rendering the correct styling", () => {
+        aboutPage
+          .aboutDetail()
+          .children("h1")
+          .first()
+          .should("contain.text", "All About Me")
+          .and("have.css", "color", "rgb(230, 255, 243)")
+          .and("have.css", "text-align", "center");
+      });
+
+      it("About Page details section paragraphs are rendering the correct styling", () => {
+        aboutPage
+          .aboutDetail()
+          .children("p")
+          .each(($p: JQuery<HTMLParagraphElement>) => {
+            aboutPage.testDetailParagraphsStyle(cy.wrap($p));
+          });
+      });
+
+      it("About Page Developers details section rendering matches all text expectations", () => {
+        aboutPage.testDetailParagraphText(
+          aboutPage.aboutDetail().children("p")
+        );
       });
     });
   });

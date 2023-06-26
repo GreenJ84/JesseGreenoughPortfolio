@@ -10,8 +10,6 @@
   margin: 0 0 8vh;
   width: 80vw;
   height: 100px;
-  align-items: center;
-  justify-content: space-around;
 }
 
 .certificationsFilter > div {
@@ -25,8 +23,8 @@
   text-align: center;
   font-size: var(--text2);
   font-weight: 900;
-  letter-spacing: 2px;
   color: var(--text-primary);
+  letter-spacing: 2px;
   text-shadow: .15vw .15vw var(--text-negative);
 }
 
@@ -45,6 +43,5 @@
 .certificationsFilter > div > select:hover{
   letter-spacing: 2px;
   background-color: var(--card-background);
-  border: 2px solid var(--text-secondary);
   box-shadow: var(--shadow-hover);
 }

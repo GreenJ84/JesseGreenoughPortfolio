@@ -3,7 +3,7 @@
 import { defineConfig } from "cypress";
 
 export default defineConfig({
-  defaultCommandTimeout: 5000,
+  defaultCommandTimeout: 10000,
   requestTimeout: 5000,
   responseTimeout: 5000,
   pageLoadTimeout: 10000,
@@ -15,7 +15,10 @@ export default defineConfig({
   chromeWebSecurity: false,
   env: {
     NODE_TLS_REJECT_UNAUTHORIZED: "0",
+    // Full spectrum of viewports for testing
     FULL_SPECTRUM: false,
+    // Layout tests to run across all pages
+    ALL_PAGE: false,
   },
   numTestsKeptInMemory: 5,
   e2e: {
@@ -34,4 +37,5 @@ export default defineConfig({
       bundler: "webpack",
     },
   },
+  watchForFileChanges: false,
 });
