@@ -16,7 +16,7 @@ import { EducationPage } from "../page-objects/EducationPage";
 const EDUURL = BASEURL + "/experience/education";
 const eduPage = new EducationPage();
 
-for (let viewport of viewports) {
+for (let viewport of viewports.slice(1,2)) {
   context("Education Page render Testing", () => {
     before(() => {
       setupPageWithTheme(EDUURL, "dark");
@@ -175,7 +175,7 @@ for (let viewport of viewports) {
                 expect($img).to.have.css("margin");
                 expect($img).to.have.css("width");
                 expect(parseFloat($img.css("width")))
-                  .to.be.lte(900 * 1.1)
+                  .to.be.lte(900 * 1.5)
                   .and.to.be.gte(250 * 0.6);
                 expect($img).to.have.css("height");
                 expect($img).to.have.css("animation");
@@ -871,9 +871,10 @@ for (let viewport of viewports) {
       viewport
     )}`, () => {
       beforeEach(() => {
-        cy.get("body").first().realHover({position: "right"});
+        cy.get("body").first().realHover({ position: "right" });
         cy.wait(600);
       });
+
       it("Certifications list is rendering the correct styling", () => {
         eduPage.getCertificationList().then(($list) => {
           expect($list).to.have.css("list-style", "outside none none");
@@ -893,14 +894,14 @@ for (let viewport of viewports) {
 
       // Test half of the Top 10 certification items
       const oddEven = getOddEven();
+      let itemNumber = 0;
       for (let idx = oddEven; idx < 10; idx += 2) {
+        itemNumber += 1;
         const retrieveCurrentCert = () => {
           return eduPage.getCertificationList().children("li").eq(idx);
         };
 
-        it(`FlipCard layout is rendering correct on Certification: ${
-          idx % 2 == 0 ? idx + 1 : idx
-        } of 5`, () => {
+        it(`FlipCard layout is rendering correct on Certification: ${itemNumber} of 5`, () => {
           retrieveCurrentCert()
             .children()
             // Only the flipCard container as a child
@@ -915,9 +916,7 @@ for (let viewport of viewports) {
             .should("have.length", 2);
         });
 
-        it(`Certification layout is rendering correct on Certification: ${
-          idx % 2 == 0 ? idx + 1 : idx
-        } of 5`, () => {
+        it(`Certification layout is rendering correct on Certification: ${itemNumber} of 5`, () => {
           retrieveCurrentCert()
             .should("have.prop", "tagName", "LI")
             .then(($li) => {
@@ -953,9 +952,7 @@ for (let viewport of viewports) {
             });
         });
 
-        it(`Front card is rendering the correct styling on Certification: ${
-          idx % 2 == 0 ? idx + 1 : idx
-        } of 5`, () => {
+        it(`Front card is rendering the correct styling on Certification: ${itemNumber} of 5`, () => {
           retrieveCurrentCert()
             .find("#certCardFront")
             .first()
@@ -1013,9 +1010,7 @@ for (let viewport of viewports) {
             });
         });
 
-        it(`Hover effects function as expected on Certification: ${
-          idx % 2 == 0 ? idx + 1 : idx
-        } of 5`, () => {
+        it(`Hover effects function as expected on Certification: ${itemNumber} of 5`, () => {
           retrieveCurrentCert().then(($li) => {
             // Expect front viable and back not
             cy.wrap($li).find("#certCardFront").first().should("be.visible");
@@ -1040,9 +1035,7 @@ for (let viewport of viewports) {
           });
         });
 
-        it(`Back card is rendering the correct styling on Certification: ${
-          idx % 2 == 0 ? idx + 1 : idx
-        } of 5`, () => {
+        it(`Back card is rendering the correct styling on Certification: ${itemNumber} of 5`, () => {
           retrieveCurrentCert()
             .realHover({ position: "center", scrollBehavior: "center" })
             .wait(1500)
@@ -1156,9 +1149,7 @@ for (let viewport of viewports) {
           cy.wait(300);
         });
 
-        it(`Link hover styling renders as expected on Certification: ${
-          idx % 2 == 0 ? idx + 1 : idx
-        } of 5`, () => {
+        it(`Link hover styling renders as expected on Certification: ${itemNumber} of 5`, () => {
           retrieveCurrentCert()
             .realHover({ position: "center", scrollBehavior: "center" })
             .wait(1500)

@@ -21,10 +21,10 @@ const LAYOUTURLS = () => {
   return extentions;
 };
 
-for (let viewport of viewports.slice(5, 7)) {
+for (let viewport of viewports) {
   const viewString = viewportDisplay(viewport);
 
-  for (let url of LAYOUTURLS().slice(0, 1)) {
+  for (let url of LAYOUTURLS()) {
     const urlString =
       url.length > 1 ? url.replace("/", "").toLocaleUpperCase() : "Home";
 
@@ -1335,7 +1335,7 @@ for (let viewport of viewports.slice(5, 7)) {
     //   }
     // );
 
-    if (!Cypress.env("FULL_SPECTRUM")) {
+    if (!Cypress.env("ALL_PAGE")) {
       break;
     }
   }
