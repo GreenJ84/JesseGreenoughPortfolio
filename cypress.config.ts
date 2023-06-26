@@ -15,7 +15,10 @@ export default defineConfig({
   chromeWebSecurity: false,
   env: {
     NODE_TLS_REJECT_UNAUTHORIZED: "0",
+    // Full spectrum of viewports for testing
     FULL_SPECTRUM: false,
+    // Layout tests to run across all pages
+    ALL_PAGE: false,
   },
   numTestsKeptInMemory: 5,
   e2e: {
