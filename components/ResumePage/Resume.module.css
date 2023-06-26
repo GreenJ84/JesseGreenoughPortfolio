@@ -4,7 +4,7 @@
   padding: 20vh 0 15vh;
 }
 
-.mobileModal{
+.mobileModal {
   position: fixed;
   top: 0;
   left: 0;
@@ -27,7 +27,7 @@
   padding: 5%;
   text-align: center;
   font-size: var(--text3);
-  letter-spacing: .6vw;
+  letter-spacing: 0.6vw;
   color: var(--text-primary);
   background-color: var(--card-background2);
   border-radius: 4vw;
@@ -82,20 +82,30 @@
     top: 50%;
     transform: translateY(-50%);
     z-index: 20;
-    opacity: 0.5;
+    opacity: 0.7;
   }
-  .leftArrow{
+  .leftArrow {
     left: 5vw;
   }
-  .rightArrow{
+  .rightArrow {
     right: 5vw;
   }
   .leftArrow:hover,
   .rightArrow:hover {
     opacity: 1;
   }
+  .disabled:hover {
+    opacity: 0.7;
+  }
 }
 
+.disabled,
+.disabled:hover {
+  color: var(--text-negative);
+  background-color: rgba(0, 0, 0, 0.5);
+  cursor: not-allowed;
+  box-shadow: none;
+}
 
 .resume > img {
   width: min(1200px, 90vw);

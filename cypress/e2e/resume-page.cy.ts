@@ -133,8 +133,9 @@ for (let viewport of viewports) {
     describe(`Resume navigation renders as expected at size: ${viewString}`, () => {
       it("The resume navigation arrows render correctly with the viewport sizes", () => {
         let left = () => resumePage.resume().children("div").eq(0);
-
         let right = () => resumePage.resume().children("div").eq(1);
+        // Test two active arrows by rotating once right
+        right().realClick({ position: "center", scrollBehavior: "center" }).wait(400);
 
         resumePage.testVisibleNavArrows(left());
         resumePage.testVisibleNavArrows(right());
