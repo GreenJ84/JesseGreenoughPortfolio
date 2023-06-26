@@ -47,7 +47,7 @@ const ProjectCard = (props: projectProps) => {
               className={css.projectDetail}
             >
               <h2>{props.project.name}</h2>
-              <p>{props.project.description}</p>
+              <p>{props.project.brief ?? props.project.description}</p>
               <button onClick={() => setShowDetail(true)}> View More </button>
             </div>
           }

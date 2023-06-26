@@ -51,13 +51,13 @@ const ResumePage = (props: resumeProps) => {
   // Resume Flip Through
   const changeResNum = (dir: string) => {
     if (dir == "left") {
-      if (resNum <= 0) {
-        setResNum(props.resumeData.length - 1);
-      } else {
+      if (resNum > 0) {
         setResNum(resNum - 1);
       }
     } else if (dir == "right") {
-      setResNum((resNum + 1) % props.resumeData.length);
+      if (resNum < props.resumeData.length - 1) {
+        setResNum(resNum + 1);
+      }
     }
   };
 
@@ -82,7 +82,7 @@ const ResumePage = (props: resumeProps) => {
           className={css.resume}
         >
           <div
-            className={css.leftArrow}
+            className={`${css.leftArrow} ${resNum === 0 && css.disabled}`}
             onClick={() => changeResNum("left")}
           >
             <BsArrowLeft />
@@ -123,7 +123,7 @@ const ResumePage = (props: resumeProps) => {
             }}
           />
           <div
-            className={css.rightArrow}
+            className={`${css.rightArrow} ${resNum === props.resumeData.length - 1 && css.disabled}`}
             onClick={() => changeResNum("right")}
           >
             <BsArrowRight />
