@@ -8,11 +8,11 @@ import MetaHead from "../components/Layout/MetaHead";
 import ProjectCard from "../components/ProjectsPage/ProjectCard";
 import ProjectNavbar from "../components/ProjectsPage/ProjectNavbar";
 
-import { IProject } from "../Utils/dataTypes";
+import { projectType } from "../Utils/dataTypes";
 const css = require("../components/ProjectsPage/Project.module.css");
 
 interface Projects {
-  projectData: IProject[];
+  projectData: projectType[];
 }
 
 const ProjectPage = (props: Projects) => {
@@ -115,7 +115,7 @@ const ProjectPage = (props: Projects) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps<Projects> = async () => {
   const client = new MongoClient(process.env.DB_CONN_STRING!);
   const db = client.db(process.env.DB_NAME);
 
@@ -139,7 +139,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
         github_url: result.github_url,
         category: result.category,
         key_techs: result.key_techs,
-      })),
+      } as projectType)),
     },
   };
 };

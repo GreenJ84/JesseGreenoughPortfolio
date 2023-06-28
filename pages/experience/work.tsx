@@ -7,14 +7,14 @@ import { MongoClient } from "mongodb";
 import WorkCard from "../../components/WorkPage/WorkCard";
 import MetaHead from "../../components/Layout/MetaHead";
 
-import { workItem } from "../../Utils/dataTypes";
+import { workType } from "../../Utils/dataTypes";
 import WorkImg from "../../components/WorkPage/WorkImg";
 
 const css = require("../../components/WorkPage/WorkExp.module.css");
 
 export interface WorkExp {
-  workData: workItem[];
-  secondaryWorkData: workItem[];
+  workData: workType[];
+  secondaryWorkData: workType[];
 }
 
 const WorkPage = (props: WorkExp) => {

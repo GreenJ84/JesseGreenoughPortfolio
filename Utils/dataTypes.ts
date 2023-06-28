@@ -1,6 +1,6 @@
 /** @format */
 
-export interface workItem {
+export interface workType {
   company: string;
   logo: string;
   position: string;
@@ -9,7 +9,7 @@ export interface workItem {
   details: string[];
 }
 
-export interface IProject {
+export interface projectType {
   id: string;
   priority?: number;
   name: string;

@@ -8,12 +8,12 @@ import { MdClose } from "react-icons/md";
 
 import FlipCard from "../Layout/FlipCard";
 
-import { IProject } from "../../Utils/dataTypes";
+import { projectType } from "../../Utils/dataTypes";
 
 const css = require("./ProjectCard.module.css");
 
 interface projectProps {
-  project: IProject;
+  project: projectType;
 }
 
 const ProjectCard = (props: projectProps) => {
