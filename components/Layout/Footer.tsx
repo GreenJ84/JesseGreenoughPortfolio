@@ -85,7 +85,7 @@ const Footer = () => {
                 );
               })}
             </ul>
-            <button onClick={() => setEmailConnect(true)}>Contact Me</button>
+            <button onClick={() => setEmailConnect(true)}>Contact</button>
           </nav>
         </section>
         <hr
