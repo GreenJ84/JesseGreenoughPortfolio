@@ -10,26 +10,35 @@
   align-items: center;
   justify-content: center;
   background-color: var(--layout-bg);
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) perspective(300px);
+  transform-style: preserve-3d;
   z-index: 20;
+  overflow-y: scroll;
 }
 
 .emailConnect > div {
   position: absolute;
-  width: min(75vw, 800px);
-  height: clamp(50vh, 70vw, 70vh);
-  padding: 2% 3%;
-  color: var(--text-secondary);
-  background-color: var(--card-background);
-  transform: perspective(300px);
-  transform-style: preserve-3d;
-  border-radius: 2%;
-  box-shadow: 0 45px 100px rgba(14, 21, 47, 0.4),
-    0 16px 60px rgba(14, 21, 47, 0.4);
-  z-index: 30;
+  width: 100%;
+  height: 100%;
 }
 
-.emailConnect > div > button.close {
+.contactForm {
+  position: absolute;
+  top: 10px;
+  margin: 5% auto 0;
+  width: clamp(250px, 70%, 1000px);
+  padding: 2% 3% 10%;
+  font-weight: 800;
+  color: var(--text-secondary);
+  background-color: var(--card-background);
+  border-radius: 2%;
+  box-shadow: 0 45px 100px rgba(14, 21, 47, 0.4),
+  0 16px 60px rgba(14, 21, 47, 0.4);
+  z-index: 30;
+  overflow: scroll;
+}
+
+.emailConnect > form > button.close {
   all: unset;
   position: absolute;
   top: 2%;
@@ -44,41 +53,46 @@
   background-color: var(--text-secondary);
   box-shadow: var(--shadow);
 }
-.emailConnect > div > button.close:hover{
+.emailConnect > form > button.close:hover {
   color: var(--text-secondary);
   background-color: var(--card-background2);
   border: 1.5px solid var(--text-secondary);
-  border-radius: 20px;
   box-shadow: none;
   cursor: pointer;
 }
-.emailConnect > div > p {
+
+.emailConnect > form > h1 {
   text-align: center;
-  font-size: var(--text6);
+  font-size: var(--text3);
 }
 
-.contactForm {
-  width: max(70%, 250px);
-  margin: 5% auto 0;
-  font-weight: 800;
+.emailConnect > form > p {
+  text-align: center;
+  font-size: var(--text5);
 }
+
 .contactForm > label {
   display: block;
   font-size: var(--text5);
-  margin-bottom: 4px;
+  margin: 0 auto 4px;
+  max-width: 600px;
   letter-spacing: 1.5px;
 }
 .contactForm > input,
 .contactForm > textarea {
   display: block;
-  margin-bottom: min(3vw, 20px);
+  margin: 0 auto min(3vw, 20px);
   width: 100%;
-  min-height: min(2vw, 30px);
+  max-width: 600px;
   padding-left: 2%;
   border: 1px solid var(--text-secondary);
-  border-radius: .5vw;
-  box-shadow: .5vw .5vw 1vw black;
+  border-radius: 0.5vw;
+  box-shadow: 0.5vw 0.5vw 1vw black;
 }
+.contactForm > input{
+  min-height: max(2vw, 25px);
+}
+
 .contactForm > button {
   all: unset;
   position: absolute;
@@ -90,7 +104,7 @@
   background-color: var(--text-secondary);
   box-shadow: var(--shadow);
 }
-.contactForm > button:hover{
+.contactForm > button:hover {
   color: var(--text-secondary);
   background-color: var(--card-background);
   border: 1.5px solid var(--text-secondary);
@@ -199,4 +213,3 @@
 .footerLinkList li:hover {
   color: var(--detail);
 }
-

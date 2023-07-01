@@ -1,7 +1,8 @@
 /** @format */
 
+import React from "react";
 import axios from "axios";
-import React, { SyntheticEvent } from "react";
+
 const css = require("./Footer.module.css");
 
 const ContactModal = ({ close }: { close: Function }) => {
@@ -22,9 +23,16 @@ const ContactModal = ({ close }: { close: Function }) => {
   return (
     <div
       className={css.emailConnect}
-      onClick={() => close()}
     >
-      <div>
+        <div onClick={() => close()}></div>
+        <form
+          className={css.contactForm}
+          onSubmit={(e: React.SyntheticEvent) => {
+            console.log('Form submitted');
+            e.preventDefault();
+            handleSubmit(e.target);
+          }}
+        >
         <button
           className={css.close}
           onClick={() => close()}
@@ -36,14 +44,6 @@ const ContactModal = ({ close }: { close: Function }) => {
           Please No solicitations, advertizing, prodect endorsments, sellling,
           or ill minded offers!
         </p>
-        <form
-          className={css.contactForm}
-          onSubmit={(e: React.SyntheticEvent) => {
-            console.log('Form submitted');
-            e.preventDefault();
-            handleSubmit(e.target);
-          }}
-        >
           <label htmlFor="senderName">Name</label>
           <input
             name="senderName"
@@ -75,7 +75,6 @@ const ContactModal = ({ close }: { close: Function }) => {
 
           <button type="submit" >Submit</button>
         </form>
-      </div>
     </div>
   );
 };
