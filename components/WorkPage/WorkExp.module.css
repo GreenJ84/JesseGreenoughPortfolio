@@ -71,8 +71,9 @@
 .workFilter > button.activeFilter {
   background-color: var(--layout-bg);
   border: 2px solid var(--background);
-  box-shadow: 0 0 4px var(--text-secondary), 6px 6px 10px 4px rgb(0, 0, 0);
-  transform: scale(1.15)
+  box-shadow: var(--shadow);
+  transform: scale(1.15);
+  backdrop-filter: blur(5px);
 }
 .workFilter > button.inactiveFilter {
   background-color: var(--nav-bg);
@@ -81,10 +82,10 @@
 }
 
 .workFilter > button.activeFilter:hover, .workFilter > button.inactiveFilter:hover {
-  background-color: var(--card-background);
   border: 1px solid var(--text-primary);
+  background-color: var(--card-background);
   border-radius: 20px;
-  box-shadow: 4px 4px 15px 2px rgb(0, 0, 0);
+  box-shadow: var(--shadow-hover);
   opacity: 1;
   transform: scale(1.25);
 }

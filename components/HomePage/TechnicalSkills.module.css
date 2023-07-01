@@ -11,8 +11,8 @@
 
 .icon,
 .manualIcon {
-  width: min(20vw, 210px);
-  height: min(7vw, 140px);
+  width: min(20vw, 150px);
+  aspect-ratio: 1;
 }
 .manualIcon {
   filter: grayscale(80%);
@@ -46,7 +46,7 @@ h3.skillSectionTitle ~ h4 {
   align-items: center;
   justify-content: flex-start;
   margin: 0 2vw 3vh;
-  padding: max(2vw, 30px) 0.2em 0.2vw;
+  padding: max(2vw, 15px) 0.2em 0.2vw;
   width: clamp(100px, 18%, 220px);
   aspect-ratio: 6/9;
   color: var(--text-primary);
@@ -80,7 +80,6 @@ h3.skillSectionTitle ~ h4 {
   position: absolute;
   bottom: 0;
   justify-content: baseline;
-  margin-top: 4vw;
   width: 3.05em;
   height: clamp(26.5px, 1.34em, 60px);
   font-size: clamp(18px, 0.45em, 46px);

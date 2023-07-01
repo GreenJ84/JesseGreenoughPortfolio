@@ -24,10 +24,11 @@
 
 .contactForm {
   position: absolute;
-  top: 10px;
-  margin: 5% auto 0;
-  width: clamp(250px, 70%, 1000px);
-  padding: 2% 3% 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 5% auto 5%;
+  width: clamp(300px, 70%, 1000px);
+  padding: 2% 3% 15%;
   font-weight: 800;
   color: var(--text-secondary);
   background-color: var(--card-background);
@@ -36,6 +37,12 @@
   0 16px 60px rgba(14, 21, 47, 0.4);
   z-index: 30;
   overflow: scroll;
+}
+@media (max-height: 600px){
+  .contactForm {
+    top: 10px;
+    transform: none;
+  }
 }
 
 .emailConnect > form > button.close {
@@ -96,7 +103,7 @@
 .contactForm > button {
   all: unset;
   position: absolute;
-  bottom: 5%;
+  bottom: 3%;
   left: 50%;
   transform: translateX(-50%);
   padding: 1.5% 4%;
@@ -178,8 +185,7 @@
 .footerConnect button {
   margin: 0 auto;
   width: min(15vw, 200px);
-  height: 30px;
-  padding: 0.1vw;
+  padding: 2px;
   text-align: center;
   font-size: var(--text5);
   color: var(--text-negative);

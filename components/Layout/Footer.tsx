@@ -4,7 +4,6 @@
 import React, { BaseSyntheticEvent, useContext } from "react";
 import { useRouter } from "next/router";
 
-import { Row } from "react-bootstrap";
 import {
   AiFillGithub,
   AiOutlineTwitter,
