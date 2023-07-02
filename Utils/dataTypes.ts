@@ -1,6 +1,13 @@
 /** @format */
 
+import { MongoClient } from "mongodb";
+
+// Database connection
+const DB_CLIENT = new MongoClient(process.env.DB_CONN_STRING!);
+export const DB = DB_CLIENT.db(process.env.DB_NAME);
+export const projectDatabase = DB.collection<projectType>(process.env.PROJ_COLL!);
 export interface workType {
+  id?: string;
   company: string;
   logo: string;
   position: string;
@@ -10,11 +17,11 @@ export interface workType {
 }
 
 export interface projectType {
-  id: string;
-  priority?: number;
+  id?: string;
+  priority: number;
   name: string;
-  date?: string;
-  brief?: string;
+  date: string;
+  brief: string;
   description: string;
   image_path: string;
   deployed_url: string | null;
@@ -24,6 +31,7 @@ export interface projectType {
 }
 
 export interface educationType {
+  id?: string;
   college: string;
   degree: string;
   date: string;
@@ -34,7 +42,7 @@ export interface educationType {
 
 export interface certificationType {
   id?: string;
-  priority?: number;
+  priority: number;
   title: string;
   issuer: string;
   date: string;
