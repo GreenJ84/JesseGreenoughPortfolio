@@ -5,11 +5,11 @@ import Image from "next/image";
 
 import { ImPointRight } from "react-icons/im";
 
-import { workItem } from "../../Utils/dataTypes";
+import { workType } from "../../Utils/dataTypes";
 const css = require("./WorkCard.module.css");
 
 interface workCard {
-  work: workItem;
+  work: workType;
 }
 
 const WorkCard = (props: workCard) => {

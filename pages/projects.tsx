@@ -2,28 +2,28 @@
 
 import React, { useState } from "react";
 import { GetServerSideProps } from "next";
-import { MongoClient } from "mongodb";
 
 import MetaHead from "../components/Layout/MetaHead";
 import ProjectCard from "../components/ProjectsPage/ProjectCard";
 import ProjectNavbar from "../components/ProjectsPage/ProjectNavbar";
 
-import { IProject } from "../Utils/dataTypes";
+import { projectType, projectDatabase } from "../Utils/dataTypes";
+
 const css = require("../components/ProjectsPage/Project.module.css");
 
 interface Projects {
-  projectData: IProject[];
+  projectData: projectType[];
 }
 
-const ProjectPage = (props: Projects) => {
-  const [projectData, setProjectData] = useState(
-    props.projectData.slice(0, 10)
+const ProjectPage = ({ projectData }: Projects) => {
+  const [projects, setProjects] = useState<projectType[]>(
+    projectData.slice(0, 10)
   );
   const [fresh, setFresh] = useState(true);
 
   let cat = new Set<string>();
   let tech = new Set<string>();
-  props.projectData.forEach((project) => {
+  projectData.forEach((project) => {
     project.category.map((item) => cat.add(item));
     project.key_techs.map((item) => tech.add(item));
   });
@@ -32,18 +32,18 @@ const ProjectPage = (props: Projects) => {
   const langHandler = (category: string) => {
     const select = document.getElementById("techSelect")! as HTMLSelectElement;
     if (category === "top") {
-      setProjectData(props.projectData.slice(0, 10));
+      setProjects(projectData.slice(0, 10));
       setFresh(true);
       select.getElementsByTagName("option")[1]!.selected = true;
     } else if (category === "all") {
-      setProjectData(props.projectData);
+      setProjects(projectData);
       setFresh(false);
       select.getElementsByTagName("option")[2]!.selected = true;
     } else {
-      const newArray = props.projectData.filter((project) =>
+      const newArray = projectData.filter((project) =>
         project.category.includes(category)
       );
-      setProjectData(newArray);
+      setProjects(newArray);
       setFresh(false);
       select.getElementsByTagName("option")[0]!.selected = true;
     }
@@ -53,18 +53,18 @@ const ProjectPage = (props: Projects) => {
   const techHandler = (category: string) => {
     const select = document.getElementById("langSelect")! as HTMLSelectElement;
     if (category === "top") {
-      setProjectData(props.projectData.slice(0, 10));
+      setProjects(projectData.slice(0, 10));
       setFresh(true);
       select.getElementsByTagName("option")[1]!.selected = true;
     } else if (category === "all") {
-      setProjectData(props.projectData);
+      setProjects(projectData);
       setFresh(false);
       select.getElementsByTagName("option")[2]!.selected = true;
     } else {
-      const newArray = props.projectData.filter((project) =>
+      const newArray = projectData.filter((project) =>
         project.key_techs.includes(category)
       );
-      setProjectData(newArray);
+      setProjects(newArray);
       setFresh(false);
       select.getElementsByTagName("option")[0]!.selected = true;
     }
@@ -95,7 +95,7 @@ const ProjectPage = (props: Projects) => {
         ) : (
           <h1 id="projectsTitle">
             I have created over
-            <span className="detail"> {projectData.length} </span>
+            <span className="detail"> {projects.length} </span>
             projects to date
           </h1>
         )}
@@ -103,10 +103,10 @@ const ProjectPage = (props: Projects) => {
           id="projectsList"
           className={css.projectsListHolder}
         >
-          {projectData.map((project) => (
+          {projects.map((project) => (
             <ProjectCard
               project={project}
-              key={project.name}
+              key={project.id}
             />
           ))}
         </ul>
@@ -115,31 +115,28 @@ const ProjectPage = (props: Projects) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const client = new MongoClient(process.env.DB_CONN_STRING!);
-  const db = client.db(process.env.DB_NAME);
-
-  const projectData = db.collection(process.env.PROJ_COLL!);
-
-  const results = await projectData
+export const getServerSideProps: GetServerSideProps<Projects> = async () => {
+  const results = await projectDatabase
     .find()
-    .sort({ priority: 1, date: -1, name: 1 })
+    .sort({ priority: 1, date: -1, _id: -1 })
     .toArray();
 
   return {
     props: {
-      projectData: results.map((result) => ({
-        id: result._id.toString(),
-        priority: result.priority,
-        name: result.name,
-        description: result.description,
-        date: result.date,
-        image_path: result.image_path,
-        deployed_url: result.deployed_url,
-        github_url: result.github_url,
-        category: result.category,
-        key_techs: result.key_techs,
-      })),
+      projectData: results.map(
+        (result) =>
+          ({
+            id: result._id.toString(),
+            name: result.name,
+            brief: result.brief ?? result.description,
+            description: result.description,
+            image_path: result.image_path,
+            deployed_url: result.deployed_url,
+            github_url: result.github_url,
+            category: result.category,
+            key_techs: result.key_techs,
+          } as projectType)
+      ),
     },
   };
 };

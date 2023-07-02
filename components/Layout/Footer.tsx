@@ -4,7 +4,6 @@
 import React, { BaseSyntheticEvent, useContext } from "react";
 import { useRouter } from "next/router";
 
-import { Row } from "react-bootstrap";
 import {
   AiFillGithub,
   AiOutlineTwitter,
@@ -85,7 +84,7 @@ const Footer = () => {
                 );
               })}
             </ul>
-            <button onClick={() => setEmailConnect(true)}>Contact Me</button>
+            <button onClick={() => setEmailConnect(true)}>Contact</button>
           </nav>
         </section>
         <hr

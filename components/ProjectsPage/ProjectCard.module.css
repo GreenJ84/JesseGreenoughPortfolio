@@ -84,14 +84,28 @@
 
 
 /* Pop Up Project Modal */
+.detailModal{
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+}
+.cover {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(6px);
+  z-index: 10;
+}
 .detail {
   position: fixed;
   left: 50%;
-  bottom: min(8vw, 60px);
-  transform: translateX(-50%);
-  z-index: 20;
+  bottom: 50%;
+  transform: translate(-50%, 50%);
   display: flex;
-  padding: min(2vw, 5vh) 3vw;
+  padding: min(2vw, 3vh) 3vw;
   width: min(92%, 1300px);
   height: clamp(460px, 80vw, 80vh);
   color: var(--text-secondary);
@@ -99,6 +113,13 @@
   border-radius: 30px;
   box-shadow: inset 2px 4px 10px var(--detail-terinary),
   inset -2px -4px 10px var(--detail-terinary);
+  overflow-y: scroll;
+}
+@media (max-height: 600px){
+  .detail {
+    height: 90vh;
+    aspect-ratio: 3/2;
+  }
 }
 
 .detailLeft {
@@ -114,14 +135,23 @@
 }
 
 .detailImage {
-  margin-top: 1rem;
+  margin-top: 2%;
   width: min(86%, 630px);
-  height: clamp(200px, 40vw, 510px);
+  height: min(50%, 510px);
+  aspect-ratio: 3/2;
   border-radius: 20px;
 }
 .detailImage:hover {
   transform: scale(1.05) translate(10px, 10px);
-  z-index: 500;
+  z-index: 50;
+}
+@media (max-height: 600px) {
+  .detailImage {
+    height: 50%;
+    max-Width: 60%;
+    transform: translateX(20%);
+    border-radius: 20px;
+  }
 }
 
 .detailLeft > div {
@@ -130,6 +160,8 @@
   justify-content: flex-start;
   margin-bottom: 20px;
   width: 80%;
+  transform: translateX(min(10%, 20px));
+  overflow: visible;
 }
 .detailLeft > div > a:first-of-type {
   margin-right: calc(4vw * 2);
@@ -140,14 +172,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: min(3vw, 20px) min(4vw, 30px);
+  padding: 10px min(3vw, 30px);
   margin: 0 0.5rem;
   text-align: center;
-  max-width: 38%;
-  font-size: var(--text4);
+  max-width: 30%;
+  aspect-ratio: 30/2;
+  font-size: var(--text5);
   color: var(--text-primary);
   background-color: var(--card-background);
-  border-radius: 2vw;
+  border-radius: 20px;
   box-shadow: 2px 2px 2px .8px var(--text-primary);
 }
 .detailLeft > div a:hover {
@@ -156,18 +189,18 @@
   box-shadow: var(--shadow-hover);
   transform: translate(2px, 2px) scale(1.02);
 }
-@media only screen and (max-width: 600px) {
-  .detailLeft > div > a{
-    font-size: var(--text5);
-  }
+.detailIcons {
+  margin: 0;
+  padding: 0;
 }
+
 .detailRight {
   width: 35%;
 }
 
 .detailRight > h2 {
   position: relative;
-  margin: 20% 0 min(1.6vw, 50px);
+  margin: min(20%, 4vh) 0 min(1.6vw, 50px);
   width: 120%;
   height: 10%;
   text-align: left;
@@ -189,7 +222,7 @@
 
 .detailRight > h3 {
   height: 2%;
-  font-size: clamp(10px, 2.6vw, 32px);
+  font-size: var(--text4);
   line-height: clamp(14px, 2.4vw, 30px);
   transform: translateX(-2vw) scaleX(1.2);
 }
@@ -201,11 +234,10 @@
   padding: 0;
   width: 120%;
   height: 25%;
-  margin-bottom: 2vw;
+  padding-bottom: min(2vw, 3vh);
   transform: translateX(-20%);
   background: transparent;
-  overflow-x: visible;
-  overflow-y: scroll;
+  overflow: visible;
   list-style-type: none;
 }
 
@@ -215,12 +247,13 @@
   align-items: center;
   justify-content: center;
   margin: 0.5vw 0.8vw;
-  padding: 0 2vw;
+  height: 40px;
+  padding: 0 min(2vw, 10px);
   overflow-y: scroll;
   font-size: var(--text6);
   color: var(--text-primary);
   background-color: var(--background);
-  border-radius: 1vw;
+  border-radius: 10px;
   box-shadow: var(--shadow);
 }
 .detailTech:hover {
