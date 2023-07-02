@@ -24,7 +24,7 @@ const ProjectPage = ({ projectData }: Projects) => {
   let cat = new Set<string>();
   let tech = new Set<string>();
   projectData.forEach((project) => {
-    project.category.map((item) => cat.add(item));
+    project.categories.map((item) => cat.add(item));
     project.key_techs.map((item) => tech.add(item));
   });
 
@@ -41,7 +41,7 @@ const ProjectPage = ({ projectData }: Projects) => {
       select.getElementsByTagName("option")[2]!.selected = true;
     } else {
       const newArray = projectData.filter((project) =>
-        project.category.includes(category)
+        project.categories.includes(category)
       );
       setProjects(newArray);
       setFresh(false);
@@ -123,20 +123,19 @@ export const getServerSideProps: GetServerSideProps<Projects> = async () => {
 
   return {
     props: {
-      projectData: results.map(
-        (result) =>
-          ({
-            id: result._id.toString(),
-            name: result.name,
-            brief: result.brief ?? result.description,
-            description: result.description,
-            image_path: result.image_path,
-            deployed_url: result.deployed_url,
-            github_url: result.github_url,
-            category: result.category,
-            key_techs: result.key_techs,
-          } as projectType)
-      ),
+      projectData: results.map((result) => ({
+        id: result._id.toString(),
+        priority: result.priority,
+        name: result.name,
+        date: result.date.slice(0, 7),
+        brief: result.brief ?? result.description,
+        description: result.description,
+        image_path: result.image_path,
+        deployed_url: result.deployed_url,
+        github_url: result.github_url,
+        categories: result.categories,
+        key_techs: result.key_techs,
+      })),
     },
   };
 };

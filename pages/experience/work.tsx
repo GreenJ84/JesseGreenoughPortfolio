@@ -2,12 +2,11 @@
 
 import React, { useState } from "react";
 import { GetServerSideProps } from "next";
-import { MongoClient } from "mongodb";
 
-import WorkCard from "../../components/WorkPage/WorkCard";
 import MetaHead from "../../components/Layout/MetaHead";
+import WorkCard from "../../components/WorkPage/WorkCard";
 
-import { workType } from "../../Utils/dataTypes";
+import { secWorkDatabase, workDatabase, workType } from "../../Utils/dataTypes";
 import WorkImg from "../../components/WorkPage/WorkImg";
 
 const css = require("../../components/WorkPage/WorkExp.module.css");
@@ -100,37 +99,30 @@ const WorkPage = (props: WorkExp) => {
 };
 
 export const getServerSideProps: GetServerSideProps<WorkExp> = async () => {
-  const client = new MongoClient(process.env.DB_CONN_STRING!);
-  const db = client.db(process.env.DB_NAME);
+  const workResults = await workDatabase.find().sort({ _id: -1 }).toArray();
 
-  // Get all Primary work Experience
-  const workData = db.collection(process.env.WORK_COLL!);
-  const workResults = await workData.find().sort({ _id: -1 }).toArray();
-
-  // Get all Secondary Volunteer Work
-  const secWorkData = db.collection(process.env.SWORK_COLL!);
-  const secWorkResults = await secWorkData.find().sort({ _id: -1 }).toArray();
+  const secWorkResults = await secWorkDatabase.find().sort({ _id: -1 }).toArray();
 
   return {
     props: {
       workData: workResults.map((result) => ({
+        id: result._id.toString(),
         company: result.company,
         logo: result.logo,
         position: result.position,
         location: result.location,
         date: result.date,
         details: result.details,
-        id: result._id.toString(),
       })),
 
       secondaryWorkData: secWorkResults.map((result) => ({
+        id: result._id.toString(),
         company: result.company,
         logo: result.logo,
         position: result.position,
         location: result.location,
         date: result.date,
         details: result.details,
-        id: result._id.toString(),
       })),
     },
   };

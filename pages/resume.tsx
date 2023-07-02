@@ -11,18 +11,12 @@ import ButtonGroup from "../components/ResumePage/ButtonGroup";
 import MetaHead from "../components/Layout/MetaHead";
 
 import { AppContext } from "../Utils/AppContext";
+import { resumeDatabase, resumeType } from "../Utils/dataTypes";
 
 const css = require("../components/ResumePage/Resume.module.css");
 
 interface resumeProps {
-  resumeData: [
-    {
-      link: string;
-      download: string;
-      view: string;
-      categories: string[];
-    }
-  ];
+  resumeData: resumeType[];
 }
 const ResumePage = (props: resumeProps) => {
   const { mobile } = useContext(AppContext);
@@ -104,7 +98,7 @@ const ResumePage = (props: resumeProps) => {
           )}
           <Image
             id="resumeImage"
-            src={props.resumeData[resNum].link}
+            src={props.resumeData[resNum].image_url}
             alt="My Resume pdf view"
             width={Math.max(width, 900)}
             height={Math.max(width * 1.2, 1100)}
@@ -142,18 +136,13 @@ const ResumePage = (props: resumeProps) => {
 export default ResumePage;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const client = new MongoClient(process.env.DB_CONN_STRING!);
-  const db = client.db(process.env.DB_NAME);
-
-  const resumeData = db.collection(process.env.RES_COLL!);
-
-  const results = await resumeData.find().sort({ _id: -1 }).toArray();
+  const results = await resumeDatabase.find().sort({ _id: -1 }).toArray();
 
   return {
     props: {
       resumeData: results.map((result) => ({
         id: result._id.toString(),
-        link: result.link,
+        image_url: result.image_url,
         download: result.download,
         view: result.view,
         categories: result.categories,

@@ -2,15 +2,18 @@
 
 import React, { useContext, useEffect } from "react";
 import { GetServerSideProps } from "next";
-import { MongoClient } from "mongodb";
 
-import { certificationType, educationType } from "../../Utils/dataTypes";
+import {
+  certificationDatabase,
+  certificationType,
+  educationDatabase,
+  educationType,
+} from "../../Utils/dataTypes";
 import { AppContext, WindowWidth } from "../../Utils/AppContext";
 
 import MetaHead from "../../components/Layout/MetaHead";
 import Degree from "../../components/EducationPage/Degree";
 import Certifications from "../../components/EducationPage/Certifications";
-
 
 export interface Experience {
   educationData: educationType[];
@@ -30,16 +33,19 @@ const EducationPage = (props: Experience) => {
     const topDefault = eduTitle.getBoundingClientRect().top;
     const isSmall = windowWidth === WindowWidth.SMALL;
 
-
     const popupScroll = () => {
-      if (window.scrollY > topDefault) { 
+      if (window.scrollY > topDefault) {
         eduSnippet.style.transform = "scale(1)";
       } else {
-        eduTitle.style.opacity = `${1.5 - window.scrollY / topDefault * 1.2 - (isSmall? 0.6 : 0)}`;
-  
+        eduTitle.style.opacity = `${
+          1.5 - (window.scrollY / topDefault) * 1.2 - (isSmall ? 0.6 : 0)
+        }`;
+
         // Description animations
-        eduSnippet.style.transform = `scale(${1 - window.scrollY / topDefault})`;
-        eduSnippet.style.opacity = `${1 - window.scrollY / topDefault * 2}`;
+        eduSnippet.style.transform = `scale(${
+          1 - window.scrollY / topDefault
+        })`;
+        eduSnippet.style.opacity = `${1 - (window.scrollY / topDefault) * 2}`;
       }
     };
 
@@ -75,40 +81,37 @@ const EducationPage = (props: Experience) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Experience> = async () => {
-  const client = new MongoClient(process.env.DB_CONN_STRING!);
-  const db = client.db(process.env.DB_NAME);
-
   // Get all Education experience data
-  const educationData = db.collection(process.env.DEG_COLL!);
-  const eduResults = await educationData.find().sort({ _id: -1 }).toArray();
+  const eduResults = await educationDatabase.find().sort({ _id: -1 }).toArray();
 
   // Get all Certifications achieved
-  const cetificationData = db.collection(process.env.CERT_COLL!);
-  const certResults = await cetificationData
+  const certResults = await certificationDatabase
     .find()
-    .sort({ priority: 1, date: 1, issuer: 1, _id: -1 })
+    .sort({ priority: 1, date: -1, issuer: 1, _id: -1 })
     .toArray();
 
   return {
     props: {
       educationData: eduResults.map((result) => ({
+        id: result._id.toString(),
         college: result.college,
         degree: result.degree,
         date: result.date,
         description: result.description,
         icon: result.icon,
         website: result.website,
-        id: result._id.toString(),
       })),
 
       certificationData: certResults.map((result) => ({
+        id: result._id.toString(),
+        priority: result.priority,
         title: result.title,
         issuer: result.issuer,
-        date: result.date,
-        url: result.url,
+        date: result.date.slice(0, 10),
         description: result.description,
         image: result.image,
-        id: result._id.toString(),
+        url: result.url,
+        techs: result.techs,
       })),
     },
   };
