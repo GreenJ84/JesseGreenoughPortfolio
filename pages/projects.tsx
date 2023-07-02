@@ -106,7 +106,7 @@ const ProjectPage = ({ projectData }: Projects) => {
           {projects.map((project) => (
             <ProjectCard
               project={project}
-              key={project.name}
+              key={project.id}
             />
           ))}
         </ul>
@@ -118,7 +118,7 @@ const ProjectPage = ({ projectData }: Projects) => {
 export const getServerSideProps: GetServerSideProps<Projects> = async () => {
   const results = await projectDatabase
     .find()
-    .sort({ priority: 1, date: -1, name: 1 })
+    .sort({ priority: 1, date: -1, _id: -1 })
     .toArray();
 
   return {
@@ -127,13 +127,11 @@ export const getServerSideProps: GetServerSideProps<Projects> = async () => {
         (result) =>
           ({
             id: result._id.toString(),
-            priority: result.priority,
             name: result.name,
-            date: result.date,
             brief: result.brief ?? result.description,
             description: result.description,
             image_path: result.image_path,
-            deployed_url: result.deployed_url ?? null,
+            deployed_url: result.deployed_url,
             github_url: result.github_url,
             category: result.category,
             key_techs: result.key_techs,

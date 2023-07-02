@@ -20,11 +20,11 @@ export interface projectType {
   id?: string;
   priority: number;
   name: string;
-  date: string;
+  date: Date;
   brief: string;
   description: string;
   image_path: string;
-  deployed_url: string | null;
+  deployed_url: string;
   github_url: string;
   category: string[];
   key_techs: string[];
