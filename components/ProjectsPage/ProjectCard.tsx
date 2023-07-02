@@ -32,12 +32,7 @@ const ProjectCard = ({ project }: projectProps) => {
               src={project.image_path}
               alt={project.name}
               className={css.displayImage}
-              priority={
-                project.image_path ==
-                "https://github.com/GreenJ84/JesseGreenoughPortfolio/raw/main/public/projectImages/myPortfolio.png"
-                  ? true
-                  : false
-              }
+              loading="lazy"
               height="150"
               width="300"
             />
@@ -79,11 +74,13 @@ const ProjectCard = ({ project }: projectProps) => {
               />
               <div id="projectLinks">
                 <a href={project.github_url}>
-                  <AiFillGithub className={css.detailIcons} /> <span>Github</span>
+                  <AiFillGithub className={css.detailIcons} />
+                  <span>Github</span>
                 </a>
                 {project.deployed_url && (
                   <a href={project.deployed_url}>
-                    <AiFillProject className={css.detailIcons} /> <span>Project</span>
+                    <AiFillProject className={css.detailIcons} />
+                    <span>Project</span>
                   </a>
                 )}
               </div>
