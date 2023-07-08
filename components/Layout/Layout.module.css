@@ -1,5 +1,24 @@
 /** @format */
 
+/* ============== Preloader Component ============== */
+.preloader {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+}
+
+.loaderImage {
+  width: 20vw;
+  height: 20vw;
+}
+
+/* ============== Flip Card ============== */
 .flip_card {
   background-color: transparent;
   perspective: 1000px;
@@ -28,20 +47,19 @@
   height: 100%;
   border-radius: 20px;
   background-color: var(--card-background2);
-  -webkit-backface-visibility: hidden; 
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
 /* Front card */
-.flip_card_front{
+.flip_card_front {
   visibility: visible;
   z-index: 1;
   transition: visibility 0.1s linear 0.2s;
 }
 
-
 /* Back Card */
-.flip_card_back{
+.flip_card_back {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -51,8 +69,7 @@
   transition: visibility 0.1s linear 0.2s;
 }
 
-
-.flip_card_inner:hover .flip_card_front{
+.flip_card_inner:hover .flip_card_front {
   visibility: hidden;
   transition: visibility 0.1s ease-in 0.2s;
 }
