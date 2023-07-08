@@ -8,14 +8,18 @@ const css = require("./Preloader.module.css");
 
 const Preloader = () => {
   return (
-    <Image
-      priority
-      src={loaderLogo}
-      alt="Loading Icon"
-      width={100}
-      height={100}
+    <main
       className={css.preloader}
-    />
+    >
+      <Image
+        priority
+        src={loaderLogo}
+        alt="Loading Icon"
+        width={100}
+        height={100}
+        className={css.loaderImage}
+      />
+    </main>
   );
 };
 
