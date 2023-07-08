@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 
-const loaderLogo = "/assets/pre.svg";
+const loaderLogo = "/assets/load_icon.svg";
 const css = require("./Layout.module.css");
 
 const Preloader = () => {
