@@ -3,7 +3,7 @@ import React from "react";
 import { Properties } from "csstype";
 import Tilt from "react-parallax-tilt";
 
-const css = require("./FlipCard.module.css");
+const css = require("./Layout.module.css");
 
 const FlipCard = ({
   style,
