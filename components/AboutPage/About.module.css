@@ -31,7 +31,6 @@
   color: var(--text-secondary);
 }
 
-
 /* About Details */
 .aboutDetail {
   padding: 5%;
@@ -39,8 +38,19 @@
   backdrop-filter: var(--text-bg-blur);
 }
 .aboutDetail > h1 {
-  font-size: clamp( 24px, 5vw, 70px);
+  font-size: clamp(24px, 5vw, 70px);
   text-align: center;
+}
+
+.portraitTilt {
+  width: clamp(200px, 20vw, 400px);
+  height: auto;
+  margin: 20px auto 10px;
+}
+.developerPortrait {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 .aboutDetail > p {
@@ -48,6 +58,7 @@
   margin: 2rem auto;
   width: min(1200px, 80vw);
   font-size: var(--text4);
+  font-weight: 600;
   text-indent: 3rem;
   line-height: max(22px, 4vw);
 }

@@ -1,11 +1,18 @@
 /** @format */
 
 import React from "react";
+import Image from "next/image";
+import dynamic from "next/dynamic";
+import Tilt from "react-parallax-tilt";
+
+const developerPortrait = require("../public/assets/developerPortrait.jpeg");
 
 import { ImPointRight } from "react-icons/im";
 
-import AboutDetails from "../components/AboutPage/AboutDetails";
 import MetaHead from "../components/Layout/MetaHead";
+const AboutDetails = dynamic(
+  () => import("../components/AboutPage/AboutDetails")
+);
 
 const css = require("../components/AboutPage/About.module.css");
 
@@ -18,15 +25,21 @@ const AboutPage = () => {
         keywords="Jesse Greenough, About, Biography, Developer, Engineer"
       />
 
-      <main id="aboutMain" style={{ position: "relative", padding: "10vw 4vw 0" }}>
+      <main
+        id="aboutMain"
+        style={{ position: "relative", padding: "10vw 4vw 0" }}
+      >
         <section
           id="aboutIntro"
           className={css.aboutOpener}
         >
-          <h1>
-            <span className="detail">Break </span>
-            the Ice
-          </h1>
+          <Tilt className={css.portraitTilt}>
+            <Image
+              src={developerPortrait}
+              alt="Developer Portrait"
+              className={css.developerPortrait}
+            />
+          </Tilt>
           <p style={{ textAlign: "left" }}>
             Hi everyone, I am<span className="detail"> Jesse Greenough </span>
             currently residing in
