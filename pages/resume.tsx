@@ -113,6 +113,8 @@ const ResumePage = (props: resumeProps) => {
             alt="My Resume pdf view"
             width={Math.max(width, 900)}
             height={Math.max(width * 1.2, 1100)}
+            blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8fwYAAtABzbrmHzgAAAAASUVORK5CYII="
+            placeholder="blur"
             onClick={() => {
               let image = document.getElementById("resumeImage")!;
               if (window.innerWidth < 1400) {
