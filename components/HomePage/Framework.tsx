@@ -23,7 +23,7 @@ import { TiWeatherWindyCloudy } from "react-icons/ti";
 
 import TechnicalSkill from "./TechnicalSkill";
 
-const css = require("./TechnicalSkills.module.css");
+const css = require("./Home.module.css");
 
 const Framework = () => {
   return (

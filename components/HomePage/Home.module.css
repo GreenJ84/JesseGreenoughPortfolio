@@ -136,7 +136,8 @@
   font-weight: 800;
 }
 
-.icon, .manualIcon{
+.icon,
+.manualIcon {
   width: min(20vw, 90px);
   aspect-ratio: 1;
 }

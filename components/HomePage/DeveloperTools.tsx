@@ -25,7 +25,7 @@ import {
 } from "react-icons/si";
 import { VscSmiley } from "react-icons/vsc";
 import { FaAws, FaHardHat, FaShieldAlt, FaTrello } from "react-icons/fa";
-import { GrDocker, GrMysql } from "react-icons/gr";
+import { GrDocker } from "react-icons/gr";
 import {
   DiChrome,
   DiGit,
@@ -33,7 +33,6 @@ import {
   DiNginx,
   DiNodejs,
   DiNpm,
-  DiVim,
 } from "react-icons/di";
 import { AiFillGithub } from "react-icons/ai";
 import { BsPip } from "react-icons/bs";
@@ -41,9 +40,9 @@ import { GiUnicorn } from "react-icons/gi";
 
 import TechnicalSkill from "./TechnicalSkill";
 
-const truffle = "/assets/truffle-logo-dark.svg";
-const ganache = "/assets/ganache-logo-dark.svg";
-const css = require("./TechnicalSkills.module.css");
+const truffle = require("../../public/assets/pages/home/truffle-logo-dark.svg");
+const ganache = require("../../public/assets/pages/home/ganache-logo-dark.svg");
+const css = require("./Home.module.css");
 
 const DeveloperTools = () => {
   return (
@@ -115,8 +114,6 @@ const DeveloperTools = () => {
             <Image
               alt={"Truffle Logo"}
               src={truffle}
-              width={10}
-              height={10}
               className={css.manualIcon}
             />
           }
@@ -128,8 +125,6 @@ const DeveloperTools = () => {
             <Image
               alt={"Ganache Logo"}
               src={ganache}
-              width={10}
-              height={10}
               className={css.manualIcon}
             />
           }

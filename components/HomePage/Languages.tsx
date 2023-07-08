@@ -16,7 +16,7 @@ import { AiFillHtml5, AiOutlineConsoleSql } from "react-icons/ai";
 
 import TechnicalSkill from "./TechnicalSkill";
 
-const css = require("./TechnicalSkills.module.css");
+const css = require("./Home.module.css");
 
 const Languages = () => {
   return (
