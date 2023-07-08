@@ -1,12 +1,11 @@
 /** @format */
-/* eslint-disable react/jsx-key */
 
-import React, { BaseSyntheticEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { Button, Nav, Navbar } from "react-bootstrap";
+import { Button, Navbar } from "react-bootstrap";
 import Particle from "./Particle";
 
 import {
@@ -20,8 +19,8 @@ import { ImBlog } from "react-icons/im";
 
 import { AppContext, WindowWidth } from "../../Utils/AppContext";
 
-const logo1 = "/assets/logo.png";
-const logo2 = "/assets/CyberHedera1.png";
+const brandLogo1 = "/assets/TrippyFrensNFT_logo.png";
+const brandLogo2 = "/assets/CyberHedera1.png";
 const css = require("./NavBar.module.css");
 
 const NavLinkData = [
@@ -37,17 +36,18 @@ const NavLinkData = [
 ];
 
 const NavBar = () => {
-  const router = useRouter();
   const { windowWidth, theme, setTheme } = React.useContext(AppContext);
 
-  const handleLink = (e: BaseSyntheticEvent, href: string) => {
+  // Navigation Route Handling
+  const router = useRouter();
+  const handleLink = (e: React.MouseEvent, href: string) => {
     e.preventDefault();
     router.push(href);
   };
-  // Control Navigation Rendering
+
+  // Navigation Display Rendering
   const [expandedNav, setExpandedNav] = useState(true);
   const [navFade, setNavFade] = useState(false);
-
   useEffect(() => {
     if (windowWidth !== WindowWidth.SMALL) {
       setExpandedNav(true);
@@ -56,7 +56,7 @@ const NavBar = () => {
     }
   }, [windowWidth]);
 
-  // Scroll mapping for Navigation display
+  // Scroll mapping for Sticky navigation display
   useEffect(() => {
     const scrollHandler = () => {
       if (window.scrollY >= 60) {
@@ -97,7 +97,7 @@ const NavBar = () => {
         <Navbar.Brand
           id="navbarBrand"
           className={css.navBarBrand}
-          aria-label="Click to change Color Theme"
+          aria-label="Home Return"
           href="/"
           onClick={(e) => {
             setExpandedNav(false);
@@ -105,7 +105,7 @@ const NavBar = () => {
           }}
         >
           <Image
-            src={theme === "dark" ? logo1 : logo2}
+            src={theme === "dark" ? brandLogo1 : brandLogo2}
             id="themeLogo"
             className={css.themeLogo}
             alt="Developer NFT Brand logo"
@@ -129,13 +129,15 @@ const NavBar = () => {
             }
           >
             {NavLinkData.map((item, idx) => {
+              const [href, icon, title] = item;
               return (
                 <li
                   key={idx}
                   className={css.navItem}
                 >
-                  {item[2] == "Experience" &&
+                  {title == "Experience" &&
                     windowWidth !== WindowWidth.SMALL && (
+                      // Navigation dropdown for medium+ screens
                       <dialog className={css.experience}>
                         <div></div>
                         <div></div>
@@ -143,22 +145,24 @@ const NavBar = () => {
                         <Link href={"/experience/work"}>Work</Link>
                       </dialog>
                     )}
+
                   <Link
-                    href={item[0] as string}
+                    href={href as string}
                     className={css.navLink}
                     rel="noreferrer"
                     onClick={(e) => {
                       setExpandedNav(false);
-                      handleLink(e, item[0] as string);
+                      handleLink(e, href as string);
                     }}
                   >
-                    {item[1]}
-                    {item[2]}
+                    {icon}
+                    {title}
                   </Link>
                 </li>
               );
             })}
             {windowWidth === WindowWidth.LARGE && (
+              // Render GitHub Link in nav with Large screens
               <Button
                 href="https://github.com/GreenJ84"
                 target="_blank"
@@ -169,6 +173,7 @@ const NavBar = () => {
               </Button>
             )}
           </ul>
+
           <label className={css.themeSwitch}>
             <input
               className={css.themeInput}

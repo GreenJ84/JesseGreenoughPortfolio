@@ -4,13 +4,11 @@ import React from "react";
 import Image from "next/image";
 
 const loaderLogo = "/assets/pre.svg";
-const css = require("./Preloader.module.css");
+const css = require("./Layout.module.css");
 
 const Preloader = () => {
   return (
-    <main
-      className={css.preloader}
-    >
+    <main className={css.preloader}>
       <Image
         priority
         src={loaderLogo}
