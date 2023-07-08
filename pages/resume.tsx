@@ -1,14 +1,13 @@
 /** @format */
 
 import React, { useState, useEffect, useContext } from "react";
-import Image from "next/image";
 import { GetServerSideProps } from "next";
-import { MongoClient } from "mongodb";
+import Image from "next/image";
 
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
-import ButtonGroup from "../components/ResumePage/ButtonGroup";
 import MetaHead from "../components/Layout/MetaHead";
+import ButtonGroup from "../components/ResumePage/ButtonGroup";
 
 import { AppContext } from "../Utils/AppContext";
 import { resumeDatabase, resumeType } from "../Utils/dataTypes";
@@ -19,12 +18,24 @@ interface resumeProps {
   resumeData: resumeType[];
 }
 const ResumePage = (props: resumeProps) => {
+  // Mobile device display wraning
   const { mobile } = useContext(AppContext);
   const [modal, closeModal] = useState(mobile);
-  const [width, setWidth] = useState(0);
+
+  const [resumes, setResumes] = useState(props.resumeData);
   const [resNum, setResNum] = useState(0);
 
+  //! Implement Resume type filtering
+  function filterResumes(filter: string) {
+    const filteredResumes = props.resumeData.filter((resume) =>
+      resume.categories.includes(filter)
+    );
+
+    setResumes([...filteredResumes]);
+  }
+
   // Dynamic Resume Size Rendering
+  const [width, setWidth] = useState(0);
   useEffect(() => {
     const checkWindow = (width: number) => {
       if (width < 900) {
@@ -49,7 +60,7 @@ const ResumePage = (props: resumeProps) => {
         setResNum(resNum - 1);
       }
     } else if (dir == "right") {
-      if (resNum < props.resumeData.length - 1) {
+      if (resNum < resumes.length - 1) {
         setResNum(resNum + 1);
       }
     }
@@ -68,8 +79,8 @@ const ResumePage = (props: resumeProps) => {
       >
         <ButtonGroup
           section="top"
-          download={props.resumeData[resNum].download}
-          view={props.resumeData[resNum].view}
+          download={resumes[resNum].download}
+          view={resumes[resNum].view}
         />
         <section
           id="resume"
@@ -98,7 +109,7 @@ const ResumePage = (props: resumeProps) => {
           )}
           <Image
             id="resumeImage"
-            src={props.resumeData[resNum].image_url}
+            src={resumes[resNum].image_url}
             alt="My Resume pdf view"
             width={Math.max(width, 900)}
             height={Math.max(width * 1.2, 1100)}
@@ -117,7 +128,9 @@ const ResumePage = (props: resumeProps) => {
             }}
           />
           <div
-            className={`${css.rightArrow} ${resNum === props.resumeData.length - 1 && css.disabled}`}
+            className={`${css.rightArrow} ${
+              resNum === resumes.length - 1 && css.disabled
+            }`}
             onClick={() => changeResNum("right")}
           >
             <BsArrowRight />
@@ -125,8 +138,8 @@ const ResumePage = (props: resumeProps) => {
         </section>
         <ButtonGroup
           section="bottom"
-          download={props.resumeData[resNum].download}
-          view={props.resumeData[resNum].view}
+          download={resumes[resNum].download}
+          view={resumes[resNum].view}
         />
       </main>
     </>
