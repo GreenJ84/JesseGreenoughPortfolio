@@ -6,7 +6,7 @@ const css = require("./Project.module.css");
 export interface ProjectNavProps {
   langHandler: Function;
   techHandler: Function;
-  options: [Set<string>, Set<string>];
+  options: [string[], string[]];
 }
 
 const ProjectNavbar = (props: ProjectNavProps) => {

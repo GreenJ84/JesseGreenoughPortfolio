@@ -4,29 +4,24 @@ import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 
 import MetaHead from "../components/Layout/MetaHead";
+
 import ProjectCard from "../components/ProjectsPage/ProjectCard";
 import ProjectNavbar from "../components/ProjectsPage/ProjectNavbar";
-
-import { projectType, projectDatabase } from "../utils/dataTypes";
+import { projectType, projectCollectionService } from "../utils/dataTypes";
+interface Projects {
+  projectData: projectType[];
+  categories: string[];
+  techs: string[];
+}
 
 const css = require("../components/ProjectsPage/Project.module.css");
 
-interface Projects {
-  projectData: projectType[];
-}
-
-const ProjectPage = ({ projectData }: Projects) => {
+const projectService = new projectCollectionService();
+const ProjectPage = ({ projectData, categories, techs }: Projects) => {
   const [projects, setProjects] = useState<projectType[]>(
     projectData.slice(0, 10)
   );
   const [fresh, setFresh] = useState(true);
-
-  let cat = new Set<string>();
-  let tech = new Set<string>();
-  projectData.forEach((project) => {
-    project.categories.map((item) => cat.add(item));
-    project.key_techs.map((item) => tech.add(item));
-  });
 
   // Filter Projects by languages used
   const langHandler = (category: string) => {
@@ -85,7 +80,7 @@ const ProjectPage = ({ projectData }: Projects) => {
         <ProjectNavbar
           langHandler={langHandler}
           techHandler={techHandler}
-          options={[cat, tech]}
+          options={[categories, techs]}
         />
         <hr style={{ border: ".5px solid var(--text-secondary)" }} />
         {fresh ? (
@@ -116,10 +111,8 @@ const ProjectPage = ({ projectData }: Projects) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Projects> = async () => {
-  const results = await projectDatabase
-    .find()
-    .sort({ priority: 1, date: -1, _id: -1 })
-    .toArray();
+  const results = await projectService.getTopProjects()
+  const [categories, techs] = await projectService.getProjectFilterOptions();
 
   return {
     props: {
@@ -136,6 +129,8 @@ export const getServerSideProps: GetServerSideProps<Projects> = async () => {
         categories: result.categories,
         key_techs: result.key_techs,
       })),
+      categories,
+      techs,
     },
   };
 };
