@@ -10,6 +10,7 @@ const nextConfig = {
       "imgs.search.brave.com",
       "media.glassdoor.com",
       "trufflesuite.com",
+      "res.cloudinary.com"
     ],
     minimumCacheTTL: 60,
   },
