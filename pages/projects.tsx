@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { GetServerSideProps } from "next";
+import axios from "axios";
 
 import MetaHead from "../components/Layout/MetaHead";
 
@@ -16,54 +17,81 @@ interface Projects {
 
 const css = require("../components/ProjectsPage/Project.module.css");
 
-const projectService = new projectCollectionService();
+// const projectService = new projectCollectionService();
+
 const ProjectPage = ({ projectData, categories, techs }: Projects) => {
-  const [projects, setProjects] = useState<projectType[]>(
-    projectData.slice(0, 10)
-  );
+  const [projects, setProjects] = useState<projectType[]>(projectData);
   const [fresh, setFresh] = useState(true);
+  const [category, setCategory] = useState('top');
+  const [tech, setTech] = useState('top');
 
-  // Filter Projects by languages used
-  const langHandler = (category: string) => {
-    const select = document.getElementById("techSelect")! as HTMLSelectElement;
-    if (category === "top") {
-      setProjects(projectData.slice(0, 10));
-      setFresh(true);
-      select.getElementsByTagName("option")[1]!.selected = true;
-    } else if (category === "all") {
-      setProjects(projectData);
-      setFresh(false);
-      select.getElementsByTagName("option")[2]!.selected = true;
-    } else {
-      const newArray = projectData.filter((project) =>
-        project.categories.includes(category)
-      );
-      setProjects(newArray);
-      setFresh(false);
-      select.getElementsByTagName("option")[0]!.selected = true;
-    }
-  };
+  // Filter element handling function
+  function updateFilterOption(filter: HTMLSelectElement, idx: number) {
+    filter.getElementsByTagName("option")[idx]!.selected = true;
+  }
+  // Project filtering on category change
+  React.useEffect(() => {
+    console.log(category)
+    const catFilter = document.getElementById("techSelect")! as HTMLSelectElement;
 
-  // Filter projects by Technologies used
-  const techHandler = (category: string) => {
-    const select = document.getElementById("langSelect")! as HTMLSelectElement;
-    if (category === "top") {
-      setProjects(projectData.slice(0, 10));
-      setFresh(true);
-      select.getElementsByTagName("option")[1]!.selected = true;
-    } else if (category === "all") {
-      setProjects(projectData);
-      setFresh(false);
-      select.getElementsByTagName("option")[2]!.selected = true;
-    } else {
-      const newArray = projectData.filter((project) =>
-        project.key_techs.includes(category)
-      );
-      setProjects(newArray);
-      setFresh(false);
-      select.getElementsByTagName("option")[0]!.selected = true;
+    async function filter() {
+      if (category === "top") {
+        setProjects(projectData);
+        setFresh(true);
+        updateFilterOption(catFilter, 1);
+      } else if (category === "all") {
+        const projRes = await axios.post('/api/projects', {
+          type: 'all',
+          filter: '',
+          offset: 0
+        })
+        setProjects(projRes.data);
+        setFresh(false);
+        updateFilterOption(catFilter, 2);
+      } else {
+        const projRes = await axios.post('/api/projects', {
+          type: 'category',
+          filter: category,
+          offset: 0
+        })
+        setProjects(projRes.data);
+        setFresh(false);
+        updateFilterOption(catFilter, 0);
+      }
     }
-  };
+    filter();
+  }, [category]);
+
+  // Project filtering on Tech change
+  React.useEffect(() => {
+    const techFilter = document.getElementById("langSelect")! as HTMLSelectElement;
+    async function filter() {
+      if (tech === "top") {
+        setProjects(projectData);
+        setFresh(true);
+        updateFilterOption(techFilter, 1);
+      } else if (tech === "all") {
+        const projRes = await axios.post('/api/projects', {
+          type: 'all',
+          filter: '',
+          offset: 0
+        })
+        setProjects(projRes.data);
+        setFresh(false);
+        updateFilterOption(techFilter, 2);
+      } else {
+        const projRes = await axios.post('/api/projects', {
+          type: 'tech',
+          filter: tech,
+          offset: 0
+        })
+        setProjects(projRes.data);
+        setFresh(false);
+        updateFilterOption(techFilter, 0);
+      }
+    }
+    filter();
+  }, [tech]);
 
   return (
     <>
@@ -78,8 +106,8 @@ const ProjectPage = ({ projectData, categories, techs }: Projects) => {
         className={css.projectsBody}
       >
         <ProjectNavbar
-          langHandler={langHandler}
-          techHandler={techHandler}
+          langHandler={(cat: string) => setCategory(cat)}
+          techHandler={(tech: string) => setTech(tech)}
           options={[categories, techs]}
         />
         <hr style={{ border: ".5px solid var(--text-secondary)" }} />
@@ -111,24 +139,13 @@ const ProjectPage = ({ projectData, categories, techs }: Projects) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Projects> = async () => {
-  const results = await projectService.getTopProjects()
-  const [categories, techs] = await projectService.getProjectFilterOptions();
+  const results = await projectCollectionService.getTopProjects();
+
+  const [categories, techs] = await projectCollectionService.getProjectFilterOptions();
 
   return {
     props: {
-      projectData: results.map((result) => ({
-        id: result._id.toString(),
-        priority: result.priority,
-        name: result.name,
-        date: result.date.slice(0, 7),
-        brief: result.brief ?? result.description,
-        description: result.description,
-        image_path: result.image_path,
-        deployed_url: result.deployed_url,
-        github_url: result.github_url,
-        categories: result.categories,
-        key_techs: result.key_techs,
-      })),
+      projectData: results,
       categories,
       techs,
     },
