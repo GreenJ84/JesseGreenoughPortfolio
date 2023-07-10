@@ -62,14 +62,26 @@ export class projectCollectionService {
       })
       .toArray();
 
-    const categories: string[] = Array.from(
-      new Set(res.map((x) => x.categories).flat())
-    );
-    const techs: string[] = Array.from(
-      new Set(res.map((x) => x.key_techs).flat())
-    );
+    const categories = new Map<string, number>();
+    const techs = new Map<string, number>();
+    res.map((item) => {
+      item.categories.forEach((category) => {
+        if (categories.has(category)) {
+          categories.set(category, categories.get(category)! + 1);
+        } else {
+          categories.set(category, 1);
+        }
+      });
+      item.key_techs.forEach((tech) => {
+        if (techs.has(tech)) {
+          techs.set(tech, techs.get(tech)! + 1);
+        } else {
+          techs.set(tech, 1);
+        }
+      });
+    });
 
-    return [categories, techs];
+    return [JSON.stringify(Array.from(categories.entries())), JSON.stringify(Array.from(techs.entries()))];
   }
 
   // Private type mapper
@@ -115,25 +127,31 @@ export class projectCollectionService {
   }
 
   public async getUnsortedProjects(offset: number = 0) {
-    return projectCollectionService.#mapProjectItem(await projectCollectionService.#getProjectItems(false, offset));
+    return projectCollectionService.#mapProjectItem(
+      await projectCollectionService.#getProjectItems(false, offset)
+    );
   }
 
   // Top priority project retrival
-  public static async getTopProjects() {
-    return this.#mapProjectItem(await this.#getProjectItems());
+  public static async getTopProjects(): Promise<[projectType[], number]> {
+    return [this.#mapProjectItem(await this.#getProjectItems()), await projectDatabase.countDocuments()];
   }
 
   // Category filtered project retrival
   public async getProjectsByCategory(category: string, offset: number = 0) {
     return projectCollectionService.#mapProjectItem(
-      await projectCollectionService.#getProjectItems(true, offset, { categories: category })
+      await projectCollectionService.#getProjectItems(true, offset, {
+        categories: category,
+      })
     );
   }
 
   // Key tech filtered project retrival
   public async getProjectsByTech(tech: string, offset: number = 0) {
     return projectCollectionService.#mapProjectItem(
-      await projectCollectionService.#getProjectItems(true, offset, { key_techs: tech })
+      await projectCollectionService.#getProjectItems(true, offset, {
+        key_techs: tech,
+      })
     );
   }
 }

@@ -11,87 +11,145 @@ import ProjectNavbar from "../components/ProjectsPage/ProjectNavbar";
 import { projectType, projectCollectionService } from "../utils/dataTypes";
 interface Projects {
   projectData: projectType[];
-  categories: string[];
-  techs: string[];
+  total: number;
+  categories: string;
+  techs: string;
 }
 
 const css = require("../components/ProjectsPage/Project.module.css");
 
-// const projectService = new projectCollectionService();
-
-const ProjectPage = ({ projectData, categories, techs }: Projects) => {
+const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
+  // Curr Projects list state
   const [projects, setProjects] = useState<projectType[]>(projectData);
-  const [fresh, setFresh] = useState(true);
-  const [category, setCategory] = useState('top');
-  const [tech, setTech] = useState('top');
 
-  // Filter element handling function
+  // Current filtering settings state
+  const [currentType, setCurrentType] = useState("top");
+  const [category, setCategory] = useState("top");
+  const [tech, setTech] = useState("top");
+
+  // Filter element transition handling function
   function updateFilterOption(filter: HTMLSelectElement, idx: number) {
     filter.getElementsByTagName("option")[idx]!.selected = true;
   }
-  // Project filtering on category change
+  // Filter projects on category change
   React.useEffect(() => {
-    console.log(category)
-    const catFilter = document.getElementById("techSelect")! as HTMLSelectElement;
+    const catFilter = document.getElementById(
+      "techSelect"
+    )! as HTMLSelectElement;
 
     async function filter() {
       if (category === "top") {
         setProjects(projectData);
-        setFresh(true);
+        setCurrentType("top");
         updateFilterOption(catFilter, 1);
       } else if (category === "all") {
-        const projRes = await axios.post('/api/projects', {
-          type: 'all',
-          filter: '',
-          offset: 0
-        })
+        const projRes = await axios.post("/api/projects", {
+          type: "all",
+          filter: "",
+          offset: 0,
+        });
         setProjects(projRes.data);
-        setFresh(false);
+        setCurrentType("all");
         updateFilterOption(catFilter, 2);
       } else {
-        const projRes = await axios.post('/api/projects', {
-          type: 'category',
+        const projRes = await axios.post("/api/projects", {
+          type: "category",
           filter: category,
-          offset: 0
-        })
+          offset: 0,
+        });
         setProjects(projRes.data);
-        setFresh(false);
+        setCurrentType("category");
         updateFilterOption(catFilter, 0);
       }
     }
     filter();
   }, [category]);
 
-  // Project filtering on Tech change
+  // Filter projects on tech change
   React.useEffect(() => {
-    const techFilter = document.getElementById("langSelect")! as HTMLSelectElement;
+    const techFilter = document.getElementById(
+      "langSelect"
+    )! as HTMLSelectElement;
     async function filter() {
       if (tech === "top") {
         setProjects(projectData);
-        setFresh(true);
+        setCurrentType("top");
         updateFilterOption(techFilter, 1);
       } else if (tech === "all") {
-        const projRes = await axios.post('/api/projects', {
-          type: 'all',
-          filter: '',
-          offset: 0
-        })
+        const projRes = await axios.post("/api/projects", {
+          type: "all",
+          filter: "",
+          offset: 0,
+        });
         setProjects(projRes.data);
-        setFresh(false);
+        setCurrentType("all");
         updateFilterOption(techFilter, 2);
       } else {
-        const projRes = await axios.post('/api/projects', {
-          type: 'tech',
+        const projRes = await axios.post("/api/projects", {
+          type: "tech",
           filter: tech,
-          offset: 0
-        })
+          offset: 0,
+        });
         setProjects(projRes.data);
-        setFresh(false);
+        setCurrentType("tech");
         updateFilterOption(techFilter, 0);
       }
     }
     filter();
   }, [tech]);
+
+  // Check if more projects are available in current Type
+  const categoryMap: Map<string, number> = new Map(JSON.parse(categories));
+  const techMap: Map<string, number> = new Map(JSON.parse(techs));
+  function checkMoreProjects(): boolean {
+    switch (currentType) {
+      case "all":
+        return projects.length < total;
+      case "category":
+        return categoryMap[category] > projects.length;
+      case "tech":
+        return techMap[tech] > projects.length;
+      default:
+        return false;
+    }
+  }
+
+  // Add extra data to projects list on user expand
+  async function handleAddingProjects(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    const offset = projects.length;
+    let projRes: any;
+
+    switch (currentType) {
+      case "all":
+        projRes = await axios.post("/api/projects", {
+          type: "all",
+          filter: "",
+          offset: offset,
+        });
+        break;
+      case "category":
+        projRes = await axios.post("/api/projects", {
+          type: "category",
+          filter: category,
+          offset: offset,
+        });
+        break;
+      case "tech":
+        projRes = await axios.post("/api/projects", {
+          type: "tech",
+          filter: tech,
+          offset: offset,
+        });
+        break;
+      default:
+        return;
+    }
+
+    if (projRes) {
+      setProjects((projects) => [...projects, ...projRes.data]);
+    }
+  }
 
   return (
     <>
@@ -108,17 +166,25 @@ const ProjectPage = ({ projectData, categories, techs }: Projects) => {
         <ProjectNavbar
           langHandler={(cat: string) => setCategory(cat)}
           techHandler={(tech: string) => setTech(tech)}
-          options={[categories, techs]}
+          options={[Array.from(categoryMap.keys()), Array.from(techMap.keys())]}
         />
         <hr style={{ border: ".5px solid var(--text-secondary)" }} />
-        {fresh ? (
+        {currentType == "top" ? (
           <h1 id="projectsTitle">
             My current <span className="detail">Top 10</span> projects
           </h1>
         ) : (
           <h1 id="projectsTitle">
             I have created over
-            <span className="detail"> {projects.length} </span>
+            <span className="detail">
+              {` ${
+                currentType === "all"
+                  ? total
+                  : currentType === "category"
+                  ? categoryMap.get(category)
+                  : techMap.get(tech)
+              } `}
+            </span>
             projects to date
           </h1>
         )}
@@ -133,19 +199,26 @@ const ProjectPage = ({ projectData, categories, techs }: Projects) => {
             />
           ))}
         </ul>
+        {currentType !== "top" &&
+          projects.length % 10 === 0 &&
+          checkMoreProjects() && (
+            <button onClick={handleAddingProjects}>+</button>
+          )}
       </main>
     </>
   );
 };
 
 export const getServerSideProps: GetServerSideProps<Projects> = async () => {
-  const results = await projectCollectionService.getTopProjects();
+  const [projects, total] = await projectCollectionService.getTopProjects();
 
-  const [categories, techs] = await projectCollectionService.getProjectFilterOptions();
+  const [categories, techs] =
+    await projectCollectionService.getProjectFilterOptions();
 
   return {
     props: {
-      projectData: results,
+      projectData: projects,
+      total,
       categories,
       techs,
     },
