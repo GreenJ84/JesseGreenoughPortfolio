@@ -15,6 +15,7 @@ interface Projects {
   categories: string;
   techs: string;
 }
+type currentDisplayType = "all" | "top" | "category" | "tech";
 
 const css = require("../components/ProjectsPage/Project.module.css");
 
@@ -23,7 +24,7 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
   const [projects, setProjects] = useState<projectType[]>(projectData);
 
   // Current filtering settings state
-  const [currentType, setCurrentType] = useState("top");
+  const [currentType, setCurrentType] = useState<currentDisplayType>("top");
   const [category, setCategory] = useState("top");
   const [tech, setTech] = useState("top");
 

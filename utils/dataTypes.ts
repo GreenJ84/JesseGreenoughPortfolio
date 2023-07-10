@@ -81,7 +81,10 @@ export class projectCollectionService {
       });
     });
 
-    return [JSON.stringify(Array.from(categories.entries())), JSON.stringify(Array.from(techs.entries()))];
+    return [
+      JSON.stringify(Array.from(categories.entries())),
+      JSON.stringify(Array.from(techs.entries())),
+    ];
   }
 
   // Private type mapper
@@ -115,7 +118,11 @@ export class projectCollectionService {
       _id: -1,
     };
     if (sort) {
-      (sortOption["date"] = -1), (sortOption["priority"] = 1);
+      sortOption = {
+        priority: 1,
+        date: -1,
+        ...sortOption,
+      };
     }
 
     return await projectDatabase
@@ -134,7 +141,10 @@ export class projectCollectionService {
 
   // Top priority project retrival
   public static async getTopProjects(): Promise<[projectType[], number]> {
-    return [this.#mapProjectItem(await this.#getProjectItems()), await projectDatabase.countDocuments()];
+    return [
+      this.#mapProjectItem(await this.#getProjectItems()),
+      await projectDatabase.countDocuments(),
+    ];
   }
 
   // Category filtered project retrival

@@ -9,17 +9,21 @@ export interface ProjectNavProps {
   options: [string[], string[]];
 }
 
-const ProjectNavbar = (props: ProjectNavProps) => {
-  const [categories, techs] = props.options;
+const ProjectNavbar = ({
+  langHandler,
+  techHandler,
+  options,
+}: ProjectNavProps) => {
+  const [categories, techs] = options;
   const changeHandler = (
     e: React.ChangeEvent<HTMLSelectElement>,
     type: string
   ) => {
     e.preventDefault();
     if (type == "lang") {
-      props.langHandler(e.currentTarget.value);
+      langHandler(e.currentTarget.value);
     } else if (type == "tech") {
-      props.techHandler(e.currentTarget.value);
+      techHandler(e.currentTarget.value);
     }
   };
 
