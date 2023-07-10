@@ -17,7 +17,7 @@ import {
 import { CgFileDocument, CgGitFork } from "react-icons/cg";
 import { ImBlog } from "react-icons/im";
 
-import { AppContext, WindowWidth } from "../../Utils/AppContext";
+import { AppContext, WindowWidth } from "../../utils/AppContext";
 
 const brandLogo1 = "/assets/TrippyFrensNFT_logo.png";
 const brandLogo2 = "/assets/CyberHedera1.png";

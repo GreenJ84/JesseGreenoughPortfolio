@@ -6,8 +6,8 @@ import Image from "next/image";
 import { RiExternalLinkFill } from "react-icons/ri";
 import FlipCard from "../../components/Layout/FlipCard";
 
-import { certificationType } from "../../Utils/dataTypes";
-import { AppContext } from "../../Utils/AppContext";
+import { certificationType } from "../../utils/dataTypes";
+import { AppContext } from "../../utils/AppContext";
 
 const css = require("./CertificationCard.module.css");
 

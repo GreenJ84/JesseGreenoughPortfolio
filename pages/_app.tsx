@@ -9,7 +9,7 @@ import Preloader from "../components/Layout/Preloader";
 import NavBar from "../components/Layout/NavBar";
 import Footer from "../components/Layout/Footer";
 
-import { AppContextProvider } from "../Utils/AppContext";
+import { AppContextProvider } from "../utils/AppContext";
 
 import "../styles/globals.css";
 

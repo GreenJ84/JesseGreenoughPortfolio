@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import GitHubCalendar, { Theme } from "react-github-calendar";
-import { AppContext } from "../../Utils/AppContext";
+import { AppContext } from "../../utils/AppContext";
 
 const css = require("./Home.module.css");
 

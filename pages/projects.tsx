@@ -7,7 +7,7 @@ import MetaHead from "../components/Layout/MetaHead";
 import ProjectCard from "../components/ProjectsPage/ProjectCard";
 import ProjectNavbar from "../components/ProjectsPage/ProjectNavbar";
 
-import { projectType, projectDatabase } from "../Utils/dataTypes";
+import { projectType, projectDatabase } from "../utils/dataTypes";
 
 const css = require("../components/ProjectsPage/Project.module.css");
 

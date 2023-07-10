@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 
 import { BsArrowDownCircle } from "react-icons/bs";
 
-import { AppContext, WindowWidth } from "../Utils/AppContext";
+import { AppContext, WindowWidth } from "../utils/AppContext";
 
 import MetaHead from "../components/Layout/MetaHead";
 import HomeTop from "../components/HomePage/HomeTop";

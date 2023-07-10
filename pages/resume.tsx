@@ -9,8 +9,8 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import MetaHead from "../components/Layout/MetaHead";
 import ButtonGroup from "../components/ResumePage/ButtonGroup";
 
-import { AppContext } from "../Utils/AppContext";
-import { resumeDatabase, resumeType } from "../Utils/dataTypes";
+import { AppContext } from "../utils/AppContext";
+import { resumeDatabase, resumeType } from "../utils/dataTypes";
 
 const css = require("../components/ResumePage/Resume.module.css");
 

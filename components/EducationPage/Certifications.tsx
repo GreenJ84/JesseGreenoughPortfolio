@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import CertificationCard from "./CertificationCard";
 import CertificationsFilter from "./CertificationsFilter";
 
-import { certificationType } from "../../Utils/dataTypes";
+import { certificationType } from "../../utils/dataTypes";
 
 const css = require("./Certifications.module.css");
 
@@ -23,7 +23,7 @@ const Certifications = (props: Certification) => {
   let techs = new Set<string>();
   props.certificationData.forEach((cert) => {
     issuers.add(cert.issuer);
-    cert.tech?.map((item) => techs.add(item));
+    cert.techs?.map((item) => techs.add(item));
   });
 
   // Filter Certifications by Issuers Category
@@ -63,7 +63,7 @@ const Certifications = (props: Certification) => {
     } else {
       select.getElementsByTagName("option")[0]!.selected = true;
       const newArray = props.certificationData.filter((cert) =>
-        cert.tech?.includes(category)
+        cert.techs?.includes(category)
       );
       setCertData(newArray);
       setFresh(false);

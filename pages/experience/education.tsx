@@ -8,8 +8,8 @@ import {
   certificationType,
   educationDatabase,
   educationType,
-} from "../../Utils/dataTypes";
-import { AppContext, WindowWidth } from "../../Utils/AppContext";
+} from "../../utils/dataTypes";
+import { AppContext, WindowWidth } from "../../utils/AppContext";
 
 import MetaHead from "../../components/Layout/MetaHead";
 import Degree from "../../components/EducationPage/Degree";

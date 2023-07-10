@@ -5,8 +5,8 @@ import Image from "next/image";
 
 import DegreeCard from "./DegreeCard";
 
-import { educationType } from "../../Utils/dataTypes";
-import { AppContext, WindowWidth } from "../../Utils/AppContext";
+import { educationType } from "../../utils/dataTypes";
+import { AppContext, WindowWidth } from "../../utils/AppContext";
 import EducationImg from "./EduImage";
 
 const css = require("./Degree.module.css");

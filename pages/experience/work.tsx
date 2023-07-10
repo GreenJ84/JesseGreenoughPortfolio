@@ -6,7 +6,7 @@ import { GetServerSideProps } from "next";
 import MetaHead from "../../components/Layout/MetaHead";
 import WorkCard from "../../components/WorkPage/WorkCard";
 
-import { secWorkDatabase, workDatabase, workType } from "../../Utils/dataTypes";
+import { secWorkDatabase, workDatabase, workType } from "../../utils/dataTypes";
 import WorkImg from "../../components/WorkPage/WorkImg";
 
 const css = require("../../components/WorkPage/WorkExp.module.css");
