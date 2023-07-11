@@ -7,7 +7,7 @@ import CertificationsFilter from "./CertificationsFilter";
 
 import { certificationType } from "../../utils/services/educationService";
 import axios from "axios";
-import AddItemButton from "../Layout/AddItemButton";
+import {AddItemButton} from "../Layout/LayoutExtras";
 
 const css = require("./Certifications.module.css");
 

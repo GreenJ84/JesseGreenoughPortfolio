@@ -7,7 +7,7 @@ import { BsArrowDownCircle } from "react-icons/bs";
 
 import { AppContext, WindowWidth } from "../utils/AppContext";
 
-import MetaHead from "../components/Layout/MetaHead";
+import {DeveloperPortrait, MetaHead} from "../components/Layout/LayoutExtras";
 import HomeTop from "../components/HomePage/HomeTop";
 const DeveloperTools = dynamic(
   () => import("../components/HomePage/DeveloperTools")
@@ -77,6 +77,7 @@ const HomePage = () => {
         id="homePage"
         style={{ padding: "clamp(160px, 14vw, 240px) 0 0" }}
       >
+        <DeveloperPortrait />
         <HomeTop />
         <section
           id="skillsIntro"

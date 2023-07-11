@@ -12,7 +12,7 @@ import {
 } from "../../utils/services/educationService";
 import { AppContext, WindowWidth } from "../../utils/AppContext";
 
-import MetaHead from "../../components/Layout/MetaHead";
+import {MetaHead} from "../../components/Layout/LayoutExtras";
 const Degree = dynamic(() => import("../../components/EducationPage/Degree"));
 const Certifications = dynamic(
   () => import("../../components/EducationPage/Certifications")

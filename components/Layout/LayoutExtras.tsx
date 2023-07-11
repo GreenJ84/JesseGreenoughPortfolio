@@ -13,7 +13,7 @@ const css = require("./Layout.module.css");
 
 // Loading recognition component
 const loaderLogo = "/assets/load_icon.svg";
-const Preloader = () => {
+export const Preloader = () => {
   return (
     <main className={css.preloader}>
       <Image
@@ -29,7 +29,7 @@ const Preloader = () => {
 };
 
 // Universal page Head metadata component
-const MetaHead = ({
+export const MetaHead = ({
   title,
   description,
   keywords,
@@ -71,8 +71,8 @@ const MetaHead = ({
 };
 
 // Universal Developer protrait component
-const developerPortrait = require("../public/assets/developerPortrait.jpeg");
-const DeveloperPortrait = () => {
+const developerPortrait = "/assets/developerPortrait.jpeg";
+export const DeveloperPortrait = () => {
   return (
     <Tilt className={css.portraitTilt}>
       <Image
@@ -85,7 +85,7 @@ const DeveloperPortrait = () => {
 };
 
 // Universal flippable data card
-const FlipCard = ({
+export const FlipCard = ({
   style,
   frontDisplay,
   backDisplay,
@@ -122,7 +122,7 @@ interface DataFilterProps {
   titles: [string, string?];
   options: [string[], string[]?];
 }
-const DataFilter = ({
+export const DataFilter = ({
   firstHandler,
   secondHandler,
   titles,
@@ -208,7 +208,7 @@ const DataFilter = ({
 };
 
 // Universal button component for Adding data to item displays
-const AddItemButton = ({
+export const AddItemButton = ({
   itemType,
   clickHandler,
 }: {
@@ -227,7 +227,7 @@ const AddItemButton = ({
 };
 
 // Email contact modal component
-const ContactModal = ({ close }: { close: Function }) => {
+export const ContactModal = ({ close }: { close: Function }) => {
   async function handleSubmit(form: any) {
     try {
       const response = await axios.post("/api/sendEmail", {
@@ -298,5 +298,3 @@ const ContactModal = ({ close }: { close: Function }) => {
     </div>
   );
 };
-
-module.exports = { Preloader, MetaHead, DeveloperPortrait, DataFilter, FlipCard, AddItemButton, ContactModal };

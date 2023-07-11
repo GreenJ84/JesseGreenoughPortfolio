@@ -5,7 +5,7 @@ import { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";
 import axios from "axios";
 
-import MetaHead from "../../components/Layout/MetaHead";
+import {MetaHead, AddItemButton} from "../../components/Layout/LayoutExtras";
 const WorkImg = dynamic(() => import("../../components/WorkPage/WorkImg"));
 const WorkCard = dynamic(() => import("../../components/WorkPage/WorkCard"));
 
@@ -13,7 +13,6 @@ import {
   workCollectionService,
   workType,
 } from "../../utils/services/workService";
-import AddItemButton from "../../components/Layout/AddItemButton";
 
 const css = require("../../components/WorkPage/WorkExp.module.css");
 

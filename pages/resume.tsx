@@ -7,7 +7,7 @@ import axios from "axios";
 
 import { BsArrowLeft, BsArrowRight, BsPlusCircleFill } from "react-icons/bs";
 
-import MetaHead from "../components/Layout/MetaHead";
+import { MetaHead } from "../components/Layout/LayoutExtras";
 import ButtonGroup from "../components/ResumePage/ButtonGroup";
 
 import { AppContext } from "../utils/AppContext";

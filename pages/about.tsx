@@ -1,13 +1,11 @@
 /** @format */
 
 import React from "react";
-import Image from "next/image";
 import dynamic from "next/dynamic";
-import Tilt from "react-parallax-tilt";
 
 import { ImPointRight } from "react-icons/im";
 
-import MetaHead from "../components/Layout/MetaHead";
+import {DeveloperPortrait, MetaHead} from "../components/Layout/LayoutExtras";
 
 const developerPortrait = require("../public/assets/developerPortrait.jpeg");
 const AboutDetails = dynamic(
@@ -33,13 +31,7 @@ const AboutPage = () => {
           id="aboutIntro"
           className={css.aboutOpener}
         >
-          <Tilt className={css.portraitTilt}>
-            <Image
-              src={developerPortrait}
-              alt="Developer Portrait"
-              className={css.developerPortrait}
-            />
-          </Tilt>
+          <DeveloperPortrait />
           <p style={{ textAlign: "left" }}>
             Hi everyone, I am<span className="detail"> Jesse Greenough </span>
             currently residing in

@@ -6,7 +6,7 @@ import type { AppProps } from "next/app";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 
-import Preloader from "../components/Layout/Preloader";
+import { Preloader } from "../components/Layout/LayoutExtras";
 import NavBar from "../components/Layout/NavBar";
 const Footer = dynamic(() => import("../components/Layout/Footer"));
 

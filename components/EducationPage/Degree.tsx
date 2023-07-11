@@ -9,7 +9,7 @@ import { educationType } from "../../utils/services/educationService";
 import { AppContext, WindowWidth } from "../../utils/AppContext";
 import EducationImg from "./EduImage";
 import axios from "axios";
-import AddItemButton from "../Layout/AddItemButton";
+import {AddItemButton} from "../Layout/LayoutExtras";
 
 const css = require("./Degree.module.css");
 

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import axios from "axios";
 
-import MetaHead from "../components/Layout/MetaHead";
+import {MetaHead, AddItemButton} from "../components/Layout/LayoutExtras";
 import ProjectCard from "../components/ProjectsPage/ProjectCard";
 import ProjectNavbar from "../components/ProjectsPage/ProjectNavbar";
 
@@ -12,7 +12,6 @@ import {
   projectType,
   projectCollectionService,
 } from "../utils/services/projectsService";
-import AddItemButton from "../components/Layout/AddItemButton";
 interface Projects {
   projectData: projectType[];
   total: number;
