@@ -1,8 +1,9 @@
 /** @format */
 /* eslint-disable react/jsx-key */
 
-import React, { BaseSyntheticEvent, useContext } from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
 import {
   AiFillGithub,
@@ -10,22 +11,21 @@ import {
   AiFillInstagram,
 } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
-import { AppContext, WindowWidth } from "../../Utils/AppContext";
-import ContactModal from "./ContactModal";
 
+import { AppContext, WindowWidth } from "../../utils/AppContext";
+
+const ContactModal = dynamic(() => import("./ContactModal"));
 const css = require("./Footer.module.css");
 
 const Footer = () => {
-  const router = useRouter();
   const [emailConnect, setEmailConnect] = React.useState(false);
   const { windowWidth } = useContext(AppContext);
 
-  const date = new Date();
-  const year = date.getFullYear();
-
-  const handleLink = (e: BaseSyntheticEvent) => {
+  // Navigation Route handling
+  const router = useRouter();
+  const handleLink = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    router.push(e.target.href);
+    router.push(href);
   };
 
   return (
@@ -68,17 +68,18 @@ const Footer = () => {
                   <AiFillInstagram className={css.footIcons} />,
                 ],
               ].map((item, idx) => {
+                const [href, icon] = item;
                 return (
                   <li
                     key={idx}
                     role="presentation"
                   >
                     <a
-                      href={item[0] as string}
+                      href={href as string}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {item[1]}
+                      {icon}
                     </a>
                   </li>
                 );
@@ -107,17 +108,18 @@ const Footer = () => {
                   ["/experience", "My Experience"],
                   ["/resume", "My Resumes"],
                 ].map((item, idx) => {
+                  const [href, title] = item;
                   return (
                     <li
                       key={idx}
                       role="presentation"
                     >
                       <a
-                        href={item[0] as string}
+                        href={href as string}
                         rel="noopener noreferrer"
-                        onClick={handleLink}
+                        onClick={(e) => handleLink(e, href as string)}
                       >
-                        {item[1]}
+                        {title}
                       </a>
                     </li>
                   );
@@ -125,7 +127,7 @@ const Footer = () => {
               </ul>
             </nav>
           )}
-          <h4>© Copyright {year}. Designed and Developed by Jesse Greenough</h4>
+          <h4>© Copyright 2022. Designed and Developed by Jesse Greenough</h4>
         </section>
       </footer>
     </>

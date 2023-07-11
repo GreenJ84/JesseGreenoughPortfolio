@@ -1,31 +1,70 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
+import dynamic from "next/dynamic";
+import axios from "axios";
 
 import MetaHead from "../../components/Layout/MetaHead";
-import WorkCard from "../../components/WorkPage/WorkCard";
+const WorkImg = dynamic(() => import("../../components/WorkPage/WorkImg"));
+const WorkCard = dynamic(() => import("../../components/WorkPage/WorkCard"));
 
-import { secWorkDatabase, workDatabase, workType } from "../../Utils/dataTypes";
-import WorkImg from "../../components/WorkPage/WorkImg";
+import {
+  workCollectionService,
+  workType,
+} from "../../utils/services/workService";
+import AddItemButton from "../../components/Layout/AddItemButton";
 
 const css = require("../../components/WorkPage/WorkExp.module.css");
 
 export interface WorkExp {
   workData: workType[];
-  secondaryWorkData: workType[];
+  documentTotals: [number, number];
 }
 
-const WorkPage = (props: WorkExp) => {
-  const [showWork, setShowWork] = useState(true);
+const WorkPage = ({ workData, documentTotals }: WorkExp) => {
+  const [work, setWork] = useState(workData);
+  const [showSecWork, setShowSecWork] = useState(false);
+  const [workTotal, secWorkTotal] = documentTotals;
 
-  const filterHandler = () => {
-    if (showWork) {
-      setShowWork(false);
-    } else {
-      setShowWork(true);
+  useEffect(() => {
+    async function switchWork() {
+      if (!showSecWork) {
+        setWork(workData);
+      } else {
+        const workRes = await axios.post("/api/work", {
+          type: "secondary",
+          offset: 0,
+        });
+
+        setWork(workRes.data);
+      }
     }
-  };
+    switchWork();
+  }, [showSecWork, workData]);
+
+  function checkMoreWork() {
+    return (
+      work.length % 5 === 0 &&
+      work.length < (showSecWork ? secWorkTotal : workTotal)
+    );
+  }
+
+  async function handleAddingWork() {
+    let workRes: any;
+    if (!showSecWork) {
+      workRes = await axios.post("/api/work", {
+        type: "primary",
+        offset: work.length,
+      });
+    } else {
+      workRes = await axios.post("/api/work", {
+        type: "secondary",
+        offset: work.length,
+      });
+    }
+    setWork((work) => [...work, ...workRes.data]);
+  }
 
   return (
     <>
@@ -55,20 +94,20 @@ const WorkPage = (props: WorkExp) => {
           className={css.workFilter}
         >
           <button
-            className={showWork ? css.activeFilter : css.inactiveFilter}
+            className={!showSecWork ? css.activeFilter : css.inactiveFilter}
             onClick={() => {
-              if (!showWork) {
-                filterHandler();
+              if (showSecWork) {
+                setShowSecWork(!showSecWork);
               }
             }}
           >
             Work
           </button>
           <button
-            className={showWork ? css.inactiveFilter : css.activeFilter}
+            className={showSecWork ? css.activeFilter : css.inactiveFilter}
             onClick={() => {
-              if (showWork) {
-                filterHandler();
+              if (!showSecWork) {
+                setShowSecWork(!showSecWork);
               }
             }}
           >
@@ -79,19 +118,16 @@ const WorkPage = (props: WorkExp) => {
           id="workList"
           className={css.workCardHolder}
         >
-          {showWork
-            ? props.workData.map((item) => (
-                <WorkCard
-                  key={item.position}
-                  work={item}
-                />
-              ))
-            : props.secondaryWorkData.map((item) => (
-                <WorkCard
-                  key={item.position}
-                  work={item}
-                />
-              ))}
+          {work.map((item) => (
+            <WorkCard
+              key={item.position}
+              work={item}
+            />
+          ))}
+          {checkMoreWork() && <AddItemButton
+            clickHandler={handleAddingWork}
+            itemType={"Work"}
+          />}
         </ul>
       </main>
     </>
@@ -99,31 +135,12 @@ const WorkPage = (props: WorkExp) => {
 };
 
 export const getServerSideProps: GetServerSideProps<WorkExp> = async () => {
-  const workResults = await workDatabase.find().sort({ _id: -1 }).toArray();
-
-  const secWorkResults = await secWorkDatabase.find().sort({ _id: -1 }).toArray();
+  const workService = new workCollectionService();
 
   return {
     props: {
-      workData: workResults.map((result) => ({
-        id: result._id.toString(),
-        company: result.company,
-        logo: result.logo,
-        position: result.position,
-        location: result.location,
-        date: result.date,
-        details: result.details,
-      })),
-
-      secondaryWorkData: secWorkResults.map((result) => ({
-        id: result._id.toString(),
-        company: result.company,
-        logo: result.logo,
-        position: result.position,
-        location: result.location,
-        date: result.date,
-        details: result.details,
-      })),
+      workData: await workService.getPrimaryWork(),
+      documentTotals: await workService.getWorkTotals(),
     },
   };
 };

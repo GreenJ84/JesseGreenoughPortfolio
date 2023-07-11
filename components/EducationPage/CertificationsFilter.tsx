@@ -7,11 +7,11 @@ const css = require("./CertificationsFilters.module.css");
 interface filterProps {
   issuerHandler: Function;
   techHandler: Function;
-  options: [Set<string>, Set<string>];
+  options: [string[], string[]];
 }
 
-const CertificationsFilter = (props: filterProps) => {
-  const [issuers, techs] = props.options;
+const CertificationsFilter = ({issuerHandler, techHandler, options}: filterProps) => {
+  const [issuers, techs] = options;
 
   const changeHandler = (
     e: React.ChangeEvent<HTMLSelectElement>,
@@ -19,9 +19,9 @@ const CertificationsFilter = (props: filterProps) => {
   ) => {
     e.preventDefault();
     if (type == "issuer") {
-      props.issuerHandler(e.currentTarget.value);
+      issuerHandler(e.currentTarget.value);
     } else if (type == "tech") {
-      props.techHandler(e.currentTarget.value);
+      techHandler(e.currentTarget.value);
     }
   };
 
@@ -42,15 +42,15 @@ const CertificationsFilter = (props: filterProps) => {
             changeHandler(e, "issuer")
           }
         >
-          <option value="disabled" disabled></option>
+          <option value="disabled" disabled>...</option>
           <option value="top">Top 10</option>
           <option value="all">All</option>
-          {[...issuers].map((cat) => (
+          {issuers.map((issuer, idx) => (
             <option
-              key={cat}
-              value={cat}
+              key={idx}
+              value={issuer}
             >
-              {cat.toLocaleUpperCase()}
+              {issuer.toLocaleUpperCase()}
             </option>
           ))}
         </select>
@@ -69,10 +69,10 @@ const CertificationsFilter = (props: filterProps) => {
             changeHandler(e, "tech")
           }
         >
-          <option value="disabled" disabled></option>
+          <option value="disabled" disabled>...</option>
           <option value="top">Top 10</option>
           <option value="all">All</option>
-          {[...techs].map((tech) => (
+          {techs.map((tech) => (
             <option
               key={tech}
               value={tech}

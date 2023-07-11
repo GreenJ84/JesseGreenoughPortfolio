@@ -1,11 +1,11 @@
 /** @format */
 
 import React from "react";
-import Head from "next/head";
 import Link from "next/link";
 
-import FlipCard from "../../components/Layout/FlipCard";
 import MetaHead from "../../components/Layout/MetaHead";
+import FlipCard from "../../components/Layout/FlipCard";
+
 const css = require("../../components/ExperiencePage/Experience.module.css");
 
 const ExperiencePage = () => {
@@ -29,14 +29,21 @@ const ExperiencePage = () => {
             height: "clamp(180px, 32vw, 500px)",
           }}
           frontDisplay={
-            <div id="eduFront" className={css.cardTitle}>
+            <div
+              id="eduFront"
+              className={css.cardTitle}
+            >
               <h1>
-                Want to see my <br/><span>Education?</span>
+                Want to see my <br />
+                <span>Education?</span>
               </h1>
             </div>
           }
           backDisplay={
-            <div id="eduBack" className={css.cardBody}>
+            <div
+              id="eduBack"
+              className={css.cardBody}
+            >
               <p>
                 Learn more about my Personal Educational achievements and
                 persuits. This encompasses both credentials issued from
@@ -61,14 +68,21 @@ const ExperiencePage = () => {
             height: "clamp(180px, 32vw, 500px)",
           }}
           frontDisplay={
-            <div id="workFront" className={css.cardTitle}>
+            <div
+              id="workFront"
+              className={css.cardTitle}
+            >
               <h1>
-                Want to see my <br/><span>Work?</span>
+                Want to see my <br />
+                <span>Work?</span>
               </h1>
             </div>
           }
           backDisplay={
-            <div id="workBack" className={css.cardBody}>
+            <div
+              id="workBack"
+              className={css.cardBody}
+            >
               <p>
                 Learn more about the Work and Volunter experience I have
                 partaken in to date. This includes all work experiences across

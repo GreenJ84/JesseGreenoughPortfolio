@@ -5,90 +5,189 @@ import React, { useState } from "react";
 import CertificationCard from "./CertificationCard";
 import CertificationsFilter from "./CertificationsFilter";
 
-import { certificationType } from "../../Utils/dataTypes";
+import { certificationType } from "../../utils/services/educationService";
+import axios from "axios";
+import AddItemButton from "../Layout/AddItemButton";
 
 const css = require("./Certifications.module.css");
 
+type currentDisplayType = "all" | "top" | "issuer" | "tech";
 interface Certification {
-  certificationData: certificationType[];
+  certificationData: {
+    certItems: certificationType[];
+    total: number;
+    issuerData: string;
+    techData: string;
+  };
 }
 
-const Certifications = (props: Certification) => {
-  const [certData, setCertData] = useState(
-    props.certificationData.slice(0, 10)
-  );
-  const [fresh, setFresh] = useState(true);
+const Certifications = ({ certificationData }: Certification) => {
+  const { certItems, total, issuerData, techData } = certificationData;
 
-  let issuers = new Set<string>();
-  let techs = new Set<string>();
-  props.certificationData.forEach((cert) => {
-    issuers.add(cert.issuer);
-    cert.tech?.map((item) => techs.add(item));
-  });
+  const [certData, setCertData] = useState<certificationType[]>(certItems);
 
-  // Filter Certifications by Issuers Category
-  const issueHandler = (category: string) => {
-    const select = document.getElementById("techSelect")! as HTMLSelectElement;
-    if (category === "top") {
-      select.getElementsByTagName("option")[1]!.selected = true;
-      setCertData(props.certificationData.slice(0, 10));
-      setFresh(true);
-    } else if (category === "all") {
-      select.getElementsByTagName("option")[2]!.selected = true;
-      setCertData(props.certificationData);
-      setFresh(false);
-    } else {
-      select.getElementsByTagName("option")[0]!.selected = true;
-      const newArray = props.certificationData.filter((cert) =>
-        cert.issuer.includes(category)
-      );
-      setCertData(newArray);
-      setFresh(false);
+  // Certification filtering state
+  const [currentType, setCurrentType] = useState<currentDisplayType>("top");
+  const [issuer, setIssuer] = useState("top");
+  const [tech, setTech] = useState("top");
+
+  // Filter element transition handling function
+  function updateFilterOption(filter: HTMLSelectElement, idx: number) {
+    filter.getElementsByTagName("option")[idx]!.selected = true;
+  }
+
+  // Filter certifications on Issuer change
+  React.useEffect(() => {
+    const techSelect = document.getElementById(
+      "techSelect"
+    )! as HTMLSelectElement;
+
+    async function filter() {
+      if (issuer === "top") {
+        setCertData(certItems);
+        setCurrentType("top");
+        updateFilterOption(techSelect, 1);
+      } else if (issuer === "all") {
+        const certRes = await axios.post("/api/certifications", {
+          type: "all",
+          filter: "",
+          offset: 0,
+        });
+        setCertData(certRes.data);
+        setCurrentType("all");
+        updateFilterOption(techSelect, 2);
+      } else {
+        const certRes = await axios.post("/api/certifications", {
+          type: "issuer",
+          filter: issuer,
+          offset: 0,
+        });
+        setCertData(certRes.data);
+        setCurrentType("issuer");
+        updateFilterOption(techSelect, 0);
+      }
     }
-  };
+    filter();
+  }, [issuer, certItems]);
 
-  // Filter Certifications by Technologies Category
-  const techHandler = (category: string) => {
-    const select = document.getElementById(
+  React.useEffect(() => {
+    const issuerSelect = document.getElementById(
       "issuerSelect"
     )! as HTMLSelectElement;
-    if (category === "top") {
-      select.getElementsByTagName("option")[1]!.selected = true;
-      setCertData(props.certificationData.slice(0, 10));
-      setFresh(true);
-    } else if (category === "all") {
-      select.getElementsByTagName("option")[2]!.selected = true;
-      setCertData(props.certificationData);
-      setFresh(false);
-    } else {
-      select.getElementsByTagName("option")[0]!.selected = true;
-      const newArray = props.certificationData.filter((cert) =>
-        cert.tech?.includes(category)
-      );
-      setCertData(newArray);
-      setFresh(false);
+
+    async function filter() {
+      if (tech === "top") {
+        setCertData(certItems);
+        setCurrentType("top");
+        updateFilterOption(issuerSelect, 1);
+      } else if (tech === "all") {
+        const certRes = await axios.post("/api/certifications", {
+          type: "all",
+          filter: "",
+          offset: 0,
+        });
+        setCertData(certRes.data);
+        setCurrentType("all");
+        updateFilterOption(issuerSelect, 2);
+      } else {
+        const certRes = await axios.post("/api/certifications", {
+          type: "tech",
+          filter: tech,
+          offset: 0,
+        });
+        setCertData(certRes.data);
+        setCurrentType("tech");
+        updateFilterOption(issuerSelect, 0);
+      }
     }
-  };
+    filter();
+  }, [tech, certItems]);
+
+  const issuerMap: Map<string, number> = new Map(JSON.parse(issuerData));
+  const techMap: Map<string, number> = new Map(JSON.parse(techData));
+  function checkMoreCerts(): boolean {
+    console.log(issuerMap, techMap);
+    switch (currentType) {
+      case "all":
+        return certData.length < total;
+      case "issuer":
+        console.log(issuerMap[issuer], certData.length);
+        return issuerMap.get(issuer)! > certData.length;
+      case "tech":
+        return techMap.get(tech)! > certData.length;
+      default:
+        return false;
+    }
+  }
+
+  // Add extra data to projects list on user expand
+  async function handleAddingCert(e: React.MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    const offset = certData.length;
+    let projRes: any;
+
+    switch (currentType) {
+      case "all":
+        projRes = await axios.post("/api/certifications", {
+          type: "all",
+          filter: "",
+          offset: offset,
+        });
+        break;
+      case "issuer":
+        projRes = await axios.post("/api/certifications", {
+          type: "issuer",
+          filter: issuer,
+          offset: offset,
+        });
+        break;
+      case "tech":
+        projRes = await axios.post("/api/certifications", {
+          type: "tech",
+          filter: tech,
+          offset: offset,
+        });
+        break;
+      default:
+        return;
+    }
+
+    if (projRes) {
+      setCertData((certs) => [...certs, ...projRes.data]);
+    }
+  }
 
   return (
     <section id="certificationContainer">
       <h2 className={css.certTitle}>Certifications Achieved</h2>
       <CertificationsFilter
-        issuerHandler={issueHandler}
-        techHandler={techHandler}
-        options={[issuers, techs]}
+        issuerHandler={(issuer: string) => {
+          setIssuer(issuer);
+        }}
+        techHandler={(tech: string) => setTech(tech)}
+        options={[Array.from(issuerMap.keys()), Array.from(techMap.keys())]}
       />
-      {fresh ? (
+      {currentType === "top" ? (
         <h3 className={css.certSubTitle}>
           My current <strong className="detail">Top 10</strong> certifications
         </h3>
       ) : (
         <h3 className={css.certSubTitle}>
           I have recieved{" "}
-          <strong className="detail">~{certData.length}</strong> certifications to date
+          <strong className="detail">{` ${
+            currentType === "all"
+              ? total
+              : currentType === "issuer"
+              ? issuerMap.get(issuer)
+              : techMap.get(tech)
+          } `}</strong>{" "}
+          certifications to date
         </h3>
       )}
-      <ul id="certificationList" className={css.certCardHolder}>
+      <ul
+        id="certificationList"
+        className={css.certCardHolder}
+      >
         {certData.map((item) => (
           <CertificationCard
             certificate={item}
@@ -96,6 +195,14 @@ const Certifications = (props: Certification) => {
           />
         ))}
       </ul>
+      {currentType !== "top" &&
+        certData.length % 10 === 0 &&
+        checkMoreCerts() && (
+          <AddItemButton
+            clickHandler={handleAddingCert}
+            itemType="Certifications"
+          />
+        )}
     </section>
   );
 };

@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { createContext, useState, useEffect } from "react";
+import React, { useEffect, useState, createContext} from "react";
 import useLocalStorage from "use-local-storage";
 
 export enum WindowWidth {
@@ -8,9 +8,8 @@ export enum WindowWidth {
   MEDIUM,
   LARGE,
 }
-export interface AppContextProps {
+interface AppContextProps {
   windowWidth: WindowWidth;
-  setWindowWidth: React.Dispatch<React.SetStateAction<WindowWidth>>;
   theme: string;
   setTheme: Function;
   mobile: boolean;
@@ -18,9 +17,8 @@ export interface AppContextProps {
 
 export const AppContext = createContext<AppContextProps>({
   windowWidth: WindowWidth.LARGE,
-  setWindowWidth: () => {},
   theme: "dark",
-  setTheme: () => { },
+  setTheme: () => {},
   mobile: false,
 });
 
@@ -44,13 +42,22 @@ export const AppContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    // Check if viewing on mobile or desktop
     if (
       /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
     ) {
       setMobile(true);
     }
+
+    // Responsive resizing handler
     const handleResize = () => {
-      setWindowWidth(window.innerWidth < 600 ? WindowWidth.SMALL : window.innerWidth < 1000 ? WindowWidth.MEDIUM : WindowWidth.LARGE);
+      setWindowWidth(
+        window.innerWidth < 600
+          ? WindowWidth.SMALL
+          : window.innerWidth < 1000
+          ? WindowWidth.MEDIUM
+          : WindowWidth.LARGE
+      );
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -61,7 +68,7 @@ export const AppContextProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ windowWidth, setWindowWidth, theme, setTheme: switchMode, mobile }}
+      value={{ windowWidth, theme, setTheme: switchMode, mobile }}
     >
       {children}
     </AppContext.Provider>

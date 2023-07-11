@@ -8,7 +8,7 @@ import { MdClose } from "react-icons/md";
 
 import FlipCard from "../Layout/FlipCard";
 
-import { projectType } from "../../Utils/dataTypes";
+import { projectType } from "../../utils/dataTypes";
 
 const css = require("./ProjectCard.module.css");
 

@@ -2,14 +2,14 @@
 
 import React from "react";
 import Image from "next/image";
-
-import TypeWrite from "./TypeWrite";
 import Tilt from "react-parallax-tilt";
 
-const homeDeveloperLogo = "/assets/home-main.svg";
-const myImg = "/assets/avatar.svg";
+import TypeWrite from "./TypeWrite";
 
-const css = require("./HomeTop.module.css");
+const homeDeveloperLogo = "/assets/pages/home/developer_at_work.svg";
+const myImg = "/assets/pages/home/user_avatar.svg";
+
+const css = require("./Home.module.css");
 
 const HomeTop = () => {
   return (

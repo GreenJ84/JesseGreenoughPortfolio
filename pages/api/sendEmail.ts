@@ -1,28 +1,27 @@
 /** @format */
 
-import nodemailer from "nodemailer";
-import dotenv from "dotenv";
 import { NextApiRequest, NextApiResponse } from "next";
+import nodemailer from "nodemailer";
 
-dotenv.config();
+const email = process.env.USER_EMAIL!;
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: email,
+    pass: process.env.USER_PASS!,
+  },
+});
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log("Request recievied")
-  const email = process.env.USER_EMAIL!;
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: email,
-      pass: process.env.USER_PASS!,
-    },
-  });
   const { name, sender, subject, message } = req.body;
+
   const mailOptions = {
     from: sender,
     to: email,
     subject: subject,
-    text: `${message} - sent from ${name}`,
+    text: `${message}\n\n\r- sent from ${name}`,
   };
+
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
       console.error(error);

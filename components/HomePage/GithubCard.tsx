@@ -3,9 +3,9 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import GitHubCalendar, { Theme } from "react-github-calendar";
-import { AppContext } from "../../Utils/AppContext";
+import { AppContext } from "../../utils/AppContext";
 
-const css = require("./TechnicalSkills.module.css");
+const css = require("./Home.module.css");
 
 const calenderStyle = {
   width: "min(90%, 1400px)",

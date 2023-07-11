@@ -34,11 +34,11 @@
   background-color: var(--card-background);
   border-radius: 2%;
   box-shadow: 0 45px 100px rgba(14, 21, 47, 0.4),
-  0 16px 60px rgba(14, 21, 47, 0.4);
+    0 16px 60px rgba(14, 21, 47, 0.4);
   z-index: 30;
   overflow: scroll;
 }
-@media (max-height: 600px){
+@media (max-height: 600px) {
   .contactForm {
     top: 10px;
     transform: none;
@@ -96,7 +96,7 @@
   border-radius: 0.5vw;
   box-shadow: 0.5vw 0.5vw 1vw black;
 }
-.contactForm > input{
+.contactForm > input {
   min-height: max(2vw, 25px);
 }
 

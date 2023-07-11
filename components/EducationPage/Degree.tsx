@@ -5,17 +5,22 @@ import Image from "next/image";
 
 import DegreeCard from "./DegreeCard";
 
-import { educationType } from "../../Utils/dataTypes";
-import { AppContext, WindowWidth } from "../../Utils/AppContext";
+import { educationType } from "../../utils/services/educationService";
+import { AppContext, WindowWidth } from "../../utils/AppContext";
 import EducationImg from "./EduImage";
+import axios from "axios";
+import AddItemButton from "../Layout/AddItemButton";
 
 const css = require("./Degree.module.css");
 
 interface Education {
-  educationData: educationType[];
+  educationData: { eduItems: educationType[]; total: number };
 }
 
-const Degree = (props: Education) => {
+const Degree = ({ educationData }: Education) => {
+  const { eduItems, total } = educationData;
+
+  const [education, setEducation] = React.useState(eduItems);
   const { windowWidth } = useContext(AppContext);
 
   useEffect(() => {
@@ -26,12 +31,13 @@ const Degree = (props: Education) => {
     const animateTitle = () => {
       if (window.scrollY > locDefault) {
         title.style.transform = `scale(1)`;
-      } else if (window.scrollY < 10) { 
+      } else if (window.scrollY < 10) {
         title.style.opacity = "0";
-      } 
-      else {
-        title.style.transform = `scale(${window.scrollY / locDefault + .4 + (isSmall ? .15 : 0)})`;
-        title.style.opacity = `${window.scrollY / locDefault + .4}`;
+      } else {
+        title.style.transform = `scale(${
+          window.scrollY / locDefault + 0.4 + (isSmall ? 0.15 : 0)
+        })`;
+        title.style.opacity = `${window.scrollY / locDefault + 0.4}`;
       }
     };
 
@@ -41,6 +47,15 @@ const Degree = (props: Education) => {
     };
   }, [windowWidth]);
 
+  async function handleAddingEdu(e: React.MouseEvent) {
+    e.preventDefault();
+    console.log("Handling");
+    const response = await axios.post("/api/education", {
+      offset: 0,
+    });
+    setEducation((education) => [...education, ...response.data]);
+  }
+
   return (
     <section id="degreeContainer">
       <h2 className={css.title}>Degrees I Recieved</h2>
@@ -49,9 +64,9 @@ const Degree = (props: Education) => {
         id="degreeList"
         style={{ all: "unset" }}
       >
-        {props.educationData.map((exp) => (
+        {education.map((exp, idx) => (
           <li
-            key={exp.college}
+            key={idx}
             className={css.degrees}
           >
             <a href={exp.website}>
@@ -67,6 +82,12 @@ const Degree = (props: Education) => {
           </li>
         ))}
       </ul>
+      {education.length % 5 === 0 && education.length < total && (
+        <AddItemButton
+          clickHandler={handleAddingEdu}
+          itemType="Education"
+        />
+      )}
     </section>
   );
 };

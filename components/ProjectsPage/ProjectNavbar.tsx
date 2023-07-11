@@ -4,22 +4,26 @@ import React from "react";
 
 const css = require("./Project.module.css");
 export interface ProjectNavProps {
-  langHandler: Function;
+  catHandler: Function;
   techHandler: Function;
-  options: [Set<string>, Set<string>];
+  options: [string[], string[]];
 }
 
-const ProjectNavbar = (props: ProjectNavProps) => {
-  const [categories, techs] = props.options;
+const ProjectNavbar = ({
+  catHandler,
+  techHandler,
+  options,
+}: ProjectNavProps) => {
+  const [categories, techs] = options;
   const changeHandler = (
     e: React.ChangeEvent<HTMLSelectElement>,
     type: string
   ) => {
     e.preventDefault();
-    if (type == "lang") {
-      props.langHandler(e.currentTarget.value);
+    if (type == "category") {
+      catHandler(e.currentTarget.value);
     } else if (type == "tech") {
-      props.techHandler(e.currentTarget.value);
+      techHandler(e.currentTarget.value);
     }
   };
 
@@ -30,17 +34,17 @@ const ProjectNavbar = (props: ProjectNavProps) => {
     >
       <div>
         <h2>
-          Filter by <span className="detail">Language</span>
+          Filter by <span className="detail">Category</span>
         </h2>
         <select
-          id="langSelect"
-          name="LanguageSelect"
+          id="categorySelect"
+          name="categorySelect"
           defaultValue="top"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            changeHandler(e, "lang")
+            changeHandler(e, "category")
           }
         >
-          <option disabled></option>
+          <option disabled>...</option>
           <option value="top">Top 10</option>
           <option value="all">All</option>
           {[...categories].map((cat) => (
@@ -60,13 +64,13 @@ const ProjectNavbar = (props: ProjectNavProps) => {
         </h2>
         <select
           id="techSelect"
-          name="TechSelect"
+          name="techSelect"
           defaultValue="top"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             changeHandler(e, "tech")
           }
         >
-          <option disabled></option>
+          <option disabled>...</option>
           <option value="top">Top 10</option>
           <option value="all">All</option>
           {[...techs].map((tech) => (

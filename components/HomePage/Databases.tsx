@@ -8,7 +8,7 @@ import { SiAmazondynamodb, SiMongodb, SiPostgresql } from "react-icons/si";
 
 import TechnicalSkill from "./TechnicalSkill";
 
-const css = require("./TechnicalSkills.module.css");
+const css = require("./Home.module.css");
 
 const Databases = () => {
   return (

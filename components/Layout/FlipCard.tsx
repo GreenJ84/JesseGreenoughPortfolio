@@ -1,9 +1,9 @@
 /** @format */
-import { Properties } from "csstype";
 import React from "react";
+import { Properties } from "csstype";
 import Tilt from "react-parallax-tilt";
 
-const css = require("./FlipCard.module.css");
+const css = require("./Layout.module.css");
 
 const FlipCard = ({
   style,
@@ -28,9 +28,7 @@ const FlipCard = ({
           tiltMaxAngleY={10}
           perspective={700}
         >
-          <section id="flip_card_back">
-              {backDisplay}
-          </section>
+          <section id="flip_card_back">{backDisplay}</section>
         </Tilt>
       </div>
     </article>

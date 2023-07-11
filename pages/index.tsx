@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 
 import { BsArrowDownCircle } from "react-icons/bs";
 
-import { AppContext, WindowWidth } from "../Utils/AppContext";
+import { AppContext, WindowWidth } from "../utils/AppContext";
 
 import MetaHead from "../components/Layout/MetaHead";
 import HomeTop from "../components/HomePage/HomeTop";
@@ -17,17 +17,18 @@ const Languages = dynamic(() => import("../components/HomePage/Languages"));
 const Framework = dynamic(() => import("../components/HomePage/Framework"));
 const Databases = dynamic(() => import("../components/HomePage/Databases"));
 
-const css = require("../components/HomePage/HomeTop.module.css");
+const css = require("../components/HomePage/Home.module.css");
 
 const HomePage = () => {
   const { windowWidth } = useContext(AppContext);
 
+  // Window scrolling affect on home page Title
   useEffect(() => {
     const animateScroll = () => {
-      const mobile = windowWidth == WindowWidth.SMALL;
+      const mobile = windowWidth === WindowWidth.SMALL;
       const slide = document.getElementById("slideTitle")!;
-      const down = document.getElementById("titleDown")!;
       const rect = slide.getBoundingClientRect();
+      const down = document.getElementById("titleDown")!;
 
       if (
         (rect.bottom <= window.innerHeight && rect.bottom >= 0) ||
@@ -57,6 +58,7 @@ const HomePage = () => {
         down.style.visibility = "hidden";
       }
     };
+
     window.addEventListener("scroll", animateScroll);
     return () => {
       window.removeEventListener("scroll", animateScroll);
@@ -67,8 +69,8 @@ const HomePage = () => {
     <>
       <MetaHead
         title="Jesse Greenough's Development Portfolio"
-        description="View the Development Portfolio of Full Stack Engineer Jesse Greenough"
-        keywords="Software,Developer,Engineer,Full-Stack,Portfolio,Skills,Projects,Experience,Resumes"
+        description="View the Technical Development Skills possessed by Full Stack Engineer Jesse Greenough"
+        keywords="Software,Developer,Engineer,Full-Stack,Portfolio,Skills,Projects,Experience,Resumes,Jesse Greenough"
       />
 
       <main
@@ -76,7 +78,10 @@ const HomePage = () => {
         style={{ padding: "clamp(160px, 14vw, 240px) 0 0" }}
       >
         <HomeTop />
-        <section id="skillsIntro" className={css.developerSkills}>
+        <section
+          id="skillsIntro"
+          className={css.developerSkills}
+        >
           <h2 id="slideTitle">
             Check out my <span className="detail">Technical Skillsets</span>
             <br />
