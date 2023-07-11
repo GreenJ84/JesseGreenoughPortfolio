@@ -235,13 +235,29 @@ export class educationCollectionService {
   }
 
   static async #getWorkItems(offset: number) {
-    return await educationDatabase.find().sort({ _id: -1 }).skip(offset).limit(5).toArray();
+    return await educationDatabase
+      .find()
+      .sort({ _id: -1 })
+      .skip(offset)
+      .limit(5)
+      .toArray();
   }
 
-  public static async getEducationData(offset: number = 0) {
-    return educationCollectionService.#mapEducationData(
-      await educationCollectionService.#getWorkItems(offset)
-    );
+  public static async getEducationData(
+    offset: number = 0
+  ): Promise<[educationType[], number?]> {
+    return offset === 0
+      ? [
+          educationCollectionService.#mapEducationData(
+            await educationCollectionService.#getWorkItems(offset)
+          ),
+          (await educationDatabase.countDocuments()) * 10,
+        ]
+      : [
+          educationCollectionService.#mapEducationData(
+            await educationCollectionService.#getWorkItems(offset)
+          ),
+        ];
   }
 }
 
