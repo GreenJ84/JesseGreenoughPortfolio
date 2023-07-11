@@ -4,7 +4,7 @@ import React, { useContext, useEffect } from "react";
 import { GetServerSideProps } from "next";
 
 import {
-  certificationDatabase,
+  certificationCollectionService,
   certificationType,
   educationDatabase,
   educationType,
@@ -17,14 +17,23 @@ import Certifications from "../../components/EducationPage/Certifications";
 
 export interface Experience {
   educationData: educationType[];
-  certificationData: certificationType[];
+  certificationData: {
+    certItems: certificationType[];
+    total: number;
+    issuerData: string;
+    techData: string;
+  }
 }
 
 const css = require("../../components/EducationPage/EduBody.module.css");
 
-const EducationPage = (props: Experience) => {
+const EducationPage = ({
+  educationData,
+  certificationData
+}: Experience) => {
   const { windowWidth } = useContext(AppContext);
 
+  // Education page title animations
   useEffect(() => {
     const eduTitle = document.getElementById("educationTitle")!;
     const eduSnippet: HTMLElement = document.querySelector(
@@ -48,7 +57,6 @@ const EducationPage = (props: Experience) => {
         eduSnippet.style.opacity = `${1 - (window.scrollY / topDefault) * 2}`;
       }
     };
-
     window.addEventListener("scroll", popupScroll);
     return () => {
       window.removeEventListener("scroll", popupScroll);
@@ -73,8 +81,8 @@ const EducationPage = (props: Experience) => {
         <h1 id="educationTitle">
           Educational Experience, Qualifications and Certifications
         </h1>
-        <Degree educationData={props.educationData} />
-        <Certifications certificationData={props.certificationData} />
+        <Degree educationData={educationData} />
+        <Certifications certificationData={certificationData} />
       </main>
     </>
   );
@@ -84,11 +92,9 @@ export const getServerSideProps: GetServerSideProps<Experience> = async () => {
   // Get all Education experience data
   const eduResults = await educationDatabase.find().sort({ _id: -1 }).toArray();
 
-  // Get all Certifications achieved
-  const certResults = await certificationDatabase
-    .find()
-    .sort({ priority: 1, date: -1, issuer: 1, _id: -1 })
-    .toArray();
+  const [certifications, total] = await certificationCollectionService.getTopCertification();
+  const [issuers, techs] = await certificationCollectionService.getCertificationFilterOptions();
+
 
   return {
     props: {
@@ -101,18 +107,12 @@ export const getServerSideProps: GetServerSideProps<Experience> = async () => {
         icon: result.icon,
         website: result.website,
       })),
-
-      certificationData: certResults.map((result) => ({
-        id: result._id.toString(),
-        priority: result.priority,
-        title: result.title,
-        issuer: result.issuer,
-        date: result.date.slice(0, 10),
-        description: result.description,
-        image: result.image,
-        url: result.url,
-        techs: result.techs,
-      })),
+      certificationData: {
+        certItems: certifications,
+        total,
+        issuerData: issuers,
+        techData: techs,
+      }
     },
   };
 };
