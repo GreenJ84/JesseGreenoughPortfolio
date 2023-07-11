@@ -7,7 +7,6 @@ import {
   certificationCollectionService,
   certificationType,
   educationCollectionService,
-  educationDatabase,
   educationType,
 } from "../../utils/dataTypes";
 import { AppContext, WindowWidth } from "../../utils/AppContext";
@@ -17,21 +16,18 @@ import Degree from "../../components/EducationPage/Degree";
 import Certifications from "../../components/EducationPage/Certifications";
 
 export interface Experience {
-  educationData: educationType[];
+  educationData: { eduItems: educationType[]; total: number };
   certificationData: {
     certItems: certificationType[];
     total: number;
     issuerData: string;
     techData: string;
-  }
+  };
 }
 
 const css = require("../../components/EducationPage/EduBody.module.css");
 
-const EducationPage = ({
-  educationData,
-  certificationData
-}: Experience) => {
+const EducationPage = ({ educationData, certificationData }: Experience) => {
   const { windowWidth } = useContext(AppContext);
 
   // Education page title animations
@@ -91,21 +87,23 @@ const EducationPage = ({
 
 export const getServerSideProps: GetServerSideProps<Experience> = async () => {
   // Get all Education experience data
-  const eduResults = await educationCollectionService.getEducationData();
+  const [eduResults, eduTotal] =
+    await educationCollectionService.getEducationData();
 
-  const [certifications, total] = await certificationCollectionService.getTopCertification();
-  const [issuers, techs] = await certificationCollectionService.getCertificationFilterOptions();
-
+  const [certifications, certTotal] =
+    await certificationCollectionService.getTopCertification();
+  const [issuers, techs] =
+    await certificationCollectionService.getCertificationFilterOptions();
 
   return {
     props: {
-      educationData: eduResults,
+      educationData: { eduItems: eduResults, total: eduTotal! },
       certificationData: {
         certItems: certifications,
-        total,
+        total: certTotal,
         issuerData: issuers,
         techData: techs,
-      }
+      },
     },
   };
 };
