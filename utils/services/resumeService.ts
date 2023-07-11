@@ -1,7 +1,8 @@
 /** @format */
 
 import { WithId } from "mongodb";
-import { DB } from "../AppContext";
+import { DB } from "./projectsService";
+
 
 export interface resumeType {
   id?: string;
@@ -13,7 +14,7 @@ export interface resumeType {
 const resumeDatabase = DB.collection<resumeType>(process.env.RES_COLL!);
 
 export class resumeCollectionService {
-  public static async getResumeFilterOptions(): Promise<[string]> {
+  public async getResumeFilterOptions(): Promise<string> {
     const res: {
       categories: string[];
     }[] = await resumeDatabase
@@ -35,7 +36,7 @@ export class resumeCollectionService {
       });
     });
 
-    return [JSON.stringify(Array.from(categoryMap.entries()))];
+    return JSON.stringify(Array.from(categoryMap.entries()));
   }
 
   static #mapResumeData(data: WithId<resumeType>[]) {
@@ -62,8 +63,15 @@ export class resumeCollectionService {
     );
   }
 
-  public async getResumes(offset: number = 0) {
-    return await resumeCollectionService.#getResumeItems(offset);
+  public async getResumes(
+    offset: number = 0
+  ): Promise<[resumeType[], number?]> {
+    return offset === 0
+      ? [
+          await resumeCollectionService.#getResumeItems(offset),
+          await resumeDatabase.countDocuments(),
+        ]
+      : [await resumeCollectionService.#getResumeItems(offset)];
   }
 
   public async getResumeByCategory(category: string, offset: number = 0) {

@@ -1,7 +1,7 @@
 /** @format */
 
 import { Collection, WithId } from "mongodb";
-import { DB } from "../AppContext";
+import { DB } from "./projectsService";
 
 export interface workType {
   id?: string;

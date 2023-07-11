@@ -1,7 +1,8 @@
 /** @format */
 
 import { SortDirection, WithId } from "mongodb";
-import { DB } from "../AppContext";
+import { DB } from "./projectsService";
+
 
 //** ======== Education Collection
 export interface educationType {

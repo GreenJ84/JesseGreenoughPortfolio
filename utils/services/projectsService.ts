@@ -1,7 +1,13 @@
 /** @format */
 
-import { SortDirection, WithId } from "mongodb";
-import { DB } from "../AppContext";
+import { MongoClient ,SortDirection, WithId } from "mongodb";
+import dotenv from "dotenv";
+dotenv.config();
+
+// Database connection
+const DB_CLIENT = new MongoClient(process.env.DB_CONN_STRING!);
+export const DB = DB_CLIENT.db(process.env.DB_NAME);
+
 
 export interface projectType {
   id?: string;
