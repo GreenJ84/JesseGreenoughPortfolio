@@ -1,60 +1,68 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
+import dynamic from "next/dynamic";
 import axios from "axios";
 
 import MetaHead from "../../components/Layout/MetaHead";
-import WorkCard from "../../components/WorkPage/WorkCard";
-import WorkImg from "../../components/WorkPage/WorkImg";
+const WorkImg = dynamic(() => import("../../components/WorkPage/WorkImg"));
+const WorkCard = dynamic(() => import("../../components/WorkPage/WorkCard"));
 
-import { workCollectionService, workType } from "../../utils/dataTypes";
+import {
+  workCollectionService,
+  workType,
+} from "../../utils/services/workService";
 
 const css = require("../../components/WorkPage/WorkExp.module.css");
 
 export interface WorkExp {
   workData: workType[];
-  secondaryWorkData: workType[];
   documentTotals: [number, number];
 }
 
-const WorkPage = ({workData, secondaryWorkData, documentTotals}: WorkExp) => {
+const WorkPage = ({ workData, documentTotals }: WorkExp) => {
   const [work, setWork] = useState(workData);
-  const [secWork, setSecWork] = useState(secondaryWorkData);
+  const [showSecWork, setShowSecWork] = useState(false);
   const [workTotal, secWorkTotal] = documentTotals;
 
-  // Work vs Volunteer data boolean
-  const [showWork, setShowWork] = useState(true);
-  const filterHandler = () => {
-    if (showWork) {
-      setShowWork(false);
-    } else {
-      setShowWork(true);
+  useEffect(() => {
+    async function switchWork() {
+      if (!showSecWork) {
+        setWork(workData);
+      } else {
+        const workRes = await axios.post("/api/work", {
+          type: "secondary",
+          offset: 0,
+        });
+
+        setWork(workRes.data);
+      }
     }
-  };
+    switchWork();
+  }, [showSecWork]);
 
   function checkMoreWork() {
-    if (showWork) { 
-      return work.length % 5 === 0 &&work.length < workTotal;
-    } else {
-      return secWork.length % 5 === 0 && secWork.length < secWorkTotal;
-    }
+    return (
+      work.length % 5 === 0 &&
+      work.length < (showSecWork ? secWorkTotal : workTotal)
+    );
   }
 
   async function handleAddingWork() {
-    if (showWork) {
-      const workRes = await axios.post("/api/work", {
+    let workRes: any;
+    if (!showSecWork) {
+      workRes = await axios.post("/api/work", {
         type: "primary",
         offset: work.length,
       });
-      setWork(work => [...work, ...workRes.data]);
     } else {
-      const workRes = await axios.post("/api/work", {
+      workRes = await axios.post("/api/work", {
         type: "secondary",
-        offset: secWork.length,
+        offset: work.length,
       });
-      setSecWork(secWork => [...secWork, ...workRes.data]);
     }
+    setWork((work) => [...work, ...workRes.data]);
   }
 
   return (
@@ -85,20 +93,20 @@ const WorkPage = ({workData, secondaryWorkData, documentTotals}: WorkExp) => {
           className={css.workFilter}
         >
           <button
-            className={showWork ? css.activeFilter : css.inactiveFilter}
+            className={!showSecWork ? css.activeFilter : css.inactiveFilter}
             onClick={() => {
-              if (!showWork) {
-                filterHandler();
+              if (showSecWork) {
+                setShowSecWork(!showSecWork);
               }
             }}
           >
             Work
           </button>
           <button
-            className={showWork ? css.inactiveFilter : css.activeFilter}
+            className={showSecWork ? css.activeFilter : css.inactiveFilter}
             onClick={() => {
-              if (showWork) {
-                filterHandler();
+              if (!showSecWork) {
+                setShowSecWork(!showSecWork);
               }
             }}
           >
@@ -109,21 +117,13 @@ const WorkPage = ({workData, secondaryWorkData, documentTotals}: WorkExp) => {
           id="workList"
           className={css.workCardHolder}
         >
-          {showWork
-            ? work.map((item) => (
-                <WorkCard
-                  key={item.position}
-                  work={item}
-                />
-              ))
-            : secWork.map((item) => (
-                <WorkCard
-                  key={item.position}
-                  work={item}
-                />
-              ))}
-        {checkMoreWork() && <button
-          onClick={handleAddingWork}> + </button>}
+          {work.map((item) => (
+            <WorkCard
+              key={item.position}
+              work={item}
+            />
+          ))}
+          {checkMoreWork() && <button onClick={handleAddingWork}> + </button>}
         </ul>
       </main>
     </>
@@ -136,8 +136,7 @@ export const getServerSideProps: GetServerSideProps<WorkExp> = async () => {
   return {
     props: {
       workData: await workService.getPrimaryWork(),
-      secondaryWorkData: await workService.getSecondaryWork(),
-      documentTotals: await workService.getWorkTotals()
+      documentTotals: await workService.getWorkTotals(),
     },
   };
 };

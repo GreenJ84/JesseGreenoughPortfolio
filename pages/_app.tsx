@@ -3,11 +3,12 @@
 import React, { useEffect, useState } from "react";
 import { Router, useRouter } from "next/router";
 import type { AppProps } from "next/app";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 
 import Preloader from "../components/Layout/Preloader";
 import NavBar from "../components/Layout/NavBar";
-import Footer from "../components/Layout/Footer";
+const Footer = dynamic(() => import("../components/Layout/Footer"));
 
 import { AppContextProvider } from "../utils/AppContext";
 
@@ -16,6 +17,7 @@ import "../styles/globals.css";
 export default function App({ Component, pageProps }: AppProps) {
   const [initialLoad, setInitialLoad] = useState(false);
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     //==== Initial loading
     const timer = setTimeout(() => {

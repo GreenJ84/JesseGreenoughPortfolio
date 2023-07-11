@@ -1,14 +1,17 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import axios from "axios";
 
 import MetaHead from "../components/Layout/MetaHead";
-
 import ProjectCard from "../components/ProjectsPage/ProjectCard";
 import ProjectNavbar from "../components/ProjectsPage/ProjectNavbar";
-import { projectType, projectCollectionService } from "../utils/dataTypes";
+
+import {
+  projectType,
+  projectCollectionService,
+} from "../utils/services/projectsService";
 interface Projects {
   projectData: projectType[];
   total: number;
@@ -33,8 +36,8 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
     filter.getElementsByTagName("option")[idx]!.selected = true;
   }
   // Filter projects on category change
-  React.useEffect(() => {
-    const catFilter = document.getElementById(
+  useEffect(() => {
+    const techFilter = document.getElementById(
       "techSelect"
     )! as HTMLSelectElement;
 
@@ -42,41 +45,8 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
       if (category === "top") {
         setProjects(projectData);
         setCurrentType("top");
-        updateFilterOption(catFilter, 1);
-      } else if (category === "all") {
-        const projRes = await axios.post("/api/projects", {
-          type: "all",
-          filter: "",
-          offset: 0,
-        });
-        setProjects(projRes.data);
-        setCurrentType("all");
-        updateFilterOption(catFilter, 2);
-      } else {
-        const projRes = await axios.post("/api/projects", {
-          type: "category",
-          filter: category,
-          offset: 0,
-        });
-        setProjects(projRes.data);
-        setCurrentType("category");
-        updateFilterOption(catFilter, 0);
-      }
-    }
-    filter();
-  }, [category]);
-
-  // Filter projects on tech change
-  React.useEffect(() => {
-    const techFilter = document.getElementById(
-      "langSelect"
-    )! as HTMLSelectElement;
-    async function filter() {
-      if (tech === "top") {
-        setProjects(projectData);
-        setCurrentType("top");
         updateFilterOption(techFilter, 1);
-      } else if (tech === "all") {
+      } else if (category === "all") {
         const projRes = await axios.post("/api/projects", {
           type: "all",
           filter: "",
@@ -87,13 +57,46 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
         updateFilterOption(techFilter, 2);
       } else {
         const projRes = await axios.post("/api/projects", {
+          type: "category",
+          filter: category,
+          offset: 0,
+        });
+        setProjects(projRes.data);
+        setCurrentType("category");
+        updateFilterOption(techFilter, 0);
+      }
+    }
+    filter();
+  }, [category]);
+
+  // Filter projects on tech change
+  useEffect(() => {
+    const catFilter = document.getElementById(
+      "categorySelect"
+    )! as HTMLSelectElement;
+    async function filter() {
+      if (tech === "top") {
+        setProjects(projectData);
+        setCurrentType("top");
+        updateFilterOption(catFilter, 1);
+      } else if (tech === "all") {
+        const projRes = await axios.post("/api/projects", {
+          type: "all",
+          filter: "",
+          offset: 0,
+        });
+        setProjects(projRes.data);
+        setCurrentType("all");
+        updateFilterOption(catFilter, 2);
+      } else {
+        const projRes = await axios.post("/api/projects", {
           type: "tech",
           filter: tech,
           offset: 0,
         });
         setProjects(projRes.data);
         setCurrentType("tech");
-        updateFilterOption(techFilter, 0);
+        updateFilterOption(catFilter, 0);
       }
     }
     filter();
@@ -157,7 +160,7 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
       <MetaHead
         title="Software Development projects created by Jesse Greenough"
         description="View and sort through the software engineering projects completed by Jesse Greenough"
-        keywords="Software, Developer, Engineer, Projects, Deployments, Repositories"
+        keywords="Software,Developer,Engineer,Projects,Deployments,Repositories"
       />
 
       <main
@@ -165,7 +168,7 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
         className={css.projectsBody}
       >
         <ProjectNavbar
-          langHandler={(cat: string) => setCategory(cat)}
+          catHandler={(cat: string) => setCategory(cat)}
           techHandler={(tech: string) => setTech(tech)}
           options={[Array.from(categoryMap.keys()), Array.from(techMap.keys())]}
         />
@@ -182,8 +185,8 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
                 currentType === "all"
                   ? total
                   : currentType === "category"
-                  ? categoryMap.get(category)
-                  : techMap.get(tech)
+                  ? categoryMap.get(category)!
+                  : techMap.get(tech)!
               } `}
             </span>
             projects to date

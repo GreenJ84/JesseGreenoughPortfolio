@@ -2,19 +2,23 @@
 
 import React, { useContext, useEffect } from "react";
 import { GetServerSideProps } from "next";
+import dynamic from "next/dynamic";
 
 import {
   certificationCollectionService,
   certificationType,
   educationCollectionService,
   educationType,
-} from "../../utils/dataTypes";
+} from "../../utils/services/educationService";
 import { AppContext, WindowWidth } from "../../utils/AppContext";
 
 import MetaHead from "../../components/Layout/MetaHead";
-import Degree from "../../components/EducationPage/Degree";
-import Certifications from "../../components/EducationPage/Certifications";
+const Degree = dynamic(() => import("../../components/EducationPage/Degree"));
+const Certifications = dynamic(
+  () => import("../../components/EducationPage/Certifications")
+);
 
+const css = require("../../components/EducationPage/EduBody.module.css");
 export interface Experience {
   educationData: { eduItems: educationType[]; total: number };
   certificationData: {
@@ -24,8 +28,6 @@ export interface Experience {
     techData: string;
   };
 }
-
-const css = require("../../components/EducationPage/EduBody.module.css");
 
 const EducationPage = ({ educationData, certificationData }: Experience) => {
   const { windowWidth } = useContext(AppContext);

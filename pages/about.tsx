@@ -5,11 +5,11 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import Tilt from "react-parallax-tilt";
 
-const developerPortrait = require("../public/assets/developerPortrait.jpeg");
-
 import { ImPointRight } from "react-icons/im";
 
 import MetaHead from "../components/Layout/MetaHead";
+
+const developerPortrait = require("../public/assets/developerPortrait.jpeg");
 const AboutDetails = dynamic(
   () => import("../components/AboutPage/AboutDetails")
 );

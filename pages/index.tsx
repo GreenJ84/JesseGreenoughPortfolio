@@ -70,7 +70,7 @@ const HomePage = () => {
       <MetaHead
         title="Jesse Greenough's Development Portfolio"
         description="View the Technical Development Skills possessed by Full Stack Engineer Jesse Greenough"
-        keywords="Software,Developer,Engineer,Full-Stack,Portfolio,Skills,Projects,Experience,Resumes"
+        keywords="Software,Developer,Engineer,Full-Stack,Portfolio,Skills,Projects,Experience,Resumes,Jesse Greenough"
       />
 
       <main

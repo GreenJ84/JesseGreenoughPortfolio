@@ -3,45 +3,39 @@
 import React, { useState, useEffect, useContext } from "react";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
+import axios from "axios";
 
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { BsArrowLeft, BsArrowRight, BsPlusCircleFill } from "react-icons/bs";
 
 import MetaHead from "../components/Layout/MetaHead";
 import ButtonGroup from "../components/ResumePage/ButtonGroup";
 
 import { AppContext } from "../utils/AppContext";
-import { resumeDatabase, resumeType } from "../utils/dataTypes";
+import {
+  resumeCollectionService,
+  resumeType,
+} from "../utils/services/resumeService";
 
 const css = require("../components/ResumePage/Resume.module.css");
 
 interface resumeProps {
   resumeData: resumeType[];
+  total: number;
+  categoryData: string;
 }
-const ResumePage = (props: resumeProps) => {
-  // Mobile device display wraning
+const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
+  // Mobile device display warning
   const { mobile } = useContext(AppContext);
   const [modal, closeModal] = useState(mobile);
-
-  const [resumes, setResumes] = useState(props.resumeData);
-  const [resNum, setResNum] = useState(0);
-
-  //! Implement Resume type filtering
-  function filterResumes(filter: string) {
-    const filteredResumes = props.resumeData.filter((resume) =>
-      resume.categories.includes(filter)
-    );
-
-    setResumes([...filteredResumes]);
-  }
 
   // Dynamic Resume Size Rendering
   const [width, setWidth] = useState(0);
   useEffect(() => {
     const checkWindow = (width: number) => {
       if (width < 900) {
-        setWidth(width * 0.6);
+        setWidth(width * 0.7);
       } else {
-        setWidth(width * 0.9);
+        setWidth(width * 0.8);
       }
     };
     checkWindow(window.innerWidth);
@@ -53,15 +47,54 @@ const ResumePage = (props: resumeProps) => {
     };
   }, []);
 
+  const [resumes, setResumes] = useState(resumeData);
+  const [category, setCategory] = useState("all");
+  const [resNum, setResNum] = useState(0);
+
+  // Filter Resumes on category change
+  React.useEffect(() => {
+    async function filter() {
+      if (category === "all") {
+        setResumes(resumeData);
+      } else {
+        const respose = await axios.post("/api/resumes", {
+          type: "category",
+          filter: category,
+          offset: 0,
+        });
+        setResumes(respose.data);
+      }
+      setResNum(0);
+    }
+    filter();
+  }, [category]);
+
+  const categoryMap: Map<string, number> = new Map(JSON.parse(categoryData));
+  function checkMoreResumes() {
+    return category === "all"
+      ? resumes.length < total
+      : resumes.length < categoryMap.get(category)!;
+  }
   // Resume Flip Through
-  const changeResNum = (dir: string) => {
+  const changeResNum = async (e: React.MouseEvent, dir: string) => {
+    e.preventDefault();
     if (dir == "left") {
       if (resNum > 0) {
-        setResNum(resNum - 1);
+        setResNum((num) => num - 1);
       }
     } else if (dir == "right") {
       if (resNum < resumes.length - 1) {
-        setResNum(resNum + 1);
+        setResNum((num) => num + 1);
+      }
+      // If on the end, check if more Resumes need to retrieve
+      else if (resumes.length % 5 === 0 && checkMoreResumes()) {
+        const response = await axios.post("/api/resumes", {
+          type: category,
+          offset: resumes.length,
+        });
+
+        setResumes((resumes) => [...resumes, ...response.data]);
+        setResNum((num) => num + 1);
       }
     }
   };
@@ -71,12 +104,39 @@ const ResumePage = (props: resumeProps) => {
       <MetaHead
         title="Jesse Greenough's Software Engineering Resumes"
         description="View and Download Jesse Greenough's Software Engineering Resumes"
-        keywords="Resume,Full-Stack,Software,Developer,Engineer,TypeScript,React,NextJS"
+        keywords="Resume,Full-Stack,Software,Developer,Engineer,TypeScript,React,NextJS,Python,Java,Rust"
       />
       <main
         id="resumePage"
         className={css.resumeContainer}
       >
+        <nav
+          id="projectsFilter"
+          className={css.resumeFilter}
+        >
+          <h2>
+            Filter by <span className="detail">Category</span>
+          </h2>
+          <select
+            id="categorySelect"
+            name="categorySelect"
+            defaultValue="all"
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+              e.preventDefault();
+              setCategory(e.target.value);
+            }}
+          >
+            <option value="all">All</option>
+            {Array.from(categoryMap.keys()).map((cat, idx) => (
+              <option
+                key={idx}
+                value={cat}
+              >
+                {cat.toUpperCase()}
+              </option>
+            ))}
+          </select>
+        </nav>
         <ButtonGroup
           section="top"
           download={resumes[resNum].download}
@@ -88,11 +148,12 @@ const ResumePage = (props: resumeProps) => {
         >
           <div
             className={`${css.leftArrow} ${resNum === 0 && css.disabled}`}
-            onClick={() => changeResNum("left")}
+            onClick={(e) => changeResNum(e, "left")}
           >
             <BsArrowLeft />
           </div>
-          {modal && (
+          {// Mobile viewing warnins
+            modal && (
             <div className={css.mobileModal}>
               <p>
                 <button
@@ -106,7 +167,8 @@ const ResumePage = (props: resumeProps) => {
                 to get a better PDF viewing experience.
               </p>
             </div>
-          )}
+            )}
+
           <Image
             id="resumeImage"
             src={resumes[resNum].image_url}
@@ -131,13 +193,14 @@ const ResumePage = (props: resumeProps) => {
           />
           <div
             className={`${css.rightArrow} ${
-              resNum === resumes.length - 1 && css.disabled
+              (resNum === resumes.length && !checkMoreResumes()) && css.disabled
             }`}
-            onClick={() => changeResNum("right")}
+            onClick={(e) => changeResNum(e, "right")}
           >
-            <BsArrowRight />
+            {(resNum === resumes.length && checkMoreResumes()) ? <BsArrowRight /> : <BsPlusCircleFill/>}
           </div>
         </section>
+
         <ButtonGroup
           section="bottom"
           download={resumes[resNum].download}
@@ -150,18 +213,15 @@ const ResumePage = (props: resumeProps) => {
 
 export default ResumePage;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const results = await resumeDatabase.find().sort({ _id: -1 }).toArray();
+export const getServerSideProps: GetServerSideProps<resumeProps> = async () => {
+  const resumeService = new resumeCollectionService();
+  const [resumes, total] = await resumeService.getResumes();
 
   return {
     props: {
-      resumeData: results.map((result) => ({
-        id: result._id.toString(),
-        image_url: result.image_url,
-        download: result.download,
-        view: result.view,
-        categories: result.categories,
-      })),
+      resumeData: resumes,
+      total: total!,
+      categoryData: await resumeService.getResumeFilterOptions(),
     },
   };
 };
