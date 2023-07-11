@@ -90,8 +90,8 @@ const Certifications = ({ certificationData }: Certification) => {
         updateFilterOption(issuerSelect, 2);
       } else {
         const certRes = await axios.post("/api/certifications", {
-          type: "issuer",
-          filter: issuer,
+          type: "tech",
+          filter: tech,
           offset: 0,
         });
         setCertData(certRes.data);
