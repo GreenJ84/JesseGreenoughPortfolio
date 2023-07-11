@@ -1,17 +1,21 @@
 /** @format */
 
 import { NextApiRequest, NextApiResponse } from "next";
-import { projectCollectionService, projectType } from "../../utils/dataTypes";
+import {
+  projectCollectionService,
+  projectType,
+} from "../../utils/services/projectsService";
 
 const projectService = new projectCollectionService();
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { type, filter, offset } = req.body;
 
   let results: projectType[] = [];
-
-  switch (type) { 
+  switch (type) {
     case "all":
       results = await projectService.getUnsortedProjects(offset);
       break;
@@ -25,6 +29,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(404).send("Not Found");
       break;
   }
-
   res.status(200).json(results);
 }

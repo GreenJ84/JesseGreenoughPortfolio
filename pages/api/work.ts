@@ -1,16 +1,21 @@
 /** @format */
 
 import { NextApiRequest, NextApiResponse } from "next";
-import { workCollectionService, workType } from "../../utils/dataTypes";
+import {
+  workCollectionService,
+  workType,
+} from "../../utils/services/workService";
 
 const workService = new workCollectionService();
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { type, offset } = req.body;
-  let results: workType[] = [];
 
-  switch (type) { 
+  let results: workType[] = [];
+  switch (type) {
     case "primary":
       results = await workService.getPrimaryWork(offset);
       break;
@@ -19,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       break;
     default:
       res.status(404).send("Not Found");
-      break;
+      return;
   }
 
   res.status(200).json(results);
