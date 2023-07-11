@@ -78,6 +78,7 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
   // Resume Flip Through
   const changeResNum = async (e: React.MouseEvent, dir: string) => {
     e.preventDefault();
+    console.log(resNum, resumes.length, checkMoreResumes());
     if (dir == "left") {
       if (resNum > 0) {
         setResNum((num) => num - 1);
@@ -152,22 +153,24 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
           >
             <BsArrowLeft />
           </div>
-          {// Mobile viewing warnins
+          {
+            // Mobile viewing warnins
             modal && (
-            <div className={css.mobileModal}>
-              <p>
-                <button
-                  onClick={() => {
-                    closeModal(false);
-                  }}
-                >
-                  X
-                </button>
-                If you are viewing on mobile it is best to use the view button
-                to get a better PDF viewing experience.
-              </p>
-            </div>
-            )}
+              <div className={css.mobileModal}>
+                <p>
+                  <button
+                    onClick={() => {
+                      closeModal(false);
+                    }}
+                  >
+                    X
+                  </button>
+                  If you are viewing on mobile it is best to use the view button
+                  to get a better PDF viewing experience.
+                </p>
+              </div>
+            )
+          }
 
           <Image
             id="resumeImage"
@@ -193,11 +196,17 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
           />
           <div
             className={`${css.rightArrow} ${
-              (resNum === resumes.length && !checkMoreResumes()) && css.disabled
+              resNum === resumes.length - 1 &&
+              !checkMoreResumes() &&
+              css.disabled
             }`}
             onClick={(e) => changeResNum(e, "right")}
           >
-            {(resNum === resumes.length && checkMoreResumes()) ? <BsArrowRight /> : <BsPlusCircleFill/>}
+            {resNum === resumes.length - 1 && checkMoreResumes() ? (
+              <BsPlusCircleFill />
+            ) : (
+              <BsArrowRight />
+            )}
           </div>
         </section>
 

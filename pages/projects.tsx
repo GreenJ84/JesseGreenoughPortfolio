@@ -12,6 +12,7 @@ import {
   projectType,
   projectCollectionService,
 } from "../utils/services/projectsService";
+import AddItemButton from "../components/Layout/AddItemButton";
 interface Projects {
   projectData: projectType[];
   total: number;
@@ -106,13 +107,17 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
   const categoryMap: Map<string, number> = new Map(JSON.parse(categories));
   const techMap: Map<string, number> = new Map(JSON.parse(techs));
   function checkMoreProjects(): boolean {
+    console.log(projects.length)
     switch (currentType) {
       case "all":
+        console.log(total)
         return projects.length < total;
       case "category":
-        return categoryMap[category] > projects.length;
+        console.log(categoryMap[tech]);
+        return categoryMap.get(category)! > projects.length;
       case "tech":
-        return techMap[tech] > projects.length;
+        console.log(techMap[tech]);
+        return techMap.get(tech)! > projects.length;
       default:
         return false;
     }
@@ -206,7 +211,10 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
         {currentType !== "top" &&
           projects.length % 10 === 0 &&
           checkMoreProjects() && (
-            <button onClick={handleAddingProjects}>+</button>
+          <AddItemButton
+            clickHandler={handleAddingProjects}
+            itemType="Projects"
+          />
           )}
       </main>
     </>

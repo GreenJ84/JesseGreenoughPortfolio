@@ -7,6 +7,7 @@ import CertificationsFilter from "./CertificationsFilter";
 
 import { certificationType } from "../../utils/services/educationService";
 import axios from "axios";
+import AddItemButton from "../Layout/AddItemButton";
 
 const css = require("./Certifications.module.css");
 
@@ -95,7 +96,7 @@ const Certifications = ({ certificationData }: Certification) => {
           offset: 0,
         });
         setCertData(certRes.data);
-        setCurrentType("issuer");
+        setCurrentType("tech");
         updateFilterOption(issuerSelect, 0);
       }
     }
@@ -161,8 +162,7 @@ const Certifications = ({ certificationData }: Certification) => {
       <h2 className={css.certTitle}>Certifications Achieved</h2>
       <CertificationsFilter
         issuerHandler={(issuer: string) => {
-          console.log(issuer)
-          setIssuer(issuer)
+          setIssuer(issuer);
         }}
         techHandler={(tech: string) => setTech(tech)}
         options={[Array.from(issuerMap.keys()), Array.from(techMap.keys())]}
@@ -173,13 +173,14 @@ const Certifications = ({ certificationData }: Certification) => {
         </h3>
       ) : (
         <h3 className={css.certSubTitle}>
-          I have recieved <strong className="detail">{` ${
-                currentType === "all"
-                  ? total
-                  : currentType === "issuer"
-                  ? issuerMap.get(issuer)
-                  : techMap.get(tech)
-              } `}</strong>{" "}
+          I have recieved{" "}
+          <strong className="detail">{` ${
+            currentType === "all"
+              ? total
+              : currentType === "issuer"
+              ? issuerMap.get(issuer)
+              : techMap.get(tech)
+          } `}</strong>{" "}
           certifications to date
         </h3>
       )}
@@ -193,12 +194,15 @@ const Certifications = ({ certificationData }: Certification) => {
             key={item.id}
           />
         ))}
-        {(currentType !== "top" &&
-          certData.length % 10 === 0 &&
-          checkMoreCerts()) && (
-            <button onClick={handleAddingCert}>+</button>
-          )}
       </ul>
+      {currentType !== "top" &&
+        certData.length % 10 === 0 &&
+        checkMoreCerts() && (
+          <AddItemButton
+            clickHandler={handleAddingCert}
+            itemType="Certifications"
+          />
+        )}
     </section>
   );
 };

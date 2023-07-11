@@ -5,15 +5,16 @@ import Image from "next/image";
 
 import DegreeCard from "./DegreeCard";
 
-import { educationType } from "../../utils/dataTypes";
+import { educationType } from "../../utils/services/educationService";
 import { AppContext, WindowWidth } from "../../utils/AppContext";
 import EducationImg from "./EduImage";
 import axios from "axios";
+import AddItemButton from "../Layout/AddItemButton";
 
 const css = require("./Degree.module.css");
 
 interface Education {
-  educationData: { eduItems: educationType[]; total: number; }
+  educationData: { eduItems: educationType[]; total: number };
 }
 
 const Degree = ({ educationData }: Education) => {
@@ -30,12 +31,13 @@ const Degree = ({ educationData }: Education) => {
     const animateTitle = () => {
       if (window.scrollY > locDefault) {
         title.style.transform = `scale(1)`;
-      } else if (window.scrollY < 10) { 
+      } else if (window.scrollY < 10) {
         title.style.opacity = "0";
-      } 
-      else {
-        title.style.transform = `scale(${window.scrollY / locDefault + .4 + (isSmall ? .15 : 0)})`;
-        title.style.opacity = `${window.scrollY / locDefault + .4}`;
+      } else {
+        title.style.transform = `scale(${
+          window.scrollY / locDefault + 0.4 + (isSmall ? 0.15 : 0)
+        })`;
+        title.style.opacity = `${window.scrollY / locDefault + 0.4}`;
       }
     };
 
@@ -47,11 +49,11 @@ const Degree = ({ educationData }: Education) => {
 
   async function handleAddingEdu(e: React.MouseEvent) {
     e.preventDefault();
-    console.log("Handling")
+    console.log("Handling");
     const response = await axios.post("/api/education", {
-      offset: 0
+      offset: 0,
     });
-    setEducation(education => [...education, ...response.data]);
+    setEducation((education) => [...education, ...response.data]);
   }
 
   return (
@@ -80,10 +82,12 @@ const Degree = ({ educationData }: Education) => {
           </li>
         ))}
       </ul>
-        {education.length % 5 === 0 &&
-          education.length < total && (
-            <button style={{position: 'relative'}} onClick={handleAddingEdu}>+</button>
-        )}
+      {education.length % 5 === 0 && education.length < total && (
+        <AddItemButton
+          clickHandler={handleAddingEdu}
+          itemType="Education"
+        />
+      )}
     </section>
   );
 };

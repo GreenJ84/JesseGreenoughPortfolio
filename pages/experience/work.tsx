@@ -13,6 +13,7 @@ import {
   workCollectionService,
   workType,
 } from "../../utils/services/workService";
+import AddItemButton from "../../components/Layout/AddItemButton";
 
 const css = require("../../components/WorkPage/WorkExp.module.css");
 
@@ -123,7 +124,10 @@ const WorkPage = ({ workData, documentTotals }: WorkExp) => {
               work={item}
             />
           ))}
-          {checkMoreWork() && <button onClick={handleAddingWork}> + </button>}
+          {checkMoreWork() && <AddItemButton
+            clickHandler={handleAddingWork}
+            itemType={"Work"}
+          />}
         </ul>
       </main>
     </>
