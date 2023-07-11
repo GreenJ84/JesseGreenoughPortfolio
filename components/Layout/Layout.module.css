@@ -78,3 +78,45 @@
   visibility: visible;
   transition: visibility 0.1s linear 0.2s;
 }
+
+
+/* ============== Add Item Button ============== */
+.add_item_button{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5vh auto;
+  width: clamp(40px, 8vw ,100px);
+  aspect-ratio: 1;
+  padding: 5% auto;
+  font-size: var(--text1);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  background: var(--card-background2);
+  border: 1px solid var(--text-secondary);
+}
+.add_item_button:hover{
+  cursor: pointer;
+  color: var(--text-negative);
+  background: var(--card-background);
+}
+.add_item_button > span{
+  display: none;
+}
+.add_item_button:hover > span{
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200%;
+  aspect-ratio: 5/1;
+  font-size: var(--text5);
+  color: var(--text-secondary);
+  background-color: var(--layout-shadow);
+  border: 1px solid var(--card-background2);
+  z-index: 10;
+}
