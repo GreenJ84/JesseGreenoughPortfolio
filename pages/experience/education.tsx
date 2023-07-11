@@ -6,6 +6,7 @@ import { GetServerSideProps } from "next";
 import {
   certificationCollectionService,
   certificationType,
+  educationCollectionService,
   educationDatabase,
   educationType,
 } from "../../utils/dataTypes";
@@ -90,7 +91,7 @@ const EducationPage = ({
 
 export const getServerSideProps: GetServerSideProps<Experience> = async () => {
   // Get all Education experience data
-  const eduResults = await educationDatabase.find().sort({ _id: -1 }).toArray();
+  const eduResults = await educationCollectionService.getEducationData();
 
   const [certifications, total] = await certificationCollectionService.getTopCertification();
   const [issuers, techs] = await certificationCollectionService.getCertificationFilterOptions();
@@ -98,15 +99,7 @@ export const getServerSideProps: GetServerSideProps<Experience> = async () => {
 
   return {
     props: {
-      educationData: eduResults.map((result) => ({
-        id: result._id.toString(),
-        college: result.college,
-        degree: result.degree,
-        date: result.date,
-        description: result.description,
-        icon: result.icon,
-        website: result.website,
-      })),
+      educationData: eduResults,
       certificationData: {
         certItems: certifications,
         total,

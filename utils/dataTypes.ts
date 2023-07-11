@@ -218,6 +218,33 @@ export interface educationType {
   website: string;
 }
 
+export class educationCollectionService {
+  static #mapEducationData(data: WithId<educationType>[]) {
+    return data.map(
+      (result) =>
+        ({
+          id: result._id.toString(),
+          college: result.college,
+          degree: result.degree,
+          date: result.date,
+          description: result.description,
+          icon: result.icon,
+          website: result.website,
+        } as educationType)
+    );
+  }
+
+  static async #getWorkItems(offset: number) {
+    return await educationDatabase.find().sort({ _id: -1 }).skip(offset).limit(5).toArray();
+  }
+
+  public static async getEducationData(offset: number = 0) {
+    return educationCollectionService.#mapEducationData(
+      await educationCollectionService.#getWorkItems(offset)
+    );
+  }
+}
+
 // ======== Certification Collection
 export const certificationDatabase = DB.collection<certificationType>(
   process.env.CERT_COLL!
@@ -234,13 +261,15 @@ export interface certificationType {
   techs: string[];
 }
 export class certificationCollectionService {
-  public static async getCertificationFilterOptions(): Promise<[string, string]> { 
+  public static async getCertificationFilterOptions(): Promise<
+    [string, string]
+  > {
     let res: {
       issuer: string;
       techs: string[];
     }[] = await certificationDatabase
       .find()
-        .project<{ issuer: string; techs: string[]; }>({
+      .project<{ issuer: string; techs: string[] }>({
         issuer: 1,
         techs: 1,
         _id: 0,
@@ -321,7 +350,10 @@ export class certificationCollectionService {
   }
 
   static async getTopCertification(): Promise<[certificationType[], number]> {
-    return [await certificationCollectionService.#getCertificationItems(), await certificationDatabase.countDocuments()];
+    return [
+      await certificationCollectionService.#getCertificationItems(),
+      await certificationDatabase.countDocuments(),
+    ];
   }
 
   public async getCertificationByTech(tech: string, offset: number = 0) {
