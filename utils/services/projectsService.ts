@@ -1,6 +1,7 @@
+/** @format */
+
 import { SortDirection, WithId } from "mongodb";
 import { DB } from "../AppContext";
-
 
 export interface projectType {
   id?: string;
@@ -20,7 +21,7 @@ const projectDatabase = DB.collection<projectType>(process.env.PROJ_COLL!);
 export class projectCollectionService {
   // Retrieve Project categories and key techs
   public static async getProjectFilterOptions() {
-    let res: {
+    const res: {
       categories: string[];
       key_techs: string[];
     }[] = await projectDatabase
@@ -95,43 +96,39 @@ export class projectCollectionService {
       };
     }
 
-    return await projectDatabase
-      .find(filterOptions ?? {})
-      .sort(sortOption)
-      .skip(offset)
-      .limit(10)
-      .toArray();
+    return projectCollectionService.#mapProjectItem(
+      await projectDatabase
+        .find(filterOptions ?? {})
+        .sort(sortOption)
+        .skip(offset)
+        .limit(10)
+        .toArray()
+    );
   }
 
   public async getUnsortedProjects(offset: number = 0) {
-    return projectCollectionService.#mapProjectItem(
-      await projectCollectionService.#getProjectItems(false, offset)
-    );
+    return await projectCollectionService.#getProjectItems(false, offset);
   }
 
   // Top priority project retrival
   public static async getTopProjects(): Promise<[projectType[], number]> {
     return [
-      this.#mapProjectItem(await this.#getProjectItems()),
+      await this.#getProjectItems(),
       await projectDatabase.countDocuments(),
     ];
   }
 
   // Category filtered project retrival
   public async getProjectsByCategory(category: string, offset: number = 0) {
-    return projectCollectionService.#mapProjectItem(
-      await projectCollectionService.#getProjectItems(true, offset, {
-        categories: category,
-      })
-    );
+    return await projectCollectionService.#getProjectItems(true, offset, {
+      categories: category,
+    });
   }
 
   // Key tech filtered project retrival
   public async getProjectsByTech(tech: string, offset: number = 0) {
-    return projectCollectionService.#mapProjectItem(
-      await projectCollectionService.#getProjectItems(true, offset, {
-        key_techs: tech,
-      })
-    );
+    return await projectCollectionService.#getProjectItems(true, offset, {
+      key_techs: tech,
+    });
   }
 }

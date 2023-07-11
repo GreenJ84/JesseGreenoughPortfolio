@@ -1,6 +1,8 @@
+/** @format */
 
-//** ======== Resume Collection
-export const resumeDatabase = DB.collection<resumeType>(process.env.RES_COLL!);
+import { WithId } from "mongodb";
+import { DB } from "../AppContext";
+
 export interface resumeType {
   id?: string;
   image_url: string;
@@ -8,12 +10,13 @@ export interface resumeType {
   view: string;
   categories: string[];
 }
+const resumeDatabase = DB.collection<resumeType>(process.env.RES_COLL!);
 
 export class resumeCollectionService {
   public static async getResumeFilterOptions(): Promise<[string]> {
-    let res: {
+    const res: {
       categories: string[];
-    }[] = await certificationDatabase
+    }[] = await resumeDatabase
       .find()
       .project<{ categories: string[] }>({
         categories: 1,
@@ -32,9 +35,7 @@ export class resumeCollectionService {
       });
     });
 
-    return [
-      JSON.stringify(Array.from(categoryMap.entries()))
-    ];
+    return [JSON.stringify(Array.from(categoryMap.entries()))];
   }
 
   static #mapResumeData(data: WithId<resumeType>[]) {
@@ -66,9 +67,8 @@ export class resumeCollectionService {
   }
 
   public async getResumeByCategory(category: string, offset: number = 0) {
-    return await resumeCollectionService.#getResumeItems(
-      offset,
-      { categories: category }
-    )
+    return await resumeCollectionService.#getResumeItems(offset, {
+      categories: category,
+    });
   }
 }

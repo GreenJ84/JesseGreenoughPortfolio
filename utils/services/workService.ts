@@ -1,4 +1,6 @@
-import { WithId } from "mongodb";
+/** @format */
+
+import { Collection, WithId } from "mongodb";
 import { DB } from "../AppContext";
 
 export interface workType {
@@ -8,14 +10,19 @@ export interface workType {
   logo: string;
   location: string;
   date: string; // "start - end"
-  startDate?: string;
-  endDate?: string;
   details: string[];
 }
 const workDatabase = DB.collection<workType>(process.env.WORK_COLL!);
 const secWorkDatabase = DB.collection<workType>(process.env.SWORK_COLL!);
 
 export class workCollectionService {
+  public async getWorkTotals(): Promise<[number, number]> {
+    const workTotal = await workDatabase.countDocuments();
+    const secWorkTotal = await secWorkDatabase.countDocuments();
+
+    return [workTotal, secWorkTotal];
+  }
+
   static #mapWorkData(data: WithId<workType>[]) {
     return data.map(
       (result) =>
@@ -31,32 +38,17 @@ export class workCollectionService {
     );
   }
 
-  public async getWorkTotals(): Promise<[number, number]> {
-    const workTotal = await workDatabase.countDocuments();
-    const secWorkTotal = await secWorkDatabase.countDocuments();
-
-    return [workTotal, secWorkTotal];
+  static async #getWorkItems(database: Collection<workType>, offset: number) {
+    return workCollectionService.#mapWorkData(
+      await database.find().sort({ _id: -1 }).skip(offset).limit(5).toArray()
+    );
   }
 
   public async getPrimaryWork(offset: number = 0) {
-    return workCollectionService.#mapWorkData(
-      await workDatabase
-        .find()
-        .sort({ _id: -1 })
-        .skip(offset)
-        .limit(5)
-        .toArray()
-    );
+    return workCollectionService.#getWorkItems(workDatabase, offset);
   }
 
   public async getSecondaryWork(offset: number = 0) {
-    return workCollectionService.#mapWorkData(
-      await secWorkDatabase
-        .find()
-        .sort({ _id: -1 })
-        .skip(offset)
-        .limit(5)
-        .toArray()
-    );
+    return workCollectionService.#getWorkItems(secWorkDatabase, offset);
   }
 }

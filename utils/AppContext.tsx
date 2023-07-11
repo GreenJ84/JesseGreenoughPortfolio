@@ -1,9 +1,8 @@
 /** @format */
 
-import React, { createContext, useState, useEffect } from "react";
+import React from "react";
 import { MongoClient } from "mongodb";
 import useLocalStorage from "use-local-storage";
-
 
 // Database connection
 const DB_CLIENT = new MongoClient(process.env.DB_CONN_STRING!);
@@ -14,49 +13,56 @@ export enum WindowWidth {
   MEDIUM,
   LARGE,
 }
-export interface AppContextProps {
+interface AppContextProps {
   windowWidth: WindowWidth;
-  setWindowWidth: React.Dispatch<React.SetStateAction<WindowWidth>>;
   theme: string;
   setTheme: Function;
   mobile: boolean;
 }
 
-export const AppContext = createContext<AppContextProps>({
+export const AppContext = React.createContext<AppContextProps>({
   windowWidth: WindowWidth.LARGE,
-  setWindowWidth: () => {},
   theme: "dark",
-  setTheme: () => { },
+  setTheme: () => {},
   mobile: false,
 });
 
 export const AppContextProvider = ({ children }) => {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
-  const [windowWidth, setWindowWidth] = useState(WindowWidth.LARGE);
-  const [mobile, setMobile] = useState(false);
+  const [windowWidth, setWindowWidth] = React.useState(WindowWidth.LARGE);
+  const [mobile, setMobile] = React.useState(false);
 
   // Grab User theme preference on initial app load
-  useEffect(() => {
+  React.useEffect(() => {
     const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
     setTheme(matchMedia.matches ? "dark" : "light");
   }, [setTheme]);
 
   // Theme change handling
-  useEffect(() => {
+  React.useEffect(() => {
     document.body.dataset.theme = theme;
   }, [theme]);
   const switchMode = () => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
+    // Check if viewing on mobile or desktop
     if (
       /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)
     ) {
       setMobile(true);
     }
+
+    // Responsive resizing handler
     const handleResize = () => {
-      setWindowWidth(window.innerWidth < 600 ? WindowWidth.SMALL : window.innerWidth < 1000 ? WindowWidth.MEDIUM : WindowWidth.LARGE);
+      setWindowWidth(
+        window.innerWidth < 600
+          ? WindowWidth.SMALL
+          : window.innerWidth < 1000
+          ? WindowWidth.MEDIUM
+          : WindowWidth.LARGE
+      );
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -67,7 +73,7 @@ export const AppContextProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ windowWidth, setWindowWidth, theme, setTheme: switchMode, mobile }}
+      value={{ windowWidth, theme, setTheme: switchMode, mobile }}
     >
       {children}
     </AppContext.Provider>

@@ -1,10 +1,9 @@
+/** @format */
+
 import { SortDirection, WithId } from "mongodb";
 import { DB } from "../AppContext";
 
 //** ======== Education Collection
-const educationDatabase = DB.collection<educationType>(
-  process.env.DEG_COLL!
-);
 export interface educationType {
   id?: string;
   college: string;
@@ -16,6 +15,7 @@ export interface educationType {
   icon: string;
   website: string;
 }
+const educationDatabase = DB.collection<educationType>(process.env.DEG_COLL!);
 
 export class educationCollectionService {
   static #mapEducationData(data: WithId<educationType>[]) {
@@ -33,13 +33,15 @@ export class educationCollectionService {
     );
   }
 
-  static async #getWorkItems(offset: number) {
-    return await educationDatabase
-      .find()
-      .sort({ _id: -1 })
-      .skip(offset)
-      .limit(5)
-      .toArray();
+  static async #getEducationItems(offset: number) {
+    return this.#mapEducationData(
+      await educationDatabase
+        .find()
+        .sort({ _id: -1 })
+        .skip(offset)
+        .limit(5)
+        .toArray()
+    );
   }
 
   public static async getEducationData(
@@ -47,23 +49,14 @@ export class educationCollectionService {
   ): Promise<[educationType[], number?]> {
     return offset === 0
       ? [
-          educationCollectionService.#mapEducationData(
-            await educationCollectionService.#getWorkItems(offset)
-          ),
+          await educationCollectionService.#getEducationItems(offset),
           (await educationDatabase.countDocuments()) * 10,
         ]
-      : [
-          educationCollectionService.#mapEducationData(
-            await educationCollectionService.#getWorkItems(offset)
-          ),
-        ];
+      : [await educationCollectionService.#getEducationItems(offset)];
   }
 }
 
 //** ======== Certification Collection
-export const certificationDatabase = DB.collection<certificationType>(
-  process.env.CERT_COLL!
-);
 export interface certificationType {
   id?: string;
   priority: number;
@@ -75,11 +68,15 @@ export interface certificationType {
   url: string;
   techs: string[];
 }
+const certificationDatabase = DB.collection<certificationType>(
+  process.env.CERT_COLL!
+);
+
 export class certificationCollectionService {
   public static async getCertificationFilterOptions(): Promise<
     [string, string]
   > {
-    let res: {
+    const res: {
       issuer: string;
       techs: string[];
     }[] = await certificationDatabase
