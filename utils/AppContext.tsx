@@ -1,7 +1,13 @@
 /** @format */
 
 import React, { createContext, useState, useEffect } from "react";
+import { MongoClient } from "mongodb";
 import useLocalStorage from "use-local-storage";
+
+
+// Database connection
+const DB_CLIENT = new MongoClient(process.env.DB_CONN_STRING!);
+export const DB = DB_CLIENT.db(process.env.DB_NAME);
 
 export enum WindowWidth {
   SMALL,
