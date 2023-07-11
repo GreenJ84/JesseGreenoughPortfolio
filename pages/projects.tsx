@@ -67,7 +67,7 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
       }
     }
     filter();
-  }, [category]);
+  }, [category, projectData]);
 
   // Filter projects on tech change
   useEffect(() => {
@@ -100,7 +100,7 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
       }
     }
     filter();
-  }, [tech]);
+  }, [tech, projectData]);
 
   // Check if more projects are available in current Type
   const categoryMap: Map<string, number> = new Map(JSON.parse(categories));

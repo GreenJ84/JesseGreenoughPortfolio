@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import CertificationCard from "./CertificationCard";
 import CertificationsFilter from "./CertificationsFilter";
 
-import { certificationType } from "../../utils/dataTypes";
+import { certificationType } from "../../utils/services/educationService";
 import axios from "axios";
 
 const css = require("./Certifications.module.css");
@@ -67,7 +67,7 @@ const Certifications = ({ certificationData }: Certification) => {
       }
     }
     filter();
-  }, [issuer]);
+  }, [issuer, certItems]);
 
   React.useEffect(() => {
     const issuerSelect = document.getElementById(
@@ -75,11 +75,11 @@ const Certifications = ({ certificationData }: Certification) => {
     )! as HTMLSelectElement;
 
     async function filter() {
-      if (issuer === "top") {
+      if (tech === "top") {
         setCertData(certItems);
         setCurrentType("top");
         updateFilterOption(issuerSelect, 1);
-      } else if (issuer === "all") {
+      } else if (tech === "all") {
         const certRes = await axios.post("/api/certifications", {
           type: "all",
           filter: "",
@@ -100,7 +100,7 @@ const Certifications = ({ certificationData }: Certification) => {
       }
     }
     filter();
-  }, [tech]);
+  }, [tech, certItems]);
 
   const issuerMap: Map<string, number> = new Map(JSON.parse(issuerData));
   const techMap: Map<string, number> = new Map(JSON.parse(techData));

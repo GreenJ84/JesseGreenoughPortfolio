@@ -40,7 +40,7 @@ const WorkPage = ({ workData, documentTotals }: WorkExp) => {
       }
     }
     switchWork();
-  }, [showSecWork]);
+  }, [showSecWork, workData]);
 
   function checkMoreWork() {
     return (

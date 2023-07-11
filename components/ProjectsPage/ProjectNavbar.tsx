@@ -4,13 +4,13 @@ import React from "react";
 
 const css = require("./Project.module.css");
 export interface ProjectNavProps {
-  langHandler: Function;
+  catHandler: Function;
   techHandler: Function;
   options: [string[], string[]];
 }
 
 const ProjectNavbar = ({
-  langHandler,
+  catHandler,
   techHandler,
   options,
 }: ProjectNavProps) => {
@@ -20,8 +20,8 @@ const ProjectNavbar = ({
     type: string
   ) => {
     e.preventDefault();
-    if (type == "lang") {
-      langHandler(e.currentTarget.value);
+    if (type == "category") {
+      catHandler(e.currentTarget.value);
     } else if (type == "tech") {
       techHandler(e.currentTarget.value);
     }
@@ -34,17 +34,17 @@ const ProjectNavbar = ({
     >
       <div>
         <h2>
-          Filter by <span className="detail">Language</span>
+          Filter by <span className="detail">Category</span>
         </h2>
         <select
-          id="langSelect"
-          name="LanguageSelect"
+          id="categorySelect"
+          name="categorySelect"
           defaultValue="top"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            changeHandler(e, "lang")
+            changeHandler(e, "category")
           }
         >
-          <option disabled></option>
+          <option disabled>...</option>
           <option value="top">Top 10</option>
           <option value="all">All</option>
           {[...categories].map((cat) => (
@@ -64,13 +64,13 @@ const ProjectNavbar = ({
         </h2>
         <select
           id="techSelect"
-          name="TechSelect"
+          name="techSelect"
           defaultValue="top"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
             changeHandler(e, "tech")
           }
         >
-          <option disabled></option>
+          <option disabled>...</option>
           <option value="top">Top 10</option>
           <option value="all">All</option>
           {[...techs].map((tech) => (

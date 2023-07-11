@@ -67,7 +67,7 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
       setResNum(0);
     }
     filter();
-  }, [category]);
+  }, [category, resumeData]);
 
   const categoryMap: Map<string, number> = new Map(JSON.parse(categoryData));
   function checkMoreResumes() {

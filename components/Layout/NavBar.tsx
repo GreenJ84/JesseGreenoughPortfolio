@@ -24,15 +24,15 @@ const brandLogo2 = "/assets/CyberHedera1.png";
 const css = require("./NavBar.module.css");
 
 const NavLinkData = [
-  ["/", <AiOutlineHome className={css.navIcon} />, "Home"],
-  ["/about", <AiOutlineUser className={css.navIcon} />, "About"],
+  ["/", <AiOutlineHome key={0} className={css.navIcon} />, "Home"],
+  ["/about", <AiOutlineUser key={1} className={css.navIcon} />, "About"],
   [
     "/projects",
-    <AiOutlineFundProjectionScreen className={css.navIcon} />,
+    <AiOutlineFundProjectionScreen key={2} className={css.navIcon} />,
     "Projects",
   ],
-  ["/experience", <ImBlog className={css.navIcon} />, "Experience"],
-  ["/resume", <CgFileDocument className={css.navIcon} />, "Resume"],
+  ["/experience", <ImBlog key={3} className={css.navIcon} />, "Experience"],
+  ["/resume", <CgFileDocument key={4} className={css.navIcon} />, "Resume"],
 ];
 
 const NavBar = () => {
@@ -111,6 +111,7 @@ const NavBar = () => {
             alt="Developer NFT Brand logo"
             width={250}
             height={250}
+            loading="lazy"
           />
         </Navbar.Brand>
 
@@ -135,7 +136,7 @@ const NavBar = () => {
                   key={idx}
                   className={css.navItem}
                 >
-                  {title == "Experience" &&
+                  {idx === 3 &&
                     windowWidth !== WindowWidth.SMALL && (
                       // Navigation dropdown for medium+ screens
                       <dialog className={css.experience}>
@@ -147,6 +148,7 @@ const NavBar = () => {
                     )}
 
                   <Link
+                    key={idx}
                     href={href as string}
                     className={css.navLink}
                     rel="noreferrer"
