@@ -37,8 +37,8 @@
   color: var(--text-primary);
   backdrop-filter: var(--text-bg-blur);
 }
-.aboutDetail > h1 {
-  font-size: clamp(24px, 5vw, 70px);
+.aboutDetail > h2 {
+  font-size: var(--text1);
   text-align: center;
 }
 

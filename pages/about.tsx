@@ -5,9 +5,8 @@ import dynamic from "next/dynamic";
 
 import { ImPointRight } from "react-icons/im";
 
-import {DeveloperPortrait, MetaHead} from "../components/Layout/LayoutExtras";
+import { MetaHead } from "../components/Layout/LayoutExtras";
 
-const developerPortrait = require("../public/assets/developerPortrait.jpeg");
 const AboutDetails = dynamic(
   () => import("../components/AboutPage/AboutDetails")
 );
@@ -31,7 +30,9 @@ const AboutPage = () => {
           id="aboutIntro"
           className={css.aboutOpener}
         >
-          <DeveloperPortrait />
+          <h1>
+            Break the <span className="detail">Ice</span>
+          </h1>
           <p style={{ textAlign: "left" }}>
             Hi everyone, I am<span className="detail"> Jesse Greenough </span>
             currently residing in

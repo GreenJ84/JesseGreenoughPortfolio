@@ -1,6 +1,12 @@
 /** @format */
 
 import React from "react";
+import dynamic from "next/dynamic";
+
+const DeveloperPortrait = dynamic(() =>
+  import("../Layout/LayoutExtras").then((mod) => mod.DeveloperPortrait)
+);
+
 const css = require("./About.module.css");
 
 const AboutDetails = () => {
@@ -9,9 +15,10 @@ const AboutDetails = () => {
       id="aboutDetail"
       className={css.aboutDetail}
     >
-      <h1>
+      <h2>
         All About <span className="detail">Me</span>
-      </h1>
+      </h2>
+      <DeveloperPortrait />
       <p>
         {" "}
         I was born and raised in
