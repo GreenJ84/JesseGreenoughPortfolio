@@ -74,11 +74,19 @@ export const MetaHead = ({
 const developerPortrait = "/assets/developerPortrait.jpeg";
 export const DeveloperPortrait = () => {
   return (
-    <Tilt className={css.portraitTilt}>
+    <Tilt className={css.portraitTilt}
+      perspective={700}
+      glareEnable={true}
+      glareMaxOpacity={0.85}
+      glareBorderRadius="50%"
+      scale={1.1}
+    >
       <Image
         src={developerPortrait}
         alt="Developer Portrait"
         className={css.developerPortrait}
+        width={400}
+        height={400}
       />
     </Tilt>
   );

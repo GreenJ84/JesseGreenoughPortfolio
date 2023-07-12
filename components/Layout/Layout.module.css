@@ -18,6 +18,23 @@
   height: 20vw;
 }
 
+/* Developer Portrait */
+.portraitTilt {
+  width: clamp(200px, 20vw, 400px);
+  height: auto;
+  margin: 20px auto 10px;
+}
+.developerPortrait {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: var(--shadow);
+}
+.developerPortrait:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+
 /* ============== Flip Card ============== */
 .flip_card {
   background-color: transparent;
