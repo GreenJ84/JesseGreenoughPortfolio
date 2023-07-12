@@ -7,6 +7,7 @@ import Image from "next/image";
 
 import { Properties } from "csstype";
 import Tilt from "react-parallax-tilt";
+import Typewriter from "typewriter-effect";
 import { BsPlusCircleFill } from "react-icons/bs";
 
 const css = require("./Layout.module.css");
@@ -233,6 +234,25 @@ export const AddItemButton = ({
     </button>
   );
 };
+
+// Typwriter animtation
+interface typeProps {
+  typePrompts: string[];
+}
+
+export const TypeWrite = (props: typeProps) => {
+  return (
+    <Typewriter
+      options={{
+        strings: props.typePrompts,
+        autoStart: true,
+        loop: true,
+        deleteSpeed: 50,
+      }}
+    />
+  );
+};
+
 
 // Email contact modal component
 export const ContactModal = ({ close }: { close: Function }) => {
