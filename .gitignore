@@ -30,6 +30,7 @@ cypress/e2e/examples
 # next.js
 /.next/
 /out/
+/.swm/
 
 # production
 /build
