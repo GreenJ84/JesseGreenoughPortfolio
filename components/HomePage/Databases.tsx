@@ -1,12 +1,13 @@
 /** @format */
 
 import React from "react";
+import dynamic from "next/dynamic";
 
 import { DiSqllite, DiRedis } from "react-icons/di";
 import { GrMysql } from "react-icons/gr";
 import { SiAmazondynamodb, SiMongodb, SiPostgresql } from "react-icons/si";
 
-import TechnicalSkill from "./TechnicalSkill";
+const TechnicalSkill = dynamic(() => import("./TechnicalSkill"));
 
 const css = require("./Home.module.css");
 

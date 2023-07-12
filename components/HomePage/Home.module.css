@@ -62,15 +62,6 @@
   text-shadow: var(--text-shadow);
 }
 
-.homeDeveloperLogo {
-  position: relative;
-  margin: 0 auto;
-  width: auto;
-  height: 50vw;
-  max-height: 650px;
-  filter: var(--hue-rotate-home);
-}
-
 /* Developers Introduction */
 .developerIntro {
   position: relative;

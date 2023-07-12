@@ -1,5 +1,6 @@
 /** @format */
 
+import dynamic from "next/dynamic";
 import React from "react";
 
 import { DiReact } from "react-icons/di";
@@ -21,7 +22,7 @@ import {
 } from "react-icons/si";
 import { TiWeatherWindyCloudy } from "react-icons/ti";
 
-import TechnicalSkill from "./TechnicalSkill";
+const TechnicalSkill = dynamic(() => import("./TechnicalSkill"));
 
 const css = require("./Home.module.css");
 

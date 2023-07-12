@@ -42,17 +42,6 @@
   text-align: center;
 }
 
-.portraitTilt {
-  width: clamp(200px, 20vw, 400px);
-  height: auto;
-  margin: 20px auto 10px;
-}
-.developerPortrait {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-
 .aboutDetail > p {
   position: relative;
   margin: 2rem auto;
