@@ -75,7 +75,8 @@ export const MetaHead = ({
 const developerPortrait = "/assets/developerPortrait.jpeg";
 export const DeveloperPortrait = () => {
   return (
-    <Tilt className={css.portraitTilt}
+    <Tilt
+      className={css.portraitTilt}
       perspective={700}
       glareEnable={true}
       glareMaxOpacity={0.85}
@@ -126,16 +127,16 @@ export const FlipCard = ({
 
 // Universal filter component for selecting and filtering data items
 interface DataFilterProps {
-  firstHandler: Function;
-  secondHandler?: Function;
   titles: [string, string?];
   options: [string[], string[]?];
+  firstHandler: Function;
+  secondHandler?: Function;
 }
 export const DataFilter = ({
-  firstHandler,
-  secondHandler,
   titles,
   options,
+  firstHandler,
+  secondHandler,
 }: DataFilterProps) => {
   const [firstOptions, secondOptions] = options;
   const [firstTitle, secondTitle] = titles;
@@ -170,10 +171,10 @@ export const DataFilter = ({
           }
         >
           <option disabled>...</option>
-          <option value="top">Top 10</option>
-          {secondTitle && secondOptions && secondHandler && (
-            <option value="all">All</option>
+          {secondTitle! && secondOptions! && secondHandler && (
+            <option value="top">Top 10</option>
           )}
+          <option value="all">All</option>
           {[...firstOptions].map((option, idx) => (
             <option
               key={idx}
@@ -226,13 +227,14 @@ export const AddItemButton = ({
 }) => {
   return (
     <button
+      name="add_item_button"
       onClick={clickHandler}
       className={css.add_item_button}
     >
       <span>Load More {itemType}</span>
       <BsPlusCircleFill className={css.addIcon} />
     </button>
-  );
+);
 };
 
 // Typwriter animtation
@@ -252,7 +254,6 @@ export const TypeWrite = (props: typeProps) => {
     />
   );
 };
-
 
 // Email contact modal component
 export const ContactModal = ({ close }: { close: Function }) => {
