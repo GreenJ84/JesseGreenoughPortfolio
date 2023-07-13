@@ -1,8 +1,11 @@
-.experienceContainer{
+/** @format */
+
+.experienceContainer {
   padding: 8vh 0 10vh;
 }
 
-.cardTitle, .cardBody {
+.cardTitle,
+.cardBody {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -23,18 +26,18 @@
   font-size: clamp(16px, 2vw, 38px);
   letter-spacing: 1.5px;
 }
-.cardTitle span{
-  color: var(--text-secondary)
+.cardTitle span {
+  color: var(--text-secondary);
 }
 
-.cardBody{
+.cardBody {
   padding: 5% 10%;
 }
-.cardBody > p{
+.cardBody > p {
   font-size: var(--text4);
   overflow: scroll;
 }
-.experienceLink{
+.experienceLink {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,11 +46,12 @@
   height: min(10vw, 40px);
   font-size: var(--text5);
   background-color: var(--text-negative);
-  border: .5px solid var(--text-primary);
+  border: 0.5px solid var(--text-primary);
   border-radius: 10px;
-  box-shadow: min(2px, .5vw) min(2px, .5vw) 1px 0px var(--text-primary), min(6px, 1.8vw) min(6px, 1.8vw) min(15px, 3vw) min(2px, .3vw) black;
+  box-shadow: min(2px, 0.5vw) min(2px, 0.5vw) 1px 0px var(--text-primary),
+    min(6px, 1.8vw) min(6px, 1.8vw) min(15px, 3vw) min(2px, 0.3vw) black;
 }
-.experienceLink:hover{
+.experienceLink:hover {
   border: 1.5px solid var(--text-primary);
   box-shadow: none;
 }

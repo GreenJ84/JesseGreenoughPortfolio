@@ -3,8 +3,8 @@
 import React from "react";
 import Link from "next/link";
 
-import {MetaHead} from "../../components/Layout/LayoutExtras";
-import {FlipCard} from "../../components/Layout/LayoutExtras";
+import { MetaHead } from "../../components/Layout/LayoutExtras";
+import { FlipCard } from "../../components/Layout/LayoutExtras";
 
 const css = require("../../components/ExperiencePage/Experience.module.css");
 
