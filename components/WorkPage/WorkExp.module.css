@@ -3,9 +3,9 @@
 /* Intro Section */
 .workBodyTitle {
   position: relative;
-  margin: 6rem 0 0;
+  margin: 6rem 0 2rem;
   text-align: center;
-  font-size: clamp(26px, 5vw, 66px);
+  font-size: var(--text1);
   color: var(--text-secondary);
 }
 
@@ -36,7 +36,7 @@
     display: none;
   }
   .workBody p {
-    margin: 4rem 0;
+    margin: 5rem 0;
   }
 }
 
@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-bottom: 5vh;
+  margin: 5vh 0 8vh;
   height: min(6vw, 75px);
   max-width: 1500px;
 }
@@ -67,7 +67,6 @@
   transition: all 0.2s ease-in-out;
 }
 
-
 .workFilter > button.activeFilter {
   background-color: var(--layout-bg);
   border: 2px solid var(--background);
@@ -78,10 +77,11 @@
 .workFilter > button.inactiveFilter {
   background-color: var(--nav-bg);
   border: 1px solid var(--text-primary);
-  opacity: .8;
+  opacity: 0.8;
 }
 
-.workFilter > button.activeFilter:hover, .workFilter > button.inactiveFilter:hover {
+.workFilter > button.activeFilter:hover,
+.workFilter > button.inactiveFilter:hover {
   border: 1px solid var(--text-primary);
   background-color: var(--card-background);
   border-radius: 20px;
@@ -90,12 +90,104 @@
   transform: scale(1.25);
 }
 
-
 .workCardHolder {
   list-style: none;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  padding: .1rem 2rem 1rem;
+  padding: 0.1rem 2rem 1rem;
   max-width: 1500px;
+}
+
+
+/* Work Card */
+.workCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: max(3rem, 6vw) 0;
+  padding: 4vw 3vw;
+  color: var(--text-primary);
+  background-color: var(--card-background);
+  border-radius: 20px;
+  box-shadow: var(--shadow); 
+}
+
+.workCard:hover {
+  transform: scale(1.09, 1.09);
+  box-shadow: var(--shadow-hover);
+}
+.workCard:hover *{
+  text-shadow: min(1px, .2vw) min(1px, .2vw) var(--text-negative);
+}
+
+.workImageHolder {
+  width: 20%;
+}
+.workCard:hover .workImage {
+  box-shadow: var(--shadow-hover);
+}
+.workImage {
+  position: relative;
+  right: 1rem;
+  display: flex;
+  margin: 1rem auto 0;
+  width: clamp(70px, 11vw, 160px);
+  height: clamp(70px, 11vw, 160px);
+  border-radius: 30%;
+  box-shadow: var(--shadow);
+}
+
+.workCardBody {
+  width: 80%;
+  color: var(--text-primary);
+}
+
+.workCardBody div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.workCardBody div p {
+  margin: 0;
+  font-size: var(--text6);
+}
+
+.workCardBody div:first-child h2 {
+  margin: 0;
+  font-size: var(--text4);
+  font-weight: 900;
+  color: var(--text-secondary);
+}
+
+.workCardBody div:nth-child(2) p:first-child {
+  font-size: var(--text5);
+  font-weight: 800;
+}
+
+.workCardBody > ul {
+  list-style: none;
+  padding: 0 3%;
+}
+
+.details {
+  position: relative;
+  margin-top: 20px;
+  font-size: var(--text6);
+  text-indent: 6px;
+}
+
+@media only screen and (max-width: 550px){
+  .workCard, .workCardBody div {
+    flex-direction: column;
+  }
+  .workCardBody{
+    width: 96%;
+  }
+  .workCardBody > div:first-of-type{
+    margin: 20px 0 10px;
+  }
+  .workCardBody > div:last-of-type{
+    text-align: right;
+  }
 }

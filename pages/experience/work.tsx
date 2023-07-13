@@ -5,7 +5,12 @@ import { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";
 import axios from "axios";
 
-import {MetaHead, AddItemButton} from "../../components/Layout/LayoutExtras";
+import { MetaHead } from "../../components/Layout/LayoutExtras";
+const AddItemButton = dynamic(() =>
+  import("../../components/Layout/LayoutExtras").then(
+    (mod) => mod.AddItemButton
+  )
+);
 const WorkImg = dynamic(() => import("../../components/WorkPage/WorkImg"));
 const WorkCard = dynamic(() => import("../../components/WorkPage/WorkCard"));
 
@@ -123,10 +128,12 @@ const WorkPage = ({ workData, documentTotals }: WorkExp) => {
               work={item}
             />
           ))}
-          {checkMoreWork() && <AddItemButton
-            clickHandler={handleAddingWork}
-            itemType={"Work"}
-          />}
+          {checkMoreWork() && (
+            <AddItemButton
+              clickHandler={handleAddingWork}
+              itemType={"Work"}
+            />
+          )}
         </ul>
       </main>
     </>
