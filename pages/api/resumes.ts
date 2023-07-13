@@ -12,16 +12,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { category, offset } = req.body;
+  const { type, filter, offset } = req.body;
 
   let results: resumeType[] = [];
-  switch (category) {
+  switch (type) {
     case "all":
       const response = await resumeService.getResumes(offset);
       results = response[0];
       break;
     default:
-      results = await resumeService.getResumeByCategory(offset);
+      results = await resumeService.getResumeByCategory(filter, offset);
       break;
   }
   res.status(200).json(results);

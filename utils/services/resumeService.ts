@@ -3,7 +3,6 @@
 import { WithId } from "mongodb";
 import { DB } from "./projectsService";
 
-
 export interface resumeType {
   id?: string;
   image_url: string;
