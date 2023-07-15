@@ -12,15 +12,19 @@ import {
 } from "../../utils/services/educationService";
 import { AppContext, WindowWidth } from "../../utils/AppContext";
 
-import {MetaHead} from "../../components/Layout/LayoutExtras";
+import { MetaHead } from "../../components/Layout/LayoutExtras";
 const Degree = dynamic(() => import("../../components/EducationPage/Degree"));
 const Certifications = dynamic(
   () => import("../../components/EducationPage/Certifications")
 );
 
 const css = require("../../components/EducationPage/EduBody.module.css");
+
 export interface Experience {
-  educationData: { eduItems: educationType[]; total: number };
+  educationData: {
+    eduItems: educationType[];
+    total: number;
+  };
   certificationData: {
     certItems: certificationType[];
     total: number;
@@ -28,7 +32,6 @@ export interface Experience {
     techData: string;
   };
 }
-
 const EducationPage = ({ educationData, certificationData }: Experience) => {
   const { windowWidth } = useContext(AppContext);
 

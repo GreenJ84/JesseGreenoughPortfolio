@@ -1,15 +1,16 @@
 /** @format */
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
-
 import { RiExternalLinkFill } from "react-icons/ri";
-import FlipCard from "../../components/Layout/FlipCard";
 
-import { certificationType } from "../../utils/dataTypes";
+
+import { FlipCard } from "../../components/Layout/LayoutExtras";
+
+import { certificationType } from "../../utils/services/educationService";
 import { AppContext } from "../../utils/AppContext";
 
-const css = require("./CertificationCard.module.css");
+const css = require("./Certifications.module.css");
 
 interface certificateCardProps {
   certificate: certificationType;
@@ -21,7 +22,7 @@ const CertificationCard = (props: certificateCardProps) => {
   return (
     <li className={css.certCard}>
       <FlipCard
-        style={{"width": "100%","height": "100%" }}
+        style={{ width: "100%", height: "100%" }}
         frontDisplay={
           <div
             id="certCardFront"
@@ -40,7 +41,10 @@ const CertificationCard = (props: certificateCardProps) => {
           </div>
         }
         backDisplay={
-          <div id="certCardBack" className={css.certDetailCard}>
+          <div
+            id="certCardBack"
+            className={css.certDetailCard}
+          >
             <div className={css.certDetails}>
               <p>{props.certificate.description}</p>
               <a href={props.certificate.url}>

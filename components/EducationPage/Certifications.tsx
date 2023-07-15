@@ -1,13 +1,16 @@
 /** @format */
 
+import axios from "axios";
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
 
-import CertificationCard from "./CertificationCard";
-import CertificationsFilter from "./CertificationsFilter";
-
 import { certificationType } from "../../utils/services/educationService";
-import axios from "axios";
-import {AddItemButton} from "../Layout/LayoutExtras";
+
+import { DataFilter } from "../Layout/LayoutExtras";
+import CertificationCard from "./CertificationCard";
+const AddItemButton = dynamic(() =>
+  import("../Layout/LayoutExtras").then((mod) => mod.AddItemButton)
+);
 
 const css = require("./Certifications.module.css");
 
@@ -39,7 +42,7 @@ const Certifications = ({ certificationData }: Certification) => {
   // Filter certifications on Issuer change
   React.useEffect(() => {
     const techSelect = document.getElementById(
-      "techSelect"
+      "secondSelector"
     )! as HTMLSelectElement;
 
     async function filter() {
@@ -72,7 +75,7 @@ const Certifications = ({ certificationData }: Certification) => {
 
   React.useEffect(() => {
     const issuerSelect = document.getElementById(
-      "issuerSelect"
+      "firstSelector"
     )! as HTMLSelectElement;
 
     async function filter() {
@@ -106,12 +109,10 @@ const Certifications = ({ certificationData }: Certification) => {
   const issuerMap: Map<string, number> = new Map(JSON.parse(issuerData));
   const techMap: Map<string, number> = new Map(JSON.parse(techData));
   function checkMoreCerts(): boolean {
-    console.log(issuerMap, techMap);
     switch (currentType) {
       case "all":
         return certData.length < total;
       case "issuer":
-        console.log(issuerMap[issuer], certData.length);
         return issuerMap.get(issuer)! > certData.length;
       case "tech":
         return techMap.get(tech)! > certData.length;
@@ -160,12 +161,13 @@ const Certifications = ({ certificationData }: Certification) => {
   return (
     <section id="certificationContainer">
       <h2 className={css.certTitle}>Certifications Achieved</h2>
-      <CertificationsFilter
-        issuerHandler={(issuer: string) => {
+      <DataFilter
+        titles={["Issuer", "Technology"]}
+        options={[Array.from(issuerMap.keys()), Array.from(techMap.keys())]}
+        firstHandler={(issuer: string) => {
           setIssuer(issuer);
         }}
-        techHandler={(tech: string) => setTech(tech)}
-        options={[Array.from(issuerMap.keys()), Array.from(techMap.keys())]}
+        secondHandler={(tech: string) => setTech(tech)}
       />
       {currentType === "top" ? (
         <h3 className={css.certSubTitle}>
@@ -173,14 +175,14 @@ const Certifications = ({ certificationData }: Certification) => {
         </h3>
       ) : (
         <h3 className={css.certSubTitle}>
-          I have recieved{" "}
+          I have recieved
           <strong className="detail">{` ${
             currentType === "all"
               ? total
               : currentType === "issuer"
               ? issuerMap.get(issuer)
               : techMap.get(tech)
-          } `}</strong>{" "}
+          } `}</strong>
           certifications to date
         </h3>
       )}
