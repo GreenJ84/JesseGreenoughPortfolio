@@ -106,11 +106,11 @@
   margin-bottom: 4vh;
   width: 80vw;
   height: auto;
-  padding-bottom: 2ch;
+  padding-bottom: max(4%, 20px);
   text-align: center;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid var(--text-secondary);
 }
 
 .itemFilter > div {

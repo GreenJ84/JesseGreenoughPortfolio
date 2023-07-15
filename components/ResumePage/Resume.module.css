@@ -81,6 +81,7 @@
   padding: 0.5vw;
   width: clamp(30px, 5vw, 80px);
   aspect-ratio: 1;
+  font-size: var(--text3);
   color: var(--text-negative);
   background-color: var(--text-secondary);
   border-radius: 30%;
@@ -97,9 +98,11 @@
 
 .disabled,
 .disabled:hover {
-  color: var(--text-negative);
-  background-color: rgba(0, 0, 0, 0.5);
+  color: var(--text-secondary);
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: opacity(0.5);
   cursor: not-allowed;
+  border: none;
   box-shadow: none;
 }
 
