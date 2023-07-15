@@ -4,9 +4,9 @@ import React from "react";
 
 import { HiOutlineExternalLink } from "react-icons/hi";
 
-import { educationType } from "../../utils/dataTypes";
+import { educationType } from "../../utils/services/educationService";
 
-const css = require("./DegreeCard.module.css");
+const css = require("./Degree.module.css");
 
 interface degreeCard {
   education: educationType;
@@ -14,7 +14,7 @@ interface degreeCard {
 
 const DegreeCard = (props: degreeCard) => {
   return (
-    <div className={css.cardContainer}>
+    <article className={css.cardContainer}>
       <div className={css.cardHead}>
         <h3>{props.education.college}</h3>
         <p>{props.education.date}</p>
@@ -34,7 +34,7 @@ const DegreeCard = (props: degreeCard) => {
       >
         Visit Site <HiOutlineExternalLink />
       </a>
-    </div>
+    </article>
   );
 };
 

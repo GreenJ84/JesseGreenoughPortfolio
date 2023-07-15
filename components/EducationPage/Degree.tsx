@@ -1,26 +1,32 @@
 /** @format */
 
+import axios from "axios";
 import React, { useContext, useEffect } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-
-import DegreeCard from "./DegreeCard";
 
 import { educationType } from "../../utils/services/educationService";
 import { AppContext, WindowWidth } from "../../utils/AppContext";
+
 import EducationImg from "./EduImage";
-import axios from "axios";
-import {AddItemButton} from "../Layout/LayoutExtras";
+import DegreeCard from "./DegreeCard";
+const AddItemButton = dynamic(() =>
+  import("../Layout/LayoutExtras").then((mod) => mod.AddItemButton)
+);
 
 const css = require("./Degree.module.css");
 
 interface Education {
-  educationData: { eduItems: educationType[]; total: number };
+  educationData: {
+    eduItems: educationType[];
+    total: number;
+  };
 }
 
 const Degree = ({ educationData }: Education) => {
   const { eduItems, total } = educationData;
 
-  const [education, setEducation] = React.useState(eduItems);
+  const [education, setEducation] = React.useState<educationType[]>(eduItems);
   const { windowWidth } = useContext(AppContext);
 
   useEffect(() => {
@@ -49,7 +55,6 @@ const Degree = ({ educationData }: Education) => {
 
   async function handleAddingEdu(e: React.MouseEvent) {
     e.preventDefault();
-    console.log("Handling");
     const response = await axios.post("/api/education", {
       offset: 0,
     });
@@ -76,6 +81,7 @@ const Degree = ({ educationData }: Education) => {
                 height={200}
                 alt={`${exp.college} icon`}
                 className={css.image}
+                loading="lazy"
               />
             </a>
             <DegreeCard education={exp} />
