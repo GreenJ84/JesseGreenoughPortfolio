@@ -37,9 +37,9 @@ import {
 import { AiFillGithub } from "react-icons/ai";
 import { BsPip } from "react-icons/bs";
 import { GiUnicorn } from "react-icons/gi";
+import dynamic from "next/dynamic";
 
-import TechnicalSkill from "./TechnicalSkill";
-
+const TechnicalSkill = dynamic(() => import("./TechnicalSkill"));
 const truffle = require("../../public/assets/pages/home/truffle-logo-dark.svg");
 const ganache = require("../../public/assets/pages/home/ganache-logo-dark.svg");
 const css = require("./Home.module.css");

@@ -13,8 +13,9 @@ import {
 } from "react-icons/si";
 import { BsFillMarkdownFill } from "react-icons/bs";
 import { AiFillHtml5, AiOutlineConsoleSql } from "react-icons/ai";
+import dynamic from "next/dynamic";
 
-import TechnicalSkill from "./TechnicalSkill";
+const TechnicalSkill = dynamic(() => import("./TechnicalSkill"));
 
 const css = require("./Home.module.css");
 

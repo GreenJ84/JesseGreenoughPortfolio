@@ -1,13 +1,15 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
-import { Router, useRouter } from "next/router";
-import type { AppProps } from "next/app";
-import dynamic from "next/dynamic";
 import Head from "next/head";
+import dynamic from "next/dynamic";
+import type { AppProps } from "next/app";
+import { Router, useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
-import Preloader from "../components/Layout/Preloader";
-import NavBar from "../components/Layout/NavBar";
+const Preloader = dynamic(() =>
+  import("../components/Layout/LayoutExtras").then((mod) => mod.Preloader)
+);
+const NavBar = dynamic(() => import("../components/Layout/NavBar"));
 const Footer = dynamic(() => import("../components/Layout/Footer"));
 
 import { AppContextProvider } from "../utils/AppContext";

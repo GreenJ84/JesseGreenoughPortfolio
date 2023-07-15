@@ -7,7 +7,7 @@ import axios from "axios";
 
 import { BsArrowLeft, BsArrowRight, BsPlusCircleFill } from "react-icons/bs";
 
-import MetaHead from "../components/Layout/MetaHead";
+import { DataFilter, MetaHead } from "../components/Layout/LayoutExtras";
 import ButtonGroup from "../components/ResumePage/ButtonGroup";
 
 import { AppContext } from "../utils/AppContext";
@@ -33,9 +33,9 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
   useEffect(() => {
     const checkWindow = (width: number) => {
       if (width < 900) {
-        setWidth(width * 0.7);
+        setWidth(width * 0.6);
       } else {
-        setWidth(width * 0.8);
+        setWidth(width * 0.7);
       }
     };
     checkWindow(window.innerWidth);
@@ -57,12 +57,12 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
       if (category === "all") {
         setResumes(resumeData);
       } else {
-        const respose = await axios.post("/api/resumes", {
+        const response = await axios.post("/api/resumes", {
           type: "category",
           filter: category,
           offset: 0,
         });
-        setResumes(respose.data);
+        setResumes(response.data);
       }
       setResNum(0);
     }
@@ -90,7 +90,8 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
       // If on the end, check if more Resumes need to retrieve
       else if (resumes.length % 5 === 0 && checkMoreResumes()) {
         const response = await axios.post("/api/resumes", {
-          type: category,
+          type: category === "all" ? "all" : "category",
+          filter: category,
           offset: resumes.length,
         });
 
@@ -111,33 +112,11 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
         id="resumePage"
         className={css.resumeContainer}
       >
-        <nav
-          id="projectsFilter"
-          className={css.resumeFilter}
-        >
-          <h2>
-            Filter by <span className="detail">Category</span>
-          </h2>
-          <select
-            id="categorySelect"
-            name="categorySelect"
-            defaultValue="all"
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-              e.preventDefault();
-              setCategory(e.target.value);
-            }}
-          >
-            <option value="all">All</option>
-            {Array.from(categoryMap.keys()).map((cat, idx) => (
-              <option
-                key={idx}
-                value={cat}
-              >
-                {cat.toUpperCase()}
-              </option>
-            ))}
-          </select>
-        </nav>
+        <DataFilter
+          titles={["Category"]}
+          options={[Array.from(categoryMap.keys())]}
+          firstHandler={(category: string) => setCategory(category)}
+        />
         <ButtonGroup
           section="top"
           download={resumes[resNum].download}
@@ -147,12 +126,6 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
           id="resume"
           className={css.resume}
         >
-          <div
-            className={`${css.leftArrow} ${resNum === 0 && css.disabled}`}
-            onClick={(e) => changeResNum(e, "left")}
-          >
-            <BsArrowLeft />
-          </div>
           {
             // Mobile viewing warnins
             modal && (
@@ -171,13 +144,13 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
               </div>
             )
           }
-
           <Image
             id="resumeImage"
             src={resumes[resNum].image_url}
             alt="My Resume pdf view"
-            width={Math.max(width, 900)}
-            height={Math.max(width * 1.2, 1100)}
+            width={800}
+            height={1400}
+            loading="lazy"
             blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8fwYAAtABzbrmHzgAAAAASUVORK5CYII="
             placeholder="blur"
             onClick={() => {
@@ -194,19 +167,41 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
               }
             }}
           />
-          <div
-            className={`${css.rightArrow} ${
-              resNum === resumes.length - 1 &&
-              !checkMoreResumes() &&
-              css.disabled
-            }`}
-            onClick={(e) => changeResNum(e, "right")}
-          >
-            {resNum === resumes.length - 1 && checkMoreResumes() ? (
-              <BsPlusCircleFill />
-            ) : (
-              <BsArrowRight />
-            )}
+          <div>
+            <label
+              htmlFor="previousResume"
+              className={css.resumeControls}
+            >
+              Prev
+              <button
+                name="previousResume"
+                className={`${css.leftArrow} ${resNum === 0 && css.disabled}`}
+                onClick={(e) => changeResNum(e, "left")}
+              >
+                <BsArrowLeft />
+              </button>
+            </label>
+            <label
+              htmlFor="nextResume"
+              className={css.resumeControls}
+            >
+              Next
+              <button
+                name="nextResume"
+                className={`${css.rightArrow} ${
+                  resNum === resumes.length - 1 &&
+                  !checkMoreResumes() &&
+                  css.disabled
+                }`}
+                onClick={(e) => changeResNum(e, "right")}
+              >
+                {resNum === resumes.length - 1 && checkMoreResumes() ? (
+                  <BsPlusCircleFill />
+                ) : (
+                  <BsArrowRight />
+                )}
+              </button>
+            </label>
           </div>
         </section>
 

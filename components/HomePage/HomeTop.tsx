@@ -4,9 +4,8 @@ import React from "react";
 import Image from "next/image";
 import Tilt from "react-parallax-tilt";
 
-import TypeWrite from "./TypeWrite";
+import { DeveloperPortrait, TypeWrite } from "../Layout/LayoutExtras";
 
-const homeDeveloperLogo = "/assets/pages/home/developer_at_work.svg";
 const myImg = "/assets/pages/home/user_avatar.svg";
 
 const css = require("./Home.module.css");
@@ -31,7 +30,7 @@ const HomeTop = () => {
           I&apos;M
           <span className="detail"> JESSE GREENOUGH</span>
         </h1>
-
+        <DeveloperPortrait />
         <div className={css.typeText}>
           <TypeWrite
             typePrompts={[
@@ -49,15 +48,6 @@ const HomeTop = () => {
             ]}
           />
         </div>
-
-        <Image
-          id="homeDeveloperLogo"
-          src={homeDeveloperLogo}
-          alt="A animated image of a developer at work"
-          className={css.homeDeveloperLogo}
-          width={400}
-          height={400}
-        />
       </section>
 
       <section

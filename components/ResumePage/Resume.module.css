@@ -1,9 +1,11 @@
 /** @format */
 
+/* Page Container */
 .resumeContainer {
   padding: 20vh 0 15vh;
 }
 
+/* Mobile display warnings modal */
 .mobileModal {
   position: fixed;
   top: 0;
@@ -46,12 +48,29 @@
   border-radius: 50%;
 }
 
+/* Resume Control section */
 .resume {
   position: relative;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column;
   margin: 20px auto;
+}
+.resume > div {
+  display: flex;
+  width: 50vw;
+  margin: 20px auto;
+  justify-content: space-between;
+}
+
+.resumeControls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2%;
+  font-size: var(--text3);
+  color: var(--text-secondary);
+  backdrop-filter: var(--text-bg-blur);
 }
 
 .leftArrow,
@@ -60,14 +79,16 @@
   align-items: center;
   justify-content: center;
   padding: 0.5vw;
-  width: clamp(40px, 5vw, 80px);
+  width: clamp(30px, 5vw, 80px);
   aspect-ratio: 1;
-  font-size: clamp(20px, 4vw, 70px);
+  font-size: var(--text3);
   color: var(--text-negative);
   background-color: var(--text-secondary);
   border-radius: 30%;
-  box-shadow: 3px 3px 0px var(--detail);
+  box-shadow: 0.12rem 0.12rem 0.2rem var(--detail);
+  z-index: 10;
 }
+
 .leftArrow:hover,
 .rightArrow:hover {
   color: var(--text-secondary);
@@ -75,61 +96,40 @@
   box-shadow: 0px 0px 8px 3px var(--text-primary);
 }
 
-@media screen and (max-width: 1400px) {
-  .leftArrow,
-  .rightArrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 20;
-    opacity: 0.7;
-  }
-  .leftArrow {
-    left: 5vw;
-  }
-  .rightArrow {
-    right: 5vw;
-  }
-  .leftArrow:hover,
-  .rightArrow:hover {
-    opacity: 1;
-  }
-  .disabled:hover {
-    opacity: 0.7;
-  }
-}
-
 .disabled,
 .disabled:hover {
-  color: var(--text-negative);
-  background-color: rgba(0, 0, 0, 0.5);
+  color: var(--text-secondary);
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: opacity(0.5);
   cursor: not-allowed;
+  border: none;
   box-shadow: none;
 }
 
 .resume > img {
-  width: min(1200px, 90vw);
+  margin: 10px auto;
+  width: min(1000px, 80vw);
   border-radius: 15px;
   box-shadow: 5px 5px 10px 2px black, 5px 5px 40px black;
-  z-index: 10;
   transform: scale(1);
+  z-index: 10;
 }
 
+/* Resume Save / Download buttons */
 .resumeButtonHolder {
   position: relative;
   margin: 0 auto;
   display: flex;
-  width: 70vw;
+  width: min(70vw, 1000px);
   height: auto;
 }
-
 .resumeButton {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 5vw auto;
-  width: clamp(100px, 25vw, 400px);
-  height: clamp(25px, 5vw, 80px);
+  width: clamp(100px, 25vw, 250px);
+  height: clamp(20px, 4.5vw, 45px);
   padding: 1vw;
   text-align: center;
   color: var(--text-secondary);
@@ -142,7 +142,6 @@
     5px 5px 15px 3px var(--layout-bg);
   border-radius: 8px;
 }
-
 .resumeButton:hover {
   color: var(--text-negative);
   background-color: var(--detail);

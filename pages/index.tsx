@@ -7,15 +7,15 @@ import { BsArrowDownCircle } from "react-icons/bs";
 
 import { AppContext, WindowWidth } from "../utils/AppContext";
 
-import MetaHead from "../components/Layout/MetaHead";
+import { MetaHead } from "../components/Layout/LayoutExtras";
 import HomeTop from "../components/HomePage/HomeTop";
+const Languages = dynamic(() => import("../components/HomePage/Languages"));
+const Framework = dynamic(() => import("../components/HomePage/Framework"));
+const Databases = dynamic(() => import("../components/HomePage/Databases"));
 const DeveloperTools = dynamic(
   () => import("../components/HomePage/DeveloperTools")
 );
 const GithubCard = dynamic(() => import("../components/HomePage/GithubCard"));
-const Languages = dynamic(() => import("../components/HomePage/Languages"));
-const Framework = dynamic(() => import("../components/HomePage/Framework"));
-const Databases = dynamic(() => import("../components/HomePage/Databases"));
 
 const css = require("../components/HomePage/Home.module.css");
 

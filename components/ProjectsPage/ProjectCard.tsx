@@ -6,11 +6,11 @@ import Image from "next/image";
 import { AiFillGithub, AiFillProject } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
 
-import FlipCard from "../Layout/FlipCard";
+import {FlipCard} from "../Layout/LayoutExtras";
 
-import { projectType } from "../../utils/dataTypes";
+import { projectType } from "../../utils/services/projectsService";
 
-const css = require("./ProjectCard.module.css");
+const css = require("./Project.module.css");
 
 interface projectProps {
   project: projectType;

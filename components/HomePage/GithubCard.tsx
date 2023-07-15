@@ -1,8 +1,8 @@
 /** @format */
 
 import React, { useContext, useEffect, useState } from "react";
-
 import GitHubCalendar, { Theme } from "react-github-calendar";
+
 import { AppContext } from "../../utils/AppContext";
 
 const css = require("./Home.module.css");
@@ -33,6 +33,7 @@ const GithubCard = () => {
   const [width, setWidth] = useState(20);
   const { theme } = useContext(AppContext);
 
+  // Dynamic GitHub Calendar sizing
   useEffect(() => {
     const windowObserver = () => {
       setWidth(Math.round((window.innerWidth / 100) * 3));

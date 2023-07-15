@@ -14,7 +14,7 @@ import { FaLinkedinIn } from "react-icons/fa";
 
 import { AppContext, WindowWidth } from "../../utils/AppContext";
 
-const ContactModal = dynamic(() => import("./ContactModal"));
+const ContactModal = dynamic(() => import("./LayoutExtras").then((mod) => mod.ContactModal));
 const css = require("./Footer.module.css");
 
 const Footer = () => {
