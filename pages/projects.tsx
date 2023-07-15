@@ -1,17 +1,21 @@
 /** @format */
 
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
-import axios from "axios";
+import dynamic from "next/dynamic";
 
-import {MetaHead, AddItemButton} from "../components/Layout/LayoutExtras";
+import { MetaHead, DataFilter } from "../components/Layout/LayoutExtras";
 import ProjectCard from "../components/ProjectsPage/ProjectCard";
-import ProjectNavbar from "../components/ProjectsPage/ProjectNavbar";
+const AddItemButton = dynamic(() =>
+  import("../components/Layout/LayoutExtras").then((mod) => mod.AddItemButton)
+);
 
 import {
   projectType,
   projectCollectionService,
 } from "../utils/services/projectsService";
+
 interface Projects {
   projectData: projectType[];
   total: number;
@@ -38,7 +42,7 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
   // Filter projects on category change
   useEffect(() => {
     const techFilter = document.getElementById(
-      "techSelect"
+      "secondSelector"
     )! as HTMLSelectElement;
 
     async function filter() {
@@ -72,7 +76,7 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
   // Filter projects on tech change
   useEffect(() => {
     const catFilter = document.getElementById(
-      "categorySelect"
+      "firstSelector"
     )! as HTMLSelectElement;
     async function filter() {
       if (tech === "top") {
@@ -106,16 +110,12 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
   const categoryMap: Map<string, number> = new Map(JSON.parse(categories));
   const techMap: Map<string, number> = new Map(JSON.parse(techs));
   function checkMoreProjects(): boolean {
-    console.log(projects.length)
     switch (currentType) {
       case "all":
-        console.log(total)
         return projects.length < total;
       case "category":
-        console.log(categoryMap[tech]);
         return categoryMap.get(category)! > projects.length;
       case "tech":
-        console.log(techMap[tech]);
         return techMap.get(tech)! > projects.length;
       default:
         return false;
@@ -171,12 +171,12 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
         id="pageContainer"
         className={css.projectsBody}
       >
-        <ProjectNavbar
-          catHandler={(cat: string) => setCategory(cat)}
-          techHandler={(tech: string) => setTech(tech)}
+        <DataFilter
+          titles={["Category", "Technology"]}
           options={[Array.from(categoryMap.keys()), Array.from(techMap.keys())]}
+          firstHandler={(cat: string) => setCategory(cat)}
+          secondHandler={(tech: string) => setTech(tech)}
         />
-        <hr style={{ border: ".5px solid var(--text-secondary)" }} />
         {currentType == "top" ? (
           <h1 id="projectsTitle">
             My current <span className="detail">Top 10</span> projects
@@ -210,10 +210,10 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
         {currentType !== "top" &&
           projects.length % 10 === 0 &&
           checkMoreProjects() && (
-          <AddItemButton
-            clickHandler={handleAddingProjects}
-            itemType="Projects"
-          />
+            <AddItemButton
+              clickHandler={handleAddingProjects}
+              itemType="Projects"
+            />
           )}
       </main>
     </>

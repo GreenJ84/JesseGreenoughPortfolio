@@ -10,7 +10,7 @@ import {FlipCard} from "../Layout/LayoutExtras";
 
 import { projectType } from "../../utils/services/projectsService";
 
-const css = require("./ProjectCard.module.css");
+const css = require("./Project.module.css");
 
 interface projectProps {
   project: projectType;
