@@ -4,12 +4,13 @@ My personalized portfolio is a captivating showcase of my professional journey. 
 
 Whether you're an employer, a colleague, or simply someone curious about my work, my portfolio offers an authentic and personalized representation of my journey in the software development industry.
 
-This project is utilizes:
+This application utilizes:
 - A NextJS serverless application architecture written in TypeScript with NodeJS. 
 - A front-end that utilizes ReactJS, CSS modules, styled components, and other component libraries for design. 
-- Education, project data, work experience and resumes are store and maintained in seperate collections on a MongoDB Atlas cluster.
+- Personal data stored and maintained in separate collections on a MongoDB Atlas cluster with server-side rendering and serverless RESTApi function to request and paginate resource assets.
+- The Cypress testing framework for component and E2E testing.
 - A GitHub CI/CD pipeline with Vercel to test code and deployment success for all main branch changes against production.
-
+- Docker containerization for functional testing of production environments
 
 <img style="margin-left: 100px" width="500" height="300" src="https://github.com/GreenJ84/JesseGreenoughPortfolio/raw/main/public/projectImages/myPortfolio.png" alt="My Portfolio Screenshot" />
 
