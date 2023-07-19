@@ -150,7 +150,7 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
             alt="My Resume pdf view"
             width={800}
             height={1400}
-            loading="lazy"
+            priority
             blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8fwYAAtABzbrmHzgAAAAASUVORK5CYII="
             placeholder="blur"
             onClick={() => {
@@ -169,25 +169,36 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
           />
           <div>
             <label
-              htmlFor="previousResume"
+              id="previousResume"
+              htmlFor="previousResumeButton"
+              aria-label="View Previous Resume"
               className={css.resumeControls}
             >
               Prev
               <button
-                name="previousResume"
+                aria-labelledby="previousResume"
+                name="previousResumeButton"
+                aria-disabled={resNum === 0}
                 className={`${css.leftArrow} ${resNum === 0 && css.disabled}`}
                 onClick={(e) => changeResNum(e, "left")}
               >
                 <BsArrowLeft />
               </button>
             </label>
+
             <label
-              htmlFor="nextResume"
+              id="nextResume"
+              htmlFor="nextResumeButton"
+              aria-label="View Next Resume"
               className={css.resumeControls}
             >
               Next
               <button
-                name="nextResume"
+                aria-labelledby="nextResume"
+                name="nextResumeButton"
+                aria-disabled={
+                  resNum === resumes.length - 1 && !checkMoreResumes()
+                }
                 className={`${css.rightArrow} ${
                   resNum === resumes.length - 1 &&
                   !checkMoreResumes() &&
