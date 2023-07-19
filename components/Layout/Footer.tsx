@@ -1,9 +1,9 @@
 /** @format */
 /* eslint-disable react/jsx-key */
 
-import React, { useContext } from "react";
-import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+import React, { useContext } from "react";
 
 import {
   AiFillGithub,
@@ -14,7 +14,9 @@ import { FaLinkedinIn } from "react-icons/fa";
 
 import { AppContext, WindowWidth } from "../../utils/AppContext";
 
-const ContactModal = dynamic(() => import("./LayoutExtras").then((mod) => mod.ContactModal));
+const ContactModal = dynamic(() =>
+  import("./LayoutExtras").then((mod) => mod.ContactModal)
+);
 const css = require("./Footer.module.css");
 
 const Footer = () => {
@@ -37,7 +39,7 @@ const Footer = () => {
       >
         <section id="footerTop">
           <div className={css.footerDetails}>
-            <h3>Jesse Greenough</h3>
+            <h4>Jesse Greenough</h4>
             <p>
               A passionate and detail-oriented Full Stack developer constantly
               exploring new technologies.{" "}
@@ -49,35 +51,52 @@ const Footer = () => {
             className={css.footerConnect}
             aria-label="Personal Social Links"
           >
-            <ul>
+            <ul aria-label="Developers social links">
               {[
                 [
+                  "GitHub",
                   "https://github.com/GreenJ84",
-                  <AiFillGithub className={css.footIcons} />,
+                  <AiFillGithub
+                    className={css.footIcons}
+                    aria-label="GitHub Icon"
+                  />,
                 ],
                 [
+                  "Twitter",
                   "https://twitter.com/GoodGreens84",
-                  <AiOutlineTwitter className={css.footIcons} />,
+                  <AiOutlineTwitter
+                    className={css.footIcons}
+                    aria-label="Twitter Icon"
+                  />,
                 ],
                 [
+                  "LinkedIn",
                   "https://www.linkedin.com/in/jessegreenough/",
-                  <FaLinkedinIn className={css.footIcons} />,
+                  <FaLinkedinIn
+                    className={css.footIcons}
+                    aria-label="LinkedIn Icon"
+                  />,
                 ],
                 [
+                  "Instagram",
                   "https://www.instagram.com/jesse.greenough/",
-                  <AiFillInstagram className={css.footIcons} />,
+                  <AiFillInstagram
+                    className={css.footIcons}
+                    aria-label="Instagram Icon"
+                  />,
                 ],
               ].map((item, idx) => {
-                const [href, icon] = item;
+                const [title, href, icon] = item;
                 return (
                   <li
                     key={idx}
-                    role="presentation"
+                    aria-label={`Visit my ${title} profile`}
                   >
                     <a
                       href={href as string}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Navigate Off App to ${title}`}
                     >
                       {icon}
                     </a>
@@ -100,23 +119,27 @@ const Footer = () => {
         >
           {windowWidth !== WindowWidth.SMALL && (
             <nav aria-label="Personal Social Links">
-              <ul className={css.footerLinkList}>
+              <ul
+                className={css.footerLinkList}
+                aria-label="In App navigation"
+              >
                 {[
                   ["/", "Home"],
-                  ["/about", "About Me"],
-                  ["/projects", "My Projects"],
-                  ["/experience", "My Experience"],
-                  ["/resume", "My Resumes"],
+                  ["/about", "About"],
+                  ["/projects", "Projects"],
+                  ["/experience", "Experience"],
+                  ["/resume", "Resumes"],
                 ].map((item, idx) => {
                   const [href, title] = item;
                   return (
                     <li
                       key={idx}
-                      role="presentation"
+                      aria-label={`Visit my ${title} page`}
                     >
                       <a
                         href={href as string}
                         rel="noopener noreferrer"
+                        aria-label={`Navigate In App to the ${title} page`}
                         onClick={(e) => handleLink(e, href as string)}
                       >
                         {title}
@@ -127,7 +150,7 @@ const Footer = () => {
               </ul>
             </nav>
           )}
-          <h4>© Copyright 2022. Designed and Developed by Jesse Greenough</h4>
+          <h5>© Copyright 2022. Designed and Developed by Jesse Greenough</h5>
         </section>
       </footer>
     </>

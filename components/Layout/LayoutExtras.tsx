@@ -89,6 +89,7 @@ export const DeveloperPortrait = () => {
         className={css.developerPortrait}
         width={400}
         height={400}
+        priority
       />
     </Tilt>
   );

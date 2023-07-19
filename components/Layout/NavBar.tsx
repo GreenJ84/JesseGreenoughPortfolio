@@ -1,12 +1,13 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 import { Button, Navbar } from "react-bootstrap";
-import Particle from "./Particle";
+const Particle = dynamic(() => import("./Particle"));
 
 import {
   AiFillStar,
@@ -24,15 +25,46 @@ const brandLogo2 = "/assets/CyberHedera1.png";
 const css = require("./NavBar.module.css");
 
 const NavLinkData = [
-  ["/", <AiOutlineHome key={0} className={css.navIcon} />, "Home"],
-  ["/about", <AiOutlineUser key={1} className={css.navIcon} />, "About"],
+  [
+    "/",
+    <AiOutlineHome
+      key={0}
+      className={css.navIcon}
+    />,
+    "Home",
+  ],
+  [
+    "/about",
+    <AiOutlineUser
+      key={1}
+      className={css.navIcon}
+    />,
+    "About",
+  ],
   [
     "/projects",
-    <AiOutlineFundProjectionScreen key={2} className={css.navIcon} />,
+    <AiOutlineFundProjectionScreen
+      key={2}
+      className={css.navIcon}
+    />,
     "Projects",
   ],
-  ["/experience", <ImBlog key={3} className={css.navIcon} />, "Experience"],
-  ["/resume", <CgFileDocument key={4} className={css.navIcon} />, "Resume"],
+  [
+    "/experience",
+    <ImBlog
+      key={3}
+      className={css.navIcon}
+    />,
+    "Experience",
+  ],
+  [
+    "/resume",
+    <CgFileDocument
+      key={4}
+      className={css.navIcon}
+    />,
+    "Resume",
+  ],
 ];
 
 const NavBar = () => {
@@ -108,7 +140,7 @@ const NavBar = () => {
             src={theme === "dark" ? brandLogo1 : brandLogo2}
             id="themeLogo"
             className={css.themeLogo}
-            alt="Developer NFT Brand logo"
+            alt="Developer's NFT logo"
             width={250}
             height={250}
             loading="lazy"
@@ -119,6 +151,7 @@ const NavBar = () => {
         <Navbar.Collapse
           id="navbarCollapse"
           className={css.navbarCollpase}
+          aria-expanded={expandedNav}
         >
           <ul
             className={
@@ -136,20 +169,20 @@ const NavBar = () => {
                   key={idx}
                   className={css.navItem}
                 >
-                  {idx === 3 &&
-                    windowWidth !== WindowWidth.SMALL && (
-                      // Navigation dropdown for medium+ screens
-                      <dialog className={css.experience}>
-                        <div></div>
-                        <div></div>
-                        <Link href={"/experience/education"}>Education</Link>
-                        <Link href={"/experience/work"}>Work</Link>
-                      </dialog>
-                    )}
+                  {idx === 3 && windowWidth !== WindowWidth.SMALL && (
+                    // Navigation dropdown for medium+ screens
+                    <dialog className={css.experience}>
+                      <div></div>
+                      <div></div>
+                      <Link href={"/experience/education"}>Education</Link>
+                      <Link href={"/experience/work"}>Work</Link>
+                    </dialog>
+                  )}
 
                   <Link
                     key={idx}
                     href={href as string}
+                    aria-label={`Navigate the ${title} page.`}
                     className={css.navLink}
                     rel="noreferrer"
                     onClick={(e) => {
@@ -165,19 +198,28 @@ const NavBar = () => {
             })}
             {windowWidth === WindowWidth.LARGE && (
               // Render GitHub Link in nav with Large screens
-              <Button
-                href="https://github.com/GreenJ84"
-                target="_blank"
-                className={css.githubBtn}
-              >
-                <CgGitFork className={css.forkIcon} />{" "}
-                <AiFillStar className={css.forkIcon} />
-              </Button>
+              <li>
+                <Button
+                  aria-label="Visit this project's GitHub Repository"
+                  href="https://github.com/GreenJ84"
+                  target="_blank"
+                  className={css.githubBtn}
+                >
+                  <CgGitFork className={css.forkIcon} />{" "}
+                  <AiFillStar className={css.forkIcon} />
+                </Button>
+              </li>
             )}
           </ul>
 
-          <label className={css.themeSwitch}>
+          <label
+            htmlFor="themeChange"
+            aria-label="Toggle Day and Night themes"
+            className={css.themeSwitch}
+          >
             <input
+              id="themeChange"
+              aria-labelledby="themeChange"
               className={css.themeInput}
               type="checkbox"
               defaultChecked={theme === "dark"}
@@ -194,7 +236,9 @@ const NavBar = () => {
         <Navbar.Toggle
           id="navbarToggle"
           className={expandedNav ? css.navbarToggler : css.navbarTogglerClosed}
-          aria-controls="responsive-navbar-nav"
+          aria-label="Toggle navigation menu"
+          aria-controls="navbarCollapse"
+          aria-expanded={expandedNav}
           onClick={() => {
             setExpandedNav(expandedNav ? false : true);
           }}
