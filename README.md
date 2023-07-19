@@ -1,6 +1,16 @@
 # My Personal Portfolio
 
+<br/>
 My personalized portfolio is a captivating showcase of my professional journey. It serves as a living testament to my accomplishments and experiences from my educational background to my practical experiences. With a user-friendly interface and engaging visuals, my portfolio invites viewers to delve into the realm of my professional growth and discover the innovative solutions I have created. 
+
+<br/>
+<br/>
+
+<p align="center">
+<img width="500" height="400" src="https://github.com/GreenJ84/JesseGreenoughPortfolio/raw/main/public/projectImages/myPortfolio.png" alt="My Portfolio Screenshot" />
+</p>
+
+<br/>
 
 Whether you're an employer, a colleague, or simply someone curious about my work, my portfolio offers an authentic and personalized representation of my journey in the software development industry.
 
@@ -11,8 +21,6 @@ This application utilizes:
 - The Cypress testing framework for component and E2E testing.
 - A GitHub CI/CD pipeline with Vercel to test code and deployment success for all main branch changes against production.
 - Docker containerization for functional testing of production environments
-
-<img style="margin-left: 100px" width="500" height="300" src="https://github.com/GreenJ84/JesseGreenoughPortfolio/raw/main/public/projectImages/myPortfolio.png" alt="My Portfolio Screenshot" />
 
 ## 💻 Local Development
 
