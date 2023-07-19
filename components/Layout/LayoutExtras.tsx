@@ -227,15 +227,20 @@ export const AddItemButton = ({
   clickHandler: React.MouseEventHandler;
 }) => {
   return (
-    <button
-      name="add_item_button"
-      onClick={clickHandler}
-      className={css.add_item_button}
+    <li
+      id="AddItem"
+      aria-label={`Load More ${itemType} Items`}
     >
-      <span>Load More {itemType}</span>
-      <BsPlusCircleFill className={css.addIcon} />
-    </button>
-);
+      <button
+        aria-labelledby="AddItem"
+        onClick={clickHandler}
+        className={css.add_item_button}
+      >
+        <span>Load More {itemType}</span>
+        <BsPlusCircleFill className={css.addIcon} />
+      </button>
+    </li>
+  );
 };
 
 // Typwriter animtation

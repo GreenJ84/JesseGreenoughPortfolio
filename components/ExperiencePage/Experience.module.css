@@ -23,11 +23,15 @@
 }
 .cardTitle > h1 {
   max-width: 70%;
-  font-size: clamp(16px, 2vw, 38px);
+  font-size: var(--text4);
   letter-spacing: 1.5px;
+  line-height: 35px;
 }
 .cardTitle span {
-  color: var(--text-secondary);
+  font-weight: 900;
+  letter-spacing: 3px;
+  font-size: var(--text3);
+
 }
 
 .cardBody {
