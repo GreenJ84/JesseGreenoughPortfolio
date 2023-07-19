@@ -36,7 +36,7 @@ const CertificationCard = (props: certificateCardProps) => {
               height={mobile ? 60 : 200}
               loading="lazy"
             />
-            <h5>{props.certificate.title}</h5>
+            <h4>{props.certificate.title}</h4>
             <p>{props.certificate.issuer}</p>
           </div>
         }

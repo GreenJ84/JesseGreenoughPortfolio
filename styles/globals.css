@@ -6,12 +6,12 @@
 
 html {
   /* Text Sizes */
-  --text1: clamp(26px, 4.5vw, 60px);
-  --text2: clamp(20px, 3.4vw, 48px);
-  --text3: clamp(16px, 2.8vw, 42px);
-  --text4: clamp(14px, 2.2vw, 32px);
-  --text5: clamp(12px, 1.6vw, 26px);
-  --text6: clamp(10px, 1.4vw, 20px);
+  --text1: clamp(26px, 4.5vw, 50px);
+  --text2: clamp(22px, 3.4vw, 44px);
+  --text3: clamp(20px, 2.8vw, 38px);
+  --text4: clamp(16px, 2.2vw, 32px);
+  --text5: clamp(14px, 1.6vw, 26px);
+  --text6: clamp(12px, 1.4vw, 22px);
   --text-bg-blur: blur(min(0.8vw, 4px));
 }
 

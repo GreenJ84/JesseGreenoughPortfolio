@@ -109,6 +109,7 @@
 .resume > img {
   margin: 10px auto;
   width: min(1000px, 80vw);
+  height: calc(min(1000px, 80vw) * 1.187);
   border-radius: 15px;
   box-shadow: 5px 5px 10px 2px black, 5px 5px 40px black;
   transform: scale(1);

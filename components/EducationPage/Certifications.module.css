@@ -67,7 +67,7 @@
   border-radius: 50%;
 }
 
-.certDisplay h5 {
+.certDisplay h4 {
   font-size: var(--text5);
   color: var(--text-detail);
 }
