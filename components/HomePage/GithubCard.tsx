@@ -1,7 +1,9 @@
 /** @format */
 
+import dynamic from "next/dynamic";
+import { Theme } from "react-github-calendar";
 import React, { useContext, useEffect, useState } from "react";
-import GitHubCalendar, { Theme } from "react-github-calendar";
+const GitHubCalendar = dynamic(() => import("react-github-calendar"))
 
 import { AppContext } from "../../utils/AppContext";
 

@@ -1,8 +1,8 @@
 /** @format */
 
-import React, { useContext, useEffect } from "react";
-import { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";
+import { GetServerSideProps } from "next";
+import React, { Suspense, useContext, useEffect } from "react";
 
 import {
   certificationCollectionService,
@@ -12,7 +12,7 @@ import {
 } from "../../utils/services/educationService";
 import { AppContext, WindowWidth } from "../../utils/AppContext";
 
-import { MetaHead } from "../../components/Layout/LayoutExtras";
+import { MetaHead, Preloader } from "../../components/Layout/LayoutExtras";
 const Degree = dynamic(() => import("../../components/EducationPage/Degree"));
 const Certifications = dynamic(
   () => import("../../components/EducationPage/Certifications")
@@ -83,8 +83,13 @@ const EducationPage = ({ educationData, certificationData }: Experience) => {
         <h1 id="educationTitle">
           Educational Experience, Qualifications and Certifications
         </h1>
-        <Degree educationData={educationData} />
-        <Certifications certificationData={certificationData} />
+        <Suspense fallback={<Preloader />}>
+          <Degree educationData={educationData} />
+        </Suspense>
+
+        <Suspense fallback={<Preloader />}>
+          <Certifications certificationData={certificationData} />
+        </Suspense>
       </main>
     </>
   );
