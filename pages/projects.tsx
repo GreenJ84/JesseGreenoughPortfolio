@@ -51,20 +51,12 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
         setCurrentType("top");
         updateFilterOption(techFilter, 1);
       } else if (category === "all") {
-        const projRes = await axios.post("/api/projects", {
-          type: "all",
-          filter: "",
-          offset: 0,
-        });
+        const projRes = await axios.get(`/api/projects?type=all&offset=0`);
         setProjects(projRes.data);
         setCurrentType("all");
         updateFilterOption(techFilter, 2);
       } else {
-        const projRes = await axios.post("/api/projects", {
-          type: "category",
-          filter: category,
-          offset: 0,
-        });
+        const projRes = await axios.get(`/api/projects?type=category&filter=${category}&offset=0`);
         setProjects(projRes.data);
         setCurrentType("category");
         updateFilterOption(techFilter, 0);
@@ -84,20 +76,12 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
         setCurrentType("top");
         updateFilterOption(catFilter, 1);
       } else if (tech === "all") {
-        const projRes = await axios.post("/api/projects", {
-          type: "all",
-          filter: "",
-          offset: 0,
-        });
+        const projRes = await axios.get(`/api/projects?type=all&offset=0`);
         setProjects(projRes.data);
         setCurrentType("all");
         updateFilterOption(catFilter, 2);
       } else {
-        const projRes = await axios.post("/api/projects", {
-          type: "tech",
-          filter: tech,
-          offset: 0,
-        });
+        const projRes = await axios.get(`/api/projects?type=tech&filter=${tech}&offset=0`);
         setProjects(projRes.data);
         setCurrentType("tech");
         updateFilterOption(catFilter, 0);
@@ -130,25 +114,13 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
 
     switch (currentType) {
       case "all":
-        projRes = await axios.post("/api/projects", {
-          type: "all",
-          filter: "",
-          offset: offset,
-        });
+        projRes = await axios.get(`/api/projects?type=all&offset=${offset}`);
         break;
       case "category":
-        projRes = await axios.post("/api/projects", {
-          type: "category",
-          filter: category,
-          offset: offset,
-        });
+        projRes = await axios.get(`/api/projects?type=category&filter=${category}&offset=${offset}`);
         break;
       case "tech":
-        projRes = await axios.post("/api/projects", {
-          type: "tech",
-          filter: tech,
-          offset: offset,
-        });
+        projRes = await axios.get(`/api/projects?type=tech&filter=${tech}&offset=${offset}`);
         break;
       default:
         return;
