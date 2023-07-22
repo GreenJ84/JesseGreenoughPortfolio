@@ -13,6 +13,10 @@ const transporter = nodemailer.createTransport({
 });
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== "POST") {
+    return "Bad Request";
+  }
+
   const { name, sender, subject, message } = req.body;
 
   const mailOptions = {
