@@ -57,11 +57,9 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
       if (category === "all") {
         setResumes(resumeData);
       } else {
-        const response = await axios.post("/api/resumes", {
-          type: "category",
-          filter: category,
-          offset: 0,
-        });
+        const response = await axios.get(
+          `/api/resumes?type=category&filter=${category}&offset=0`
+        );
         setResumes(response.data);
       }
       setResNum(0);
@@ -89,11 +87,11 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
       }
       // If on the end, check if more Resumes need to retrieve
       else if (resumes.length % 5 === 0 && checkMoreResumes()) {
-        const response = await axios.post("/api/resumes", {
-          type: category === "all" ? "all" : "category",
-          filter: category,
-          offset: resumes.length,
-        });
+        const response = await axios.get(
+          `/api/resumes?type=${
+            category === "all" ? "all" : "category"
+          }&filter=${category}&offset=${resumes.length}`
+        );
 
         setResumes((resumes) => [...resumes, ...response.data]);
         setResNum((num) => num + 1);

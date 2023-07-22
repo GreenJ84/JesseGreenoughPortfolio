@@ -51,20 +51,16 @@ const Certifications = ({ certificationData }: Certification) => {
         setCurrentType("top");
         updateFilterOption(techSelect, 1);
       } else if (issuer === "all") {
-        const certRes = await axios.post("/api/certifications", {
-          type: "all",
-          filter: "",
-          offset: 0,
-        });
+        const certRes = await axios.get(
+          "/api/certifications?type=all&offset=0"
+        );
         setCertData(certRes.data);
         setCurrentType("all");
         updateFilterOption(techSelect, 2);
       } else {
-        const certRes = await axios.post("/api/certifications", {
-          type: "issuer",
-          filter: issuer,
-          offset: 0,
-        });
+        const certRes = await axios.get(
+          `/api/certifications?type=issuer&filter=${issuer}&offset=0`
+        );
         setCertData(certRes.data);
         setCurrentType("issuer");
         updateFilterOption(techSelect, 0);
@@ -84,20 +80,16 @@ const Certifications = ({ certificationData }: Certification) => {
         setCurrentType("top");
         updateFilterOption(issuerSelect, 1);
       } else if (tech === "all") {
-        const certRes = await axios.post("/api/certifications", {
-          type: "all",
-          filter: "",
-          offset: 0,
-        });
+        const certRes = await axios.get(
+          "/api/certifications?type=all&offset=0"
+        );
         setCertData(certRes.data);
         setCurrentType("all");
         updateFilterOption(issuerSelect, 2);
       } else {
-        const certRes = await axios.post("/api/certifications", {
-          type: "tech",
-          filter: tech,
-          offset: 0,
-        });
+        const certRes = await axios.get(
+          `/api/certifications?type=tech&filter=${tech}&offset=0`
+        );
         setCertData(certRes.data);
         setCurrentType("tech");
         updateFilterOption(issuerSelect, 0);
@@ -129,25 +121,19 @@ const Certifications = ({ certificationData }: Certification) => {
 
     switch (currentType) {
       case "all":
-        projRes = await axios.post("/api/certifications", {
-          type: "all",
-          filter: "",
-          offset: offset,
-        });
+        projRes = await axios.get(
+          `/api/certifications?type=all&offset=${offset}`
+        );
         break;
       case "issuer":
-        projRes = await axios.post("/api/certifications", {
-          type: "issuer",
-          filter: issuer,
-          offset: offset,
-        });
+        projRes = await axios.get(
+          `/api/certifications?type=issuer&filter=${issuer}&offset=${offset}`
+        );
         break;
       case "tech":
-        projRes = await axios.post("/api/certifications", {
-          type: "tech",
-          filter: tech,
-          offset: offset,
-        });
+        projRes = await axios.get(
+          `/api/certifications?type=tech&filter=${tech}&offset=${offset}`
+        );
         break;
       default:
         return;

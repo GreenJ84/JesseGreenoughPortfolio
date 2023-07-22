@@ -55,9 +55,9 @@ const Degree = ({ educationData }: Education) => {
 
   async function handleAddingEdu(e: React.MouseEvent) {
     e.preventDefault();
-    const response = await axios.post("/api/education", {
-      offset: 0,
-    });
+    const response = await axios.get(
+      `/api/education?offset=${education.length}`
+    );
     setEducation((education) => [...education, ...response.data]);
   }
 

@@ -13,7 +13,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const handleOutput = APIHandler(req);
+  const handleOutput = APIHandler(req, false);
   if (handleOutput !== "success") {
     return res.status(400).json({ error: handleOutput });
   }

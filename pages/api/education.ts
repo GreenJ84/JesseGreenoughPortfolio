@@ -35,5 +35,5 @@ export default async function handler(
 
   const results = await educationCollectionService.getEducationData(offsetNum);
 
-  res.status(200).json(results[0]);
+  res.status(200).json(results[0] as educationType[]);
 }

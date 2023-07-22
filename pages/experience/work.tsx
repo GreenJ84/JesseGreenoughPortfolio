@@ -36,10 +36,7 @@ const WorkPage = ({ workData, documentTotals }: WorkExp) => {
       if (!showSecWork) {
         setWork(workData);
       } else {
-        const workRes = await axios.post("/api/work", {
-          type: "secondary",
-          offset: 0,
-        });
+        const workRes = await axios.get("/api/work?type=secondary&offset=0");
 
         setWork(workRes.data);
       }
@@ -57,15 +54,9 @@ const WorkPage = ({ workData, documentTotals }: WorkExp) => {
   async function handleAddingWork() {
     let workRes: any;
     if (!showSecWork) {
-      workRes = await axios.post("/api/work", {
-        type: "primary",
-        offset: work.length,
-      });
+      workRes = await axios.get(`/api/work?type=primary&offset=${work.length}`);
     } else {
-      workRes = await axios.post("/api/work", {
-        type: "secondary",
-        offset: work.length,
-      });
+      workRes = await axios.get(`/api/work?type=secondary&offset=${work.length}`);
     }
     setWork((work) => [...work, ...workRes.data]);
   }
