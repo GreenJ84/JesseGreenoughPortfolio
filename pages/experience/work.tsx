@@ -1,9 +1,9 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
-import { GetServerSideProps } from "next";
-import dynamic from "next/dynamic";
 import axios from "axios";
+import dynamic from "next/dynamic";
+import { GetServerSideProps } from "next";
+import React, { useEffect, useState } from "react";
 
 import { MetaHead } from "../../components/Layout/LayoutExtras";
 const AddItemButton = dynamic(() =>
@@ -56,7 +56,9 @@ const WorkPage = ({ workData, documentTotals }: WorkExp) => {
     if (!showSecWork) {
       workRes = await axios.get(`/api/work?type=primary&offset=${work.length}`);
     } else {
-      workRes = await axios.get(`/api/work?type=secondary&offset=${work.length}`);
+      workRes = await axios.get(
+        `/api/work?type=secondary&offset=${work.length}`
+      );
     }
     setWork((work) => [...work, ...workRes.data]);
   }
@@ -134,10 +136,15 @@ const WorkPage = ({ workData, documentTotals }: WorkExp) => {
 export const getServerSideProps: GetServerSideProps<WorkExp> = async () => {
   const workService = new workCollectionService();
 
+  const [workData, documentTotals] = await Promise.all([
+    workService.getPrimaryWork(),
+    workService.getWorkTotals(),
+  ]);
+
   return {
     props: {
-      workData: await workService.getPrimaryWork(),
-      documentTotals: await workService.getWorkTotals(),
+      workData,
+      documentTotals,
     },
   };
 };

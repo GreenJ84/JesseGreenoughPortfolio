@@ -56,7 +56,9 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
         setCurrentType("all");
         updateFilterOption(techFilter, 2);
       } else {
-        const projRes = await axios.get(`/api/projects?type=category&filter=${category}&offset=0`);
+        const projRes = await axios.get(
+          `/api/projects?type=category&filter=${category}&offset=0`
+        );
         setProjects(projRes.data);
         setCurrentType("category");
         updateFilterOption(techFilter, 0);
@@ -81,7 +83,9 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
         setCurrentType("all");
         updateFilterOption(catFilter, 2);
       } else {
-        const projRes = await axios.get(`/api/projects?type=tech&filter=${tech}&offset=0`);
+        const projRes = await axios.get(
+          `/api/projects?type=tech&filter=${tech}&offset=0`
+        );
         setProjects(projRes.data);
         setCurrentType("tech");
         updateFilterOption(catFilter, 0);
@@ -117,10 +121,14 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
         projRes = await axios.get(`/api/projects?type=all&offset=${offset}`);
         break;
       case "category":
-        projRes = await axios.get(`/api/projects?type=category&filter=${category}&offset=${offset}`);
+        projRes = await axios.get(
+          `/api/projects?type=category&filter=${category}&offset=${offset}`
+        );
         break;
       case "tech":
-        projRes = await axios.get(`/api/projects?type=tech&filter=${tech}&offset=${offset}`);
+        projRes = await axios.get(
+          `/api/projects?type=tech&filter=${tech}&offset=${offset}`
+        );
         break;
       default:
         return;
@@ -193,14 +201,14 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
 };
 
 export const getServerSideProps: GetServerSideProps<Projects> = async () => {
-  const [projects, total] = await projectCollectionService.getTopProjects();
-
-  const [categories, techs] =
-    await projectCollectionService.getProjectFilterOptions();
+  const [[projectData, total], [categories, techs]] = await Promise.all([
+    projectCollectionService.getTopProjects(),
+    projectCollectionService.getProjectFilterOptions(),
+  ]);
 
   return {
     props: {
-      projectData: projects,
+      projectData,
       total,
       categories,
       techs,

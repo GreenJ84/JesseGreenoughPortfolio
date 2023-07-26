@@ -210,16 +210,16 @@ export default ResumePage;
 export const getServerSideProps: GetServerSideProps<resumeProps> = async () => {
   const resumeService = new resumeCollectionService();
 
-  const [[resumes, total], options] = await Promise.all([
+  const [[resumeData, total], categoryData] = await Promise.all([
     resumeService.getResumes(),
     resumeService.getResumeFilterOptions(),
   ]);
 
   return {
     props: {
-      resumeData: resumes,
+      resumeData,
       total: total!,
-      categoryData: options,
+      categoryData,
     },
   };
 };

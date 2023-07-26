@@ -97,22 +97,21 @@ const EducationPage = ({ educationData, certificationData }: Experience) => {
 
 export const getServerSideProps: GetServerSideProps<Experience> = async () => {
   // Get all Education experience data
-  const [eduResults, eduTotal] =
-    await educationCollectionService.getEducationData();
-
-  const [certifications, certTotal] =
-    await certificationCollectionService.getTopCertification();
-  const [issuers, techs] =
-    await certificationCollectionService.getCertificationFilterOptions();
+  const [[eduItems, eduTotal], [certItems, certTotal], [issuerData, techData]] =
+    await Promise.all([
+      educationCollectionService.getEducationData(),
+      certificationCollectionService.getTopCertification(),
+      certificationCollectionService.getCertificationFilterOptions(),
+    ]);
 
   return {
     props: {
-      educationData: { eduItems: eduResults, total: eduTotal! },
+      educationData: { eduItems, total: eduTotal! },
       certificationData: {
-        certItems: certifications,
+        certItems,
         total: certTotal,
-        issuerData: issuers,
-        techData: techs,
+        issuerData,
+        techData,
       },
     },
   };
