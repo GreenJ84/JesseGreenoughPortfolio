@@ -2,44 +2,95 @@
 
 import React from "react";
 import Image from "next/image";
-
-import {
-  SiVisualstudiocode,
-  SiPostman,
-  SiVercel,
-  SiGitkraken,
-  SiApollographql,
-  SiFigma,
-  SiNotion,
-  SiSocketdotio,
-  SiJinja,
-  SiPm2,
-  SiKubernetes,
-  SiApachetomcat,
-  SiNodemon,
-  SiYarn,
-  SiGitpod,
-  SiSpring,
-  SiJsonwebtokens,
-  SiFirebase,
-} from "react-icons/si";
-import { VscSmiley } from "react-icons/vsc";
-import { FaAws, FaHardHat, FaShieldAlt, FaTrello } from "react-icons/fa";
-import { GrDocker } from "react-icons/gr";
-import {
-  DiChrome,
-  DiGit,
-  DiJava,
-  DiNginx,
-  DiNodejs,
-  DiNpm,
-} from "react-icons/di";
-import { AiFillGithub } from "react-icons/ai";
-import { BsPip } from "react-icons/bs";
-import { GiUnicorn } from "react-icons/gi";
 import dynamic from "next/dynamic";
 
+// Icon Dynamic Imports
+const TiWeatherWindyCloudy = dynamic(() =>
+  import("react-icons/ti").then((m) => m.TiWeatherWindyCloudy)
+);
+const SiVisualstudiocode = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiVisualstudiocode)
+);
+const SiPostman = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiPostman)
+);
+const SiVercel = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiVercel)
+);
+const SiRedux = dynamic(() => import("react-icons/si").then((m) => m.SiRedux));
+const SiGitkraken = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiGitkraken)
+);
+const SiApollographql = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiApollographql)
+);
+const SiFigma = dynamic(() => import("react-icons/si").then((m) => m.SiFigma));
+const SiNotion = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiNotion)
+);
+const SiSocketdotio = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiSocketdotio)
+);
+const SiJinja = dynamic(() => import("react-icons/si").then((m) => m.SiJinja));
+const SiPm2 = dynamic(() => import("react-icons/si").then((m) => m.SiPm2));
+const SiKubernetes = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiKubernetes)
+);
+const SiApachetomcat = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiApachetomcat)
+);
+const SiSpring = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiSpring)
+);
+const SiNodemon = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiNodemon)
+);
+const SiYarn = dynamic(() => import("react-icons/si").then((m) => m.SiYarn));
+const SiGitpod = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiGitpod)
+);
+const SiJsonwebtokens = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiJsonwebtokens)
+);
+const SiFirebase = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiFirebase)
+);
+const VscSmiley = dynamic(() =>
+  import("react-icons/vsc").then((m) => m.VscSmiley)
+);
+const FaAws = dynamic(() => import("react-icons/fa").then((m) => m.FaAws));
+const FaHardHat = dynamic(() =>
+  import("react-icons/fa").then((m) => m.FaHardHat)
+);
+const FaShieldAlt = dynamic(() =>
+  import("react-icons/fa").then((m) => m.FaShieldAlt)
+);
+const FaTrello = dynamic(() =>
+  import("react-icons/fa").then((m) => m.FaTrello)
+);
+const GrDocker = dynamic(() =>
+  import("react-icons/gr").then((m) => m.GrDocker)
+);
+const AiFillGithub = dynamic(() =>
+  import("react-icons/ai").then((m) => m.AiFillGithub)
+);
+const BsPip = dynamic(() => import("react-icons/bs").then((m) => m.BsPip));
+const GiUnicorn = dynamic(() =>
+  import("react-icons/gi").then((m) => m.GiUnicorn)
+);
+const DiChrome = dynamic(() =>
+  import("react-icons/di").then((m) => m.DiChrome)
+);
+const DiGit = dynamic(() => import("react-icons/di").then((m) => m.DiGit));
+const DiJava = dynamic(() => import("react-icons/di").then((m) => m.DiJava));
+const DiNginx = dynamic(() => import("react-icons/di").then((m) => m.DiNginx));
+const DiNodejs = dynamic(() =>
+  import("react-icons/di").then((m) => m.DiNodejs)
+);
+const DiNpm = dynamic(() => import("react-icons/di").then((m) => m.DiNpm));
+
 const TechnicalSkill = dynamic(() => import("./TechnicalSkill"));
+
 const truffle = require("../../public/assets/pages/home/truffle-logo-dark.svg");
 const ganache = require("../../public/assets/pages/home/ganache-logo-dark.svg");
 const css = require("./Home.module.css");
@@ -62,11 +113,6 @@ const DeveloperTools = () => {
           name="Figma"
           rating={4}
           icon={<SiFigma className={css.icon} />}
-        />
-        <TechnicalSkill
-          name="Balsamiq"
-          rating={3}
-          icon={<VscSmiley className={css.icon} />}
         />
         <TechnicalSkill
           name="Notion"
@@ -138,11 +184,6 @@ const DeveloperTools = () => {
           name="Spring Tools"
           rating={2}
           icon={<SiSpring className={css.icon} />}
-        />
-        <TechnicalSkill
-          name="GitPod"
-          rating={1}
-          icon={<SiGitpod className={css.icon} />}
         />
       </ul>
 
@@ -227,14 +268,9 @@ const DeveloperTools = () => {
       <h4> Extras </h4>
       <ul className={css.skillsListContainer}>
         <TechnicalSkill
-          name="Jinja"
-          rating={5}
-          icon={<SiJinja className={css.icon} />}
-        />
-        <TechnicalSkill
-          name="JSP"
-          rating={5}
-          icon={<DiJava className={css.icon} />}
+          name="ReduxJS"
+          rating={4}
+          icon={<SiRedux className={css.icon} />}
         />
         <TechnicalSkill
           name="Firebase"
@@ -250,6 +286,11 @@ const DeveloperTools = () => {
           name="JSON Web Tokens"
           rating={3}
           icon={<SiJsonwebtokens className={css.icon} />}
+        />
+        <TechnicalSkill
+          name="Ethers.js"
+          rating={3}
+          icon={<TiWeatherWindyCloudy className={css.icon} />}
         />
         <TechnicalSkill
           name="Socket.io"

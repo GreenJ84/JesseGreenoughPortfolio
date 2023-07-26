@@ -1,5 +1,8 @@
 /** @format */
 
+#homePage {
+  padding: clamp(160px, 14vw, 240px) 0 0;
+}
 /* Portfolio Landing */
 .homeIntro {
   position: relative;

@@ -1,26 +1,29 @@
 /** @format */
 
-import dynamic from "next/dynamic";
 import React from "react";
+import dynamic from "next/dynamic";
 
-import { DiReact } from "react-icons/di";
-import {
-  SiBootstrap,
-  SiChai,
-  SiDjango,
-  SiExpress,
-  SiFlask,
-  SiJest,
-  SiMaterialui,
-  SiMocha,
-  SiNextdotjs,
-  SiRedux,
-  SiSpring,
-  SiSpringboot,
-  SiTailwindcss,
-  SiWeb3Dotjs,
-} from "react-icons/si";
-import { TiWeatherWindyCloudy } from "react-icons/ti";
+// Icon Dynamic Imports
+const DiReact = dynamic(() => import("react-icons/di").then((m) => m.DiReact));
+const SiChai = dynamic(() => import("react-icons/si").then((m) => m.SiChai));
+const SiDjango = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiDjango)
+);
+const SiExpress = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiExpress)
+);
+const SiFlask = dynamic(() => import("react-icons/si").then((m) => m.SiFlask));
+const SiJest = dynamic(() => import("react-icons/si").then((m) => m.SiJest));
+const SiMocha = dynamic(() => import("react-icons/si").then((m) => m.SiMocha));
+const SiNextdotjs = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiNextdotjs)
+);
+const SiSpringboot = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiSpringboot)
+);
+const SiTailwindcss = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiTailwindcss)
+);
 
 const TechnicalSkill = dynamic(() => import("./TechnicalSkill"));
 
@@ -47,11 +50,6 @@ const Framework = () => {
           icon={<DiReact className={css.icon} />}
         />
         <TechnicalSkill
-          name="ReduxJS"
-          rating={4}
-          icon={<SiRedux className={css.icon} />}
-        />
-        <TechnicalSkill
           name="ExpressJS"
           rating={4}
           icon={<SiExpress className={css.icon} />}
@@ -72,19 +70,9 @@ const Framework = () => {
           icon={<SiChai className={css.icon} />}
         />
         <TechnicalSkill
-          name="BootStrap"
-          rating={3}
-          icon={<SiBootstrap className={css.icon} />}
-        />
-        <TechnicalSkill
           name="Flask"
           rating={3}
           icon={<SiFlask className={css.icon} />}
-        />
-        <TechnicalSkill
-          name="Spring"
-          rating={3}
-          icon={<SiSpring className={css.icon} />}
         />
         <TechnicalSkill
           name="Spring Boot"
@@ -92,34 +80,14 @@ const Framework = () => {
           icon={<SiSpringboot className={css.icon} />}
         />
         <TechnicalSkill
-          name="Materials-UI"
-          rating={2}
-          icon={<SiMaterialui className={css.icon} />}
-        />
-        <TechnicalSkill
           name="MochaJS"
           rating={2}
           icon={<SiMocha className={css.icon} />}
         />
         <TechnicalSkill
-          name="ChaiJS"
-          rating={2}
-          icon={<SiChai className={css.icon} />}
-        />
-        <TechnicalSkill
-          name="EthersJS"
-          rating={2}
-          icon={<TiWeatherWindyCloudy className={css.icon} />}
-        />
-        <TechnicalSkill
           name="Django"
           rating={1}
           icon={<SiDjango className={css.icon} />}
-        />
-        <TechnicalSkill
-          name="Web3JS"
-          rating={1}
-          icon={<SiWeb3Dotjs className={css.icon} />}
         />
       </ul>
     </section>

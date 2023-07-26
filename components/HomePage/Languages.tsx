@@ -1,20 +1,41 @@
 /** @format */
 
 import React from "react";
-
-import { DiCss3, DiJavascript1, DiPython } from "react-icons/di";
-import { FaRust } from "react-icons/fa";
-import {
-  SiScratch,
-  SiTypescript,
-  SiJava,
-  SiSolidity,
-  SiGraphql,
-} from "react-icons/si";
-import { BsFillMarkdownFill } from "react-icons/bs";
-import { AiFillHtml5, AiOutlineConsoleSql } from "react-icons/ai";
 import dynamic from "next/dynamic";
 
+// Icon Dynamic Imports
+const DiCss3 = dynamic(() => import("react-icons/di").then((m) => m.DiCss3));
+const DiJavascript1 = dynamic(() =>
+  import("react-icons/di").then((m) => m.DiJavascript1)
+);
+const DiPython = dynamic(() =>
+  import("react-icons/di").then((m) => m.DiPython)
+);
+const FaRust = dynamic(() => import("react-icons/fa").then((m) => m.FaRust));
+const SiScratch = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiScratch)
+);
+const SiTypescript = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiTypescript)
+);
+const SiJava = dynamic(() => import("react-icons/si").then((m) => m.SiJava));
+const SiSolidity = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiSolidity)
+);
+const SiGraphql = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiGraphql)
+);
+const BsFillMarkdownFill = dynamic(() =>
+  import("react-icons/bs").then((m) => m.BsFillMarkdownFill)
+);
+const AiFillHtml5 = dynamic(() =>
+  import("react-icons/ai").then((m) => m.AiFillHtml5)
+);
+const AiOutlineConsoleSql = dynamic(() =>
+  import("react-icons/ai").then((m) => m.AiOutlineConsoleSql)
+);
+
+// Container Dynamic Import
 const TechnicalSkill = dynamic(() => import("./TechnicalSkill"));
 
 const css = require("./Home.module.css");

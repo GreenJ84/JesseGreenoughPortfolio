@@ -3,9 +3,20 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
-import { DiSqllite, DiRedis } from "react-icons/di";
-import { GrMysql } from "react-icons/gr";
-import { SiAmazondynamodb, SiMongodb, SiPostgresql } from "react-icons/si";
+const DiSqllite = dynamic(() =>
+  import("react-icons/di").then((m) => m.DiSqllite)
+);
+const DiRedis = dynamic(() => import("react-icons/di").then((m) => m.DiRedis));
+const GrMysql = dynamic(() => import("react-icons/gr").then((m) => m.GrMysql));
+const SiAmazondynamodb = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiAmazondynamodb)
+);
+const SiMongodb = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiMongodb)
+);
+const SiPostgresql = dynamic(() =>
+  import("react-icons/si").then((m) => m.SiPostgresql)
+);
 
 const TechnicalSkill = dynamic(() => import("./TechnicalSkill"));
 

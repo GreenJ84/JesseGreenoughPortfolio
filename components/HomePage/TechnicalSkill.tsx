@@ -15,18 +15,16 @@ interface skillProps {
 const TechnicalSkill = (props: skillProps) => {
   return (
     <li className={css.skillContainer}>
-      <>
-        {props.icon}
-        <span> {props.name} </span>
-        <meter
-          min={0}
-          low={2}
-          high={4}
-          max={5}
-          optimum={5}
-          value={props.rating}
-        />
-      </>
+      <>{props.icon}</>
+      <span> {props.name} </span>
+      <meter
+        min={0}
+        low={2}
+        high={4}
+        max={5}
+        optimum={5}
+        value={props.rating}
+      />
     </li>
   );
 };

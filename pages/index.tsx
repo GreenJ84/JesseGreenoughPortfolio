@@ -1,11 +1,11 @@
 /** @format */
 
-import React, { useContext, useEffect } from "react";
 import dynamic from "next/dynamic";
+import React, { useContext, useEffect } from "react";
 
-import { BsArrowDownCircle } from "react-icons/bs";
-
-import { AppContext, WindowWidth } from "../utils/AppContext";
+const BsArrowDownCircle = dynamic(() =>
+  import("react-icons/bs").then((m) => m.BsArrowDownCircle)
+);
 
 import { MetaHead } from "../components/Layout/LayoutExtras";
 import HomeTop from "../components/HomePage/HomeTop";
@@ -16,6 +16,8 @@ const DeveloperTools = dynamic(
   () => import("../components/HomePage/DeveloperTools")
 );
 const GithubCard = dynamic(() => import("../components/HomePage/GithubCard"));
+
+import { AppContext, WindowWidth } from "../utils/AppContext";
 
 const css = require("../components/HomePage/Home.module.css");
 
@@ -73,10 +75,7 @@ const HomePage = () => {
         keywords="Software,Developer,Engineer,Full-Stack,Portfolio,Skills,Projects,Experience,Resumes,Jesse Greenough"
       />
 
-      <main
-        id="homePage"
-        style={{ padding: "clamp(160px, 14vw, 240px) 0 0" }}
-      >
+      <main id="homePage">
         <HomeTop />
         <section
           id="skillsIntro"

@@ -1,9 +1,9 @@
 /** @format */
 
 import React from "react";
+
 import Image from "next/image";
 import Tilt from "react-parallax-tilt";
-
 import { DeveloperPortrait, TypeWrite } from "../Layout/LayoutExtras";
 
 const myImg = "/assets/pages/home/user_avatar.svg";
@@ -14,15 +14,15 @@ const HomeTop = () => {
   return (
     <>
       <section
-        className={css.homeIntro}
         id="homeIntro"
+        className={css.homeIntro}
       >
         <h1 className={css.homeHeader}>
           Hi There!{" "}
           <span
             className={css.wave}
             role="img"
-            aria-labelledby="wave"
+            aria-label="Wave emoji (Hello!)"
           >
             👋🏻
           </span>
