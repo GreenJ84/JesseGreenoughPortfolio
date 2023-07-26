@@ -6,7 +6,6 @@ import dynamic from "next/dynamic";
 import { ImPointRight } from "react-icons/im";
 
 import { MetaHead } from "../components/Layout/LayoutExtras";
-
 const AboutDetails = dynamic(
   () => import("../components/AboutPage/AboutDetails")
 );

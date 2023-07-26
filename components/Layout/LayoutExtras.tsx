@@ -72,7 +72,7 @@ export const MetaHead = ({
 };
 
 // Universal Developer protrait component
-const developerPortrait = "/assets/developerPortrait.jpeg";
+const developerPortrait = "https://res.cloudinary.com/portfolio-g84/image/upload/v1690310921/personal/personal_portrait.jpg";
 export const DeveloperPortrait = () => {
   return (
     <Tilt

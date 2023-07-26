@@ -1,5 +1,10 @@
 /** @format */
 
+#aboutMain {
+  position: relative;
+  padding: 10vw 4vw 0;
+}
+
 /* About Introduction */
 .aboutOpener {
   position: relative;
