@@ -6,10 +6,8 @@ import type { AppProps } from "next/app";
 import { Router, useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-const Preloader = dynamic(() =>
-  import("../components/Layout/LayoutExtras").then((mod) => mod.Preloader)
-);
-const NavBar = dynamic(() => import("../components/Layout/NavBar"));
+import { Preloader } from "../components/Layout/LayoutExtras";
+import NavBar from "../components/Layout/NavBar";
 const Footer = dynamic(() => import("../components/Layout/Footer"));
 
 import { AppContextProvider } from "../utils/AppContext";
@@ -21,11 +19,6 @@ export default function App({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    //==== Initial loading
-    const timer = setTimeout(() => {
-      setInitialLoad(true);
-    }, 1500);
-
     //==== Inter-Route loading handler set-up
     let body = document.getElementsByTagName("body")[0];
     const start = () => {
@@ -39,8 +32,9 @@ export default function App({ Component, pageProps }: AppProps) {
     Router.events.on("routeChangeStart", start);
     Router.events.on("routeChangeComplete", end);
     Router.events.on("routeChangeError", end);
+
+    setInitialLoad(true);
     return () => {
-      clearTimeout(timer);
       Router.events.off("routeChangeStart", start);
       Router.events.off("routeChangeComplete", end);
       Router.events.off("routeChangeError", end);
@@ -67,22 +61,22 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0"
-        ></meta>
+        />
         <meta
           name="robots"
           content="index, follow"
         />
         <meta
           property="og:image"
-          content={"/assets/developerPortrait.jpeg"}
+          content={"https://res.cloudinary.com/portfolio-g84/image/upload/v1690310921/personal/personal_portrait.jpg"}
         />
         <meta
           name="twitter:image"
-          content={"/assets/developerPortrait.jpeg"}
+          content={"https://res.cloudinary.com/portfolio-g84/image/upload/v1690310921/personal/personal_portrait.jpg"}
         />
         <meta
           property="og:url"
-          content={"/assets/developerPortrait.jpeg"}
+          content={"https://jesse-greenough-portfolio.vercel.app/"}
         />
         <meta
           property="og:type"
@@ -96,8 +90,8 @@ export default function App({ Component, pageProps }: AppProps) {
         />
         <link
           rel="icon"
-          type="image/png"
-          href="/assets/TrippyFrensNFT_logo.png"
+          type="image/jpg"
+          href="https://res.cloudinary.com/portfolio-g84/image/upload/v1690310979/personal/TrippyFrens1.jpg"
         ></link>
       </Head>
       <AppContextProvider>

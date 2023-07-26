@@ -1,11 +1,11 @@
 /** @format */
 
-import Link from "next/link";
-import Image from "next/image";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
+import Link from "next/link";
+import Image from "next/image";
 import { Button, Navbar } from "react-bootstrap";
 const Particle = dynamic(() => import("./Particle"));
 
@@ -20,8 +20,9 @@ import { ImBlog } from "react-icons/im";
 
 import { AppContext, WindowWidth } from "../../utils/AppContext";
 
-const brandLogo1 = "/assets/TrippyFrensNFT_logo.png";
-const brandLogo2 = "/assets/CyberHedera1.png";
+const assetBase =
+  "https://res.cloudinary.com/portfolio-g84/image/upload/c_thumb,q_auto:eco,w_100/v1690310979/personal/";
+
 const css = require("./NavBar.module.css");
 
 const NavLinkData = [
@@ -68,14 +69,7 @@ const NavLinkData = [
 ];
 
 const NavBar = () => {
-  const { windowWidth, theme, setTheme } = React.useContext(AppContext);
-
-  // Navigation Route Handling
-  const router = useRouter();
-  const handleLink = (e: React.MouseEvent, href: string) => {
-    e.preventDefault();
-    router.push(href);
-  };
+  const { windowWidth, theme, setTheme } = useContext(AppContext);
 
   // Navigation Display Rendering
   const [expandedNav, setExpandedNav] = useState(true);
@@ -88,15 +82,17 @@ const NavBar = () => {
     }
   }, [windowWidth]);
 
-  // Scroll mapping for Sticky navigation display
+  // Scroll mapping for navigation display
   useEffect(() => {
     const scrollHandler = () => {
+      // Fade to sticky on top of page scroll
       if (window.scrollY >= 60) {
         setNavFade(true);
       } else {
         setNavFade(false);
       }
 
+      // Hide when scrolling near the footer
       if (
         window.scrollY + window.innerHeight >
           document.body.scrollHeight - 350 &&
@@ -113,6 +109,13 @@ const NavBar = () => {
       window.removeEventListener("scroll", scrollHandler);
     };
   }, []);
+
+  // Navigation Route Handling
+  const router = useRouter();
+  const handleLink = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    router.push(href);
+  };
 
   return (
     <>
@@ -137,13 +140,14 @@ const NavBar = () => {
           }}
         >
           <Image
-            src={theme === "dark" ? brandLogo1 : brandLogo2}
+            src={`${assetBase}${
+              theme === "dark" ? "TrippyFrens1.jpg" : "CyberHedera1.png"
+            }`}
             id="themeLogo"
             className={css.themeLogo}
             alt="Developer's NFT logo"
             width={250}
             height={250}
-            loading="lazy"
           />
         </Navbar.Brand>
 
@@ -164,6 +168,7 @@ const NavBar = () => {
           >
             {NavLinkData.map((item, idx) => {
               const [href, icon, title] = item;
+
               return (
                 <li
                   key={idx}
@@ -182,7 +187,7 @@ const NavBar = () => {
                   <Link
                     key={idx}
                     href={href as string}
-                    aria-label={`Navigate the ${title} page.`}
+                    aria-label={`Navigate to the ${title} page.`}
                     className={css.navLink}
                     rel="noreferrer"
                     onClick={(e) => {
@@ -205,7 +210,7 @@ const NavBar = () => {
                   target="_blank"
                   className={css.githubBtn}
                 >
-                  <CgGitFork className={css.forkIcon} />{" "}
+                  <CgGitFork className={css.forkIcon} />
                   <AiFillStar className={css.forkIcon} />
                 </Button>
               </li>
@@ -213,7 +218,6 @@ const NavBar = () => {
           </ul>
 
           <label
-            htmlFor="themeChange"
             aria-label="Toggle Day and Night themes"
             className={css.themeSwitch}
           >
@@ -222,13 +226,14 @@ const NavBar = () => {
               aria-labelledby="themeChange"
               className={css.themeInput}
               type="checkbox"
+              aria-checked={theme === "dark"}
               defaultChecked={theme === "dark"}
               data-theme-toggle
               onClick={() => {
                 setTheme();
               }}
             />
-            <span className={css.themeSlider}></span>
+            <span aria-controls="themeChange" className={css.themeSlider}></span>
           </label>
         </Navbar.Collapse>
 

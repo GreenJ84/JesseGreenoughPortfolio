@@ -1,9 +1,12 @@
 /** @format */
 
+import dynamic from "next/dynamic";
 import React, { useCallback } from "react";
-import Particles from "react-particles";
+
 import { loadFull } from "tsparticles";
 import type { Engine } from "tsparticles-engine";
+
+const Particles = dynamic(() => import("react-particles"));
 
 const Particle = ({ theme }: { theme: string }) => {
   const particlesInit = useCallback(async (engine: Engine) => {
@@ -21,13 +24,16 @@ const Particle = ({ theme }: { theme: string }) => {
         zIndex: -10,
       }}
       options={{
+        pauseOnBlur: true,
+        detectRetina: true,
+        fpsLimit: 30,
+        smooth: true,
         background: {
           image:
             theme == "dark"
               ? "radial-gradient(rgb(36, 94, 36), rgb(12, 27, 22))"
               : "radial-gradient(rgb(119, 255, 201), rgb(75, 255, 240))",
         },
-        fpsLimit: 50,
         interactivity: {
           detectsOn: "window",
           events: {
@@ -95,7 +101,6 @@ const Particle = ({ theme }: { theme: string }) => {
             value: { min: 1, max: 3 },
           },
         },
-        detectRetina: true,
       }}
     />
   );

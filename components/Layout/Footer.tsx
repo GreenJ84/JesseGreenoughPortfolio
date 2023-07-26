@@ -5,18 +5,25 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React, { useContext } from "react";
 
-import {
-  AiFillGithub,
-  AiOutlineTwitter,
-  AiFillInstagram,
-} from "react-icons/ai";
-import { FaLinkedinIn } from "react-icons/fa";
-
-import { AppContext, WindowWidth } from "../../utils/AppContext";
+const AiFillGithub = dynamic(() =>
+  import("react-icons/ai").then((mod) => mod.AiFillGithub)
+);
+const AiOutlineTwitter = dynamic(() =>
+  import("react-icons/ai").then((mod) => mod.AiOutlineTwitter)
+);
+const AiFillInstagram = dynamic(() =>
+  import("react-icons/ai").then((mod) => mod.AiFillInstagram)
+);
+const FaLinkedinIn = dynamic(() =>
+  import("react-icons/fa").then((mod) => mod.FaLinkedinIn)
+);
 
 const ContactModal = dynamic(() =>
   import("./LayoutExtras").then((mod) => mod.ContactModal)
 );
+
+import { AppContext, WindowWidth } from "../../utils/AppContext";
+
 const css = require("./Footer.module.css");
 
 const Footer = () => {
@@ -118,10 +125,13 @@ const Footer = () => {
           className={css.footerCopywright}
         >
           {windowWidth !== WindowWidth.SMALL && (
-            <nav aria-label="Personal Social Links">
+            <nav
+              id="footerNavigation"
+              aria-label="In App navigation"
+            >
               <ul
                 className={css.footerLinkList}
-                aria-label="In App navigation"
+                aria-labelledby="footerNavigation"
               >
                 {[
                   ["/", "Home"],
@@ -132,10 +142,7 @@ const Footer = () => {
                 ].map((item, idx) => {
                   const [href, title] = item;
                   return (
-                    <li
-                      key={idx}
-                      aria-label={`Visit my ${title} page`}
-                    >
+                    <li key={idx}>
                       <a
                         href={href as string}
                         rel="noopener noreferrer"
