@@ -1,22 +1,24 @@
 /** @format */
 
+import dynamic from "next/dynamic";
 import React, { useState } from "react";
+
+const AiFillGithub = dynamic(() =>
+  import("react-icons/ai").then((m) => m.AiFillGithub)
+);
+const AiFillProject = dynamic(() =>
+  import("react-icons/ai").then((m) => m.AiFillProject)
+);
+const MdClose = dynamic(() => import("react-icons/md").then((m) => m.MdClose));
+
 import Image from "next/image";
-
-import { AiFillGithub, AiFillProject } from "react-icons/ai";
-import { MdClose } from "react-icons/md";
-
-import {FlipCard} from "../Layout/LayoutExtras";
+import { FlipCard } from "../Layout/LayoutExtras";
 
 import { projectType } from "../../utils/services/projectsService";
 
 const css = require("./Project.module.css");
 
-interface projectProps {
-  project: projectType;
-}
-
-const ProjectCard = ({ project }: projectProps) => {
+const ProjectCard = ({ project }: { project: projectType }) => {
   const [showDetail, setShowDetail] = useState(false);
 
   return (

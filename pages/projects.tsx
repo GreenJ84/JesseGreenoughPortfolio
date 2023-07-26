@@ -1,9 +1,9 @@
 /** @format */
 
 import axios from "axios";
-import React, { useState, useEffect } from "react";
-import { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";
+import { GetServerSideProps } from "next";
+import React, { useState, useEffect } from "react";
 
 import { MetaHead, DataFilter } from "../components/Layout/LayoutExtras";
 import ProjectCard from "../components/ProjectsPage/ProjectCard";
