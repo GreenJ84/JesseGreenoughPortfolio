@@ -28,12 +28,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      console.error(error);
       res
         .status(500)
         .json({ success: false, message: "Email not sent", error: error });
     } else {
-      console.log("Email sent: " + info.response);
       res
         .status(200)
         .json({ success: true, message: "Email sent", error: null });

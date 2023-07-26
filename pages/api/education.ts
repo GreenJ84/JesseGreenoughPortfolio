@@ -14,15 +14,12 @@ export default async function handler(
     return res.status(400).json({ error: "Bad Request" });
   }
   const { offset } = req.query;
-
   if (!offset) {
     return "Bad Request";
   }
-
   if (Array.isArray(offset)) {
     return res.status(400).json({ error: "Offset not a single value" });
   }
-
   let offsetNum = 0;
   try {
     offsetNum = parseInt(offset as string);

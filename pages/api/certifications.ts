@@ -1,6 +1,7 @@
 /** @format */
 
 import { NextApiRequest, NextApiResponse } from "next";
+
 import {
   certificationCollectionService,
   certificationType,
@@ -14,27 +15,27 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const handleOutput = APIHandler(req);
-  if (handleOutput !== "success") { 
-    return res.status(400).json({ error: handleOutput });
+  if (handleOutput[0] !== "success") {
+    return res.status(400).json({ error: handleOutput[0] });
   }
 
-  const { type, filter, offset } = req.query;
+  const { type, filter, offset } = handleOutput[1]!;
 
   let results: certificationType[] = [];
   switch (type) {
     case "all":
-      results = await certificationService.getUnsortedCertification(parseInt(offset! as string));
+      results = await certificationService.getUnsortedCertification(offset);
       break;
     case "issuer":
       results = await certificationService.getCertificationByIssuer(
-        filter as string,
-        parseInt(offset! as string)
+        filter!,
+        offset
       );
       break;
     case "tech":
       results = await certificationService.getCertificationByTech(
-        filter as string,
-        parseInt(offset! as string)
+        filter!,
+        offset
       );
       break;
     default:
@@ -42,5 +43,5 @@ export default async function handler(
       break;
   }
 
-  res.status(200).json(results);
+  res.status(200).json(results as certificationType[]);
 }

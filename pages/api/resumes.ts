@@ -1,6 +1,7 @@
 /** @format */
 
 import { NextApiRequest, NextApiResponse } from "next";
+
 import {
   resumeCollectionService,
   resumeType,
@@ -14,24 +15,21 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const handlerOutput = APIHandler(req);
-  if (handlerOutput !== "success") {
-    return res.status(400).json(handlerOutput);
+  if (handlerOutput[0] !== "success") {
+    return res.status(400).json({ error: handlerOutput[0] });
   }
-  
-  const { type, filter, offset } = req.query;
+
+  const { type, filter, offset } = handlerOutput[1]!;
 
   let results: resumeType[] = [];
   switch (type) {
     case "all":
-      const response = await resumeService.getResumes(parseInt(offset! as string));
+      const response = await resumeService.getResumes(offset);
       results = response[0];
       break;
     default:
-      results = await resumeService.getResumeByCategory(
-        filter as string,
-        parseInt(offset! as string)
-      );
+      results = await resumeService.getResumeByCategory(filter!, offset);
       break;
   }
-  res.status(200).json(results);
+  res.status(200).json(results as resumeType[]);
 }

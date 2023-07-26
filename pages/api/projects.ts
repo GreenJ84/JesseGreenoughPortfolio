@@ -8,19 +8,30 @@ import {
 
 const projectService = new projectCollectionService();
 
-export function APIHandler(req: NextApiRequest, filt = true) { 
+interface RequestVariables {
+  type: string;
+  offset: number;
+  filter?: string;
+}
+
+export function APIHandler(
+  req: NextApiRequest,
+  filt = true
+): [string, RequestVariables?] {
   if (req.method !== "GET") {
-    return "Bad Request";
+    return ["Bad Request"];
   }
 
   const { type, filter, offset } = req.query;
 
   if (!type || !offset) {
-    return "Bad Request";
+    return ["Bad Request"];
   }
-
+  if (Array.isArray(type)) {
+    return ["Type not a single value"];
+  }
   if (Array.isArray(offset)) {
-    return "Offset not a single value";
+    return ["Offset not a single value"];
   }
 
   let offsetNum = 0;
@@ -30,13 +41,20 @@ export function APIHandler(req: NextApiRequest, filt = true) {
       throw new Error("");
     }
   } catch (error) {
-    return "Offset not a valid Int";
+    return ["Offset not a valid Int"];
   }
 
-  if (filt && type !== "all" && (!filter || Array.isArray(filter))) {
-    return "Valid filter not provided";
+  if (filt && type !== "all") {
+    if (!filter) {
+      return ["Bad Request"];
+    }
+    if (Array.isArray(filter)) {
+      return ["Valid filter not provided"];
+    }
+    return ["success", { type, offset: offsetNum, filter }];
   }
-  return "success";
+
+  return ["success", { type, offset: offsetNum }];
 }
 
 export default async function handler(
@@ -44,32 +62,26 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const handleOutput = APIHandler(req);
-  if (handleOutput !== "success") { 
-    return res.status(400).json({ error: handleOutput });
+  if (handleOutput[0] !== "success") {
+    return res.status(400).json({ error: handleOutput[0] });
   }
 
-  const { type, filter, offset } = req.query;
+  const { type, filter, offset } = handleOutput[1]!;
   let results: projectType[] = [];
 
   switch (type) {
     case "all":
-      results = await projectService.getUnsortedProjects(parseInt(offset! as string));
+      results = await projectService.getUnsortedProjects(offset);
       break;
     case "category":
-      results = await projectService.getProjectsByCategory(
-        filter as string,
-        parseInt(offset! as string)
-      );
+      results = await projectService.getProjectsByCategory(filter!, offset);
       break;
     case "tech":
-      results = await projectService.getProjectsByTech(
-        filter as string,
-        parseInt(offset! as string)
-      );
+      results = await projectService.getProjectsByTech(filter!, offset);
       break;
     default:
       res.status(404).send("Not Found");
       break;
   }
-  res.status(200).json(results);
+  res.status(200).json(results as projectType[]);
 }
