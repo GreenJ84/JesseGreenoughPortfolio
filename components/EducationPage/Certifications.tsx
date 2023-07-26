@@ -4,13 +4,13 @@ import axios from "axios";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 
-import { certificationType } from "../../utils/services/educationService";
-
 import { DataFilter } from "../Layout/LayoutExtras";
 import CertificationCard from "./CertificationCard";
 const AddItemButton = dynamic(() =>
-  import("../Layout/LayoutExtras").then((mod) => mod.AddItemButton)
+import("../Layout/LayoutExtras").then((mod) => mod.AddItemButton)
 );
+
+import { certificationType } from "../../utils/services/educationService";
 
 const css = require("./Certifications.module.css");
 

@@ -1,10 +1,13 @@
 /** @format */
 
+import dynamic from "next/dynamic";
 import React, { useContext } from "react";
+
+const RiExternalLinkFill = dynamic(() =>
+  import("react-icons/ri").then((m) => m.RiExternalLinkFill)
+);
+
 import Image from "next/image";
-import { RiExternalLinkFill } from "react-icons/ri";
-
-
 import { FlipCard } from "../../components/Layout/LayoutExtras";
 
 import { certificationType } from "../../utils/services/educationService";

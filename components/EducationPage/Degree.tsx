@@ -1,18 +1,18 @@
 /** @format */
 
 import axios from "axios";
-import React, { useContext, useEffect } from "react";
 import dynamic from "next/dynamic";
+import React, { useContext, useEffect } from "react";
+
 import Image from "next/image";
-
-import { educationType } from "../../utils/services/educationService";
-import { AppContext, WindowWidth } from "../../utils/AppContext";
-
 import EducationImg from "./EduImage";
 import DegreeCard from "./DegreeCard";
 const AddItemButton = dynamic(() =>
-  import("../Layout/LayoutExtras").then((mod) => mod.AddItemButton)
+import("../Layout/LayoutExtras").then((mod) => mod.AddItemButton)
 );
+
+import { AppContext, WindowWidth } from "../../utils/AppContext";
+import { educationType } from "../../utils/services/educationService";
 
 const css = require("./Degree.module.css");
 

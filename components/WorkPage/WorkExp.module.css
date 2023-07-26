@@ -99,7 +99,6 @@
   max-width: 1500px;
 }
 
-
 /* Work Card */
 .workCard {
   position: relative;
@@ -110,15 +109,15 @@
   color: var(--text-primary);
   background-color: var(--card-background);
   border-radius: 20px;
-  box-shadow: var(--shadow); 
+  box-shadow: var(--shadow);
 }
 
 .workCard:hover {
   transform: scale(1.09, 1.09);
   box-shadow: var(--shadow-hover);
 }
-.workCard:hover *{
-  text-shadow: min(1px, .2vw) min(1px, .2vw) var(--text-negative);
+.workCard:hover * {
+  text-shadow: min(1px, 0.2vw) min(1px, 0.2vw) var(--text-negative);
 }
 
 .workImageHolder {
@@ -177,17 +176,18 @@
   text-indent: 6px;
 }
 
-@media only screen and (max-width: 550px){
-  .workCard, .workCardBody div {
+@media only screen and (max-width: 550px) {
+  .workCard,
+  .workCardBody div {
     flex-direction: column;
   }
-  .workCardBody{
+  .workCardBody {
     width: 96%;
   }
-  .workCardBody > div:first-of-type{
+  .workCardBody > div:first-of-type {
     margin: 20px 0 10px;
   }
-  .workCardBody > div:last-of-type{
+  .workCardBody > div:last-of-type {
     text-align: right;
   }
 }

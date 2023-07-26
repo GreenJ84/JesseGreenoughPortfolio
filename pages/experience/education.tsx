@@ -2,7 +2,18 @@
 
 import dynamic from "next/dynamic";
 import { GetServerSideProps } from "next";
-import React, { Suspense, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
+
+import { AppContext, WindowWidth } from "../../utils/AppContext";
+
+import { MetaHead, Preloader } from "../../components/Layout/LayoutExtras";
+const Degree = dynamic(() => import("../../components/EducationPage/Degree"), {
+  loading: () => <Preloader />,
+});
+const Certifications = dynamic(
+  () => import("../../components/EducationPage/Certifications"),
+  { loading: () => <Preloader /> }
+);
 
 import {
   certificationCollectionService,
@@ -10,13 +21,6 @@ import {
   educationCollectionService,
   educationType,
 } from "../../utils/services/educationService";
-import { AppContext, WindowWidth } from "../../utils/AppContext";
-
-import { MetaHead, Preloader } from "../../components/Layout/LayoutExtras";
-const Degree = dynamic(() => import("../../components/EducationPage/Degree"));
-const Certifications = dynamic(
-  () => import("../../components/EducationPage/Certifications")
-);
 
 const css = require("../../components/EducationPage/EduBody.module.css");
 
@@ -32,6 +36,7 @@ export interface Experience {
     techData: string;
   };
 }
+
 const EducationPage = ({ educationData, certificationData }: Experience) => {
   const { windowWidth } = useContext(AppContext);
 
@@ -83,13 +88,8 @@ const EducationPage = ({ educationData, certificationData }: Experience) => {
         <h1 id="educationTitle">
           Educational Experience, Qualifications and Certifications
         </h1>
-        <Suspense fallback={<Preloader />}>
-          <Degree educationData={educationData} />
-        </Suspense>
-
-        <Suspense fallback={<Preloader />}>
-          <Certifications certificationData={certificationData} />
-        </Suspense>
+        <Degree educationData={educationData} />
+        <Certifications certificationData={certificationData} />
       </main>
     </>
   );
