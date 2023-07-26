@@ -1,20 +1,25 @@
 /** @format */
 
-import React, { useState, useEffect, useContext } from "react";
-import { GetServerSideProps } from "next";
-import Image from "next/image";
 import axios from "axios";
+import { GetServerSideProps } from "next";
+import React, { useState, useContext } from "react";
 
-import { BsArrowLeft, BsArrowRight, BsPlusCircleFill } from "react-icons/bs";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+const BsPlusCircleFill = dynamic(() =>
+  import("react-icons/bs").then((m) => m.BsPlusCircleFill)
+);
 
+import Image from "next/image";
 import { DataFilter, MetaHead } from "../components/Layout/LayoutExtras";
 import ButtonGroup from "../components/ResumePage/ButtonGroup";
 
 import { AppContext } from "../utils/AppContext";
+
 import {
   resumeCollectionService,
   resumeType,
 } from "../utils/services/resumeService";
+import dynamic from "next/dynamic";
 
 const css = require("../components/ResumePage/Resume.module.css");
 
@@ -27,25 +32,6 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
   // Mobile device display warning
   const { mobile } = useContext(AppContext);
   const [modal, closeModal] = useState(mobile);
-
-  // Dynamic Resume Size Rendering
-  const [width, setWidth] = useState(0);
-  useEffect(() => {
-    const checkWindow = (width: number) => {
-      if (width < 900) {
-        setWidth(width * 0.6);
-      } else {
-        setWidth(width * 0.7);
-      }
-    };
-    checkWindow(window.innerWidth);
-    window.addEventListener("resize", () => checkWindow(window.innerWidth));
-    return () => {
-      window.removeEventListener("resize", () =>
-        checkWindow(window.innerWidth)
-      );
-    };
-  }, []);
 
   const [resumes, setResumes] = useState(resumeData);
   const [category, setCategory] = useState("all");
@@ -76,7 +62,6 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
   // Resume Flip Through
   const changeResNum = async (e: React.MouseEvent, dir: string) => {
     e.preventDefault();
-    console.log(resNum, resumes.length, checkMoreResumes());
     if (dir == "left") {
       if (resNum > 0) {
         setResNum((num) => num - 1);
@@ -168,14 +153,12 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
           <div>
             <label
               id="previousResume"
-              htmlFor="previousResumeButton"
               aria-label="View Previous Resume"
               className={css.resumeControls}
             >
               Prev
               <button
                 aria-labelledby="previousResume"
-                name="previousResumeButton"
                 aria-disabled={resNum === 0}
                 className={`${css.leftArrow} ${resNum === 0 && css.disabled}`}
                 onClick={(e) => changeResNum(e, "left")}
@@ -186,14 +169,12 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
 
             <label
               id="nextResume"
-              htmlFor="nextResumeButton"
               aria-label="View Next Resume"
               className={css.resumeControls}
             >
               Next
               <button
                 aria-labelledby="nextResume"
-                name="nextResumeButton"
                 aria-disabled={
                   resNum === resumes.length - 1 && !checkMoreResumes()
                 }
@@ -228,13 +209,17 @@ export default ResumePage;
 
 export const getServerSideProps: GetServerSideProps<resumeProps> = async () => {
   const resumeService = new resumeCollectionService();
-  const [resumes, total] = await resumeService.getResumes();
+
+  const [[resumes, total], options] = await Promise.all([
+    resumeService.getResumes(),
+    resumeService.getResumeFilterOptions(),
+  ]);
 
   return {
     props: {
       resumeData: resumes,
       total: total!,
-      categoryData: await resumeService.getResumeFilterOptions(),
+      categoryData: options,
     },
   };
 };
