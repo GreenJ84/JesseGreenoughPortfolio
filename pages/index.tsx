@@ -75,7 +75,7 @@ const HomePage = () => {
         keywords="Software,Developer,Engineer,Full-Stack,Portfolio,Skills,Projects,Experience,Resumes,Jesse Greenough"
       />
 
-      <main id="homePage">
+      <main id="homePage" className={css.homePage}>
         <HomeTop />
         <section
           id="skillsIntro"
