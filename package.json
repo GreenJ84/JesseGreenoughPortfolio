@@ -14,11 +14,11 @@
     "axios": "^1.2.0",
     "dotenv": "^16.0.3",
     "mongodb": "^4.12.1",
-    "next": "13.0.5",
+    "next": "^14.0.0",
     "nodemailer": "^6.9.3",
-    "react": "18.2.0",
+    "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
-    "react-dom": "18.2.0",
+    "react-dom": "^18.2.0",
     "react-github-calendar": "^3.3.4",
     "react-icons": "^4.7.1",
     "react-parallax-tilt": "^1.7.72",
@@ -36,9 +36,9 @@
     "@types/react": "18.0.25",
     "@types/react-bootstrap": "^0.32.32",
     "@types/react-dom": "18.0.9",
-    "cypress": "^12.7.0",
-    "cypress-real-events": "^1.7.6",
-    "eslint-config-next": "^12.0.4",
+    "cypress": "^13.3.3",
+    "cypress-real-events": "^1.10.3",
+    "eslint-config-next": "^14.0.0",
     "sharp": "^0.32.1"
   }
 }
