@@ -3,8 +3,18 @@
     "target": "es5",
     "module": "esnext",
     "moduleResolution": "node",
-    "lib": ["dom", "dom.iterable", "esnext", "es6"],
-    "types": ["cypress", "next", "cypress-real-events", "node"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "es6"
+    ],
+    "types": [
+      "cypress",
+      "next",
+      "cypress-real-events",
+      "node"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -23,9 +33,23 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.(ts|tsx)"],
-  "exclude": ["node_modules", "build"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.(ts|tsx)",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
 }
