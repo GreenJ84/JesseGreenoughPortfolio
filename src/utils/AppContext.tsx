@@ -1,4 +1,5 @@
 /** @format */
+'use client'
 
 import React, { useEffect, useState, createContext } from "react";
 import useLocalStorage from "use-local-storage";
