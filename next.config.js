@@ -30,13 +30,13 @@ const nextConfig = {
   images: {
     // loader: 'custom',
     // loaderFile: './utils/loader.ts',
-    domains: [
-      "github.com",
-      "raw.githubusercontent.com",
-      "imgs.search.brave.com",
-      "media.glassdoor.com",
-      "trufflesuite.com",
-      "res.cloudinary.com",
+    remotePatterns: [
+      { hostname: "github.com" },
+      { hostname: "raw.githubusercontent.com" },
+      { hostname: "imgs.search.brave.com" },
+      { hostname: "media.glassdoor.com" },
+      { hostname: "trufflesuite.com" },
+      { hostname: "res.cloudinary.com" },
     ],
     minimumCacheTTL: 60,
   },
