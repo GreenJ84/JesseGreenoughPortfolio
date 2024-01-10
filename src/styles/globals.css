@@ -6,21 +6,22 @@
 
 html {
   /* Text Sizes */
-  --text1: clamp(26px, 4vw, 42px);
-  --text2: clamp(22px, 3.2vw, 38px);
-  --text3: clamp(20px, 2.6vw, 34px);
-  --text4: clamp(16px, 2.2vw, 30px);
-  --text5: clamp(14px, 1.8vw, 26px);
-  --text6: clamp(12px, 1.4vw, 22px);
-  --text-bg-blur: blur(min(0.8vw, 4px));
+  --header1: clamp(24px, 4vw, 36px);
+  --header2: clamp(20px, 3vw, 32px);
+  --header3: clamp(18px, 2.5vw, 28px);
+  --text1: clamp(16px, 2vw, 24px);
+  --text2: clamp(14px, 1.6vw, 20px);
+  --text-detail: clamp(12px, 1.2vw, 18px);
+  --text-bg-blur: blur(min(0.6vw, 4px));
+  /* Shadows */
+  --shadow: min(6px, 1.8vw) min(6px, 1.8vw) min(15px, 3vw) min(2px, 0.5vw) black;
 }
 
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-    sans-serifserif !important;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serifserif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
@@ -92,13 +93,12 @@ a {
   overflow: hidden;
 }
 
-
 .detail {
-  color: var(--text-secondary);
+  color: var(--text-detail);
 }
 
 span.detail_plus {
   font-style: italic;
   font-weight: 900;
-  color: var(--text-secondary);
+  color: var(--text-detail);
 }
