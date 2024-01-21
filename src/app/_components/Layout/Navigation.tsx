@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { InternalNavLinks } from '../../_utils/navigationdata';
-const css = require('./Navbar/Navbar.module.css');
+const css = require('./Layout.module.css');
 
 const Navigation = ({ icon }: { icon: boolean }) => {
   const path = usePathname();

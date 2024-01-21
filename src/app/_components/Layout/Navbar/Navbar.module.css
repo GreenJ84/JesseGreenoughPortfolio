@@ -62,54 +62,6 @@
   margin: 0 auto 0 10%;
 }
 
-/* Nav Links */
-.navItem {
-  width: auto;
-  padding: min(5%, 5px) min(10%, 10px);
-  color: var(--text-primary);
-  border: 1px solid transparent;
-}
-.navItem:hover {
-  background-color: var(--background);
-  backdrop-filter: opacity(0.1);
-  border: 1px solid var(--text-primary);
-  border-radius: 10px;
-}
-.navItem::after {
-  content: '';
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -1%;
-  display: block;
-  height: 3px;
-  width: 0;
-  border-radius: 16px;
-  background: var(--text-primary);
-  z-index: -1;
-  transition: all 0.3s ease-out 0s;
-}
-.navItem:hover::after {
-  width: 100%;
-}
-
-.navLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6%;
-  padding: 2% 6%;
-  font-size: var(--text1);
-  text-shadow: 0.7px 0.7px 1px var(--nav-detail);
-  font-weight: 400;
-  transition: all 0.3s ease-out 0s;
-}
-.navIcon {
-  min-width: 15px;
-  font-size: var(--header2);
-  margin-right: 0.4rem;
-}
-
 /* Github Fork */
 .github {
   width: 100%;
