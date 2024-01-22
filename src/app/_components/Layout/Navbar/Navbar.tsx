@@ -17,7 +17,7 @@ const css = require('./Navbar.module.css');
 
 const Navbar = () => {
   return (
-    <header>
+    <header className={css.header}>
       <nav
         id='navbar'
         className={css.navbar}
