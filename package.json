@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -11,6 +11,9 @@
     "cypress:full": "cypress run --env FULL_SPECTRUM=true"
   },
   "dependencies": {
+    "@tsparticles/engine": "^3.1.0",
+    "@tsparticles/react": "^3.0.0",
+    "@vercel/speed-insights": "^1.0.7",
     "axios": "^1.2.0",
     "dotenv": "^16.0.3",
     "lodash": "^4.17.21",
