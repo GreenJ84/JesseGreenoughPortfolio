@@ -3,7 +3,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { Metadata } from 'next';
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import AppContextProvider from './_utils/AppContext';
 import Navbar from './_components/Layout/Navbar/Navbar';
@@ -11,7 +11,6 @@ const Footer = dynamic(() => import('./_components/Layout/Footer/Footer'));
 
 // Styles
 import '../styles/globals.css';
-
 export default function RootLayout({
   children,
 }: {
@@ -21,11 +20,12 @@ export default function RootLayout({
     <html lang='en-US'>
       <body>
         <AppContextProvider>
-          <SpeedInsights />
           <Navbar />
           {children}
           <Footer />
         </AppContextProvider>
+        {/* Monitoring */}
+        <SpeedInsights />
       </body>
     </html>
   );

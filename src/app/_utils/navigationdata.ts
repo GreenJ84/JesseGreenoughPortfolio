@@ -22,14 +22,14 @@ export const InternalNavLinks: NavLink[] = [
     icon: NavIcons.About,
   },
   {
-    route: '/projects',
-    text: 'Projects',
-    icon: NavIcons.Projects,
-  },
-  {
     route: '/skills',
     text: 'Skills',
     icon: NavIcons.Skills,
+  },
+  {
+    route: '/projects',
+    text: 'Projects',
+    icon: NavIcons.Projects,
   },
   {
     route: '/education',
@@ -42,8 +42,8 @@ export const InternalNavLinks: NavLink[] = [
     icon: NavIcons.Work,
   },
   {
-    route: '/resume',
-    text: 'Resume',
+    route: '/resumes',
+    text: 'Resumes',
     icon: NavIcons.Resume,
   },
 ];

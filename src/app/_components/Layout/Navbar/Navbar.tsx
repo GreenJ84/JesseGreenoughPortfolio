@@ -13,6 +13,7 @@ import ThemeSwitch from './ThemeSwitch';
 import NavbarToggle from './NavbarToggle';
 import Navigation from '../Navigation';
 import { CgGitFork } from 'react-icons/cg';
+
 const css = require('./Navbar.module.css');
 
 const Navbar = () => {

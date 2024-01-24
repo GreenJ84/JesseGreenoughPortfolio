@@ -31,11 +31,7 @@ const ContactModal = () => {
         className={css.contactForm}
         onSubmit={(e: React.SyntheticEvent) => {
           console.log('Form submitted');
-          e.preventDefault();
           handleSubmit(e.target);
-        }}
-        onClick={(e) => {
-          e.preventDefault();
         }}
       >
         <button
