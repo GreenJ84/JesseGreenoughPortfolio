@@ -8,8 +8,11 @@ import {
 } from "mongodb";
 
 import { CollectionService } from "./collectionsService";
-import DB, { DatabaseCollections } from "./database";
+import DB, { DatabaseCollectionType, DatabaseCollections } from "./database";
 
+
+const resumeCollection: DatabaseCollectionType = 'resumes';
+const connection = DB.collection<resumeType>(DatabaseCollections[resumeCollection]!);
 
 export interface resumeType extends Document {
   id?: string;
@@ -21,12 +24,13 @@ export interface resumeType extends Document {
 
 class ResumeService extends CollectionService {
   public static getResumeCategories(
-    conn: Collection<resumeType>
+    connection: Collection<resumeType>
   ): Function {
     return async (filter: Object): Promise<string> => {
       const res: {
         categories: string[];
-      }[] = await conn
+
+      }[] = await connection
         .find()
         .project<{ categories: string[] }>(filter)
         .toArray();
@@ -47,15 +51,12 @@ class ResumeService extends CollectionService {
   }
 }
 
+export const getTotal = cache(ResumeService.getTotal<resumeType>(connection));
 
-const conn = DB.collection<resumeType>(DatabaseCollections.resumes!);
+export const getPage = cache(ResumeService.getPage<resumeType>(connection));
 
-export const getTotal = cache(ResumeService.getTotal<resumeType>(conn));
+export const getResumeCategories = cache(ResumeService.getResumeCategories(connection));
 
-export const getPage = cache(ResumeService.getPage<resumeType>(conn));
+export const createItem = cache(ResumeService.createItem<resumeType>(connection));
 
-export const getResumeCategories = cache(ResumeService.getResumeCategories(conn));
-
-export const createItem = cache(ResumeService.createItem<resumeType>(conn));
-
-export const updateItem = cache(ResumeService.updateItem<resumeType>(conn));
+export const updateItem = cache(ResumeService.updateItem<resumeType>(connection));
