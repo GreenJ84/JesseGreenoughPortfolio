@@ -1,7 +1,7 @@
 /** @format */
 
 import { SortDirection, WithId } from "mongodb";
-import { DB } from "./projectsService";
+import { DB, DB_INFO } from "../Database";
 
 
 //** ======== Education Collection
@@ -16,7 +16,7 @@ export interface educationType {
   icon: string;
   website: string;
 }
-const educationDatabase = DB.collection<educationType>(process.env.DEG_COLL!);
+const educationDatabase = DB.collection<educationType>(DB_INFO.collections.EDU);
 
 export class educationCollectionService {
   static #mapEducationData(data: WithId<educationType>[]) {

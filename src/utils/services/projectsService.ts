@@ -1,13 +1,7 @@
 /** @format */
 
-import { MongoClient ,SortDirection, WithId } from "mongodb";
-import dotenv from "dotenv";
-dotenv.config();
-
-// Database connection
-const DB_CLIENT = new MongoClient(process.env.DB_CONN_STRING!);
-export const DB = DB_CLIENT.db(process.env.DB_NAME);
-
+import { DB, DB_INFO } from "../Database";
+import { SortDirection, WithId } from "mongodb";
 
 export interface projectType {
   id?: string;
@@ -22,7 +16,7 @@ export interface projectType {
   categories: string[];
   key_techs: string[];
 }
-const projectDatabase = DB.collection<projectType>(process.env.PROJ_COLL!);
+const projectDatabase = DB.collection<projectType>(DB_INFO.collections.PROJ);
 
 export class projectCollectionService {
   // Retrieve Project categories and key techs

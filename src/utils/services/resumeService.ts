@@ -1,7 +1,7 @@
 /** @format */
 
 import { WithId } from "mongodb";
-import { DB } from "./projectsService";
+import { DB, DB_INFO } from "../Database";
 
 export interface resumeType {
   id?: string;
@@ -10,7 +10,7 @@ export interface resumeType {
   view: string;
   categories: string[];
 }
-const resumeDatabase = DB.collection<resumeType>(process.env.RES_COLL!);
+const resumeDatabase = DB.collection<resumeType>(DB_INFO.collections.RES);
 
 export class resumeCollectionService {
   public async getResumeFilterOptions(): Promise<string> {

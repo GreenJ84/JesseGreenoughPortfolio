@@ -1,7 +1,7 @@
 /** @format */
 
 import { Collection, WithId } from "mongodb";
-import { DB } from "./projectsService";
+import { DB, DB_INFO } from "../Database";
 
 export interface workType {
   id?: string;
@@ -12,8 +12,8 @@ export interface workType {
   date: string; // "start - end"
   details: string[];
 }
-const workDatabase = DB.collection<workType>(process.env.WORK_COLL!);
-const secWorkDatabase = DB.collection<workType>(process.env.SWORK_COLL!);
+const workDatabase = DB.collection<workType>(DB_INFO.collections.WORK);
+const secWorkDatabase = DB.collection<workType>(DB_INFO.collections.SWORK!);
 
 export class workCollectionService {
   public async getWorkTotals(): Promise<[number, number]> {
