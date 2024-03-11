@@ -16,16 +16,16 @@
 *.map
 *.rpt
 *.lcov
-*.json
+*.test.*
 
 # Cypress
-cypress/videos/
-cypress/screenshots/
-cypress/fixtures/
-cypress/results/
-cypress/logs/
-cypress/downloads/
-cypress/e2e/examples
+src/cypress/videos/
+src/cypress/screenshots/
+src/cypress/fixtures/
+src/cypress/results/
+src/cypress/logs/
+src/cypress/downloads/
+src/cypress/e2e/examples
 
 # next.js
 /.next/
@@ -38,6 +38,7 @@ cypress/e2e/examples
 # misc
 .DS_Store
 *.pem
+**/.vscode
 
 # debug
 npm-debug.log*
@@ -47,6 +48,8 @@ yarn-error.log*
 
 # local env files
 .env*.local
+/future
+/dump
 
 # vercel
 .vercel
