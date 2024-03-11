@@ -91,8 +91,8 @@ const DiNpm = dynamic(() => import("react-icons/di").then((m) => m.DiNpm));
 
 const TechnicalSkill = dynamic(() => import("./TechnicalSkill"));
 
-const truffle = require("public/assets/pages/home/truffle-logo-dark.svg");
-const ganache = require("public/assets/pages/home/ganache-logo-dark.svg");
+const truffle = require("@/public/assets/pages/home/truffle-logo-dark.svg");
+const ganache = require("@/public/assets/pages/home/ganache-logo-dark.svg");
 const css = require("./Home.module.css");
 
 const DeveloperTools = () => {
