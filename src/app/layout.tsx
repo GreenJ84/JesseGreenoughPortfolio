@@ -2,12 +2,12 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import AppContextProvider from './_utils/AppContext';
-import Navbar from './_components/Layout/Navbar/Navbar';
-const Footer = dynamic(() => import('./_components/Layout/Footer/Footer'));
+// import { AppContextProvider } from './_utils/AppContext';
+// import Navbar from './_components/Layout/Navbar/Navbar';
+// const Footer = dynamic(() => import('./_components/Layout/Footer/Footer'));
 
 // Styles
 import '../styles/globals.css';
@@ -19,11 +19,14 @@ export default function RootLayout({
   return (
     <html lang='en-US'>
       <body>
-        <AppContextProvider>
-          <Navbar />
-          {children}
-          <Footer />
-        </AppContextProvider>
+        {/*
+          <AppContextProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </AppContextProvider>
+        */}
+
         {/* Monitoring */}
         <SpeedInsights />
       </body>
@@ -32,7 +35,7 @@ export default function RootLayout({
 }
 
 // Application Viewport
-export const viewport = {
+export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
