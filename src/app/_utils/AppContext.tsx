@@ -7,10 +7,12 @@ import useLocalStorage from "use-local-storage";
 interface AppContextProps {
   theme: string;
   setTheme: Function;
+  toggleContactModal: Function;
 }
 export const AppContext = createContext<AppContextProps>({
   theme: "dark",
   setTheme: () => {  },
+  toggleContactModal: () => {  },
 });
 
 export const AppContextProvider = ({ children }) => {
@@ -31,10 +33,13 @@ export const AppContextProvider = ({ children }) => {
     setTheme(theme === "dark" ? "light" : "dark");
   };
 
+  const toggleContactModal = (style: any) => {
+    document.getElementById("contactMe")!.classList.toggle(style);
+  }
 
   return (
     <AppContext.Provider
-      value={{ theme, setTheme: switchThemeMode }}
+      value={{ theme, setTheme: switchThemeMode, toggleContactModal }}
     >
       {children}
     </AppContext.Provider>
