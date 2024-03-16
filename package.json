@@ -11,7 +11,7 @@
     "cypress:full": "cypress run --env FULL_SPECTRUM=true"
   },
   "dependencies": {
-    "@tsparticles/engine": "^3.1.0",
+    "@tsparticles/engine": "^3.3.0",
     "@tsparticles/react": "^3.0.0",
     "@vercel/speed-insights": "^1.0.7",
     "axios": "^1.2.0",

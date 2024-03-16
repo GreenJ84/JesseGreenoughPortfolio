@@ -48,13 +48,13 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.(ts|tsx)",
+    "./src/**/*.(tsx|tsx|js|jsx)",
     ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "build",
-    "./depreciated/**",
-    "./future/**",
+    "./depreciated",
+    "./future",
   ]
 }
