@@ -1,0 +1,65 @@
+.footer {
+  position: relative;
+  width: 100%;
+  padding: 0 3%;
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 15px 5px black;
+  z-index: 10;
+  > .footerTop {
+    display: flex;
+    align-items:stretch;
+    justify-content: space-between;
+    gap: 3%;
+  }
+}
+
+/* Developer Details */
+.footerDetails {
+  flex: 1 1 70%;
+  max-width: 800px;
+  text-indent: 20px;
+  > .developerName {
+    margin: clamp(6px, 5%, 20px) 0;
+    font-size: var(--header3);
+    letter-spacing: 2px;
+    color: var(--text-detail);
+  }
+  > .developerSummary {
+    font-size: var(--text2);
+    letter-spacing: 1.6px;
+    font-weight: 600;
+    > span.extraFoot {
+      display: none;
+    }
+  }
+}
+
+.footerBottom {
+  text-align: center;
+  font-size: var(--text-detail);
+  font-weight: 200;
+  padding-bottom: 2%;
+  > .footerNav {
+    list-style: none;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4%;
+  }
+}
+
+@media all and (min-width: 768px) {
+  .footer {
+    padding: 1rem max(2rem, 6vw) 0.5rem;
+    > .footerTop {
+      gap: min(8vw, 150px);
+    }
+  }
+  .footerDetails > .developerSummary > span.extraFoot {
+    display: inline;
+  }
+  .footerBottom > .footerNav {
+    display: flex;
+  }
+}
