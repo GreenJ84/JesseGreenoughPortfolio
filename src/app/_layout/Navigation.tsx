@@ -17,7 +17,7 @@ const Navigation = ({ icon }: { icon: boolean }) => {
   const path = usePathname();
 
   return (
-    <ul>
+    <>
       {InternalNavLinks.filter((link) => link.route !== path).map(
         (link, idx) => {
           const { route, text } = link;
@@ -40,7 +40,7 @@ const Navigation = ({ icon }: { icon: boolean }) => {
           );
         }
       )}
-    </ul>
+    </>
   );
 };
 
