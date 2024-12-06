@@ -27,7 +27,7 @@
   font-family: Papyrus, 'Lucida Handwriting', cursive, serif;
   font-size: var(--header2);
   color: var(--text-primary);
-  > h1 {
+  & > h1 {
     margin: 2dvh 0 0;
   }
 }
@@ -172,7 +172,7 @@
   right: 4vw;
   background-color: transparent;
   border-color: transparent;
-  > span {
+  & > span {
     display: block;
     left: 0;
     margin-top: 5px;
@@ -190,17 +190,17 @@
   outline: 0;
 }
 .navbarToggler:not(.closed) {
-  > span:nth-child(1),
-  > span:nth-child(3) {
+  & > span:nth-child(1),
+  & > span:nth-child(3) {
     position: absolute;
     top: 0;
     left: 10%;
     transform: rotate(135deg);
   }
-  > span:nth-child(3) {
+  & > span:nth-child(3) {
     transform: rotate(-135deg);
   }
-  > span:nth-child(2) {
+  & > span:nth-child(2) {
     visibility: hidden;
   }
 }

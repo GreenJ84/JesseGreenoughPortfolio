@@ -16,7 +16,7 @@
   width: calc((20vw + 20dvh) * 2 / 3);
   height: calc((20vw + 20dvh) * 2 / 3);
   animation: 2s linear 0s infinite forwards loading;
-  > span {
+  & > span {
     position: absolute;
     display: block;
     width: calc((7vw + 7dvh) * 2 / 3);
@@ -24,18 +24,18 @@
     border: 10px solid var(--text-secondary);
     border-radius: 50%;
   }
-  >span:first-of-type{
+  & >span:first-of-type{
     top: 5%;
     left: 50%;
     transform: translateX(-50%);
     box-shadow: -7px 0 10px 2px black, inset -7px 0 10px 2px black;
   }
-  > span:nth-of-type(2){
+  & > span:nth-of-type(2){
     bottom: 5%;
     left: 5%;
     box-shadow: 6px 6px 10px 2px black, inset 6px 6px 10px 2px black;
   }
-  > span:last-of-type{
+  & > span:last-of-type{
     bottom: 5%;
     right: 5%;
     box-shadow: 6px -6px 10px 2px black, inset 6px -6px 10px 2px black;
@@ -121,7 +121,7 @@
   background-color: rgba(0, 0, 0, 0.4);
   transform-style: preserve-3d;
   z-index: 25;
-  > div {
+  & > div {
     position: absolute;
     width: 100%;
     height: 100%;
