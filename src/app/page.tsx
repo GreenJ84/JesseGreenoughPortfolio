@@ -1,5 +1,6 @@
 /** @format */
 
+'use client';
 import dynamic from "next/dynamic";
 import React, { useContext, useEffect } from "react";
 
@@ -101,3 +102,6 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+
+
