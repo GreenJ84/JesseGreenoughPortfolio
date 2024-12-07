@@ -4,27 +4,22 @@ import React from "react";
 import dynamic from "next/dynamic";
 
 import { ImPointRight } from "react-icons/im";
+import { DeveloperPortrait } from "@/components/Layout/LayoutExtras";
 
-import { MetaHead } from "../components/Layout/LayoutExtras";
 const AboutDetails = dynamic(
-  () => import("../components/AboutPage/AboutDetails")
+  () => import("./_components/AboutDetails")
 );
 
-const css = require("../components/AboutPage/About.module.css");
+const css = require("./_components/About.module.css");
 
 const AboutPage = () => {
   return (
     <>
-      <MetaHead
+      {/* <MetaHead
         title="All About the Jesse Greenough...Developer, Father, and Husband"
         description="Learn a little about the life of the Jesse Greenough, Full-Stack Engineer, and the experience he has partaken in."
         keywords="Jesse Greenough, About, Biography, Developer, Engineer"
-      />
-
-      <main
-        id="aboutMain"
-        style={{ position: "relative", padding: "10vw 4vw 0" }}
-      >
+      /> */}
         <section
           id="aboutIntro"
           className={css.aboutOpener}
@@ -32,6 +27,7 @@ const AboutPage = () => {
           <h1>
             Break the <span className="detail">Ice</span>
           </h1>
+          <DeveloperPortrait />
           <p style={{ textAlign: "left" }}>
             Hi everyone, I am<span className="detail"> Jesse Greenough </span>
             currently residing in
@@ -76,7 +72,6 @@ const AboutPage = () => {
           </ul>
         </section>
         <AboutDetails />
-      </main>
     </>
   );
 };
