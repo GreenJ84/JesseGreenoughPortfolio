@@ -1,5 +1,5 @@
 /** @format */
-
+"use client"
 import dynamic from "next/dynamic";
 import { Theme } from "react-github-calendar";
 import React, { useContext, useEffect, useState } from "react";
@@ -49,7 +49,6 @@ const GithubCard = () => {
 
   return (
     <section
-      style={{ margin: "10vh 0 40vh" }}
       id="githubCard"
     >
       <h1 className={css.skillSectionTitle}>

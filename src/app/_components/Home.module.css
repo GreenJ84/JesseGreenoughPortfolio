@@ -1,0 +1,117 @@
+/** @format */
+
+/* Portfolio Landing */
+.homeIntro {
+  position: relative;
+  margin: auto;
+  width: min(100%, 1400px);
+  text-align: center;
+  color: var(--text-primary);
+  text-shadow: var(--text-shadow);
+}
+
+.homeHeader {
+  margin-bottom: clamp(50px, 8vw, 100px);
+  font-size: var(--text1);
+  font-weight: 900;
+}
+.wave {
+  display: inline-block;
+  margin-left: 2vw;
+  animation: 1.8s ease-in-out 1s infinite wave-animation;
+  transform-origin: 70% 70%;
+}
+@keyframes wave-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  } /* The following five values can be played with to make the waving more or less extreme */
+  20% {
+    transform: rotate(-14deg);
+  }
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+  60% {
+    transform: rotate(-4deg);
+  } /* Reset for the last half to pause */
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.typeText {
+  margin-bottom: min(2vw, 30px);
+  text-align: center;
+  font-size: var(--text3);
+  font-weight: 700;
+}
+
+.typeText > div {
+  display: inline-block;
+  margin: min(5vw, 60px) 0;
+  letter-spacing: 2px;
+  text-shadow: var(--text-shadow);
+}
+
+/* Developers Introduction */
+.developerIntro {
+  position: relative;
+  margin: 0 auto;
+  width: min(90%, 1450px);
+  padding-top: 100px;
+  padding-bottom: 20px;
+  text-align: center;
+  color: var(--text-primary);
+  font-weight: 600;
+  background-color: transparent;
+  backdrop-filter: var(--text-bg-blur);
+}
+.developerIntro > h2 {
+  font-size: var(--text2);
+  letter-spacing: 2.5px;
+  font-weight: 800;
+}
+.myAvtar {
+  float: right;
+  margin: 20px 20px 10px;
+}
+.myAvatarImage {
+  height: min(20vw, 300px);
+  width: min(15vw, 300px);
+}
+.developerIntro > p {
+  padding: 2vw 2vw;
+  font-size: var(--text4);
+  text-align: left;
+}
+
+.developerSkills {
+  position: relative;
+}
+.developerSkills > h2 {
+  margin: 30vh 0 0;
+  text-align: center;
+  letter-spacing: 2.5px;
+  font-size: var(--text2);
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+@media only screen and (max-width: 900px) {
+  .developerIntro {
+    padding-top: 20px;
+  }
+  .developerSkills > h2 {
+    margin: 22vh 0 0;
+    padding-bottom: 0;
+  }
+}
