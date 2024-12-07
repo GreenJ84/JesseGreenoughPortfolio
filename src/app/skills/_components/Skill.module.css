@@ -1,0 +1,123 @@
+.skillSectionTitle {
+  position: relative;
+  margin: 0.2rem 0 1.4em;
+  text-align: center;
+  color: var(--text-primary);
+  font-size: var(--text2);
+  font-weight: 800;
+}
+
+.icon {
+  width: min(20vw, 90px);
+  aspect-ratio: 1;
+}
+
+div.skillsListContainer ~ h4,
+h3.skillSectionTitle ~ h4 {
+  position: relative;
+  margin: 0 0 0.8em;
+  text-align: center;
+  color: var(--text-detail);
+  font-size: var(--text4);
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.skillsListContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: min(80%, 1300px);
+  padding: 2% 4%;
+  margin: 60px auto 100px;
+}
+
+.skillContainer {
+  list-style: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0 2vw 3vh;
+  padding: clamp(8px, 2vw, 18px) 0.2em max(0.2vw, 4px);
+  width: clamp(100px, 18%, 220px);
+  aspect-ratio: 6/9;
+  color: var(--text-primary);
+  background-color: var(--layout-bg);
+  border: 2.7px solid black;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: all 0.4s ease 0s;
+  /* For Meter's Star inlay */
+  font-size: 7vw;
+}
+
+.skillContainer:hover {
+  color: var(--text-secondary);
+  background-color: var(--background);
+  border: 2.2px solid black;
+  box-shadow: var(--shadow-hover);
+  transform: scale(1.35);
+  z-index: 10;
+}
+
+.skillContainer span {
+  margin: clamp(4px, 2vw, 10px) 0 1vw;
+  text-align: center;
+  font-size: var(--text5);
+  height: clamp(10px, 2vw, 60px);
+}
+
+.skillContainer meter {
+  position: absolute;
+  bottom: 0;
+  justify-content: baseline;
+  width: 3.05em;
+  height: clamp(26.5px, 1.34em, 60px);
+  font-size: clamp(18px, 0.45em, 46px);
+}
+
+@media only screen and (max-width: 600px) {
+  .skillContainer meter {
+    bottom: 3%;
+  }
+}
+
+.skillContainer meter::-webkit-meter-bar {
+  -webkit-appearance: none;
+  background: rgba(80, 80, 80)
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text color="red" font-size="100" y=".8em" opacity=".3" z-index="2000">★</text></svg>')
+    0 / auto 100%;
+}
+
+.skillContainer meter::-webkit-meter-optimum-value {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgb(0,255,42)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+    0 / auto 100%;
+}
+
+.skillContainer meter::-webkit-meter-suboptimum-value {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgb(230,230,0)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+    0 / auto 100%;
+}
+
+.skillContainer meter::-webkit-meter-even-less-good-value {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgba(250, 0, 0)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+    0 / auto 100%;
+}
+
+.skillContainer meter::-moz-meter-optimum::-moz-meter-bar {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgb(0,255,42)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+    0 / auto 100%;
+}
+
+.skillContainer meter::-moz-meter-sub-optimum::-moz-meter-bar {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgb(230,230,0)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+    0 / auto 100%;
+}
+
+.skillContainer meter::-moz-meter-sub-sub-optimum::-moz-meter-bar {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgba(250, 0, 0)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
+    0 / auto 100%;
+}
