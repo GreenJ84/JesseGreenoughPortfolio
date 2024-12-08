@@ -30,6 +30,12 @@ const nextConfig = {
   images: {
     // loader: 'custom',
     // loaderFile: './utils/loader.ts',
+    localPatterns: [
+      {
+        pathname: '/public/**',
+        search: '',
+      },
+    ],
     remotePatterns: [
       { hostname: "github.com" },
       { hostname: "raw.githubusercontent.com" },
