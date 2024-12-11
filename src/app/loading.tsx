@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-const css = require('./_components/Layout/Shared/layout.module.css');
+const css = require('./_layout/Layout.module.css');
 
 export default function Loading() {
   return (

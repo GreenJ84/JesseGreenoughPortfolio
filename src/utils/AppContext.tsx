@@ -22,7 +22,7 @@ export const AppContext = createContext<AppContextProps>({
   mobile: false,
 });
 
-export const AppContextProvider = ({ children }) => {
+export const AppContextProvider = ({ children }: { children: JSX.Element[]}) => {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
   const [windowWidth, setWindowWidth] = useState(WindowWidth.LARGE);
   const [mobile, setMobile] = useState(false);
