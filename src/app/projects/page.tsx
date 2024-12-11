@@ -1,32 +1,31 @@
 /** @format */
-
+"use client";
 import axios from "axios";
 import dynamic from "next/dynamic";
-import { GetServerSideProps } from "next";
 import React, { useState, useEffect } from "react";
 
-import { MetaHead, DataFilter } from "../components/Layout/LayoutExtras";
-import ProjectCard from "../components/ProjectsPage/ProjectCard";
+import { DataFilter } from "../../components/Layout/LayoutExtras";
+import ProjectCard from "./ProjectCard";
 const AddItemButton = dynamic(() =>
-  import("../components/Layout/LayoutExtras").then((mod) => mod.AddItemButton)
+  import("../../components/Layout/LayoutExtras").then((mod) => mod.AddItemButton)
 );
 
 import {
+  getProjectCount,
+  getProjectFilters,
+  getTopProjects,
   projectType,
-  projectCollectionService,
-} from "../utils/services/projectsService";
+} from "./projectService";
 
-interface Projects {
-  projectData: projectType[];
-  total: number;
-  categories: string;
-  techs: string;
-}
+const css = require("./Project.module.css");
+
 type currentDisplayType = "all" | "top" | "category" | "tech";
-
-const css = require("../components/ProjectsPage/Project.module.css");
-
-const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
+const ProjectPage = async () => {
+  const [projectData, total, [categories, techs]] = await Promise.all([
+    getTopProjects(),
+    getProjectCount(),
+    getProjectFilters(),
+  ]);
   // Curr Projects list state
   const [projects, setProjects] = useState<projectType[]>(projectData);
 
@@ -141,12 +140,6 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
 
   return (
     <>
-      <MetaHead
-        title="Software Development projects created by Jesse Greenough"
-        description="View and sort through the software engineering projects completed by Jesse Greenough"
-        keywords="Software,Developer,Engineer,Projects,Deployments,Repositories"
-      />
-
       <main
         id="pageContainer"
         className={css.projectsBody}
@@ -198,22 +191,6 @@ const ProjectPage = ({ projectData, total, categories, techs }: Projects) => {
       </main>
     </>
   );
-};
-
-export const getServerSideProps: GetServerSideProps<Projects> = async () => {
-  const [[projectData, total], [categories, techs]] = await Promise.all([
-    projectCollectionService.getTopProjects(),
-    projectCollectionService.getProjectFilterOptions(),
-  ]);
-
-  return {
-    props: {
-      projectData,
-      total,
-      categories,
-      techs,
-    },
-  };
 };
 
 export default ProjectPage;
