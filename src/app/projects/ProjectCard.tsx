@@ -12,7 +12,7 @@ const AiFillProject = dynamic(() =>
 const MdClose = dynamic(() => import("react-icons/md").then((m) => m.MdClose));
 
 import Image from "next/image";
-import { FlipCard } from "../Layout/LayoutExtras";
+import { FlipCard } from "../../components/Layout/LayoutExtras";
 
 import { projectType } from "../../utils/services/projectsService";
 
@@ -31,10 +31,10 @@ const ProjectCard = ({ project }: { project: projectType }) => {
             className={css.projectDisplay}
           >
             <Image
+              priority
               src={project.image_path}
               alt={project.name}
               className={css.displayImage}
-              loading="lazy"
               height="150"
               width="300"
             />
