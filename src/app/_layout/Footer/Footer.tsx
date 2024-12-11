@@ -6,7 +6,7 @@ import React from 'react';
 import Navigation from '../Navigation';
 import { ContactButton } from '../ContactModal';
 
-import { SocialNavLinks } from '../../_shared/navigationdata';
+import { SocialLinks } from '../../_shared/_icons/social';
 
 const css = require('./Footer.module.css');
 
@@ -37,7 +37,7 @@ const Footer = () => {
             aria-label='Personal Social Links'
           >
             <ul aria-label='Developers social links'>
-              {SocialNavLinks.map((link, idx) => {
+              {SocialLinks.map((link, idx) => {
                 const { text, route } = link;
                 return (
                   <li
