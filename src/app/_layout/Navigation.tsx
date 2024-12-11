@@ -10,7 +10,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { InternalNavLinks } from '../_shared/navigationdata';
+import { InternalLinks } from '../_shared/_icons/navigation';
 const css = require('./Layout.module.css');
 
 const Navigation = ({ icon }: { icon: boolean }) => {
@@ -18,7 +18,7 @@ const Navigation = ({ icon }: { icon: boolean }) => {
 
   return (
     <>
-      {InternalNavLinks.filter((link) => link.route !== path).map(
+      {InternalLinks.filter((link) => link.route !== path).map(
         (link, idx) => {
           const { route, text } = link;
 
