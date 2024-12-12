@@ -22,7 +22,7 @@ export async function GET (req: NextRequest){
       break;
     case "category":
       if (!filter) {
-        return NextResponse.json("Requesting projects of a certain category requires the tech filter", {status: 404});
+        return NextResponse.json("Requesting projects of a certain category requires the category filter", {status: 404});
       }
       results = await getProjectsByCategory(filter!, offset);
       break;

@@ -46,18 +46,15 @@ export const getCertificationCount = async () => {
   return await certificationDatabase.countDocuments();
 }
 
-export const getUnsortedCertification = async (offset: number = 0) => {
+export const getUnsortedCertifications = async (offset: number = 0) => {
   return await getCertificationItems(
     false,
     offset
   );
 }
 
-export const getTopCertification = async (): Promise<[certificationType[], number]> => {
-  return [
-    await getCertificationItems(),
-    await certificationDatabase.countDocuments(),
-  ];
+export const getTopCertifications = async (): Promise<certificationType[]> => {
+  return await getCertificationItems();
 }
 
 
@@ -98,7 +95,7 @@ export const getCertificationFilterOptions = async (): Promise<[string, string]>
 }
 
 
-export const getCertificationByTech = async (tech: string, offset: number = 0) => {
+export const getCertificationsByTech = async (tech: string, offset: number = 0) => {
   return await getCertificationItems(
     true,
     offset,
@@ -108,7 +105,7 @@ export const getCertificationByTech = async (tech: string, offset: number = 0) =
   );
 }
 
-export const getCertificationByIssuer = async (issuer: string, offset: number = 0) => {
+export const getCertificationsByIssuer = async (issuer: string, offset: number = 0) => {
   return await getCertificationItems(
     true,
     offset,

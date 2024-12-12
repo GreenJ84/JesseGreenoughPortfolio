@@ -1,4 +1,5 @@
 /** @format */
+"use client";
 
 import dynamic from "next/dynamic";
 import React, { useContext } from "react";
@@ -8,10 +9,10 @@ const RiExternalLinkFill = dynamic(() =>
 );
 
 import Image from "next/image";
-import { FlipCard } from "../../components/Layout/LayoutExtras";
+import { FlipCard } from "../../../components/Layout/LayoutExtras";
 
-import { certificationType } from "../../utils/services/educationService";
-import { AppContext } from "../../utils/AppContext";
+import { certificationType } from "../certificationService";
+import { AppContext } from "../../AppContext";
 
 const css = require("./Certifications.module.css");
 
