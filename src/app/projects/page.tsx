@@ -27,7 +27,7 @@ const ProjectPage = async () => {
         className={css.projectsBody}
       >
         <PageClient
-          JSONData={projectData}
+          JSONData={projectData.map(project => JSON.stringify(project))}
           total={total}
           filters={filters}
         />

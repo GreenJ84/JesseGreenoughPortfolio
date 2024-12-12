@@ -21,7 +21,7 @@ const getProjects = async (
   sort: boolean = true,
   offset: number = 0,
   filterOptions?: object
-): Promise<string[]> => {
+): Promise<projectType[]> => {
   let sortOption: { [key: string]: SortDirection } = {
     name: 1,
     _id: -1,
@@ -40,7 +40,7 @@ const getProjects = async (
     .limit(10)
     .toArray())
     .map((res: WithId<projectType>) => {
-      return JSON.stringify({id: res._id.toString(), ...res});
+      return {id: res._id.toString(), ...res};
     })
 }
 
@@ -53,7 +53,7 @@ export const getProjectCount = unstable_cache(
 )
 
 export const getTopProjects = unstable_cache(
-  async (): Promise<string[]> => {
+  async (): Promise<projectType[]> => {
     return await getProjects();
   },
   ['topProjects'],
@@ -61,7 +61,7 @@ export const getTopProjects = unstable_cache(
 )
 
 export const getUnsortedProjects = unstable_cache(
-  async (offset: number): Promise<string[]>  => {
+  async (offset: number): Promise<projectType[]>  => {
     return await getProjects(false, offset);
   },
   ['unsortedProjects'],
@@ -69,7 +69,7 @@ export const getUnsortedProjects = unstable_cache(
 )
 
 export const getProjectFilters = unstable_cache(
-  async (): Promise<[string, string]>  => {
+  async (): Promise<[[string, number][], [string, number][]]>  => {
     const res: {
       categories: string[];
       key_techs: string[];
@@ -102,8 +102,8 @@ export const getProjectFilters = unstable_cache(
     });
 
     return [
-      JSON.stringify(Array.from(categories.entries())),
-      JSON.stringify(Array.from(techs.entries())),
+      Array.from(categories.entries()),
+      Array.from(techs.entries()),
     ];
   },
   ['totalProjects'],
@@ -111,14 +111,14 @@ export const getProjectFilters = unstable_cache(
 )
 
 export const getProjectsByCategory = unstable_cache(
-  async (category: string, offset: number = 0): Promise<string[]> => {
+  async (category: string, offset: number = 0): Promise<projectType[]> => {
     return await getProjects(true, offset, {
       categories: category,
     });
   });
 
   export const getProjectsByTech = unstable_cache(
-    async (tech: string, offset: number = 0): Promise<string[]> => {
+    async (tech: string, offset: number = 0): Promise<projectType[]> => {
       return getProjects(true, offset, {
         key_techs: tech,
       })

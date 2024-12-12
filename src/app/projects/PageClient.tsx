@@ -17,7 +17,7 @@ const css = require("./Project.module.css");
 const PageClient = ({JSONData, total, filters}: {
   JSONData: string[],
   total: number,
-  filters: [string, string]
+  filters: [[string, number][], [string, number][]]
 }) => {
   const projectData: projectType[] = useMemo(() => JSONData.map(project => JSON.parse(project) as projectType), [JSONData]);
 
@@ -26,11 +26,10 @@ const PageClient = ({JSONData, total, filters}: {
   const [category, setCategory] = useState("top");
   const [tech, setTech] = useState("top");
 
-  // Filter element transition handling function
   function updateFilterOption(filter: HTMLSelectElement, idx: number) {
     filter.getElementsByTagName("option")[idx]!.selected = true;
   }
-  // Filter projects on category change
+
   useEffect(() => {
     const techFilter = document.getElementById(
       "secondSelector"
@@ -86,8 +85,8 @@ const PageClient = ({JSONData, total, filters}: {
   }, [tech, projectData]);
 
   const [categories, techs] = filters;
-  const categoryMap: Map<string, number> = new Map(JSON.parse(categories));
-  const techMap: Map<string, number> = new Map(JSON.parse(techs));
+  const categoryMap: Map<string, number> = new Map(categories);
+  const techMap: Map<string, number> = new Map(techs);
   function checkMoreProjects(): boolean {
     switch (currentType) {
       case "all":
