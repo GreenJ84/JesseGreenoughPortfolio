@@ -12,21 +12,19 @@ const Certifications = dynamic(
   { loading: () => <Preloader /> }
 );
 
-import {
-  certificationCollectionService,
-  certificationType,
-  educationCollectionService,
-  educationType,
-} from "../../utils/services/educationService";
+import * as educationService from "./educationService";
+import * as certificationService from "./certificationService";
 
-const css = require("../../components/EducationPage/EduBody.module.css");
+const css = require("./_components/EduBody.module.css");
 
 const Page = async () => {
-  const [[eduItems, eduTotal], [certItems, certTotal], [issuerData, techData]] =
+  const [eduItems, eduTotal, certItems, certTotal, [issuerData, techData]] =
   await Promise.all([
-    educationCollectionService.getEducationData(),
-    certificationCollectionService.getTopCertification(),
-    certificationCollectionService.getCertificationFilterOptions(),
+    educationService.getEducationData(),
+    educationService.getEducationCount(),
+    certificationService.getTopCertifications(),
+    certificationService.getCertificationCount(),
+    certificationService.getCertificationFilterOptions(),
   ]);
 
   return (
@@ -42,7 +40,7 @@ const Page = async () => {
         <h1 id="educationTitle">
           Educational Experience, Qualifications and Certifications
         </h1>
-        {/* <Degree
+        <Degree
           educationData={{
             eduItems,
             total: eduTotal!,
@@ -55,7 +53,7 @@ const Page = async () => {
             issuerData,
             techData,
           }}
-        />*/}
+        />
       </main>
     </>
   );
