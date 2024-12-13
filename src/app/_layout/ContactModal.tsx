@@ -42,7 +42,7 @@ const ContactModal = () => {
         </button>
         <h1>Contact Me</h1>
         <p>
-          Please No solicitations, advertizing, prodect endorsments, sellling,
+          Please No solicitations, advertizing, product endorsements, selling,
           or ill minded offers!
         </p>
         <label htmlFor='senderName'>Name</label>

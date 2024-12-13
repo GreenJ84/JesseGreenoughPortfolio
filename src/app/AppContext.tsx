@@ -54,7 +54,7 @@ export const AppContextProvider = ({ children }: { children: JSX.Element | JSX.E
     <AppContext.Provider
       value={{ theme, setTheme: switchThemeMode, mobile, toggleContactModal }}
     >
-      {contactModal && <ContactModal toggleContactModal={toggleContactModal} />}
+      {contactModal && <ContactModal />}
       {children}
     </AppContext.Provider>
   );
