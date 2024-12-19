@@ -17,8 +17,8 @@ export const DB_INFO = {
   }
 }
 
-const DB_CLIENT = new MongoClient( production ? 
-    process.env.DB_CONN_STRING! : 
+const DB_CLIENT = new MongoClient( production ?
+    process.env.DB_CONN_STRING! :
     "mongodb://localhost:27017"
   );
 
