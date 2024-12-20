@@ -8,7 +8,7 @@ import Image from "next/image";
 import EducationImg from "./EduImage";
 import DegreeCard from "./DegreeCard";
 const AddItemButton = dynamic(() =>
-import("../../../components/Layout/LayoutExtras").then((mod) => mod.AddItemButton)
+import("../../_layout/LayoutExtras").then((mod) => mod.AddItemButton)
 );
 
 import { educationType } from "../educationService";

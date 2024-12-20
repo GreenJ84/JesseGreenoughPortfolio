@@ -6,7 +6,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 const GitHubCalendar = dynamic(() => import("react-github-calendar"));
 
-import { AppContext } from "../../utils/AppContext";
+import { AppContext } from "../_utils/AppContext";
 
 const css = require("./Home.module.css");
 

@@ -9,10 +9,9 @@ const RiExternalLinkFill = dynamic(() =>
 );
 
 import Image from "next/image";
-import { FlipCard } from "../../../components/Layout/LayoutExtras";
+import { FlipCard } from "../../_layout/LayoutExtras";
 
 import { certificationType } from "../certificationService";
-import { AppContext } from "../../AppContext";
 
 const css = require("./Certifications.module.css");
 
@@ -21,7 +20,8 @@ interface certificateCardProps {
 }
 
 const CertificationCard = (props: certificateCardProps) => {
-  const { mobile } = useContext(AppContext);
+  // TODO: Replace -> const { mobile } = useContext(AppContext);
+  const mobile = false;
 
   return (
     <li className={css.certCard}>

@@ -5,10 +5,10 @@ import axios from "axios";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 
-import { DataFilter } from "../../../components/Layout/LayoutExtras";
+import { DataFilter } from "../../_layout/LayoutExtras";
 import CertificationCard from "./CertificationCard";
 const AddItemButton = dynamic(() =>
-import("../../../components/Layout/LayoutExtras").then((mod) => mod.AddItemButton)
+import("../../_layout/LayoutExtras").then((mod) => mod.AddItemButton)
 );
 
 import { certificationType } from "../certificationService";

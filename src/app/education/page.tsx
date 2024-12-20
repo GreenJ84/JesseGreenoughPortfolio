@@ -3,7 +3,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
-import { Preloader } from "../../components/Layout/LayoutExtras";
+import { Preloader } from "../_layout/LayoutExtras";
 const Degree = dynamic(() => import("./_components/Degree"), {
   loading: () => <Preloader />,
 });

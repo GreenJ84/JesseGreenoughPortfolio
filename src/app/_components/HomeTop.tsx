@@ -4,7 +4,7 @@ import React from "react";
 
 import Image from "next/image";
 import Tilt from "react-parallax-tilt";
-import { DeveloperPortrait, TypeWrite } from "../../components/Layout/LayoutExtras";
+import { DeveloperPortrait, TypeWrite } from "../_layout/LayoutExtras";
 
 const myImg = require("@/public/assets/pages/home/user_avatar.svg");
 

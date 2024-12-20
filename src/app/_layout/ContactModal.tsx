@@ -4,7 +4,7 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 
-import { AppContext } from '../AppContext';
+import { AppContext } from '../_utils/AppContext';
 const css = require('./Layout.module.css');
 
 const ContactModal = () => {
@@ -84,10 +84,14 @@ export default ContactModal;
 export const ContactButton = () => {
   const { toggleContactModal } = useContext(AppContext);
 
+
   return (
     <button
       className={`contactButton ${css.contactButton}`}
-      onClick={() => toggleContactModal()}
+      onClick={() => {
+        console.log("click");
+        toggleContactModal()
+      }}
     >
       Contact
     </button>

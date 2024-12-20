@@ -3,13 +3,13 @@ import axios from 'axios';
 import dynamic from 'next/dynamic';
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { DataFilter } from "../../components/Layout/LayoutExtras";
+import { DataFilter } from "../_layout/LayoutExtras";
 import ProjectCard from "./ProjectCard";
 const AddItemButton = dynamic(() =>
-  import("../../components/Layout/LayoutExtras").then((mod) => mod.AddItemButton)
+  import("../_layout/LayoutExtras").then((mod) => mod.AddItemButton)
 );
 
-import { projectType } from '../../utils/services/projectsService';
+import { projectType } from './projectService';
 type currentDisplayType = "all" | "top" | "category" | "tech";
 
 const css = require("./Project.module.css");

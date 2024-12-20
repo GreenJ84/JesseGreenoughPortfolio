@@ -1,5 +1,5 @@
 import { unstable_cache } from "next/cache";
-import { DB, DB_INFO } from "../../utils/Database";
+import { DB, DB_INFO } from "../_utils/Database";
 import { SortDirection, WithId } from "mongodb";
 
 export interface projectType {
@@ -39,8 +39,9 @@ const getProjects = async (
     .skip(offset)
     .limit(10)
     .toArray())
-    .map((res: WithId<projectType>) => {
-      return {id: res._id.toString(), ...res};
+    .map((project: WithId<projectType>) => {
+      const { _id, ...rest } = project;
+    return { id: _id.toString(),...rest };
     })
 }
 

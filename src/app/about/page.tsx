@@ -4,7 +4,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 
 import { ImPointRight } from "react-icons/im";
-import { DeveloperPortrait } from "@/components/Layout/LayoutExtras";
+import { DeveloperPortrait } from "../_layout/LayoutExtras";
 
 const AboutDetails = dynamic(
   () => import("./_components/AboutDetails")
