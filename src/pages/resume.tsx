@@ -1,5 +1,5 @@
 /** @format */
-
+// TODO: Migrate to app directory
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import React, { useState, useContext } from "react";
@@ -10,21 +10,18 @@ const BsPlusCircleFill = dynamic(() =>
 );
 
 import Image from "next/image";
-import { DataFilter, MetaHead } from "../components/Layout/LayoutExtras";
-import ButtonGroup from "../components/ResumePage/ButtonGroup";
+import { DataFilter, MetaHead } from "../app/_layout/LayoutExtras";
+import ButtonGroup from "../app/resumes/_components/ButtonGroup";
 
-import { AppContext } from "../utils/AppContext";
+import { AppContext } from "../app/AppContext";
 
-import {
-  resumeCollectionService,
-  resumeType,
-} from "../utils/services/resumeService";
+import * as resumeService from "../app/resumes/resumeService";
 import dynamic from "next/dynamic";
 
 const css = require("../components/ResumePage/Resume.module.css");
 
 interface resumeProps {
-  resumeData: resumeType[];
+  resumeData: resumeService.resumeType[];
   total: number;
   categoryData: string;
 }
@@ -208,10 +205,10 @@ const ResumePage = ({ resumeData, total, categoryData }: resumeProps) => {
 export default ResumePage;
 
 export const getServerSideProps: GetServerSideProps<resumeProps> = async () => {
-  const resumeService = new resumeCollectionService();
 
-  const [[resumeData, total], categoryData] = await Promise.all([
+  const [resumeData, total, categoryData] = await Promise.all([
     resumeService.getResumes(),
+    resumeService.getResumeCount(),
     resumeService.getResumeFilterOptions(),
   ]);
 
