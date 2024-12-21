@@ -1,11 +1,12 @@
 /** @format */
 
+// TODO: Update styling logic gor route
 import React from "react";
 import dynamic from "next/dynamic";
 
 import { ImPointRight } from "react-icons/im";
-import { DeveloperPortrait } from "../_layout/LayoutExtras";
 
+import { DeveloperPortrait } from "../_layout/LayoutExtras";
 const AboutDetails = dynamic(
   () => import("./_components/AboutDetails")
 );
@@ -14,12 +15,7 @@ const css = require("./_components/About.module.css");
 
 const AboutPage = () => {
   return (
-    <>
-      {/* <MetaHead
-        title="All About the Jesse Greenough...Developer, Father, and Husband"
-        description="Learn a little about the life of the Jesse Greenough, Full-Stack Engineer, and the experience he has partaken in."
-        keywords="Jesse Greenough, About, Biography, Developer, Engineer"
-      /> */}
+    <main className={css.aboutMain}>
         <section
           id="aboutIntro"
           className={css.aboutOpener}
@@ -72,8 +68,37 @@ const AboutPage = () => {
           </ul>
         </section>
         <AboutDetails />
-    </>
+    </main>
   );
 };
 
 export default AboutPage;
+
+
+import { Metadata } from "next/types";
+import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from "../sharedMetadata";
+
+const ABOUT_URL = APP_URL + '/about';
+const TITLE="About: Jesse Greenough - Developer, Father, and Husband";
+const DESCRIPTION="Gain insight on the life of the Jesse Greenough, Full-Stack Engineer, and the experience he holds.";
+const KEYWORDS="Jesse Greenough, About, Biography, Developer, Engineer";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(ABOUT_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  keywords: KEYWORDS,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: ABOUT_URL,
+    siteName: TITLE,
+    ...OPEN_GRAPH
+  },
+  twitter: {
+    site: ABOUT_URL,
+    title: TITLE,
+    description: DESCRIPTION,
+    ...TWITTER_SHARE
+  },
+};
