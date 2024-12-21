@@ -1,5 +1,6 @@
 /** @format */
 
+// TODO: Implement streaming and preloading where needed in the application
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { Metadata, Viewport } from 'next';
@@ -43,29 +44,9 @@ export const viewport: Viewport = {
   colorScheme: 'dark light',
 };
 
-// Application Metadata
-const META_TITLE = "Jesse Greenough's Development Portfolio";
-const META_DESCRIPTION =
-  'View the Technical Development Skills possessed by Full Stack Engineer Jesse Greenough';
-const META_KEYWORDS = [
-  'Jesse Greenough',
-  'Software',
-  'Developer',
-  'Engineer',
-  'Full-Stack',
-  'Portfolio',
-  'Next.js',
-  'React',
-  'TypeScript',
-];
-const META_URL = 'https://jesse-greenough-portfolio.vercel.app/';
-const META_PORTRAIT =
-  'https://res.cloudinary.com/portfolio-g84/image/upload/v1690310921/personal/personal_portrait.jpg';
-const META_ICON =
-  'https://res.cloudinary.com/portfolio-g84/image/upload/v1690310979/personal/TrippyFrens1.jpg';
 
 export const metadata: Metadata = {
-  applicationName: 'Developer Portfolio',
+  applicationName: 'Jesse Greenough Portfolio',
   generator: 'Next.js',
   referrer: 'origin-when-cross-origin',
   authors: [
@@ -78,43 +59,9 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(META_URL),
-  alternates: {
-    canonical: '/',
-  },
-  title: META_TITLE,
-  description: META_DESCRIPTION,
-  keywords: META_KEYWORDS,
   icons: {
-    icon: META_ICON,
+    icon: 'https://res.cloudinary.com/portfolio-g84/image/upload/v1690310979/personal/TrippyFrens1.jpg',
   },
-  openGraph: {
-    title: META_TITLE,
-    description: META_DESCRIPTION,
-    url: META_URL,
-    siteName: META_TITLE,
-    images: [
-      {
-        url: META_PORTRAIT,
-        width: 800,
-        height: 600,
-      },
-    ],
-    locale: 'en_US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    site: META_URL,
-    title: META_TITLE,
-    description: META_DESCRIPTION,
-    creator: '@GoodGreens84',
-    images: {
-      url: META_PORTRAIT,
-      alt: 'Jesse Greenough',
-    },
-  },
-
   robots: {
     index: true,
     follow: true,
@@ -126,12 +73,6 @@ export const metadata: Metadata = {
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
-    },
-  },
-  appLinks: {
-    web: {
-      url: META_URL,
-      should_fallback: true,
     },
   },
 };
