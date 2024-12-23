@@ -18,14 +18,13 @@ const Navigation = ({ icon }: { icon: boolean }) => {
 
   return (
     <>
-      {InternalLinks.filter((link) => link.route !== path).map(
+      {InternalLinks.map(
         (link, idx) => {
           const { route, text } = link;
-
           return (
             <li
               key={idx}
-              className={css.navItem}
+              className={`${css.navItem} ${path === route ? css.activeItem : ""}`}
             >
               <Link
                 href={route}
