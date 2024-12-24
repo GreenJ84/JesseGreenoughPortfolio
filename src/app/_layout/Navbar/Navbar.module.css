@@ -1,75 +1,40 @@
 /** @format */
-.header,
-.navbar {
+.header {
   width: 100%;
   height: 8dvh;
 }
 
 /* Nav Container */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+.header {
   position: fixed;
   top: 0;
   z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.8rem 2rem 0;
   background-color: var(--layout-bg);
-  padding: 0px 2rem;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(5px);
   box-shadow: 0px -1px 15px 3px black;
   transition: all 0.3s ease-out 0s;
 }
 
 /* Brand Image */
 .navBarBrand {
-  flex: 0 0 15%;
-  height: 100%;
+  position: absolute;
+  left: 20px;
   font-family: Papyrus, 'Lucida Handwriting', cursive, serif;
   font-size: var(--header2);
   color: var(--text-primary);
-  & > h1 {
-    margin: 2dvh 0 0;
-  }
-}
-
-/* Nav Link Section */
-@media all and (max-width: 767px) {
-  .navbarCollapse {
-    position: absolute;
-    right: 0;
-    width: max(150px, 30vw);
-    height: 100dvh;
-    padding-top: 8dvh;
-    background-color: var(--layout-bg);
-    border: 1.5px solid var(--text-primary);
-    border-width: 1.5px 0 1.5px 1.5px;
-    border-radius: 20px 0 0 20px;
-    transform: translateX(100%);
-  }
-  .navbarCollapse:not(.collapsed) {
-    transform: translateX(0%);
-  }
-}
-
-.navbarNav {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 5px;
-  padding: 0 0 0 5%;
-  margin: 0 auto 0 5%;
 }
 
 /* Github Fork */
-.github {
-  width: 100%;
-}
 .githubBtn {
-  width: clamp(30px, 40%, 40px);
-  aspect-ratio: 3/4;
-  margin: 2vh auto 0 20%;
+  position: absolute;
+  top: 1.5dvh;
+  right: 14vw;
+  width: 40px;
+  height: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,21 +54,47 @@
   margin: 0.2rem;
 }
 
-/* Theme Mode Toggle */
-@media all and (max-width: 767px){
-  .themeSwitch {
-    position: absolute;
-    bottom: 10vh;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 20%;
-    height: clamp(20px, 4vh, 30px);
-  }
+
+.navbarCollapse {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: clamp(200px, 30vw, 350px);
+  height: 100dvh;
+  padding-top: 8dvh;
+  background-color: var(--nav-bg);
+  border: 1.5px solid var(--background);
+  border-width: 1.5px 0 1.5px 1.5px;
+  border-radius: 10px 0 0 10px;
+  transform: translateX(100%);
+  backdrop-filter: blur(25px);
 }
+.navbarCollapse:not(.collapsed) {
+  transform: translateX(0%);
+}
+
+.navbarNav {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 5px;
+  padding: 0 0 0 5%;
+  margin: 0 auto 0 5%;
+}
+
+
 .themeSwitch {
   display: block;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 40px;
+  width: 60%;
   transition: all 0.3s ease-out 0s;
-  > .themeInput {
+  height: 50px;
+    > .themeInput {
     position: absolute;
     opacity: 0;
     top: 0;
@@ -113,10 +104,10 @@
     margin: 0;
   }
   > .themeInput:not(:checked) + .themeSlider::after {
-    content: '🌙';
+    content: '☀️';
   }
   > .themeInput:checked + .themeSlider::after {
-    content: '☀️';
+    content: '🌙';
   }
   > .themeSlider {
     position: relative;
@@ -125,7 +116,7 @@
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    background-color: var(--background);
+    background-color: var(--text-secondary);
     transition: inherit;
   }
   > .themeSlider::after {
@@ -137,15 +128,14 @@
     justify-content: center;
     align-items: center;
     height: 96%;
-    width: 96%;
+    width: 98%;
+    background-color: var(--background);
     border-radius: 10px;
-    background-color: var(--text-secondary);
     font-size: var(--text2);
   }
 }
 .themeSwitch:hover {
   cursor: pointer;
-  width: 70%;
   > .themeInput:not(:checked) + .themeSlider::after {
     left: auto;
     right: 3%;
@@ -158,8 +148,8 @@
     border: 1px solid var(--text-secondary);
   }
   > .themeSlider::after {
-    height: 80%;
-    width: 30%;
+    height: 85%;
+    width: 40%;
     transform: translate(0, -50%);
   }
 }
@@ -169,16 +159,16 @@
   position: absolute;
   top: 4dvh;
   transform: translateY(-50%);
-  right: 4vw;
+  right: 2vw;
   background-color: transparent;
   border-color: transparent;
   & > span {
     display: block;
     left: 0;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    height: 4px;
-    width: 27px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    height: 5px;
+    width: 40px;
     transform: rotate(0deg);
     background-color: var(--text-secondary);
     opacity: 1;
@@ -202,93 +192,5 @@
   }
   & > span:nth-child(2) {
     visibility: hidden;
-  }
-}
-
-@media all and (min-width: 768px) {
-  .header,
-  .navbar {
-    height: 10dvh;
-  }
-  .navbar {
-    align-items: center;
-    padding: 0px 1rem;
-    gap: 5%;
-  }
-  /* Nav Link Section */
-  .navbarCollapse {
-    flex: 1 1 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 5%;
-  }
-
-  .navbarNav {
-    flex: 1 1 auto;
-    margin: 0;
-    padding: 0 2%;
-    height: 100%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    gap: 0;
-    > .navItem {
-      flex: 1 1 1fr;
-      > .navLink {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        padding: 1% 3%;
-        font-size: var(--text1);
-        text-shadow: 0.7px 0.7px 1px var(--nav-detail);
-        font-weight: 400;
-        transition: all 0.3s ease-out 0s;
-        > .navIcon {
-          display: none;
-        }
-      }
-    }
-  }
-  .github {
-    width: clamp(40px, 100%, 50px);
-  }
-  .githubBtn {
-    width: 100%;
-    aspect-ratio: 2/1;
-    margin: 0;
-    padding: 0.1rem 0;
-  }
-
-  /* Theme Mode Toggle */
-  .themeSwitch {
-    position: relative;
-    flex: 0 0 10%;
-    height: 50px;
-    > .themeSlider {
-      position: relative;
-      top: 0;
-      margin: 0 auto;
-      width: min(60%, 40px);
-      height: 100%;
-      border-radius: 10px;
-      background-color: var(--background);
-      transition: inherit;
-    }
-  }
-  .themeSwitch:hover {
-    > .themeSlider {
-      width: min(70%, 50px);
-      box-shadow: none;
-    }
-    > .themeSlider::after {
-      height: 90%;
-      width: 70%;
-    }
-  }
-
-  .navbarToggler {
-    display: none;
   }
 }

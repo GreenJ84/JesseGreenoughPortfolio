@@ -1,9 +1,7 @@
 /** @format */
-
 'use client';
 import React from 'react';
 
-// Custom Functionality
 const css = require('./Navbar.module.css');
 
 const NavbarToggle = () => {
@@ -20,6 +18,7 @@ const NavbarToggle = () => {
     <button
       id='navbarToggle'
       className={`${css.navbarToggler} ${css.closed}`}
+      title="Menu"
       aria-label='Toggle navigation menu'
       aria-controls='navbarMenu'
       onClick={handleClick}

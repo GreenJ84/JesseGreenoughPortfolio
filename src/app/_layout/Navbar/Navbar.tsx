@@ -1,67 +1,48 @@
-/**
- * eslint-disable react/jsx-key
- *
- * @format
- */
+/** @format **/
 
-// Third party Functionality
 import React from 'react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 
 import { CgGitFork } from 'react-icons/cg';
 
-// Custom Functionality
+import Navigation from '../Navigation';
 import ThemeSwitch from './ThemeSwitch';
 import NavbarToggle from './NavbarToggle';
-import Navigation from '../Navigation';
-const Particle = dynamic(() => import('./Particle'));
 
 const css = require('./Navbar.module.css');
 
 const Navbar = () => {
   return (
-    <>
-      <Particle />
-      <header className={css.header}>
-        <nav
-          id='navbar'
-          className={css.navbar}
-        >
-          <Link
-            id='navbarBrand'
-            className={css.navBarBrand}
-            aria-label='Home Return'
-            replace={true}
-            href='/'
-          >
-            <h1>GreenO</h1>
-          </Link>
-
-          {/* Collapse-able Navbar Links */}
-          <div
-            id='navbarCollapse'
-            className={`${css.navbarCollapse} ${css.collapsed}`}
-          >
-            <ul className={css.navbarNav}>
-              <Navigation icon={true} />
-              <li className={css.github}>
-                <Link
-                  aria-label="Visit this project's Github Repository"
-                  href='https://github.com/GreenJ84'
-                  target='_blank'
-                  className={css.githubBtn}
-                >
-                  <CgGitFork className={css.forkIcon} />
-                </Link>
-              </li>
-            </ul>
-            <ThemeSwitch />
-          </div>
-          <NavbarToggle />
-        </nav>
-      </header>
-    </>
+    <header className={css.header}>
+      <Link
+        id='navbarBrand'
+        className={css.navBarBrand}
+        aria-label='Home Return'
+        replace={true}
+        href='/'
+      >
+        <h1>GreenO</h1>
+      </Link>
+      <nav
+        id='navbarCollapse'
+        className={`${css.navbarCollapse} ${css.collapsed}`}
+      >
+        <ul className={css.navbarNav}>
+          <Navigation icon={true} />
+        </ul>
+        <ThemeSwitch />
+      </nav>
+      <Link
+        title="Visit this project's Github Repository"
+        aria-label="Project Repository Link"
+        href='https://github.com/GreenJ84'
+        target='_blank'
+        className={css.githubBtn}
+      >
+        <CgGitFork className={css.forkIcon} />
+      </Link>
+      <NavbarToggle />
+    </header>
   );
 };
 
