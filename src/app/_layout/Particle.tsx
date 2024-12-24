@@ -1,17 +1,19 @@
 /** @format */
 "use client";
-import React, { useCallback, useContext } from "react";
+
+import React, { useCallback, useContext, useMemo } from "react";
 import { Particles } from "react-particles";
 import { loadFull } from "tsparticles";
 
-import { AppContext } from "../../_utils/AppContext";
+import { AppContext } from "../_utils/AppContext";
+import { Engine } from "tsparticles-engine";
 
 const Particle = ({theme}: {theme: string}) => {
-  const particlesInit = useCallback(async (engine) => {
+  const particlesInit = useCallback(async (engine: Engine) => {
     await loadFull(engine);
   }, []);
 
-  const particlesLoaded = async (container): Promise<void> => {
+  const particlesLoaded = async (container: any): Promise<void> => {
     console.log(container);
   };
 
@@ -111,9 +113,11 @@ const Particle = ({theme}: {theme: string}) => {
 
 const ParticleWrapper = () => {
   const { theme } = useContext(AppContext);
-  return (<>
-    {theme == "dark" && <Particle theme="dark" />}
-    {theme == "light" && <Particle theme="light" />}
-  </>)
-}
+
+  const particle = useMemo(() => {
+    return <Particle theme={theme} />;
+  }, [theme]);
+
+  return particle;
+};
 export default ParticleWrapper;
