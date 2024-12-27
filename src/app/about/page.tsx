@@ -6,9 +6,11 @@ import dynamic from "next/dynamic";
 
 import { ImPointRight } from "react-icons/im";
 
-import { DeveloperPortrait } from "../_layout/LayoutExtras";
 const AboutDetails = dynamic(
   () => import("./_components/AboutDetails")
+);
+const Footer = dynamic(
+  () => import("../_layout/Footer/Footer")
 );
 
 const css = require("./_components/About.module.css");
@@ -23,7 +25,6 @@ const AboutPage = () => {
           <h1>
             Break the <span className="detail">Ice</span>
           </h1>
-          <DeveloperPortrait />
           <p style={{ textAlign: "left" }}>
             Hi everyone, I am<span className="detail"> Jesse Greenough </span>
             currently residing in
@@ -68,6 +69,7 @@ const AboutPage = () => {
           </ul>
         </section>
         <AboutDetails />
+        <Footer />
     </main>
   );
 };
