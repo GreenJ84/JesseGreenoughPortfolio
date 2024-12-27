@@ -28,6 +28,7 @@ const nextConfig = {
   productionBrowserSourceMaps: true,
   swcMinify: true,
   images: {
+    dangerouslyAllowSVG: true,
     // loader: 'custom',
     // loaderFile: './utils/loader.ts',
     localPatterns: [
@@ -43,6 +44,7 @@ const nextConfig = {
       { hostname: "media.glassdoor.com" },
       { hostname: "trufflesuite.com" },
       { hostname: "res.cloudinary.com" },
+      { hostname: "greenj-readme-stats.onrender.com" },
     ],
     minimumCacheTTL: 60,
   },
