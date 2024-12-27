@@ -4,21 +4,25 @@ import React from "react";
 import dynamic from "next/dynamic";
 
 import HomeTop from "./_components/HomeTop";
-const GithubCard = dynamic(() => import("./_components/GithubCard"));
+import GithubCard from "./_components/GithubCard";
+const Footer = dynamic(() => import('./_layout/Footer/Footer'));
+
+const css = require("./_components/Home.module.css")
 
 const HomePage = () => {
 
   // TODO: Implement page previews for routing tree
   return (
-      <>
-        <HomeTop />
-        {/* Introduction (About preview) */}
-        {/* Skills preview */}
-        {/* Project preview */}
-        {/* Education preview */}
-        <GithubCard />
-        {/* Fixed contact widget */}
-    </>
+    <main className={css.homeMain}>
+      <HomeTop />
+      {/* Introduction (About preview) */}
+      {/* Skills preview */}
+      {/* Project preview */}
+      {/* Education preview */}
+      <GithubCard />
+      {/* Fixed contact widget */}
+      <Footer />
+    </main>
   );
 };
 
