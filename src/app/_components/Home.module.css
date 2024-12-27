@@ -87,8 +87,6 @@
   position: relative;
   margin: 0 auto;
   width: min(90%, 1450px);
-  padding-top: 100px;
-  padding-bottom: 20px;
   text-align: center;
   color: var(--text-primary);
   font-weight: 600;
@@ -102,7 +100,7 @@
 }
 .myAvtar {
   float: right;
-  margin: 20px 20px 10px;
+  margin: 10px 20px;
 }
 .myAvatarImage {
   height: clamp(150px, 20vw, 300px);
@@ -145,13 +143,3 @@ position: relative;
   height: 100%;
   margin: 0 auto;
 }
-  /* 
-@media only screen and (max-width: 900px) {
-  .developerIntro {
-    padding-top: 20px;
-  }
-  .developerSkills > h2 {
-    margin: 22vh 0 0;
-    padding-bottom: 0;
-  }
-} */

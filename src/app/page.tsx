@@ -4,6 +4,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 
 import HomeTop from "./_components/HomeTop";
+import AboutPreview from "./_components/AboutPreview";
 import GithubCard from "./_components/GithubCard";
 const Footer = dynamic(() => import('./_layout/Footer/Footer'));
 
@@ -15,7 +16,7 @@ const HomePage = () => {
   return (
     <main className={css.homeMain}>
       <HomeTop />
-      {/* Introduction (About preview) */}
+      <AboutPreview />
       {/* Skills preview */}
       {/* Project preview */}
       {/* Education preview */}
