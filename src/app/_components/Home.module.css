@@ -1,4 +1,24 @@
 /** @format */
+.homeMain{
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+    height: 90dvh;
+    & > section,
+    & > footer {
+      box-sizing: border-box;
+      scroll-snap-align: start;
+    }
+    & > section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90dvh;
+    margin: auto;
+  }
+}
+
 
 /* Portfolio Landing */
 .homeIntro {
@@ -11,8 +31,8 @@
 }
 
 .homeHeader {
-  margin-bottom: clamp(50px, 8vw, 100px);
-  font-size: var(--text1);
+  margin-bottom: clamp(40px, 8vw, 80px);
+  font-size: var(--header1);
   font-weight: 900;
 }
 .wave {
@@ -49,9 +69,9 @@
 }
 
 .typeText {
-  margin-bottom: min(2vw, 30px);
+  margin-bottom: min(2vw, 20px);
   text-align: center;
-  font-size: var(--text3);
+  font-size: var(--text1);
   font-weight: 700;
 }
 
@@ -76,7 +96,7 @@
   backdrop-filter: var(--text-bg-blur);
 }
 .developerIntro > h2 {
-  font-size: var(--text2);
+  font-size: var(--header2);
   letter-spacing: 2.5px;
   font-weight: 800;
 }
@@ -85,20 +105,19 @@
   margin: 20px 20px 10px;
 }
 .myAvatarImage {
-  height: min(20vw, 300px);
-  width: min(15vw, 300px);
+  height: clamp(150px, 20vw, 300px);
+  width: clamp(150px, 15vw, 300px);
 }
 .developerIntro > p {
   padding: 2vw 2vw;
-  font-size: var(--text4);
+  font-size: var(--text2);
   text-align: left;
 }
 
 .developerSkills {
-  position: relative;
+position: relative;
 }
 .developerSkills > h2 {
-  margin: 30vh 0 0;
   text-align: center;
   letter-spacing: 2.5px;
   font-size: var(--text2);
@@ -106,6 +125,27 @@
   color: var(--text-primary);
 }
 
+.svgContainer {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: min(15dvh, 50px);
+  & > picture {
+    margin: 0 auto;
+    width: clamp(300px, 40%, 500px);
+    height: clamp(140px, 30%, 300px);
+  }
+}
+.svgModal  {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+  /* 
 @media only screen and (max-width: 900px) {
   .developerIntro {
     padding-top: 20px;
@@ -114,4 +154,4 @@
     margin: 22vh 0 0;
     padding-bottom: 0;
   }
-}
+} */
