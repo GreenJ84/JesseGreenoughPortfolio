@@ -2,7 +2,7 @@
 "use client"
 import dynamic from "next/dynamic";
 import { Theme } from "react-github-calendar";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 
 const GitHubCalendar = dynamic(() => import("react-github-calendar"));
 
@@ -35,6 +35,7 @@ const lightTheme: Theme = {
 const GithubCard = () => {
   const [width, setWidth] = useState(20);
   const { theme } = useContext(AppContext);
+  const themeVal = useMemo(() => theme == 'dark' ? "greenj_dark" : "greenj_light" , [theme])
 
   // Dynamic GitHub Calendar sizing
   useEffect(() => {
@@ -50,10 +51,27 @@ const GithubCard = () => {
   return (
     <section
       id="githubCard"
+      style={{"marginBottom": "20dvh"}}
+      className={css.developerSkills}
     >
-      <h1 className={css.skillSectionTitle}>
+      <h2>
         Days I <strong className="detail">Code</strong>
-      </h1>
+      </h2>
+
+      <div className={css.svgContainer}>
+        <picture>
+          <img className={css.svgModal} src={`https://greenj-readme-stats.onrender.com/leetcode/stats/GreenJ84?theme=${themeVal}`} alt="GreenJ84's LeetCode Profile Stats"/>
+        </picture>
+        <picture>
+          <img className={css.svgModal} src={`https://greenj-readme-stats.onrender.com/github/stats/GreenJ84?theme=${themeVal}`} alt="GreenJ84's LeetCode Profile Stats"/>
+        </picture>
+        <picture>
+          <img className={css.svgModal} src={`https://greenj-readme-stats.onrender.com/wakatime/insights/GreenJ84?theme=${themeVal}`} alt="GreenJ84's LeetCode Profile Stats"/>
+        </picture>
+        <picture>
+          <img className={css.svgModal} src={`https://greenj-readme-stats.onrender.com/wakatime/languages/GreenJ84?theme=${themeVal}`} alt="GreenJ84's LeetCode Profile Stats"/>
+        </picture>
+      </div>
       <GitHubCalendar
         username="GreenJ84"
         theme={theme === "dark" ? darkTheme : lightTheme}
