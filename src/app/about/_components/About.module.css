@@ -1,8 +1,22 @@
 /** @format */
 
-#aboutMain {
+.aboutMain {
   position: relative;
-  padding: 10vw 4vw 0;
+  height: 90dvh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  & > section,
+  & > footer {
+    scroll-snap-align: start;
+  }
+  & > section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    height: 90dvh;
+  }
 }
 
 /* About Introduction */
@@ -37,7 +51,7 @@
 
 /* About Details */
 .aboutDetail {
-  padding: 5%;
+  padding: 0 5%;
   color: var(--text-primary);
   backdrop-filter: var(--text-bg-blur);
 }
