@@ -13,7 +13,13 @@ import { usePathname } from 'next/navigation';
 import { InternalLinks } from '../_shared/_icons/navigation';
 const css = require('./Layout.module.css');
 
-const Navigation = ({ icon }: { icon: boolean }) => {
+interface NavigationProps {
+  icon: boolean;
+  callback?: Function;
+}
+
+
+const Navigation = ({ icon, callback }: NavigationProps) => {
   const path = usePathname();
 
   return (
@@ -25,6 +31,9 @@ const Navigation = ({ icon }: { icon: boolean }) => {
             <li
               key={idx}
               className={`${css.navItem} ${path === route ? css.activeItem : ""}`}
+              onClick={() => {
+                callback && callback();
+              }}
             >
               <Link
                 href={route}
