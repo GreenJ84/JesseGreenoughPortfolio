@@ -4,16 +4,15 @@ import React from 'react';
 
 const css = require('./Navbar.module.css');
 
+export const handleNavbarToggle = () => {
+  document.getElementById('navbarToggle')!.classList.toggle(
+    css.closed,
+  );
+  document.getElementById('navbarCollapse')!.classList.toggle(
+    css.collapsed,
+  );
+};
 const NavbarToggle = () => {
-  const handleClick = ( e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    document.getElementById('navbarToggle')!.classList.toggle(
-      css.closed,
-    );
-    document.getElementById('navbarCollapse')!.classList.toggle(
-      css.collapsed,
-    );
-  };
   return (
     <button
       id='navbarToggle'
@@ -21,7 +20,7 @@ const NavbarToggle = () => {
       title="Menu"
       aria-label='Toggle navigation menu'
       aria-controls='navbarMenu'
-      onClick={handleClick}
+      onClick={handleNavbarToggle}
     >
       <span></span>
       <span></span>

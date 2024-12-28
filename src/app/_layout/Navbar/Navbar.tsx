@@ -7,7 +7,7 @@ import { CgGitFork } from 'react-icons/cg';
 
 import Navigation from '../Navigation';
 import ThemeSwitch from './ThemeSwitch';
-import NavbarToggle from './NavbarToggle';
+import NavbarToggle, { handleNavbarToggle } from './NavbarToggle';
 
 const css = require('./Navbar.module.css');
 
@@ -28,7 +28,7 @@ const Navbar = () => {
         className={`${css.navbarCollapse} ${css.collapsed}`}
       >
         <ul className={css.navbarNav}>
-          <Navigation icon={true} />
+          <Navigation icon={true} callback={handleNavbarToggle} />
         </ul>
         <ThemeSwitch />
       </nav>
