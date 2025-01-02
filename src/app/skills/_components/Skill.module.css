@@ -1,37 +1,100 @@
-.skillSectionTitle {
+
+/* -------------------- Skill Sections ----------------------- */
+.skillSection {
+  padding-top:  15dvh;
+}
+
+
+/* ----------------- Skill Section Navigation -------------------- */
+.skillsNav{
+  position: fixed;
+  left: 50%;
+  top: 10dvh;
+  transform: translateX(-50%);
+  width: 80vw;
+  min-height: 60px;
+  z-index: 2;
+  & > ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 5px 50px;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+    border: 1px solid var(--text-primary);
+    border-radius: 10px;
+  }
+}
+
+.linkHolder {
   position: relative;
-  margin: 0.2rem 0 1.4em;
-  text-align: center;
+  & > ul {
+    position: absolute;
+    top: 100%;
+    right: -10%;
+    display: none;
+    list-style: none;
+    padding: 10px 10px 10px 15px;
+    text-align: end;
+  }
+  &:hover > ul {
+    display: block;
+    background-color: var(--background);
+    border-left: 1px solid var(--text-primary);
+    border-right: 1px solid var(--text-primary);
+    border-bottom: 1px solid var(--text-primary);
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+.skillLink,
+.linkHolder {
+  display: block;
+  padding: 0.5em 1em;
   color: var(--text-primary);
-  font-size: var(--text2);
-  font-weight: 800;
+  font-size: var(--text3);
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+.skillLink.active,
+.linkHolder.active {
+  background-color: var(--layout-bg);
+  box-shadow: inset 2px 2px 4px 1px var(--card-background2);
+}
+.skillLink:hover,
+.linkHolder:hover {
+  background-color: var(--layout-shadow);
+  box-shadow: inset 2px 2px 4px 1px var(--card-background2);
 }
 
-.icon {
-  width: min(20vw, 90px);
-  aspect-ratio: 1;
+.skillLink, .skillSubLink, .linkHolder {
+  cursor: pointer;
 }
-
-div.skillsListContainer ~ h4,
-h3.skillSectionTitle ~ h4 {
-  position: relative;
-  margin: 0 0 0.8em;
-  text-align: center;
-  color: var(--text-detail);
-  font-size: var(--text4);
-  font-weight: 800;
+.skillSubLink {
+  margin: 10px 0;
+}
+.skillSubLink.active, .skillSubLink:hover {
+  color: var(--text-secondary);
   text-decoration: underline;
 }
 
+/* -------------------- Skill Lists ----------------------- */
 .skillsListContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: min(80%, 1300px);
-  padding: 2% 4%;
+  width: min(100%, 1300px);
+  height: auto;
+  max-height: 80dvh;
+  padding: 2% 3%;
   margin: 60px auto 100px;
 }
 
+
+/* -------------------- Skill Modal Containers ----------------------- */
 .skillContainer {
   list-style: none;
   position: relative;
@@ -39,19 +102,24 @@ h3.skillSectionTitle ~ h4 {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin: 0 2vw 3vh;
+  margin: 0 max(10px, 2vw) max(15px, 3vh);
   padding: clamp(8px, 2vw, 18px) 0.2em max(0.2vw, 4px);
-  width: clamp(100px, 18%, 220px);
-  aspect-ratio: 6/9;
+  width: clamp(80px, 18%, 140px);
+  aspect-ratio: 7/9;
   color: var(--text-primary);
   background-color: var(--layout-bg);
   border: 2.7px solid black;
   border-radius: 10px;
   box-shadow: var(--shadow);
-  overflow: hidden;
+  overflow: auto;
   transition: all 0.4s ease 0s;
   /* For Meter's Star inlay */
   font-size: 7vw;
+  z-index: 1;
+}
+.icon {
+  width: min(20vw, 60px);
+  aspect-ratio: 1;
 }
 
 .skillContainer:hover {
@@ -66,58 +134,16 @@ h3.skillSectionTitle ~ h4 {
 .skillContainer span {
   margin: clamp(4px, 2vw, 10px) 0 1vw;
   text-align: center;
-  font-size: var(--text5);
+  font-size: var(--text1);
   height: clamp(10px, 2vw, 60px);
 }
 
 .skillContainer meter {
   position: absolute;
   bottom: 0;
-  justify-content: baseline;
   width: 3.05em;
   height: clamp(26.5px, 1.34em, 60px);
+  padding: 2px;
   font-size: clamp(18px, 0.45em, 46px);
 }
 
-@media only screen and (max-width: 600px) {
-  .skillContainer meter {
-    bottom: 3%;
-  }
-}
-
-.skillContainer meter::-webkit-meter-bar {
-  -webkit-appearance: none;
-  background: rgba(80, 80, 80)
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text color="red" font-size="100" y=".8em" opacity=".3" z-index="2000">★</text></svg>')
-    0 / auto 100%;
-}
-
-.skillContainer meter::-webkit-meter-optimum-value {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgb(0,255,42)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
-    0 / auto 100%;
-}
-
-.skillContainer meter::-webkit-meter-suboptimum-value {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgb(230,230,0)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
-    0 / auto 100%;
-}
-
-.skillContainer meter::-webkit-meter-even-less-good-value {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgba(250, 0, 0)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
-    0 / auto 100%;
-}
-
-.skillContainer meter::-moz-meter-optimum::-moz-meter-bar {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgb(0,255,42)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
-    0 / auto 100%;
-}
-
-.skillContainer meter::-moz-meter-sub-optimum::-moz-meter-bar {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgb(230,230,0)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
-    0 / auto 100%;
-}
-
-.skillContainer meter::-moz-meter-sub-sub-optimum::-moz-meter-bar {
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text fill="rgba(250, 0, 0)" font-size="100" y=".8em" opacity="1" z-index="2000">★</text></svg>')
-    0 / auto 100%;
-}
