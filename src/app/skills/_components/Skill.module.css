@@ -89,8 +89,8 @@
   width: min(100%, 1300px);
   height: auto;
   max-height: 80dvh;
-  padding: 2% 3%;
-  margin: 60px auto 100px;
+  padding: 0 2% 3%;
+  margin: 0 auto 100px;
 }
 
 
