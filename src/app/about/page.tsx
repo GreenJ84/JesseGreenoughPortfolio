@@ -17,7 +17,7 @@ const css = require("./_components/About.module.css");
 
 const AboutPage = () => {
   return (
-    <main className={css.aboutMain}>
+    <main className={`${css.aboutMain} scrollSnapContainer`}>
         <section
           id="aboutIntro"
           className={css.aboutOpener}

@@ -1,24 +1,5 @@
 /** @format */
 
-.aboutMain {
-  position: relative;
-  height: 90dvh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  & > section,
-  & > footer {
-    scroll-snap-align: start;
-  }
-  & > section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-    height: 90dvh;
-  }
-}
-
 /* About Introduction */
 .aboutOpener {
   position: relative;
