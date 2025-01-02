@@ -18,7 +18,7 @@ const ContactModal = () => {
         subject: form.subject.value,
         message: form.message.value,
       });
-      console.log(response.data); // Email sent successfully
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }

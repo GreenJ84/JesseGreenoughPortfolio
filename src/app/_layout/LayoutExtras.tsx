@@ -1,8 +1,7 @@
 /** @format */
 "use client";
-// TODO: Update stylings and separate
+
 import React from "react";
-import axios from "axios";
 import Image from "next/image";
 
 import { Properties } from "csstype";
@@ -11,23 +10,6 @@ import Typewriter from "typewriter-effect";
 import { BsPlusCircleFill } from "react-icons/bs";
 
 const css = require("./Layout.module.css");
-
-// Loading recognition component
-const loaderLogo = "/assets/load_icon.svg";
-export const Preloader = () => {
-  return (
-    <main className={css.preloader}>
-      <Image
-        priority
-        src={loaderLogo}
-        alt="Loading Icon"
-        width={100}
-        height={100}
-        className={css.loaderImage}
-      />
-    </main>
-  );
-};
 
 // Universal Developer protrait component
 const developerPortrait = "https://res.cloudinary.com/portfolio-g84/image/upload/v1690310921/personal/personal_portrait.jpg";
@@ -201,7 +183,7 @@ export const AddItemButton = ({
   );
 };
 
-// Typwriter animtation
+// Typewriter animation
 interface typeProps {
   typePrompts: string[];
 }
@@ -219,75 +201,3 @@ export const TypeWrite = (props: typeProps) => {
   );
 };
 
-// Email contact modal component
-export const ContactModal = ({ close }: { close: Function }) => {
-  async function handleSubmit(form: any) {
-    try {
-      const response = await axios.post("/api/sendEmail", {
-        name: form.senderName.value,
-        sender: form.senderEmail.value,
-        subject: form.subject.value,
-        message: form.message.value,
-      });
-      console.log(response.data); // Email sent successfully
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  return (
-    <div className={css.emailConnect}>
-      <div onClick={() => close()}></div>
-      <form
-        className={css.contactForm}
-        onSubmit={(e: React.SyntheticEvent) => {
-          console.log("Form submitted");
-          e.preventDefault();
-          handleSubmit(e.target);
-        }}
-      >
-        <button
-          className={css.close}
-          onClick={() => close()}
-        >
-          X
-        </button>
-        <h1>Contact Me</h1>
-        <p>
-          Please No solicitations, advertizing, prodect endorsments, sellling,
-          or ill minded offers!
-        </p>
-        <label htmlFor="senderName">Name</label>
-        <input
-          name="senderName"
-          type="text"
-          required
-        />
-
-        <label htmlFor="senderEmail">Email</label>
-        <input
-          name="senderEmail"
-          type="text"
-          required
-        />
-
-        <label htmlFor="subject">Subject</label>
-        <input
-          name="subject"
-          type="text"
-          required
-        />
-
-        <label htmlFor="message">Message</label>
-        <textarea
-          name="message"
-          cols={30}
-          rows={6}
-          required
-        ></textarea>
-
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-  );
-};
