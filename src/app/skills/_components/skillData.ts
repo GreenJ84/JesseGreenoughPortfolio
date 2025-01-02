@@ -1,5 +1,4 @@
 /** @format */
-import react from "react";
 import dynamic from "next/dynamic";
 import { ComponentType } from "react";
 import { IconBaseProps } from "react-icons";

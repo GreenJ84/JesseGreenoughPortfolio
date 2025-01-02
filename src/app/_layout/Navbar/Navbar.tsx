@@ -32,6 +32,7 @@ const Navbar = () => {
         </ul>
         <ThemeSwitch />
       </nav>
+      <div onClick={handleNavbarToggle}></div>
       <Link
         title="Visit this project's Github Repository"
         aria-label="Project Repository Link"
