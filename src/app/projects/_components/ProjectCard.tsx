@@ -12,9 +12,9 @@ const AiFillProject = dynamic(() =>
 const MdClose = dynamic(() => import("react-icons/md").then((m) => m.MdClose));
 
 import Image from "next/image";
-import { FlipCard } from "../_layout/LayoutExtras";
+import { FlipCard } from "../../_layout/LayoutExtras";
 
-import { projectType } from "./projectService";
+import { projectType } from "../projectService";
 
 const css = require("./Project.module.css");
 

@@ -11,7 +11,7 @@ import {
 
 import PageClient from "./pageClient";
 
-const css = require("./Project.module.css");
+const css = require("./_components/Project.module.css");
 
 
 const ProjectPage = async () => {
@@ -22,18 +22,16 @@ const ProjectPage = async () => {
   ]);
 
   return (
-    <>
-      <main
-        id="pageContainer"
-        className={css.projectsBody}
-      >
-        <PageClient
-          JSONData={projectData.map(project => JSON.stringify(project))}
-          total={total}
-          filters={filters}
-        />
-      </main>
-    </>
+    <main
+      id="pageContainer"
+      className={css.projectsBody}
+    >
+      <PageClient
+        JSONData={projectData.map(project => JSON.stringify(project))}
+        total={total}
+        filters={filters}
+      />
+    </main>
   );
 };
 

@@ -3,11 +3,9 @@
 /* Projects Main */
 .projectsBody {
   position: relative;
-  padding: max(20vw, 20vh) 4vw 8vw;
 }
 
 .projectsBody > h1 {
-  margin-bottom: 8vw;
   text-align: center;
   color: var(--text-primary);
   font-size: var(--text2);
@@ -18,16 +16,28 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  width: 90%;
+  margin: 0 auto;
   padding: 0;
+}
+@media screen and (min-width: 1400px) {
+  .projectsListHolder {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 800px) {
+  .projectsListHolder {
+    width: 100%;
+  }
 }
 
 /* Project Card */
 .display {
   list-style: none;
   position: relative;
-  width: clamp(200px, 38%, 460px);
-  height: clamp(220px, 34vw, 480px);
-  margin: 0 auto 8vw;
+  width: clamp(200px, 38%, 400px);
+  height: clamp(220px, 34vw, 380px);
+  margin: 3dvh 20px;
 }
 
 .projectDisplay {

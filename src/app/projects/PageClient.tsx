@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useMemo, useState } from 'react'
 
 import { DataFilter } from "../_layout/LayoutExtras";
-import ProjectCard from "./ProjectCard";
+import ProjectCard from "./_components/ProjectCard";
 const AddItemButton = dynamic(() =>
   import("../_layout/LayoutExtras").then((mod) => mod.AddItemButton)
 );
@@ -12,7 +12,7 @@ const AddItemButton = dynamic(() =>
 import { projectType } from './projectService';
 type currentDisplayType = "all" | "top" | "category" | "tech";
 
-const css = require("./Project.module.css");
+const css = require("./_components/Project.module.css");
 
 const PageClient = ({JSONData, total, filters}: {
   JSONData: string[],
