@@ -28,9 +28,7 @@ const getEducationItems = async (offset: number): Promise<educationType[]> => {
   });
 }
 
-export const getEducationCount =  async (
-  offset: number = 0
-): Promise<number> => {
+export const getEducationCount =  async (): Promise<number> => {
   return await educationDatabase.countDocuments();
 }
 

@@ -24,7 +24,7 @@ export const AppContextProvider = ({ children }: { children: JSX.Element | JSX.E
   useEffect(() => {
     const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
     setTheme(matchMedia.matches ? "dark" : "light");
-  }, []);
+  }, [setTheme]);
 
   useEffect(() => {
     document.body.dataset.theme = theme;
