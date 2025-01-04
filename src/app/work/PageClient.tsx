@@ -5,16 +5,11 @@ import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
 import { workType } from "./workService";
 
-const AddItemButton = dynamic(() =>
-  import("../_layout/LayoutExtras").then(
-    (mod) => mod.AddItemButton
-  )
-);
 const WorkImg = dynamic(() => import("./_components/WorkImg"));
 const WorkCard = dynamic(() => import("./_components/WorkCard"));
+const AddItemsButton = dynamic(() => import("../_shared/AddItemsButton"));
 
 const css = require("./_components/WorkExp.module.css");
-
 
 export interface WorkExp {
   workData: workType[];
@@ -107,7 +102,7 @@ const WorkClient = ({ workData, documentTotals }: WorkExp) => {
           />
         ))}
         {checkMoreWork() && (
-          <AddItemButton
+          <AddItemsButton
             clickHandler={handleAddingWork}
             itemType={"Work"}
           />

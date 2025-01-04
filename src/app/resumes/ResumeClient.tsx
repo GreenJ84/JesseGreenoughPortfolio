@@ -13,7 +13,7 @@ const BsPlusCircleFill = dynamic(() =>
 import * as resumeService from "./resumeService";
 
 import Image from "next/image";
-import { DataFilter } from "../_layout/LayoutExtras";
+import DataFilter from "../_shared/DataFilter";
 import ButtonGroup from "./_components/ButtonGroup";
 
 const css = require("./_components/Resume.module.css");

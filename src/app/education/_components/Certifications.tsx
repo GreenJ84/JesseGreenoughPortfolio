@@ -5,11 +5,9 @@ import axios from "axios";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 
-import { DataFilter } from "../../_layout/LayoutExtras";
+import DataFilter from "../../_shared/DataFilter";
 import CertificationCard from "./CertificationCard";
-const AddItemButton = dynamic(() =>
-import("../../_layout/LayoutExtras").then((mod) => mod.AddItemButton)
-);
+const AddItemsButton = dynamic(() => import("../../_shared/AddItemsButton"));
 
 import { certificationType } from "../certificationService";
 
@@ -187,7 +185,7 @@ const Certifications = ({ certificationData }: Certification) => {
       {currentType !== "top" &&
         certData.length % 10 === 0 &&
         checkMoreCerts() && (
-          <AddItemButton
+          <AddItemsButton
             clickHandler={handleAddingCert}
             itemType="Certifications"
           />

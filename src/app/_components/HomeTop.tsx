@@ -1,8 +1,9 @@
 /** @format */
 "use client";
 import React from "react";
+import Typewriter from "typewriter-effect";
 
-import { DeveloperPortrait, TypeWrite } from "../_layout/LayoutExtras";
+import DeveloperPortrait from "../_shared/DeveloperPortrait";
 
 const css = require("./Home.module.css");
 
@@ -48,3 +49,19 @@ const HomeTop = () => {
 };
 
 export default HomeTop;
+
+interface typeProps {
+  typePrompts: string[];
+}
+const TypeWrite = (props: typeProps) => {
+  return (
+    <Typewriter
+      options={{
+        strings: props.typePrompts,
+        autoStart: true,
+        loop: true,
+        deleteSpeed: 50,
+      }}
+    />
+  );
+};

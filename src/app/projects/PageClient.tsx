@@ -3,11 +3,9 @@ import axios from 'axios';
 import dynamic from 'next/dynamic';
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { DataFilter } from "../_layout/LayoutExtras";
+import DataFilter from "../_shared/DataFilter";
 import ProjectCard from "./_components/ProjectCard";
-const AddItemButton = dynamic(() =>
-  import("../_layout/LayoutExtras").then((mod) => mod.AddItemButton)
-);
+const AddItemsButton = dynamic(() => import("../_shared/AddItemsButton"));
 
 import { projectType } from './projectService';
 type currentDisplayType = "all" | "top" | "category" | "tech";
@@ -170,7 +168,7 @@ const PageClient = ({JSONData, total, filters}: {
       {currentType !== "top" &&
         projects.length % 10 === 0 &&
         checkMoreProjects() && (
-          <AddItemButton
+          <AddItemsButton
             clickHandler={handleAddingProjects}
             itemType="Projects"
           />

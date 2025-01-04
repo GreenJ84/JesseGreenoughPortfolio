@@ -1,15 +1,13 @@
 /** @format */
-"use client";
-
+import React from "react";
 import dynamic from "next/dynamic";
-import React, { useContext } from "react";
 
 const RiExternalLinkFill = dynamic(() =>
   import("react-icons/ri").then((m) => m.RiExternalLinkFill)
 );
 
 import Image from "next/image";
-import { FlipCard } from "../../_layout/LayoutExtras";
+import FlipCard from "../../_shared/FlipCard";
 
 import { certificationType } from "../certificationService";
 

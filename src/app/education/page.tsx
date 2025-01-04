@@ -1,17 +1,10 @@
 /** @format */
 
-// TODO: Update styling logic gor route
 import React from "react";
 import dynamic from "next/dynamic";
 
-import { Preloader } from "../_layout/LayoutExtras";
-const Degree = dynamic(() => import("./_components/Degree"), {
-  loading: () => <Preloader />,
-});
-const Certifications = dynamic(
-  () => import("./_components/Certifications"),
-  { loading: () => <Preloader /> }
-);
+const Degree = dynamic(() => import("./_components/Degree"));
+const Certifications = dynamic(() => import("./_components/Certifications"));
 
 import * as educationService from "./educationService";
 import * as certificationService from "./certificationService";

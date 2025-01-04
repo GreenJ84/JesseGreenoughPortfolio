@@ -1,21 +1,15 @@
 /** @format */
 
-// TODO: Update styling logic gor route
 import React from "react";
-import dynamic from "next/dynamic";
 
 import { ImPointRight } from "react-icons/im";
 
-const AboutDetails = dynamic(
-  () => import("./_components/AboutDetails")
-);
-const Footer = dynamic(
-  () => import("../_layout/Footer/Footer")
-);
+import AboutDetails from "./_components/AboutDetails";
+import Footer from "../_layout/Footer/Footer";
 
-const css = require("./_components/About.module.css");
+import css from "./_components/About.module.css";
 
-const AboutPage = () => {
+const Page = () => {
   return (
     <main className={`${css.aboutMain} scrollSnapContainer`}>
         <section
@@ -52,14 +46,14 @@ const AboutPage = () => {
             <li><ImPointRight /> &emsp;NFT Art collecting (Currently have Eth, HBAR, and XRP NFTs)</li>
             <li><ImPointRight /> &emsp;Web3 community participation</li>
           </ul>
+          <AboutDetails />
+          <Footer />
         </section>
-        <AboutDetails />
-        <Footer />
     </main>
   );
 };
 
-export default AboutPage;
+export default Page;
 
 
 import { Metadata } from "next/types";

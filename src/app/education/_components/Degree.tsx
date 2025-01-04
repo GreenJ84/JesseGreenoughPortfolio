@@ -7,8 +7,8 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import EducationImg from "./EduImage";
 import DegreeCard from "./DegreeCard";
-const AddItemButton = dynamic(() =>
-import("../../_layout/LayoutExtras").then((mod) => mod.AddItemButton)
+const AddItemsButton = dynamic(() =>
+import("../../_shared/AddItemsButton")
 );
 
 import { educationType } from "../educationService";
@@ -64,7 +64,7 @@ const Degree = ({ educationData }: Education) => {
         ))}
       </ul>
       {education.length % 5 === 0 && education.length < total && (
-        <AddItemButton
+        <AddItemsButton
           clickHandler={handleAddingEdu}
           itemType="Education"
         />
