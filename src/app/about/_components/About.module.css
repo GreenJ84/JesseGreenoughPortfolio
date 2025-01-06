@@ -32,6 +32,7 @@
 
 /* About Details */
 .aboutDetail {
+  position: relative;
   padding: 0 5%;
   color: var(--text-primary);
   backdrop-filter: var(--text-bg-blur);
@@ -42,10 +43,70 @@
 }
 
 .aboutDetail > p {
-  position: relative;
   width: min(1200px, 80vw);
   font-size: var(--text4);
   font-weight: 600;
   text-indent: 3rem;
   line-height: max(22px, 4vw);
+}
+
+/* About Detail Shortcut Links */
+.aboutLink{
+  position: absolute;
+  bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: clamp(140px, 20%, 200px);
+  padding-top: 10px;
+  cursor: pointer;
+  font-size: var(--text1);
+  color: var(--text-primary);
+  background-color: var(--layout-bg);
+  border: 2px solid var(--text-primary);
+  border-radius: 5px;
+  &:hover {
+    background-color: transparent;
+    animation: pulse 3.5s infinite;
+  }
+  & > svg {
+    display: block;
+    margin-top: 10px;
+    animation: bounce 2s infinite;
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1); /* Normal size */
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1); /* Scale up */
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1); /* Return to normal size */
+    opacity: 1;
+  }
+}
+
+.start{
+  left: 10vw;
+}
+.end{
+  right: 10vw;
 }
