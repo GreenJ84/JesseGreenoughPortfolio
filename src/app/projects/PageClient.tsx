@@ -1,7 +1,7 @@
 "use client";
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import dynamic from 'next/dynamic';
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import DataFilter from "../_shared/DataFilter";
 import ProjectCard from "./_components/ProjectCard";
@@ -24,9 +24,34 @@ const PageClient = ({JSONData, total, filters}: {
   const [category, setCategory] = useState("top");
   const [tech, setTech] = useState("top");
 
-  function updateFilterOption(filter: HTMLSelectElement, idx: number) {
+  const updateFilterOption = useCallback((filter: HTMLSelectElement, idx: number) => {
     filter.getElementsByTagName("option")[idx]!.selected = true;
-  }
+  }, []);
+
+  const getProjectData = useCallback(async (type: string, offset: number = 0, keyword?: string) => {
+    let projectResponse: AxiosResponse<projectType[], any>;
+    switch (type) {
+      case "all":
+        projectResponse = await axios.get(`/api/projects?type=all&offset=${offset}`);
+        break;
+      case "recent":
+        projectResponse = await axios.get(`/api/projects?type=recent&offset=${offset}`);
+        break;
+      case "category":
+        projectResponse = await axios.get(
+          `/api/projects?type=category&filter=${keyword}&offset=${offset}`
+        );
+        break;
+      case "tech":
+        projectResponse = await axios.get(
+          `/api/projects?type=tech&filter=${keyword}&offset=${offset}`
+        );
+        break;
+      default:
+        return [];
+    }
+    return projectResponse.data;
+  }, []);
 
   useEffect(() => {
     const techFilter = document.getElementById(
@@ -34,26 +59,25 @@ const PageClient = ({JSONData, total, filters}: {
     )! as HTMLSelectElement;
 
     async function filter() {
-      if (category === "top") {
-        setProjects(projectData);
-        setCurrentType("top");
-        updateFilterOption(techFilter, 1);
-      } else if (category === "all") {
-        const projRes = await axios.get(`/api/projects?type=all&offset=0`);
-        setProjects(projRes.data);
-        setCurrentType("all");
-        updateFilterOption(techFilter, 2);
-      } else {
-        const projRes = await axios.get(
-          `/api/projects?type=category&filter=${category}&offset=0`
-        );
-        setProjects(projRes.data);
-        setCurrentType("category");
-        updateFilterOption(techFilter, 0);
+      switch (category){
+        case "top":
+          setProjects(projectData);
+          setCurrentType("top");
+          updateFilterOption(techFilter, 1);
+          break;
+        case "all":
+          setProjects(await getProjectData("all"));
+          setCurrentType("all");
+          updateFilterOption(techFilter, 2);
+          break;
+        default:
+          setProjects(await getProjectData("category", 0, category));
+          setCurrentType("category");
+          updateFilterOption(techFilter, 0);
       }
     }
     filter();
-  }, [category, projectData]);
+  }, [category, projectData, getProjectData, updateFilterOption]);
 
   // Filter projects on tech change
   useEffect(() => {
@@ -61,31 +85,30 @@ const PageClient = ({JSONData, total, filters}: {
       "firstSelector"
     )! as HTMLSelectElement;
     async function filter() {
-      if (tech === "top") {
-        setProjects(projectData);
-        setCurrentType("top");
-        updateFilterOption(catFilter, 1);
-      } else if (tech === "all") {
-        const projRes = await axios.get(`/api/projects?type=all&offset=0`);
-        setProjects(projRes.data);
-        setCurrentType("all");
-        updateFilterOption(catFilter, 2);
-      } else {
-        const projRes = await axios.get(
-          `/api/projects?type=tech&filter=${tech}&offset=0`
-        );
-        setProjects(projRes.data);
-        setCurrentType("tech");
-        updateFilterOption(catFilter, 0);
+      switch (tech){
+        case "top":
+          setProjects(projectData);
+          setCurrentType("top");
+          updateFilterOption(catFilter, 1);
+          break;
+        case "all":
+          setProjects(await getProjectData("all"));
+          setCurrentType("all");
+          updateFilterOption(catFilter, 2);
+          break;
+        default:
+          setProjects(await getProjectData("tech", 0, tech));
+          setCurrentType("tech");
+          updateFilterOption(catFilter, 0);
       }
     }
     filter();
-  }, [tech, projectData]);
+  }, [tech, projectData, getProjectData, updateFilterOption]);
 
   const [categories, techs] = filters;
-  const categoryMap: Map<string, number> = new Map(categories);
-  const techMap: Map<string, number> = new Map(techs);
-  function checkMoreProjects(): boolean {
+  const categoryMap: Map<string, number> = useMemo(() => new Map(categories), [categories]);
+  const techMap: Map<string, number> = useMemo(() => new Map(techs), [techs]);
+  const moreProjects = useMemo(() => {
     switch (currentType) {
       case "all":
         return projects.length < total;
@@ -96,34 +119,32 @@ const PageClient = ({JSONData, total, filters}: {
       default:
         return false;
     }
-  }
+  }, [category, categoryMap, currentType, projects.length, tech, techMap, total]);
 
-  // Add extra data to projects list on user expand
   async function handleAddingProjects(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     const offset = projects.length;
-    let projRes: any;
 
+    let projRes: projectType[];
     switch (currentType) {
       case "all":
-        projRes = await axios.get(`/api/projects?type=all&offset=${offset}`);
+        projRes = await getProjectData("all", offset);
+        break;
+      case "all":
+        projRes = await getProjectData("recent", offset);
         break;
       case "category":
-        projRes = await axios.get(
-          `/api/projects?type=category&filter=${category}&offset=${offset}`
-        );
+        projRes = await getProjectData("category", offset, category);
         break;
       case "tech":
-        projRes = await axios.get(
-          `/api/projects?type=tech&filter=${tech}&offset=${offset}`
-        );
+        projRes = await getProjectData("tech", offset, tech);
         break;
       default:
         return;
     }
 
     if (projRes) {
-      setProjects((projects) => [...projects, ...projRes.data]);
+      setProjects((projects) => [...projects, ...projRes]);
     }
   }
 
@@ -167,7 +188,7 @@ const PageClient = ({JSONData, total, filters}: {
       </ul>
       {currentType !== "top" &&
         projects.length % 10 === 0 &&
-        checkMoreProjects() && (
+        moreProjects && (
           <AddItemsButton
             clickHandler={handleAddingProjects}
             itemType="Projects"
