@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { getProjectsByCategory, getProjectsByTech, getTopProjects, getUnsortedProjects, projectType } from "../../projects/projectService";
+import { getProjectsByCategory, getProjectsByTech, getTopProjects, getAllProjects, projectType } from "../../projects/projectService";
 
 export async function GET (req: NextRequest){
   const searchParams = req.nextUrl.searchParams;
@@ -18,7 +18,7 @@ export async function GET (req: NextRequest){
   let results: projectType[] = [];
   switch (type) {
     case "all":
-      results = await getUnsortedProjects(offset);
+      results = await getAllProjects(offset);
       break;
     case "category":
       if (!filter) {
