@@ -3,8 +3,10 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
-const Degree = dynamic(() => import("./_components/Degree"));
-const Certifications = dynamic(() => import("./_components/Certifications"));
+import PageClient from "./pageClient";
+const Degree = dynamic(() => import("./_components/degree/Degree"));
+const Certifications = dynamic(() => import("./_components/certifications/Certifications"));
+import Footer from "../_layout/Footer/Footer";
 
 import * as educationService from "./educationService";
 import * as certificationService from "./certificationService";
@@ -27,28 +29,35 @@ const Page = async () => {
         id="educationContainer"
         className={css.eduBody}
       >
+        <h1 id="educationTitle">
+          Educational Experience, Qualifications and Certifications
+        </h1>
         <p>
           I actively participate in tech-related activities and partake in
           courses to further my understanding and knowledge.
         </p>
-        <h1 id="educationTitle">
-          Educational Experience, Qualifications and Certifications
-        </h1>
-        <Degree
-          educationData={{
-            eduItems,
-            total: eduTotal!,
-          }}
-        />
-        <Certifications
-          certificationData={{
-            certItems,
-            total: certTotal,
-            issuerData,
-            techData,
-          }}
+        <PageClient
+          degreeComp={
+            <Degree
+              educationData={{
+                eduItems,
+                total: eduTotal!,
+              }}
+            />
+          }
+          certComp={
+            <Certifications
+              certificationData={{
+                certItems,
+                total: certTotal,
+                issuerData,
+                techData,
+              }}
+            />
+          }
         />
       </main>
+      <Footer />
     </>
   );
 };
