@@ -1,25 +1,47 @@
 /** @format */
 .eduBody {
-  padding: 12rem 3vw 1rem;
-  margin: 0 2vw;
+  padding: 4dvh 2vw 1rem;
+}
+
+.eduBody > h1 {
+  position: relative;
+  width: 70%;
+  margin: 5dvh auto;
+  text-align: center;
+  font-size: clamp(26px, 4.5vw, 80px);
+  color: var(--text-secondary);
+  text-shadow: 1px 1px 15px var(--detail);
 }
 
 .eduBody > p {
   position: relative;
-  margin: 4vw auto 0;
+  margin: 0 auto;
   width: min(80%, 900px);
   text-align: center;
   font-size: clamp(16px, 3vw, 52px);
   color: var(--text-primary);
 }
 
-.eduBody > h1 {
+.eduNav {
   position: relative;
-  width: 70%;
-  margin: 8vw auto 0;
-  text-align: center;
-  font-size: clamp(26px, 4.5vw, 80px);
-  color: var(--text-secondary);
-  text-shadow: 1px 1px 15px var(--detail);
-  transform: translateY(100px);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10vh auto 5vh;
+  width: 80vw;
+  & > .title{
+    text-align: center;
+    font-size: var(--header2);
+    color: var(--text-primary);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  & > .title.active{
+    font-size: var(--header1);
+    color: var(--text-secondary);
+    text-shadow: 0 0 18px var(--text-secondary);
+  }
 }
+
+
