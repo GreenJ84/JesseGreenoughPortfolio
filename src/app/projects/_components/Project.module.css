@@ -3,12 +3,12 @@
 /* Projects Main */
 .projectsBody {
   position: relative;
-}
-
-.projectsBody > h1 {
-  text-align: center;
-  color: var(--text-primary);
-  font-size: var(--text2);
+  margin: 3dvh auto;
+  & > h1 {
+    text-align: center;
+    color: var(--text-primary);
+    font-size: var(--header2);
+  }
 }
 
 .projectsListHolder {
@@ -27,7 +27,7 @@
 }
 @media screen and (max-width: 800px) {
   .projectsListHolder {
-    width: 100%;
+    width: 90%;
   }
 }
 
@@ -52,6 +52,12 @@
   border: 1.5px solid var(--text-secondary);
   border-radius: 20px;
   box-shadow: var(--shadow);
+}
+@media screen and (max-width: 600px) {
+  .display{
+    width: clamp(200px, 60%, 400px);
+    height: clamp(220px, 44vw, 380px);
+  }
 }
 
 .displayImage {

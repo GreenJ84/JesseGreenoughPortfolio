@@ -1,5 +1,7 @@
 /** @format */
 
+"use client";
+
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 
@@ -52,6 +54,7 @@ const ProjectCard = ({ project }: { project: projectType }) => {
           </div>
         }
       />
+
       {showDetail && (
         <div className={css.detailModal}>
           <div
