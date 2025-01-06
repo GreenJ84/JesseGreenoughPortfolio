@@ -7,9 +7,9 @@ const RiExternalLinkFill = dynamic(() =>
 );
 
 import Image from "next/image";
-import FlipCard from "../../_shared/FlipCard";
+import FlipCard from "../../../_shared/FlipCard";
 
-import { certificationType } from "../certificationService";
+import { certificationType } from "../../certificationService";
 
 const css = require("./Certifications.module.css");
 

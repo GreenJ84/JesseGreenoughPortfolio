@@ -5,11 +5,11 @@ import axios from "axios";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 
-import DataFilter from "../../_shared/DataFilter";
+import DataFilter from "../../../_shared/DataFilter";
 import CertificationCard from "./CertificationCard";
-const AddItemsButton = dynamic(() => import("../../_shared/AddItemsButton"));
+const AddItemsButton = dynamic(() => import("../../../_shared/AddItemsButton"));
 
-import { certificationType } from "../certificationService";
+import { certificationType } from "../../certificationService";
 
 const css = require("./Certifications.module.css");
 
@@ -145,7 +145,6 @@ const Certifications = ({ certificationData }: Certification) => {
 
   return (
     <section id="certificationContainer">
-      <h2 className={css.certTitle}>Certifications Achieved</h2>
       <DataFilter
         titles={["Issuer", "Technology"]}
         options={[Array.from(issuerMap.keys()), Array.from(techMap.keys())]}
