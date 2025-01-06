@@ -8,10 +8,10 @@ import Image from "next/image";
 import EducationImg from "./EduImage";
 import DegreeCard from "./DegreeCard";
 const AddItemsButton = dynamic(() =>
-import("../../_shared/AddItemsButton")
+import("../../../_shared/AddItemsButton")
 );
 
-import { educationType } from "../educationService";
+import { educationType } from "../../educationService";
 
 const css = require("./Degree.module.css");
 
@@ -38,7 +38,6 @@ const Degree = ({ educationData }: Education) => {
 
   return (
     <section id="degreeContainer">
-      <h2 className={css.title}>Degrees I Received</h2>
       <EducationImg />
       <ul
         id="degreeList"

@@ -4,7 +4,7 @@ import React from "react";
 
 import { HiOutlineExternalLink } from "react-icons/hi";
 
-import { educationType } from "../educationService";
+import { educationType } from "../../educationService";
 
 const css = require("./Degree.module.css");
 
