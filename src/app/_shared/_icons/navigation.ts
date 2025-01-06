@@ -1,13 +1,12 @@
+import dynamic from 'next/dynamic';
 import { IconBaseProps } from 'react-icons';
-import {AiOutlineHome, AiOutlineUser, AiOutlineFundProjectionScreen, AiFillStar } from "react-icons/ai";
-import {CgFileDocument} from "react-icons/cg";
 
-export interface NavLink {
-  route: string;
-  text: string;
-  icon: React.ComponentType<IconBaseProps>;
-}
 
+const AiOutlineHome = dynamic(() => import("react-icons/ai").then(m => m.AiOutlineHome));
+const AiOutlineUser = dynamic(() => import("react-icons/ai").then(m => m.AiOutlineUser));
+const AiOutlineFundProjectionScreen = dynamic(() => import("react-icons/ai").then(m => m.AiOutlineFundProjectionScreen));
+const AiFillStar = dynamic(() => import("react-icons/ai").then(m => m.AiFillStar));
+const CgFileDocument = dynamic(() => import("react-icons/cg").then(m => m.CgFileDocument));
 export const InternalIcons = {
   Home: AiOutlineHome,
   About: AiOutlineUser,
@@ -18,6 +17,11 @@ export const InternalIcons = {
   Resume: CgFileDocument,
 }
 
+export interface NavLink {
+  route: string;
+  text: string;
+  icon: React.ComponentType<IconBaseProps>;
+}
 export const InternalLinks: NavLink[] = [
   {
     route: '/',

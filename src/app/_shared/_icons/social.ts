@@ -1,8 +1,9 @@
-import { AiFillGithub, AiOutlineTwitter, AiFillInstagram} from "react-icons/ai";
-import { FaLinkedinIn } from "react-icons/fa";
-import { NavLink } from './navigation';
+import dynamic from "next/dynamic";
 
-
+const AiFillGithub = dynamic(() => import("react-icons/ai").then(m => m.AiFillGithub));
+const AiOutlineTwitter = dynamic(() => import("react-icons/ai").then(m => m.AiOutlineTwitter));
+const AiFillInstagram = dynamic(() => import("react-icons/ai").then(m => m.AiFillInstagram));
+const FaLinkedinIn  = dynamic(() => import("react-icons/fa").then(m => m.FaLinkedinIn));
 export const SocialIcons = {
   Github: AiFillGithub,
   Twitter: AiOutlineTwitter,
@@ -10,6 +11,8 @@ export const SocialIcons = {
   Linkedin: FaLinkedinIn,
 }
 
+
+import {NavLink} from './navigation';
 export const SocialLinks: NavLink[] = [
   {
     route: "https://github.com/GreenJ84",
