@@ -3,16 +3,16 @@
 // TODO: Update styling logic gor route
 import React from "react";
 
+import PageClient from "./pageClient";
+import Footer from "../_layout/Footer/Footer";
+
 import {
   getProjectCount,
   getProjectFilters,
   getTopProjects,
 } from "./projectService";
 
-import PageClient from "./pageClient";
-
 const css = require("./_components/Project.module.css");
-
 
 const ProjectPage = async () => {
   const [projectData, total, filters] = await Promise.all([
@@ -31,6 +31,7 @@ const ProjectPage = async () => {
         total={total}
         filters={filters}
       />
+      <Footer />
     </main>
   );
 };
