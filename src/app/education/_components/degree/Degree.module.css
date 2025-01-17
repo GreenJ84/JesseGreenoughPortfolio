@@ -69,6 +69,11 @@
   padding: 0 4.5vw;
   margin-bottom: 10vw;
 }
+@media screen and (max-width: 700px) {
+  .degrees > a {
+    display: none;
+  }
+}
 
 .image {
   margin-right: 10px;
@@ -87,7 +92,7 @@
 .cardContainer {
   position: relative;
   width: clamp(230px, 50vw, 800px);
-  height: clamp(260px, 40vw, 600px);
+  /* max-height: clamp(260px, 35dvh, 600px); */
   background-color: var(--card-background2);
   border-radius: 30px;
   box-shadow: inset 2px -2px 8px 1px var(--text-secondary),
@@ -96,6 +101,11 @@
 .cardContainer:hover {
   box-shadow: inset 2px -2px 8px 1px var(--text-secondary),
     inset -2px -2px 10px var(--text-secondary), var(--shadow-hover);
+}
+@media screen and (max-width: 700px) {
+  .cardContainer{
+    width: 90vw;
+  }
 }
 
 .cardHead {
@@ -137,10 +147,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  margin: 0 auto 3.5vw;
+  margin: 0 auto 8dvh;
   width: 94%;
-  height: 55%;
-  padding: 0 0 20px 1vw;
+  padding: 0 0 1vw;
   color: var(--text-primary);
   background-color: var(--card-background2);
   border-radius: 0 0 20px 20px;
@@ -159,19 +168,19 @@
   padding: 2vw 0 0;
   text-indent: 10px;
   font-size: var(--text5);
-  line-height: max(2.4vw, 12px);
+  line-height: max(2dvh, 16px);
 }
 
 .siteLink {
   position: absolute;
   left: 60%;
-  bottom: 10%;
+  bottom: 8%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: max(14vw, 60px);
-  height: max(2.7vw, 20px);
-  font-size: clamp(10px, 1.2vw, 24px);
+  width: clamp(100px, 14vw, 200px);
+  height: clamp(30px, 5vw, 40px);
+  font-size: var(--text3);
   color: var(--text-secondary);
   background-color: var(--card-background);
   border: 1px solid var(--text-secondary);
