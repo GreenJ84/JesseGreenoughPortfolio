@@ -40,12 +40,12 @@ const AboutPreview = () => {
         <br />
         <br />
         With fluency in
-        <span className="detail_plus"> TypeScript </span> and
-        <span className="detail_plus"> JavaScript </span>
+        <span className="detail_plus"> JavaScript </span> and
+        <span className="detail_plus"> TypeScript </span>
         (including <span className="detail_plus"> Node.js </span>) and significant experience in <span className="detail_plus"> Java </span>,
+        <span className="detail_plus"> Rust </span>, and
         <span className="detail_plus"> Python </span>
-        (with Typings), and
-        <span className="detail_plus"> Rust </span>
+        (with Typings)
         , I specialize in building innovative software technologies and products that solve real-world problems.
       </p>
     </section>
