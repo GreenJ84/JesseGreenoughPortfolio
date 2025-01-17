@@ -11,8 +11,8 @@ import { AppContext } from "../_utils/AppContext";
 const css = require("./Home.module.css");
 
 const calenderStyle = {
-  width: "min(90%, 1400px)",
-  margin: "3vw auto 10vw",
+  width: "min(90%, 1300px)",
+  margin: "3dvh auto 10dvh",
   color: "var(--text-secondary)",
   height: "150px",
 };
@@ -40,7 +40,8 @@ const GithubCard = () => {
   // Dynamic GitHub Calendar sizing
   useEffect(() => {
     const windowObserver = () => {
-      setWidth(Math.round((window.innerWidth / 100) * 3));
+      let width = Math.min(Math.round((window.innerWidth / 100) * 3), 20);
+      setWidth(_w => width);
     };
     window.addEventListener("resize", windowObserver);
     return () => {
@@ -55,7 +56,7 @@ const GithubCard = () => {
       className={css.developerSkills}
     >
       <h2>
-        Days I <strong className="detail">Code</strong>
+        <strong className="detail">Coding</strong> Activity
       </h2>
 
       <div className={css.svgContainer}>
@@ -78,9 +79,9 @@ const GithubCard = () => {
         color={theme === "dark" ? "rgb(180, 255, 190)" : "rgb(33, 51, 132)"}
         style={calenderStyle}
         blockSize={width}
-        blockRadius={4}
-        blockMargin={8}
-        fontSize={Math.min(width, 34)}
+        blockRadius={width / 4}
+        blockMargin={60 / width}
+        fontSize={20}
       />
     </section>
   );
