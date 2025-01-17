@@ -1,20 +1,23 @@
 "use client";
 
+import React, { useMemo, useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import Image from "next/image";
 import axios from "axios";
 
 
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
-const BsPlusCircleFill = dynamic(() =>
-  import("react-icons/bs").then((m) => m.BsPlusCircleFill)
-);
+const BsArrowLeft = dynamic(() =>import("react-icons/bs").then(m => m.BsArrowLeft));
+const BsArrowRight = dynamic(() =>import("react-icons/bs").then(m => m.BsArrowRight));
+const BsPlusCircleFill = dynamic(() =>import("react-icons/bs").then(m => m.BsPlusCircleFill));
+
+const ButtonGroup = dynamic(() => import("./_components/ButtonGroup"), {
+  ssr: false,
+});
+const DataFilter = dynamic(() => import("../_shared/DataFilter"), {
+  ssr: false,
+});
 
 import * as resumeService from "./resumeService";
-
-import Image from "next/image";
-import DataFilter from "../_shared/DataFilter";
-import ButtonGroup from "./_components/ButtonGroup";
 
 const css = require("./_components/Resume.module.css");
 
@@ -24,14 +27,13 @@ interface resumeProps {
   categoryData: string;
 }
 const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
-
   const [modal, setModal] = useState(true);
   const [resumes, setResumes] = useState(resumeData);
   const [category, setCategory] = useState("all");
   const [resNum, setResNum] = useState(0);
 
   // Filter Resumes on category change
-  React.useEffect(() => {
+  useEffect(() => {
     async function filter() {
       if (category === "all") {
         setResumes(resumeData);
@@ -46,12 +48,13 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
     filter();
   }, [category, resumeData]);
 
-  const categoryMap: Map<string, number> = new Map(JSON.parse(categoryData));
-  function checkMoreResumes() {
+  const categoryMap: Map<string, number> = useMemo(() => new Map(JSON.parse(categoryData)), [categoryData]);
+  const hasMoreResumes = useMemo(() => {
     return category === "all"
       ? resumes.length < total
       : resumes.length < categoryMap.get(category)!;
-  }
+  }, [category, resumes, total, categoryMap]);
+
   // Resume Flip Through
   const changeResNum = async (e: React.MouseEvent, dir: string) => {
     e.preventDefault();
@@ -64,7 +67,7 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
         setResNum((num) => num + 1);
       }
       // If on the end, check if more Resumes need to retrieve
-      else if (resumes.length % 5 === 0 && checkMoreResumes()) {
+      else if (resumes.length % 5 === 0 && hasMoreResumes) {
         const response = await axios.get(
           `/api/resumes?type=${
             category === "all" ? "all" : "category"
@@ -83,11 +86,6 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
         titles={["Category"]}
         options={[Array.from(categoryMap.keys())]}
         firstHandler={(category: string) => setCategory(category)}
-      />
-      <ButtonGroup
-        section="top"
-        download={resumes[resNum].download}
-        view={resumes[resNum].view}
       />
       <section
         id="resume"
@@ -111,29 +109,6 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
             </div>
           )
         }
-        <Image
-          id="resumeImage"
-          src={resumes[resNum].image_url}
-          alt="My Resume pdf view"
-          width={800}
-          height={1400}
-          priority
-          blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8fwYAAtABzbrmHzgAAAAASUVORK5CYII="
-          placeholder="blur"
-          onClick={() => {
-            let image = document.getElementById("resumeImage")!;
-            if (window.innerWidth < 1400) {
-              return;
-            }
-            if (image.style.transform === "scale(1)") {
-              image.style.transform = "scale(1.2)";
-              image.style.zIndex = "30";
-            } else {
-              image.style.transform = "scale(1)";
-              image.style.zIndex = "10";
-            }
-          }}
-        />
         <div>
           <label
             id="previousResume"
@@ -160,16 +135,16 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
             <button
               aria-labelledby="nextResume"
               aria-disabled={
-                resNum === resumes.length - 1 && !checkMoreResumes()
+                resNum === resumes.length - 1 && !hasMoreResumes
               }
               className={`${css.rightArrow} ${
                 resNum === resumes.length - 1 &&
-                !checkMoreResumes() &&
+                !hasMoreResumes &&
                 css.disabled
               }`}
               onClick={(e) => changeResNum(e, "right")}
             >
-              {resNum === resumes.length - 1 && checkMoreResumes() ? (
+              {resNum === resumes.length - 1 && hasMoreResumes ? (
                 <BsPlusCircleFill />
               ) : (
                 <BsArrowRight />
@@ -177,6 +152,29 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
             </button>
           </label>
         </div>
+        <Image
+          id="resumeImage"
+          src={resumes[resNum].image_url}
+          alt="My Resume pdf view"
+          width={800}
+          height={1400}
+          priority={resNum === 0}
+          blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8fwYAAtABzbrmHzgAAAAASUVORK5CYII="
+          placeholder="blur"
+          onClick={() => {
+            let image = document.getElementById("resumeImage")!;
+            if (window.innerWidth < 1400) {
+              return;
+            }
+            if (image.style.transform === "scale(1)") {
+              image.style.transform = "scale(1.2)";
+              image.style.zIndex = "30";
+            } else {
+              image.style.transform = "scale(1)";
+              image.style.zIndex = "10";
+            }
+          }}
+        />
       </section>
 
       <ButtonGroup
