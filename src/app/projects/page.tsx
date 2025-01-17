@@ -2,9 +2,10 @@
 
 // TODO: Update styling logic gor route
 import React from "react";
+import dynamic from "next/dynamic";
 
-import PageClient from "./pageClient";
-import Footer from "../_layout/Footer/Footer";
+import PageClient from "./PageClient";
+const Footer = dynamic(() => import("../_layout/Footer/Footer"));
 
 import {
   getProjectCount,
