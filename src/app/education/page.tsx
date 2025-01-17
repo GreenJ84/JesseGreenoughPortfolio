@@ -3,7 +3,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
-import PageClient from "./pageClient";
+import PageClient from "./PageClient";
 const Degree = dynamic(() => import("./_components/degree/Degree"));
 const Certifications = dynamic(() => import("./_components/certifications/Certifications"));
 import Footer from "../_layout/Footer/Footer";

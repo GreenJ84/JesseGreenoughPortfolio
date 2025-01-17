@@ -1,6 +1,8 @@
 /** @format */
+
+/* Page Body */
 .eduBody {
-  padding: 4dvh 2vw 1rem;
+  padding: 3dvh 2vw 1rem;
 }
 
 .eduBody > h1 {
@@ -16,7 +18,7 @@
 .eduBody > p {
   position: relative;
   margin: 0 auto;
-  width: min(80%, 900px);
+  width: min(80%, 1100px);
   text-align: center;
   font-size: clamp(16px, 3vw, 52px);
   color: var(--text-primary);
@@ -27,8 +29,10 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 10vh auto 5vh;
+  margin: 8vh auto 0;
   width: 80vw;
+  padding-bottom: 4dvh;
+  border-bottom: 2px solid var(--detail);
   & > .title{
     text-align: center;
     font-size: var(--header2);
@@ -43,5 +47,3 @@
     text-shadow: 0 0 18px var(--text-secondary);
   }
 }
-
-
