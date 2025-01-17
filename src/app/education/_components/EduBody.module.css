@@ -1,0 +1,49 @@
+/** @format */
+
+/* Page Body */
+.eduBody {
+  padding: 3dvh 2vw 1rem;
+}
+
+.eduBody > h1 {
+  position: relative;
+  width: 70%;
+  margin: 5dvh auto;
+  text-align: center;
+  font-size: clamp(26px, 4.5vw, 80px);
+  color: var(--text-secondary);
+  text-shadow: 1px 1px 15px var(--detail);
+}
+
+.eduBody > p {
+  position: relative;
+  margin: 0 auto;
+  width: min(80%, 1100px);
+  text-align: center;
+  font-size: clamp(16px, 3vw, 52px);
+  color: var(--text-primary);
+}
+
+.eduNav {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 8vh auto 0;
+  width: 80vw;
+  padding-bottom: 4dvh;
+  border-bottom: 2px solid var(--detail);
+  & > .title{
+    text-align: center;
+    font-size: var(--header2);
+    color: var(--text-primary);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  & > .title.active{
+    font-size: var(--header1);
+    color: var(--text-secondary);
+    text-shadow: 0 0 18px var(--text-secondary);
+  }
+}

@@ -7,7 +7,7 @@ My personalized portfolio is a captivating showcase of my professional journey. 
 <br/>
 
 <p align="center">
-<img width="500" height="400" src="https://github.com/GreenJ84/JesseGreenoughPortfolio/raw/main/public/projectImages/myPortfolio.png" alt="My Portfolio Screenshot" />
+<img width="500" height="400" src="https://github.com/GreenJ84/JesseGreenoughPortfolio/raw/main/src/public/projectImages/myPortfolio.png" alt="My Portfolio Screenshot" />
 </p>
 
 <br/>

@@ -1,0 +1,173 @@
+
+/* -------------------- Skill Sections ----------------------- */
+.skillSection {
+  padding-top:  15dvh;
+}
+
+
+/* ----------------- Skill Section Navigation -------------------- */
+.skillsNav{
+  position: fixed;
+  left: 50%;
+  top: 10dvh;
+  transform: translateX(-50%);
+  width: 80vw;
+  min-height: 60px;
+  z-index: 2;
+  & > ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    padding: 5px 50px;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background);
+    border: 1px solid var(--text-primary);
+    border-radius: 10px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .skillsNav{
+    top: 7dvh;
+  }
+}
+
+.linkHolder {
+  position: relative;
+  & > ul {
+    position: absolute;
+    top: 100%;
+    right: -10%;
+    display: none;
+    list-style: none;
+    padding: 10px 10px 10px 15px;
+    text-align: end;
+    & > li {
+      color: var(--text-primary);
+    }
+  }
+  &:hover > ul {
+    display: block;
+    background-color: var(--background);
+    border-left: 1px solid var(--text-primary);
+    border-right: 1px solid var(--text-primary);
+    border-bottom: 1px solid var(--text-primary);
+    border-radius: 0 0 10px 10px;
+  }
+}
+
+.skillLink,
+.linkHolder {
+  display: block;
+  padding: 0.5em 1em;
+  color: var(--text-primary);
+  font-size: var(--text1);
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+@media screen and (max-width: 700px) {
+  .skillLink,
+  .linkHolder {
+    font-size: var(--text3);
+  }
+}
+.skillLink.active,
+.linkHolder.active {
+  background-color: var(--layout-bg);
+  box-shadow: inset 2px 2px 4px 1px var(--card-background2);
+}
+.skillLink:not(.active):hover,
+.linkHolder:not(.active):hover {
+  color: var(--text-negative);
+  background-color: var(--nav-detail);
+  box-shadow: inset 2px 2px 4px 1px var(--card-background2);
+}
+
+.skillLink, .skillSubLink, .linkHolder {
+  cursor: pointer;
+}
+.skillSubLink {
+  margin: 10px 0;
+}
+.skillSubLink.active, .skillSubLink:hover {
+  color: var(--text-secondary);
+  text-decoration: underline;
+}
+
+/* -------------------- Skill Lists ----------------------- */
+.skillsListContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: min(100%, 1300px);
+  height: auto;
+  max-height: 80dvh;
+  padding: 0 2% 3%;
+  margin: 0 auto;
+}
+
+
+/* -------------------- Skill Modal Containers ----------------------- */
+.skillContainer {
+  list-style: none;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 0 max(10px, 2vw) max(15px, 3vh);
+  padding: 12px 0.2em max(0.2vw, 4px);
+  width: clamp(100px, 18%, 150px);
+  aspect-ratio: 7/9;
+  color: var(--text-primary);
+  background-color: var(--layout-bg);
+  border: 2.7px solid black;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  overflow: auto;
+  transition: all 0.4s ease 0s;
+  /* For Meter's Star inlay */
+  font-size: 5vw;
+  z-index: 1;
+  & > svg {
+    transform: translateY(-20%);
+  }
+  & > span {
+    margin: clamp(2px, 2dvh, 6px) 0 1dvh;
+    text-align: center;
+    font-size: var(--text1);
+    height: clamp(10px, 2vw, 60px);
+    transform: translateY(-80%);
+  }
+  & > meter {
+    position: absolute;
+    bottom: 0;
+    width: 70%;
+    height: clamp(26.5px, 4dvh, 40px);
+    padding: 2px;
+    font-size: clamp(18px, 0.45em, 46px);
+  }
+}
+.skillContainer:hover {
+  color: var(--text-secondary);
+  background-color: var(--background);
+  border: 2.2px solid black;
+  box-shadow: var(--shadow-hover);
+  transform: scale(1.15);
+  z-index: 10;
+}
+@media screen and (max-width: 800px) {
+  .skillContainer {
+    font-size: 40px;
+    & > span {
+      transform: translateY(-200%);
+    }
+  }
+}
+
+
+.skillContainer meter::-webkit-meter-optimum-value {
+  background: rgb(0, 223, 45);
+}

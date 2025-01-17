@@ -5,31 +5,21 @@
 }
 
 html {
-  /*! Old Text Sizes */
-  --text1: clamp(26px, 4.5vw, 50px);
-  --text2: clamp(22px, 3.4vw, 44px);
-  --text3: clamp(20px, 2.8vw, 38px);
-  --text4: clamp(16px, 2.2vw, 32px);
-  --text5: clamp(14px, 1.6vw, 26px);
-  --text6: clamp(12px, 1.4vw, 22px);
-  --text-bg-blur: blur(min(0.8vw, 4px));
-
-
   /* Text Sizes */
   --header1: clamp(24px, 4vw, 36px);
   --header2: clamp(20px, 3vw, 32px);
   --header3: clamp(18px, 2.5vw, 28px);
   --text1: clamp(16px, 2vw, 24px);
   --text2: clamp(14px, 1.6vw, 20px);
-  --text-detail: clamp(12px, 1.2vw, 18px);
+  --text3: clamp(12px, 1.2vw, 18px);
   --text-bg-blur: blur(min(0.6vw, 4px));
   /* Shadows */
   --shadow: min(6px, 1.8vw) min(6px, 1.8vw) min(15px, 3vw) min(2px, 0.5vw) black;
 }
 
 body {
-  padding: 0;
   margin: 0;
+  padding: 8dvh 0 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serifserif !important;
   -webkit-font-smoothing: antialiased;
@@ -38,36 +28,6 @@ body {
 }
 
 body[data-theme="dark"] {
-/*! ================ OLD STYLINGS ======================= */
-/* Text Colors */
---text-primary: rgb(230, 255, 243);
---text-secondary: rgb(164, 255, 182);
---text-detail: rgb(0, 255, 13);
---text-negative: rgb(0, 17, 1);
---text-shadow: 0.2vw 0.2vw 0.1vw rgb(12, 43, 33), 0 0 0.5vw rgb(164, 255, 182);
-
-/* Background/Card Colors */
---background: rgb(12, 43, 33);
---card-background: rgb(85, 84, 84);
---card-background2: rgb(18, 15, 15);
-
---detail: rgb(14, 215, 165);
---shadow: min(6px, 1.8vw) min(6px, 1.8vw) min(15px, 3vw) min(2px, 0.5vw) black;
---shadow-hover: min(7px, 2.2vw) min(7px, 2.2vw) min(20px, 4vw)
-  min(2.4px, 0.7vw) black;
-
-/* Layout Colors */
---layout-bg: rgba(0, 142, 8, 0.462);
---layout-shadow: rgba(0, 156, 13, 0.874);
-/* Navbar */
---nav-bg: rgba(195, 255, 203, 0.25);
---nav-detail: rgb(111, 255, 118);
-
-/* Home Section */
---hue-rotate-home: hue-rotate(205deg);
-
-
-/** ================ NEW STYLINGS ======================= */
   /* Text Colors */
   --text-primary: rgb(230, 255, 243);
   --text-secondary: rgb(164, 255, 182);
@@ -89,7 +49,7 @@ body[data-theme="dark"] {
   --layout-bg: rgba(0, 142, 8, 0.462);
   --layout-shadow: rgba(0, 156, 13, 0.874);
   /* Navbar */
-  --nav-bg: rgba(195, 255, 203, 0.25);
+  --nav-bg: rgba(4, 68, 13, 0.932);
   --nav-detail: rgb(111, 255, 118);
 
   /* Home Section */
@@ -97,39 +57,10 @@ body[data-theme="dark"] {
 }
 
 body[data-theme="light"] {
-/*! ================ OLD STYLINGS ======================= */
---text-primary: rgb(20, 20, 21);
-  --text-secondary: rgb(33, 51, 132);
-  --text-detail: rgb(3, 13, 132);
-  --text-negative: rgb(2, 201, 246);
-  --text-shadow: 0.2vw 0.2vw 0.1vw rgb(2, 198, 201), 0 0 0.5vw rgb(33, 51, 132);
-
-  /* Background/Card Colors */
-  --background: rgb(2, 198, 201);
-  --card-background: rgb(61, 252, 242);
-  --card-background2: rgb(29, 159, 252);
-
-  --detail: rgb(0, 81, 151);
-  --shadow: min(2px, 1.2vw) min(2px, 1.2vw) min(6px, 2vw) min(1px, 0.2vw) black;
-  --shadow-hover: min(6px, 1.8vw) min(6px, 1.8vw) min(15px, 3vw) min(2px, 0.5vw)
-    black;
-
-  /* Layout Colors */
-  --layout-bg: rgba(0, 166, 255, 0.718);
-  --layout-shadow: rgb(0, 72, 111);
-  /* Navbar */
-  --nav-bg: rgba(41, 104, 252, 0.343);
-  --nav-detail: rgb(0, 88, 155);
-
-  /* Home Section */
-  --hue-rotate-home: hue-rotate(260deg);
-
-
-
 /** ================ NEW STYLINGS ======================= */
   --text-primary: rgb(20, 20, 21);
   --text-secondary: rgb(33, 51, 132);
-  --text-detail: rgb(3, 13, 132);
+  --text-detail: rgb(0, 6, 76);
   --text-negative: rgb(2, 201, 246);
   --text-shadow: 0.2vw 0.2vw 0.1vw rgb(2, 198, 201), 0 0 0.5vw rgb(33, 51, 132);
 
@@ -147,7 +78,7 @@ body[data-theme="light"] {
   --layout-bg: rgba(0, 166, 255, 0.718);
   --layout-shadow: rgb(0, 72, 111);
   /* Navbar */
-  --nav-bg: rgba(41, 104, 252, 0.343);
+  --nav-bg: rgba(31, 195, 255, 0.95);
   --nav-detail: rgb(0, 88, 155);
 
   /* Home Section */
@@ -171,4 +102,26 @@ span.detail_plus {
   font-style: italic;
   font-weight: 900;
   color: var(--text-detail);
+}
+
+.scrollSnapContainer {
+  position: relative;
+  height: 90dvh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  & > section,
+  & > footer {
+    scroll-snap-align: start;
+  }
+  & > section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    height: 90dvh;
+    overflow-y: scroll;
+  }
 }
