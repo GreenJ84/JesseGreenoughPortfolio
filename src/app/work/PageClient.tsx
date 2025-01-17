@@ -59,9 +59,9 @@ const WorkClient = ({ workData, documentTotals }: WorkExp) => {
         <div className={css.workBody}>
           <WorkImg />
           <p>
-            I have over 5 years of customer success, operations management,
+            I have over 8 years of customer success
             and leadership experience with proven results in a variety of
-            fast-paced environents coupled with over 3 years of development
+            fast-paced environments coupled with over 3 years of development
             experience across numerous technologies.
           </p>
         </div>

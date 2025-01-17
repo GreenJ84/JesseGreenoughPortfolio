@@ -1,10 +1,11 @@
 /** @format */
-// TODO: Update styling logic for route
 import React from "react";
+import dynamic from "next/dynamic";
 
 import * as workService from "./workService";
 
-import WorkClient from "./pageClient";
+import WorkClient from "./PageClient";
+const Footer = dynamic(() => import("../_layout/Footer/Footer"));
 
 
 
@@ -15,12 +16,14 @@ const WorkPage = async () => {
     workService.getWorkTotals(),
   ]);
   return (
-    <main
-      id="workContainer"
-      style={{ padding: "min(12vw, 12vh) 3vw 1rem", margin: "0 2vw" }}
-    >
-      <WorkClient workData={workData} documentTotals={documentTotals} />
-    </main>
+    <>
+      <main
+        id="workContainer"
+      >
+        <WorkClient workData={workData} documentTotals={documentTotals} />
+      </main>
+      <Footer/>
+    </>
   );
 };
 

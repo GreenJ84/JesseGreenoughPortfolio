@@ -3,9 +3,9 @@
 /* Intro Section */
 .workBodyTitle {
   position: relative;
-  margin: 6rem 0 2rem;
+  margin: 4dvh 0 2dvh;
   text-align: center;
-  font-size: var(--text1);
+  font-size: var(--header1);
   color: var(--text-secondary);
 }
 
@@ -13,32 +13,31 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  padding: 0 6vw 1rem;
+  margin: 0 auto;
+  padding: 0 6vw;
+  max-width: 1200px;
 }
 
 .workBodyImage {
   position: relative;
-  bottom: 5rem;
+  max-width: 350px;
+  max-height: 300px;
 }
-
-.workBody p {
-  position: relative;
-  margin: 10rem 0;
-  width: 120%;
-  padding: 0 2vw;
-  text-align: center;
-  font-size: clamp(24px, 3.6vw, 50px);
-  color: var(--text-primary);
-}
-
 @media only screen and (max-width: 900px) {
   .workBodyImage {
     display: none;
   }
-  .workBody p {
-    margin: 5rem 0;
-  }
 }
+
+.workBody p {
+  position: relative;
+  margin: 5dvh 0;
+  width: 120%;
+  text-align: center;
+  font-size: var(--header2);
+  color: var(--text-primary);
+}
+
 
 /* Filter */
 .workFilter {
@@ -48,8 +47,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin: 5vh 0 8vh;
-  height: min(6vw, 75px);
+  height: min(6vw, 65px);
   max-width: 1500px;
 }
 
@@ -58,10 +56,10 @@
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  width: 30%;
+  width: clamp(120px, 30%, 300px);
   height: auto;
-  padding: 1vw;
-  font-size: clamp(12px, 2.3vw, 36px);
+  padding: 10px;
+  font-size: var(--text1);
   color: var(--text-primary);
   border-radius: 10px;
   transition: all 0.2s ease-in-out;
@@ -71,7 +69,7 @@
   background-color: var(--layout-bg);
   border: 2px solid var(--background);
   box-shadow: var(--shadow);
-  transform: scale(1.15);
+  transform: scale(1.05);
   backdrop-filter: blur(5px);
 }
 .workFilter > button.inactiveFilter {
@@ -80,14 +78,13 @@
   opacity: 0.8;
 }
 
-.workFilter > button.activeFilter:hover,
 .workFilter > button.inactiveFilter:hover {
   border: 1px solid var(--text-primary);
-  background-color: var(--card-background);
   border-radius: 20px;
   box-shadow: var(--shadow-hover);
   opacity: 1;
-  transform: scale(1.25);
+  transform: scale(1.15);
+  cursor: pointer;
 }
 
 .workCardHolder {
@@ -104,16 +101,21 @@
   position: relative;
   display: flex;
   align-items: center;
-  margin: max(3rem, 6vw) 0;
-  padding: 4vw 3vw;
+  margin: max(3rem, 6dvh) auto;
+  padding: 20px 30px;
+  width: min(90%, 1200px);
   color: var(--text-primary);
   background-color: var(--card-background);
   border-radius: 20px;
   box-shadow: var(--shadow);
 }
-
+@media screen and (max-width: 700px) {
+  .workCard {
+    width: 100%;
+  }
+}
 .workCard:hover {
-  transform: scale(1.09, 1.09);
+  transform: scale(1.05);
   box-shadow: var(--shadow-hover);
 }
 .workCard:hover * {
