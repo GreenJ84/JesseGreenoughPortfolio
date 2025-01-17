@@ -2,50 +2,56 @@
 
 /* Page Container */
 .resumeContainer {
-  padding: 20vh 0 15vh;
+  padding: 5vh 0 10dvh;
 }
 
 /* Mobile display warnings modal */
 .mobileModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 40;
+  display: none;
 }
+@media screen and (max-width: 700px) {
+    .mobileModal {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+  }
 
-.mobileModal > p {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60%;
-  height: 60%;
-  padding: 5%;
-  text-align: center;
-  font-size: var(--text3);
-  letter-spacing: 0.6vw;
-  color: var(--text-primary);
-  background-color: var(--card-background2);
-  border-radius: 4vw;
-}
-.mobileModal > p > button {
-  position: absolute;
-  top: 2%;
-  right: 4%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 10%;
-  aspect-ratio: 1/1;
-  background-color: var(--card-background);
-  border: 1px solid var(--text-primary);
-  border-radius: 50%;
+  .mobileModal > p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    height: 60%;
+    padding: 5%;
+    text-align: center;
+    font-size: var(--text3);
+    letter-spacing: 0.6vw;
+    color: var(--text-primary);
+    background-color: var(--card-background2);
+    border-radius: 4vw;
+  }
+  .mobileModal > p > button {
+    position: absolute;
+    top: 2%;
+    right: 4%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    aspect-ratio: 1/1;
+    background-color: var(--card-background);
+    border: 1px solid var(--text-primary);
+    border-radius: 50%;
+  }
 }
 
 /* Resume Control section */
@@ -55,7 +61,7 @@
   flex-direction: column;
   margin: 20px auto;
 }
-.resume > div {
+.resume > div:not(.mobileModal){
   display: flex;
   width: 50vw;
   margin: 20px auto;
@@ -78,8 +84,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 5px;
   padding: 0.5vw;
-  width: clamp(30px, 5vw, 80px);
+  width: clamp(40px, 5vw, 70px);
   aspect-ratio: 1;
   font-size: var(--text3);
   color: var(--text-negative);
@@ -108,12 +115,18 @@
 
 .resume > img {
   margin: 10px auto;
-  width: min(1000px, 80vw);
-  height: calc(min(1000px, 80vw) * 1.187);
+  width: min(1000px, 70vw);
+  height: calc(min(1000px, 70vw) * 1.187);
   border-radius: 15px;
   box-shadow: 5px 5px 10px 2px black, 5px 5px 40px black;
   transform: scale(1);
   z-index: 10;
+}
+@media screen and (max-width: 700px) {
+  .resume > img {
+    width: 90vw;
+    height: calc(90vw * 1.187);
+  }
 }
 
 /* Resume Save / Download buttons */
@@ -128,9 +141,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 5vw auto;
+  margin: 2dvh auto;
   width: clamp(100px, 25vw, 250px);
-  height: clamp(20px, 4.5vw, 45px);
+  height: clamp(20px, 4.5dvh, 45px);
   padding: 1vw;
   text-align: center;
   color: var(--text-secondary);
@@ -143,6 +156,7 @@
     5px 5px 15px 3px var(--layout-bg);
   border-radius: 8px;
 }
+
 .resumeButton:hover {
   color: var(--text-negative);
   background-color: var(--detail);

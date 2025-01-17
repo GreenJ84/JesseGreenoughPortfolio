@@ -1,10 +1,11 @@
 /** @format */
-// TODO: Update styling logic gor route
 import React from "react";
+import dynamic from "next/dynamic";
 
 import * as resumeService from "./resumeService";
 
 import ResumeClient from "./ResumeClient";
+const Footer = dynamic(() => import("../_layout/Footer/Footer"));
 
 const css = require("./_components/Resume.module.css");
 
@@ -15,6 +16,7 @@ const ResumePage = async () => {
     resumeService.getResumeFilterOptions(),
   ]);
   return (
+    <>
       <main
         id="resumePage"
         className={css.resumeContainer}
@@ -25,6 +27,8 @@ const ResumePage = async () => {
           categoryData={categoryData}
         />
       </main>
+      <Footer />
+    </>
   );
 };
 
