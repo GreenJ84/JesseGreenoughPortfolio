@@ -106,7 +106,7 @@ span.detail_plus {
 
 .scrollSnapContainer {
   position: relative;
-  height: 95dvh;
+  height: 90dvh;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   margin-bottom: 0;

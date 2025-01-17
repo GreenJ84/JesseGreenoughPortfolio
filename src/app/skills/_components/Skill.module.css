@@ -28,6 +28,11 @@
     border-radius: 10px;
   }
 }
+@media screen and (max-width: 600px) {
+  .skillsNav{
+    top: 7dvh;
+  }
+}
 
 .linkHolder {
   position: relative;
@@ -58,9 +63,15 @@
   display: block;
   padding: 0.5em 1em;
   color: var(--text-primary);
-  font-size: var(--text3);
+  font-size: var(--text1);
   font-weight: 500;
   transition: background-color 0.2s ease;
+}
+@media screen and (max-width: 700px) {
+  .skillLink,
+  .linkHolder {
+    font-size: var(--text3);
+  }
 }
 .skillLink.active,
 .linkHolder.active {
