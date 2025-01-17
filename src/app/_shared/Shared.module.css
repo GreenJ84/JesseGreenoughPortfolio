@@ -1,7 +1,7 @@
 /*============================= Developer Portrait ============================== */
 
 .portraitTilt {
-  width: clamp(200px, 20vw, 400px);
+  width: clamp(160px, 20vw, 230px);
   height: auto;
   margin: 20px auto 10px;
 }
@@ -103,7 +103,7 @@
   margin-bottom: 12px;
   text-align: center;
   color: var(--text-primary);
-  font-size: var(--text2);
+  font-size: var(--text1);
   letter-spacing: 2px;
 }
 
@@ -131,12 +131,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
-  width: clamp(30px, 7vw, 100px);
+  margin: 20px auto;
+  width: clamp(45px, 7vw, 80px);
   aspect-ratio: 1;
   padding: 5% auto;
   border-radius: 50%;
-  font-size: var(--text2);
+  font-size: var(--);
   color: var(--text-secondary);
   background: var(--card-background2);
   border: 1px solid var(--text-secondary);
@@ -149,6 +149,10 @@
   background: var(--card-background);
   box-shadow: none;
 }
+.addIcon {
+  width: 70%;
+  height: 70%;
+}
 .add_item_button > span {
   display: none;
 }
@@ -159,13 +163,23 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  opacity: 0;
   align-items: center;
   justify-content: center;
   width: 200%;
   aspect-ratio: 5/1;
   font-size: var(--text5);
   color: var(--text-secondary);
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--text-negative);
   border: 1px solid var(--card-background2);
   z-index: 10;
+  animation: 0s ease-in-out 1s forwards appear;
+}
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
