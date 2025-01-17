@@ -16,10 +16,7 @@ const AboutDetails = () => {
         In 2024, I proudly earned my Bachelor of Science in Software Engineering from Western Governors University (WGU), a milestone that marked the culmination of dedication, perseverance, and passion for the field. My undergraduate journey provided me with a solid foundation in software development, equipping me with both the theoretical knowledge and practical skills to thrive in the dynamic world of technology.
       </p>
       <p>
-        Recognizing the importance of continuous growth in an industry that never stands still, I decided to return to WGU the following year to pursue a Master of Science in Cybersecurity. This decision reflects my commitment to expanding my expertise into the critical realm of protecting digital systems and safeguarding information in an increasingly interconnected world. By building upon my software engineering background with advanced studies in cybersecurity, I aim to become a well-rounded professional capable of addressing complex challenges and driving innovation in both fields.
-      </p>
-      <p>
-        Above all, I am driven by a relentless desire to learn and evolve, ensuring that I stay at the forefront of the ever-changing landscape of technology. Whether it&apos;s mastering the latest programming techniques or tackling cutting-edge security issues, I am passionate about pushing boundaries and making a meaningful impact in the tech community.
+        Above all, It fueled my relentless desire to learn and evolve, ensuring that I stay at the forefront of the ever-changing landscape of technology. Whether it&apos;s mastering the latest programming techniques or tackling cutting-edge security issues, I am passionate about pushing boundaries and making a meaningful impact in the tech community.
       </p>
     </section>
     <section

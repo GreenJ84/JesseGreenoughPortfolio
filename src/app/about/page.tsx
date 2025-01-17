@@ -8,7 +8,7 @@ import { ImPointRight } from "react-icons/im";
 import DeveloperPortrait from "../_shared/DeveloperPortrait";
 import AboutNavigationLinks from "./_components/AboutNavigationLinks";
 import AboutDetails from "./_components/AboutDetails";
-const Footer = dynamic(import("../_layout/Footer/Footer"));
+const Footer = dynamic(() => import("../_layout/Footer/Footer"));
 
 const css = require("./_components/About.module.css");
 
@@ -59,7 +59,7 @@ const Page = () => {
           and I am eager to leverage my skills and passion for coding to
           contribute to the dynamic world of software development. I am driven by a relentless desire to learn and evolve, ensuring that I stay at the forefront of the ever-changing landscape of technology. Whether it&apos;s mastering the latest programming techniques or tackling cutting-edge security issues, I am passionate about pushing boundaries and making a meaningful impact in the tech community.
         </p>
-        <p style={{"textAlign": "center", "fontSize" : "var(--header2)", "marginTop": "10dvh"}}>
+        <p style={{"textAlign": "center", "fontSize" : "var(--header2)", "margin": "5dvh 0"}}>
           With a firm belief in the power of technology to drive positive change, I am excited to be part of innovative projects that shape the future and make a meaningful impact in the lives of others.
         </p>
         < AboutNavigationLinks />

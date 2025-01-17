@@ -7,28 +7,25 @@
   width: min(1200px, 80vw);
   color: var(--text-primary);
   backdrop-filter: var(--text-bg-blur);
+  & > h1 {
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: var(--text1);
+  }
+  & > p {
+    font-size: var(--text2);
+  }
+  & > ul {
+    list-style: none;
+    & > li {
+      margin-bottom: 10px;
+      text-align: left;
+      font-size: var(--text3);
+      color: var(--text-secondary);
+    }
+  }
 }
 
-.aboutOpener > h1 {
-  margin-bottom: 60px;
-  text-align: center;
-  font-size: var(--text1);
-}
-
-.aboutOpener > p {
-  font-size: var(--text4);
-}
-
-.aboutOpener > ul {
-  list-style: none;
-}
-
-.aboutOpener li {
-  margin-bottom: 10px;
-  text-align: left;
-  font-size: var(--text5);
-  color: var(--text-secondary);
-}
 
 /* About Details */
 .aboutDetail {
@@ -38,16 +35,16 @@
   backdrop-filter: var(--text-bg-blur);
 }
 .aboutDetail > h2 {
-  font-size: var(--text1);
+  font-size: var(--header2);
   text-align: center;
 }
 
 .aboutDetail > p {
   width: min(1200px, 80vw);
-  font-size: var(--text4);
+  font-size: var(--text1);
   font-weight: 600;
   text-indent: 3rem;
-  line-height: max(22px, 4vw);
+  line-height: clamp(22px, 2dvh, 30px);
 }
 
 /* About Detail Shortcut Links */
