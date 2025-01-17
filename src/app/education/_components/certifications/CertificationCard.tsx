@@ -18,8 +18,6 @@ interface certificateCardProps {
 }
 
 const CertificationCard = (props: certificateCardProps) => {
-  // TODO: Replace -> const { mobile } = useContext(AppContext);
-  const mobile = false;
 
   return (
     <li className={css.certCard}>
@@ -34,8 +32,8 @@ const CertificationCard = (props: certificateCardProps) => {
               src={props.certificate.image}
               alt={props.certificate.title}
               className={css.certImage}
-              width={mobile ? 60 : 200}
-              height={mobile ? 60 : 200}
+              width={200}
+              height={200}
               loading="lazy"
             />
             <h4>{props.certificate.title}</h4>
@@ -49,7 +47,10 @@ const CertificationCard = (props: certificateCardProps) => {
           >
             <div className={css.certDetails}>
               <p>{props.certificate.description}</p>
-              <a href={props.certificate.url}>
+              <a
+                href={props.certificate.url}
+                target="_blank noreferrer"
+              >
                 View <RiExternalLinkFill />
               </a>
             </div>

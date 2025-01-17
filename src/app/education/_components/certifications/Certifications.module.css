@@ -26,7 +26,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
-  width: 100vw;
+  width: min(100vw, 1400px);
   height: auto;
   padding: 8vw 2vw;
   overflow: scroll;
@@ -38,7 +38,7 @@
   position: relative;
   text-align: center;
   margin: 30px 3%;
-  width: clamp(140px, 34vw, 350px);
+  width: clamp(140px, 34vw, 280px);
   aspect-ratio: 6/8;
   padding: 1%;
   color: var(--text-primary);
@@ -73,7 +73,7 @@
 }
 .certDisplay p {
   margin: auto;
-  font-size: clamp(10px, 1.5vw, 24px);
+  font-size: var(--text3);
 }
 
 .certDetailCard {
@@ -107,23 +107,23 @@
   max-height: 80%;
   vertical-align: center;
   overflow: scroll;
-  font-size: var(--text5);
+  font-size: var(--text2);
   font-weight: 700;
   line-height: 140%;
 }
 
 .certDetails a {
   position: absolute;
-  bottom: clamp(30px, 4vw, 50px);
+  bottom: clamp(25px, 4vw, 50px);
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40%;
-  height: max(2vw, 16px);
+  width: max(40%, 80px);
+  height: max(2vw, 24px);
   padding: 5%;
-  font-size: clamp(11px, 1.3vw, 26px);
+  font-size: var(--text3);
   color: var(--text-primary);
   background-color: var(--background);
   border-radius: 8px;
@@ -141,6 +141,6 @@
     aspect-ratio: 6/9;
   }
   .certDetails p {
-    font-size: var(--text6);
+    font-size: var(--text3);
   }
 }
