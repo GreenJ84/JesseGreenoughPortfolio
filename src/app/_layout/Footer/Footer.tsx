@@ -3,9 +3,10 @@
 
 // TODO: Update styling logic for component tree
 import React from 'react';
+import dynamic from 'next/dynamic';
 
 import Navigation from '../Navigation';
-import { ContactButton } from '../ContactModal';
+const ContactButton = dynamic(() => import('../ContactModal').then((m) => m.ContactButton));
 
 import { SocialLinks } from '../../_shared/_icons/social';
 
@@ -82,7 +83,7 @@ const Footer = () => {
               <Navigation icon={false} />
             </ul>
           </nav>
-          <h5>© Copyright 2022. Designed and Developed by Jesse Greenough</h5>
+          <h5>© Copyright {new Date().getFullYear()}. Designed and Developed by Jesse Greenough</h5>
         </section>
       </footer>
     </>
