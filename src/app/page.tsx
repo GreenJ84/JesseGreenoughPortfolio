@@ -5,23 +5,20 @@ import dynamic from "next/dynamic";
 
 import HomeTop from "./_components/HomeTop";
 import AboutPreview from "./_components/AboutPreview";
-import GithubCard from "./_components/GithubCard";
+const ProjectsPreview = dynamic(() => import("./projects/_components/ProjectsPreview"));
+const GithubCard = dynamic(() => import("./_components/GithubCard"));
 const Footer = dynamic(() => import('./_layout/Footer/Footer'));
 
 const css = require("./_components/Home.module.css")
 
-const HomePage = () => {
-
-  // TODO: Implement page previews for routing tree
+const HomePage = async () => {
+  const projectData = await getTopProjects();
   return (
     <main className={css.homeMain}>
       <HomeTop />
       <AboutPreview />
-      {/* Skills preview */}
-      {/* Project preview */}
-      {/* Education preview */}
+      <ProjectsPreview projects={projectData} />
       <GithubCard />
-      {/* Fixed contact widget */}
       <Footer />
     </main>
   );
@@ -33,6 +30,7 @@ export default HomePage;
 
 import { Metadata } from 'next/types';
 import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from './sharedMetadata';
+import { getTopProjects } from "./projects/projectService";
 
 const RESUME_URL = APP_URL + '/resumes';
 const TITLE = "Jesse Greenough's Development Portfolio";
