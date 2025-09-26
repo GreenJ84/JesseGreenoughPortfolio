@@ -3,7 +3,7 @@
 import { unstable_cache } from "next/cache";
 import { WithId } from "mongodb";
 
-import { DB, DB_INFO } from "../_utils/Database";
+import { DB, DB_INFO } from "../../_utils/Database";
 
 export interface resumeType {
   id?: string;

@@ -1,6 +1,6 @@
 /** @format */
 
-import { DB, DB_INFO } from "../_utils/Database";
+import { DB, DB_INFO } from "../../_utils/Database";
 
 export interface educationType {
   id?: string;

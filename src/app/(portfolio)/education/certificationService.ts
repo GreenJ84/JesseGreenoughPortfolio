@@ -1,5 +1,5 @@
 import { SortDirection } from "mongodb";
-import { DB, DB_INFO } from "../_utils/Database";
+import { DB, DB_INFO } from "../../_utils/Database";
 
 export interface certificationType {
   id?: string;

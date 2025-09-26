@@ -6,12 +6,12 @@ import dynamic from 'next/dynamic';
 import { Metadata, Viewport } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { AppContextProvider } from './_utils/AppContext';
+import { AppContextProvider } from '../_utils/AppContext';
 import Navbar from './_layout/Navbar/Navbar';
 const Particle = dynamic(() => import('./_layout/Particle'));
 
 // Styles
-import '../styles/globals.css';
+import '../../styles/globals.css';
 export default function RootLayout({
   children,
 }: {

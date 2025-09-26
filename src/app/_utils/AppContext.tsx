@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useEffect, useState, createContext, useCallback } from "react";
-import ContactModal from "../_layout/ContactModal";
+import ContactModal from "../(portfolio)/_layout/ContactModal";
 
 const useLocalStorage = (key: string, initialValue: string) => {
   const [value, setValue] = useState(() => {

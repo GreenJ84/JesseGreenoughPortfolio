@@ -2,7 +2,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-import * as certificationService from "../../education/certificationService";
+import * as certificationService from "../../(portfolio)/education/certificationService";
 
 export async function GET(
   req: NextRequest,
