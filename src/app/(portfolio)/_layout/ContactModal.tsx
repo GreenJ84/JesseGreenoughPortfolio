@@ -4,7 +4,7 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
 
-import { AppContext } from '../_utils/AppContext';
+import { AppContext } from '../../_utils/AppContext';
 const css = require('./Layout.module.css');
 
 const ContactModal = () => {

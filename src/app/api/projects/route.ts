@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { getProjectsByCategory, getProjectsByTech, getTopProjects, getAllProjects, projectType } from "../../projects/projectService";
+import { getProjectsByCategory, getProjectsByTech, getTopProjects, getAllProjects, projectType } from "../../(portfolio)/projects/projectService";
 
 export async function GET (req: NextRequest){
   const searchParams = req.nextUrl.searchParams;

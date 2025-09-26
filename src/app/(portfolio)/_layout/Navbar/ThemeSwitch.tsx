@@ -3,7 +3,7 @@
 
 import React, { useContext } from 'react';
 
-import { AppContext } from '../../_utils/AppContext';
+import { AppContext } from '../../../_utils/AppContext';
 
 const css = require('./Navbar.module.css');
 

@@ -2,7 +2,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-import * as workService from "../../work/workService";
+import * as workService from "../../(portfolio)/work/workService";
 
 export async function GET(
   req: NextRequest

@@ -2,7 +2,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-import * as resumeService from "../../resumes/resumeService";
+import * as resumeService from "../../(portfolio)/resumes/resumeService";
 
 
 export async function GET(

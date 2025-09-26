@@ -1,7 +1,7 @@
 /** @format */
 
 import { NextRequest, NextResponse } from "next/server";
-import { getEducationData } from "../../education/educationService";
+import { getEducationData } from "../../(portfolio)/education/educationService";
 
 export async function GET(
   req: NextRequest,

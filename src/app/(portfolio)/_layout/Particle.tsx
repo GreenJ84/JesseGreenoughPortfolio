@@ -5,7 +5,7 @@ import React, { useState, useContext, useMemo, useEffect } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadFull } from "tsparticles";
 
-import { AppContext } from "../_utils/AppContext";
+import { AppContext } from "../../_utils/AppContext";
 import { ISourceOptions } from "@tsparticles/engine";
 
 const Particle = ({theme}: {theme: string}) => {
