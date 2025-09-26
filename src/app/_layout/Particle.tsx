@@ -1,34 +1,29 @@
 /** @format */
 "use client";
 
-import React, { useCallback, useContext, useMemo } from "react";
-import { Particles } from "react-particles";
+import React, { useState, useContext, useMemo, useEffect } from "react";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadFull } from "tsparticles";
 
 import { AppContext } from "../_utils/AppContext";
-import { Engine } from "tsparticles-engine";
+import { ISourceOptions } from "@tsparticles/engine";
 
 const Particle = ({theme}: {theme: string}) => {
-  const particlesInit = useCallback(async (engine: Engine) => {
-    await loadFull(engine);
-  }, []);
+  const [init, setInit] = useState(false);
 
+  // this should be run only once per application lifetime
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadFull(engine);
+    }).then(() => {
+      setInit(true);
+    });
+  }, []);
   const particlesLoaded = async (container: any): Promise<void> => {
     console.log(container);
   };
 
-  return (
-    <Particles
-      id="tsparticles"
-      init={particlesInit}
-      loaded={particlesLoaded}
-      style={{
-        position: "fixed",
-        width: "100%",
-        height: "100%",
-        zIndex: -10,
-      }}
-      options={{
+  const options: ISourceOptions = useMemo(() => ({
         pauseOnBlur: true,
         detectRetina: true,
         fpsLimit: 30,
@@ -106,9 +101,24 @@ const Particle = ({theme}: {theme: string}) => {
             value: { min: 1, max: 4 },
           },
         },
-      }}
-    />
-  );
+    }), [theme]);
+
+  if (init) {
+    return (
+      <Particles
+        id="tsparticles"
+        particlesLoaded={particlesLoaded}
+        style={{
+          position: "fixed",
+          width: "100%",
+          height: "100%",
+          zIndex: -10,
+        }}
+        options={options}
+      />
+    );
+  }
+  return <></>;
 };
 
 const ParticleWrapper = () => {
