@@ -18,7 +18,7 @@
     "dotenv": "^16.0.3",
     "mongodb": "^4.12.1",
     "next": "^14.2.10",
-    "nodemailer": "^6.9.3",
+    "nodemailer": "7.0.6",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-github-calendar": "^3.3.4",
