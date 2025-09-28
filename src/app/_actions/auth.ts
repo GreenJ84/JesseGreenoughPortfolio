@@ -37,7 +37,7 @@ export async function loginAction(formData: FormData) {
       path: '/',
     });
     // Success redirect
-    redirect('/dashboard');
+    redirect('/admin/dashboard');
 
   } catch (error) {
 
@@ -53,29 +53,17 @@ export async function loginAction(formData: FormData) {
 }
 
 export async function logoutAction() {
-  try {
-    // Clear the cookie
-    cookies().set('admin-token', '', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 0, // Expire immediately
-      path: '/',
-    })
-    // Redirect to login
-    redirect('/login');
+  // Clear the cookie
+  cookies().set('admin-token', '', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    maxAge: 0, // Expire immediately
+    path: '/',
+  });
 
-  } catch (error) {
-
-    if (error instanceof Error && error.message.includes('NEXT_REDIRECT')) {
-      throw error
-    }
-    console.error('Logout error:', error)
-    return {
-      success: false,
-      message: 'Logout failed'
-    }
-  }
+  // Redirect to login
+  redirect('/admin/login');
 }
 
 export async function verifyAuth() {
