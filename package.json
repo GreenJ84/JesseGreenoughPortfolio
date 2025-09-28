@@ -16,6 +16,7 @@
     "@vercel/speed-insights": "^1.0.7",
     "axios": "^1.2.0",
     "dotenv": "^16.0.3",
+    "jose": "^6.1.0",
     "mongodb": "^4.12.1",
     "next": "^14.2.10",
     "nodemailer": "7.0.6",
