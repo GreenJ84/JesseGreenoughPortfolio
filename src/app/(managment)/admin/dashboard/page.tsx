@@ -17,8 +17,8 @@ const AdminPage = () => {
         <div className={styles.adminCard}>
           <h2>Website Analytics</h2>
           <p>View website metrics and visitor statistics</p>
-          <Link href="/admin/dashboard" className={styles.cardButton}>
-            Go to Dashboard
+          <Link href="/admin/analytics" className={styles.cardButton}>
+            Go to Analytics
           </Link>
         </div>
 
