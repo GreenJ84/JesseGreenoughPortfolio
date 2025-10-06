@@ -1,0 +1,99 @@
+.dataNavMain {
+  min-height: 100vh;
+  padding: 2.5rem 5vw 2rem;
+  background:
+    linear-gradient(120deg, var(--background) 60%, var(--layout-bg) 100%),
+    linear-gradient(90deg, var(--card-background2) 60%, transparent 100%);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.dataNavTitle {
+  font-size: clamp(2.1rem, 5vw, 3.2rem);
+  margin-bottom: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-align: center;
+  line-height: 1.12;
+  text-shadow: 0 0 18px var(--detail), var(--text-shadow);
+}
+
+.gradientText {
+  background: linear-gradient(
+    90deg,
+    var(--detail) 10%,
+    var(--text-detail) 50%,
+    var(--text-secondary) 90%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dataNavGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+.dataNavCard {
+  background:
+    linear-gradient(120deg, var(--card-background) 60%, var(--card-background2) 100%),
+    linear-gradient(90deg, rgba(0,0,0,0.08) 0%, transparent 100%);
+  color: var(--text-primary);
+  border-radius: 1.1rem;
+  box-shadow: 0 4px 18px 0 rgba(0,0,0,0.13), 0 1px 4px 0 var(--shadow);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  transition:
+    box-shadow 0.18s cubic-bezier(.4,2,.6,1),
+    transform 0.18s cubic-bezier(.4,2,.6,1),
+    background 0.18s,
+    border-color 0.18s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  backdrop-filter: blur(1.2px) saturate(1.1);
+  background-blend-mode: lighten;
+}
+
+.dataNavCard:hover, .dataNavCard:focus-visible {
+  background:
+    linear-gradient(120deg, var(--card-background2) 60%, var(--detail) 100%),
+    linear-gradient(90deg, rgba(0,0,0,0.13) 0%, transparent 100%);
+  box-shadow: 0 8px 28px 0 rgba(0,0,0,0.18), 0 3px 12px 0 var(--shadow-hover);
+  transform: translateY(-4px) scale(1.025);
+  border-color: var(--detail);
+  outline: none;
+}
+
+.cardIcon {
+  font-size: 2.1rem;
+  margin-bottom: 0.8rem;
+  filter: drop-shadow(0 1px 8px var(--detail));
+}
+
+.cardTitle {
+  font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--text-detail);
+  text-shadow: var(--text-shadow);
+}
+
+.cardDesc {
+  font-size: var(--text3);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
