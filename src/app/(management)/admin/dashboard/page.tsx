@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-import LogoutButton from '../logout';
+import LogoutButton from '../Logout';
 import styles from './Admin.module.css';
 
 const AdminPage = () => {
