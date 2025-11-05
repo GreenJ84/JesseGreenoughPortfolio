@@ -27,6 +27,21 @@ export const getEducation = unstable_cache(
   { revalidate: 3600, tags: ['educationData'] }
 );
 
+export const getAllEducation = unstable_cache(
+  async (): Promise<EducationType[]> => {
+    return (await educationDatabase
+      .find()
+      .sort({ _id: -1 })
+      .toArray()
+    ).map(item => {
+      const { _id,...rest} = item;
+      return {id: _id.toString(),...rest} as EducationType;
+    });
+  },
+  ['allEducationData'],
+  { revalidate: 3600, tags: ['allEducationData'] }
+);
+
 export const getEducationCount =  unstable_cache(
   async (): Promise<number> => {
     return await educationDatabase.countDocuments();

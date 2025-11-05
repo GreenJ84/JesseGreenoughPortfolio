@@ -8,7 +8,15 @@ import { DB, DB_INFO } from "../_utils/Database";
 
 const projectDatabase = DB.collection<ProjectType>(DB_INFO.collections.PROJ);
 
-const getProjects = async (
+export const getProjectCount = unstable_cache(
+  async (): Promise<number> => {
+    return await projectDatabase.countDocuments()
+  },
+  ['totalProjects'],
+  { revalidate: 3600, tags: ['totalProjects'] }
+);
+
+const getProjectsBase = async (
   offset: number = 0,
   sortOption?: object,
   filterOptions?: object,
@@ -32,17 +40,9 @@ const getProjects = async (
     })
 }
 
-export const getProjectCount = unstable_cache(
-  async (): Promise<number> => {
-    return await projectDatabase.countDocuments()
-  },
-  ['totalProjects'],
-  { revalidate: 3600, tags: ['totalProjects'] }
-)
-
 export const getTopProjects = unstable_cache(
   async (): Promise<ProjectType[]> => {
-    return await getProjects(0, { priority: 1, date: -1, name: 1 });
+    return await getProjectsBase(0, { priority: 1, date: -1, name: 1 });
   },
   ['topProjects'],
   { revalidate: 3600, tags: ['topProjects'] }
@@ -50,7 +50,7 @@ export const getTopProjects = unstable_cache(
 
 export const getAllProjects = unstable_cache(
   async (offset: number): Promise<ProjectType[]>  => {
-    return await getProjects(offset, { priority: 1, date: -1, name: 1 });
+    return await getProjectsBase(offset, { priority: 1, date: -1, name: 1 });
   },
   ['allProjects'],
   { revalidate: 3600, tags: ['allProjects'] }
@@ -111,7 +111,7 @@ export const getProjectFilters = unstable_cache(
 
 export const getProjectsByCategory = unstable_cache(
   async (category: string, offset: number = 0): Promise<ProjectType[]> => {
-    return await getProjects(offset,
+    return await getProjectsBase(offset,
       { priority: 1, date: -1, name: 1 },
       { categories: category}
     );
@@ -122,7 +122,7 @@ export const getProjectsByCategory = unstable_cache(
 
 export const getProjectsByTech = unstable_cache(
   async (tech: string, offset: number = 0): Promise<ProjectType[]> => {
-    return getProjects(offset,
+    return getProjectsBase(offset,
       { priority: 1, date: -1, name: 1 },
       { key_techs: tech }
     );
