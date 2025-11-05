@@ -14,7 +14,18 @@ const WORK_COLLECTIONS = {
 
 export type WorkCategory = keyof typeof WORK_COLLECTIONS; // 'primary' | 'secondary'
 
-const getWorkItems = async (category: WorkCategory, offset: number = 0) => {
+export const getWorkTotals = unstable_cache(
+  async (): Promise<[number, number]> => {
+    const workTotal = await WORK_COLLECTIONS.primary.countDocuments();
+    const secWorkTotal = await WORK_COLLECTIONS.secondary.countDocuments();
+    return [workTotal, secWorkTotal];
+  },
+  ['workTotals'],
+  { revalidate: 3600, tags: ['workTotals'] }
+);
+
+
+const getWorkBase = async (category: WorkCategory, offset: number = 0) => {
   const database: Collection<WorkType> = WORK_COLLECTIONS[category];
   return (await database.find()
     .sort({ _id: -1 })
@@ -27,19 +38,9 @@ const getWorkItems = async (category: WorkCategory, offset: number = 0) => {
     });
 };
 
-export const getWorkTotals = unstable_cache(
-  async (): Promise<[number, number]> => {
-    const workTotal = await WORK_COLLECTIONS.primary.countDocuments();
-    const secWorkTotal = await WORK_COLLECTIONS.secondary.countDocuments();
-    return [workTotal, secWorkTotal];
-  },
-  ['workTotals'],
-  { revalidate: 3600, tags: ['workTotals'] }
-);
-
 export const getWorkByCategory = unstable_cache(
   async (category: WorkCategory, offset: number = 0): Promise<WorkType[]> => {
-    return getWorkItems(category, offset);
+    return getWorkBase(category, offset);
   },
   ['workByCategory'],
   { revalidate: 3600, tags: ['workByCategory'] }

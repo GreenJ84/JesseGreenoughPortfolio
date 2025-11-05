@@ -8,7 +8,15 @@ import { DB, DB_INFO } from "../_utils/Database";
 
 const certificationDatabase = DB.collection<CertificationType>(DB_INFO.collections.CERT);
 
-const getCertifications = async (
+export const getCertificationCount = unstable_cache(
+  async (): Promise<number> => {
+    return await certificationDatabase.countDocuments();
+  },
+  ['totalCertifications'],
+  { revalidate: 3600, tags: ['totalCertifications'] }
+);
+
+const getCertificationsBase = async (
   offset: number = 0,
   sortOption?: object,
   filterOptions?: object,
@@ -19,8 +27,8 @@ const getCertifications = async (
   };
   if (sortOption) {
     sortBase = {
-      ...sortBase,
       ...sortOption,
+      ...sortBase,
     };
   }
   return (await certificationDatabase
@@ -35,17 +43,9 @@ const getCertifications = async (
     });
 };
 
-export const getCertificationCount = unstable_cache(
-  async (): Promise<number> => {
-    return await certificationDatabase.countDocuments();
-  },
-  ['totalCertifications'],
-  { revalidate: 3600, tags: ['totalCertifications'] }
-);
-
 export const getTopCertifications = unstable_cache(
   async (): Promise<CertificationType[]> => {
-    return await getCertifications(0, { priority: 1, date: -1 });
+    return await getCertificationsBase(0, { priority: 1, date: -1 });
   },
   ['topCertifications'],
   { revalidate: 3600, tags: ['topCertifications'] }
@@ -53,7 +53,7 @@ export const getTopCertifications = unstable_cache(
 
 export const getAllCertifications = unstable_cache(
   async (offset: number): Promise<CertificationType[]> => {
-    return await getCertifications(offset);
+    return await getCertificationsBase(offset);
   },
   ['allCertifications'],
   { revalidate: 3600, tags: ['allCertifications'] }
@@ -71,7 +71,7 @@ export const getFullAllCertifications = async (): Promise<CertificationType[]> =
 };
 
 export const getCertificationFilterOptions = unstable_cache(
-  async (): Promise<[[string, number][], [string, number][]]> => {
+  async (): Promise<[string, string]> => {
     const res: {
       issuer: string;
       techs: string[];
@@ -102,8 +102,8 @@ export const getCertificationFilterOptions = unstable_cache(
     });
 
     return [
-      Array.from(issuerMap.entries()),
-      Array.from(techMap.entries()),
+      JSON.stringify(Array.from(issuerMap.entries())),
+      JSON.stringify(Array.from(techMap.entries())),
     ];
   },
   ['certificationFilters'],
@@ -112,7 +112,7 @@ export const getCertificationFilterOptions = unstable_cache(
 
 export const getCertificationsByTech = unstable_cache(
   async (tech: string, offset: number = 0): Promise<CertificationType[]> => {
-    return await getCertifications(
+    return await getCertificationsBase(
       offset,
       { priority: 1, date: -1, title: 1 },
       { techs: tech }
@@ -124,7 +124,7 @@ export const getCertificationsByTech = unstable_cache(
 
 export const getCertificationsByIssuer = unstable_cache(
   async (issuer: string, offset: number = 0): Promise<CertificationType[]> => {
-    return await getCertifications(
+    return await getCertificationsBase(
       offset,
       { priority: 1, date: -1, title: 1 },
       { issuer: issuer }
