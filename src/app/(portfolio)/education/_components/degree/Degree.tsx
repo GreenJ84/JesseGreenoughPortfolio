@@ -11,13 +11,13 @@ const AddItemsButton = dynamic(() =>
 import("../../../_shared/AddItemsButton")
 );
 
-import { educationType } from "../../educationService";
+import { EducationType } from "@/app/_lib/_types";
 
 const css = require("./Degree.module.css");
 
 interface Education {
   educationData: {
-    eduItems: educationType[];
+    eduItems: EducationType[];
     total: number;
   };
 }
@@ -25,7 +25,7 @@ interface Education {
 const Degree = ({ educationData }: Education) => {
   const { eduItems, total } = educationData;
 
-  const [education, setEducation] = React.useState<educationType[]>(eduItems);
+  const [education, setEducation] = React.useState<EducationType[]>(eduItems);
 
   async function handleAddingEdu(e: React.MouseEvent) {
     e.preventDefault();

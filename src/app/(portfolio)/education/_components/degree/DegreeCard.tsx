@@ -4,15 +4,15 @@ import React from "react";
 
 import { HiOutlineExternalLink } from "react-icons/hi";
 
-import { educationType } from "../../educationService";
+import { EducationType } from "@/app/_lib/_types";
 
 const css = require("./Degree.module.css");
 
-interface degreeCard {
-  education: educationType;
+interface DegreeCardProps {
+  education: EducationType;
 }
 
-const DegreeCard = (props: degreeCard) => {
+const DegreeCard = (props: DegreeCardProps) => {
   return (
     <article className={css.cardContainer}>
       <div className={css.cardHead}>
