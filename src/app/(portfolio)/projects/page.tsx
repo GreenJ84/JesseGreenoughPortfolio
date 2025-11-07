@@ -1,17 +1,17 @@
 /** @format */
 
 // TODO: Update styling logic gor route
-import React from "react";
 import dynamic from "next/dynamic";
 
 import PageClient from "./PageClient";
 const Footer = dynamic(() => import("../_layout/Footer/Footer"));
 
+import { ProjectType } from "@/app/_lib/_types";
 import {
   getProjectCount,
   getProjectFilters,
   getTopProjects,
-} from "./projectService";
+} from "@/app/_actions/projectService";
 
 const css = require("./_components/Project.module.css");
 
@@ -28,7 +28,7 @@ const ProjectPage = async () => {
       className={css.projectsBody}
     >
       <PageClient
-        JSONData={projectData.map(project => JSON.stringify(project))}
+        JSONData={projectData.map((project: ProjectType) => JSON.stringify(project))}
         total={total}
         filters={filters}
       />
