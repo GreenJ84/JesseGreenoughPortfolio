@@ -7,12 +7,12 @@ import React, { useState } from "react";
 import Image from "next/image";
 import FlipCard from "../../_shared/FlipCard";
 
-import { projectType } from "../projectService";
+import { ProjectType } from "@app/_lib/_types";
 import ProjectDetailCard from "./ProjectDetailCard";
 
 const css = require("./Project.module.css");
 
-const ProjectCard = ({ project }: { project: projectType }) => {
+const ProjectCard = ({ project }: { project: ProjectType }) => {
   const [showDetail, setShowDetail] = useState(false);
 
   return (

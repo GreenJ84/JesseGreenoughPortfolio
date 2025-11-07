@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 import ProjectDetailCard from './ProjectDetailCard';
-import * as projectService from '../projectService';
+import * as projectService from '@app/_actions/projectService';
 
 import css from './Project.module.css';
 

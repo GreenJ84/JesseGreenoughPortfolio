@@ -11,12 +11,12 @@ const AiFillProject = dynamic(() =>
 );
 const MdClose = dynamic(() => import("react-icons/md").then((m) => m.MdClose));
 
-import { projectType } from '../projectService';
+import { ProjectType } from '@app/_lib/_types';
 
 import css from './Project.module.css';
 
 interface DetailProps {
-  project: projectType;
+  project: ProjectType;
   setShowDetail?: (show: boolean) => void;
 }
 const ProjectDetailCard = ({project, setShowDetail}: DetailProps) => {

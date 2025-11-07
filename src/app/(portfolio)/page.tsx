@@ -9,6 +9,8 @@ const ProjectsPreview = dynamic(() => import("./projects/_components/ProjectsPre
 const GithubCard = dynamic(() => import("./_components/GithubCard"));
 const Footer = dynamic(() => import('./_layout/Footer/Footer'));
 
+import { getTopProjects } from "@/app/_actions/projectService";
+
 const css = require("./_components/Home.module.css")
 
 const HomePage = async () => {
@@ -30,7 +32,6 @@ export default HomePage;
 
 import { Metadata } from 'next/types';
 import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from './sharedMetadata';
-import { getTopProjects } from "./projects/projectService";
 
 const RESUME_URL = APP_URL + '/resumes';
 const TITLE = "Jesse Greenough's Development Portfolio";
