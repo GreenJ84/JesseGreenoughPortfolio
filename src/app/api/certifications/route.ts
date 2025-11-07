@@ -2,50 +2,46 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-import * as certificationService from "../../(portfolio)/education/certificationService";
+import { CertificationType } from "@/app/_lib/_types";
+import * as CertificationService from "@/app/_actions/certificationService";
 
-export async function GET(
-  req: NextRequest,
-) {
+export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
-  const type = searchParams.get('type');
-  if (!type) return NextResponse.json(await certificationService.getTopCertifications(), {status: 200});
+  const type = searchParams.get("type") ?? "top";
 
-  let offset = 0;
-  let offsetParam = searchParams.get('offset');
-  if (!!offsetParam){
-    try { offset = parseInt(offsetParam); }
-    catch {}
+  const offsetRaw = searchParams.get("offset") ?? "0";
+  const offset = Number.isNaN(Number(offsetRaw)) ? 0 : parseInt(offsetRaw, 10);
+
+  const filter = searchParams.get("filter") ?? "";
+
+  try {
+    let results: CertificationType[] = [];
+
+    switch (type) {
+      case "top":
+        results = await CertificationService.getTopCertifications();
+        break;
+      case "all":
+        results = await CertificationService.getAllCertifications(offset);
+        break;
+      case "issuer":
+        if (!filter) {
+          return NextResponse.json({ error: "issuer filter required" }, { status: 400 });
+        }
+        results = await CertificationService.getCertificationsByIssuer(filter, offset);
+        break;
+      case "tech":
+        if (!filter) {
+          return NextResponse.json({ error: "tech filter required" }, { status: 400 });
+        }
+        results = await CertificationService.getCertificationsByTech(filter, offset);
+        break;
+      default:
+        return NextResponse.json({ error: "invalid type parameter" }, { status: 400 });
+    }
+
+    return NextResponse.json(results);
+  } catch (err) {
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
-  const filter = searchParams.get('filter');
-
-  let results: certificationService.certificationType[] = [];
-  switch (type) {
-    case "all":
-      results = await certificationService.getUnsortedCertifications(offset);
-      break;
-    case "issuer":
-      if (!filter) {
-        return NextResponse.json("Requesting certifications of a certain issuer requires the issuer filter", {status: 404});
-      }
-      results = await certificationService.getCertificationsByIssuer(
-        filter!,
-        offset
-      );
-      break;
-    case "tech":
-      if (!filter) {
-        return NextResponse.json("Requesting certifications of a certain tech requires the tech filter", {status: 404});
-      }
-      results = await certificationService.getCertificationsByTech(
-        filter!,
-        offset
-      );
-      break;
-    default:
-      return NextResponse.json("Server cannot handle untyped request", {status: 500});
-      break;
-  }
-
-  return NextResponse.json(results, {status: 200});
 }
