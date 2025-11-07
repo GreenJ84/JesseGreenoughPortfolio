@@ -9,14 +9,14 @@ import DataFilter from "../../../_shared/DataFilter";
 import CertificationCard from "./CertificationCard";
 const AddItemsButton = dynamic(() => import("../../../_shared/AddItemsButton"));
 
-import { certificationType } from "../../certificationService";
+import { CertificationType } from "@/app/_lib/_types";
 
 const css = require("./Certifications.module.css");
 
 type currentDisplayType = "all" | "top" | "issuer" | "tech";
 interface Certification {
   certificationData: {
-    certItems: certificationType[];
+    certItems: CertificationType[];
     total: number;
     issuerData: string;
     techData: string;
@@ -26,7 +26,7 @@ interface Certification {
 const Certifications = ({ certificationData }: Certification) => {
   const { certItems, total, issuerData, techData } = certificationData;
 
-  const [certData, setCertData] = useState<certificationType[]>(certItems);
+  const [certData, setCertData] = useState<CertificationType[]>(certItems);
 
   // Certification filtering state
   const [currentType, setCurrentType] = useState<currentDisplayType>("top");
