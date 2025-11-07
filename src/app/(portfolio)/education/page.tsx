@@ -8,15 +8,15 @@ const Degree = dynamic(() => import("./_components/degree/Degree"));
 const Certifications = dynamic(() => import("./_components/certifications/Certifications"));
 import Footer from "../_layout/Footer/Footer";
 
-import * as educationService from "./educationService";
-import * as certificationService from "./certificationService";
+import * as educationService from "@/app/_actions/educationService";
+import * as certificationService from "@/app/_actions/certificationService";
 
 const css = require("./_components/EduBody.module.css");
 
 const Page = async () => {
   const [eduItems, eduTotal, certItems, certTotal, [issuerData, techData]] =
   await Promise.all([
-    educationService.getEducationData(),
+    educationService.getEducation(),
     educationService.getEducationCount(),
     certificationService.getTopCertifications(),
     certificationService.getCertificationCount(),

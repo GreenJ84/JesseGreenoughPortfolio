@@ -1,7 +1,7 @@
 /** @format */
 
 import { NextRequest, NextResponse } from "next/server";
-import { getEducationData } from "../../(portfolio)/education/educationService";
+import { getEducation } from "@/app/_actions/educationService";
 
 export async function GET(
   req: NextRequest,
@@ -14,7 +14,7 @@ export async function GET(
     catch {}
   }
 
-  const results = await getEducationData(offset);
+  const results = await getEducation(offset);
 
   return NextResponse.json(results);
 }
