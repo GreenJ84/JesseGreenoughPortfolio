@@ -9,12 +9,12 @@ const RiExternalLinkFill = dynamic(() =>
 import Image from "next/image";
 import FlipCard from "../../../_shared/FlipCard";
 
-import { certificationType } from "../../certificationService";
+import { CertificationType } from "@/app/_lib/_types";
 
 const css = require("./Certifications.module.css");
 
 interface certificateCardProps {
-  certificate: certificationType;
+  certificate: CertificationType;
 }
 
 const CertificationCard = (props: certificateCardProps) => {
