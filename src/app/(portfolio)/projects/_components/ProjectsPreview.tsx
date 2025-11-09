@@ -1,13 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 
+import { ProjectType } from '@/app/_lib/_types';
+
 import ProjectDetailCard from './ProjectDetailCard';
-import * as projectService from '@app/_actions/projectService';
 
 import css from './Project.module.css';
 
 const ProjectsPreview = ({projects} : {
-  projects: projectService.projectType[];
+  projects: ProjectType[];
 }) => {
 
   return (

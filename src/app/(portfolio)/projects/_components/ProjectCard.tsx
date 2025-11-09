@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import FlipCard from "../../_shared/FlipCard";
 
-import { ProjectType } from "@app/_lib/_types";
+import { ProjectType } from "@/app/_lib/_types";
 import ProjectDetailCard from "./ProjectDetailCard";
 
 const css = require("./Project.module.css");

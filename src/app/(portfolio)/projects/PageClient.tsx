@@ -7,7 +7,7 @@ import DataFilter from "../_shared/DataFilter";
 import ProjectCard from "./_components/ProjectCard";
 const AddItemsButton = dynamic(() => import("../_shared/AddItemsButton"));
 
-import { projectType } from './projectService';
+import { ProjectType } from '@/app/_lib/_types';
 type currentDisplayType = "all" | "top" | "category" | "tech";
 
 const css = require("./_components/Project.module.css");
@@ -17,9 +17,9 @@ const PageClient = ({JSONData, total, filters}: {
   total: number,
   filters: [[string, number][], [string, number][]]
 }) => {
-  const projectData: projectType[] = useMemo(() => JSONData.map(project => JSON.parse(project) as projectType), [JSONData]);
+  const projectData: ProjectType[] = useMemo(() => JSONData.map(project => JSON.parse(project) as ProjectType), [JSONData]);
 
-  const [projects, setProjects] = useState<projectType[]>(projectData);
+  const [projects, setProjects] = useState<ProjectType[]>(projectData);
   const [currentType, setCurrentType] = useState<currentDisplayType>("top");
   const [category, setCategory] = useState("top");
   const [tech, setTech] = useState("top");
@@ -29,7 +29,7 @@ const PageClient = ({JSONData, total, filters}: {
   }, []);
 
   const getProjectData = useCallback(async (type: string, offset: number = 0, keyword?: string) => {
-    let projectResponse: AxiosResponse<projectType[], any>;
+    let projectResponse: AxiosResponse<ProjectType[], any>;
     switch (type) {
       case "all":
         projectResponse = await axios.get(`/api/projects?type=all&offset=${offset}`);
@@ -125,7 +125,7 @@ const PageClient = ({JSONData, total, filters}: {
     e.preventDefault();
     const offset = projects.length;
 
-    let projRes: projectType[];
+    let projRes: ProjectType[];
     switch (currentType) {
       case "all":
         projRes = await getProjectData("all", offset);
