@@ -2,7 +2,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
-import * as workService from "./workService";
+import { getWorkByCategory, getWorkTotals } from "@/app/_actions/workService";
 
 import WorkClient from "./PageClient";
 const Footer = dynamic(() => import("../_layout/Footer/Footer"));
@@ -12,8 +12,8 @@ const Footer = dynamic(() => import("../_layout/Footer/Footer"));
 const WorkPage = async () => {
 
   const [workData, documentTotals] = await Promise.all([
-    workService.getPrimaryWork(),
-    workService.getWorkTotals(),
+    getWorkByCategory("primary"),
+    getWorkTotals(),
   ]);
   return (
     <>

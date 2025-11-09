@@ -3,7 +3,7 @@
 import axios from "axios";
 import dynamic from "next/dynamic";
 import React, { useEffect, useState } from "react";
-import { workType } from "./workService";
+import { WorkType } from "@/app/_lib/_types.ts";
 
 const WorkImg = dynamic(() => import("./_components/WorkImg"));
 const WorkCard = dynamic(() => import("./_components/WorkCard"));
@@ -12,7 +12,7 @@ const AddItemsButton = dynamic(() => import("../_shared/AddItemsButton"));
 const css = require("./_components/WorkExp.module.css");
 
 export interface WorkExp {
-  workData: workType[];
+  workData: WorkType[];
   documentTotals: [number, number];
 }
 const WorkClient = ({ workData, documentTotals }: WorkExp) => {
