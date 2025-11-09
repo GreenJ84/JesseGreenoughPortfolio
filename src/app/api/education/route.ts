@@ -7,12 +7,9 @@ export async function GET(
   req: NextRequest,
 ) {
   const searchParams = req.nextUrl.searchParams;
-  let offset = 0;
-  let offsetParam = searchParams.get('offset');
-  if (!!offsetParam){
-    try { offset = parseInt(offsetParam); }
-    catch {}
-  }
+
+  const offsetRaw = searchParams.get("offset") ?? "0";
+  const offset = Number.isNaN(Number(offsetRaw)) ? 0 : parseInt(offsetRaw, 10);
 
   const results = await getEducation(offset);
 
