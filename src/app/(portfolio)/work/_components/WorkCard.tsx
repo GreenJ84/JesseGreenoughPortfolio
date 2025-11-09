@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { ImPointRight } from "react-icons/im";
 
-import { WorkType } from "@/app/_lib/_types.ts";
+import { WorkType } from "@/app/_lib/_types";
 const css = require("./WorkExp.module.css");
 
 interface WorkCard {
