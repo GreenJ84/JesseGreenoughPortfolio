@@ -5,14 +5,14 @@ import Image from "next/image";
 
 import { ImPointRight } from "react-icons/im";
 
-import { workType } from "../workService";
+import { WorkType } from "@/app/_lib/_types.ts";
 const css = require("./WorkExp.module.css");
 
-interface workCard {
-  work: workType;
+interface WorkCard {
+  work: WorkType;
 }
 
-const WorkCard = (props: workCard) => {
+const WorkCard = (props: WorkCard) => {
   return (
     <li className={css.workCard}>
       <div className={css.workImageHolder}>
@@ -34,7 +34,7 @@ const WorkCard = (props: workCard) => {
           <p>{props.work.location}</p>
         </div>
         <ul>
-          {props.work.details.map((item, idx) => (
+          {props.work.details.map((item: string, idx: number) => (
             <li
               key={idx}
               className={css.details}
