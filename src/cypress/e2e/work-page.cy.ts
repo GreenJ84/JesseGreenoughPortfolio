@@ -3,7 +3,6 @@
 import { WorkPage } from "../page-objects/WorkPage";
 import {
   BASEURL,
-  getOddEven,
   getWindowInnerWidth,
   setupPageWithTheme,
   viewPortSetup,

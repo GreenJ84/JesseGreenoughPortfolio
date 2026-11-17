@@ -9,7 +9,7 @@ import { DB, DB_INFO } from "../_utils/Database";
 
 const WORK_COLLECTIONS = {
   primary: DB.collection<WorkType>(DB_INFO.collections.WORK),
-  secondary: DB.collection<WorkType>(DB_INFO.collections.SWORK!),
+  secondary: DB.collection<WorkType>(DB_INFO.collections.SWORK),
 };
 
 export type WorkCategory = keyof typeof WORK_COLLECTIONS; // 'primary' | 'secondary'
