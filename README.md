@@ -131,3 +131,25 @@ Make sure your request is meaningful, thought out and you have tested the app lo
 Made with TypeScript, NextJS, Vercel, MongoDB Atlas and ❤️‍🔥
 
 <a href="https://vercel.com/"><img alt="Powered by Vercel" title="Powered by Vercel" src="https://img.shields.io/badge/-Powered%20by%20Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white"/></a>
+
+## Project checks and database startup
+
+Run `npm run typecheck` to check all application source files and the separate
+Cypress configuration/suite. Run `npm run lint` for Next.js lint checks and `npm run test:startup` for isolated
+database startup regression tests (no database required).
+
+Application startup does not run database migrations or close the shared MongoDB
+client. Development reuses the client across hot reloads. Set `DB_CONN_STRING` to
+select a database; development defaults to `mongodb://localhost:27017` when unset,
+and production requires an explicit connection string.
+
+Primary work records use `work`; secondary work records retain the existing
+`secondaryExperience` collection. No work data is moved during startup.
+
+The education migration helper is dormant and must not be imported into startup
+code. Legacy migration scripts are manual tools, not application entry points;
+review them and back up data before running them. Migration tooling hardening
+is separate from the startup stabilization change.
+
+`npm run build` prerenders database-backed portfolio pages, so the configured
+MongoDB server must be reachable during a production build.
