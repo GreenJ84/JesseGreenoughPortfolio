@@ -4,7 +4,6 @@
 
 export class ProjectPage {
   pageContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
-  projectsContainer: () => Cypress.Chainable<JQuery<HTMLElement>>;
 
   projectsFilter: () => Cypress.Chainable<JQuery<HTMLElement>>;
   filterSelect: (
