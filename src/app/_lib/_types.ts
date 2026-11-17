@@ -2,13 +2,16 @@
 export interface BasePortfolioItem {
   id?: string;
 }
-
-export enum DataType {
-  Project = 'projects',
-  Certification = 'certifications',
-  Education = 'education',
-  Work = 'work',
+export interface BaseItem {
+  id?: string;
+  title: string;
+  brief: string;
+  description: string;
+  image: string;
+  url: string;
 }
+
+
 export type PortfolioData = ProjectType | CertificationType | EducationType | WorkType;
 
 
@@ -36,15 +39,11 @@ export interface CertificationType extends BasePortfolioItem {
   techs: string[];
 }
 
-export interface EducationType extends BasePortfolioItem {
+export interface EducationType extends BaseItem {
   college: string;
-  degree: string;
-  date: string; // "start - end"
-  startDate?: string;
-  endDate?: string;
-  description: string[];
-  icon: string;
-  website: string;
+  start_date: Date;
+  end_date?: Date;
+  details: string[];
 }
 
 export interface WorkType extends BasePortfolioItem {

@@ -48,9 +48,9 @@ const Degree = ({ educationData }: Education) => {
             key={idx}
             className={css.degrees}
           >
-            <a href={exp.website}>
+            <a href={exp.url}>
               <Image
-                src={exp.icon}
+                src={exp.image}
                 width={200}
                 height={200}
                 alt={`${exp.college} icon`}
