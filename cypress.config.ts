@@ -22,7 +22,7 @@ export default defineConfig({
   },
   numTestsKeptInMemory: 5,
   e2e: {
-    setupNodeEvents(on, config) {
+    setupNodeEvents() {
       // implement node event listeners here
     },
     baseUrl: "http://localhost:3000/",

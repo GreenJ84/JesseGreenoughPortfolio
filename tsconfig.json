@@ -10,9 +10,6 @@
       "es6"
     ],
     "types": [
-      "cypress",
-      "next",
-      "cypress-real-events",
       "node"
     ],
     "allowJs": true,
@@ -33,9 +30,6 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "react": [
-        "./node_modules/@types/react"
-      ],
       "@/*": [
         "./src/*"
       ]
@@ -48,13 +42,17 @@
   },
   "include": [
     "next-env.d.ts",
-    "./src/**/*.(tsx|tsx|js|jsx)",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.jsx",
     ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "build",
-    "./depreciated",
-    "./future",
+    "depreciated",
+    "future",
+    "src/cypress"
   ]
 }
