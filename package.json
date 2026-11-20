@@ -10,7 +10,9 @@
     "cypress": "cypress run",
     "cypress:full": "cypress run --env FULL_SPECTRUM=true",
     "typecheck": "tsc --noEmit --incremental false && tsc --noEmit --incremental false -p tsconfig.test.json",
-    "test:startup": "node --test tests/database-startup.cjs"
+    "test:startup": "node --test tests/database-startup.cjs",
+    "test:security": "node --test tests/security.cjs",
+    "test": "node --test tests/database-startup.cjs tests/security.cjs"
   },
   "dependencies": {
     "@tsparticles/engine": "^3.3.0",
