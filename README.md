@@ -153,3 +153,10 @@ is separate from the startup stabilization change.
 
 `npm run build` prerenders database-backed portfolio pages, so the configured
 MongoDB server must be reachable during a production build.
+
+## Security checks
+
+Run `npm test` for startup and security regression tests, or `npm run test:security`
+for security tests alone. These use isolated database/mail boundaries and send no
+real email or database writes. See [security configuration](docs/SECURITY.md) for
+required credentials, session behavior, rate limits, and deployment requirements.
