@@ -1,5 +1,9 @@
 'use server';
 
+import { requireAdmin } from "../_security/session";
+import { projectInput, objectId, offsetInput, filterInput } from "../_security/validation";
+
+
 import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 import { ObjectId, SortDirection, WithId } from "mongodb";
 
@@ -31,7 +35,7 @@ const getProjectsBase = async (
   return (await projectDatabase
     .find(filterOptions ?? {})
     .sort(sortBase)
-    .skip(offset)
+    .skip(offsetInput(offset))
     .limit(10)
     .toArray())
     .map((project: WithId<ProjectType>) => {
@@ -57,6 +61,7 @@ export const getAllProjects = unstable_cache(
 )
 
 export const getFullAllProjects = async (): Promise<ProjectType[]> => {
+  await requireAdmin();
   return (await projectDatabase
     .find({})
     .sort({ priority: 1, date: -1, name: 1 })
@@ -113,7 +118,7 @@ export const getProjectsByCategory = unstable_cache(
   async (category: string, offset: number = 0): Promise<ProjectType[]> => {
     return await getProjectsBase(offset,
       { priority: 1, date: -1, name: 1 },
-      { categories: category}
+      { categories: filterInput(category)}
     );
   },
   ['projectsByCategory'],
@@ -124,33 +129,24 @@ export const getProjectsByTech = unstable_cache(
   async (tech: string, offset: number = 0): Promise<ProjectType[]> => {
     return getProjectsBase(offset,
       { priority: 1, date: -1, name: 1 },
-      { key_techs: tech }
+      { key_techs: filterInput(tech) }
     );
   },
   ['projectsByTech'],
   { revalidate: 3600, tags: ['projectsByTech'] }
 );
 
-export const saveProject = async (formData: ProjectType) => {
-
-  if (formData.id) {
-    const { id, ...rest } = formData;
-    try {
-      await projectDatabase.updateOne(
-        { _id: new ObjectId(id) },
-        { $set: { ...rest } }
-      );
-    } catch (error) {
-      console.error('Update project error:', error);
-      throw new Error('Failed to update project');
-    }
+export const saveProject = async (input: unknown) => {
+  await requireAdmin();
+  const { id, ...data } = projectInput(input);
+  if (id) {
+    const result = await projectDatabase.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: data }
+    );
+    if (!result.matchedCount) throw new Error('Record not found');
   } else {
-    try {
-      await projectDatabase.insertOne(formData);
-    } catch (error) {
-      console.error('Insert project error:', error);
-      throw new Error('Failed to insert project');
-    }
+    await projectDatabase.insertOne(data);
   }
   revalidateTag('totalProjects');
   revalidateTag('allProjects');
@@ -159,10 +155,12 @@ export const saveProject = async (formData: ProjectType) => {
   revalidateTag('projectsByTech');
 }
 
-export const deleteProject = async (id: string) => {
-  if (!id) throw new Error('Invalid project id');
+export const deleteProject = async (inputId: unknown) => {
+  await requireAdmin();
+  const id = objectId(inputId);
   try {
-    await projectDatabase.deleteOne({ _id: new ObjectId(id) });
+    const result = await projectDatabase.deleteOne({ _id: new ObjectId(id) });
+    if (!result.deletedCount) throw new Error('Record not found');
     revalidatePath('/(management)/admin/data/projects');
   } catch (error) {
     console.error('Delete project error:', error);

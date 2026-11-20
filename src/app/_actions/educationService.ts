@@ -1,6 +1,10 @@
 /** @format */
 'use server';
 
+import { requireAdmin } from "../_security/session";
+import { educationInput, objectId, offsetInput } from "../_security/validation";
+
+
 import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 
 
@@ -15,7 +19,7 @@ export const getEducation = unstable_cache(
     return (await educationDatabase
       .find()
       .sort({ _id: -1 })
-      .skip(offset)
+      .skip(offsetInput(offset))
       .limit(5)
       .toArray()
     ).map(item => {
@@ -27,7 +31,7 @@ export const getEducation = unstable_cache(
   { revalidate: 3600, tags: ['educationData'] }
 );
 
-export const getAllEducation = unstable_cache(
+const getAllEducationCached = unstable_cache(
   async (): Promise<EducationType[]> => {
     return (await educationDatabase
       .find()
@@ -42,6 +46,11 @@ export const getAllEducation = unstable_cache(
   { revalidate: 3600, tags: ['allEducationData'] }
 );
 
+export const getAllEducation = async (): Promise<EducationType[]> => {
+  await requireAdmin();
+  return getAllEducationCached();
+};
+
 export const getEducationCount =  unstable_cache(
   async (): Promise<number> => {
     return await educationDatabase.countDocuments();
@@ -50,34 +59,28 @@ export const getEducationCount =  unstable_cache(
   { revalidate: 3600, tags: ['totalEducation'] }
 )
 
-export const saveEducation = async (formData: EducationType) => {
-  if (formData.id) {
-    const { id, ...rest } = formData;
-    try {
-      await educationDatabase.updateOne(
-        { _id: new ObjectId(id) },
-        { $set: { ...rest } }
-      );
-    } catch (error) {
-      console.error('Update education error:', error);
-      throw new Error('Failed to update education');
-    }
+export const saveEducation = async (input: unknown) => {
+  await requireAdmin();
+  const { id, ...data } = educationInput(input);
+  if (id) {
+    const result = await educationDatabase.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: data, ...(data.end_date ? {} : { $unset: { end_date: "" } }) }
+    );
+    if (!result.matchedCount) throw new Error('Record not found');
   } else {
-    try {
-      await educationDatabase.insertOne(formData);
-    } catch (error) {
-      console.error('Insert education error:', error);
-      throw new Error('Failed to insert education');
-    }
+    await educationDatabase.insertOne(data);
   }
   revalidateTag('educationData');
   revalidateTag('totalEducation');
 }
 
-export const deleteEducation = async (id: string) => {
-  if (!id) throw new Error('Invalid education id');
+export const deleteEducation = async (inputId: unknown) => {
+  await requireAdmin();
+  const id = objectId(inputId);
   try {
-    await educationDatabase.deleteOne({ _id: new ObjectId(id) });
+    const result = await educationDatabase.deleteOne({ _id: new ObjectId(id) });
+    if (!result.deletedCount) throw new Error('Record not found');
     revalidatePath('/(management)/admin/data/education');
   } catch (error) {
     console.error('Delete education error:', error);

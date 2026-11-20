@@ -1,6 +1,10 @@
 /** @format */
 'use server';
 
+import { requireAdmin } from "../_security/session";
+import { workInput, objectId, offsetInput, workCategory } from "../_security/validation";
+
+
 import { revalidateTag, unstable_cache } from "next/cache";
 import { Collection, ObjectId, WithId } from "mongodb";
 
@@ -26,10 +30,10 @@ export const getWorkTotals = unstable_cache(
 
 
 const getWorkBase = async (category: WorkCategory, offset: number = 0) => {
-  const database: Collection<WorkType> = WORK_COLLECTIONS[category];
+  const database: Collection<WorkType> = WORK_COLLECTIONS[workCategory(category)];
   return (await database.find()
     .sort({ _id: -1 })
-    .skip(offset)
+    .skip(offsetInput(offset))
     .limit(5)
     .toArray())
     .map((work: WithId<WorkType>) => {
@@ -46,9 +50,9 @@ export const getWorkByCategory = unstable_cache(
   { revalidate: 3600, tags: ['workByCategory'] }
 );
 
-export const getFullAllWorkByCategory = unstable_cache(
+const getFullAllWorkByCategoryCached = unstable_cache(
   async (category: WorkCategory): Promise<WorkType[]> => {
-    const database: Collection<WorkType> = WORK_COLLECTIONS[category];
+    const database: Collection<WorkType> = WORK_COLLECTIONS[workCategory(category)];
     return (await database.find()
       .sort({ _id: -1 })
       .toArray())
@@ -61,37 +65,36 @@ export const getFullAllWorkByCategory = unstable_cache(
   { revalidate: 3600, tags: ['fullAllWorkByCategory'] }
 );
 
-export const saveWork = async (category: WorkCategory, formData: WorkType) => {
-  const database: Collection<WorkType> = WORK_COLLECTIONS[category];
-  if (formData.id) {
-    const { id, ...rest } = formData;
-    try {
-      await database.updateOne(
-        { _id: new ObjectId(id) },
-        { $set: { ...rest } }
-      );
-    } catch (error) {
-      console.error('Update work error:', error);
-      throw new Error('Failed to update work');
-    }
+export const getFullAllWorkByCategory = async (category: WorkCategory): Promise<WorkType[]> => {
+  await requireAdmin();
+  return getFullAllWorkByCategoryCached(workCategory(category));
+};
+
+export const saveWork = async (category: unknown, input: unknown) => {
+  await requireAdmin();
+  const database = WORK_COLLECTIONS[workCategory(category)];
+  const { id, ...data } = workInput(input);
+  if (id) {
+    const result = await database.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: data }
+    );
+    if (!result.matchedCount) throw new Error('Record not found');
   } else {
-    try {
-      await database.insertOne(formData);
-    } catch (error) {
-      console.error('Insert work error:', error);
-      throw new Error('Failed to insert work');
-    }
+    await database.insertOne(data);
   }
   revalidateTag('workTotals');
   revalidateTag('workByCategory');
   revalidateTag('fullAllWorkByCategory');
 };
 
-export const deleteWork = async (category: WorkCategory, id: string) => {
-  if (!id) throw new Error('Invalid work id');
-  const database: Collection<WorkType> = WORK_COLLECTIONS[category];
+export const deleteWork = async (category: unknown, inputId: unknown) => {
+  await requireAdmin();
+  const id = objectId(inputId);
+  const database = WORK_COLLECTIONS[workCategory(category)];
   try {
-    await database.deleteOne({ _id: new ObjectId(id) });
+    const result = await database.deleteOne({ _id: new ObjectId(id) });
+    if (!result.deletedCount) throw new Error('Record not found');
   } catch (error) {
     console.error('Delete work error:', error);
     throw new Error('Failed to delete work');

@@ -1,5 +1,9 @@
 'use server';
 
+import { requireAdmin } from "../_security/session";
+import { certificationInput, objectId, offsetInput, filterInput } from "../_security/validation";
+
+
 import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 import { ObjectId, SortDirection, WithId } from "mongodb";
 
@@ -34,7 +38,7 @@ const getCertificationsBase = async (
   return (await certificationDatabase
     .find(filterOptions ?? {})
     .sort(sortBase)
-    .skip(offset)
+    .skip(offsetInput(offset))
     .limit(10)
     .toArray())
     .map((cert: WithId<CertificationType>) => {
@@ -60,6 +64,7 @@ export const getAllCertifications = unstable_cache(
 );
 
 export const getFullAllCertifications = async (): Promise<CertificationType[]> => {
+  await requireAdmin();
   return (await certificationDatabase
     .find({})
     .sort({ priority: 1, date: -1, title: 1 })
@@ -115,7 +120,7 @@ export const getCertificationsByTech = unstable_cache(
     return await getCertificationsBase(
       offset,
       { priority: 1, date: -1, title: 1 },
-      { techs: tech }
+      { techs: filterInput(tech) }
     );
   },
   ['certificationsByTech'],
@@ -127,32 +132,24 @@ export const getCertificationsByIssuer = unstable_cache(
     return await getCertificationsBase(
       offset,
       { priority: 1, date: -1, title: 1 },
-      { issuer: issuer }
+      { issuer: filterInput(issuer) }
     );
   },
   ['certificationsByIssuer'],
   { revalidate: 3600, tags: ['certificationsByIssuer'] }
 );
 
-export const saveCertification = async (formData: CertificationType) => {
-  if (formData.id) {
-    const { id, ...rest } = formData;
-    try {
-      await certificationDatabase.updateOne(
-        { _id: new ObjectId(id) },
-        { $set: { ...rest } }
-      );
-    } catch (error) {
-      console.error('Update certification error:', error);
-      throw new Error('Failed to update certification');
-    }
+export const saveCertification = async (input: unknown) => {
+  await requireAdmin();
+  const { id, ...data } = certificationInput(input);
+  if (id) {
+    const result = await certificationDatabase.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: data }
+    );
+    if (!result.matchedCount) throw new Error('Record not found');
   } else {
-    try {
-      await certificationDatabase.insertOne(formData);
-    } catch (error) {
-      console.error('Insert certification error:', error);
-      throw new Error('Failed to insert certification');
-    }
+    await certificationDatabase.insertOne(data);
   }
   revalidateTag('totalCertifications');
   revalidateTag('allCertifications');
@@ -162,10 +159,12 @@ export const saveCertification = async (formData: CertificationType) => {
   revalidateTag('certificationsByIssuer');
 };
 
-export const deleteCertification = async (id: string) => {
-  if (!id) throw new Error('Invalid certification id');
+export const deleteCertification = async (inputId: unknown) => {
+  await requireAdmin();
+  const id = objectId(inputId);
   try {
-    await certificationDatabase.deleteOne({ _id: new ObjectId(id) });
+    const result = await certificationDatabase.deleteOne({ _id: new ObjectId(id) });
+    if (!result.deletedCount) throw new Error('Record not found');
     revalidatePath('/(management)/admin/data/certifications');
   } catch (error) {
     console.error('Delete certification error:', error);
