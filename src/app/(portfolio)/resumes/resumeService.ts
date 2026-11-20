@@ -1,5 +1,7 @@
 /** @format */
 
+import { offsetInput, filterInput } from "../../_security/validation";
+
 import { unstable_cache } from "next/cache";
 import { WithId } from "mongodb";
 
@@ -19,7 +21,7 @@ const getResumeItems = async (offset: number, filterOptions?: object) => {
     await resumeDatabase
       .find(filterOptions ?? {})
       .sort({ _id: -1 })
-      .skip(offset)
+      .skip(offsetInput(offset))
       .limit(5)
       .toArray()
   ).map((resume: WithId<resumeType>) => {
@@ -79,7 +81,7 @@ export const getResumeFilterOptions =  unstable_cache(
 export const getResumesByCategory = unstable_cache(
   async (category: string, offset: number = 0) => {
     return await getResumeItems(offset, {
-      categories: category,
+      categories: filterInput(category),
     });
   },
 );

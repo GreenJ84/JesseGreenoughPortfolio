@@ -1,47 +1,15 @@
-/** @format */
-
 import { NextRequest, NextResponse } from "next/server";
-
-import { CertificationType } from "@/app/_lib/_types";
-import * as CertificationService from "@/app/_actions/certificationService";
+import { queryInput } from "@/app/_security/query";
+import { ValidationError } from "@/app/_security/validation";
+import * as service from "@/app/_actions/certificationService";
 
 export async function GET(req: NextRequest) {
-  const searchParams = req.nextUrl.searchParams;
-  const type = searchParams.get("type") ?? "top";
-
-  const offsetRaw = searchParams.get("offset") ?? "0";
-  const offset = Number.isNaN(Number(offsetRaw)) ? 0 : parseInt(offsetRaw, 10);
-
-  const filter = searchParams.get("filter") ?? "";
-
   try {
-    let results: CertificationType[] = [];
-
-    switch (type) {
-      case "top":
-        results = await CertificationService.getTopCertifications();
-        break;
-      case "all":
-        results = await CertificationService.getAllCertifications(offset);
-        break;
-      case "issuer":
-        if (!filter) {
-          return NextResponse.json({ error: "issuer filter required" }, { status: 400 });
-        }
-        results = await CertificationService.getCertificationsByIssuer(filter, offset);
-        break;
-      case "tech":
-        if (!filter) {
-          return NextResponse.json({ error: "tech filter required" }, { status: 400 });
-        }
-        results = await CertificationService.getCertificationsByTech(filter, offset);
-        break;
-      default:
-        return NextResponse.json({ error: "invalid type parameter" }, { status: 400 });
-    }
-
+    const { type, offset, filter } = queryInput(req.nextUrl.searchParams, ["top", "all", "issuer", "tech"], "top");
+    const results = type === "issuer" ? await service.getCertificationsByIssuer(filter!, offset) : type === "tech" ? await service.getCertificationsByTech(filter!, offset) : type === "all" ? await service.getAllCertifications(offset) : await service.getTopCertifications();
     return NextResponse.json(results);
-  } catch (err) {
+  } catch (error) {
+    if (error instanceof ValidationError) return NextResponse.json({ error: error.message }, { status: 400 });
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
