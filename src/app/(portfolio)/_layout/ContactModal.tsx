@@ -1,7 +1,7 @@
 /** @format */
 
 'use client';
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import axios from 'axios';
 
 import { AppContext } from '../../_utils/AppContext';
@@ -10,17 +10,32 @@ const css = require('./Layout.module.css');
 const ContactModal = () => {
   const { toggleContactModal } = useContext(AppContext);
 
-  async function handleSubmit(form: any) {
+  const [pending, setPending] = useState(false);
+  const [status, setStatus] = useState('');
+  const submitting = useRef(false);
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (submitting.current) return;
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    submitting.current = true;
+    setPending(true);
+    setStatus('');
     try {
-      const response = await axios.post('/api/sendEmail', {
-        name: form.senderName.value,
-        sender: form.senderEmail.value,
-        subject: form.subject.value,
-        message: form.message.value,
+      await axios.post('/api/sendEmail', {
+        name: data.get('senderName'), sender: data.get('senderEmail'),
+        subject: data.get('subject'), message: data.get('message'), website: data.get('website'),
       });
-      console.log(response.data);
+      setStatus('Your message was sent. Thank you!');
+      form.reset();
     } catch (error) {
-      console.error(error);
+      setStatus(axios.isAxiosError(error) && error.response?.status === 429
+        ? 'Too many messages. Please try again later.'
+        : 'Your message could not be sent. Please try again later.');
+    } finally {
+      submitting.current = false;
+      setPending(false);
     }
   }
 
@@ -29,12 +44,11 @@ const ContactModal = () => {
       <div onClick={() => toggleContactModal()}></div>
       <form
         className={css.contactForm}
-        onSubmit={(e: React.SyntheticEvent) => {
-          console.log('Form submitted');
-          handleSubmit(e.target);
-        }}
+        onSubmit={handleSubmit}
       >
         <button
+          type="button"
+          aria-label="Close contact form"
           className={css.close}
           onClick={() => toggleContactModal()}
         >
@@ -47,6 +61,8 @@ const ContactModal = () => {
         </p>
         <label htmlFor='senderName'>Name</label>
         <input
+          id='senderName'
+          maxLength={100}
           name='senderName'
           type='text'
           required
@@ -54,13 +70,17 @@ const ContactModal = () => {
 
         <label htmlFor='senderEmail'>Email</label>
         <input
+          id='senderEmail'
+          maxLength={254}
           name='senderEmail'
-          type='text'
+          type='email'
           required
         />
 
         <label htmlFor='subject'>Subject</label>
         <input
+          id='subject'
+          maxLength={200}
           name='subject'
           type='text'
           required
@@ -68,13 +88,20 @@ const ContactModal = () => {
 
         <label htmlFor='message'>Message</label>
         <textarea
+          id='message'
+          maxLength={5000}
           name='message'
           cols={30}
           rows={6}
           required
         ></textarea>
 
-        <button type='submit'>Submit</button>
+        <div hidden aria-hidden="true">
+          <label htmlFor="contactWebsite">Leave this field empty</label>
+          <input id="contactWebsite" name="website" tabIndex={-1} autoComplete="off" />
+        </div>
+        <p role="status" aria-live="polite">{status}</p>
+        <button type='submit' disabled={pending}>{pending ? 'Sending…' : 'Submit'}</button>
       </form>
     </div>
   );
@@ -89,7 +116,6 @@ export const ContactButton = () => {
     <button
       className={`contactButton ${css.contactButton}`}
       onClick={() => {
-        console.log("click");
         toggleContactModal()
       }}
     >

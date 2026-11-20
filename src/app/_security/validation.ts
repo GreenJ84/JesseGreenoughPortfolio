@@ -81,3 +81,15 @@ export function offsetInput(value: unknown = 0): number {
   return value;
 }
 export function filterInput(value: unknown): string { return text(value, 'filter', 200); }
+export function emailAddress(value: unknown): string {
+  const address = text(value, 'email', 254);
+  if (!/^[a-z\d.!#$%&'*+\/=?^_`{|}~-]+@[a-z\d](?:[a-z\d-]*[a-z\d])?(?:\.[a-z\d](?:[a-z\d-]*[a-z\d])?)+$/i.test(address)) throw new ValidationError('Invalid email');
+  return address;
+}
+export function contactInput(value: unknown) {
+  const v = record(value);
+  const name = text(v.name, 'name', 100);
+  const subject = text(v.subject, 'subject', 200, true);
+  if (/[\r\n]/.test(name + subject)) throw new ValidationError('Invalid mail header');
+  return { name, sender: emailAddress(v.sender), subject, message: text(v.message, 'message', 5000), website: text(v.website, 'website', 200, true) };
+}
