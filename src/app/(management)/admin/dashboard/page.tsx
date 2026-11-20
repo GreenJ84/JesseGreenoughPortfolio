@@ -1,10 +1,13 @@
+import { currentAdmin } from '@/app/_security/session';
+import { redirect } from 'next/navigation';
 import React from 'react';
 import Link from 'next/link';
 
 import LogoutButton from '../Logout';
 import styles from './Admin.module.css';
 
-const AdminPage = () => {
+const AdminPage = async () => {
+  if (!await currentAdmin()) redirect('/admin/login');
 
   return (
     <div className={styles.adminContainer}>

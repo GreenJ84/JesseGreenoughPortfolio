@@ -1,18 +1,20 @@
 // middleware.ts
 import { NextResponse, NextRequest } from 'next/server'
 
-import { verifyAuth } from './app/_actions/auth'
+import { verifySessionToken } from './app/_security/token'
 
 export async function middleware(request: NextRequest) {
-  const authorized = await verifyAuth();
-  // Redirect if already logged in and accessing login page
+  let authorized = false;
+  const token = request.cookies.get('admin-token')?.value;
+  if (token) {
+    try { await verifySessionToken(token); authorized = true; } catch { /* Treat invalid tokens as signed out. */ }
+  }
+  // Always allow login: a signed token may have been revoked in the session store.
   if (request.nextUrl.pathname === '/admin/login') {
-    return authorized.isValid ?
-      NextResponse.redirect(new URL('/admin/dashboard', request.url))
-      : NextResponse.next();
+    return NextResponse.next();
   }
   // If trying to access protected routes without token
-  if (request.nextUrl.pathname.startsWith('/admin') && !authorized.isValid) {
+  if (request.nextUrl.pathname.startsWith('/admin') && !authorized) {
     return NextResponse.redirect(new URL('/admin/login', request.url));
   }
 
