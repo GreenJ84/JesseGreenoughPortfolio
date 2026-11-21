@@ -32,7 +32,7 @@ export const AppContext = createContext<AppContextProps>({
   toggleContactModal: () => {},
 });
 
-export const AppContextProvider = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
+export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useLocalStorage("theme", "dark");
   // Theme update handler
   const switchThemeMode = useCallback(() => {

@@ -4,7 +4,7 @@ import { requireAdmin } from "../_security/session";
 import { certificationInput, objectId, offsetInput, filterInput } from "../_security/validation";
 
 
-import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
+import { revalidatePath, updateTag, unstable_cache } from "next/cache";
 import { ObjectId, SortDirection, WithId } from "mongodb";
 
 import { CertificationType } from "../_lib/_types";
@@ -151,12 +151,12 @@ export const saveCertification = async (input: unknown) => {
   } else {
     await certificationDatabase.insertOne(data);
   }
-  revalidateTag('totalCertifications');
-  revalidateTag('allCertifications');
-  revalidateTag('topCertifications');
-  revalidateTag('certificationFilters');
-  revalidateTag('certificationsByTech');
-  revalidateTag('certificationsByIssuer');
+  updateTag('totalCertifications');
+  updateTag('allCertifications');
+  updateTag('topCertifications');
+  updateTag('certificationFilters');
+  updateTag('certificationsByTech');
+  updateTag('certificationsByIssuer');
 };
 
 export const deleteCertification = async (inputId: unknown) => {
@@ -170,10 +170,10 @@ export const deleteCertification = async (inputId: unknown) => {
     console.error('Delete certification error:', error);
     throw new Error('Failed to delete certification');
   }
-  revalidateTag('totalCertifications');
-  revalidateTag('allCertifications');
-  revalidateTag('topCertifications');
-  revalidateTag('certificationFilters');
-  revalidateTag('certificationsByTech');
-  revalidateTag('certificationsByIssuer');
+  updateTag('totalCertifications');
+  updateTag('allCertifications');
+  updateTag('topCertifications');
+  updateTag('certificationFilters');
+  updateTag('certificationsByTech');
+  updateTag('certificationsByIssuer');
 };

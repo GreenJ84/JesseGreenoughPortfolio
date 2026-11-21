@@ -1,5 +1,4 @@
 /** @format */
-import React from "react";
 import dynamic from "next/dynamic";
 
 import { getWorkByCategory, getWorkTotals } from "@/app/_actions/workService";

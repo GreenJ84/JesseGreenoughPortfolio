@@ -160,3 +160,20 @@ Run `npm test` for startup and security regression tests, or `npm run test:secur
 for security tests alone. These use isolated database/mail boundaries and send no
 real email or database writes. See [security configuration](docs/SECURITY.md) for
 required credentials, session behavior, rate limits, and deployment requirements.
+
+## Supported framework and toolchain
+
+Use Node 22.23.5 (`nvm use`) and `npm ci` with the committed lockfile. The application
+uses Next.js 16.4.6, React 19, TypeScript 5.9, and ESLint 9. Webpack is selected
+explicitly for the existing bundle analyzer and asset pipeline. `npm run lint` now
+uses ESLint directly. Cypress 16 public test flags use `Cypress.expose()` and
+`npm run cypress:full` passes `--expose FULL_SPECTRUM=true`.
+
+The upgrade awaits request cookies/headers, uses `updateTag` for immediate
+Server Action cache invalidation, and adopts the Next.js `proxy.ts` convention.
+MongoDB 6 result metadata is requested explicitly for the shared rate limiter.
+The registry audit on November 21, 2026 reported zero advisories after the upgrade
+(down from 46); rerun `npm audit` as new advisories are published.
+
+Sources: [Next.js 16 migration guide](https://nextjs.org/docs/app/guides/upgrading/version-16),
+[Cypress environment migration](https://docs.cypress.io/app/guides/environment-variables).

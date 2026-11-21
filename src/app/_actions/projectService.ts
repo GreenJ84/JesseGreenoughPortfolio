@@ -4,7 +4,7 @@ import { requireAdmin } from "../_security/session";
 import { projectInput, objectId, offsetInput, filterInput } from "../_security/validation";
 
 
-import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
+import { revalidatePath, updateTag, unstable_cache } from "next/cache";
 import { ObjectId, SortDirection, WithId } from "mongodb";
 
 import { ProjectType } from "../_lib/_types";
@@ -148,11 +148,11 @@ export const saveProject = async (input: unknown) => {
   } else {
     await projectDatabase.insertOne(data);
   }
-  revalidateTag('totalProjects');
-  revalidateTag('allProjects');
-  revalidateTag('topProjects');
-  revalidateTag('projectsByCategory');
-  revalidateTag('projectsByTech');
+  updateTag('totalProjects');
+  updateTag('allProjects');
+  updateTag('topProjects');
+  updateTag('projectsByCategory');
+  updateTag('projectsByTech');
 }
 
 export const deleteProject = async (inputId: unknown) => {
@@ -166,9 +166,9 @@ export const deleteProject = async (inputId: unknown) => {
     console.error('Delete project error:', error);
     throw new Error('Failed to delete project');
   }
-  revalidateTag('totalProjects');
-  revalidateTag('allProjects');
-  revalidateTag('topProjects');
-  revalidateTag('projectsByCategory');
-  revalidateTag('projectsByTech');
+  updateTag('totalProjects');
+  updateTag('allProjects');
+  updateTag('topProjects');
+  updateTag('projectsByCategory');
+  updateTag('projectsByTech');
 }

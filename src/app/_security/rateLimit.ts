@@ -22,11 +22,11 @@ export async function rateLimit(scope: string, identity: string, limit: number, 
   const id = `${scope}:${digest}:${window}`;
   let result;
   try {
-    result = await buckets.findOneAndUpdate({ _id: id }, { $inc: { count: 1 }, $setOnInsert: { expiresAt } }, { upsert: true, returnDocument: 'after' });
+    result = await buckets.findOneAndUpdate({ _id: id }, { $inc: { count: 1 }, $setOnInsert: { expiresAt } }, { upsert: true, returnDocument: 'after', includeResultMetadata: true });
   } catch (error) {
     // Concurrent first requests can race on the unique _id during upsert.
     if ((error as { code?: number }).code !== 11000) throw error;
-    result = await buckets.findOneAndUpdate({ _id: id }, { $inc: { count: 1 } }, { returnDocument: 'after' });
+    result = await buckets.findOneAndUpdate({ _id: id }, { $inc: { count: 1 } }, { returnDocument: 'after', includeResultMetadata: true });
   }
   if (!result.value || result.value.count > limit) throw new RateLimitError(Math.max(1, Math.ceil((expiresAt.getTime() - now) / 1000)));
 }

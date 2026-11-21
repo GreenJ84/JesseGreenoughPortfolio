@@ -1,10 +1,12 @@
 /** @format */
 "use client"
 import dynamic from "next/dynamic";
-import { Theme } from "react-github-calendar";
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import type { ComponentProps } from "react";
+import type { GitHubCalendar as CalendarComponent } from "react-github-calendar";
+type CalendarTheme = NonNullable<ComponentProps<typeof CalendarComponent>["theme"]>;
+import { useContext, useEffect, useMemo, useState } from "react";
 
-const GitHubCalendar = dynamic(() => import("react-github-calendar"));
+const GitHubCalendar = dynamic(() => import("react-github-calendar").then(module => module.GitHubCalendar));
 
 import { AppContext } from "../../_utils/AppContext";
 
@@ -17,19 +19,9 @@ const calenderStyle = {
   height: "150px",
 };
 
-const darkTheme: Theme = {
-  level0: "rgba(100, 165, 130, .6)",
-  level1: "rgb(20, 125, 50)",
-  level2: "rgb(0, 165, 30)",
-  level3: "rgb(0, 235, 0)",
-  level4: "rgba(200, 255, 200)",
-};
-const lightTheme: Theme = {
-  level0: "rgb(0, 220, 255)",
-  level1: "rgb(20, 150, 232)",
-  level2: "rgb(20, 100, 212)",
-  level3: "rgb(0, 60, 152)",
-  level4: "rgb(0, 0, 82)",
+const calendarTheme: CalendarTheme = {
+  dark: ["rgba(100, 165, 130, .6)", "rgb(20, 125, 50)", "rgb(0, 165, 30)", "rgb(0, 235, 0)", "rgb(200, 255, 200)"],
+  light: ["rgb(0, 220, 255)", "rgb(20, 150, 232)", "rgb(20, 100, 212)", "rgb(0, 60, 152)", "rgb(0, 0, 82)"],
 };
 
 const GithubCard = () => {
@@ -75,8 +67,8 @@ const GithubCard = () => {
       </div>
       <GitHubCalendar
         username="GreenJ84"
-        theme={theme === "dark" ? darkTheme : lightTheme}
-        color={theme === "dark" ? "rgb(180, 255, 190)" : "rgb(33, 51, 132)"}
+        theme={calendarTheme}
+        colorScheme={theme === "dark" ? "dark" : "light"}
         style={calenderStyle}
         blockSize={width}
         blockRadius={width / 4}

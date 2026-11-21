@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import { getEducation } from "@/app/_actions/educationService";
 import type { EducationType } from "@/app/_lib/_types";

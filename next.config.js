@@ -26,7 +26,6 @@ const nextConfig = {
   },
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
-  swcMinify: true,
   images: {
     dangerouslyAllowSVG: true,
     // loader: 'custom',

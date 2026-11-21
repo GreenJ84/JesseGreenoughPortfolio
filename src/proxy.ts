@@ -1,9 +1,9 @@
-// middleware.ts
+// Signed-token navigation check; action/page boundaries enforce stored-session revocation.
 import { NextResponse, NextRequest } from 'next/server'
 
 import { verifySessionToken } from './app/_security/token'
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   let authorized = false;
   const token = request.cookies.get('admin-token')?.value;
   if (token) {

@@ -1335,11 +1335,11 @@ for (let viewport of viewports) {
     //   }
     // );
 
-    if (!Cypress.env("ALL_PAGE")) {
+    if (!Cypress.expose("ALL_PAGE")) {
       break;
     }
   }
-  if (!Cypress.env("FULL_SPECTRUM")) {
+  if (!Cypress.expose("FULL_SPECTRUM")) {
     break;
   }
 }

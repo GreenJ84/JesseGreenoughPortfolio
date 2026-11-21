@@ -5,7 +5,7 @@ import { requireAdmin } from "../_security/session";
 import { workInput, objectId, offsetInput, workCategory } from "../_security/validation";
 
 
-import { revalidateTag, unstable_cache } from "next/cache";
+import { updateTag, unstable_cache } from "next/cache";
 import { Collection, ObjectId, WithId } from "mongodb";
 
 import type { WorkType } from "../_lib/_types";
@@ -83,9 +83,9 @@ export const saveWork = async (category: unknown, input: unknown) => {
   } else {
     await database.insertOne(data);
   }
-  revalidateTag('workTotals');
-  revalidateTag('workByCategory');
-  revalidateTag('fullAllWorkByCategory');
+  updateTag('workTotals');
+  updateTag('workByCategory');
+  updateTag('fullAllWorkByCategory');
 };
 
 export const deleteWork = async (category: unknown, inputId: unknown) => {
@@ -99,7 +99,7 @@ export const deleteWork = async (category: unknown, inputId: unknown) => {
     console.error('Delete work error:', error);
     throw new Error('Failed to delete work');
   }
-  revalidateTag('workTotals');
-  revalidateTag('workByCategory');
-  revalidateTag('fullAllWorkByCategory');
+  updateTag('workTotals');
+  updateTag('workByCategory');
+  updateTag('fullAllWorkByCategory');
 };

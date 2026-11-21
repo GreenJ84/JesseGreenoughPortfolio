@@ -13,8 +13,7 @@ export default defineConfig({
   screenshotsFolder: "cypress/screenshots",
   fixturesFolder: "cypress/fixtures",
   chromeWebSecurity: false,
-  env: {
-    NODE_TLS_REJECT_UNAUTHORIZED: "0",
+  expose: {
     // Full spectrum of viewports for testing
     FULL_SPECTRUM: false,
     // Layout tests to run across all pages

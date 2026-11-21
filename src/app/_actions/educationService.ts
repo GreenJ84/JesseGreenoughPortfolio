@@ -5,7 +5,7 @@ import { requireAdmin } from "../_security/session";
 import { educationInput, objectId, offsetInput } from "../_security/validation";
 
 
-import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
+import { revalidatePath, updateTag, unstable_cache } from "next/cache";
 
 
 import { DB, DB_INFO } from "../_utils/Database";
@@ -71,8 +71,8 @@ export const saveEducation = async (input: unknown) => {
   } else {
     await educationDatabase.insertOne(data);
   }
-  revalidateTag('educationData');
-  revalidateTag('totalEducation');
+  updateTag('educationData');
+  updateTag('totalEducation');
 }
 
 export const deleteEducation = async (inputId: unknown) => {
@@ -86,6 +86,6 @@ export const deleteEducation = async (inputId: unknown) => {
     console.error('Delete education error:', error);
     throw new Error('Failed to delete education');
   }
-  revalidateTag('educationData');
-  revalidateTag('totalEducation');
+  updateTag('educationData');
+  updateTag('totalEducation');
 }

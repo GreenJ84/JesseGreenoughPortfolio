@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 
 const css = require("./About.module.css");
 

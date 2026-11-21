@@ -1,6 +1,5 @@
 /** @format */
 'use client';
-import React from 'react';
 
 const css = require('./Navbar.module.css');
 

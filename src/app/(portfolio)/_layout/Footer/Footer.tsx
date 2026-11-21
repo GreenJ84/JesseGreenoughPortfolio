@@ -1,8 +1,6 @@
 /** @format */
-/* eslint-disable react/jsx-key */
 
 // TODO: Update styling logic for component tree
-import React from 'react';
 import dynamic from 'next/dynamic';
 
 import Navigation from '../Navigation';

@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 
 import { Button } from "react-bootstrap";
 import { AiOutlineDownload, AiOutlineEye } from "react-icons/ai";

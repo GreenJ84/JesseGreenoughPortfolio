@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import dynamic from "next/dynamic";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { WorkType } from "@/app/_lib/_types";
 
 const WorkImg = dynamic(() => import("./_components/WorkImg"));

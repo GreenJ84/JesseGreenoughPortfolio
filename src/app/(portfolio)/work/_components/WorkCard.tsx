@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import Image from "next/image";
 
 import { ImPointRight } from "react-icons/im";

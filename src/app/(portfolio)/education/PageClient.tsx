@@ -6,8 +6,8 @@ const css = require("./_components/EduBody.module.css")
 
 
 interface ClientProps {
-  degreeComp: JSX.Element;
-  certComp: JSX.Element;
+  degreeComp: React.JSX.Element;
+  certComp: React.JSX.Element;
 }
 const PageClient = ({degreeComp, certComp}: ClientProps) => {
   const [displayDegrees, setDisplay] = useState(true);

@@ -1,5 +1,4 @@
 // TODO: Update styling logic gor route
-import React from 'react';
 import dynamic from 'next/dynamic';
 
 import { skillData } from './_components/skillData';

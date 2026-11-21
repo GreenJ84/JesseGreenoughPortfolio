@@ -1,6 +1,5 @@
 /** @format **/
 
-import React from 'react';
 import Link from 'next/link';
 
 import { CgGitFork } from 'react-icons/cg';

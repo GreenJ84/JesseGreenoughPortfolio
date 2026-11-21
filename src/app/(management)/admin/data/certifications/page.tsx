@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { getFullAllCertifications } from "@/app/_actions/certificationService";
 import type { CertificationType } from "@/app/_lib/_types";

@@ -18,7 +18,7 @@ export async function revokeSession(token: string) {
   await sessions.deleteOne({ _id: session.sessionId, username: session.username });
 }
 export async function currentAdmin() {
-  const token = cookies().get('admin-token')?.value;
+  const token = (await cookies()).get('admin-token')?.value;
   if (!token) return null;
   let claims;
   try { claims = await verifySessionToken(token); } catch { return null; }

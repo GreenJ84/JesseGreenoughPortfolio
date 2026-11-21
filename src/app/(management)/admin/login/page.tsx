@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { loginAction } from '../../../_actions/auth';
 import css from './Login.module.css';

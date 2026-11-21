@@ -9,7 +9,7 @@ import '@/styles/globals.css';
 export default async function DataLayout({
   children,
 }: {
-  children: React.ReactElement<any, any>;
+  children: React.ReactNode;
 }) {
   if (!await currentAdmin()) redirect('/admin/login');
   return (<>

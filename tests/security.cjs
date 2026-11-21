@@ -37,7 +37,7 @@ for (const [entity, input] of [['Project', validProject], ['Certification', vali
     const load = loadSource({
       [sourcePath('src/app/_security/session.ts')]: { requireAdmin: async () => { throw new Error('Unauthorized'); } },
       [sourcePath('src/app/_utils/Database.ts')]: { DB: { collection: () => collection }, DB_INFO: { collections: {} } },
-      'next/cache': { unstable_cache: fn => fn, revalidateTag() { writes++; }, revalidatePath() { writes++; } },
+      'next/cache': { unstable_cache: fn => fn, updateTag() { writes++; }, revalidatePath() { writes++; } },
     });
     const actions = load(`src/app/_actions/${entity.toLowerCase()}Service.ts`);
     const args = entity === 'Work' ? ['primary', input] : [input];
@@ -57,7 +57,7 @@ for (const [entity, input] of [['Project', validProject], ['Certification', vali
     const actions = loadSource({
       [sourcePath('src/app/_security/session.ts')]: { requireAdmin: async () => ({ role: 'admin' }) },
       [sourcePath('src/app/_utils/Database.ts')]: { DB: { collection: () => collection }, DB_INFO: { collections: {} } },
-      'next/cache': { unstable_cache: fn => fn, revalidateTag() {}, revalidatePath() {} },
+      'next/cache': { unstable_cache: fn => fn, updateTag() {}, revalidatePath() {} },
     })(`src/app/_actions/${entity.toLowerCase()}Service.ts`);
     const save = value => actions[`save${entity}`](...(entity === 'Work' ? ['primary', value] : [value]));
     await assert.rejects(save({}));
@@ -91,7 +91,7 @@ test('login creates a revocable session; replay after logout and non-admin token
   let throttle = false;
   const load = loadSource({
     jose,
-    'next/headers': { cookies: () => ({ get: () => cookie ? { value: cookie } : undefined, set: (_name, value) => { cookie = value; } }), headers: () => new Headers() },
+    'next/headers': { cookies: async () => ({ get: () => cookie ? { value: cookie } : undefined, set: (_name, value) => { cookie = value; } }), headers: async () => new Headers() },
     'next/navigation': { redirect: to => { throw new Error(`REDIRECT:${to}`); } },
     [sourcePath('src/app/_security/rateLimit.ts')]: { rateLimit: async () => { if (throttle) throw new Error('Storage unavailable'); }, clientIdentity: () => undefined, RateLimitError: class extends Error {} },
     [sourcePath('src/app/_utils/Database.ts')]: { DB: { collection: () => ({
@@ -230,7 +230,7 @@ test('client IP is used only when an explicitly trusted header contains a single
 test('expired and missing stored sessions fail authorization even with verified claims', async () => {
   let filter;
   const { requireAdmin } = loadSource({
-    'next/headers': { cookies: () => ({ get: () => ({ value: 'signed-token' }) }) },
+    'next/headers': { cookies: async () => ({ get: () => ({ value: 'signed-token' }) }) },
     [sourcePath('src/app/_security/token.ts')]: { verifySessionToken: async () => ({ username: 'owner', role: 'admin', sessionId: 'id' }) },
     [sourcePath('src/app/_utils/Database.ts')]: { DB: { collection: () => ({ findOne: async query => { filter = query; return null; } }) } },
   })('src/app/_security/session.ts');

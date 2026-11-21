@@ -1193,7 +1193,7 @@ for (let viewport of viewports) {
       }
     });
   });
-  if (!Cypress.env("FULL_SPECTRUM")) {
+  if (!Cypress.expose("FULL_SPECTRUM")) {
     break;
   }
 }

@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import dynamic from "next/dynamic";
 
 import { ImPointRight } from "react-icons/im";

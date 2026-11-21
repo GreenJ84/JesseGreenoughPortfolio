@@ -1,7 +1,7 @@
 /** @format */
 "use client";
 
-import React, { useState, useContext, useMemo, useEffect } from "react";
+import { useState, useContext, useMemo, useEffect } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadFull } from "tsparticles";
 

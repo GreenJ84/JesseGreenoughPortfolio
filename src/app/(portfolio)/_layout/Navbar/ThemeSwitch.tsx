@@ -1,7 +1,7 @@
 /** @format */
 'use client';
 
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import { AppContext } from '../../../_utils/AppContext';
 

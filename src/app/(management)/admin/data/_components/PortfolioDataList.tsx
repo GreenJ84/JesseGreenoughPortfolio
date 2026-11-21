@@ -7,7 +7,7 @@ import css from './DataPage.module.css';
 interface PortfolioDataListProps<T extends PortfolioData> {
   items: T[];
   openModal: (proj: T) => void;
-  itemDisplay: (item: T) => JSX.Element;
+  itemDisplay: (item: T) => React.JSX.Element;
 }
 const PortfolioDataList = <T extends PortfolioData>({ items, openModal, itemDisplay }: PortfolioDataListProps<T>) => {
   return (

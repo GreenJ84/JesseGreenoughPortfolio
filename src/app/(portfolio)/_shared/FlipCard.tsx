@@ -13,8 +13,8 @@ const FlipCard = ({
   backDisplay,
 }: {
   style: Properties<string | number, string>;
-  frontDisplay: JSX.Element;
-  backDisplay: JSX.Element;
+  frontDisplay: React.JSX.Element;
+  backDisplay: React.JSX.Element;
 }) => {
   return (
     <article

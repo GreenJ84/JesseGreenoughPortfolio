@@ -1,6 +1,6 @@
 
 "use client";
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 const css = require('./Skill.module.css');
 const formattedName = (name: string) => name.charAt(0).toUpperCase() + name.slice(1).split("_").join(" ");
