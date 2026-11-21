@@ -96,3 +96,31 @@ checks send no email and require no running database.
 
 Implementation references: [Next.js 14 Server Actions](https://nextjs.org/docs/14/app/building-your-application/data-fetching/server-actions-and-mutations)
 and [MongoDB TTL indexes](https://www.mongodb.com/docs/manual/core/index-ttl/).
+
+## Response and image configuration
+
+Pages and APIs receive a CSP, framing denial, content-type protection, a conservative
+referrer policy, disabled camera/microphone/geolocation/payment permissions, and
+production HSTS. API responses no longer advertise wildcard credentialed CORS;
+same-origin application requests continue to work. Browser source maps and the
+framework identification header are disabled.
+
+The CSP permits the existing GitHub calendar API and Vercel measurement endpoints.
+Development alone permits eval and websocket reloads. Inline hydration scripts and
+inline styles remain allowed to preserve static rendering and existing styling;
+this is a baseline policy, not a nonce-only XSS defense. A stricter nonce policy
+requires a separate rendering/cache design decision. External HTTPS images remain
+allowed in browser markup for the existing stats cards.
+
+The optimizer accepts HTTPS on the existing image hosts, with Cloudinary restricted
+to the `portfolio-g84` tenant and no query string. Other legacy hosts retain their
+path/query flexibility until stored image URLs can be inventoried. The SVG stats
+service is used by plain image tags and is no longer an optimizer origin. SVG
+optimization and local-IP fetching are disabled; optimized responses use attachment
+disposition and a sandboxed CSP. Local optimization is limited to `/assets`,
+`/projectImages`, and compiled static media, with no query strings. This does not
+move the existing legacy `src/public` directory; static-asset cleanup remains separate.
+
+`npm run test:config` verifies the response and image contracts using the installed
+Next.js URL matchers. Consult the [Next.js CSP guide](https://nextjs.org/docs/app/guides/content-security-policy)
+and [image configuration reference](https://nextjs.org/docs/app/api-reference/components/image).
