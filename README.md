@@ -177,3 +177,36 @@ The registry audit on November 21, 2026 reported zero advisories after the upgra
 
 Sources: [Next.js 16 migration guide](https://nextjs.org/docs/app/guides/upgrading/version-16),
 [Cypress environment migration](https://docs.cypress.io/app/guides/environment-variables).
+
+## Reproducible container builds
+
+The Dockerfile pins Node 22.23.5 by image digest, installs the lockfile with `npm ci`,
+and ships only Next.js standalone output, static assets, and root `public` files.
+The runtime runs as the unprivileged `node` user. Keep the image digest updated
+when taking future Node/base-image security patches.
+
+Portfolio pages are prerendered, so build-time configuration must point to a
+reachable database containing valid portfolio data. Give the builder read-only
+portfolio credentials. Supply that configuration through a BuildKit secret:
+
+```sh
+docker build --secret id=build_env,src=/secure/path/build.env -t portfolio:local .
+docker run --rm --env-file /secure/path/runtime.env -p 3000:3000 portfolio:local
+```
+
+The build secret needs `DB_CONN_STRING`, `JWT_SECRET`, `ADMIN_USERNAME`, and
+`ADMIN_PASSWORD` meeting the existing requirements. Runtime configuration additionally
+needs mail settings and database permissions described in `docs/SECURITY.md`.
+No secret file is copied into the context or final image; traced `.env*` files are
+removed from standalone output. Do not place secrets in `NEXT_PUBLIC_*` variables.
+Changes to BuildKit secret contents do not automatically invalidate build caches;
+use `--no-cache-filter builder` when refreshing prerendered data or build credentials.
+The container health check tests HTTP readiness, not database/SMTP availability.
+
+Sources: [Docker build secrets](https://docs.docker.com/build/building/secrets/),
+[Next.js standalone output](https://nextjs.org/docs/app/api-reference/config/next-config-js/output).
+
+The clean install currently warns that ESLint 9 is out of support. It is retained
+because the current React, accessibility, and import lint plugins do not declare
+ESLint 10 compatibility. The dependency scan is clean; revisit this toolchain pin
+when those plugins support ESLint 10. No unsupported peer override is used.
