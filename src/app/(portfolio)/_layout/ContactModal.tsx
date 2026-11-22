@@ -1,7 +1,7 @@
 /** @format */
 
 'use client';
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
 import { AppContext } from '../../_utils/AppContext';
@@ -13,6 +13,22 @@ const ContactModal = () => {
   const [pending, setPending] = useState(false);
   const [status, setStatus] = useState('');
   const submitting = useRef(false);
+  const dialog = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    dialog.current?.querySelector<HTMLElement>('input:not([tabindex="-1"])')?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { event.preventDefault(); toggleContactModal(); return; }
+      if (event.key !== 'Tab' || !dialog.current) return;
+      const focusable = [...dialog.current.querySelectorAll<HTMLElement>('button:not([disabled]), input:not([disabled]):not([tabindex="-1"]), textarea:not([disabled])')];
+      if (!focusable.length) return;
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => { document.removeEventListener('keydown', onKeyDown); previous?.focus(); };
+  }, [toggleContactModal]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -40,7 +56,7 @@ const ContactModal = () => {
   }
 
   return (
-    <div className={css.emailConnect}>
+    <div ref={dialog} className={css.emailConnect} role="dialog" aria-modal="true" aria-labelledby="contactTitle">
       <div onClick={() => toggleContactModal()}></div>
       <form
         className={css.contactForm}
@@ -54,7 +70,7 @@ const ContactModal = () => {
         >
           X
         </button>
-        <h1>Contact Me</h1>
+        <h1 id="contactTitle">Contact Me</h1>
         <p>
           Please No solicitations, advertizing, product endorsements, selling,
           or ill minded offers!
