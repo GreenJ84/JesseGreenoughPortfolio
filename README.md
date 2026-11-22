@@ -261,3 +261,7 @@ hydration error so that recovery cost remains visible.
 
 Baseline measurements are committed under `docs/performance/`. Avoid concurrent
 builds or other CPU-heavy jobs while collecting comparison runs.
+
+See [phase 5 performance results](docs/performance/README.md) for measured changes,
+limits and reproduction details. Run `node scripts/check-performance.cjs` against
+the isolated production server to verify deferred UI and animation preferences.

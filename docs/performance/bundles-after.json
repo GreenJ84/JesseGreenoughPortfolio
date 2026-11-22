@@ -1,0 +1,88 @@
+{
+  "scope": "All generated client JavaScript assets across routes, not the bytes loaded by a single navigation. Gzip totals sum independently compressed assets.",
+  "assets": 63,
+  "parsedBytes": 1345112,
+  "gzipBytes": 430191,
+  "largest": [
+    {
+      "file": "static/chunks/3794-d75a355ed2e84a24.js",
+      "parsedBytes": 241376,
+      "gzipBytes": 66823,
+      "groups": [
+        "node_modules"
+      ]
+    },
+    {
+      "file": "static/chunks/framework-b660054e15e621a8.js",
+      "parsedBytes": 218917,
+      "gzipBytes": 68711,
+      "groups": [
+        "node_modules"
+      ]
+    },
+    {
+      "file": "static/chunks/4bd1b696-e554a0e634b38517.js",
+      "parsedBytes": 203722,
+      "gzipBytes": 63909,
+      "groups": [
+        "node_modules/next/dist/compiled/react-dom/cjs"
+      ]
+    },
+    {
+      "file": "static/chunks/2013.90eb32421af5e3c7.js",
+      "parsedBytes": 144789,
+      "gzipBytes": 40399,
+      "groups": [
+        "node_modules/@tsparticles"
+      ]
+    },
+    {
+      "file": "static/chunks/main-50bae49b14be9208.js",
+      "parsedBytes": 137235,
+      "gzipBytes": 40271,
+      "groups": [
+        "node_modules"
+      ]
+    },
+    {
+      "file": "static/chunks/9261.8e338c81ee6b38c5.js",
+      "parsedBytes": 57066,
+      "gzipBytes": 20861,
+      "groups": [
+        "node_modules/axios/lib"
+      ]
+    },
+    {
+      "file": "static/chunks/2284-2de2a32886a43cf9.js",
+      "parsedBytes": 39733,
+      "gzipBytes": 11962,
+      "groups": [
+        "node_modules"
+      ]
+    },
+    {
+      "file": "static/chunks/3158.e1c7c8b9b35edd55.js",
+      "parsedBytes": 28310,
+      "gzipBytes": 10889,
+      "groups": [
+        "node_modules"
+      ]
+    },
+    {
+      "file": "static/chunks/7595.0eb2f6e0f3d8bf48.js",
+      "parsedBytes": 20224,
+      "gzipBytes": 7261,
+      "groups": [
+        "src/app/(portfolio)/work/_components"
+      ]
+    },
+    {
+      "file": "static/chunks/c16f53c3.4fea648407f59e9d.js",
+      "parsedBytes": 18930,
+      "gzipBytes": 6927,
+      "groups": [
+        "node_modules/@floating-ui/react/dist"
+      ]
+    }
+  ]
+}
