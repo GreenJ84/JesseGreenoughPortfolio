@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { PortfolioData } from '@/app/_lib/_types';
+import { BasePortfolioItem } from '@/app/_lib/_types';
 
-export default function useDataManager<T extends PortfolioData>(initial_items?: T[]) {
+export default function useDataManager<T extends BasePortfolioItem>(initial_items?: T[]) {
   const [items, setItems] = useState<T[]>(initial_items || []);
   const [selected, setSelected] = useState<T | undefined>(undefined);
   const [showModal, setShowModal] = useState(false);

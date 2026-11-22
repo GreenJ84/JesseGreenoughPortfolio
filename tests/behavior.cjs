@@ -157,3 +157,36 @@ test('list requests encode special-character filters, reject HTTP errors and val
   await assert.rejects(fetchListPage('/api/projects', { type: 'all' }, 0, signal, async () => new Response('', { status: 500 })));
   await assert.rejects(fetchListPage('/api/projects', { type: 'all' }, 0, signal, async () => Response.json([{ name: 'missing id' }])));
 });
+
+const dates = loadSource()('src/app/_lib/educationDates.ts');
+test('education DTOs, month inputs and display preserve UTC months across timezone boundaries', () => {
+  const input = { id: 'id', college: 'College', title: 'Degree', brief: '', description: '', image: '', url: '', details: [], start_date: new Date('2024-01-01T00:00:00.000Z') };
+  const dto = dates.educationDTO(input);
+  assert.equal(dto.start_date, '2024-01-01');
+  assert.equal(dates.educationDraft(JSON.parse(JSON.stringify(dto))).start_month, '2024-01');
+  const original = process.env.TZ;
+  try {
+    for (const zone of ['America/Los_Angeles', 'Asia/Tokyo', 'Pacific/Honolulu']) {
+      process.env.TZ = zone;
+      assert.equal(dates.formatEducationMonth(input.start_date), 'Jan 2024');
+      assert.equal(dates.formatEducationMonth(dto.start_date), 'Jan 2024');
+    }
+  } finally { if (original === undefined) delete process.env.TZ; else process.env.TZ = original; }
+  assert.equal(dates.monthDate('2024-02', true), '2024-02-29');
+  assert.equal(dates.monthDate('2023-02', true), '2023-02-28');
+  assert.throws(() => dates.monthDate('2024-13'));
+  assert.throws(() => dates.dateOnly('invalid'));
+});
+
+test('education month edits save BSON-compatible dates and clear optional end dates', () => {
+  const { educationInput } = validationModule();
+  const dto = { id: 'a'.repeat(24), college: 'College', title: 'Degree', brief: '', description: '', image: '', url: '', details: [], start_date: '2024-01-01', end_date: '2024-02-29' };
+  const draft = dates.educationDraft(dto);
+  draft.start_month = '2023-12'; draft.end_month = '';
+  const submitted = dates.educationDraftInput(draft);
+  assert.equal(submitted.start_date, '2023-12-01');
+  assert.equal(submitted.end_date, undefined);
+  assert.equal(educationInput(submitted).start_date.toISOString(), '2023-12-01T00:00:00.000Z');
+  assert.equal(educationInput(submitted).end_date, undefined);
+});
+function validationModule() { return loadSource()('src/app/_security/validation.ts'); }

@@ -3,29 +3,24 @@
 
 import { HiOutlineExternalLink } from "react-icons/hi";
 
-import { EducationType } from "@/app/_lib/_types";
+import { EducationDTO } from "@/app/_lib/_types";
+
+import { formatEducationMonth } from "@/app/_lib/educationDates";
 
 const css = require("./Degree.module.css");
 
 interface DegreeCardProps {
-  education: EducationType;
+  education: EducationDTO;
 }
 
-const formatMonthYear = (d?: Date | string | null) => {
-  if (!d) return "Present";
-  const dateObj = d instanceof Date ? d : new Date(d);
-  if (isNaN(dateObj.getTime())) return String(d);
-  return dateObj.toLocaleDateString(undefined, { month: "short", year: "numeric" });
-};
-  
 const DegreeCard = (props: DegreeCardProps) => {
   return (
     <article className={css.cardContainer}>
       <div className={css.cardHead}>
         <h3>{props.education.college}</h3>
         <p>
-          {formatMonthYear(props.education.start_date)} -{" "}
-          {props.education.end_date ? formatMonthYear(props.education.end_date) : "Present"}
+          {formatEducationMonth(props.education.start_date)} -{" "}
+          {props.education.end_date ? formatEducationMonth(props.education.end_date) : "Present"}
         </p>
         <p>{props.education.title}</p>
       </div>

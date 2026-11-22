@@ -12,13 +12,13 @@ const AddItemsButton = dynamic(() =>
 import("../../../_shared/AddItemsButton")
 );
 
-import { EducationType } from "@/app/_lib/_types";
+import { EducationDTO } from "@/app/_lib/_types";
 
 const css = require("./Degree.module.css");
 
 interface Education {
   educationData: {
-    eduItems: EducationType[];
+    eduItems: EducationDTO[];
     total: number;
   };
 }

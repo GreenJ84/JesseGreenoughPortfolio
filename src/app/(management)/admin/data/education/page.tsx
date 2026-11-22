@@ -2,13 +2,13 @@
 
 import { useEffect } from "react";
 
-import { getEducation } from "@/app/_actions/educationService";
-import type { EducationType } from "@/app/_lib/_types";
+import { getAllEducation } from "@/app/_actions/educationService";
+import type { EducationDTO } from "@/app/_lib/_types";
 
 import useDataManager from "../_components/useDataManager";
 import FormModal from "../_components/FormModal";
 import PortfolioDataList from "../_components/PortfolioDataList";
-import EducationForm from "./EducationForm";
+import EducationEditor from "./EducationEditor";
 
 import css from '../_components/DataPage.module.css';
 
@@ -20,12 +20,12 @@ export default function EducationPage() {
     showModal,
     openModal,
     closeModal
-  } = useDataManager<EducationType>();
+  } = useDataManager<EducationDTO>();
 
   // Fetch all education items on mount
   useEffect(() => {
     (async () => {
-      const data = await getEducation();
+      const data = await getAllEducation();
       setEducationItems(data);
     })();
   }, [setEducationItems]);
@@ -41,7 +41,7 @@ export default function EducationPage() {
       <PortfolioDataList
         items={educationItems}
         openModal={openModal}
-        itemDisplay={(edu: EducationType) => (
+        itemDisplay={(edu: EducationDTO) => (
           <>
             <strong>{edu.degree}</strong>
             <div className={css.dataBrief}>{edu.college}</div>
@@ -53,7 +53,7 @@ export default function EducationPage() {
           title={selected ? "Edit Education" : "New Education"}
           onClose={closeModal}
         >
-          <EducationForm
+          <EducationEditor
             initial={selected || undefined}
             onClose={closeModal}
           />

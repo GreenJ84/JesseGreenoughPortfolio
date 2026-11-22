@@ -54,3 +54,9 @@ export interface WorkType extends BasePortfolioItem {
   date: string; // "start - end"
   details: string[];
 }
+// Browser/API dates are UTC date-only strings, while MongoDB keeps BSON Dates.
+export type EducationDTO = Omit<EducationType, 'id' | 'start_date' | 'end_date'> & {
+  id: string;
+  start_date: string;
+  end_date?: string;
+};

@@ -11,13 +11,14 @@ import { revalidatePath, updateTag, unstable_cache } from "next/cache";
 
 
 import { DB, DB_INFO } from "../_utils/Database";
-import { EducationType } from "../_lib/_types";
+import { educationDTO } from "../_lib/educationDates";
+import { EducationType, EducationDTO } from "../_lib/_types";
 import { ObjectId } from "mongodb";
 
 const educationDatabase = DB.collection<EducationType>(DB_INFO.collections.EDU);
 
 export const getEducation = unstable_cache(
-  async (offset: number = 0): Promise<EducationType[]> => {
+  async (offset: number = 0): Promise<EducationDTO[]> => {
     return (await educationDatabase
       .find()
       .sort({ _id: -1 })
@@ -26,7 +27,7 @@ export const getEducation = unstable_cache(
       .toArray()
     ).map(item => {
       const { _id,...rest} = item;
-      return {id: _id.toString(),...rest} as EducationType;
+      return educationDTO({ ...rest, id: _id.toString() });
     });
   },
   [cacheTags.education.list],
@@ -34,21 +35,21 @@ export const getEducation = unstable_cache(
 );
 
 const getAllEducationCached = unstable_cache(
-  async (): Promise<EducationType[]> => {
+  async (): Promise<EducationDTO[]> => {
     return (await educationDatabase
       .find()
       .sort({ _id: -1 })
       .toArray()
     ).map(item => {
       const { _id,...rest} = item;
-      return {id: _id.toString(),...rest} as EducationType;
+      return educationDTO({ ...rest, id: _id.toString() });
     });
   },
   [cacheTags.education.all],
   { revalidate: 3600, tags: [cacheTags.education.all] }
 );
 
-export const getAllEducation = async (): Promise<EducationType[]> => {
+export const getAllEducation = async (): Promise<EducationDTO[]> => {
   await requireAdmin();
   return getAllEducationCached();
 };
