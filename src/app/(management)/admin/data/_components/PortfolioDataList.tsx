@@ -17,6 +17,7 @@ const PortfolioDataList = <T extends BasePortfolioItem>({ items, openModal, item
             key={item.id}
             className={css.dataCard}
             onClick={() => openModal(item)}
+            onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openModal(item); } }}
             tabIndex={0}
           >
             {itemDisplay(item)}

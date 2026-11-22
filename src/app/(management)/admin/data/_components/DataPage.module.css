@@ -265,3 +265,20 @@
     max-width: 96vw;
   }
 }
+.formFields {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.dataForm button:disabled, .closeBtn:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+.dataCard:focus-visible {
+  outline: 2px solid var(--text-detail);
+  outline-offset: 3px;
+}

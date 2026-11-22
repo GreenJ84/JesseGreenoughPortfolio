@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect } from "react";
 
 import { getFullAllProjects } from "@/app/_actions/projectService";
 
 import type { ProjectType } from "@/app/_lib/_types";
 
+import DataStatus from "../_components/DataStatus";
 import useDataManager from "../_components/useDataManager";
 import FormModal from "../_components/FormModal";
 import PortfolioDataList from "../_components/PortfolioDataList";
@@ -14,30 +14,23 @@ import css from '../_components/DataPage.module.css';
 
 export default function ProjectsPage() {
   const {
+    loading, error, refresh, afterMutation,
     items: projects,
-    setItems: setProjects,
     selected,
     showModal,
     openModal,
     closeModal
-  } = useDataManager<ProjectType>();
-
-  // Fetch all projects on mount
-  useEffect(() => {
-    (async () => {
-      const data = await getFullAllProjects();
-      setProjects(data);
-    })();
-  }, [setProjects]);
+  } = useDataManager<ProjectType>(getFullAllProjects);
 
   return (
     <>
       <div className={css.dataHeader}>
         <h2>Projects {projects.length}</h2>
-        <button className={css.newBtn} onClick={() => openModal()}>
+        <button className={css.newBtn} disabled={loading} onClick={() => openModal()}>
           + New Project
         </button>
       </div>
+      <DataStatus loading={loading} error={error} refresh={refresh} />
       <PortfolioDataList
         items={projects}
         openModal={openModal}
@@ -54,6 +47,7 @@ export default function ProjectsPage() {
           onClose={closeModal}
         >
           <ProjectForm
+            onSaved={afterMutation}
             initial={selected || undefined}
             onClose={closeModal}
           />

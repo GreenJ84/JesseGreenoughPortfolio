@@ -1,22 +1,24 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import React, { useState } from 'react';
 
 import type { CertificationType } from '@/app/_lib/_types';
 import { saveCertification, deleteCertification } from '@/app/_actions/certificationService';
 
-import { FormActionButtons } from '../_components/FormModal';
+import { FormActionButtons, useFormMutation } from '../_components/FormModal';
 
 import css from '../_components/DataPage.module.css';
 
 interface CertificationFormProps {
   initial?: CertificationType;
   onClose: () => void;
+  onSaved: () => Promise<void>;
 }
 
 export default function CertificationForm({
   initial,
   onClose,
+  onSaved,
 }: CertificationFormProps) {
   const [form, setForm] = useState<CertificationType>(
     initial ?? {
@@ -61,27 +63,13 @@ export default function CertificationForm({
     }));
   };
 
-  const [_isPending, startTransition] = useTransition();
-
-  const handleSubmit = async () => {
-    startTransition(async () => {
-      await saveCertification(form);
-      window.location.reload();
-      onClose();
-    });
-  };
-
-  const handleDelete = async (id?: string) => {
-    if (!id) return;
-    startTransition(async () => {
-      await deleteCertification(id);
-      window.location.reload();
-      onClose();
-    });
-  };
+  const mutation = useFormMutation();
+  const handleSubmit = async () => { await mutation.run('save', () => saveCertification(form), onSaved); };
+  const handleDelete = async (id?: string) => { if (id) await mutation.run('delete', () => deleteCertification(id), onSaved); };
 
   return (
     <form className={css.dataForm} action={handleSubmit}>
+      <fieldset disabled={mutation.pending} className={css.formFields}>
       {form.id && <input type="hidden" name="id" value={form.id} />}
       <label className={css.formLabel}>
         Title*
@@ -142,6 +130,7 @@ export default function CertificationForm({
         onClose={onClose}
         onDelete={handleDelete}
       />
+      </fieldset>
     </form>
   );
 }

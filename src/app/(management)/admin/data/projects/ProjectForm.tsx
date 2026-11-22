@@ -1,22 +1,24 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import React, { useState } from 'react';
 
 import type { ProjectType } from '@/app/_lib/_types';
 import { deleteProject, saveProject } from '@/app/_actions/projectService';
 
-import { FormActionButtons } from '../_components/FormModal';
+import { FormActionButtons, useFormMutation } from '../_components/FormModal';
 
 import css from '../_components/DataPage.module.css';
 
 interface ProjectFormProps {
   initial?: ProjectType;
   onClose: () => void;
+  onSaved: () => Promise<void>;
 }
 
 export default function ProjectForm({
   initial,
   onClose,
+  onSaved,
 }: ProjectFormProps) {
   const [form, setForm] = useState<ProjectType>(
     initial ?? {
@@ -63,26 +65,13 @@ export default function ProjectForm({
     }));
   };
 
-  const [_isPending, startTransition] = useTransition();
-
-  const handleSubmit = async () => {
-    startTransition(async () => {
-      await saveProject(form);
-      window.location.reload();
-      onClose();
-    });
-  };
-
-  const handleDelete = async (id: string) => {
-    startTransition(async () => {
-      await deleteProject(id);
-      window.location.reload();
-      onClose();
-    });
-  }
+  const mutation = useFormMutation();
+  const handleSubmit = async () => { await mutation.run('save', () => saveProject(form), onSaved); };
+  const handleDelete = async (id?: string) => { if (id) await mutation.run('delete', () => deleteProject(id), onSaved); };
 
   return (
       <form className={css.dataForm} action={handleSubmit}>
+      <fieldset disabled={mutation.pending} className={css.formFields}>
         {form.id && <input type="hidden" name="id" value={form.id} />}
         <label className={css.formLabel}>
           Name*
@@ -165,6 +154,7 @@ export default function ProjectForm({
           onClose={onClose}
           onDelete={handleDelete}
         />
-      </form>
+        </fieldset>
+    </form>
   );
 }

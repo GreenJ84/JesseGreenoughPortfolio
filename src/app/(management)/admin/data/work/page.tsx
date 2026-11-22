@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 
 import { getFullAllWorkByCategory } from "@/app/_actions/workService";
 import type { WorkType } from "@/app/_lib/_types";
 
+import DataStatus from "../_components/DataStatus";
 import useDataManager from "../_components/useDataManager";
 import FormModal from "../_components/FormModal";
 import PortfolioDataList from "../_components/PortfolioDataList";
@@ -14,28 +15,21 @@ import css from '../_components/DataPage.module.css';
 
 export default function WorkPage() {
   const [category, setCategory] = React.useState<'primary' | 'secondary'>('primary');
+  const loader = useCallback(() => getFullAllWorkByCategory(category), [category]);
   const {
+    loading, error, refresh, afterMutation,
     items: workItems,
-    setItems: setWorkItems,
     selected,
     showModal,
     openModal,
     closeModal
-  } = useDataManager<WorkType>();
-
-  // Fetch all work items on mount
-  useEffect(() => {
-    (async () => {
-      const data = await getFullAllWorkByCategory(category);
-      setWorkItems(data);
-    })();
-  }, [setWorkItems, category]);
+  } = useDataManager<WorkType>(loader);
 
   return (
     <>
       <div className={css.dataHeader}>
         <h2>Work Experience {workItems.length}</h2>
-        <button className={css.newBtn} onClick={() => openModal()}>
+        <button className={css.newBtn} disabled={loading} onClick={() => openModal()}>
           + New Work Experience
         </button>
       </div>
@@ -58,6 +52,7 @@ export default function WorkPage() {
           Secondary
         </button>
       </div>
+      <DataStatus loading={loading} error={error} refresh={refresh} />
       <PortfolioDataList
         items={workItems}
         openModal={openModal}
@@ -74,6 +69,7 @@ export default function WorkPage() {
           onClose={closeModal}
         >
           <WorkForm
+            onSaved={afterMutation}
             initial={selected || undefined}
             category={category}
             onClose={closeModal}

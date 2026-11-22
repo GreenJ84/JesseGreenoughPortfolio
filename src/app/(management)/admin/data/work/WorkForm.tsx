@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import React, { useState } from 'react';
 
 import type { WorkType } from '@/app/_lib/_types';
 import { saveWork, deleteWork } from '@/app/_actions/workService';
 
-import { FormActionButtons } from '../_components/FormModal';
+import { FormActionButtons, useFormMutation } from '../_components/FormModal';
 
 import css from '../_components/DataPage.module.css';
 
@@ -13,12 +13,14 @@ interface WorkFormProps {
   initial?: WorkType;
   category: 'primary' | 'secondary';
   onClose: () => void;
+  onSaved: () => Promise<void>;
 }
 
 export default function WorkForm({
   initial,
   category,
   onClose,
+  onSaved,
 }: WorkFormProps) {
   const [form, setForm] = useState<WorkType>(
     initial ?? {
@@ -61,27 +63,13 @@ export default function WorkForm({
     }));
   };
 
-  const [_isPending, startTransition] = useTransition();
-
-  const handleSubmit = async () => {
-    startTransition(async () => {
-      await saveWork(category, form);
-      window.location.reload();
-      onClose();
-    });
-  };
-
-  const handleDelete = async (id?: string) => {
-    if (!id) return;
-    startTransition(async () => {
-      await deleteWork(category, id);
-      window.location.reload();
-      onClose();
-    });
-  };
+  const mutation = useFormMutation();
+  const handleSubmit = async () => { await mutation.run('save', () => saveWork(category, form), onSaved); };
+  const handleDelete = async (id?: string) => { if (id) await mutation.run('delete', () => deleteWork(category, id), onSaved); };
 
   return (
     <form className={css.dataForm} action={handleSubmit}>
+      <fieldset disabled={mutation.pending} className={css.formFields}>
       {form.id && <input type="hidden" name="id" value={form.id} />}
       <label className={css.formLabel}>
         Company*
@@ -126,6 +114,7 @@ export default function WorkForm({
         onClose={onClose}
         onDelete={handleDelete}
       />
+      </fieldset>
     </form>
   );
 }

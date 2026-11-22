@@ -190,3 +190,48 @@ test('education month edits save BSON-compatible dates and clear optional end da
   assert.equal(educationInput(submitted).end_date, undefined);
 });
 function validationModule() { return loadSource()('src/app/_security/validation.ts'); }
+
+const { FormMutation } = loadSource()('src/app/_lib/formMutation.ts');
+const { AsyncResource } = loadSource()('src/app/_lib/asyncResource.ts');
+test('failed admin writes keep the editor open and permit retry without duplicate submissions', async () => {
+  const mutation = new FormMutation();
+  const request = deferred();
+  let writes = 0, closes = 0;
+  const operation = () => { writes++; return request.promise; };
+  const first = mutation.run('save', operation, async () => { closes++; });
+  assert.equal(mutation.getSnapshot().pending, true);
+  assert.equal(await mutation.run('save', operation, async () => { closes++; }), false);
+  request.reject(new Error('Write failed')); await first;
+  assert.equal(writes, 1); assert.equal(closes, 0);
+  assert.ok(mutation.getSnapshot().error.includes('draft has been kept'));
+  assert.equal(mutation.getSnapshot().pending, false);
+  await mutation.run('save', async () => { writes++; }, async () => { closes++; });
+  assert.equal(closes, 1); assert.equal(writes, 2);
+});
+
+test('failed deletion never closes the modal; confirmed writes cannot be replayed after refresh failure', async () => {
+  const failed = new FormMutation();let closes = 0;
+  await failed.run('delete', async () => { throw new Error(); }, async () => { closes++; });
+  assert.equal(closes, 0); assert.ok(failed.getSnapshot().error.includes('could not be deleted'));
+  const successful = new FormMutation();let writes = 0;
+  await successful.run('save', async () => { writes++; }, async () => { throw new Error('Refresh failed'); });
+  assert.equal(successful.getSnapshot().completed, true);
+  assert.ok(successful.getSnapshot().error.includes('change was saved'));
+  await successful.run('save', async () => { writes++; }, async () => {});
+  assert.equal(writes, 1);
+});
+
+test('admin list refreshes ignore obsolete requests, preserve data on failure and recover on retry', async () => {
+  const requests = [];
+  const resource = new AsyncResource(() => { const value = deferred(); requests.push(value); return value.promise; }, []);
+  const old = resource.reload(), latest = resource.reload();
+  requests[1].resolve(['latest']); await latest;
+  requests[0].resolve(['obsolete']); await old;
+  assert.equal(resource.getSnapshot().data[0], 'latest');
+  const failing = resource.reload();requests[2].reject(new Error());await failing;
+  assert.equal(resource.getSnapshot().data[0], 'latest');assert.ok(resource.getSnapshot().error);
+  const retry = resource.reload();requests[3].resolve(['recovered']);await retry;
+  assert.equal(resource.getSnapshot().data[0], 'recovered');assert.equal(resource.getSnapshot().error, null);
+  const disposed = resource.reload();resource.dispose();requests[4].resolve(['unmounted']);await disposed;
+  assert.equal(resource.getSnapshot().data[0], 'recovered');
+});
