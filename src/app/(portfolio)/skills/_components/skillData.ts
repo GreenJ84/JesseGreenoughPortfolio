@@ -1,157 +1,84 @@
+import { AiFillHtml5 as Html5, AiOutlineConsoleSql, AiFillGithub } from "react-icons/ai";
+import { DiCss3 as Css3, DiJavascript1 as Javascript, DiPython as Python, DiReact as React, DiSqllite as Sqlite, DiRedis as Redis, DiGit as Git, DiChrome as ChromeDev, DiNpm as NPM, DiNodejs as NodeJS, DiNginx } from "react-icons/di";
+import { SiTypescript as Typescript, SiGraphql, SiSolidity, SiNextdotjs as NextJS, SiExpress as Express, SiTailwindcss as Tailwindcss, SiNestjs as NestJS, SiCypress as Cypress, SiDjango as Django, SiFlask as Flask, SiJest as Jest, SiSpringboot as SpringBoot, SiPostgresql as Postgresql, SiMongodb as Mongodb, SiAmazondynamodb as DynamoDB, SiFigma as FigmaIcon, SiNotion as NotionIcon, SiVisualstudiocode as VSCode, SiSpring as SpringTools, SiPostman as Postman, SiApollographql as ApolloGraphql, SiGitkraken as Gitkraken, SiYarn as Yarn, SiDeno as Deno, SiApachetomcat as ApacheTomcat, SiWasmer as Wasmer, SiVercel, SiKubernetes, SiPm2, SiRedux as Redux, SiJsonwebtokens as JSONWebTokens, SiFirebase as Firebase, SiSocketdotio as SocketIO } from "react-icons/si";
+import { FaJava as Java, FaRust as Rust, FaTrello as TrelloIcon, FaHardHat as HardHat, FaAws, FaShieldAlt as NextAuth } from "react-icons/fa";
+import { BsFillMarkdownFill } from "react-icons/bs";
+import { GrMysql as Mysql, GrDocker } from "react-icons/gr";
+import { GiUnicorn } from "react-icons/gi";
+import { TiWeatherWindyCloudy as EthersJS } from "react-icons/ti";
 /** @format */
-import dynamic from "next/dynamic";
 import { ComponentType } from "react";
 import { IconBaseProps } from "react-icons";
 
 //Languages
-const Html5 = dynamic(() =>
-  import("react-icons/ai").then((m) => m.AiFillHtml5)
-);
-const Css3 = dynamic(() => import("react-icons/di").then((m) => m.DiCss3));
-const Typescript = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiTypescript)
-);
-const Javascript = dynamic(() =>
-  import("react-icons/di").then((m) => m.DiJavascript1)
-);
-const Java = dynamic(() => import("react-icons/fa").then((m) => m.FaJava));
-const SiGraphql = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiGraphql)
-);
-const AiOutlineConsoleSql = dynamic(() =>
-  import("react-icons/ai").then((m) => m.AiOutlineConsoleSql)
-);
-const Python = dynamic(() =>
-  import("react-icons/di").then((m) => m.DiPython)
-);
-const BsFillMarkdownFill = dynamic(() =>
-  import("react-icons/bs").then((m) => m.BsFillMarkdownFill)
-);
-const Rust = dynamic(() => import("react-icons/fa").then((m) => m.FaRust));
-const SiSolidity = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiSolidity)
-);
-// Frameworks
-const NextJS = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiNextdotjs)
-);
-const React = dynamic(() => import("react-icons/di").then((m) => m.DiReact));
-const Express = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiExpress)
-);
-const Tailwindcss = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiTailwindcss)
-);
-const NestJS = dynamic(() => import("react-icons/si").then((m) => m.SiNestjs));
-const Cypress = dynamic(() => import("react-icons/si").then((m) => m.SiCypress));
-const Django = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiDjango)
-);
 
-const Flask = dynamic(() => import("react-icons/si").then((m) => m.SiFlask));
-const Jest = dynamic(() => import("react-icons/si").then((m) => m.SiJest));
-const SpringBoot = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiSpringboot)
-);
+
+
+
+
+
+
+
+
+
+
+// Frameworks
+
+
+
+
+
+
+
+
+
+
+
 
 // Databases
-const Mysql = dynamic(() => import("react-icons/gr").then((m) => m.GrMysql));
-const Sqlite = dynamic(() =>
-  import("react-icons/di").then((m) => m.DiSqllite)
-);
-const Postgresql = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiPostgresql)
-);
-const Mongodb = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiMongodb)
-);
-const Redis = dynamic(() => import("react-icons/di").then((m) => m.DiRedis));
-const DynamoDB = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiAmazondynamodb)
-);
+
+
+
+
+
+
 
 // Planning Tools
-const TrelloIcon = dynamic(() =>
-  import("react-icons/fa").then((m) => m.FaTrello)
-);
-const FigmaIcon = dynamic(() => import("react-icons/si").then((m) => m.SiFigma));
-const NotionIcon = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiNotion)
-);
+
+
+
 // Developer Tools
-const VSCode = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiVisualstudiocode)
-);
-const Git = dynamic(() => import("react-icons/di").then((m) => m.DiGit));
-const ChromeDev = dynamic(() =>
-  import("react-icons/di").then((m) => m.DiChrome)
-);
-const NPM = dynamic(() => import("react-icons/di").then((m) => m.DiNpm));
-const SpringTools = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiSpring)
-);
-const Postman = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiPostman)
-);
-const ApolloGraphql = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiApollographql)
-);
-const Gitkraken = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiGitkraken)
-);
-const Yarn = dynamic(() => import("react-icons/si").then((m) => m.SiYarn));
-const HardHat = dynamic(() =>
-  import("react-icons/fa").then((m) => m.FaHardHat)
-);
+
+
+
+
+
+
+
+
+
+
 // Runtime Tools
-const NodeJS = dynamic(() =>
-  import("react-icons/di").then((m) => m.DiNodejs)
-);
-const Deno = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiDeno)
-);
-const ApacheTomcat = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiApachetomcat)
-);
-const Wasmer = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiWasmer)
-);
+
+
+
+
 // Devops Tools
-const AiFillGithub = dynamic(() =>
-  import("react-icons/ai").then((m) => m.AiFillGithub)
-);
-const SiVercel = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiVercel)
-);
-const GrDocker = dynamic(() =>
-  import("react-icons/gr").then((m) => m.GrDocker)
-);
-const FaAws = dynamic(() => import("react-icons/fa").then((m) => m.FaAws));
-const DiNginx = dynamic(() => import("react-icons/di").then((m) => m.DiNginx));
-const SiKubernetes = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiKubernetes)
-);
-const GiUnicorn = dynamic(() =>
-  import("react-icons/gi").then((m) => m.GiUnicorn)
-);
-const SiPm2 = dynamic(() => import("react-icons/si").then((m) => m.SiPm2));
+
+
+
+
+
+
+
+
 // Extras
-const Redux = dynamic(() => import("react-icons/si").then((m) => m.SiRedux));
-const JSONWebTokens = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiJsonwebtokens)
-);
-const Firebase = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiFirebase)
-);
-const NextAuth = dynamic(() =>
-  import("react-icons/fa").then((m) => m.FaShieldAlt)
-);
-const SocketIO = dynamic(() =>
-  import("react-icons/si").then((m) => m.SiSocketdotio)
-);
-const EthersJS = dynamic(() =>
-  import("react-icons/ti").then((m) => m.TiWeatherWindyCloudy)
-);
+
+
+
+
+
+
 
 export type TSkill = { name: string; rating: number; icon: ComponentType<IconBaseProps>;
   [key: string]: string | number | ComponentType<IconBaseProps>;

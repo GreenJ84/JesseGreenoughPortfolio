@@ -1,4 +1,5 @@
 "use client";
+import { BsArrowLeft, BsArrowRight, BsPlusCircleFill } from "react-icons/bs";
 
 import React, { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
@@ -8,9 +9,9 @@ import { usePaginatedList } from '../_shared/usePaginatedList';
 import { queryKey } from '@/app/_lib/paginatedList';
 
 
-const BsArrowLeft = dynamic(() =>import("react-icons/bs").then(m => m.BsArrowLeft));
-const BsArrowRight = dynamic(() =>import("react-icons/bs").then(m => m.BsArrowRight));
-const BsPlusCircleFill = dynamic(() =>import("react-icons/bs").then(m => m.BsPlusCircleFill));
+
+
+
 
 const ButtonGroup = dynamic(() => import("./_components/ButtonGroup"), {
   ssr: false,

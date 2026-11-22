@@ -1,14 +1,11 @@
+import { AiFillGithub, AiFillProject } from "react-icons/ai";
+import { MdClose } from "react-icons/md";
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
 
 
-const AiFillGithub = dynamic(() =>
-  import("react-icons/ai").then((m) => m.AiFillGithub)
-);
-const AiFillProject = dynamic(() =>
-  import("react-icons/ai").then((m) => m.AiFillProject)
-);
-const MdClose = dynamic(() => import("react-icons/md").then((m) => m.MdClose));
+
+
+
 
 import { ProjectType } from '@/app/_lib/_types';
 

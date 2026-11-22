@@ -1,9 +1,7 @@
+import { RiExternalLinkFill } from "react-icons/ri";
 /** @format */
-import dynamic from "next/dynamic";
 
-const RiExternalLinkFill = dynamic(() =>
-  import("react-icons/ri").then((m) => m.RiExternalLinkFill)
-);
+
 
 import Image from "next/image";
 import FlipCard from "../../../_shared/FlipCard";
