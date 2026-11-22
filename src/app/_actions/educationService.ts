@@ -1,6 +1,8 @@
 /** @format */
 'use server';
 
+import { cacheTags } from '../_lib/cacheTags';
+
 import { requireAdmin } from "../_security/session";
 import { educationInput, objectId, offsetInput } from "../_security/validation";
 
@@ -27,8 +29,8 @@ export const getEducation = unstable_cache(
       return {id: _id.toString(),...rest} as EducationType;
     });
   },
-  ['educationData'],
-  { revalidate: 3600, tags: ['educationData'] }
+  [cacheTags.education.list],
+  { revalidate: 3600, tags: [cacheTags.education.list] }
 );
 
 const getAllEducationCached = unstable_cache(
@@ -42,8 +44,8 @@ const getAllEducationCached = unstable_cache(
       return {id: _id.toString(),...rest} as EducationType;
     });
   },
-  ['allEducationData'],
-  { revalidate: 3600, tags: ['allEducationData'] }
+  [cacheTags.education.all],
+  { revalidate: 3600, tags: [cacheTags.education.all] }
 );
 
 export const getAllEducation = async (): Promise<EducationType[]> => {
@@ -55,8 +57,8 @@ export const getEducationCount =  unstable_cache(
   async (): Promise<number> => {
     return await educationDatabase.countDocuments();
   },
-  ['totalEducation'],
-  { revalidate: 3600, tags: ['totalEducation'] }
+  [cacheTags.education.count],
+  { revalidate: 3600, tags: [cacheTags.education.count] }
 )
 
 export const saveEducation = async (input: unknown) => {
@@ -71,8 +73,7 @@ export const saveEducation = async (input: unknown) => {
   } else {
     await educationDatabase.insertOne(data);
   }
-  updateTag('educationData');
-  updateTag('totalEducation');
+  for (const tag of Object.values(cacheTags.education)) updateTag(tag);
 }
 
 export const deleteEducation = async (inputId: unknown) => {
@@ -81,11 +82,10 @@ export const deleteEducation = async (inputId: unknown) => {
   try {
     const result = await educationDatabase.deleteOne({ _id: new ObjectId(id) });
     if (!result.deletedCount) throw new Error('Record not found');
-    revalidatePath('/(management)/admin/data/education');
+    revalidatePath('/admin/data/education');
   } catch (error) {
     console.error('Delete education error:', error);
     throw new Error('Failed to delete education');
   }
-  updateTag('educationData');
-  updateTag('totalEducation');
+  for (const tag of Object.values(cacheTags.education)) updateTag(tag);
 }

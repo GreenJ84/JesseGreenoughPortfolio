@@ -1,5 +1,7 @@
 'use server';
 
+import { cacheTags } from '../_lib/cacheTags';
+
 import { requireAdmin } from "../_security/session";
 import { projectInput, objectId, offsetInput, filterInput } from "../_security/validation";
 
@@ -16,8 +18,8 @@ export const getProjectCount = unstable_cache(
   async (): Promise<number> => {
     return await projectDatabase.countDocuments()
   },
-  ['totalProjects'],
-  { revalidate: 3600, tags: ['totalProjects'] }
+  [cacheTags.projects.count],
+  { revalidate: 3600, tags: [cacheTags.projects.count] }
 );
 
 const getProjectsBase = async (
@@ -34,7 +36,7 @@ const getProjectsBase = async (
   }
   return (await projectDatabase
     .find(filterOptions ?? {})
-    .sort(sortBase)
+    .sort({ ...sortBase, _id: -1 })
     .skip(offsetInput(offset))
     .limit(10)
     .toArray())
@@ -48,23 +50,23 @@ export const getTopProjects = unstable_cache(
   async (): Promise<ProjectType[]> => {
     return await getProjectsBase(0, { priority: 1, date: -1, name: 1 });
   },
-  ['topProjects'],
-  { revalidate: 3600, tags: ['topProjects'] }
+  [cacheTags.projects.top],
+  { revalidate: 3600, tags: [cacheTags.projects.top] }
 )
 
 export const getAllProjects = unstable_cache(
   async (offset: number): Promise<ProjectType[]>  => {
     return await getProjectsBase(offset, { priority: 1, date: -1, name: 1 });
   },
-  ['allProjects'],
-  { revalidate: 3600, tags: ['allProjects'] }
+  [cacheTags.projects.list],
+  { revalidate: 3600, tags: [cacheTags.projects.list] }
 )
 
 export const getFullAllProjects = async (): Promise<ProjectType[]> => {
   await requireAdmin();
   return (await projectDatabase
     .find({})
-    .sort({ priority: 1, date: -1, name: 1 })
+    .sort({ priority: 1, date: -1, name: 1, _id: -1 })
     .toArray())
     .map((project: WithId<ProjectType>) => {
       const { _id, ...rest } = project;
@@ -110,8 +112,8 @@ export const getProjectFilters = unstable_cache(
       Array.from(techs.entries()),
     ];
   },
-  ['projectFilters'],
-  { revalidate: 3600, tags: ['projectFilters'] }
+  [cacheTags.projects.filters],
+  { revalidate: 3600, tags: [cacheTags.projects.filters] }
 )
 
 export const getProjectsByCategory = unstable_cache(
@@ -121,8 +123,8 @@ export const getProjectsByCategory = unstable_cache(
       { categories: filterInput(category)}
     );
   },
-  ['projectsByCategory'],
-  { revalidate: 3600, tags: ['projectsByCategory'] }
+  [cacheTags.projects.category],
+  { revalidate: 3600, tags: [cacheTags.projects.category] }
 );
 
 export const getProjectsByTech = unstable_cache(
@@ -132,8 +134,8 @@ export const getProjectsByTech = unstable_cache(
       { key_techs: filterInput(tech) }
     );
   },
-  ['projectsByTech'],
-  { revalidate: 3600, tags: ['projectsByTech'] }
+  [cacheTags.projects.tech],
+  { revalidate: 3600, tags: [cacheTags.projects.tech] }
 );
 
 export const saveProject = async (input: unknown) => {
@@ -148,11 +150,7 @@ export const saveProject = async (input: unknown) => {
   } else {
     await projectDatabase.insertOne(data);
   }
-  updateTag('totalProjects');
-  updateTag('allProjects');
-  updateTag('topProjects');
-  updateTag('projectsByCategory');
-  updateTag('projectsByTech');
+  for (const tag of Object.values(cacheTags.projects)) updateTag(tag);
 }
 
 export const deleteProject = async (inputId: unknown) => {
@@ -161,14 +159,10 @@ export const deleteProject = async (inputId: unknown) => {
   try {
     const result = await projectDatabase.deleteOne({ _id: new ObjectId(id) });
     if (!result.deletedCount) throw new Error('Record not found');
-    revalidatePath('/(management)/admin/data/projects');
+    revalidatePath('/admin/data/projects');
   } catch (error) {
     console.error('Delete project error:', error);
     throw new Error('Failed to delete project');
   }
-  updateTag('totalProjects');
-  updateTag('allProjects');
-  updateTag('topProjects');
-  updateTag('projectsByCategory');
-  updateTag('projectsByTech');
+  for (const tag of Object.values(cacheTags.projects)) updateTag(tag);
 }
