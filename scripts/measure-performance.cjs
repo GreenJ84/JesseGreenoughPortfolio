@@ -69,7 +69,9 @@ const metric = (metrics, name) => metrics.metrics.find(entry => entry.name === n
       await page.locator('#navbarToggle').click();
       await page.waitForTimeout(200);
       const interaction = await page.evaluate(() => window.__performanceLab.interaction);
-      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      const activity = page.locator('[aria-label="Coding activity"], #githubCard').first();
+      if (await activity.count()) await activity.scrollIntoViewIfNeeded();
+      else await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
       await page.waitForTimeout(2500);
       const sample = {
         profile, route, run, jsTransferredBytes: initialBytes, jsRequests: initialRequests,

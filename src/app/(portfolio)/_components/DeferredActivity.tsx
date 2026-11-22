@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 const Activity = dynamic(() => import('./GithubCard'), { ssr: false });
 
 export default function DeferredActivity() {
-  const host = useRef<HTMLDivElement>(null);
+  const host = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     if (!host.current) return;
@@ -21,7 +21,7 @@ export default function DeferredActivity() {
     observer.observe(host.current);
     return () => observer.disconnect();
   }, []);
-  return <div ref={host} style={{ minHeight: '700px' }}>
+  return <section ref={host} style={{ minHeight: '90dvh' }}>
     {visible ? <Activity /> : <section aria-label="Coding activity"><h2>Coding Activity</h2><p>Activity charts load when you scroll here.</p></section>}
-  </div>;
+  </section>;
 }
