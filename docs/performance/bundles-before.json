@@ -1,0 +1,88 @@
+{
+  "scope": "All generated client JavaScript assets across routes, not the bytes loaded by a single navigation. Gzip totals sum independently compressed assets.",
+  "assets": 63,
+  "parsedBytes": 7520575,
+  "gzipBytes": 1774600,
+  "largest": [
+    {
+      "file": "static/chunks/bc9c3264.984f6f65e1c3db8f.js",
+      "parsedBytes": 1918322,
+      "gzipBytes": 425824,
+      "groups": [
+        "node_modules/react-icons/md"
+      ]
+    },
+    {
+      "file": "static/chunks/00cbbcb7-b8c0f8f6696fe7fa.js",
+      "parsedBytes": 1614631,
+      "gzipBytes": 303358,
+      "groups": [
+        "node_modules/react-icons/bs"
+      ]
+    },
+    {
+      "file": "static/chunks/4f9d9cd8-0a2562fc6e967317.js",
+      "parsedBytes": 1527538,
+      "gzipBytes": 341945,
+      "groups": [
+        "node_modules/react-icons/ri"
+      ]
+    },
+    {
+      "file": "static/chunks/3627521c.886b9a7484c97d81.js",
+      "parsedBytes": 624963,
+      "gzipBytes": 164586,
+      "groups": [
+        "node_modules/react-icons/ai"
+      ]
+    },
+    {
+      "file": "static/chunks/4f53ad1b.5d4546bdd5e82249.js",
+      "parsedBytes": 448568,
+      "gzipBytes": 98588,
+      "groups": [
+        "node_modules/react-icons/cg"
+      ]
+    },
+    {
+      "file": "static/chunks/3794-d75a355ed2e84a24.js",
+      "parsedBytes": 241376,
+      "gzipBytes": 66823,
+      "groups": [
+        "node_modules"
+      ]
+    },
+    {
+      "file": "static/chunks/framework-b660054e15e621a8.js",
+      "parsedBytes": 218917,
+      "gzipBytes": 68711,
+      "groups": [
+        "node_modules"
+      ]
+    },
+    {
+      "file": "static/chunks/4bd1b696-e554a0e634b38517.js",
+      "parsedBytes": 203722,
+      "gzipBytes": 63909,
+      "groups": [
+        "node_modules/next/dist/compiled/react-dom/cjs"
+      ]
+    },
+    {
+      "file": "static/chunks/7818-0d8ebbd3de3041ad.js",
+      "parsedBytes": 183208,
+      "gzipBytes": 50430,
+      "groups": [
+        "node_modules"
+      ]
+    },
+    {
+      "file": "static/chunks/main-50bae49b14be9208.js",
+      "parsedBytes": 137235,
+      "gzipBytes": 40271,
+      "groups": [
+        "node_modules"
+      ]
+    }
+  ]
+}

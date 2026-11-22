@@ -14,7 +14,10 @@
     "test:security": "node --test tests/security.cjs",
     "test": "node --test tests/database-startup.cjs tests/security.cjs tests/config.cjs tests/behavior.cjs",
     "test:config": "node --test tests/config.cjs",
-    "test:behavior": "node --test tests/behavior.cjs"
+    "test:behavior": "node --test tests/behavior.cjs",
+    "analyze": "ANALYZE=true next build --webpack",
+    "perf:browser": "node scripts/measure-performance.cjs",
+    "perf:bundles": "node scripts/measure-bundles.cjs"
   },
   "dependencies": {
     "@tsparticles/engine": "^3.3.0",
@@ -27,15 +30,15 @@
     "next": "16.4.6",
     "nodemailer": "10.6.1",
     "react": "19.3.1",
-    "react-dom": "19.3.1",
     "react-bootstrap": "^2.6.0",
+    "react-dom": "19.3.1",
     "react-github-calendar": "5.0.9",
     "react-icons": "^4.7.1",
     "react-parallax-tilt": "^1.7.72",
+    "sharp": "0.35.5",
     "tsparticles": "^3.3.0",
     "typescript": "5.9.3",
-    "typewriter-effect": "2.22.0",
-    "sharp": "0.35.5"
+    "typewriter-effect": "2.22.0"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "16.4.6",
@@ -47,8 +50,9 @@
     "@types/react-dom": "19.3.0",
     "cypress": "16.3.0",
     "cypress-real-events": "^1.10.3",
+    "eslint": "9.39.5",
     "eslint-config-next": "16.4.6",
-    "eslint": "9.39.5"
+    "playwright": "1.65.1"
   },
   "engines": {
     "node": ">=22.13.0 <23",

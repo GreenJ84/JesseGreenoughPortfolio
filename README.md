@@ -236,3 +236,28 @@ deletes require confirmation. Modal keyboard focus is contained and restored.
 Theme hydration uses a deterministic server snapshot, honors saved user choices
 over system defaults, and tolerates malformed or blocked local storage. The theme
 switch is controlled by the same preference state as the page.
+
+## Production performance measurements
+
+`npm run analyze` produces machine-readable Webpack reports in `.next/analyze`.
+`npm run perf:bundles` summarizes all generated client assets; these totals differ
+from the bytes loaded on an individual route. Both require the same reachable build
+database and authentication configuration described above.
+
+For browser measurements, start an isolated production server with synthetic data,
+then run `PERF_BASE_URL=http://127.0.0.1:3150 npm run perf:browser`. The pinned
+Playwright tool uses installed Chrome by default; set `PERF_CHROME_PATH` to another
+Chrome/Chromium executable if needed. `PERF_ROUTES`, `PERF_PROFILES`, `PERF_RUNS`,
+and `PERF_OUTPUT` select routes, profiles, repeated runs and the JSON destination.
+The default is three cold runs each for home/skills on mobile/desktop.
+
+The harness fixes third-party image/calendar/stats responses, disables browser
+cache, and applies documented CPU/network throttling. It measures loaded JavaScript,
+LCP, long tasks, a three-second idle main-thread window and a scripted interaction
+latency proxy. These are controlled local comparisons, not field Core Web Vitals
+or a substitute for production INP/RUM data. Browser exceptions cause a nonzero
+exit after the report is saved; the recorded baseline includes an existing home
+hydration error so that recovery cost remains visible.
+
+Baseline measurements are committed under `docs/performance/`. Avoid concurrent
+builds or other CPU-heavy jobs while collecting comparison runs.

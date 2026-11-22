@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
+  openAnalyzer: false,
+  analyzerMode: 'json',
 });
 
 const development = process.env.NODE_ENV === 'development';
