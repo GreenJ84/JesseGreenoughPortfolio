@@ -1,66 +1,30 @@
-/** @format */
-"use client";
+'use client';
+import { createContext, useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
+import type { ReactNode } from 'react';
+import { ThemePreference, type Theme } from '../_lib/themePreference';
+import ContactModal from '../(portfolio)/_layout/ContactModal';
 
-import React, { useEffect, useState, createContext, useCallback } from "react";
-import ContactModal from "../(portfolio)/_layout/ContactModal";
-
-const useLocalStorage = (key: string, initialValue: string) => {
-  const [value, setValue] = useState(() => {
-    if (typeof window !== "undefined") {
-      const storedValue = localStorage.getItem(key);
-      return storedValue ? JSON.parse(storedValue) : initialValue;
-    }
-    return initialValue;
-  });
+interface AppContextProps { theme: Theme; setTheme: () => void; toggleContactModal: () => void }
+export const AppContext = createContext<AppContextProps>({ theme: 'dark', setTheme: () => {}, toggleContactModal: () => {} });
+export function AppContextProvider({ children }: { children: ReactNode }) {
+  const preference = useMemo(() => new ThemePreference(), []);
+  const theme = useSyncExternalStore(preference.subscribe, preference.getSnapshot, preference.getServerSnapshot);
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
-
-  return [value, setValue];
-};
-
-
-interface AppContextProps {
-  theme: string;
-  setTheme: Function;
-  toggleContactModal: Function;
+    const media = window.matchMedia('(prefers-color-scheme: dark)');
+    let storage: Storage | undefined;
+    try { storage = window.localStorage; } catch { /* Access itself may be blocked. */ }
+    preference.initialise(storage, media?.matches ?? true);
+    const changed = (event: MediaQueryListEvent) => preference.systemChanged(event.matches);
+    media?.addEventListener?.('change', changed);
+    return () => media?.removeEventListener?.('change', changed);
+  }, [preference]);
+  useEffect(() => { document.body.dataset.theme = theme; }, [theme]);
+  const [contactModal, setContactModal] = useState(false);
+  const toggleContactModal = useCallback(() => setContactModal(open => !open), []);
+  const value = useMemo(() => ({ theme, setTheme: preference.toggle, toggleContactModal }), [theme, preference, toggleContactModal]);
+  return <AppContext.Provider value={value}>
+    {contactModal && <ContactModal />}
+    {children}
+  </AppContext.Provider>;
 }
-
-export const AppContext = createContext<AppContextProps>({
-  theme: "dark",
-  setTheme: () => { },
-  toggleContactModal: () => {},
-});
-
-export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useLocalStorage("theme", "dark");
-  // Theme update handler
-  const switchThemeMode = useCallback(() => {
-    setTheme((prevTheme: string) => prevTheme === "dark" ? "light" : "dark");
-  }, [setTheme]);
-  // Initialize theme based on user preference
-  useEffect(() => {
-    const matchMedia = window.matchMedia("(prefers-color-scheme: dark)");
-    setTheme(matchMedia.matches ? "dark" : "light");
-  }, [setTheme]);
-  // Theme update effect
-  useEffect(() => {
-    document.body.dataset.theme = theme;
-  }, [theme]);
-
-  const [contactModal, setContactModal] = useState<boolean>(false);
-  const toggleContactModal = useCallback(() => {
-    setContactModal(prevState => !prevState);
-  }, [setContactModal]);
-
-  return (
-    <AppContext.Provider
-      value={{ theme, setTheme: switchThemeMode, toggleContactModal }}
-    >
-      {contactModal && <ContactModal />}
-      {children}
-    </AppContext.Provider>
-  );
-};
-
 export default AppContextProvider;

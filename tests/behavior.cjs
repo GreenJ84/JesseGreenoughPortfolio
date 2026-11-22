@@ -235,3 +235,30 @@ test('admin list refreshes ignore obsolete requests, preserve data on failure an
   const disposed = resource.reload();resource.dispose();requests[4].resolve(['unmounted']);await disposed;
   assert.equal(resource.getSnapshot().data[0], 'recovered');
 });
+
+const { ThemePreference } = loadSource()('src/app/_lib/themePreference.ts');
+test('saved theme wins over system preference and the hydration snapshot stays deterministic', () => {
+  let saved = '"light"';
+  const preference = new ThemePreference();
+  preference.initialise({ getItem: () => saved, setItem: (_key, value) => { saved = value; } }, true);
+  assert.equal(preference.getSnapshot(), 'light');
+  assert.equal(preference.getServerSnapshot(), 'dark');
+  preference.systemChanged(true);assert.equal(preference.getSnapshot(), 'light');
+  preference.toggle();assert.equal(preference.getSnapshot(), 'dark');assert.equal(saved, '"dark"');
+});
+
+test('corrupt or unavailable theme storage cannot crash rendering or toggling', () => {
+  for (const value of ['{bad', 'null', 'true', '{"theme":"dark"}']) {
+    const preference = new ThemePreference();preference.initialise({ getItem: () => value, setItem() { throw new Error(); } }, false);
+    assert.equal(preference.getSnapshot(), 'light');
+    preference.toggle();assert.equal(preference.getSnapshot(), 'dark');
+  }
+  const unavailable = new ThemePreference();unavailable.initialise({ getItem() { throw new Error(); }, setItem() { throw new Error(); } }, false);
+  unavailable.toggle();assert.equal(unavailable.getSnapshot(), 'dark');
+});
+
+test('system theme follows changes only until the user makes an explicit selection', () => {
+  const preference = new ThemePreference();preference.initialise(undefined, false);
+  preference.systemChanged(true);assert.equal(preference.getSnapshot(), 'dark');
+  preference.toggle();preference.systemChanged(true);assert.equal(preference.getSnapshot(), 'light');
+});

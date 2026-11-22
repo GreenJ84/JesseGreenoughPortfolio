@@ -17,13 +17,13 @@ const ThemeSwitch = () => {
     >
       <input
         id='themeChange'
-        aria-labelledby='themeChange'
+        aria-label='Use dark theme'
         className={css.themeInput}
         type='checkbox'
         aria-checked={theme === 'dark'}
-        defaultChecked={theme === 'dark'}
+        checked={theme === 'dark'}
         data-theme-toggle
-        onClick={() => {
+        onChange={() => {
           setTheme();
         }}
       />
