@@ -6,7 +6,7 @@ import type { GitHubCalendar as CalendarComponent } from "react-github-calendar"
 type CalendarTheme = NonNullable<ComponentProps<typeof CalendarComponent>["theme"]>;
 import { useContext, useEffect, useMemo, useState } from "react";
 
-const GitHubCalendar = dynamic(() => import("react-github-calendar").then(module => module.GitHubCalendar));
+const GitHubCalendar = dynamic(() => import("react-github-calendar").then(module => module.GitHubCalendar), { ssr: false });
 
 import { AppContext } from "../../_utils/AppContext";
 
@@ -31,12 +31,16 @@ const GithubCard = () => {
 
   // Dynamic GitHub Calendar sizing
   useEffect(() => {
+    let frame = 0;
+    const measure = () => setWidth(Math.min(Math.round(window.innerWidth * 0.03), 20));
     const windowObserver = () => {
-      let width = Math.min(Math.round((window.innerWidth / 100) * 3), 20);
-      setWidth(_w => width);
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(measure);
     };
+    measure();
     window.addEventListener("resize", windowObserver);
     return () => {
+      cancelAnimationFrame(frame);
       window.removeEventListener("resize", windowObserver);
     };
   }, []);
@@ -53,16 +57,16 @@ const GithubCard = () => {
 
       <div className={css.svgContainer}>
         <picture>
-          <img className={css.svgModal} src={`https://greenj-readme-stats.onrender.com/leetcode/stats/GreenJ84?theme=${themeVal}`} alt="GreenJ84's LeetCode Profile Stats"/>
+          <img loading="lazy" decoding="async" width={600} height={200} className={css.svgModal} src={`https://greenj-readme-stats.onrender.com/leetcode/stats/GreenJ84?theme=${themeVal}`} alt="GreenJ84's LeetCode Profile Stats"/>
         </picture>
         <picture>
-          <img className={css.svgModal} src={`https://greenj-readme-stats.onrender.com/github/stats/GreenJ84?theme=${themeVal}`} alt="GreenJ84's LeetCode Profile Stats"/>
+          <img loading="lazy" decoding="async" width={600} height={200} className={css.svgModal} src={`https://greenj-readme-stats.onrender.com/github/stats/GreenJ84?theme=${themeVal}`} alt="GreenJ84's LeetCode Profile Stats"/>
         </picture>
         <picture>
-          <img className={css.svgModal} src={`https://greenj-readme-stats.onrender.com/wakatime/insights/GreenJ84?theme=${themeVal}`} alt="GreenJ84's LeetCode Profile Stats"/>
+          <img loading="lazy" decoding="async" width={600} height={200} className={css.svgModal} src={`https://greenj-readme-stats.onrender.com/wakatime/insights/GreenJ84?theme=${themeVal}`} alt="GreenJ84's LeetCode Profile Stats"/>
         </picture>
         <picture>
-          <img className={css.svgModal} src={`https://greenj-readme-stats.onrender.com/wakatime/languages/GreenJ84?theme=${themeVal}`} alt="GreenJ84's LeetCode Profile Stats"/>
+          <img loading="lazy" decoding="async" width={600} height={200} className={css.svgModal} src={`https://greenj-readme-stats.onrender.com/wakatime/languages/GreenJ84?theme=${themeVal}`} alt="GreenJ84's LeetCode Profile Stats"/>
         </picture>
       </div>
       <GitHubCalendar
