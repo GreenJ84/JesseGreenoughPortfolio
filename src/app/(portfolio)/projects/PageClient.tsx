@@ -1,202 +1,30 @@
-"use client";
-import axios, { AxiosResponse } from 'axios';
-import dynamic from 'next/dynamic';
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+'use client';
+import { useMemo } from 'react';
+import DataFilter from '../_shared/DataFilter';
+import AddItemsButton from '../_shared/AddItemsButton';
+import ListStatus from '../_shared/ListStatus';
+import { usePaginatedList } from '../_shared/usePaginatedList';
+import ProjectCard from './_components/ProjectCard';
+import type { ProjectType } from '@/app/_lib/_types';
+const css = require('./_components/Project.module.css');
 
-import DataFilter from "../_shared/DataFilter";
-import ProjectCard from "./_components/ProjectCard";
-const AddItemsButton = dynamic(() => import("../_shared/AddItemsButton"));
-
-import { ProjectType } from '@/app/_lib/_types';
-type currentDisplayType = "all" | "top" | "category" | "tech";
-
-const css = require("./_components/Project.module.css");
-
-const PageClient = ({JSONData, total, filters}: {
-  JSONData: string[],
-  total: number,
-  filters: [[string, number][], [string, number][]]
-}) => {
-  const projectData: ProjectType[] = useMemo(() => JSONData.map(project => JSON.parse(project) as ProjectType), [JSONData]);
-
-  const [projects, setProjects] = useState<ProjectType[]>(projectData);
-  const [currentType, setCurrentType] = useState<currentDisplayType>("top");
-  const [category, setCategory] = useState("top");
-  const [tech, setTech] = useState("top");
-
-  const updateFilterOption = useCallback((filter: HTMLSelectElement, idx: number) => {
-    filter.getElementsByTagName("option")[idx]!.selected = true;
-  }, []);
-
-  const getProjectData = useCallback(async (type: string, offset: number = 0, keyword?: string) => {
-    let projectResponse: AxiosResponse<ProjectType[], any>;
-    switch (type) {
-      case "all":
-        projectResponse = await axios.get(`/api/projects?type=all&offset=${offset}`);
-        break;
-      case "recent":
-        projectResponse = await axios.get(`/api/projects?type=recent&offset=${offset}`);
-        break;
-      case "category":
-        projectResponse = await axios.get(
-          `/api/projects?type=category&filter=${keyword}&offset=${offset}`
-        );
-        break;
-      case "tech":
-        projectResponse = await axios.get(
-          `/api/projects?type=tech&filter=${keyword}&offset=${offset}`
-        );
-        break;
-      default:
-        return [];
-    }
-    return projectResponse.data;
-  }, []);
-
-  useEffect(() => {
-    const techFilter = document.getElementById(
-      "secondSelector"
-    )! as HTMLSelectElement;
-
-    async function filter() {
-      switch (category){
-        case "top":
-          setProjects(projectData);
-          setCurrentType("top");
-          updateFilterOption(techFilter, 1);
-          break;
-        case "all":
-          setProjects(await getProjectData("all"));
-          setCurrentType("all");
-          updateFilterOption(techFilter, 2);
-          break;
-        default:
-          setProjects(await getProjectData("category", 0, category));
-          setCurrentType("category");
-          updateFilterOption(techFilter, 0);
-      }
-    }
-    filter();
-  }, [category, projectData, getProjectData, updateFilterOption]);
-
-  // Filter projects on tech change
-  useEffect(() => {
-    const catFilter = document.getElementById(
-      "firstSelector"
-    )! as HTMLSelectElement;
-    async function filter() {
-      switch (tech){
-        case "top":
-          setProjects(projectData);
-          setCurrentType("top");
-          updateFilterOption(catFilter, 1);
-          break;
-        case "all":
-          setProjects(await getProjectData("all"));
-          setCurrentType("all");
-          updateFilterOption(catFilter, 2);
-          break;
-        default:
-          setProjects(await getProjectData("tech", 0, tech));
-          setCurrentType("tech");
-          updateFilterOption(catFilter, 0);
-      }
-    }
-    filter();
-  }, [tech, projectData, getProjectData, updateFilterOption]);
-
-  const [categories, techs] = filters;
-  const categoryMap: Map<string, number> = useMemo(() => new Map(categories), [categories]);
-  const techMap: Map<string, number> = useMemo(() => new Map(techs), [techs]);
-  const moreProjects = useMemo(() => {
-    switch (currentType) {
-      case "all":
-        return projects.length < total;
-      case "category":
-        return categoryMap.get(category)! > projects.length;
-      case "tech":
-        return techMap.get(tech)! > projects.length;
-      default:
-        return false;
-    }
-  }, [category, categoryMap, currentType, projects.length, tech, techMap, total]);
-
-  async function handleAddingProjects(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    const offset = projects.length;
-
-    let projRes: ProjectType[];
-    switch (currentType) {
-      case "all":
-        projRes = await getProjectData("all", offset);
-        break;
-      case "all":
-        projRes = await getProjectData("recent", offset);
-        break;
-      case "category":
-        projRes = await getProjectData("category", offset, category);
-        break;
-      case "tech":
-        projRes = await getProjectData("tech", offset, tech);
-        break;
-      default:
-        return;
-    }
-
-    if (projRes) {
-      setProjects((projects) => [...projects, ...projRes]);
-    }
+export default function PageClient({ JSONData, total, filters }: { JSONData: string[]; total: number; filters: [[string, number][], [string, number][]] }) {
+  const initial = useMemo(() => JSONData.map(item => JSON.parse(item) as ProjectType), [JSONData]);
+  const list = usePaginatedList('/api/projects', initial, initial.length, 10, 'top');
+  const [categories, technologies] = filters;
+  const count = list.query.type === 'top' ? initial.length : list.query.type === 'all' ? total : (list.query.type === 'category' ? categories : technologies).find(([name]) => name === list.query.filter)?.[1] ?? 0;
+  function select(value: string, type: 'category' | 'tech') {
+    if (value === 'top') void list.select({ type: 'top' }, initial.length, initial);
+    else if (value === 'all') void list.select({ type: 'all' }, total);
+    else void list.select({ type, filter: value }, (type === 'category' ? categories : technologies).find(([name]) => name === value)?.[1] ?? 0);
   }
-
-  return (
-    <>
-      <DataFilter
-        titles={["Category", "Technology"]}
-        options={[Array.from(categoryMap.keys()), Array.from(techMap.keys())]}
-        firstHandler={(cat: string) => setCategory(cat)}
-        secondHandler={(tech: string) => setTech(tech)}
-      />
-      {currentType == "top" ? (
-        <h1 id="projectsTitle">
-          My current <span className="detail">Top 10</span> projects
-        </h1>
-      ) : (
-        <h1 id="projectsTitle">
-          I have created over
-          <span className="detail">
-            {` ${
-              currentType === "all"
-                ? total
-                : currentType === "category"
-                ? categoryMap.get(category)!
-                : techMap.get(tech)!
-            } `}
-          </span>
-          projects to date
-        </h1>
-      )}
-      <ul
-        id="projectsList"
-        className={css.projectsListHolder}
-      >
-        {projects.map((project) => (
-          <ProjectCard
-            project={project}
-            key={project.id}
-          />
-        ))}
-      </ul>
-      {currentType !== "top" &&
-        projects.length % 10 === 0 &&
-        moreProjects && (
-          <AddItemsButton
-            clickHandler={handleAddingProjects}
-            itemType="Projects"
-          />
-        )
-      }
-    </>
-  )
+  const general = ['all', 'top'].includes(list.query.type) ? list.query.type : '';
+  return <>
+    <DataFilter titles={['Category', 'Technology']} options={[categories.map(([name]) => name), technologies.map(([name]) => name)]} values={[list.query.type === 'category' ? list.query.filter! : general, list.query.type === 'tech' ? list.query.filter! : general]} firstHandler={value => select(value, 'category')} secondHandler={value => select(value, 'tech')} />
+    {list.query.type === 'top' ? <h1 id="projectsTitle">My current <span className="detail">Top 10</span> projects</h1> : <h1 id="projectsTitle">I have created over <span className="detail">{count}</span> projects to date</h1>}
+    <ListStatus pending={list.pending} error={list.error} retry={() => { void list.loadMore(); }} />
+    <ul id="projectsList" className={css.projectsListHolder} aria-busy={list.pending}>{list.items.map(project => <ProjectCard key={project.id} project={project} />)}</ul>
+    {!list.pending && !list.error && !list.items.length && <p>No projects match this filter.</p>}
+    {list.hasMore && !list.error && <AddItemsButton itemType="Projects" pending={list.pending} clickHandler={() => { void list.loadMore(); }} />}
+  </>;
 }
-
-export default PageClient

@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import axios from "axios";
+import ListStatus from '../_shared/ListStatus';
+import { usePaginatedList } from '../_shared/usePaginatedList';
+import { queryKey } from '@/app/_lib/paginatedList';
 
 
 const BsArrowLeft = dynamic(() =>import("react-icons/bs").then(m => m.BsArrowLeft));
@@ -17,76 +19,52 @@ const DataFilter = dynamic(() => import("../_shared/DataFilter"), {
   ssr: false,
 });
 
-import * as resumeService from "./resumeService";
+import type { resumeType } from "./resumeService";
 
 const css = require("./_components/Resume.module.css");
 
 interface resumeProps {
-  resumeData: resumeService.resumeType[];
+  resumeData: resumeType[];
   total: number;
   categoryData: string;
 }
 const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
   const [modal, setModal] = useState(true);
-  const [resumes, setResumes] = useState(resumeData);
-  const [category, setCategory] = useState("all");
   const [resNum, setResNum] = useState(0);
-
-  // Filter Resumes on category change
-  useEffect(() => {
-    async function filter() {
-      if (category === "all") {
-        setResumes(resumeData);
-      } else {
-        const response = await axios.get(
-          `/api/resumes?type=category&filter=${category}&offset=0`
-        );
-        setResumes(response.data);
-      }
-      setResNum(0);
+  const list = usePaginatedList('/api/resumes', resumeData, total, 5);
+  const resumes = list.items;
+  const current = resumes[resNum];
+  const categoryMap = useMemo(() => new Map<string, number>(JSON.parse(categoryData)), [categoryData]);
+  const hasMoreResumes = list.hasMore;
+  function selectCategory(value: string) {
+    setResNum(0);
+    if (value === 'all') void list.select({ type: 'all' }, total, resumeData);
+    else void list.select({ type: 'category', filter: value }, categoryMap.get(value) ?? 0);
+  }
+  async function changeResNum(event: React.MouseEvent, direction: string) {
+    event.preventDefault();
+    if (list.pending) return;
+    if (direction === 'left') setResNum(index => Math.max(0, index - 1));
+    else if (resNum < resumes.length - 1) setResNum(index => Math.min(index + 1, resumes.length - 1));
+    else if (hasMoreResumes) {
+      const key = queryKey(list.query);
+      const next = resumes.length;
+      const added = await list.loadMore();
+      if (added && queryKey(list.getSnapshot().query) === key) setResNum(next);
     }
-    filter();
-  }, [category, resumeData]);
-
-  const categoryMap: Map<string, number> = useMemo(() => new Map(JSON.parse(categoryData)), [categoryData]);
-  const hasMoreResumes = useMemo(() => {
-    return category === "all"
-      ? resumes.length < total
-      : resumes.length < categoryMap.get(category)!;
-  }, [category, resumes, total, categoryMap]);
-
-  // Resume Flip Through
-  const changeResNum = async (e: React.MouseEvent, dir: string) => {
-    e.preventDefault();
-    if (dir == "left") {
-      if (resNum > 0) {
-        setResNum((num) => num - 1);
-      }
-    } else if (dir == "right") {
-      if (resNum < resumes.length - 1) {
-        setResNum((num) => num + 1);
-      }
-      // If on the end, check if more Resumes need to retrieve
-      else if (resumes.length % 5 === 0 && hasMoreResumes) {
-        const response = await axios.get(
-          `/api/resumes?type=${
-            category === "all" ? "all" : "category"
-          }&filter=${category}&offset=${resumes.length}`
-        );
-
-        setResumes((resumes) => [...resumes, ...response.data]);
-        setResNum((num) => num + 1);
-      }
-    }
-  };
+  }
 
   return (
     <>
       <DataFilter
         titles={["Category"]}
         options={[Array.from(categoryMap.keys())]}
-        firstHandler={(category: string) => setCategory(category)}
+        values={[list.query.type === 'all' ? 'all' : list.query.filter!]}
+        firstHandler={selectCategory}
       />
+      <ListStatus pending={list.pending} error={list.error} retry={() => { void list.loadMore(); }} />
+      {!list.pending && !list.error && !current && <p>No resumes match this filter.</p>}
+      {current && <>
       <section
         id="resume"
         className={css.resume}
@@ -118,7 +96,7 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
             Prev
             <button
               aria-labelledby="previousResume"
-              aria-disabled={resNum === 0}
+              disabled={list.pending || resNum === 0}
               className={`${css.leftArrow} ${resNum === 0 && css.disabled}`}
               onClick={(e) => changeResNum(e, "left")}
             >
@@ -134,9 +112,7 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
             Next
             <button
               aria-labelledby="nextResume"
-              aria-disabled={
-                resNum === resumes.length - 1 && !hasMoreResumes
-              }
+              disabled={list.pending || (resNum >= resumes.length - 1 && !hasMoreResumes)}
               className={`${css.rightArrow} ${
                 resNum === resumes.length - 1 &&
                 !hasMoreResumes &&
@@ -154,7 +130,7 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
         </div>
         <Image
           id="resumeImage"
-          src={resumes[resNum].image_url}
+          src={current.image_url}
           alt="My Resume pdf view"
           width={800}
           height={1400}
@@ -179,9 +155,10 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
 
       <ButtonGroup
         section="bottom"
-        download={resumes[resNum].download}
-        view={resumes[resNum].view}
+        download={current.download}
+        view={current.view}
       />
+      </>}
     </>
   )
 }

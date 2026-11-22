@@ -1,7 +1,8 @@
 /** @format */
 "use client";
 
-import React from "react";
+import ListStatus from '../../../_shared/ListStatus';
+import { usePaginatedList } from '../../../_shared/usePaginatedList';
 import dynamic from "next/dynamic";
 
 import Image from "next/image";
@@ -25,27 +26,20 @@ interface Education {
 const Degree = ({ educationData }: Education) => {
   const { eduItems, total } = educationData;
 
-  const [education, setEducation] = React.useState<EducationType[]>(eduItems);
-
-  async function handleAddingEdu(e: React.MouseEvent) {
-    e.preventDefault();
-    const response = await fetch(
-      `/api/education?offset=${education.length}`
-    );
-    const responseData = await response.json();
-    setEducation((education) => [...education, ...responseData]);
-  }
+  const list = usePaginatedList('/api/education', eduItems, total, 5);
+  const education = list.items;
 
   return (
     <section id="degreeContainer">
       <EducationImg />
+      <ListStatus pending={list.pending} error={list.error} retry={() => { void list.loadMore(); }} />
       <ul
         id="degreeList"
         style={{ all: "unset" }}
       >
-        {education.map((exp, idx) => (
+        {education.map((exp) => (
           <li
-            key={idx}
+            key={exp.id}
             className={css.degrees}
           >
             <a href={exp.url}>
@@ -62,9 +56,10 @@ const Degree = ({ educationData }: Education) => {
           </li>
         ))}
       </ul>
-      {education.length % 5 === 0 && education.length < total && (
+      {list.hasMore && !list.error && (
         <AddItemsButton
-          clickHandler={handleAddingEdu}
+          clickHandler={() => { void list.loadMore(); }}
+          pending={list.pending}
           itemType="Education"
         />
       )}

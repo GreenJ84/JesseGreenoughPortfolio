@@ -11,7 +11,7 @@ exports.loadSource = function loadSource(mocks = {}, env = {}) {
   const context = vm.createContext({
     process: { env }, console: { ...console, error() {} },
     Buffer, Date, Error, URL, URLSearchParams, FormData, Headers, Request, Response,
-    TextEncoder, TextDecoder, Uint8Array, ReadableStream,
+    TextEncoder, TextDecoder, Uint8Array, ReadableStream, AbortController, AbortSignal,
   });
   function load(file) {
     file = file.startsWith('/') ? file : path.join(root, file);

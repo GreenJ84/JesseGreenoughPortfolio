@@ -78,3 +78,82 @@ test('project mutations refresh cached category and technology counts', async ()
   const [emptyCategories, emptyTechnologies] = await actions.getProjectFilters();
   assert.equal(emptyCategories.length, 0); assert.equal(emptyTechnologies.length, 0);
 });
+
+const { PaginatedList, fetchListPage } = loadSource()('src/app/_lib/paginatedList.ts');
+function deferred() {
+  let resolve, reject;
+  const promise = new Promise((yes, no) => { resolve = yes; reject = no; });
+  return { promise, resolve, reject };
+}
+const item = id => ({ id, name: id });
+
+test('a slow obsolete filter cannot overwrite the latest selection, even if abort is ignored', async () => {
+  const requests = [];
+  const list = new PaginatedList({ type: 'top' }, [item('initial')], 1, 1, (query, offset, signal) => {
+    const request = deferred(); requests.push({ ...request, query, offset, signal }); return request.promise;
+  });
+  const old = list.select({ type: 'category', filter: 'old' }, 2);
+  const latest = list.select({ type: 'tech', filter: 'C++ & C#' }, 2);
+  assert.equal(requests[0].signal.aborted, true);
+  requests[1].resolve([item('latest')]); await latest;
+  requests[0].resolve([item('obsolete')]); await old;
+  assert.equal(list.getSnapshot().query.filter, 'C++ & C#');
+  assert.equal(list.getSnapshot().items[0].id, 'latest');
+  list.dispose();
+});
+
+test('pagination locks duplicate clicks and advances offsets by received rows while deduplicating IDs', async () => {
+  const requests = [];
+  const list = new PaginatedList({ type: 'all' }, [item('a'), item('b')], 6, 2, (_query, offset) => {
+    const request = deferred(); requests.push({ ...request, offset }); return request.promise;
+  });
+  const page = list.loadMore();
+  assert.equal(await list.loadMore(), 0);
+  assert.equal(requests.length, 1);
+  requests[0].resolve([item('b'), item('c')]); assert.equal(await page, 1);
+  const next = list.loadMore();
+  assert.equal(requests[1].offset, 4, 'overlap must not repeat offset 3');
+  requests[1].resolve([item('d')]); await next;
+  assert.equal(list.getSnapshot().items.map(value => value.id).join(','), 'a,b,c,d');
+  assert.equal(list.getSnapshot().hasMore, false, 'short final page stops stale totals');
+});
+
+test('failed pagination retains visible rows and permits retry at the same offset', async () => {
+  let calls = 0;
+  const offsets = [];
+  const list = new PaginatedList({ type: 'all' }, [item('a')], 2, 1, async (_query, offset) => {
+    offsets.push(offset); if (++calls === 1) throw new Error('Network failure'); return [item('b')];
+  });
+  assert.equal(await list.loadMore(), 0);
+  assert.equal(list.getSnapshot().items[0].id, 'a');
+  assert.ok(list.getSnapshot().error);
+  assert.equal(list.getSnapshot().pending, false);
+  assert.equal(await list.loadMore(), 1);
+  assert.equal(offsets.join(','), '1,1');
+  assert.equal(list.getSnapshot().error, null);
+});
+
+test('filter switches cancel in-flight pagination and empty pages never advance resume navigation', async () => {
+  const request = deferred();
+  const list = new PaginatedList({ type: 'all' }, [item('a')], 10, 1, () => request.promise);
+  const oldPage = list.loadMore();
+  await list.select({ type: 'category', filter: 'empty' }, 0, []);
+  request.resolve([item('old')]);
+  assert.equal(await oldPage, 0);
+  assert.equal(list.getSnapshot().items.length, 0);
+  assert.equal(list.getSnapshot().hasMore, false);
+  const empty = new PaginatedList({ type: 'all' }, [item('a')], 5, 1, async () => []);
+  assert.equal(await empty.loadMore(), 0);
+  assert.equal(empty.getSnapshot().hasMore, false);
+});
+
+test('list requests encode special-character filters, reject HTTP errors and validate row identities', async () => {
+  const signal = new AbortController().signal;
+  let address;
+  const rows = await fetchListPage('/api/projects', { type: 'tech', filter: 'C++ & C#' }, 10, signal, async url => { address = new URL(url, 'https://portfolio.test'); return Response.json([item('a')]); });
+  assert.equal(address.searchParams.get('filter'), 'C++ & C#');
+  assert.equal(address.searchParams.get('offset'), '10');
+  assert.equal(rows.length, 1);
+  await assert.rejects(fetchListPage('/api/projects', { type: 'all' }, 0, signal, async () => new Response('', { status: 500 })));
+  await assert.rejects(fetchListPage('/api/projects', { type: 'all' }, 0, signal, async () => Response.json([{ name: 'missing id' }])));
+});

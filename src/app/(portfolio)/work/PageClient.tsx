@@ -1,8 +1,8 @@
 "use client";
 
-import axios from "axios";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import ListStatus from '../_shared/ListStatus';
+import { usePaginatedList } from '../_shared/usePaginatedList';
 import { WorkType } from "@/app/_lib/_types";
 
 const WorkImg = dynamic(() => import("./_components/WorkImg"));
@@ -16,40 +16,12 @@ export interface WorkExp {
   documentTotals: [number, number];
 }
 const WorkClient = ({ workData, documentTotals }: WorkExp) => {
-  const [work, setWork] = useState(workData);
-  const [showSecWork, setShowSecWork] = useState(false);
-  const [workTotal, secWorkTotal] = documentTotals;
-
-  useEffect(() => {
-    async function switchWork() {
-      if (!showSecWork) {
-        setWork(workData);
-      } else {
-        const workRes = await axios.get("/api/work?type=secondary&offset=0");
-
-        setWork(workRes.data);
-      }
-    }
-    switchWork();
-  }, [showSecWork, workData]);
-
-  function checkMoreWork() {
-    return (
-      work.length % 5 === 0 &&
-      work.length < (showSecWork ? secWorkTotal : workTotal)
-    );
-  }
-
-  async function handleAddingWork() {
-    let workRes: any;
-    if (!showSecWork) {
-      workRes = await axios.get(`/api/work?type=primary&offset=${work.length}`);
-    } else {
-      workRes = await axios.get(
-        `/api/work?type=secondary&offset=${work.length}`
-      );
-    }
-    setWork((work) => [...work, ...workRes.data]);
+  const list = usePaginatedList('/api/work', workData, documentTotals[0], 5, 'primary');
+  const showSecWork = list.query.type === 'secondary';
+  const work = list.items;
+  function select(secondary: boolean) {
+    if (secondary) void list.select({ type: 'secondary' }, documentTotals[1]);
+    else void list.select({ type: 'primary' }, documentTotals[0], workData);
   }
 
   return (
@@ -74,7 +46,7 @@ const WorkClient = ({ workData, documentTotals }: WorkExp) => {
           className={!showSecWork ? css.activeFilter : css.inactiveFilter}
           onClick={() => {
             if (showSecWork) {
-              setShowSecWork(!showSecWork);
+              select(!showSecWork);
             }
           }}
         >
@@ -84,30 +56,28 @@ const WorkClient = ({ workData, documentTotals }: WorkExp) => {
           className={showSecWork ? css.activeFilter : css.inactiveFilter}
           onClick={() => {
             if (!showSecWork) {
-              setShowSecWork(!showSecWork);
+              select(!showSecWork);
             }
           }}
         >
           Internship / Volunteer
         </button>
       </nav>
+      <ListStatus pending={list.pending} error={list.error} retry={() => { void list.loadMore(); }} />
       <ul
         id="workList"
         className={css.workCardHolder}
       >
         {work.map((item) => (
           <WorkCard
-            key={item.position}
+            key={item.id}
             work={item}
           />
         ))}
-        {checkMoreWork() && (
-          <AddItemsButton
-            clickHandler={handleAddingWork}
-            itemType={"Work"}
-          />
-        )}
+
       </ul>
+      {!list.pending && !list.error && !work.length && <p>No work experience found.</p>}
+      {list.hasMore && !list.error && <AddItemsButton itemType="Work" pending={list.pending} clickHandler={() => { void list.loadMore(); }} />}
     </>
   )
 }
