@@ -24,7 +24,7 @@ const ProjectCard = ({ project }: { project: ProjectType }) => {
             className={css.projectDisplay}
           >
             <Image
-              priority
+              sizes="(max-width: 700px) 56vw, (max-width: 1050px) 30vw, 320px"
               src={project.image_path}
               alt={project.name}
               className={css.displayImage}

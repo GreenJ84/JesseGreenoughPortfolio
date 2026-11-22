@@ -24,7 +24,8 @@ const DeveloperPortrait = () => {
         className={css.developerPortrait}
         width={400}
         height={400}
-        priority
+        sizes="(max-width: 800px) 160px, (max-width: 1150px) 20vw, 230px"
+        preload
       />
     </Tilt>
   );
