@@ -1,0 +1,48 @@
+name: Quality and deployment smoke
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      mongo:
+        image: mongo:8.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.adminCommand({ ping: 1 })'"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+    env:
+      DB_CONN_STRING: mongodb://127.0.0.1:27017/?serverSelectionTimeoutMS=2000
+      JWT_SECRET: ci-only-fixture-key-at-least-thirty-two-bytes-long
+      ADMIN_USERNAME: ci-admin
+      ADMIN_PASSWORD: ci-only-fixture-password
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: CYPRESS_INSTALL_BINARY=0 npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - name: Smoke test production server
+        run: |
+          cp -R .next/static .next/standalone/.next/static
+          cp -R public .next/standalone/public
+          rm -f .next/standalone/.env .next/standalone/.env.local
+          PORT=3000 HOSTNAME=127.0.0.1 node .next/standalone/server.js > /tmp/portfolio-ci-server.log 2>&1 &
+          for i in $(seq 1 40); do
+            if curl --fail --silent http://127.0.0.1:3000/admin/login > /dev/null; then break; fi
+            sleep 1
+          done
+          node scripts/smoke-deployment.cjs
+          node scripts/check-accessibility.cjs
