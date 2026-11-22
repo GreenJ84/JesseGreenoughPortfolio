@@ -210,3 +210,29 @@ The clean install currently warns that ESLint 9 is out of support. It is retaine
 because the current React, accessibility, and import lint plugins do not declare
 ESLint 10 compatibility. The dependency scan is clean; revisit this toolchain pin
 when those plugins support ESLint 10. No unsupported peer override is used.
+
+## Reliable data and editor behavior
+
+`npm run test:behavior` covers cache freshness, stale-request isolation, duplicate
+submission guards, pagination boundaries, UTC education dates and theme persistence.
+The suite is included in `npm test`.
+
+Education and project mutations invalidate every cached domain view, including
+admin lists and filter counts. Public list controls share one abortable request
+owner, encode query values, deduplicate stable record IDs and retain retryable
+errors. Pagination advances by received rows and stops on short/empty pages; resume
+navigation advances only after new records arrive.
+
+MongoDB education dates remain BSON Dates. Public/API/admin records use
+`EducationDTO` UTC date-only strings; the active `EducationEditor.tsx` keeps month
+inputs as strings and converts them explicitly at submission. Display formatting
+uses a fixed locale and UTC timezone so server and browser months agree.
+
+Admin dialogs preserve drafts after failed writes and refresh their list after a
+confirmed mutation, without reloading the document. A list-refresh failure is
+retryable without repeating the write. Pending operations lock fields/dismissal;
+deletes require confirmation. Modal keyboard focus is contained and restored.
+
+Theme hydration uses a deterministic server snapshot, honors saved user choices
+over system defaults, and tolerates malformed or blocked local storage. The theme
+switch is controlled by the same preference state as the page.
