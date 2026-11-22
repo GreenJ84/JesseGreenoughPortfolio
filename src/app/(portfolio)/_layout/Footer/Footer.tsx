@@ -1,10 +1,9 @@
 /** @format */
 
 // TODO: Update styling logic for component tree
-import dynamic from 'next/dynamic';
+import ContactButton from '../ContactButton';
 
 import Navigation from '../Navigation';
-const ContactButton = dynamic(() => import('../ContactModal').then((m) => m.ContactButton));
 
 import { SocialLinks } from '../../_shared/_icons/social';
 

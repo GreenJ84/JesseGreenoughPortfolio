@@ -107,19 +107,3 @@ const ContactModal = () => {
   );
 };
 export default ContactModal;
-
-export const ContactButton = () => {
-  const { toggleContactModal } = useContext(AppContext);
-
-
-  return (
-    <button
-      className={`contactButton ${css.contactButton}`}
-      onClick={() => {
-        toggleContactModal()
-      }}
-    >
-      Contact
-    </button>
-  );
-};

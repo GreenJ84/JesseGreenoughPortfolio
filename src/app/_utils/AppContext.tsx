@@ -2,7 +2,11 @@
 import { createContext, useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import type { ReactNode } from 'react';
 import { ThemePreference, type Theme } from '../_lib/themePreference';
-import ContactModal from '../(portfolio)/_layout/ContactModal';
+import dynamic from 'next/dynamic';
+const ContactModal = dynamic(() => import('../(portfolio)/_layout/ContactModal'), {
+  ssr: false,
+  loading: () => <p role="status">Loading contact form…</p>,
+});
 
 interface AppContextProps { theme: Theme; setTheme: () => void; toggleContactModal: () => void }
 export const AppContext = createContext<AppContextProps>({ theme: 'dark', setTheme: () => {}, toggleContactModal: () => {} });
