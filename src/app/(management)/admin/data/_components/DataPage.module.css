@@ -41,14 +41,14 @@
   padding: 1rem 0 0;
   margin: 0;
   list-style: none;
-  min-width: 600px;
+  max-width: 1200px;
 }
 
 .dataCard {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  width: 80vw;
+  width: 100%;
   background: linear-gradient(120deg, var(--card-background) 70%, var(--card-background2) 100%);
   border-radius: 1rem;
   box-shadow: 0 2px 12px 0 rgba(0,0,0,0.13), 0 1px 4px 0 var(--shadow);
@@ -58,7 +58,12 @@
   transition: background 0.15s, border 0.15s, transform 0.15s;
   gap: 0.5rem;
   color: var(--text-primary);
+  text-align: left;
+  font: inherit;
 }
+
+.dataList li { width: 100%; min-width: 0; }
+.editCue { color: var(--text-detail); font-size: 0.9rem; font-weight: 700; }
 
 .dataCard:hover, .dataCard:focus-visible {
   background: linear-gradient(120deg, var(--card-background2) 60%, var(--detail) 100%);
@@ -90,11 +95,12 @@
 
 .formContainer {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  inset: 5vh auto auto 50%;
   z-index: 20;
   padding-bottom: 2rem;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
+  width: min(900px, calc(100vw - 2rem));
+  max-height: 90vh;
   background: linear-gradient(120deg, var(--card-background) 70%, var(--card-background2) 100%);
   border-radius: 1.2rem;
   box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.252), 0 1px 4px 0 var(--shadow);
@@ -112,8 +118,8 @@
 .dataForm {
   padding: 0.5rem 2rem;
   margin: 1rem auto;
-  height: 80vh;
-  width: 70vw;
+  max-height: calc(90vh - 7rem);
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -223,16 +229,17 @@
 }
 
 .modalActions {
-  position: fixed;
-  left: 50%;
-  bottom: 0.6rem;
-  transform: translateX(-50%);
-  width: calc(100vw - 2rem);
+  position: sticky;
+  bottom: 0;
+  width: 100%;
   max-width: 500px;
+  margin-inline: auto;
   display: flex;
   gap: 1rem;
   justify-content: center;
-  z-index: 1020;
+  z-index: 1;
+  padding: 0.5rem;
+  background: var(--card-background);
 }
 
 .submitBtn {
@@ -256,13 +263,9 @@
 }
 
 @media (max-width: 600px) {
-  .modalWrap {
-    padding: 1.2rem 0.5rem 5.5rem 0.5rem;
-  }
   .modalActions {
-    bottom: 1.2rem;
-    width: 96vw;
-    max-width: 96vw;
+    gap: 0.4rem;
+    flex-wrap: wrap;
   }
 }
 .formFields {
@@ -281,4 +284,11 @@
 .dataCard:focus-visible {
   outline: 2px solid var(--text-detail);
   outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .dataPageWrap { padding: 1.25rem 1rem; }
+  .dataHeader { gap: 0.75rem; align-items: flex-start; flex-direction: column; }
+  .dataList { gap: 0.75rem; }
+  .dataCard { padding: 1rem; }
+  .dataForm { padding: 0.5rem 1rem; }
 }

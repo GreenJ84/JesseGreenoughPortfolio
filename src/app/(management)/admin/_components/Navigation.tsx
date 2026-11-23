@@ -11,6 +11,7 @@ const AdminNavigation = () => {
         <Link href="/admin/dashboard">Portfolio Admin</Link>
       </div>
       <div className={css.navLinks}>
+        <Link href="/admin/dashboard" className={css.navLink}>Overview</Link>
         <Link href="/admin/data" className={css.navLink}>
           Data
         </Link>

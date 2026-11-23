@@ -6,6 +6,8 @@
   background: var(--nav-bg);
   box-shadow: var(--shadow);
   border-bottom: 1px solid var(--nav-detail);
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .navBrand a {
@@ -22,6 +24,7 @@
 .navLinks {
   display: flex;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .navLink {
@@ -38,6 +41,11 @@
   color: var(--nav-detail);
   background: var(--layout-bg);
   text-decoration: none;
+}
+
+.navLink:focus-visible, .navBrand a:focus-visible, .logoutButton:focus-visible {
+  outline: 3px solid var(--detail);
+  outline-offset: 3px;
 }
 
 .logoutForm {

@@ -13,14 +13,11 @@ const PortfolioDataList = <T extends BasePortfolioItem>({ items, openModal, item
   return (
     <ul className={css.dataList}>
         {items.map((item: T) => (
-          <li
-            key={item.id}
-            className={css.dataCard}
-            onClick={() => openModal(item)}
-            onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openModal(item); } }}
-            tabIndex={0}
-          >
-            {itemDisplay(item)}
+          <li key={item.id}>
+            <button type="button" className={css.dataCard} onClick={() => openModal(item)}>
+              {itemDisplay(item)}
+              <span className={css.editCue}>Edit record →</span>
+            </button>
           </li>
         ))}
       </ul>

@@ -1,0 +1,12 @@
+.page { max-width: 1100px; margin: 0 auto; padding: clamp(1rem, 3vw, 2.5rem); color: var(--text-primary); }
+.header { margin-bottom: 2rem; }
+.header h1 { margin: 0 0 0.6rem; }
+.header p { max-width: 70ch; color: var(--text-secondary); line-height: 1.55; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 1rem; }
+.panel { min-width: 0; padding: 1.25rem; border: 1px solid var(--nav-detail); border-radius: 0.8rem; background: var(--card-background); box-shadow: var(--shadow); }
+.panel h2 { margin: 0 0 1rem; font-size: clamp(1.2rem, 2vw, 1.5rem); }
+.list { margin: 0; padding-left: 1.25rem; line-height: 1.7; overflow-wrap: anywhere; }
+.list li + li { margin-top: 0.45rem; }
+.list a { color: var(--text-detail); }
+.wide { grid-column: 1 / -1; }
+.muted { color: var(--text-secondary); }
