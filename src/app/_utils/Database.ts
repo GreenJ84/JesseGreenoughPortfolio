@@ -17,7 +17,7 @@ export const OLD_DB_INFO = {
 }
 
 export const DB_INFO = {
-  name: "PersonalPortfolio",
+  name: process.env.NODE_ENV !== "production" && /^PersonalPortfolioDev_[0-9]{8}_[a-f0-9]{8}$/.test(process.env.PORTFOLIO_DB_NAME || "") ? process.env.PORTFOLIO_DB_NAME! : "PersonalPortfolio",
   collections: {
     RES: "resume",
     WORK: "work",

@@ -17,7 +17,9 @@
     "test:behavior": "node --test tests/behavior.cjs",
     "analyze": "ANALYZE=true next build --webpack",
     "perf:browser": "node scripts/measure-performance.cjs",
-    "perf:bundles": "node scripts/measure-bundles.cjs"
+    "perf:bundles": "node scripts/measure-bundles.cjs",
+    "data:preview": "node scripts/copy-production-to-local.cjs",
+    "data:copy": "node scripts/copy-production-to-local.cjs --apply"
   },
   "dependencies": {
     "@tsparticles/engine": "^3.3.0",

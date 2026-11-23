@@ -146,10 +146,9 @@ and production requires an explicit connection string.
 Primary work records use `work`; secondary work records retain the existing
 `secondaryExperience` collection. No work data is moved during startup.
 
-The education migration helper is dormant and must not be imported into startup
-code. Legacy migration scripts are manual tools, not application entry points;
-review them and back up data before running them. Migration tooling hardening
-is separate from the startup stabilization change.
+Legacy schema migration helpers have been removed pending a reviewed migration plan.
+For a read-only production-content copy into a fresh local development database,
+follow [the development data guide](docs/DEVELOPMENT_DATA.md).
 
 `npm run build` prerenders database-backed portfolio pages, so the configured
 MongoDB server must be reachable during a production build.
