@@ -12,12 +12,12 @@ import { revalidatePath, updateTag, unstable_cache } from "next/cache";
 
 
 import { DB, DB_INFO } from "../_utils/Database";
-import { educationDTO } from "../_lib/educationDates";
+import { educationRecordDTO, LegacyEducationType } from "../_lib/educationDates";
 import { EducationType, EducationDTO } from "../_lib/_types";
 import { ObjectId } from "mongodb";
 
-const educationDatabase = DB.collection<EducationType>(DB_INFO.collections.EDU);
-const cacheScope = [DB_INFO.name, DB_INFO.collections.EDU, 'legacy-20261123'];
+const educationDatabase = DB.collection<EducationType | LegacyEducationType>(DB_INFO.collections.EDU);
+const cacheScope = [DB_INFO.name, DB_INFO.collections.EDU, 'legacy-dates-20261123'];
 
 export const getEducation = unstable_cache(
   async (offset: number = 0): Promise<EducationDTO[]> => {
@@ -29,7 +29,7 @@ export const getEducation = unstable_cache(
       .toArray()
     ).map(item => {
       const { _id,...rest} = item;
-      return educationDTO({ ...rest, id: _id.toString() });
+      return educationRecordDTO({ ...rest, id: _id.toString() });
     });
   },
   [cacheTags.education.list, ...cacheScope],
@@ -44,7 +44,7 @@ const getAllEducationCached = unstable_cache(
       .toArray()
     ).map(item => {
       const { _id,...rest} = item;
-      return educationDTO({ ...rest, id: _id.toString() });
+      return educationRecordDTO({ ...rest, id: _id.toString() });
     });
   },
   [cacheTags.education.all, ...cacheScope],

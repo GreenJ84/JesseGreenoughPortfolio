@@ -182,6 +182,15 @@ test('education DTOs, month inputs and display preserve UTC months across timezo
   assert.throws(() => dates.dateOnly('invalid'));
 });
 
+test('legacy degree date ranges and fields render without changing stored records', () => {
+  const dto = dates.educationRecordDTO({ id: 'legacy-id', college: 'College', degree: 'Software Engineering', date: 'April 2024 - October 2024', description: ['Engineering coursework'], icon: '/degree.png', website: 'https://example.test' });
+  assert.equal(dto.title, 'Software Engineering');
+  assert.equal(dto.start_date, '2024-04-01');
+  assert.equal(dto.end_date, '2024-10-01');
+  assert.deepEqual(dto.details, ['Engineering coursework']);
+  assert.equal(dto.image, '/degree.png');
+});
+
 test('education month edits save BSON-compatible dates and clear optional end dates', () => {
   const { educationInput } = validationModule();
   const dto = { id: 'a'.repeat(24), college: 'College', title: 'Degree', brief: '', description: '', image: '', url: '', details: [], start_date: '2024-01-01', end_date: '2024-02-29' };
