@@ -7,6 +7,7 @@ import HomeTop from "./_components/HomeTop";
 import AboutPreview from "./_components/AboutPreview";
 const ProjectsPreview = dynamic(() => import("./projects/_components/ProjectsPreview"));
 import ProfessionalSnapshot from './_components/ProfessionalSnapshot';
+import HomeSkills from './_components/HomeSkills';
 import Footer from './_layout/Footer/Footer';
 
 import { getTopProjects } from "@/app/_actions/projectService";
@@ -22,9 +23,10 @@ const HomePage = () => {
   return (
     <main className={css.homeMain}>
       <HomeTop />
-      <AboutPreview />
-      <Suspense fallback={<section style={{ minHeight: 400 }} aria-label="Featured projects loading" />}><HomeProjects /></Suspense>
+      <HomeSkills />
       <ProfessionalSnapshot />
+      <Suspense fallback={<section style={{ minHeight: 400 }} aria-label="Featured projects loading" />}><HomeProjects /></Suspense>
+      <AboutPreview />
       <Footer />
     </main>
   );
@@ -38,14 +40,17 @@ import { Metadata } from 'next/types';
 import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from './sharedMetadata';
 
 const RESUME_URL = APP_URL + '/resumes';
-const TITLE = "Jesse Greenough's Development Portfolio";
+const TITLE = "Jesse Greenough | Rust Backend & Security Engineer";
 const DESCRIPTION =
-  'View the Technical Development Skills possessed by Full Stack Engineer Jesse Greenough';
+  'Rust-first backend engineering with a security focus and full-stack TypeScript, Node.js, Python, and web development experience.';
 const KEYWORDS = [
   'Jesse Greenough',
   'Software',
   'Developer',
   'Engineer',
+  'Rust',
+  'Backend',
+  'Security',
   'Full-Stack',
   'Portfolio',
   'Next.js',
