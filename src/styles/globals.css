@@ -36,22 +36,22 @@ body {
   overflow-x: clip;
 }
 body[data-theme="light"] {
-  --text-primary: #173330;
-  --text-secondary: #42645f;
-  --text-detail: #075c70;
-  --text-negative: #f8fbf7;
-  --background: #f4f8f4;
-  --card-background: #ffffff;
-  --card-background2: #e7f2ed;
-  --detail: #0a7891;
-  --shadow: 0 14px 40px rgb(22 72 78 / 9%);
-  --shadow-hover: 0 20px 50px rgb(22 72 78 / 15%);
-  --layout-bg: #e7f3ee;
-  --layout-shadow: rgb(22 72 78 / 10%);
-  --nav-bg: #f8fbf7;
-  --nav-detail: #075c70;
-  --surface-border: rgb(7 92 112 / 18%);
-  background: radial-gradient(circle at 80% 5%, #d8f0ea 0, transparent 38%), var(--background);
+  --text-primary: #17342f;
+  --text-secondary: #3d5c57;
+  --text-detail: #185b69;
+  --text-negative: #edf3ed;
+  --background: #d8e5dd;
+  --card-background: #e7efe8;
+  --card-background2: #cbded3;
+  --detail: #286f7b;
+  --shadow: 0 12px 32px rgb(28 65 61 / 10%);
+  --shadow-hover: 0 18px 42px rgb(28 65 61 / 16%);
+  --layout-bg: #cfdfd4;
+  --layout-shadow: rgb(28 65 61 / 12%);
+  --nav-bg: #d7e5dc;
+  --nav-detail: #185b69;
+  --surface-border: rgb(28 76 69 / 20%);
+  background: radial-gradient(circle at 82% 5%, #bfd6d2 0, transparent 38%), var(--background);
 }
 a { color: inherit; text-decoration: none; }
 button, input, textarea, select { font: inherit; }
