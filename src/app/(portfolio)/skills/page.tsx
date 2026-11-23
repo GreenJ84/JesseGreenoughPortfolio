@@ -14,6 +14,7 @@ const page = () => {
     <main
       className="scrollSnapContainer"
     >
+      <header className={css.pageHeader}><h1>Skills &amp; tools</h1><p>Technologies I use to design, build, and maintain useful software.</p></header>
       <SkillsNav sections={Object.keys(skillData)}/>
       {Object.entries(skillData).map(
         ([category, data]) =>{
