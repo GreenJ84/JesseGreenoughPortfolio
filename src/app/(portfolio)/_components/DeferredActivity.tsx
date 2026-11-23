@@ -21,7 +21,7 @@ export default function DeferredActivity() {
     observer.observe(host.current);
     return () => observer.disconnect();
   }, []);
-  return <section ref={host} style={{ minHeight: '90dvh' }}>
+  return <section ref={host} style={{ minHeight: 300 }}>
     {visible ? <Activity /> : <section aria-label="Coding activity"><h2>Coding Activity</h2><p>Activity charts load when you scroll here.</p></section>}
   </section>;
 }

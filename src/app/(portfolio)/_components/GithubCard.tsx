@@ -48,7 +48,6 @@ const GithubCard = () => {
   return (
     <section
       id="githubCard"
-      style={{"marginBottom": "20dvh"}}
       className={css.developerSkills}
     >
       <h2>

@@ -1,49 +1,38 @@
-/** @format **/
+'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
-
-import { CgGitFork } from 'react-icons/cg';
-
-import Navigation from '../Navigation';
+import { usePathname } from 'next/navigation';
 import ThemeSwitch from './ThemeSwitch';
-import NavbarToggle, { handleNavbarToggle } from './NavbarToggle';
+import css from './Navbar.module.css';
 
-const css = require('./Navbar.module.css');
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/skills', label: 'Skills' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/education', label: 'Education' },
+  { href: '/work', label: 'Work' },
+  { href: '/resumes', label: 'Resumes' },
+];
 
-const Navbar = () => {
-  return (
-    <header className={css.header}>
-      <Link
-        id='navbarBrand'
-        className={css.navBarBrand}
-        aria-label='Home Return'
-        replace={true}
-        href='/'
-      >
-        <h1>GreenO</h1>
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  return <header className={css.header}>
+    <div className={css.inner}>
+      <Link className={css.brand} href="/" aria-label="Jesse Greenough, home" onClick={() => setOpen(false)}>
+        <span className={css.brandMark}>JG</span><span>Jesse Greenough</span>
       </Link>
-      <nav
-        id='navbarCollapse'
-        className={`${css.navbarCollapse} ${css.collapsed}`}
-      >
-        <ul className={css.navbarNav}>
-          <Navigation icon={true} callback={handleNavbarToggle} />
-        </ul>
-        <ThemeSwitch />
+      <nav id="portfolio-navigation" className={`${css.navigation} ${open ? css.open : ''}`} aria-label="Primary navigation">
+        {links.map(link => <Link key={link.href} href={link.href} aria-current={pathname === link.href ? 'page' : undefined} onClick={() => setOpen(false)}>{link.label}</Link>)}
       </nav>
-      <div onClick={handleNavbarToggle}></div>
-      <Link
-        title="Visit this project's Github Repository"
-        aria-label="Project Repository Link"
-        href='https://github.com/GreenJ84'
-        target='_blank'
-        className={css.githubBtn}
-      >
-        <CgGitFork className={css.forkIcon} />
-      </Link>
-      <NavbarToggle />
-    </header>
-  );
-};
-
-export default Navbar;
+      <div className={css.actions}>
+        <ThemeSwitch />
+        <button type="button" className={css.menuButton} aria-label={open ? 'Close menu' : 'Open menu'} aria-controls="portfolio-navigation" aria-expanded={open} onClick={() => setOpen(value => !value)}>
+          <span>{open ? 'Close' : 'Menu'}</span><span aria-hidden="true">{open ? '×' : '☰'}</span>
+        </button>
+      </div>
+    </div>
+  </header>;
+}

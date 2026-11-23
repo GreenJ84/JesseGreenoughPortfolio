@@ -1,66 +1,19 @@
-/** @format */
-"use client";
-import Typewriter from "typewriter-effect";
+import Link from 'next/link';
+import DeveloperPortrait from '../_shared/DeveloperPortrait';
+import css from './Home.module.css';
 
-import DeveloperPortrait from "../_shared/DeveloperPortrait";
-
-const css = require("./Home.module.css");
-
-const HomeTop = () => {
-  return (
-    <section
-      id="homeIntro"
-      className={css.homeIntro}
-    >
-      <h1 className={css.homeHeader}>
-        Hi There!{" "}
-        <span
-          className={css.wave}
-          role="img"
-          aria-label="Wave emoji (Hello!)"
-        >
-          👋🏻
-        </span>
-        <br />
-        I&apos;M
-        <span className="detail"> JESSE GREENOUGH</span>
-      </h1>
-      <DeveloperPortrait />
-      <div className={css.typeText}>
-        <TypeWrite
-          typePrompts={[
-            "TypeScript React Focus",
-            "Java, Rust, and Python",
-            "Open Source Contributor",
-          ]}
-        />
-        <br />
-        <TypeWrite
-          typePrompts={[
-            "Software Development",
-            "SQL and NoSQL Databases",
-            "Always Actively Learning",
-          ]}
-        />
+export default function HomeTop() {
+  return <section className={css.homeIntro} aria-labelledby="hero-title">
+    <div className={css.heroCopy}>
+      <p className={css.eyebrow}>Full stack developer · Washington State</p>
+      <h1 id="hero-title" className={css.homeHeader}>Hi, I’m <span>Jesse Greenough.</span></h1>
+      <p className={css.heroLead}>I build thoughtful software for real people, from polished interfaces to dependable systems behind them.</p>
+      <div className={css.heroActions}>
+        <Link href="/projects" className={css.primaryAction}>Explore my work <span aria-hidden="true">↗</span></Link>
+        <Link href="/about" className={css.secondaryAction}>More about me <span aria-hidden="true">→</span></Link>
       </div>
-    </section>
-  );
-};
-
-export default HomeTop;
-
-interface typeProps {
-  typePrompts: string[];
+      <p className={css.heroNote}>TypeScript · React · Node.js · Java · Rust · Python</p>
+    </div>
+    <div className={css.heroPortrait}><DeveloperPortrait /><span className={css.portraitCaption}>Designing, building, learning.</span></div>
+  </section>;
 }
-const TypeWrite = (props: typeProps) => {
-  return (
-    <Typewriter
-      options={{
-        strings: props.typePrompts,
-        autoStart: true,
-        loop: true,
-        deleteSpeed: 50,
-      }}
-    />
-  );
-};

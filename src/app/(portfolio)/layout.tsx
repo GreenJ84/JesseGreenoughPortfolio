@@ -2,14 +2,12 @@
 
 // TODO: Implement streaming and preloading where needed in the application
 import React from 'react';
-import dynamic from 'next/dynamic';
 import { Metadata, Viewport } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { AppContextProvider } from '../_utils/AppContext';
 import Navbar from './_layout/Navbar/Navbar';
 import VisitorTracker from './_layout/VisitorTracker';
-const Particle = dynamic(() => import('./_layout/Particle'));
 
 // Styles
 import '../../styles/globals.css';
@@ -22,7 +20,6 @@ export default function RootLayout({
     <html lang='en-US'>
       <body>
         <AppContextProvider>
-          <Particle />
           <Navbar />
           <VisitorTracker />
           {children}
@@ -39,8 +36,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'rgb(2, 198, 201)' },
-    { media: '(prefers-color-scheme: dark)', color: 'rgb(12, 43, 33)' },
+    { media: '(prefers-color-scheme: light)', color: '#f4f8f4' },
+    { media: '(prefers-color-scheme: dark)', color: '#091d1b' },
   ],
   colorScheme: 'dark light',
 };

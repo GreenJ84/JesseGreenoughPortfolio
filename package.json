@@ -25,9 +25,6 @@
   "dependencies": {
     "@simplewebauthn/browser": "14.0.0",
     "@simplewebauthn/server": "14.1.0",
-    "@tsparticles/engine": "^3.3.0",
-    "@tsparticles/react": "^3.0.0",
-    "@tsparticles/slim": "3.9.1",
     "@vercel/speed-insights": "^1.0.7",
     "axios": "^1.2.0",
     "dotenv": "^16.0.3",
@@ -42,8 +39,7 @@
     "react-icons": "^4.7.1",
     "react-parallax-tilt": "^1.7.72",
     "sharp": "0.35.5",
-    "typescript": "5.9.3",
-    "typewriter-effect": "2.22.0"
+    "typescript": "5.9.3"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "16.4.6",

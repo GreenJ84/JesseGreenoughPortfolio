@@ -1,34 +1,10 @@
-"use client";
+import Image from 'next/image';
+import css from './Shared.module.css';
 
-import React from "react";
-import Image from "next/image";
+const portrait = 'https://res.cloudinary.com/portfolio-g84/image/upload/v1690310921/personal/personal_portrait.jpg';
 
-import Tilt from "react-parallax-tilt";
-
-const css = require("./Shared.module.css");
-
-const developerPortrait = "https://res.cloudinary.com/portfolio-g84/image/upload/v1690310921/personal/personal_portrait.jpg";
-const DeveloperPortrait = () => {
-  return (
-    <Tilt
-      className={css.portraitTilt}
-      perspective={700}
-      glareEnable={true}
-      glareMaxOpacity={0.85}
-      glareBorderRadius="50%"
-      scale={1.1}
-    >
-      <Image
-        src={developerPortrait}
-        alt="Developer Portrait"
-        className={css.developerPortrait}
-        width={400}
-        height={400}
-        sizes="(max-width: 800px) 160px, (max-width: 1150px) 20vw, 230px"
-        preload
-      />
-    </Tilt>
-  );
-};
-
-export default DeveloperPortrait;
+export default function DeveloperPortrait() {
+  return <div className={css.portraitFrame}>
+    <Image src={portrait} alt="Jesse Greenough" className={css.developerPortrait} width={520} height={520} sizes="(max-width: 800px) 240px, 360px" preload />
+  </div>;
+}
