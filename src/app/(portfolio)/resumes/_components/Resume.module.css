@@ -1,119 +1,15 @@
-/** @format */
-
-/* Page Container */
-.resumeContainer {
-  padding: 3rem 0 5rem;
-}
-.pageHeader { width: min(100% - 3rem, 900px); margin: 0 auto 2rem; text-align: center; }
+.resumeContainer { min-height: calc(100vh - 76px); padding: clamp(2.5rem, 5vw, 5rem) 0 2rem; }
+.pageHeader { width: min(100% - 3rem, 800px); margin: 0 auto 2rem; text-align: center; }
 .pageHeader h1 { margin: 0 0 0.7rem; font-size: var(--header2); letter-spacing: -0.035em; }
-.pageHeader p { margin: 0; color: var(--text-secondary); font-size: var(--text1); }
-
-/* Resume Control section */
-.resume {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin: 20px auto;
-}
-.resume > div:not(.mobileModal){
-  display: flex;
-  width: 50vw;
-  margin: 20px auto;
-  justify-content: space-between;
-}
-
-.resumeControls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2%;
-  font-size: var(--text3);
-  color: var(--text-secondary);
-  backdrop-filter: var(--text-bg-blur);
-}
-
-.leftArrow,
-.rightArrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 5px;
-  padding: 0.5vw;
-  width: clamp(40px, 5vw, 70px);
-  aspect-ratio: 1;
-  font-size: var(--text3);
-  color: var(--text-negative);
-  background-color: var(--text-secondary);
-  border-radius: 30%;
-  box-shadow: 0.12rem 0.12rem 0.2rem var(--detail);
-  z-index: 10;
-}
-
-.leftArrow:hover,
-.rightArrow:hover {
-  color: var(--text-secondary);
-  background-color: var(--text-negative);
-  box-shadow: 0px 0px 8px 3px var(--text-primary);
-}
-
-.disabled,
-.disabled:hover {
-  color: var(--text-secondary);
-  background-color: rgba(0, 0, 0, 0.3);
-  backdrop-filter: opacity(0.5);
-  cursor: not-allowed;
-  border: none;
-  box-shadow: none;
-}
-
-.resume > img {
-  margin: 10px auto;
-  width: min(1000px, 70vw);
-  height: calc(min(1000px, 70vw) * 1.187);
-  border-radius: 15px;
-  box-shadow: var(--shadow);
-  transform: scale(1);
-  z-index: 10;
-}
-@media screen and (max-width: 700px) {
-  .resume > img {
-    width: 90vw;
-    height: calc(90vw * 1.187);
-  }
-}
-
-/* Resume Save / Download buttons */
-.resumeButtonHolder {
-  position: relative;
-  margin: 0 auto;
-  display: flex;
-  width: min(70vw, 1000px);
-  height: auto;
-}
-.resumeButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 2dvh auto;
-  width: clamp(100px, 25vw, 250px);
-  height: clamp(20px, 4.5dvh, 45px);
-  padding: 1vw;
-  text-align: center;
-  color: var(--text-secondary);
-  background-color: var(--layout-bg);
-  font-weight: 900;
-  font-size: clamp(15px, 2vw, 42px);
-  letter-spacing: 1px;
-  border: 1px solid var(--text-secondary);
-  box-shadow: 3px 3px 1px var(--text-secondary),
-    5px 5px 15px 3px var(--layout-bg);
-  border-radius: 8px;
-}
-
-.resumeButton:hover {
-  color: var(--text-negative);
-  background-color: var(--detail);
-  box-shadow: 5px 5px 15px 3px var(--background);
-  transform: translate(3px, 3px);
-}
+.pageHeader p { margin: 0; color: var(--text-secondary); font-size: var(--text1); line-height: 1.65; }
+.resume { width: min(100% - 3rem, 820px); margin: 1rem auto; }
+.resumeNavigation { display: flex; justify-content: space-between; align-items: center; gap: 1rem; width: min(100%, 560px); margin: 0 auto 1rem; }
+.resumeNavigation p { margin: 0; color: var(--text-secondary); font-weight: 700; }
+.resumeControls button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--surface-border); border-radius: 0.65rem; background: var(--card-background); color: var(--text-primary); }
+.resumeControls button:hover:not(:disabled) { background: var(--card-background2); }
+.resumeControls button:disabled { opacity: 0.45; cursor: not-allowed; }
+.resume > img { display: block; width: min(100%, 760px); height: auto; margin: 0 auto; border: 1px solid var(--surface-border); border-radius: 0.75rem; box-shadow: var(--shadow); }
+.resumeButtonHolder { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin: 1.5rem auto; }
+.resumeButton { display: inline-flex; align-items: center; justify-content: center; min-width: 150px; padding: 0.7rem 1.15rem; border: 1px solid var(--surface-border); border-radius: 0.65rem; background: var(--card-background); color: var(--text-primary); font-weight: 750; }
+.resumeButton:first-child { background: var(--detail); color: var(--text-negative); border-color: var(--detail); }
+.resumeButton:hover { box-shadow: var(--shadow); transform: translateY(-2px); }

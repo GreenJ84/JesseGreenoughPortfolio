@@ -2,8 +2,9 @@
 import { BsArrowLeft, BsArrowRight, BsPlusCircleFill } from "react-icons/bs";
 
 import React, { useMemo, useState } from "react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
+import DataFilter from '../_shared/DataFilter';
+import ButtonGroup from './_components/ButtonGroup';
 import ListStatus from '../_shared/ListStatus';
 import { usePaginatedList } from '../_shared/usePaginatedList';
 import { queryKey } from '@/app/_lib/paginatedList';
@@ -12,13 +13,6 @@ import { queryKey } from '@/app/_lib/paginatedList';
 
 
 
-
-const ButtonGroup = dynamic(() => import("./_components/ButtonGroup"), {
-  ssr: false,
-});
-const DataFilter = dynamic(() => import("../_shared/DataFilter"), {
-  ssr: false,
-});
 
 import type { resumeType } from "./resumeService";
 
@@ -36,6 +30,7 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
   const current = resumes[resNum];
   const categoryMap = useMemo(() => new Map<string, number>(JSON.parse(categoryData)), [categoryData]);
   const hasMoreResumes = list.hasMore;
+  const visibleTotal = list.query.type === 'all' ? total : categoryMap.get(list.query.filter ?? '') ?? 0;
   function selectCategory(value: string) {
     setResNum(0);
     if (value === 'all') void list.select({ type: 'all' }, total, resumeData);
@@ -69,37 +64,23 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
         id="resume"
         className={css.resume}
       >
-        <div>
-          <label
-            id="previousResume"
-            aria-label="View Previous Resume"
-            className={css.resumeControls}
-          >
-            Prev
+        <div className={css.resumeNavigation}>
+          <div className={css.resumeControls}>
             <button
-              aria-labelledby="previousResume"
+              type="button"
+              aria-label="Previous resume"
               disabled={list.pending || resNum === 0}
-              className={`${css.leftArrow} ${resNum === 0 && css.disabled}`}
               onClick={(e) => changeResNum(e, "left")}
             >
               <BsArrowLeft />
             </button>
-          </label>
-
-          <label
-            id="nextResume"
-            aria-label="View Next Resume"
-            className={css.resumeControls}
-          >
-            Next
+          </div>
+          <p aria-live="polite">Resume {resNum + 1} of {visibleTotal}</p>
+          <div className={css.resumeControls}>
             <button
-              aria-labelledby="nextResume"
+              type="button"
+              aria-label="Next resume"
               disabled={list.pending || (resNum >= resumes.length - 1 && !hasMoreResumes)}
-              className={`${css.rightArrow} ${
-                resNum === resumes.length - 1 &&
-                !hasMoreResumes &&
-                css.disabled
-              }`}
               onClick={(e) => changeResNum(e, "right")}
             >
               {resNum === resumes.length - 1 && hasMoreResumes ? (
@@ -108,30 +89,17 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
                 <BsArrowRight />
               )}
             </button>
-          </label>
+          </div>
         </div>
         <Image
           id="resumeImage"
           src={current.image_url}
-          alt="My Resume pdf view"
+          alt={`Preview of resume ${resNum + 1}`}
           width={800}
           height={1400}
           priority={resNum === 0}
           blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8fwYAAtABzbrmHzgAAAAASUVORK5CYII="
           placeholder="blur"
-          onClick={() => {
-            let image = document.getElementById("resumeImage")!;
-            if (window.innerWidth < 1400) {
-              return;
-            }
-            if (image.style.transform === "scale(1)") {
-              image.style.transform = "scale(1.2)";
-              image.style.zIndex = "30";
-            } else {
-              image.style.transform = "scale(1)";
-              image.style.zIndex = "10";
-            }
-          }}
         />
       </section>
 
