@@ -1,4 +1,5 @@
 'use server';
+import { recordAdminEvent } from '../_observability/metrics';
 
 import { cacheTags } from '../_lib/cacheTags';
 
@@ -139,7 +140,7 @@ export const getProjectsByTech = unstable_cache(
 );
 
 export const saveProject = async (input: unknown) => {
-  await requireAdmin();
+  const admin = await requireAdmin();
   const { id, ...data } = projectInput(input);
   if (id) {
     const result = await projectDatabase.updateOne(
@@ -150,11 +151,12 @@ export const saveProject = async (input: unknown) => {
   } else {
     await projectDatabase.insertOne(data);
   }
+  await recordAdminEvent(admin.username, id ? 'update' : 'create', 'project', id);
   for (const tag of Object.values(cacheTags.projects)) updateTag(tag);
 }
 
 export const deleteProject = async (inputId: unknown) => {
-  await requireAdmin();
+  const admin = await requireAdmin();
   const id = objectId(inputId);
   try {
     const result = await projectDatabase.deleteOne({ _id: new ObjectId(id) });
@@ -164,5 +166,6 @@ export const deleteProject = async (inputId: unknown) => {
     console.error('Delete project error:', error);
     throw new Error('Failed to delete project');
   }
+  await recordAdminEvent(admin.username, 'delete', 'project', id);
   for (const tag of Object.values(cacheTags.projects)) updateTag(tag);
 }

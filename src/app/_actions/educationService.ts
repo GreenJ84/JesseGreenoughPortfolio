@@ -1,3 +1,4 @@
+import { recordAdminEvent } from '../_observability/metrics';
 /** @format */
 'use server';
 
@@ -63,7 +64,7 @@ export const getEducationCount =  unstable_cache(
 )
 
 export const saveEducation = async (input: unknown) => {
-  await requireAdmin();
+  const admin = await requireAdmin();
   const { id, ...data } = educationInput(input);
   if (id) {
     const result = await educationDatabase.updateOne(
@@ -74,11 +75,12 @@ export const saveEducation = async (input: unknown) => {
   } else {
     await educationDatabase.insertOne(data);
   }
+  await recordAdminEvent(admin.username, id ? 'update' : 'create', 'education', id);
   for (const tag of Object.values(cacheTags.education)) updateTag(tag);
 }
 
 export const deleteEducation = async (inputId: unknown) => {
-  await requireAdmin();
+  const admin = await requireAdmin();
   const id = objectId(inputId);
   try {
     const result = await educationDatabase.deleteOne({ _id: new ObjectId(id) });
@@ -88,5 +90,6 @@ export const deleteEducation = async (inputId: unknown) => {
     console.error('Delete education error:', error);
     throw new Error('Failed to delete education');
   }
+  await recordAdminEvent(admin.username, 'delete', 'education', id);
   for (const tag of Object.values(cacheTags.education)) updateTag(tag);
 }

@@ -1,4 +1,5 @@
 'use server';
+import { recordAdminEvent } from '../_observability/metrics';
 
 import { requireAdmin } from "../_security/session";
 import { certificationInput, objectId, offsetInput, filterInput } from "../_security/validation";
@@ -140,7 +141,7 @@ export const getCertificationsByIssuer = unstable_cache(
 );
 
 export const saveCertification = async (input: unknown) => {
-  await requireAdmin();
+  const admin = await requireAdmin();
   const { id, ...data } = certificationInput(input);
   if (id) {
     const result = await certificationDatabase.updateOne(
@@ -151,6 +152,7 @@ export const saveCertification = async (input: unknown) => {
   } else {
     await certificationDatabase.insertOne(data);
   }
+  await recordAdminEvent(admin.username, id ? 'update' : 'create', 'certification', id);
   updateTag('totalCertifications');
   updateTag('allCertifications');
   updateTag('topCertifications');
@@ -160,7 +162,7 @@ export const saveCertification = async (input: unknown) => {
 };
 
 export const deleteCertification = async (inputId: unknown) => {
-  await requireAdmin();
+  const admin = await requireAdmin();
   const id = objectId(inputId);
   try {
     const result = await certificationDatabase.deleteOne({ _id: new ObjectId(id) });
@@ -170,6 +172,7 @@ export const deleteCertification = async (inputId: unknown) => {
     console.error('Delete certification error:', error);
     throw new Error('Failed to delete certification');
   }
+  await recordAdminEvent(admin.username, 'delete', 'certification', id);
   updateTag('totalCertifications');
   updateTag('allCertifications');
   updateTag('topCertifications');

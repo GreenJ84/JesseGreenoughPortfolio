@@ -8,6 +8,7 @@ function cachedDomain(entity, initial) {
   const cache = new Map();
   const invalidated = [];
   let authorizations = 0;
+  const auditEvents = [];
   const collection = {
     find() {
       let offset = 0, limit = Infinity;
@@ -30,7 +31,8 @@ function cachedDomain(entity, initial) {
     deleteOne: async query => { const before = docs.length; docs = docs.filter(doc => !doc._id.equals(query._id)); return { deletedCount: before - docs.length }; },
   };
   const actions = loadSource({
-    [sourcePath('src/app/_security/session.ts')]: { requireAdmin: async () => { authorizations++; } },
+    [sourcePath('src/app/_security/session.ts')]: { requireAdmin: async () => { authorizations++; return { username: 'owner' }; } },
+    [sourcePath('src/app/_observability/metrics.ts')]: { recordAdminEvent: async (...event) => { auditEvents.push(event); } },
     [sourcePath('src/app/_utils/Database.ts')]: { DB: { collection: () => collection }, DB_INFO: { collections: {} } },
     'next/cache': {
       unstable_cache: (fn, key, { tags }) => async (...args) => {
@@ -42,13 +44,13 @@ function cachedDomain(entity, initial) {
       revalidatePath() {},
     },
   })(`src/app/_actions/${entity}Service.ts`);
-  return { actions, invalidated, authorizations: () => authorizations };
+  return { actions, invalidated, auditEvents, authorizations: () => authorizations };
 }
 
 test('education writes immediately refresh warmed public lists, admin lists and totals', async () => {
   const id = new ObjectId();
   const input = { title: 'Degree', college: 'College', brief: '', description: '', image: '', url: '', start_date: new Date('2024-01-01'), details: [] };
-  const { actions, invalidated, authorizations } = cachedDomain('education', [{ ...input, _id: id }]);
+  const { actions, invalidated, auditEvents, authorizations } = cachedDomain('education', [{ ...input, _id: id }]);
   await actions.getEducation(); await actions.getAllEducation(); await actions.getEducationCount();
   const before = authorizations();
   await actions.getAllEducation();
@@ -63,12 +65,13 @@ test('education writes immediately refresh warmed public lists, admin lists and 
   assert.equal(await actions.getEducationCount(), 1);
   assert.equal((await actions.getAllEducation()).length, 1);
   for (const tag of ['educationData', 'allEducationData', 'totalEducation']) assert.ok(invalidated.includes(tag));
+  assert.deepEqual(auditEvents.map(event => event.slice(0, 3).join(':')), ['owner:update:education', 'owner:create:education', 'owner:delete:education']);
 });
 
 test('project mutations refresh cached category and technology counts', async () => {
   const id = new ObjectId();
   const input = { name: 'Project', priority: 1, date: '2026', brief: 'Summary', description: 'Details', image_path: '/assets/image.png', deployed_url: '', github_url: 'https://github.com/example/project', categories: ['old'], key_techs: ['old-tech'] };
-  const { actions } = cachedDomain('project', [{ ...input, _id: id }]);
+  const { actions, auditEvents } = cachedDomain('project', [{ ...input, _id: id }]);
   assert.equal((await actions.getProjectFilters())[0][0][0], 'old');
   await actions.saveProject({ ...input, id: id.toString(), categories: ['new'], key_techs: ['new-tech'] });
   const [categories, technologies] = await actions.getProjectFilters();
@@ -77,6 +80,7 @@ test('project mutations refresh cached category and technology counts', async ()
   await actions.deleteProject(id.toString());
   const [emptyCategories, emptyTechnologies] = await actions.getProjectFilters();
   assert.equal(emptyCategories.length, 0); assert.equal(emptyTechnologies.length, 0);
+  assert.deepEqual(auditEvents.map(event => event.slice(0, 3).join(':')), ['owner:update:project', 'owner:delete:project']);
 });
 
 const { PaginatedList, fetchListPage } = loadSource()('src/app/_lib/paginatedList.ts');

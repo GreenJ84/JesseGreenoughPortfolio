@@ -1,3 +1,4 @@
+import { recordAdminEvent } from '../_observability/metrics';
 /** @format */
 'use server';
 
@@ -71,7 +72,7 @@ export const getFullAllWorkByCategory = async (category: WorkCategory): Promise<
 };
 
 export const saveWork = async (category: unknown, input: unknown) => {
-  await requireAdmin();
+  const admin = await requireAdmin();
   const database = WORK_COLLECTIONS[workCategory(category)];
   const { id, ...data } = workInput(input);
   if (id) {
@@ -83,13 +84,14 @@ export const saveWork = async (category: unknown, input: unknown) => {
   } else {
     await database.insertOne(data);
   }
+  await recordAdminEvent(admin.username, id ? 'update' : 'create', 'work', id);
   updateTag('workTotals');
   updateTag('workByCategory');
   updateTag('fullAllWorkByCategory');
 };
 
 export const deleteWork = async (category: unknown, inputId: unknown) => {
-  await requireAdmin();
+  const admin = await requireAdmin();
   const id = objectId(inputId);
   const database = WORK_COLLECTIONS[workCategory(category)];
   try {
@@ -99,6 +101,7 @@ export const deleteWork = async (category: unknown, inputId: unknown) => {
     console.error('Delete work error:', error);
     throw new Error('Failed to delete work');
   }
+  await recordAdminEvent(admin.username, 'delete', 'work', id);
   updateTag('workTotals');
   updateTag('workByCategory');
   updateTag('fullAllWorkByCategory');
