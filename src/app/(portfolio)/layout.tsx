@@ -8,6 +8,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { AppContextProvider } from '../_utils/AppContext';
 import Navbar from './_layout/Navbar/Navbar';
+import VisitorTracker from './_layout/VisitorTracker';
 const Particle = dynamic(() => import('./_layout/Particle'));
 
 // Styles
@@ -23,6 +24,7 @@ export default function RootLayout({
         <AppContextProvider>
           <Particle />
           <Navbar />
+          <VisitorTracker />
           {children}
         </AppContextProvider>
         {/* Monitoring */}
