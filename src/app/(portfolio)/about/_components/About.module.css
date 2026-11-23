@@ -25,5 +25,5 @@
 .pathLinks a { color: var(--text-detail); font-weight: 750; border-bottom: 1px solid currentColor; }
 .personal { margin: 1.5rem 0 2rem; padding: clamp(2rem, 5vw, 4rem); border-radius: 1.2rem; background: var(--card-background2); }
 .personal > div { max-width: 740px; }
-@media (max-width: 800px) { .hero { grid-template-columns: 1fr; } .portrait { grid-row: 1; width: min(65vw, 280px); } .strengthGrid { grid-template-columns: 1fr; } }
+@media (max-width: 800px) { .hero { grid-template-columns: 1fr; } .portrait { width: min(65vw, 280px); } .strengthGrid { grid-template-columns: 1fr; } }
 @media (max-width: 480px) { .page { width: min(100% - 2rem, 1180px); } .timeline li { grid-template-columns: 1fr; gap: 0.3rem; } .actions a { width: 100%; justify-content: center; } }
