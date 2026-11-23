@@ -1,50 +1,13 @@
-/** @format */
+import Image from 'next/image';
+import type { WorkType } from '@/app/_lib/_types';
+import css from './WorkExp.module.css';
 
-import Image from "next/image";
-
-import { ImPointRight } from "react-icons/im";
-
-import { WorkType } from "@/app/_lib/_types";
-const css = require("./WorkExp.module.css");
-
-interface WorkCard {
-  work: WorkType;
+export default function WorkCard({ work }: { work: WorkType }) {
+  return <li className={css.workCard}><article>
+    <div className={css.cardHead}>
+      <Image src={work.logo} width={64} height={64} alt="" className={css.workImage} />
+      <div><p className={css.company}>{work.company}</p><h2>{work.position}</h2><p className={css.meta}>{work.date}{work.location ? ` · ${work.location}` : ''}</p></div>
+    </div>
+    {work.details.length > 0 && <ul className={css.details}>{work.details.map((item, index) => <li key={`${index}-${item}`}>{item}</li>)}</ul>}
+  </article></li>;
 }
-
-const WorkCard = (props: WorkCard) => {
-  return (
-    <li className={css.workCard}>
-      <div className={css.workImageHolder}>
-        <Image
-          src={props.work.logo}
-          width={200}
-          height={200}
-          className={css.workImage}
-          alt={props.work.company}
-        />
-      </div>
-      <div className={css.workCardBody}>
-        <div>
-          <h2>{props.work.position}</h2>
-          <p>{props.work.date}</p>
-        </div>
-        <div>
-          <p>{props.work.company}</p>
-          <p>{props.work.location}</p>
-        </div>
-        <ul>
-          {props.work.details.map((item: string, idx: number) => (
-            <li
-              key={idx}
-              className={css.details}
-            >
-              <ImPointRight /> {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </li>
-  );
-};
-
-export default WorkCard;

@@ -1,13 +1,10 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import ListStatus from '../_shared/ListStatus';
 import { usePaginatedList } from '../_shared/usePaginatedList';
 import { WorkType } from "@/app/_lib/_types";
-
-const WorkImg = dynamic(() => import("./_components/WorkImg"));
-const WorkCard = dynamic(() => import("./_components/WorkCard"));
-const AddItemsButton = dynamic(() => import("../_shared/AddItemsButton"));
+import WorkCard from './_components/WorkCard';
+import AddItemsButton from '../_shared/AddItemsButton';
 
 const css = require("./_components/WorkExp.module.css");
 
@@ -26,15 +23,11 @@ const WorkClient = ({ workData, documentTotals }: WorkExp) => {
 
   return (
     <>
-      <section id="workIntro">
+      <section id="workIntro" className={css.workIntro}>
         <h1 className={css.workBodyTitle}>Professional Experience</h1>
         <div className={css.workBody}>
-          <WorkImg />
           <p>
-            I have over 8 years of customer success
-            and leadership experience with proven results in a variety of
-            fast-paced environments coupled with over 3 years of development
-            experience across numerous technologies.
+            Software development informed by more than eight years of customer success and team leadership. Explore the roles, teams, and projects that shaped how I work.
           </p>
         </div>
       </section>
@@ -43,6 +36,8 @@ const WorkClient = ({ workData, documentTotals }: WorkExp) => {
         className={css.workFilter}
       >
         <button
+          type="button"
+          aria-pressed={!showSecWork}
           className={!showSecWork ? css.activeFilter : css.inactiveFilter}
           onClick={() => {
             if (showSecWork) {
@@ -53,6 +48,8 @@ const WorkClient = ({ workData, documentTotals }: WorkExp) => {
           Work
         </button>
         <button
+          type="button"
+          aria-pressed={showSecWork}
           className={showSecWork ? css.activeFilter : css.inactiveFilter}
           onClick={() => {
             if (!showSecWork) {
