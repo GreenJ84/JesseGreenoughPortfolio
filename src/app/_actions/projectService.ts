@@ -14,12 +14,13 @@ import { ProjectType } from "../_lib/_types";
 import { DB, DB_INFO } from "../_utils/Database";
 
 const projectDatabase = DB.collection<ProjectType>(DB_INFO.collections.PROJ);
+const cacheScope = [DB_INFO.name, DB_INFO.collections.PROJ, 'legacy-20261123'];
 
 export const getProjectCount = unstable_cache(
   async (): Promise<number> => {
     return await projectDatabase.countDocuments()
   },
-  [cacheTags.projects.count],
+  [cacheTags.projects.count, ...cacheScope],
   { revalidate: 3600, tags: [cacheTags.projects.count] }
 );
 
@@ -51,7 +52,7 @@ export const getTopProjects = unstable_cache(
   async (): Promise<ProjectType[]> => {
     return await getProjectsBase(0, { priority: 1, date: -1, name: 1 });
   },
-  [cacheTags.projects.top],
+  [cacheTags.projects.top, ...cacheScope],
   { revalidate: 3600, tags: [cacheTags.projects.top] }
 )
 
@@ -59,7 +60,7 @@ export const getAllProjects = unstable_cache(
   async (offset: number): Promise<ProjectType[]>  => {
     return await getProjectsBase(offset, { priority: 1, date: -1, name: 1 });
   },
-  [cacheTags.projects.list],
+  [cacheTags.projects.list, ...cacheScope],
   { revalidate: 3600, tags: [cacheTags.projects.list] }
 )
 
@@ -113,7 +114,7 @@ export const getProjectFilters = unstable_cache(
       Array.from(techs.entries()),
     ];
   },
-  [cacheTags.projects.filters],
+  [cacheTags.projects.filters, ...cacheScope],
   { revalidate: 3600, tags: [cacheTags.projects.filters] }
 )
 
@@ -124,7 +125,7 @@ export const getProjectsByCategory = unstable_cache(
       { categories: filterInput(category)}
     );
   },
-  [cacheTags.projects.category],
+  [cacheTags.projects.category, ...cacheScope],
   { revalidate: 3600, tags: [cacheTags.projects.category] }
 );
 
@@ -135,7 +136,7 @@ export const getProjectsByTech = unstable_cache(
       { key_techs: filterInput(tech) }
     );
   },
-  [cacheTags.projects.tech],
+  [cacheTags.projects.tech, ...cacheScope],
   { revalidate: 3600, tags: [cacheTags.projects.tech] }
 );
 

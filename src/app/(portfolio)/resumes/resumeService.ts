@@ -15,6 +15,7 @@ export interface resumeType {
   categories: string[];
 }
 const resumeDatabase = DB.collection<resumeType>(DB_INFO.collections.RES);
+const cacheScope = [DB_INFO.name, DB_INFO.collections.RES, 'legacy-20261123'];
 
 const getResumeItems = async (offset: number, filterOptions?: object) => {
   return (
@@ -34,7 +35,7 @@ export const getResumeCount = unstable_cache(
   async (): Promise<number> => {
     return await resumeDatabase.countDocuments();
   },
-  ['totalResumes'],
+  ['totalResumes', ...cacheScope],
   { revalidate: 60, tags: ['totalResumes'] }
 );
 
@@ -44,7 +45,7 @@ export const getResumes = unstable_cache(
   ): Promise<resumeType[]> => {
     return await getResumeItems(offset);
   },
-  ['resumes'],
+  ['resumes', ...cacheScope],
   { revalidate: 60, tags: ['resumes'] }
 );
 
@@ -73,7 +74,7 @@ export const getResumeFilterOptions =  unstable_cache(
 
     return JSON.stringify(Array.from(categoryMap.entries()));
   },
-  ['resumeFilterOptions'],
+  ['resumeFilterOptions', ...cacheScope],
   { revalidate: 60, tags: ['resumeFilterOptions'] }
 );
 
@@ -84,4 +85,6 @@ export const getResumesByCategory = unstable_cache(
       categories: filterInput(category),
     });
   },
+  ['resumesByCategory', ...cacheScope],
+  { revalidate: 60, tags: ['resumes'] }
 );

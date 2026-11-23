@@ -18,6 +18,7 @@ const WORK_COLLECTIONS = {
 };
 
 export type WorkCategory = keyof typeof WORK_COLLECTIONS; // 'primary' | 'secondary'
+const cacheScope = [DB_INFO.name, DB_INFO.collections.WORK, DB_INFO.collections.SWORK, 'legacy-20261123'];
 
 export const getWorkTotals = unstable_cache(
   async (): Promise<[number, number]> => {
@@ -25,7 +26,7 @@ export const getWorkTotals = unstable_cache(
     const secWorkTotal = await WORK_COLLECTIONS.secondary.countDocuments();
     return [workTotal, secWorkTotal];
   },
-  ['workTotals'],
+  ['workTotals', ...cacheScope],
   { revalidate: 3600, tags: ['workTotals'] }
 );
 
@@ -47,7 +48,7 @@ export const getWorkByCategory = unstable_cache(
   async (category: WorkCategory, offset: number = 0): Promise<WorkType[]> => {
     return getWorkBase(category, offset);
   },
-  ['workByCategory'],
+  ['workByCategory', ...cacheScope],
   { revalidate: 3600, tags: ['workByCategory'] }
 );
 
@@ -62,7 +63,7 @@ const getFullAllWorkByCategoryCached = unstable_cache(
         return { id: _id.toString(), ...rest } as WorkType;
       });
   },
-  ['fullAllWorkByCategory'],
+  ['fullAllWorkByCategory', ...cacheScope],
   { revalidate: 3600, tags: ['fullAllWorkByCategory'] }
 );
 

@@ -17,6 +17,7 @@ import { EducationType, EducationDTO } from "../_lib/_types";
 import { ObjectId } from "mongodb";
 
 const educationDatabase = DB.collection<EducationType>(DB_INFO.collections.EDU);
+const cacheScope = [DB_INFO.name, DB_INFO.collections.EDU, 'legacy-20261123'];
 
 export const getEducation = unstable_cache(
   async (offset: number = 0): Promise<EducationDTO[]> => {
@@ -31,7 +32,7 @@ export const getEducation = unstable_cache(
       return educationDTO({ ...rest, id: _id.toString() });
     });
   },
-  [cacheTags.education.list],
+  [cacheTags.education.list, ...cacheScope],
   { revalidate: 3600, tags: [cacheTags.education.list] }
 );
 
@@ -46,7 +47,7 @@ const getAllEducationCached = unstable_cache(
       return educationDTO({ ...rest, id: _id.toString() });
     });
   },
-  [cacheTags.education.all],
+  [cacheTags.education.all, ...cacheScope],
   { revalidate: 3600, tags: [cacheTags.education.all] }
 );
 
@@ -59,7 +60,7 @@ export const getEducationCount =  unstable_cache(
   async (): Promise<number> => {
     return await educationDatabase.countDocuments();
   },
-  [cacheTags.education.count],
+  [cacheTags.education.count, ...cacheScope],
   { revalidate: 3600, tags: [cacheTags.education.count] }
 )
 

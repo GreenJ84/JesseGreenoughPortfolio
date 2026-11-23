@@ -12,12 +12,13 @@ import { CertificationType } from "../_lib/_types";
 import { DB, DB_INFO } from "../_utils/Database";
 
 const certificationDatabase = DB.collection<CertificationType>(DB_INFO.collections.CERT);
+const cacheScope = [DB_INFO.name, DB_INFO.collections.CERT, 'legacy-20261123'];
 
 export const getCertificationCount = unstable_cache(
   async (): Promise<number> => {
     return await certificationDatabase.countDocuments();
   },
-  ['totalCertifications'],
+  ['totalCertifications', ...cacheScope],
   { revalidate: 3600, tags: ['totalCertifications'] }
 );
 
@@ -52,7 +53,7 @@ export const getTopCertifications = unstable_cache(
   async (): Promise<CertificationType[]> => {
     return await getCertificationsBase(0, { priority: 1, date: -1 });
   },
-  ['topCertifications'],
+  ['topCertifications', ...cacheScope],
   { revalidate: 3600, tags: ['topCertifications'] }
 );
 
@@ -60,7 +61,7 @@ export const getAllCertifications = unstable_cache(
   async (offset: number): Promise<CertificationType[]> => {
     return await getCertificationsBase(offset);
   },
-  ['allCertifications'],
+  ['allCertifications', ...cacheScope],
   { revalidate: 3600, tags: ['allCertifications'] }
 );
 
@@ -112,7 +113,7 @@ export const getCertificationFilterOptions = unstable_cache(
       JSON.stringify(Array.from(techMap.entries())),
     ];
   },
-  ['certificationFilters'],
+  ['certificationFilters', ...cacheScope],
   { revalidate: 3600, tags: ['certificationFilters'] }
 );
 
@@ -124,7 +125,7 @@ export const getCertificationsByTech = unstable_cache(
       { techs: filterInput(tech) }
     );
   },
-  ['certificationsByTech'],
+  ['certificationsByTech', ...cacheScope],
   { revalidate: 3600, tags: ['certificationsByTech'] }
 );
 
@@ -136,7 +137,7 @@ export const getCertificationsByIssuer = unstable_cache(
       { issuer: filterInput(issuer) }
     );
   },
-  ['certificationsByIssuer'],
+  ['certificationsByIssuer', ...cacheScope],
   { revalidate: 3600, tags: ['certificationsByIssuer'] }
 );
 
