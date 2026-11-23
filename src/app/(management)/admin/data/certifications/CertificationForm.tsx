@@ -1,12 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import type { CertificationType } from '@/app/_lib/_types';
 import { saveCertification, deleteCertification } from '@/app/_actions/certificationService';
+import { getCertificationTagOptions } from '@/app/_actions/adminTagOptions';
 
 import { FormActionButtons, useFormMutation } from '../_components/FormModal';
 import { PortfolioDateField } from '../_components/PortfolioDateFields';
+import TagPicker from '../_components/TagPicker';
 
 import css from '../_components/DataPage.module.css';
 
@@ -34,27 +36,13 @@ export default function CertificationForm({
     }
   );
 
-  // Array field handlers for techs
-  const handleArrayChange = (idx: number, value: string) => {
-    setForm((prev: CertificationType) => ({
-      ...prev,
-      techs: prev.techs.map((item: string, i: number) => (i === idx ? value : item)),
-    }));
-  };
-
-  const addArrayItem = () => {
-    setForm((prev: CertificationType) => ({
-      ...prev,
-      techs: [...prev.techs, ''],
-    }));
-  };
-
-  const removeArrayItem = (idx: number) => {
-    setForm((prev: CertificationType) => ({
-      ...prev,
-      techs: prev.techs.filter((_, i) => i !== idx),
-    }));
-  };
+  const [tagOptions, setTagOptions] = useState<string[]>([]);
+  const [tagError, setTagError] = useState(false);
+  useEffect(() => {
+    let active = true;
+    void getCertificationTagOptions().then(options => { if (active) setTagOptions(options); }).catch(() => { if (active) setTagError(true); });
+    return () => { active = false; };
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -106,22 +94,8 @@ export default function CertificationForm({
         <input className={css.formInput} name="url" type="url" value={form.url} onChange={handleChange} />
       </label>
 
-      <fieldset className={css.formFieldset}>
-        <legend className={css.formLegend}>Techs</legend>
-        {form.techs.map((tech: string, idx: number) => (
-          <div key={idx} className={css.arrayFieldRow}>
-            <input
-              className={css.formInput}
-              value={tech}
-              name="techs[]"
-              onChange={(e) => handleArrayChange(idx, e.target.value)}
-              placeholder="Technology"
-            />
-            <button type="button" className={css.removeBtn} onClick={() => removeArrayItem(idx)} aria-label="Remove tech">✕</button>
-          </div>
-        ))}
-        <button type="button" className={css.addBtn} onClick={addArrayItem}>Add Tech</button>
-      </fieldset>
+      {tagError && <p className={css.formError}>Existing options are unavailable. You can still add a new value.</p>}
+      <TagPicker label="Technologies" values={form.techs} options={tagOptions} onChange={techs => setForm(previous => ({ ...previous, techs }))} />
 
       <FormActionButtons
         id={form.id || undefined}

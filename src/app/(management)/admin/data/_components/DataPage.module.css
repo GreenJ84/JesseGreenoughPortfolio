@@ -45,6 +45,14 @@
 .formInput:focus-visible,.formTextarea:focus-visible{border-color:var(--detail);box-shadow:0 0 0 3px var(--surface-border)}
 .datePair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
 .legacyDate,.fieldHint{color:var(--text-secondary);font-size:.78rem;font-weight:400;line-height:1.4}
+.selectedTags{display:flex;flex-wrap:wrap;gap:.4rem;margin:0;padding:0;list-style:none}
+.selectedTags li{display:inline-flex;align-items:center;gap:.25rem;padding:.25rem .35rem .25rem .65rem;border:1px solid var(--surface-border);border-radius:999px;background:var(--card-background2);font-size:.82rem}
+.selectedTags button{width:24px;height:24px;border:0;border-radius:50%;background:transparent;color:var(--text-secondary);font:inherit;font-size:1.1rem;cursor:pointer}
+.selectedTags button:hover{background:var(--hover-surface);color:var(--text-primary)}
+.tagPicker{position:relative;display:grid;gap:.55rem}
+.tagSuggestions{position:absolute;top:calc(100% - 3.25rem);left:0;right:0;z-index:4;max-height:220px;overflow-y:auto;margin:0;padding:.25rem;border:1px solid var(--hover-border);border-radius:.6rem;background:var(--card-background);box-shadow:var(--shadow-hover);list-style:none}
+.tagSuggestions button{width:100%;padding:.6rem .7rem;border:0;border-radius:.4rem;background:transparent;color:var(--text-primary);font:inherit;text-align:left;cursor:pointer}
+.tagSuggestions button:hover,.tagSuggestions button:focus-visible{background:var(--hover-surface)}
 .formFieldset{display:grid;gap:.65rem;min-width:0;margin:0;padding:.85rem 1rem 1rem;border:1px solid var(--surface-border);border-radius:.7rem}
 .formLegend{padding:0 .4rem;color:var(--text-detail);font-size:.9rem;font-weight:750}
 .arrayFieldRow{display:flex;align-items:center;gap:.55rem;min-width:0}
