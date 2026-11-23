@@ -70,7 +70,7 @@ export default function ProjectForm({
   const handleDelete = async (id?: string) => { if (id) await mutation.run('delete', () => deleteProject(id), onSaved); };
 
   return (
-      <form className={css.dataForm} action={handleSubmit}>
+    <form className={css.dataForm} action={handleSubmit}>
       <fieldset disabled={mutation.pending} className={css.formFields}>
         {form.id && <input type="hidden" name="id" value={form.id} />}
         <label className={css.formLabel}>
@@ -93,11 +93,11 @@ export default function ProjectForm({
           Date*
           <input className={css.formInput} name="date" value={form.date} onChange={handleChange} required />
         </label>
-        <label className={css.formLabel}>
+        <label className={`${css.formLabel} ${css.wideField}`}>
           Brief*
           <input className={css.formInput} name="brief" value={form.brief} onChange={handleChange} required />
         </label>
-        <label className={css.formLabel}>
+        <label className={`${css.formLabel} ${css.wideField}`}>
           Description*
           <textarea className={css.formTextarea} name="description" value={form.description} onChange={handleChange} rows={4} required />
         </label>
@@ -107,11 +107,11 @@ export default function ProjectForm({
         </label>
         <label className={css.formLabel}>
           Deployed URL
-          <input className={css.formInput} name="deployed_url" value={form.deployed_url} onChange={handleChange} />
+          <input className={css.formInput} name="deployed_url" type="url" value={form.deployed_url} onChange={handleChange} />
         </label>
         <label className={css.formLabel}>
           GitHub URL*
-          <input className={css.formInput} name="github_url" value={form.github_url} onChange={handleChange} required />
+          <input className={css.formInput} name="github_url" type="url" value={form.github_url} onChange={handleChange} required />
         </label>
 
         <fieldset className={css.formFieldset}>
@@ -133,7 +133,6 @@ export default function ProjectForm({
 
         <fieldset className={css.formFieldset}>
           <legend className={css.formLegend}>Key Technologies</legend>
-          {form.key_techs}
           {form.key_techs.map((tech: string, idx: number) => (
             <div key={idx} className={css.arrayFieldRow}>
               <input

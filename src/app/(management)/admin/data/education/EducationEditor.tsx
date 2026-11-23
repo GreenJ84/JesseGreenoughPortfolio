@@ -18,8 +18,8 @@ export default function EducationEditor({ initial, onClose, onSaved }: { initial
     <label className={css.formLabel}>Start month*<input className={css.formInput} type="month" name="start_month" value={form.start_month} onChange={event => setForm({ ...form, start_month: event.target.value })} required /></label>
     <label className={css.formLabel}>End month (leave empty for Present)<input className={css.formInput} type="month" name="end_month" min={form.start_month || undefined} value={form.end_month} onChange={event => setForm({ ...form, end_month: event.target.value })} /></label>
     <label className={css.formLabel}>Icon URL<input className={css.formInput} name="image" value={form.image} onChange={event => setForm({ ...form, image: event.target.value })} /></label>
-    <label className={css.formLabel}>Website<input className={css.formInput} name="url" value={form.url} onChange={event => setForm({ ...form, url: event.target.value })} /></label>
-    <fieldset className={css.formFieldset}><legend>Description</legend>
+    <label className={css.formLabel}>Website<input className={css.formInput} type="url" name="url" value={form.url} onChange={event => setForm({ ...form, url: event.target.value })} /></label>
+    <fieldset className={css.formFieldset}><legend className={css.formLegend}>Description</legend>
       {form.details.map((detail, index) => <div key={index} className={css.arrayFieldRow}>
         <input className={css.formInput} aria-label={`Description ${index + 1}`} value={detail} onChange={event => setForm({ ...form, details: form.details.map((value, position) => position === index ? event.target.value : value) })} />
         <button type="button" className={css.removeBtn} onClick={() => setForm({ ...form, details: form.details.filter((_, position) => position !== index) })}>Remove</button>

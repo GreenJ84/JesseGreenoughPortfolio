@@ -2,7 +2,7 @@
 
 import React, { useCallback } from "react";
 
-import { getFullAllWorkByCategory } from "@/app/_actions/workService";
+import { deleteWork, getFullAllWorkByCategory } from "@/app/_actions/workService";
 import type { WorkType } from "@/app/_lib/_types";
 
 import DataStatus from "../_components/DataStatus";
@@ -26,36 +26,38 @@ export default function WorkPage() {
   } = useDataManager<WorkType>(loader);
 
   return (
-    <>
+    <main className={css.dataPageWrap}>
       <div className={css.dataHeader}>
-        <h2>Work Experience {workItems.length}</h2>
-        <button className={css.newBtn} disabled={loading} onClick={() => openModal()}>
-          + New Work Experience
+        <div><p className={css.eyebrow}>Portfolio data</p><h1>Work experience <span>{workItems.length}</span></h1><p>Manage roles, organizations, and the achievements visitors see.</p></div>
+        <button type="button" className={css.newBtn} disabled={loading} onClick={() => openModal()}>
+          + New experience
         </button>
       </div>
-      <div style={{ margin: '1rem auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '40vw' }}>
+      <div className={css.categorySwitch} role="group" aria-label="Experience category">
         <button
           type="button"
-          className={category === 'primary' ? css.submitBtn : css.cancelBtn}
+          className={category === 'primary' ? css.activeCategory : ''}
+          aria-pressed={category === 'primary'}
           onClick={() => setCategory('primary')}
-          disabled={category === 'primary'}
         >
-          Primary
+          Work
         </button>
         <button
           type="button"
-          className={category === 'secondary' ? css.submitBtn : css.cancelBtn}
+          className={category === 'secondary' ? css.activeCategory : ''}
+          aria-pressed={category === 'secondary'}
           onClick={() => setCategory('secondary')}
-          disabled={category === 'secondary'}
-          style={{ marginLeft: '0.5rem' }}
         >
-          Secondary
+          Internship / volunteer
         </button>
       </div>
       <DataStatus loading={loading} error={error} refresh={refresh} />
       <PortfolioDataList
         items={workItems}
         openModal={openModal}
+        itemLabel={work => `${work.position} at ${work.company}`}
+        searchText={work => [work.position, work.company, work.location, work.date, ...(work.details ?? [])].join(' ')}
+        onDelete={async work => { if (work.id) { await deleteWork(category, work.id); await afterMutation(); } }}
         itemDisplay={(work: WorkType) => (
           <>
             <strong>{work.position}</strong>
@@ -76,6 +78,6 @@ export default function WorkPage() {
           />
         </FormModal>
       )}
-    </>
+    </main>
   );
 }

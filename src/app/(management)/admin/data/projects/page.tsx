@@ -1,7 +1,7 @@
 'use client';
 
 
-import { getFullAllProjects } from "@/app/_actions/projectService";
+import { deleteProject, getFullAllProjects } from "@/app/_actions/projectService";
 
 import type { ProjectType } from "@/app/_lib/_types";
 
@@ -23,17 +23,20 @@ export default function ProjectsPage() {
   } = useDataManager<ProjectType>(getFullAllProjects);
 
   return (
-    <>
+    <main className={css.dataPageWrap}>
       <div className={css.dataHeader}>
-        <h2>Projects {projects.length}</h2>
-        <button className={css.newBtn} disabled={loading} onClick={() => openModal()}>
-          + New Project
+        <div><p className={css.eyebrow}>Portfolio data</p><h1>Projects <span>{projects.length}</span></h1><p>Review the project archive, then open a record to update its story and links.</p></div>
+        <button type="button" className={css.newBtn} disabled={loading} onClick={() => openModal()}>
+          + New project
         </button>
       </div>
       <DataStatus loading={loading} error={error} refresh={refresh} />
       <PortfolioDataList
         items={projects}
         openModal={openModal}
+        itemLabel={project => project.name}
+        searchText={project => [project.name, project.brief, ...(project.categories ?? []), ...(project.key_techs ?? [])].join(' ')}
+        onDelete={async project => { if (project.id) { await deleteProject(project.id); await afterMutation(); } }}
         itemDisplay={(proj: ProjectType) => (
           <>
             <strong>{proj.name}</strong>
@@ -53,6 +56,6 @@ export default function ProjectsPage() {
           />
         </FormModal>
       )}
-    </>
+    </main>
   );
 }

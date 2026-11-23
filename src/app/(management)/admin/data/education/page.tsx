@@ -1,7 +1,7 @@
 'use client';
 
 
-import { getAllEducation } from "@/app/_actions/educationService";
+import { deleteEducation, getAllEducation } from "@/app/_actions/educationService";
 import type { EducationDTO } from "@/app/_lib/_types";
 
 import DataStatus from "../_components/DataStatus";
@@ -23,17 +23,20 @@ export default function EducationPage() {
   } = useDataManager<EducationDTO>(getAllEducation);
 
   return (
-    <>
+    <main className={css.dataPageWrap}>
       <div className={css.dataHeader}>
-        <h2>Education {educationItems.length}</h2>
-        <button className={css.newBtn} disabled={loading} onClick={() => openModal()}>
-          + New Education
+        <div><p className={css.eyebrow}>Portfolio data</p><h1>Education <span>{educationItems.length}</span></h1><p>Keep degrees, dates, and supporting details easy to review.</p></div>
+        <button type="button" className={css.newBtn} disabled={loading} onClick={() => openModal()}>
+          + New education
         </button>
       </div>
       <DataStatus loading={loading} error={error} refresh={refresh} />
       <PortfolioDataList
         items={educationItems}
         openModal={openModal}
+        itemLabel={education => education.title}
+        searchText={education => [education.title, education.college, ...(education.details ?? [])].join(' ')}
+        onDelete={async education => { if (education.id) { await deleteEducation(education.id); await afterMutation(); } }}
         itemDisplay={(edu: EducationDTO) => (
           <>
             <strong>{edu.degree}</strong>
@@ -53,6 +56,6 @@ export default function EducationPage() {
           />
         </FormModal>
       )}
-    </>
+    </main>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 
-import { getFullAllCertifications } from "@/app/_actions/certificationService";
+import { deleteCertification, getFullAllCertifications } from "@/app/_actions/certificationService";
 import type { CertificationType } from "@/app/_lib/_types";
 
 import DataStatus from "../_components/DataStatus";
@@ -23,17 +23,20 @@ export default function CertificationsPage() {
   } = useDataManager<CertificationType>(getFullAllCertifications);
 
   return (
-    <>
+    <main className={css.dataPageWrap}>
       <div className={css.dataHeader}>
-        <h2>Certifications {certifications.length}</h2>
-        <button className={css.newBtn} disabled={loading} onClick={() => openModal()}>
-          + New Certification
+        <div><p className={css.eyebrow}>Portfolio data</p><h1>Certifications <span>{certifications.length}</span></h1><p>Find credentials by title, issuer, or technology and keep their details current.</p></div>
+        <button type="button" className={css.newBtn} disabled={loading} onClick={() => openModal()}>
+          + New certification
         </button>
       </div>
       <DataStatus loading={loading} error={error} refresh={refresh} />
       <PortfolioDataList
         items={certifications}
         openModal={openModal}
+        itemLabel={cert => cert.title}
+        searchText={cert => [cert.title, cert.issuer, ...(cert.techs ?? [])].join(' ')}
+        onDelete={async cert => { if (cert.id) { await deleteCertification(cert.id); await afterMutation(); } }}
         itemDisplay={(cert: CertificationType) => (
           <>
             <strong>{cert.title}</strong>
@@ -49,6 +52,6 @@ export default function CertificationsPage() {
           <CertificationForm initial={selected} onClose={closeModal} onSaved={afterMutation} />
         </FormModal>
       )}
-    </>
+    </main>
   );
 }

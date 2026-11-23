@@ -95,7 +95,7 @@ export default function CertificationForm({
         Date*
         <input className={css.formInput} name="date" value={form.date} onChange={handleChange} required />
       </label>
-      <label className={css.formLabel}>
+      <label className={`${css.formLabel} ${css.wideField}`}>
         Description*
         <textarea className={css.formTextarea} name="description" value={form.description} onChange={handleChange} rows={3} required />
       </label>
@@ -105,7 +105,7 @@ export default function CertificationForm({
       </label>
       <label className={css.formLabel}>
         Certification URL
-        <input className={css.formInput} name="url" value={form.url} onChange={handleChange} />
+        <input className={css.formInput} name="url" type="url" value={form.url} onChange={handleChange} />
       </label>
 
       <fieldset className={css.formFieldset}>
