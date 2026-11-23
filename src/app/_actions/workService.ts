@@ -1,6 +1,6 @@
-import { recordAdminEvent } from '../_observability/metrics';
 /** @format */
 'use server';
+import { recordAdminEvent } from '../_observability/metrics';
 
 import { requireAdmin } from "../_security/session";
 import { workInput, objectId, offsetInput, workCategory } from "../_security/validation";

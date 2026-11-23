@@ -1,6 +1,6 @@
-import { recordAdminEvent } from '../_observability/metrics';
 /** @format */
 'use server';
+import { recordAdminEvent } from '../_observability/metrics';
 
 import { cacheTags } from '../_lib/cacheTags';
 
