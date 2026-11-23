@@ -43,6 +43,8 @@
 .formInput,.formTextarea{width:100%;min-width:0;min-height:42px;padding:.65rem .8rem;border:1px solid var(--surface-border);border-radius:.6rem;outline:none;background:var(--background);color:var(--text-primary);font:inherit;font-weight:400}
 .formTextarea{min-height:110px;resize:vertical}
 .formInput:focus-visible,.formTextarea:focus-visible{border-color:var(--detail);box-shadow:0 0 0 3px var(--surface-border)}
+.datePair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.legacyDate,.fieldHint{color:var(--text-secondary);font-size:.78rem;font-weight:400;line-height:1.4}
 .formFieldset{display:grid;gap:.65rem;min-width:0;margin:0;padding:.85rem 1rem 1rem;border:1px solid var(--surface-border);border-radius:.7rem}
 .formLegend{padding:0 .4rem;color:var(--text-detail);font-size:.9rem;font-weight:750}
 .arrayFieldRow{display:flex;align-items:center;gap:.55rem;min-width:0}
@@ -57,4 +59,4 @@
 .modalActions .cancelBtn{order:3}
 .dataForm button:disabled,.closeBtn:disabled,.newBtn:disabled,.dataCard:disabled,.rowDelete:disabled{opacity:.5;cursor:wait;transform:none}
 .dataCard:focus-visible,.rowDelete:focus-visible,.newBtn:focus-visible,.categorySwitch button:focus-visible,.modalActions button:focus-visible,.closeBtn:focus-visible{outline:3px solid var(--text-detail);outline-offset:-3px}
-@media(max-width:640px){.dataHeader{align-items:stretch;flex-direction:column}.newBtn{align-self:flex-start}.listTools{align-items:stretch;flex-direction:column;gap:.25rem}.resultCount{margin:0}.editCue{display:none}.rowDelete{margin-right:.3rem}.formContainer{inset-block-start:1dvh;max-height:98dvh}.dataForm{padding:1rem}.formFields{grid-template-columns:minmax(0,1fr)}.modalActions{flex-wrap:wrap}.modalActions .deleteBtn{margin-left:0}}
+@media(max-width:640px){.dataHeader{align-items:stretch;flex-direction:column}.newBtn{align-self:flex-start}.listTools{align-items:stretch;flex-direction:column;gap:.25rem}.resultCount{margin:0}.editCue{display:none}.rowDelete{margin-right:.3rem}.formContainer{inset-block-start:1dvh;max-height:98dvh}.dataForm{padding:1rem}.formFields,.datePair{grid-template-columns:minmax(0,1fr)}.modalActions{flex-wrap:wrap}.modalActions .deleteBtn{margin-left:0}}

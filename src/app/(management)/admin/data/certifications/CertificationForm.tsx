@@ -6,6 +6,7 @@ import type { CertificationType } from '@/app/_lib/_types';
 import { saveCertification, deleteCertification } from '@/app/_actions/certificationService';
 
 import { FormActionButtons, useFormMutation } from '../_components/FormModal';
+import { PortfolioDateField } from '../_components/PortfolioDateFields';
 
 import css from '../_components/DataPage.module.css';
 
@@ -91,10 +92,7 @@ export default function CertificationForm({
           required
         />
       </label>
-      <label className={css.formLabel}>
-        Date*
-        <input className={css.formInput} name="date" value={form.date} onChange={handleChange} required />
-      </label>
+      <PortfolioDateField value={form.date} onChange={date => setForm(previous => ({ ...previous, date }))} />
       <label className={`${css.formLabel} ${css.wideField}`}>
         Description*
         <textarea className={css.formTextarea} name="description" value={form.description} onChange={handleChange} rows={3} required />

@@ -6,6 +6,7 @@ import type { ProjectType } from '@/app/_lib/_types';
 import { deleteProject, saveProject } from '@/app/_actions/projectService';
 
 import { FormActionButtons, useFormMutation } from '../_components/FormModal';
+import { PortfolioDateField } from '../_components/PortfolioDateFields';
 
 import css from '../_components/DataPage.module.css';
 
@@ -89,10 +90,7 @@ export default function ProjectForm({
             required
           />
         </label>
-        <label className={css.formLabel}>
-          Date*
-          <input className={css.formInput} name="date" value={form.date} onChange={handleChange} required />
-        </label>
+        <PortfolioDateField value={form.date} onChange={date => setForm(previous => ({ ...previous, date }))} />
         <label className={`${css.formLabel} ${css.wideField}`}>
           Brief*
           <input className={css.formInput} name="brief" value={form.brief} onChange={handleChange} required />

@@ -6,6 +6,7 @@ import type { WorkType } from '@/app/_lib/_types';
 import { saveWork, deleteWork } from '@/app/_actions/workService';
 
 import { FormActionButtons, useFormMutation } from '../_components/FormModal';
+import { WorkPeriodField } from '../_components/PortfolioDateFields';
 
 import css from '../_components/DataPage.module.css';
 
@@ -87,10 +88,7 @@ export default function WorkForm({
         Location*
         <input className={css.formInput} name="location" value={form.location} onChange={handleChange} required />
       </label>
-      <label className={css.formLabel}>
-        Date (e.g. &quot;2020 - 2024&quot;)*
-        <input className={css.formInput} name="date" value={form.date} onChange={handleChange} required />
-      </label>
+      <WorkPeriodField value={form.date} onChange={date => setForm(previous => ({ ...previous, date }))} />
 
       <fieldset className={css.formFieldset}>
         <legend className={css.formLegend}>Details</legend>
