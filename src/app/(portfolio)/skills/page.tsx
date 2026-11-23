@@ -22,6 +22,7 @@ const page = () => {
             key={category}
             className={`${css.skillSection} skillSection`}
           >
+            <h2 className={css.sectionTitle}>{category.replaceAll('_', ' ').replace(/([a-z])([A-Z])/g, '$1 $2')}</h2>
             <ul
               className={css.skillsListContainer}
             >
