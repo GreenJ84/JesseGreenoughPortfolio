@@ -6,10 +6,11 @@
 .resumeNavigation { display: flex; justify-content: space-between; align-items: center; gap: 1rem; width: min(100%, 560px); margin: 0 auto 1rem; }
 .resumeNavigation p { margin: 0; color: var(--text-secondary); font-weight: 700; }
 .resumeControls button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--surface-border); border-radius: 0.65rem; background: var(--card-background); color: var(--text-primary); }
-.resumeControls button:hover:not(:disabled) { background: var(--card-background2); }
+.resumeControls button:hover:not(:disabled) { background: var(--hover-surface); border-color: var(--hover-border); }
 .resumeControls button:disabled { opacity: 0.45; cursor: not-allowed; }
 .resume > img { display: block; width: min(100%, 760px); height: auto; margin: 0 auto; border: 1px solid var(--surface-border); border-radius: 0.75rem; box-shadow: var(--shadow); }
 .resumeButtonHolder { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin: 1.5rem auto; }
 .resumeButton { display: inline-flex; align-items: center; justify-content: center; min-width: 150px; padding: 0.7rem 1.15rem; border: 1px solid var(--surface-border); border-radius: 0.65rem; background: var(--card-background); color: var(--text-primary); font-weight: 750; }
 .resumeButton:first-child { background: var(--detail); color: var(--text-negative); border-color: var(--detail); }
-.resumeButton:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.resumeButton:hover { background: var(--hover-surface); border-color: var(--hover-border); box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.resumeButton:first-child:hover { background: var(--detail-hover); border-color: var(--detail-hover); }

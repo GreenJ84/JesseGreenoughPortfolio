@@ -3,6 +3,6 @@
 .eduBody > p { width: min(100% - 3rem, 700px); margin: 0 auto; text-align: center; color: var(--text-secondary); font-size: var(--text1); line-height: 1.65; }
 .eduNav { display: flex; gap: 0.4rem; width: min(100% - 3rem, 600px); margin: 2.5rem auto 2rem; padding: 0.35rem; border: 1px solid var(--surface-border); border-radius: 0.8rem; background: var(--card-background); }
 .title { flex: 1; padding: 0.7rem 0.8rem; border: 0; border-radius: 0.55rem; background: transparent; color: var(--text-secondary); font-weight: 700; }
-.title:hover { color: var(--text-primary); }
+.title:hover { color: var(--text-primary); background: var(--hover-surface); }
 .title.active { background: var(--card-background2); color: var(--text-primary); }
 @media (max-width: 560px) { .eduNav { flex-direction: column; } }

@@ -7,6 +7,8 @@
 .primary, .secondary { display: inline-flex; align-items: center; min-height: 3rem; padding: 0.7rem 1.2rem; border-radius: 0.7rem; font-weight: 750; }
 .primary { background: var(--detail); color: var(--text-negative); }
 .secondary { background: var(--card-background); border: 1px solid var(--surface-border); }
+.primary:hover { background: var(--detail-hover); }
+.secondary:hover { background: var(--hover-surface); border-color: var(--hover-border); }
 .portrait { max-width: 380px; justify-self: center; }
 .portrait p { margin: 1.2rem auto 0; max-width: 30ch; text-align: center; color: var(--text-secondary); font-size: 0.88rem; }
 .section, .path { padding: clamp(2.5rem, 5vw, 5rem) 0; }
@@ -23,6 +25,7 @@
 .timeline li > span { color: var(--text-detail); font-weight: 800; }
 .pathLinks { margin-top: 1.5rem; }
 .pathLinks a { color: var(--text-detail); font-weight: 750; border-bottom: 1px solid currentColor; }
+.pathLinks a:hover { color: var(--detail-hover); }
 .personal { margin: 1.5rem 0 2rem; padding: clamp(2rem, 5vw, 4rem); border-radius: 1.2rem; background: var(--card-background2); }
 .personal > div { max-width: 740px; }
 @media (max-width: 800px) { .hero { grid-template-columns: 1fr; } .portrait { width: min(65vw, 280px); } .strengthGrid { grid-template-columns: 1fr; } }

@@ -71,8 +71,9 @@
 .add_item_button:hover {
   cursor: pointer;
   color: var(--text-primary);
-  background: var(--card-background);
-  box-shadow: none;
+  background: var(--hover-surface);
+  border-color: var(--hover-border);
+  box-shadow: var(--shadow-hover);
 }
 .addIcon {
   width: 70%;

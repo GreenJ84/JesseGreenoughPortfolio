@@ -16,6 +16,7 @@
 .previewContent li, .techList li { padding: 0.25rem 0.6rem; border-radius: 999px; background: var(--card-background2); color: var(--text-secondary); font-size: 0.78rem; }
 .previewLinks, .projectLinks { display: flex; flex-wrap: wrap; gap: 1rem; }
 .previewLinks a, .projectLinks a { color: var(--text-detail); font-weight: 700; }
+.previewLinks a:hover, .projectLinks a:hover, .moreLink:hover { color: var(--detail-hover); text-decoration: underline; }
 
 /* Project archive */
 .projectsBody { margin: 0 auto; padding-top: 3rem; }
@@ -26,5 +27,6 @@
 .projectCategory { margin: 0 0 0.5rem; color: var(--text-detail); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
 .projectDetails { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--surface-border); color: var(--text-secondary); }
 .projectDetails summary { color: var(--text-primary); cursor: pointer; font-weight: 700; }
+.projectDetails summary:hover { color: var(--text-detail); }
 .projectDetails p { margin: 0.8rem 0 0; white-space: pre-line; line-height: 1.65; }
 @media (max-width: 760px) { .previewHeading { align-items: flex-start; flex-direction: column; } .previewGrid { grid-template-columns: 1fr; } .projectsBody { padding-top: 2rem; } }

@@ -4,7 +4,7 @@
 .workBody p { margin: 0; color: var(--text-secondary); font-size: var(--text1); line-height: 1.65; }
 .workFilter { display: flex; gap: 0.4rem; width: min(100% - 3rem, 520px); margin: 1rem auto 2rem; padding: 0.35rem; border: 1px solid var(--surface-border); border-radius: 0.8rem; background: var(--card-background); }
 .workFilter button { flex: 1; padding: 0.7rem; border-radius: 0.55rem; border: 0; color: var(--text-secondary); background: transparent; font-weight: 700; }
-.workFilter button:hover { color: var(--text-primary); }
+.workFilter button:hover { color: var(--text-primary); background: var(--hover-surface); }
 .workFilter .activeFilter { color: var(--text-primary); background: var(--card-background2); }
 .workCardHolder { width: min(100% - 3rem, 1000px); margin: 0 auto; padding: 0; list-style: none; display: grid; gap: 1rem; }
 .workCard article { padding: 1.5rem; border: 1px solid var(--surface-border); border-radius: 1rem; background: var(--card-background); box-shadow: var(--shadow); }

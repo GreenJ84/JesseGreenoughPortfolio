@@ -9,7 +9,8 @@
 .primaryAction, .secondaryAction { display: inline-flex; align-items: center; justify-content: center; gap: 0.7rem; min-height: 3.2rem; padding: 0.75rem 1.25rem; border-radius: 0.7rem; font-weight: 750; transition: transform 150ms ease, box-shadow 150ms ease; }
 .primaryAction { background: var(--detail); color: var(--text-negative); }
 .secondaryAction { border: 1px solid var(--surface-border); background: var(--card-background); color: var(--text-primary); }
-.primaryAction:hover, .secondaryAction:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.primaryAction:hover { transform: translateY(-2px); background: var(--detail-hover); box-shadow: var(--shadow-hover); }
+.secondaryAction:hover { transform: translateY(-2px); background: var(--hover-surface); border-color: var(--hover-border); box-shadow: var(--shadow-hover); }
 .heroNote { margin-top: 2rem; color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.03em; }
 .heroPortrait { justify-self: center; position: relative; width: min(100%, 380px); }
 .portraitCaption { display: block; margin-top: 1rem; color: var(--text-secondary); text-align: center; font-size: 0.85rem; }

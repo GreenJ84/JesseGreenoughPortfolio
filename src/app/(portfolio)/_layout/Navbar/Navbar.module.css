@@ -4,7 +4,9 @@
 .brandMark { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 0.65rem; color: var(--text-negative); background: var(--detail); font-size: 0.82rem; letter-spacing: -0.04em; }
 .navigation { display: flex; align-items: center; gap: 0.15rem; margin-left: auto; }
 .navigation a { padding: 0.55rem 0.68rem; border-radius: 0.5rem; font-size: 0.88rem; font-weight: 600; color: var(--text-secondary); transition: background-color 150ms ease, color 150ms ease; }
-.navigation a:hover, .navigation a[aria-current="page"] { color: var(--text-primary); background: var(--card-background2); }
+.navigation a:hover { color: var(--text-primary); background: var(--hover-surface); }
+.navigation a[aria-current="page"] { color: var(--text-primary); background: var(--card-background2); }
+.navigation a[aria-current="page"]:hover { background: var(--hover-surface); }
 .actions { display: flex; align-items: center; gap: 0.6rem; }
 .themeSwitch { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 2.7rem; height: 2.7rem; border: 1px solid var(--surface-border); border-radius: 0.65rem; cursor: pointer; background: var(--card-background); }
 .themeInput { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
@@ -13,6 +15,7 @@
 .themeInput:checked + .themeSlider::after { content: '☾'; }
 .menuButton { display: none; align-items: center; gap: 0.5rem; padding: 0.55rem 0.7rem; border: 1px solid var(--surface-border); border-radius: 0.65rem; color: var(--text-primary); background: var(--card-background); font-weight: 650; }
 .menuButton span:last-child { font-size: 1.35rem; line-height: 1; }
+.themeSwitch:hover, .menuButton:hover { background: var(--hover-surface); border-color: var(--hover-border); }
 @media (max-width: 980px) {
   .inner { width: min(100% - 2rem, 1360px); }
   .navigation { display: none; position: absolute; top: 76px; left: 0; right: 0; padding: 0.75rem 1rem 1rem; margin: 0; background: var(--nav-bg); border-bottom: 1px solid var(--surface-border); box-shadow: var(--shadow); }

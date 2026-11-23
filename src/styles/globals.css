@@ -17,6 +17,9 @@ body {
   --card-background: #102c2a;
   --card-background2: #173734;
   --detail: #54c9a8;
+  --detail-hover: #83e3c1;
+  --hover-surface: #28564e;
+  --hover-border: #83e3c1;
   --shadow: 0 14px 40px rgb(0 10 11 / 18%);
   --shadow-hover: 0 20px 50px rgb(0 10 11 / 25%);
   --layout-bg: #12332e;
@@ -36,22 +39,25 @@ body {
   overflow-x: clip;
 }
 body[data-theme="light"] {
-  --text-primary: #17342f;
-  --text-secondary: #3d5c57;
-  --text-detail: #185b69;
+  --text-primary: #132f2a;
+  --text-secondary: #34554d;
+  --text-detail: #155565;
   --text-negative: #edf3ed;
-  --background: #d8e5dd;
-  --card-background: #e7efe8;
-  --card-background2: #cbded3;
-  --detail: #286f7b;
+  --background: #b6cbbd;
+  --card-background: #c9dacf;
+  --card-background2: #abc6b7;
+  --detail: #1d6370;
+  --detail-hover: #104651;
+  --hover-surface: #98baa8;
+  --hover-border: #1d6370;
   --shadow: 0 12px 32px rgb(28 65 61 / 10%);
   --shadow-hover: 0 18px 42px rgb(28 65 61 / 16%);
-  --layout-bg: #cfdfd4;
+  --layout-bg: #aec8ba;
   --layout-shadow: rgb(28 65 61 / 12%);
-  --nav-bg: #d7e5dc;
+  --nav-bg: #acc7ba;
   --nav-detail: #185b69;
   --surface-border: rgb(28 76 69 / 20%);
-  background: radial-gradient(circle at 82% 5%, #bfd6d2 0, transparent 38%), var(--background);
+  background: radial-gradient(circle at 82% 5%, #8db2ac 0, transparent 38%), var(--background);
 }
 a { color: inherit; text-decoration: none; }
 button, input, textarea, select { font: inherit; }
