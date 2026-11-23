@@ -1,5 +1,4 @@
-import { currentAdmin } from '@/app/_security/session';
-import { redirect } from 'next/navigation';
+import { requireOwnerPage } from '@/app/_security/ownerPage';
 import React from 'react'
 
 import Navigation from '../_components/Navigation';
@@ -11,7 +10,7 @@ export default async function DataLayout({
 }: {
   children: React.ReactNode;
 }) {
-  if (!await currentAdmin()) redirect('/admin/login');
+  await requireOwnerPage();
   return (<>
     <Navigation />
     {children}

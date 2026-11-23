@@ -238,3 +238,19 @@ test('expired and missing stored sessions fail authorization even with verified 
   assert.equal(filter.username, 'owner');
   assert.ok(filter.expiresAt.$gt instanceof Date);
 });
+
+test('owner page gate redirects anonymous and mismatched sessions', async () => {
+  for (const session of [null, { username: 'someone-else', role: 'admin' }, { username: 'owner', role: 'viewer' }]) {
+    const load = loadSource({
+      [sourcePath('src/app/_security/session.ts')]: { currentAdmin: async () => session },
+      [sourcePath('src/app/_security/token.ts')]: { authConfig: () => ({ username: 'owner' }) },
+      'next/navigation': { redirect: path => { throw new Error(`REDIRECT:${path}`); } },
+    });
+    await assert.rejects(load('src/app/_security/ownerPage.ts').requireOwnerPage(), /REDIRECT:\/admin\/login/);
+  }
+  const load = loadSource({
+    [sourcePath('src/app/_security/session.ts')]: { currentAdmin: async () => ({ username: 'owner', role: 'admin', sessionId: 'active' }) },
+    [sourcePath('src/app/_security/token.ts')]: { authConfig: () => ({ username: 'owner' }) },
+  });
+  assert.equal((await load('src/app/_security/ownerPage.ts').requireOwnerPage()).sessionId, 'active');
+});

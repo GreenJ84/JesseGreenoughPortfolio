@@ -1,10 +1,9 @@
-import { currentAdmin } from '@/app/_security/session';
+import { requireOwnerPage } from '@/app/_security/ownerPage';
 import { ownerPasskeys } from '@/app/_security/passkeys';
-import { redirect } from 'next/navigation';
 import Navigation from '../_components/Navigation';
 import PasskeyButton from '../login/PasskeyButton';
 export default async function SettingsPage() {
-  if (!await currentAdmin()) redirect('/admin/login');
+  await requireOwnerPage();
   const count = (await ownerPasskeys()).length;
   return <><Navigation /><main style={{ maxWidth: 720, margin: '2rem auto', padding: '1rem' }}>
     <h1>Owner security</h1>
