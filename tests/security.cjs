@@ -95,7 +95,7 @@ test('login creates a revocable session; replay after logout and non-admin token
     'next/navigation': { redirect: to => { throw new Error(`REDIRECT:${to}`); } },
     [sourcePath('src/app/_security/rateLimit.ts')]: { rateLimit: async () => { if (throttle) throw new Error('Storage unavailable'); }, clientIdentity: () => undefined, RateLimitError: class extends Error {} },
     [sourcePath('src/app/_utils/Database.ts')]: { DB: { collection: () => ({
-      createIndex: async () => 'ttl', insertOne: async data => { stored.set(data._id, data); },
+      createIndex: async () => 'ttl', find: () => ({ toArray: async () => [] }), insertOne: async data => { stored.set(data._id, data); },
       findOne: async filter => { const value = stored.get(filter._id); return value && value.username === filter.username && value.expiresAt > new Date() ? value : null; },
       deleteOne: async filter => { stored.delete(filter._id); },
     }) } },

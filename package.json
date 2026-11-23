@@ -19,9 +19,12 @@
     "perf:browser": "node scripts/measure-performance.cjs",
     "perf:bundles": "node scripts/measure-bundles.cjs",
     "data:preview": "node scripts/copy-production-to-local.cjs",
-    "data:copy": "node scripts/copy-production-to-local.cjs --apply"
+    "data:copy": "node scripts/copy-production-to-local.cjs --apply",
+    "test:passkeys": "node scripts/check-owner-passkeys.cjs"
   },
   "dependencies": {
+    "@simplewebauthn/browser": "14.0.0",
+    "@simplewebauthn/server": "14.1.0",
     "@tsparticles/engine": "^3.3.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "3.9.1",

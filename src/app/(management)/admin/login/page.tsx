@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 
 import { loginAction } from '../../../_actions/auth';
 import css from './Login.module.css';
+import PasskeyButton from './PasskeyButton';
 
 const LoginPage = () => {
   const [isPending, setPending] = useState(false)
@@ -30,6 +31,8 @@ const LoginPage = () => {
           <p>Access your portfolio dashboard</p>
         </div>
 
+        <PasskeyButton />
+        <p>Use your owner password only to enroll the first passkey.</p>
         <form action={handleSubmit} className={css.loginForm}>
           <div className={css.inputGroup}>
             <label htmlFor="username">Username</label>

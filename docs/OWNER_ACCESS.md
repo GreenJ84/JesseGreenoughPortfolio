@@ -1,0 +1,9 @@
+# Owner-only access and passkey enrollment
+
+`ADMIN_USERNAME` is the sole allowed owner identifier. There is no signup or user creation route. Until the first passkey is registered, the configured owner password provides bootstrap access. After a passkey exists, the password login route refuses sign-in. Existing sessions remain revocable in MongoDB; registration requires an active owner session and is limited to five starts per hour per session.
+
+Set `ADMIN_PASSKEY_ORIGIN` to the exact HTTPS production origin (for example, `https://portfolio.example.com`) and `ADMIN_PASSKEY_RP_ID` to its hostname. The RP ID and origin cannot be changed casually after enrollment because passkeys are bound to them. Local development defaults to `http://localhost:3000` and RP ID `localhost`; use that host rather than `127.0.0.1` for passkey tests. Register the first passkey from `/admin/settings` after signing in with the owner password. Then register a second, separate authenticator while that session is active. A lost last passkey requires a deliberate offline recovery procedure; do not expose a public password fallback or enrollment endpoint.
+
+The browser ceremony uses short-lived, one-time MongoDB challenges bound to an HttpOnly SameSite cookie. Login verification requires user verification and matches only stored owner credentials. Registration requires the active session ID. Server Actions and protected pages still check the stored session, while Proxy only performs the fast signed-token redirect. Passkey material is stored server-side; only the public key, credential ID, counter, and transports are retained.
+
+Before deploying, confirm the HTTPS origin, add the two environment variables, enroll two passkeys, test logout and revoked sessions, then disable or rotate the bootstrap password secret. Keep the owner account and recovery process documented privately.

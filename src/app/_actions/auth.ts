@@ -2,10 +2,11 @@
 
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { createHash, randomUUID, timingSafeEqual } from 'node:crypto';
-import { SignJWT } from 'jose';
-import { authConfig, SESSION_AUDIENCE, SESSION_ISSUER, SESSION_SECONDS } from '../_security/token';
-import { createSession, currentAdmin, revokeSession } from '../_security/session';
+import { createHash, timingSafeEqual } from 'node:crypto';
+import { authConfig } from '../_security/token';
+import { issueAdminSession } from '../_security/issueSession';
+import { ownerPasskeys } from '../_security/passkeys';
+import { currentAdmin, revokeSession } from '../_security/session';
 import { clientIdentity, rateLimit, RateLimitError } from '../_security/rateLimit';
 
 // Fail at module startup instead of silently issuing tokens with missing configuration.
@@ -27,15 +28,8 @@ export async function loginAction(formData: FormData) {
     const userMatches = equal(username, config.username);
     const passwordMatches = equal(password, config.password);
     if (!userMatches || !passwordMatches) return { success: false, message: 'Invalid credentials' };
-    const id = randomUUID();
-    const issuedAt = Math.floor(Date.now() / 1000);
-    const expiresAt = issuedAt + SESSION_SECONDS;
-    const token = await new SignJWT({ username: config.username, role: 'admin' })
-      .setProtectedHeader({ alg: 'HS256' }).setSubject(config.username)
-      .setIssuer(SESSION_ISSUER).setAudience(SESSION_AUDIENCE).setJti(id)
-      .setIssuedAt(issuedAt).setExpirationTime(expiresAt).sign(config.key);
-    await createSession(id, config.username, new Date(expiresAt * 1000));
-    (await cookies()).set('admin-token', token, { ...cookieOptions, maxAge: SESSION_SECONDS });
+    if ((await ownerPasskeys()).length > 0) return { success: false, message: 'Use your passkey to sign in' };
+    await issueAdminSession();
   } catch (error) {
     return { success: false, message: error instanceof RateLimitError ? error.message : 'Login unavailable. Please try again later.' };
   }
