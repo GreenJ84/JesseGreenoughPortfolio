@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import HomeTop from "./_components/HomeTop";
 import AboutPreview from "./_components/AboutPreview";
 const ProjectsPreview = dynamic(() => import("./projects/_components/ProjectsPreview"));
-import DeferredActivity from "./_components/DeferredActivity";
+import ProfessionalSnapshot from './_components/ProfessionalSnapshot';
 import Footer from './_layout/Footer/Footer';
 
 import { getTopProjects } from "@/app/_actions/projectService";
@@ -24,7 +24,7 @@ const HomePage = () => {
       <HomeTop />
       <AboutPreview />
       <Suspense fallback={<section style={{ minHeight: 400 }} aria-label="Featured projects loading" />}><HomeProjects /></Suspense>
-      <DeferredActivity />
+      <ProfessionalSnapshot />
       <Footer />
     </main>
   );

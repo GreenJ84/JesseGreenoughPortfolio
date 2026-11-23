@@ -19,16 +19,22 @@
 .textAction { display: inline-flex; gap: 0.6rem; margin-top: 0.6rem; color: var(--text-detail); font-weight: 800; border-bottom: 1px solid currentColor; }
 .avatarWrap { justify-self: center; width: min(100%, 260px); }
 .myAvatarImage { display: block; width: 100%; height: auto; }
-.developerSkills { width: min(100% - 3rem, 1180px); margin: 0 auto; padding: 1rem 0 3rem; text-align: center; }
-.developerSkills h2 { font-size: var(--header2); letter-spacing: -0.035em; }
-.svgContainer { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: 1rem; }
-.svgContainer picture { width: min(100%, 440px); }
-.svgModal { display: block; width: 100%; height: auto; border-radius: 0.7rem; }
+.snapshot { width: min(100% - 3rem, 1180px); margin: 0 auto; }
+.snapshotHeading h2 { margin: 0 0 1.5rem; font-size: var(--header2); letter-spacing: -0.035em; }
+.snapshotGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.snapshotCard { display: flex; flex-direction: column; min-height: 230px; padding: 1.5rem; border: 1px solid var(--surface-border); border-radius: 1rem; background: var(--card-background); box-shadow: var(--shadow); }
+.snapshotCard > span { color: var(--text-detail); font-size: 0.8rem; font-weight: 800; }
+.snapshotCard h3 { margin: 1.4rem 0 0.4rem; font-size: 1.25rem; }
+.snapshotCard p { margin: 0; color: var(--text-secondary); line-height: 1.6; }
+.snapshotCard strong { margin-top: auto; padding-top: 1rem; color: var(--text-detail); font-size: 0.9rem; }
+.snapshotCard:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
 @media (max-width: 760px) {
   .homeIntro { min-height: auto; grid-template-columns: 1fr; padding: 4rem 0 3rem; }
-  .heroPortrait { grid-row: 1; width: min(65vw, 260px); }
+  .heroPortrait { width: min(65vw, 260px); }
   .heroCopy { text-align: center; }
   .heroActions { justify-content: center; }
   .developerIntro { grid-template-columns: 1fr; }
   .avatarWrap { grid-row: 1; width: min(55vw, 200px); }
+  .snapshotGrid { grid-template-columns: 1fr; }
+  .snapshotCard { min-height: 0; }
 }

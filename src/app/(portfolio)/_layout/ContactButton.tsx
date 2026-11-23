@@ -9,6 +9,7 @@ const ContactButton = () => {
 
   return (
     <button
+      type="button"
       className={`contactButton ${css.contactButton}`}
       onClick={() => {
         toggleContactModal()

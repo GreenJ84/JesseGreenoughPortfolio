@@ -2,7 +2,6 @@
 
 'use client';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 
 import { AppContext } from '../../_utils/AppContext';
 const css = require('./Layout.module.css');
@@ -39,14 +38,15 @@ const ContactModal = () => {
     setPending(true);
     setStatus('');
     try {
-      await axios.post('/api/sendEmail', {
-        name: data.get('senderName'), sender: data.get('senderEmail'),
-        subject: data.get('subject'), message: data.get('message'), website: data.get('website'),
+      const response = await fetch('/api/sendEmail', {
+        method: 'POST', credentials: 'same-origin', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ name: data.get('senderName'), sender: data.get('senderEmail'), subject: data.get('subject'), message: data.get('message'), website: data.get('website') }),
       });
+      if (!response.ok) throw new Error(response.status === 429 ? 'rate-limit' : 'delivery');
       setStatus('Your message was sent. Thank you!');
       form.reset();
     } catch (error) {
-      setStatus(axios.isAxiosError(error) && error.response?.status === 429
+      setStatus(error instanceof Error && error.message === 'rate-limit'
         ? 'Too many messages. Please try again later.'
         : 'Your message could not be sent. Please try again later.');
     } finally {
@@ -68,12 +68,11 @@ const ContactModal = () => {
           className={css.close}
           onClick={() => toggleContactModal()}
         >
-          X
+          ×
         </button>
-        <h1 id="contactTitle">Contact Me</h1>
+        <h2 id="contactTitle">Let’s talk</h2>
         <p>
-          Please No solicitations, advertizing, product endorsements, selling,
-          or ill minded offers!
+          Have a role, project, or thoughtful idea in mind? Send a note and I’ll get back to you.
         </p>
         <label htmlFor='senderName'>Name</label>
         <input
@@ -117,7 +116,7 @@ const ContactModal = () => {
           <input id="contactWebsite" name="website" tabIndex={-1} autoComplete="off" />
         </div>
         <p role="status" aria-live="polite">{status}</p>
-        <button type='submit' disabled={pending}>{pending ? 'Sending…' : 'Submit'}</button>
+        <button type='submit' disabled={pending}>{pending ? 'Sending…' : 'Send message'}</button>
       </form>
     </div>
   );
