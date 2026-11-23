@@ -9,6 +9,7 @@ import { getCertificationTagOptions } from '@/app/_actions/adminTagOptions';
 import { FormActionButtons, useFormMutation } from '../_components/FormModal';
 import { PortfolioDateField } from '../_components/PortfolioDateFields';
 import TagPicker from '../_components/TagPicker';
+import MediaPicker from '../_components/MediaPicker';
 
 import css from '../_components/DataPage.module.css';
 
@@ -38,6 +39,7 @@ export default function CertificationForm({
 
   const [tagOptions, setTagOptions] = useState<string[]>([]);
   const [tagError, setTagError] = useState(false);
+  const [mediaBusy, setMediaBusy] = useState(false);
   useEffect(() => {
     let active = true;
     void getCertificationTagOptions().then(options => { if (active) setTagOptions(options); }).catch(() => { if (active) setTagError(true); });
@@ -53,7 +55,7 @@ export default function CertificationForm({
   };
 
   const mutation = useFormMutation();
-  const handleSubmit = async () => { await mutation.run('save', () => saveCertification(form), onSaved); };
+  const handleSubmit = async () => { if (!mediaBusy) await mutation.run('save', () => saveCertification(form), onSaved); };
   const handleDelete = async (id?: string) => { if (id) await mutation.run('delete', () => deleteCertification(id), onSaved); };
 
   return (
@@ -85,10 +87,7 @@ export default function CertificationForm({
         Description*
         <textarea className={css.formTextarea} name="description" value={form.description} onChange={handleChange} rows={3} required />
       </label>
-      <label className={css.formLabel}>
-        Image URL
-        <input className={css.formInput} name="image" value={form.image} onChange={handleChange} />
-      </label>
+      <MediaPicker label="Credential image" value={form.image} onChange={image => setForm(previous => ({ ...previous, image }))} onBusyChange={setMediaBusy} />
       <label className={css.formLabel}>
         Certification URL
         <input className={css.formInput} name="url" type="url" value={form.url} onChange={handleChange} />
@@ -101,6 +100,7 @@ export default function CertificationForm({
         id={form.id || undefined}
         onClose={onClose}
         onDelete={handleDelete}
+        blocked={mediaBusy}
       />
       </fieldset>
     </form>

@@ -12,7 +12,7 @@
     "typecheck": "tsc --noEmit --incremental false && tsc --noEmit --incremental false -p tsconfig.test.json",
     "test:startup": "node --test tests/database-startup.cjs",
     "test:security": "node --test tests/security.cjs",
-    "test": "node --test tests/database-startup.cjs tests/security.cjs tests/config.cjs tests/behavior.cjs tests/observability.cjs tests/portfolio-dates.cjs tests/admin-tags.cjs",
+    "test": "node --test tests/database-startup.cjs tests/security.cjs tests/config.cjs tests/behavior.cjs tests/observability.cjs tests/portfolio-dates.cjs tests/admin-tags.cjs tests/cloudinary-media.cjs",
     "test:config": "node --test tests/config.cjs",
     "test:behavior": "node --test tests/behavior.cjs",
     "analyze": "ANALYZE=true next build --webpack",

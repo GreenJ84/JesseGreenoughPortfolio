@@ -53,6 +53,11 @@
 .tagSuggestions{position:absolute;top:calc(100% - 3.25rem);left:0;right:0;z-index:4;max-height:220px;overflow-y:auto;margin:0;padding:.25rem;border:1px solid var(--hover-border);border-radius:.6rem;background:var(--card-background);box-shadow:var(--shadow-hover);list-style:none}
 .tagSuggestions button{width:100%;padding:.6rem .7rem;border:0;border-radius:.4rem;background:transparent;color:var(--text-primary);font:inherit;text-align:left;cursor:pointer}
 .tagSuggestions button:hover,.tagSuggestions button:focus-visible{background:var(--hover-surface)}
+.mediaHint{margin:0;color:var(--text-secondary);font-size:.83rem;line-height:1.45}
+.mediaPreview{display:flex;align-items:center;gap:.85rem;padding:.55rem;border:1px solid var(--surface-border);border-radius:.65rem;background:var(--card-background2);color:var(--text-secondary);font-size:.8rem}
+.mediaPreview img{display:block;width:100px;height:70px;border-radius:.45rem;background:var(--background);object-fit:contain}
+.mediaError{display:flex;align-items:center;flex-wrap:wrap;gap:.55rem}
+.mediaError p{margin:0}
 .formFieldset{display:grid;gap:.65rem;min-width:0;margin:0;padding:.85rem 1rem 1rem;border:1px solid var(--surface-border);border-radius:.7rem}
 .formLegend{padding:0 .4rem;color:var(--text-detail);font-size:.9rem;font-weight:750}
 .arrayFieldRow{display:flex;align-items:center;gap:.55rem;min-width:0}

@@ -10,7 +10,7 @@ exports.loadSource = function loadSource(mocks = {}, env = {}) {
   const cache = new Map();
   const context = vm.createContext({
     process: { env }, console: { ...console, error() {} },
-    Buffer, Date, Error, URL, URLSearchParams, FormData, Headers, Request, Response,
+    Buffer, Date, Error, URL, URLSearchParams, FormData, File, Blob, Headers, Request, Response, fetch: mocks.fetch ?? fetch,
     TextEncoder, TextDecoder, Uint8Array, ReadableStream, AbortController, AbortSignal,
   });
   function load(file) {

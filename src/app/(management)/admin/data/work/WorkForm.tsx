@@ -7,6 +7,7 @@ import { saveWork, deleteWork } from '@/app/_actions/workService';
 
 import { FormActionButtons, useFormMutation } from '../_components/FormModal';
 import { WorkPeriodField } from '../_components/PortfolioDateFields';
+import MediaPicker from '../_components/MediaPicker';
 
 import css from '../_components/DataPage.module.css';
 
@@ -33,6 +34,7 @@ export default function WorkForm({
       details: [],
     }
   );
+  const [mediaBusy, setMediaBusy] = useState(false);
 
   // Array field handlers for details
   const handleArrayChange = (idx: number, value: string) => {
@@ -65,7 +67,7 @@ export default function WorkForm({
   };
 
   const mutation = useFormMutation();
-  const handleSubmit = async () => { await mutation.run('save', () => saveWork(category, form), onSaved); };
+  const handleSubmit = async () => { if (!mediaBusy) await mutation.run('save', () => saveWork(category, form), onSaved); };
   const handleDelete = async (id?: string) => { if (id) await mutation.run('delete', () => deleteWork(category, id), onSaved); };
 
   return (
@@ -80,10 +82,7 @@ export default function WorkForm({
         Position*
         <input className={css.formInput} name="position" value={form.position} onChange={handleChange} required />
       </label>
-      <label className={css.formLabel}>
-        Logo URL
-        <input className={css.formInput} name="logo" value={form.logo} onChange={handleChange} />
-      </label>
+      <MediaPicker label="Company logo" value={form.logo} onChange={logo => setForm(previous => ({ ...previous, logo }))} onBusyChange={setMediaBusy} />
       <label className={css.formLabel}>
         Location*
         <input className={css.formInput} name="location" value={form.location} onChange={handleChange} required />
@@ -111,6 +110,7 @@ export default function WorkForm({
         id={form.id}
         onClose={onClose}
         onDelete={handleDelete}
+        blocked={mediaBusy}
       />
       </fieldset>
     </form>

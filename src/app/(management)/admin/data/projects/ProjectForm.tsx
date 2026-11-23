@@ -9,6 +9,7 @@ import { getProjectTagOptions } from '@/app/_actions/adminTagOptions';
 import { FormActionButtons, useFormMutation } from '../_components/FormModal';
 import { PortfolioDateField } from '../_components/PortfolioDateFields';
 import TagPicker from '../_components/TagPicker';
+import MediaPicker from '../_components/MediaPicker';
 
 import css from '../_components/DataPage.module.css';
 
@@ -39,6 +40,7 @@ export default function ProjectForm({
   );
   const [tagOptions, setTagOptions] = useState({ categories: [] as string[], technologies: [] as string[] });
   const [tagError, setTagError] = useState(false);
+  const [mediaBusy, setMediaBusy] = useState(false);
   useEffect(() => {
     let active = true;
     void getProjectTagOptions().then(options => { if (active) setTagOptions(options); }).catch(() => { if (active) setTagError(true); });
@@ -54,7 +56,7 @@ export default function ProjectForm({
   };
 
   const mutation = useFormMutation();
-  const handleSubmit = async () => { await mutation.run('save', () => saveProject(form), onSaved); };
+  const handleSubmit = async () => { if (!mediaBusy) await mutation.run('save', () => saveProject(form), onSaved); };
   const handleDelete = async (id?: string) => { if (id) await mutation.run('delete', () => deleteProject(id), onSaved); };
 
   return (
@@ -86,10 +88,7 @@ export default function ProjectForm({
           Description*
           <textarea className={css.formTextarea} name="description" value={form.description} onChange={handleChange} rows={4} required />
         </label>
-        <label className={css.formLabel}>
-          Image Path*
-          <input className={css.formInput} name="image_path" value={form.image_path} onChange={handleChange} required />
-        </label>
+        <MediaPicker label="Project image" value={form.image_path} onChange={image_path => setForm(previous => ({ ...previous, image_path }))} onBusyChange={setMediaBusy} required />
         <label className={css.formLabel}>
           Deployed URL
           <input className={css.formInput} name="deployed_url" type="url" value={form.deployed_url} onChange={handleChange} />
@@ -107,6 +106,7 @@ export default function ProjectForm({
           id={form.id}
           onClose={onClose}
           onDelete={handleDelete}
+          blocked={mediaBusy}
         />
         </fieldset>
     </form>

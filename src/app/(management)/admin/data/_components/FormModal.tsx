@@ -39,12 +39,12 @@ export default function FormModal({ title, onClose, children }: { title: string;
   </MutationContext.Provider>;
 }
 
-export function FormActionButtons({ id, onClose, onDelete }: { id?: string; onClose: () => void; onDelete?: (id: string) => void }) {
+export function FormActionButtons({ id, onClose, onDelete, blocked = false }: { id?: string; onClose: () => void; onDelete?: (id: string) => void; blocked?: boolean }) {
   const { pending, completed, error } = useFormMutation();
   return <>
     {error && <p className={css.formError} role="alert">{error}</p>}
     <div className={css.modalActions}>
-      <button type="submit" className={css.submitBtn} disabled={pending || completed}>{pending ? 'Working…' : id ? 'Save' : 'Create'}</button>
+      <button type="submit" className={css.submitBtn} disabled={pending || completed || blocked}>{blocked ? 'Uploading…' : pending ? 'Working…' : id ? 'Save' : 'Create'}</button>
       {id && <button type="button" className={css.deleteBtn} disabled={pending || completed} onClick={() => { if (window.confirm('Delete this item? This cannot be undone.')) onDelete?.(id); }}>Delete</button>}
       <button type="button" className={css.cancelBtn} onClick={onClose} disabled={pending}>{completed ? 'Close' : 'Cancel'}</button>
     </div>
