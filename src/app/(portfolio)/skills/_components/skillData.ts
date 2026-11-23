@@ -96,6 +96,7 @@ type TSkillData = {
 }
 export const skillData: TSkillData = {
   "languages": [
+    { name: "Rust", rating: 3, icon: Rust },
     { name: "HTML5", rating: 5, icon: Html5 },
     { name: "JavaScript", rating: 5, icon: Javascript },
     { name: "TypeScript", rating: 5, icon: Typescript },
@@ -104,7 +105,6 @@ export const skillData: TSkillData = {
     { name: "SQL", rating: 4, icon: AiOutlineConsoleSql },
     { name: "GraphQL", rating: 4, icon: SiGraphql },
     { name: "Markdown", rating: 3, icon: BsFillMarkdownFill },
-    { name: "Rust", rating: 3, icon: Rust },
     { name: "Python", rating: 2, icon: Python },
     { name: "Solidity", rating: 2, icon: SiSolidity },
   ],

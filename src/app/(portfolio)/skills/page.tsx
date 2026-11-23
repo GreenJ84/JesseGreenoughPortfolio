@@ -14,7 +14,7 @@ const page = () => {
     <main
       className="scrollSnapContainer"
     >
-      <header className={css.pageHeader}><h1>Skills &amp; tools</h1><p>Technologies I use to design, build, and maintain useful software.</p></header>
+      <header className={css.pageHeader}><h1>Skills &amp; tools</h1><p>Rust and backend security are my focus, supported by full-stack and frontend experience.</p><p className={css.ratingLegend}><strong>Proficiency scale</strong><span>1/5 · Have used</span><span>3/5 · Working knowledge</span><span>5/5 · Expert</span></p></header>
       <SkillsNav sections={Object.keys(skillData)}/>
       {Object.entries(skillData).map(
         ([category, data]) =>{
@@ -41,9 +41,9 @@ const page = () => {
 export default page;
 
 const SKILLS_URL = APP_URL + '/skills';
-const TITLE="Jesse Greenough's Software Engineering skills set"
-const DESCRIPTION ="View the technical technology skill set for Jesse Greenough"
-const KEYWORDS="Full-Stack,Software,Developer,Engineer,TypeScript,React,NextJS,Java,SpringBoot,Rust,Yew,Rocket,Python,Flask,Django";
+const TITLE="Jesse Greenough's Rust, Security & Full-Stack Skills"
+const DESCRIPTION ="Explore Rust backend, security, TypeScript, Node.js, Python, and frontend skills used by Jesse Greenough."
+const KEYWORDS="Rust,Backend,Security,TypeScript,Node.js,Python,Frontend,Full-Stack,React,Next.js";
 
 import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from '../sharedMetadata';
 import { Metadata } from 'next/types';

@@ -10,9 +10,15 @@ const TechnicalSkill = ({name, rating, icon}: TSkill) => {
 
   return (
     <li className={css.skillContainer}>
-      <Icon aria-hidden="true"/>
-      <span> {name} </span>
-      <meter min={0} max={5} value={rating} aria-label={`${name} proficiency: ${rating} out of 5`} />
+      <div className={css.skillHead}>
+        <span className={css.iconFrame}><Icon aria-hidden="true" /></span>
+        <strong className={css.skillName}>{name}</strong>
+      </div>
+      <div className={css.ratingLabel}><span>Proficiency</span><strong>{rating}/5</strong></div>
+      <div className={css.segments} aria-hidden="true">
+        {Array.from({ length: 5 }, (_, index) => <span key={index} className={index < rating ? css.filled : ''} />)}
+      </div>
+      <meter className={css.accessibleMeter} min={0} max={5} value={rating} aria-label={`${name} proficiency: ${rating} out of 5`} />
     </li>
   );
 };
