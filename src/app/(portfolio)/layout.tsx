@@ -7,6 +7,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { AppContextProvider } from '../_utils/AppContext';
 import Navbar from './_layout/Navbar/Navbar';
+import AmbientBackground from './_layout/AmbientBackground';
 import VisitorTracker from './_layout/VisitorTracker';
 
 // Styles
@@ -20,6 +21,7 @@ export default function RootLayout({
     <html lang='en-US'>
       <body>
         <AppContextProvider>
+          <AmbientBackground />
           <Navbar />
           <VisitorTracker />
           {children}
