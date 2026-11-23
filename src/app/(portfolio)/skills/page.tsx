@@ -1,10 +1,9 @@
 // TODO: Update styling logic gor route
-import dynamic from 'next/dynamic';
 
 import { skillData } from './_components/skillData';
 import TechnicalSkill from './_components/TechnicalSkill';
 import SkillsNav from './_components/SkillsNav';
-const Footer = dynamic(() => import("../_layout/Footer/Footer"));
+import Footer from '../_layout/Footer/Footer';
 
 
 const css = require("./_components/Skill.module.css");

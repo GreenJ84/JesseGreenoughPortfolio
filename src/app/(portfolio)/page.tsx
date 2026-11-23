@@ -7,7 +7,7 @@ import HomeTop from "./_components/HomeTop";
 import AboutPreview from "./_components/AboutPreview";
 const ProjectsPreview = dynamic(() => import("./projects/_components/ProjectsPreview"));
 import DeferredActivity from "./_components/DeferredActivity";
-const Footer = dynamic(() => import('./_layout/Footer/Footer'));
+import Footer from './_layout/Footer/Footer';
 
 import { getTopProjects } from "@/app/_actions/projectService";
 

@@ -1,10 +1,9 @@
 /** @format */
-import dynamic from "next/dynamic";
 
 import * as resumeService from "./resumeService";
 
 import ResumeClient from "./ResumeClient";
-const Footer = dynamic(() => import("../_layout/Footer/Footer"));
+import Footer from '../_layout/Footer/Footer';
 
 const css = require("./_components/Resume.module.css");
 

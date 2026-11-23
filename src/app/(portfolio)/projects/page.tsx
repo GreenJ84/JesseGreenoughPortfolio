@@ -1,10 +1,9 @@
 /** @format */
 
 // TODO: Update styling logic gor route
-import dynamic from "next/dynamic";
 
 import PageClient from "./PageClient";
-const Footer = dynamic(() => import("../_layout/Footer/Footer"));
+import Footer from '../_layout/Footer/Footer';
 
 import { ProjectType } from "@/app/_lib/_types";
 import {

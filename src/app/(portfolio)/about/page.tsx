@@ -1,13 +1,12 @@
 /** @format */
 
-import dynamic from "next/dynamic";
 
 import { ImPointRight } from "react-icons/im";
 
 import DeveloperPortrait from "../_shared/DeveloperPortrait";
 import AboutNavigationLinks from "./_components/AboutNavigationLinks";
 import AboutDetails from "./_components/AboutDetails";
-const Footer = dynamic(() => import("../_layout/Footer/Footer"));
+import Footer from '../_layout/Footer/Footer';
 
 const css = require("./_components/About.module.css");
 

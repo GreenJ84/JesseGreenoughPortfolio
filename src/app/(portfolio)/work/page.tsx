@@ -1,10 +1,9 @@
 /** @format */
-import dynamic from "next/dynamic";
 
 import { getWorkByCategory, getWorkTotals } from "@/app/_actions/workService";
 
 import WorkClient from "./PageClient";
-const Footer = dynamic(() => import("../_layout/Footer/Footer"));
+import Footer from '../_layout/Footer/Footer';
 
 
 

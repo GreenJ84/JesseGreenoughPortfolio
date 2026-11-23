@@ -1,10 +1,5 @@
 import { AiFillGithub, AiOutlineTwitter, AiFillInstagram } from "react-icons/ai";
-import dynamic from "next/dynamic";
-
-
-
-
-const FaLinkedinIn  = dynamic(() => import("react-icons/fa").then(m => m.FaLinkedinIn));
+import { FaLinkedinIn } from 'react-icons/fa';
 export const SocialIcons = {
   Github: AiFillGithub,
   Twitter: AiOutlineTwitter,
