@@ -30,7 +30,6 @@ interface resumeProps {
   categoryData: string;
 }
 const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
-  const [modal, setModal] = useState(true);
   const [resNum, setResNum] = useState(0);
   const list = usePaginatedList('/api/resumes', resumeData, total, 5);
   const resumes = list.items;
@@ -70,24 +69,6 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
         id="resume"
         className={css.resume}
       >
-        {
-          // Mobile viewing warning
-          modal && (
-            <div className={css.mobileModal}>
-              <p>
-                <button
-                  onClick={() => {
-                    setModal(false);
-                  }}
-                >
-                  X
-                </button>
-                If you are viewing on mobile it is best to use the view button
-                to get a better PDF viewing experience.
-              </p>
-            </div>
-          )
-        }
         <div>
           <label
             id="previousResume"

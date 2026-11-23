@@ -3,10 +3,11 @@
 /* Intro Section */
 .workBodyTitle {
   position: relative;
-  margin: 4dvh 0 2dvh;
+  margin: 3rem 0 1rem;
   text-align: center;
-  font-size: var(--header1);
-  color: var(--text-secondary);
+  font-size: var(--header2);
+  letter-spacing: -0.035em;
+  color: var(--text-primary);
 }
 
 .workBody {
@@ -31,11 +32,12 @@
 
 .workBody p {
   position: relative;
-  margin: 5dvh 0;
-  width: 120%;
+  margin: 1rem 0 2.5rem;
+  width: min(100%, 760px);
   text-align: center;
-  font-size: var(--header2);
-  color: var(--text-primary);
+  font-size: var(--text1);
+  line-height: 1.7;
+  color: var(--text-secondary);
 }
 
 
@@ -47,7 +49,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  height: min(6vw, 65px);
+  min-height: 3.5rem;
   max-width: 1500px;
 }
 
@@ -66,16 +68,14 @@
 }
 
 .workFilter > button.activeFilter {
-  background-color: var(--layout-bg);
-  border: 2px solid var(--background);
+  background-color: var(--detail);
+  color: var(--text-negative);
+  border: 1px solid var(--detail);
   box-shadow: var(--shadow);
-  transform: scale(1.05);
-  backdrop-filter: blur(5px);
 }
 .workFilter > button.inactiveFilter {
-  background-color: var(--nav-bg);
-  border: 1px solid var(--text-primary);
-  opacity: 0.8;
+  background-color: var(--card-background);
+  border: 1px solid var(--surface-border);
 }
 
 .workFilter > button.inactiveFilter:hover {
@@ -83,7 +83,6 @@
   border-radius: 20px;
   box-shadow: var(--shadow-hover);
   opacity: 1;
-  transform: scale(1.15);
   cursor: pointer;
 }
 
@@ -106,6 +105,7 @@
   width: min(90%, 1200px);
   color: var(--text-primary);
   background-color: var(--card-background);
+  border: 1px solid var(--surface-border);
   border-radius: 20px;
   box-shadow: var(--shadow);
 }
@@ -115,7 +115,6 @@
   }
 }
 .workCard:hover {
-  transform: scale(1.05);
   box-shadow: var(--shadow-hover);
 }
 .workCard:hover * {

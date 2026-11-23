@@ -23,11 +23,14 @@
 /* Projects Main */
 .projectsBody {
   position: relative;
-  margin: 3dvh auto;
+  margin: 3rem auto 0;
   & > h1 {
     text-align: center;
     color: var(--text-primary);
     font-size: var(--header2);
+    letter-spacing: -0.035em;
+    width: min(100% - 3rem, 900px);
+    margin: 0 auto 2rem;
   }
 }
 

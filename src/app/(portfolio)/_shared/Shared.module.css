@@ -81,50 +81,49 @@
 /* ============== Data Filter ============== */
 .itemFilter {
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  margin-bottom: 4vh;
-  width: 80vw;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0 auto 2rem;
+  width: min(100% - 3rem, 900px);
   height: auto;
-  padding-bottom: max(4%, 20px);
+  padding: 1rem;
   text-align: center;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 2px solid var(--text-secondary);
+  border: 1px solid var(--surface-border);
+  border-radius: 1rem;
+  background: var(--card-background);
 }
 
 .itemFilter > div {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1 1 220px;
 }
 .itemFilter > div > h2 {
-  margin-bottom: 12px;
+  margin: 0 0 0.5rem;
   text-align: center;
   color: var(--text-primary);
   font-size: var(--text1);
-  letter-spacing: 2px;
+  letter-spacing: 0;
 }
 
 .itemFilter > div > select {
-  width: min(30vw, 460px);
-  height: 50px;
-  padding-left: 10px;
-  color: var(--text-secondary);
-  font-size: 20px;
-  background-color: var(--layout-bg);
-  border: 1px solid var(--text-secondary);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
+  width: min(100%, 330px);
+  min-height: 44px;
+  padding: 0.5rem 0.8rem;
+  color: var(--text-primary);
+  font-size: var(--text2);
+  background-color: var(--card-background2);
+  border: 1px solid var(--surface-border);
+  border-radius: 0.6rem;
 }
 
 .itemFilter > div > select:hover {
-  font-size: 24px;
   background-color: var(--card-background);
-  border: 2px solid var(--text-secondary);
+  border-color: var(--detail);
 }
 
 /* ============== Add Item Button ============== */
