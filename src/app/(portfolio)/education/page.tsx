@@ -30,8 +30,12 @@ const Page = async () => {
           Education &amp; credentials
         </h1>
         <p>
-          Formal study, hands-on learning, and credentials that support my work in software engineering.
+          Software engineering foundations and advanced cybersecurity study inform how I build secure systems.
         </p>
+        <section className={css.credentialHighlights} aria-label="Recent education and credentials">
+          <article><span>October 2025 · Western Governors University</span><h2>M.S. Cybersecurity and Information Assurance</h2><p>Graduate study focused on protecting systems and managing cyber risk.</p></article>
+          <article><span>2026 · CompTIA</span><h2>SecurityX (CASP+)</h2><p>Advanced practitioner credential in cybersecurity.</p></article>
+        </section>
         <PageClient
           degreeComp={
             <Degree
@@ -65,9 +69,9 @@ import { Metadata } from 'next/types';
 import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from '../sharedMetadata';
 
 const EDU_URL = APP_URL + '/education';
-const TITLE="Lifetime Educational Experience for Jesse Greenough"
-const DESCRIPTION ="View the scholarly efforts undergone by Jesse Greenough over his lifetime"
-const KEYWORDS ="Education,Experience,Coursework,Software,Development,Engineering"
+const TITLE="Education & Security Credentials | Jesse Greenough"
+const DESCRIPTION ="M.S. Cybersecurity and Information Assurance, CompTIA SecurityX, and software engineering education."
+const KEYWORDS ="Cybersecurity,SecurityX,CASP+,WGU,Software Engineering,Education,Rust"
 
 export const metadata: Metadata = {
   metadataBase: new URL(EDU_URL),

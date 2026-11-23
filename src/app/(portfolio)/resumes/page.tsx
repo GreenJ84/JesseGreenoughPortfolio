@@ -38,9 +38,9 @@ import { Metadata } from 'next/types';
 import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from '../sharedMetadata';
 
 const RESUME_URL = APP_URL + '/resumes';
-const TITLE="Jesse Greenough's Software Engineering Resumes"
-const DESCRIPTION ="View and Download Jesse Greenough's Software Engineering Resumes"
-const KEYWORDS ="Resume,Full-Stack,Software,Developer,Engineer,TypeScript,React,NextJS,Java,Rust,Python"
+const TITLE="Jesse Greenough | Rust Backend & Security Resumes"
+const DESCRIPTION ="View Jesse Greenough's Rust backend, security, and full-stack engineering resumes."
+const KEYWORDS ="Resume,Rust,Backend,Security,TypeScript,Node.js,Python,Full-Stack"
 
 export const metadata: Metadata = {
   metadataBase: new URL(RESUME_URL),
