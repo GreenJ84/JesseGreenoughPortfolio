@@ -1,3 +1,4 @@
+import { recordAlert } from '../../_observability/alerts';
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { contactInput, emailAddress, ValidationError } from '../../_security/validation';
@@ -50,6 +51,7 @@ export async function POST(req: NextRequest) {
     if (error instanceof UnsupportedMediaError) return respond('Use application/json', 415);
     if (error instanceof ValidationError) return respond('Invalid contact details', 400);
     // Never disclose SMTP credentials, provider errors, or database details.
+    await recordAlert('contact-delivery', 1);
     return respond('Email could not be sent. Please try again later.', 503);
   }
 }

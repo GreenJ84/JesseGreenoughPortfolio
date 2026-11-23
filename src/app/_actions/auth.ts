@@ -6,6 +6,7 @@ import { createHash, timingSafeEqual } from 'node:crypto';
 import { authConfig } from '../_security/token';
 import { issueAdminSession } from '../_security/issueSession';
 import { ownerPasskeys } from '../_security/passkeys';
+import { recordAlert } from '../_observability/alerts';
 import { currentAdmin, revokeSession } from '../_security/session';
 import { clientIdentity, rateLimit, RateLimitError } from '../_security/rateLimit';
 
@@ -27,7 +28,7 @@ export async function loginAction(formData: FormData) {
     if (typeof username !== 'string' || typeof password !== 'string' || username.length > 200 || password.length > 1024) return { success: false, message: 'Invalid credentials' };
     const userMatches = equal(username, config.username);
     const passwordMatches = equal(password, config.password);
-    if (!userMatches || !passwordMatches) return { success: false, message: 'Invalid credentials' };
+    if (!userMatches || !passwordMatches) { await recordAlert('login-failures'); return { success: false, message: 'Invalid credentials' }; }
     if ((await ownerPasskeys()).length > 0) return { success: false, message: 'Use your passkey to sign in' };
     await issueAdminSession();
   } catch (error) {

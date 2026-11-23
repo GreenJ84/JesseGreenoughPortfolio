@@ -7,6 +7,8 @@ import { authConfig } from '@/app/_security/token';
 import { currentAdmin } from '@/app/_security/session';
 import { issueAdminSession } from '@/app/_security/issueSession';
 import { passkeys, challenges, ensureChallengeIndex, ownerPasskeys, passkeyConfig, type PasskeyRecord } from '@/app/_security/passkeys';
+import { recordAlert } from '@/app/_observability/alerts';
+import { boundedJson, BodyTooLargeError, UnsupportedMediaError } from '@/app/_security/request';
 import { rateLimit, clientIdentity } from '@/app/_security/rateLimit';
 
 const cookieName = 'admin-passkey-challenge';
@@ -27,14 +29,13 @@ async function consumeChallenge(mode: 'login' | 'register') {
   return value;
 }
 export async function POST(request: NextRequest) {
+  let action: unknown;
   try {
     const { origin, rpID } = passkeyConfig();
     if (!sameOrigin(request, origin)) return fail(403);
-    const raw = await request.text();
-    if (raw.length > 32000) return fail(413);
-    const body: unknown = JSON.parse(raw);
+    const body = await boundedJson(request, 32000);
     if (!body || typeof body !== 'object' || !('action' in body)) return fail();
-    const action = body.action;
+    action = body.action;
     if (action === 'login-options') {
       await rateLimit('passkey-login-global', 'owner', 30, 900);
       const identity = clientIdentity(await headers());
@@ -77,5 +78,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
     return fail();
-  } catch { return fail(); }
+  } catch (error) {
+    if (action === 'login-verify') await recordAlert('passkey-failures');
+    return fail(error instanceof BodyTooLargeError ? 413 : error instanceof UnsupportedMediaError ? 415 : 400);
+  }
 }

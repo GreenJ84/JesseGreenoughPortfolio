@@ -147,6 +147,7 @@ function contactHarness({ sendError = false, rateError = false, rejected = false
     'next/server': { NextResponse: Response },
     nodemailer: { createTransport: () => ({ sendMail: async mail => { sent.push(mail); if (sendError) throw new Error('secret SMTP provider failure'); return { accepted: rejected ? [] : ['owner@example.com'], rejected: rejected ? ['owner@example.com'] : [] }; }, close() {} }) },
     [sourcePath('src/app/_security/rateLimit.ts')]: { clientIdentity: () => undefined, rateLimit: async () => { if (rateError) throw new RateLimitError('Slow down'); if (brokenStorage) throw new Error('Mongo failure'); }, RateLimitError },
+    [sourcePath('src/app/_observability/alerts.ts')]: { recordAlert: async () => {} },
   }, { USER_EMAIL: 'sender@example.com', CONTACT_EMAIL: 'owner@example.com', USER_PASS: 'mail-secret' })('src/app/api/sendEmail/route.ts');
   return { sent, post(body, headers = {}, raw) {
     const req = new Request('https://portfolio.test/api/sendEmail', { method: 'POST', headers: { 'content-type': 'application/json', ...headers }, body: raw ?? JSON.stringify(body) });
