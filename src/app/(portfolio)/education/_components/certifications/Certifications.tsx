@@ -20,9 +20,9 @@ export default function Certifications({ certificationData }: { certificationDat
     else void list.select({ type, filter: value }, (type === 'issuer' ? issuers : technologies).find(([name]) => name === value)?.[1] ?? 0);
   }
   const general = ['all', 'top'].includes(list.query.type) ? list.query.type : '';
-  return <section id="certificationContainer">
+  return <section id="certificationContainer" role="tabpanel" aria-labelledby="certification-tab">
+    <h3 className={css.certSubTitle}>{list.query.type === 'top' ? <>Selected <strong className="detail">certifications</strong></> : <>{count} <strong className="detail">certifications</strong></>}</h3>
     <DataFilter titles={['Issuer', 'Technology']} options={[issuers.map(([name]) => name), technologies.map(([name]) => name)]} values={[list.query.type === 'issuer' ? list.query.filter! : general, list.query.type === 'tech' ? list.query.filter! : general]} firstHandler={value => select(value, 'issuer')} secondHandler={value => select(value, 'tech')} />
-    {list.query.type === 'top' ? <h3 className={css.certSubTitle}>My current <strong className="detail">Top 10</strong> certifications</h3> : <h3 className={css.certSubTitle}>I have received <strong className="detail">{count}</strong> certifications to date</h3>}
     <ListStatus pending={list.pending} error={list.error} retry={() => { void list.loadMore(); }} />
     <ul id="certificationList" className={css.certCardHolder} aria-busy={list.pending}>{list.items.map(item => <CertificationCard key={item.id} certificate={item} />)}</ul>
     {!list.pending && !list.error && !list.items.length && <p>No certifications match this filter.</p>}

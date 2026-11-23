@@ -1,10 +1,8 @@
 /** @format */
 
-import dynamic from "next/dynamic";
-
 import PageClient from "./PageClient";
-const Degree = dynamic(() => import("./_components/degree/Degree"));
-const Certifications = dynamic(() => import("./_components/certifications/Certifications"));
+import Degree from './_components/degree/Degree';
+import Certifications from './_components/certifications/Certifications';
 import Footer from "../_layout/Footer/Footer";
 
 import * as educationService from "@/app/_actions/educationService";
@@ -29,11 +27,10 @@ const Page = async () => {
         className={css.eduBody}
       >
         <h1 id="educationTitle">
-          Educational Experience, Qualifications and Certifications
+          Education &amp; credentials
         </h1>
         <p>
-          I actively participate in tech-related activities and partake in
-          courses to further my understanding and knowledge.
+          Formal study, hands-on learning, and credentials that support my work in software engineering.
         </p>
         <PageClient
           degreeComp={

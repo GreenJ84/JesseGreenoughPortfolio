@@ -1,7 +1,7 @@
 /** @format */
 
 
-import { HiOutlineExternalLink } from "react-icons/hi";
+import Image from 'next/image';
 
 import { EducationDTO } from "@/app/_lib/_types";
 
@@ -13,31 +13,22 @@ interface DegreeCardProps {
   education: EducationDTO;
 }
 
-const DegreeCard = (props: DegreeCardProps) => {
+const DegreeCard = ({ education }: DegreeCardProps) => {
   return (
     <article className={css.cardContainer}>
       <div className={css.cardHead}>
-        <h3>{props.education.college}</h3>
-        <p>
-          {formatEducationMonth(props.education.start_date)} -{" "}
-          {props.education.end_date ? formatEducationMonth(props.education.end_date) : "Present"}
-        </p>
-        <p>{props.education.title}</p>
+        <Image src={education.image} width={72} height={72} alt="" className={css.image} />
+        <div><p className={css.date}>{formatEducationMonth(education.start_date)} – {education.end_date ? formatEducationMonth(education.end_date) : 'Present'}</p>
+        <h3>{education.title}</h3><p className={css.college}>{education.college}</p></div>
       </div>
       <div className={css.cardBody}>
         <ul>
-          {props.education.details?.map((item, idx) => (
-            <li key={idx}> ☞ {item} </li>
+          {education.details?.map((item, idx) => (
+            <li key={idx}>{item}</li>
           ))}
         </ul>
       </div>
-      <a
-        target="blank"
-        href={props.education.url}
-        className={css.siteLink}
-      >
-        Visit Site <HiOutlineExternalLink />
-      </a>
+      {education.url && <a target="_blank" rel="noopener noreferrer" href={education.url} className={css.siteLink}>Visit institution ↗</a>}
     </article>
   );
 };
