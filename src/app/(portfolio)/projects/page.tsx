@@ -42,9 +42,9 @@ import { Metadata } from 'next/types';
 import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from '../sharedMetadata';
 
 const PROJECT_URL = APP_URL + '/projects';
-const TITLE="Jesse Greenough's development project archive"
-const DESCRIPTION ="View the development projects crafted and completed by Jesse Greenough"
-const KEYWORDS ="Work,Experience,Management,Software,Development,Engineering,Retail"
+const TITLE="Selected Projects | Jesse Greenough"
+const DESCRIPTION ="Explore Rust backend, security, and full-stack projects by Jesse Greenough."
+const KEYWORDS ="Rust,Backend,Security,TypeScript,Node.js,Python,Projects"
 
 export const metadata: Metadata = {
   metadataBase: new URL(PROJECT_URL),

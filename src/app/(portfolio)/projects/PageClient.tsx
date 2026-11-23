@@ -21,7 +21,7 @@ export default function PageClient({ JSONData, total, filters }: { JSONData: str
   const general = ['all', 'top'].includes(list.query.type) ? list.query.type : '';
   return <>
     <h1 id="projectsTitle">{list.query.type === 'top' ? <>Selected <span className="detail">projects</span></> : <>{count} <span className="detail">projects</span></>}</h1>
-    <DataFilter titles={['Category', 'Technology']} options={[categories.map(([name]) => name), technologies.map(([name]) => name)]} values={[list.query.type === 'category' ? list.query.filter! : general, list.query.type === 'tech' ? list.query.filter! : general]} firstHandler={value => select(value, 'category')} secondHandler={value => select(value, 'tech')} />
+    <DataFilter titles={['Category', 'Technology']} options={[categories.map(([name]) => name), technologies.map(([name]) => name)]} values={[list.query.type === 'category' ? list.query.filter! : general, list.query.type === 'tech' ? list.query.filter! : general]} firstHandler={value => select(value, 'category')} secondHandler={value => select(value, 'tech')} topLabel="Selected projects" />
     <ListStatus pending={list.pending} error={list.error} retry={() => { void list.loadMore(); }} />
     <ul id="projectsList" className={css.projectsListHolder} aria-busy={list.pending}>{list.items.map(project => <ProjectCard key={project.id} project={project} />)}</ul>
     {!list.pending && !list.error && !list.items.length && <p>No projects match this filter.</p>}

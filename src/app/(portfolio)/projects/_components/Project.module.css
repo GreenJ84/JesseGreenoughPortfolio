@@ -14,6 +14,8 @@
 .previewContent p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
 .previewContent ul, .techList { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; padding: 0; margin: 1.2rem 0; }
 .previewContent li, .techList li { padding: 0.25rem 0.6rem; border-radius: 999px; background: var(--card-background2); color: var(--text-secondary); font-size: 0.78rem; }
+.techList li { cursor: default; transition: background .16s, color .16s, transform .16s; }
+.techList li:hover { background: var(--hover-surface); color: var(--text-detail); transform: translateY(-2px); }
 .previewLinks, .projectLinks { display: flex; flex-wrap: wrap; gap: 1rem; }
 .previewLinks a, .projectLinks a { color: var(--text-detail); font-weight: 700; }
 .previewLinks a:hover, .projectLinks a:hover, .moreLink:hover { color: var(--detail-hover); text-decoration: underline; }

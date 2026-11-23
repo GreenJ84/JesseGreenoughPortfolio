@@ -9,4 +9,6 @@
 .description { color: var(--text-secondary); line-height: 1.6; }
 .techs { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; margin: auto 0 1rem; padding: 0; }
 .techs li { padding: 0.2rem 0.6rem; border-radius: 999px; color: var(--text-secondary); background: var(--card-background2); font-size: 0.78rem; }
+.techs li { cursor: default; transition: background .16s, color .16s, transform .16s; }
+.techs li:hover { background: var(--hover-surface); color: var(--text-detail); transform: translateY(-2px); }
 .certLink { display: inline-block; margin-top: auto; color: var(--text-detail); font-weight: 750; }
