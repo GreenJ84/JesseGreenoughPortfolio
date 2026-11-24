@@ -1,20 +1,37 @@
-// Base interface that all portfolio data must extend
-export interface BasePortfolioItem {
-  id?: string;
-}
+// Shared persisted fields. Concrete resources make their own stored fields required.
 export interface BaseItem {
   id?: string;
-  title: string;
-  brief: string;
-  description: string;
-  image: string;
-  url: string;
+  title?: string;
+  name?: string;
+  brief?: string;
+  description?: string;
+  image?: string;
+  url?: string;
+  date?: string;
+  priority?: number;
+  categories?: string[];
+  details?: string[];
 }
 
+export const DataType = {
+  Project: 'projects',
+  Certification: 'certifications',
+  Education: 'education',
+  Work: 'work',
+  Skill: 'skills',
+} as const;
 
-export type PortfolioData = ProjectType | CertificationType | EducationType | WorkType | SkillType;
 
-export interface SkillType extends BasePortfolioItem {
+export type PortfolioData = ProjectType | CertificationType | EducationType | WorkType | SkillType | ResumeType;
+
+export interface ResumeType extends BaseItem {
+  image_url: string;
+  download: string;
+  view: string;
+  categories: string[];
+}
+
+export interface SkillType extends BaseItem {
   category: string;
   name: string;
   rating: number;
@@ -24,7 +41,7 @@ export interface SkillType extends BasePortfolioItem {
 }
 
 
-export interface ProjectType extends BasePortfolioItem {
+export interface ProjectType extends BaseItem {
   priority: number;
   name: string;
   date: string;
@@ -37,7 +54,7 @@ export interface ProjectType extends BasePortfolioItem {
   key_techs: string[];
 }
 
-export interface CertificationType extends BasePortfolioItem {
+export interface CertificationType extends BaseItem {
   priority: number;
   title: string;
   issuer: string;
@@ -49,13 +66,18 @@ export interface CertificationType extends BasePortfolioItem {
 }
 
 export interface EducationType extends BaseItem {
+  title: string;
+  brief: string;
+  description: string;
+  image: string;
+  url: string;
   college: string;
   start_date: Date;
   end_date?: Date;
   details: string[];
 }
 
-export interface WorkType extends BasePortfolioItem {
+export interface WorkType extends BaseItem {
   company: string;
   position: string;
   logo: string;

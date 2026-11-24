@@ -4,17 +4,11 @@ import { offsetInput, filterInput } from "../../_security/validation";
 
 import { unstable_cache } from "next/cache";
 import { WithId } from "mongodb";
+import type { ResumeType } from '@/app/_lib/_types';
 
 import { DB, DB_INFO } from "../../_utils/Database";
 
-export interface resumeType {
-  id?: string;
-  image_url: string;
-  download: string;
-  view: string;
-  categories: string[];
-}
-const resumeDatabase = DB.collection<resumeType>(DB_INFO.collections.RES);
+const resumeDatabase = DB.collection<ResumeType>(DB_INFO.collections.RES);
 const cacheScope = [DB_INFO.name, DB_INFO.collections.RES, 'legacy-20261123'];
 
 const getResumeItems = async (offset: number, filterOptions?: object, limit = 5) => {
@@ -25,9 +19,9 @@ const getResumeItems = async (offset: number, filterOptions?: object, limit = 5)
       .skip(offsetInput(offset))
       .limit(limit)
       .toArray()
-  ).map((resume: WithId<resumeType>) => {
+  ).map((resume: WithId<ResumeType>) => {
     const { _id, ...rest } = resume;
-    return { id: _id.toString(),...rest } as resumeType;
+    return { id: _id.toString(),...rest } as ResumeType;
   });
 }
 
@@ -42,7 +36,7 @@ export const getResumeCount = unstable_cache(
 export const getResumes = unstable_cache(
   async (
     offset: number = 0
-  ): Promise<resumeType[]> => {
+  ): Promise<ResumeType[]> => {
     return await getResumeItems(offset);
   },
   ['resumes', ...cacheScope],
@@ -50,7 +44,7 @@ export const getResumes = unstable_cache(
 );
 
 export const getTopResumes = unstable_cache(
-  async (offset: number = 0): Promise<resumeType[]> => offset >= 10 ? [] : getResumeItems(offset, undefined, Math.min(5, 10 - offset)),
+  async (offset: number = 0): Promise<ResumeType[]> => offset >= 10 ? [] : getResumeItems(offset, undefined, Math.min(5, 10 - offset)),
   ['topResumes', ...cacheScope],
   { revalidate: 60, tags: ['resumes'] }
 );

@@ -14,12 +14,12 @@ import { queryKey } from '@/app/_lib/paginatedList';
 
 
 
-import type { resumeType } from "./resumeService";
+import type { ResumeType } from '@/app/_lib/_types';
 
 const css = require("./_components/Resume.module.css");
 
 interface resumeProps {
-  resumeData: resumeType[];
+  resumeData: ResumeType[];
   total: number;
   categoryData: string;
 }

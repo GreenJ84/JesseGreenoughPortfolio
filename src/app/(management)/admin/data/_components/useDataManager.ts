@@ -1,9 +1,9 @@
 'use client';
 import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
-import type { BasePortfolioItem } from '@/app/_lib/_types';
+import type { BaseItem } from '@/app/_lib/_types';
 import { AsyncResource } from '@/app/_lib/asyncResource';
 
-export default function useDataManager<T extends BasePortfolioItem>(loader: () => Promise<T[]>) {
+export default function useDataManager<T extends BaseItem>(loader: () => Promise<T[]>) {
   const resource = useMemo(() => new AsyncResource(loader, [] as T[]), [loader]);
   const { data: items, pending: loading, error } = useSyncExternalStore(resource.subscribe, resource.getSnapshot, resource.getServerSnapshot);
   const [editor, setEditor] = useState<{ owner: typeof resource; selected?: T; open: boolean }>(() => ({ owner: resource, open: false }));

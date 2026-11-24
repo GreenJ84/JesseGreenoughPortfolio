@@ -1,10 +1,10 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import type { BasePortfolioItem } from '@/app/_lib/_types';
+import type { BaseItem } from '@/app/_lib/_types';
 import css from './DataPage.module.css';
 
-interface PortfolioDataListProps<T extends BasePortfolioItem> {
+interface PortfolioDataListProps<T extends BaseItem> {
   items: T[];
   openModal: (item: T) => void;
   itemDisplay: (item: T) => React.JSX.Element;
@@ -13,7 +13,7 @@ interface PortfolioDataListProps<T extends BasePortfolioItem> {
   onDelete: (item: T) => Promise<void>;
 }
 
-export default function PortfolioDataList<T extends BasePortfolioItem>({ items, openModal, itemDisplay, itemLabel, searchText, onDelete }: PortfolioDataListProps<T>) {
+export default function PortfolioDataList<T extends BaseItem>({ items, openModal, itemDisplay, itemLabel, searchText, onDelete }: PortfolioDataListProps<T>) {
   const [query, setQuery] = useState('');
   const [deleting, setDeleting] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
