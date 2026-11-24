@@ -12,7 +12,7 @@
     "typecheck": "tsc --noEmit --incremental false && tsc --noEmit --incremental false -p tsconfig.test.json",
     "test:startup": "node --test tests/database-startup.cjs",
     "test:security": "node --test tests/security.cjs",
-    "test": "node --test tests/database-startup.cjs tests/security.cjs tests/config.cjs tests/behavior.cjs tests/observability.cjs tests/portfolio-dates.cjs tests/admin-tags.cjs tests/cloudinary-media.cjs",
+    "test": "node --test tests/database-startup.cjs tests/security.cjs tests/config.cjs tests/behavior.cjs tests/observability.cjs tests/portfolio-dates.cjs tests/admin-tags.cjs tests/cloudinary-media.cjs tests/skills.cjs",
     "test:config": "node --test tests/config.cjs",
     "test:behavior": "node --test tests/behavior.cjs",
     "analyze": "ANALYZE=true next build --webpack",
@@ -20,7 +20,9 @@
     "perf:bundles": "node scripts/measure-bundles.cjs",
     "data:preview": "node scripts/copy-production-to-local.cjs",
     "data:copy": "node scripts/copy-production-to-local.cjs --apply",
-    "test:passkeys": "node scripts/check-owner-passkeys.cjs"
+    "test:passkeys": "node scripts/check-owner-passkeys.cjs",
+    "skills:preview": "node scripts/seed-skills.cjs",
+    "skills:seed": "node scripts/seed-skills.cjs --apply"
   },
   "dependencies": {
     "@simplewebauthn/browser": "14.0.0",

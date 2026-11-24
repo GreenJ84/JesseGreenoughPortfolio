@@ -12,7 +12,16 @@ export interface BaseItem {
 }
 
 
-export type PortfolioData = ProjectType | CertificationType | EducationType | WorkType;
+export type PortfolioData = ProjectType | CertificationType | EducationType | WorkType | SkillType;
+
+export interface SkillType extends BasePortfolioItem {
+  category: string;
+  name: string;
+  rating: number;
+  iconKey: string;
+  sortOrder: number;
+  visible: boolean;
+}
 
 
 export interface ProjectType extends BasePortfolioItem {

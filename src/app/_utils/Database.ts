@@ -25,6 +25,7 @@ export const DB_INFO = {
     CERT: "certification",
     EDU: "education",
     PROJ: "project",
+    SKILL: "skills",
   }
 }
 

@@ -5,7 +5,7 @@ const sourceUri = process.env.PORTFOLIO_SOURCE_URI;
 const targetUri = process.env.PORTFOLIO_LOCAL_URI || 'mongodb://127.0.0.1:27017';
 const sourceDbName = process.env.PORTFOLIO_SOURCE_DB || 'PersonalPortfolio';
 const apply = process.argv.includes('--apply');
-const collections = ['project', 'certification', 'education', 'work', 'secondaryExperience', 'resume'];
+const collections = ['project', 'certification', 'education', 'work', 'secondaryExperience', 'resume', 'skills', 'portfolioMetadata'];
 
 function localTarget(uri) {
   if (!uri.startsWith('mongodb://')) throw new Error('Local target must use mongodb://');

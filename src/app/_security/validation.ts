@@ -1,4 +1,5 @@
-import type { CertificationType, EducationType, ProjectType, WorkType } from '../_lib/_types';
+import type { CertificationType, EducationType, ProjectType, WorkType, SkillType } from '../_lib/_types';
+import { skillCategories, skillIconKeys } from '../_lib/skillCatalog';
 
 export class ValidationError extends Error {
   constructor(message = 'Invalid input') { super(message); this.name = 'ValidationError'; }
@@ -70,6 +71,17 @@ export function educationInput(value: unknown): EducationType {
 export function workInput(value: unknown): WorkType {
   const v = record(value);
   return { ...identity(v), company: text(v.company, 'company'), position: text(v.position, 'position'), logo: url(v.logo, 'logo', true, true), location: text(v.location, 'location'), date: text(v.date, 'date', 100), details: strings(v.details, 'details', 2000) };
+}
+export function skillInput(value: unknown): SkillType {
+  const v = record(value);
+  const category = text(v.category, 'category', 50);
+  const iconKey = text(v.iconKey, 'icon', 100);
+  if (!skillCategories.includes(category as (typeof skillCategories)[number])) throw new ValidationError('Invalid skill category');
+  if (!skillIconKeys.includes(iconKey)) throw new ValidationError('Invalid skill icon');
+  if (typeof v.rating !== 'number' || !Number.isInteger(v.rating) || v.rating < 1 || v.rating > 5) throw new ValidationError('Rating must be an integer from 1 to 5');
+  if (typeof v.sortOrder !== 'number' || !Number.isSafeInteger(v.sortOrder) || v.sortOrder < 0 || v.sortOrder > 10000) throw new ValidationError('Invalid skill order');
+  if (typeof v.visible !== 'boolean') throw new ValidationError('Invalid skill visibility');
+  return { ...identity(v), category, name: text(v.name, 'name', 100), rating: v.rating, iconKey, sortOrder: v.sortOrder, visible: v.visible };
 }
 export function workCategory(value: unknown): 'primary' | 'secondary' {
   if (value !== 'primary' && value !== 'secondary') throw new ValidationError('Invalid work category');
