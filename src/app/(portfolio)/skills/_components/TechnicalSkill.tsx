@@ -1,12 +1,13 @@
 /** @format */
 
 
-import { TSkill } from "./skillData";
+import type { SkillType } from '@/app/_lib/_types';
+import { skillIconRegistry } from '@/app/_lib/skillCatalog';
 
 const css = require("./Skill.module.css");
 
-const TechnicalSkill = ({name, rating, icon}: TSkill) => {
-  const Icon = icon;
+const TechnicalSkill = ({name, rating, iconKey}: SkillType) => {
+  const Icon = Object.hasOwn(skillIconRegistry, iconKey) ? skillIconRegistry[iconKey] : skillIconRegistry.General;
 
   return (
     <li className={css.skillContainer}>

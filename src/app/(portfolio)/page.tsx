@@ -23,7 +23,7 @@ const HomePage = () => {
   return (
     <main className={css.homeMain}>
       <HomeTop />
-      <HomeSkills />
+      <Suspense fallback={<section style={{ minHeight: 250 }} aria-label="Skills loading" />}><HomeSkills /></Suspense>
       <ProfessionalSnapshot />
       <Suspense fallback={<section style={{ minHeight: 400 }} aria-label="Featured projects loading" />}><HomeProjects /></Suspense>
       <AboutPreview />
