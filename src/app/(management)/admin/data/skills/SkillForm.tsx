@@ -6,15 +6,19 @@ import { skillCategories, skillIconKeys } from '@/app/_lib/skillCatalog';
 import { saveSkill, deleteSkill } from '@/app/_actions/skillService';
 import TechnicalSkill from '@/app/(portfolio)/skills/_components/TechnicalSkill';
 import { FormActionButtons, useFormMutation } from '../_components/FormModal';
+import ResourceJsonImport from '../_components/ResourceJsonImport';
+import { skillInput } from '@/app/_security/validation';
 import css from '../_components/DataPage.module.css';
 
 export default function SkillForm({ initial, onClose, onSaved }: { initial?: SkillType; onClose: () => void; onSaved: () => Promise<void> }) {
   const [form, setForm] = useState<SkillType>(initial ?? { category: 'languages', name: '', rating: 3, iconKey: 'Rust', sortOrder: 0, visible: true });
+  const [jsonMode, setJsonMode] = useState(false);
   const mutation = useFormMutation();
-  const save = async () => { await mutation.run('save', () => saveSkill(form), onSaved); };
+  const save = async () => { if (!jsonMode) await mutation.run('save', () => saveSkill(form), onSaved); };
   const remove = async (id: string) => mutation.run('delete', () => deleteSkill(id), onSaved);
   return <form className={css.dataForm} action={save}>
-    <fieldset disabled={mutation.pending} className={css.formFields}>
+    <ResourceJsonImport value={form} validate={skillInput} onApply={setForm} onModeChange={setJsonMode} />
+    <fieldset hidden={jsonMode} disabled={mutation.pending} className={css.formFields}>
       <label className={css.formLabel}>Name*
         <input className={css.formInput} value={form.name} onChange={event => setForm({ ...form, name: event.target.value })} required maxLength={100} />
       </label>

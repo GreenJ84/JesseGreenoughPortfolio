@@ -8,6 +8,8 @@ import { saveWork, deleteWork } from '@/app/_actions/workService';
 import { FormActionButtons, useFormMutation } from '../_components/FormModal';
 import { WorkPeriodField } from '../_components/PortfolioDateFields';
 import MediaPicker from '../_components/MediaPicker';
+import ResourceJsonImport from '../_components/ResourceJsonImport';
+import { workInput } from '@/app/_security/validation';
 
 import css from '../_components/DataPage.module.css';
 
@@ -35,6 +37,7 @@ export default function WorkForm({
     }
   );
   const [mediaBusy, setMediaBusy] = useState(false);
+  const [jsonMode, setJsonMode] = useState(false);
 
   // Array field handlers for details
   const handleArrayChange = (idx: number, value: string) => {
@@ -67,12 +70,13 @@ export default function WorkForm({
   };
 
   const mutation = useFormMutation();
-  const handleSubmit = async () => { if (!mediaBusy) await mutation.run('save', () => saveWork(category, form), onSaved); };
+  const handleSubmit = async () => { if (!mediaBusy && !jsonMode) await mutation.run('save', () => saveWork(category, form), onSaved); };
   const handleDelete = async (id?: string) => { if (id) await mutation.run('delete', () => deleteWork(category, id), onSaved); };
 
   return (
     <form className={css.dataForm} action={handleSubmit}>
-      <fieldset disabled={mutation.pending} className={css.formFields}>
+      <ResourceJsonImport value={form} validate={workInput} onApply={setForm} onModeChange={setJsonMode} />
+      <fieldset hidden={jsonMode} disabled={mutation.pending} className={css.formFields}>
       {form.id && <input type="hidden" name="id" value={form.id} />}
       <label className={css.formLabel}>
         Company*

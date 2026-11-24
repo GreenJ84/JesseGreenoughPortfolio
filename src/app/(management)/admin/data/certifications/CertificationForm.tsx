@@ -10,6 +10,8 @@ import { FormActionButtons, useFormMutation } from '../_components/FormModal';
 import { PortfolioDateField } from '../_components/PortfolioDateFields';
 import TagPicker from '../_components/TagPicker';
 import MediaPicker from '../_components/MediaPicker';
+import ResourceJsonImport from '../_components/ResourceJsonImport';
+import { certificationInput } from '@/app/_security/validation';
 
 import css from '../_components/DataPage.module.css';
 
@@ -40,6 +42,7 @@ export default function CertificationForm({
   const [tagOptions, setTagOptions] = useState<string[]>([]);
   const [tagError, setTagError] = useState(false);
   const [mediaBusy, setMediaBusy] = useState(false);
+  const [jsonMode, setJsonMode] = useState(false);
   useEffect(() => {
     let active = true;
     void getCertificationTagOptions().then(options => { if (active) setTagOptions(options); }).catch(() => { if (active) setTagError(true); });
@@ -55,12 +58,13 @@ export default function CertificationForm({
   };
 
   const mutation = useFormMutation();
-  const handleSubmit = async () => { if (!mediaBusy) await mutation.run('save', () => saveCertification(form), onSaved); };
+  const handleSubmit = async () => { if (!mediaBusy && !jsonMode) await mutation.run('save', () => saveCertification(form), onSaved); };
   const handleDelete = async (id?: string) => { if (id) await mutation.run('delete', () => deleteCertification(id), onSaved); };
 
   return (
     <form className={css.dataForm} action={handleSubmit}>
-      <fieldset disabled={mutation.pending} className={css.formFields}>
+      <ResourceJsonImport value={form} validate={certificationInput} onApply={setForm} onModeChange={setJsonMode} />
+      <fieldset hidden={jsonMode} disabled={mutation.pending} className={css.formFields}>
       {form.id && <input type="hidden" name="id" value={form.id} />}
       <label className={css.formLabel}>
         Title*

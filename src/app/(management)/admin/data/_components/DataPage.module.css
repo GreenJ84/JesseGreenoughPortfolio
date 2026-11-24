@@ -48,6 +48,14 @@
 .closeBtn:hover{background:var(--hover-surface);color:var(--text-primary)}
 .dataForm{min-height:0;padding:1.5rem;overflow-y:auto;overscroll-behavior:contain;color:var(--text-primary)}
 .formFields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.15rem;min-width:0;margin:0;padding:0;border:0}
+.formFields[hidden]{display:none}
+.jsonImport{margin-bottom:1rem}
+.jsonModeButton{min-height:40px;padding:.55rem .85rem;border:1px solid var(--surface-border);border-radius:.6rem;background:var(--card-background2);color:var(--text-detail);font:inherit;font-size:.9rem;font-weight:700;cursor:pointer}
+.jsonModeButton:hover,.jsonModeButton:focus-visible{border-color:var(--hover-border);background:var(--hover-surface)}
+.jsonEditor{display:grid;gap:.75rem;margin-top:1rem}
+.jsonEditor .formTextarea{min-height:300px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.84rem;line-height:1.5;tab-size:2}
+.jsonEditor .submitBtn{justify-self:start}
+.jsonEditor p{margin:0}
 .formLabel{display:grid;align-content:start;gap:.4rem;min-width:0;color:var(--text-primary);font-size:.9rem;font-weight:650}
 .wideField,.formFieldset,.modalActions,.formError{grid-column:1 / -1}
 .formInput,.formTextarea{width:100%;min-width:0;min-height:42px;padding:.65rem .8rem;border:1px solid var(--surface-border);border-radius:.6rem;outline:none;background:var(--background);color:var(--text-primary);font:inherit;font-weight:400}
