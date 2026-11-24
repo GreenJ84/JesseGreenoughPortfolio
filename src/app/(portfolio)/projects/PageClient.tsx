@@ -5,11 +5,11 @@ import AddItemsButton from '../_shared/AddItemsButton';
 import ListStatus from '../_shared/ListStatus';
 import { usePaginatedList } from '../_shared/usePaginatedList';
 import ProjectCard from './_components/ProjectCard';
-import type { ProjectType } from '@/app/_lib/_types';
+import type { Project } from '@/app/_lib/_types';
 const css = require('./_components/Project.module.css');
 
 export default function PageClient({ JSONData, total, filters }: { JSONData: string[]; total: number; filters: [[string, number][], [string, number][]] }) {
-  const initial = useMemo(() => JSONData.map(item => JSON.parse(item) as ProjectType), [JSONData]);
+  const initial = useMemo(() => JSONData.map(item => JSON.parse(item) as Project), [JSONData]);
   const list = usePaginatedList('/api/projects', initial, initial.length, 10, 'top');
   const [categories, technologies] = filters;
   const selected: [string?, string?] = [list.query.type === 'category' || list.query.type === 'combined' ? list.query.filter : undefined, list.query.type === 'tech' ? list.query.filter : list.query.secondFilter];

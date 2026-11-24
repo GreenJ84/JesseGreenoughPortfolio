@@ -21,11 +21,10 @@ export const DB_INFO = {
   collections: {
     RES: "resume",
     WORK: "work",
-    SWORK: "secondaryExperience",
     CERT: "certification",
     EDU: "education",
     PROJ: "project",
-    SKILL: "skills",
+    SKILL: "skill",
   }
 }
 

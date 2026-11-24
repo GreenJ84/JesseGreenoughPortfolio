@@ -10,11 +10,11 @@ import { projectInput, objectId, offsetInput, filterInput } from "../_security/v
 import { revalidatePath, updateTag, unstable_cache } from "next/cache";
 import { ObjectId, SortDirection, WithId } from "mongodb";
 
-import { ProjectType } from "../_lib/_types";
+import { Project } from "../_lib/_types";
 import { DB, DB_INFO } from "../_utils/Database";
 
-const projectDatabase = DB.collection<ProjectType>(DB_INFO.collections.PROJ);
-const cacheScope = [DB_INFO.name, DB_INFO.collections.PROJ, 'legacy-20261123'];
+const projectDatabase = DB.collection<Project>(DB_INFO.collections.PROJ);
+const cacheScope = [DB_INFO.name, DB_INFO.collections.PROJ, 'model-v2'];
 
 export const getProjectCount = unstable_cache(
   async (): Promise<number> => {
@@ -28,7 +28,7 @@ const getProjectsBase = async (
   offset: number = 0,
   sortOption?: object,
   filterOptions?: object,
-): Promise<ProjectType[]> => {
+): Promise<Project[]> => {
   let sortBase: { [key: string]: SortDirection } = {};
   if (sortOption) {
     sortBase = {
@@ -42,35 +42,35 @@ const getProjectsBase = async (
     .skip(offsetInput(offset))
     .limit(10)
     .toArray())
-    .map((project: WithId<ProjectType>) => {
+    .map((project: WithId<Project>) => {
       const { _id, ...rest } = project;
       return { id: _id.toString(), ...rest };
     })
 }
 
 export const getTopProjects = unstable_cache(
-  async (): Promise<ProjectType[]> => {
-    return await getProjectsBase(0, { priority: 1, date: -1, name: 1 });
+  async (): Promise<Project[]> => {
+    return await getProjectsBase(0, { priority: 1, date: -1, title: 1 });
   },
   [cacheTags.projects.top, ...cacheScope],
   { revalidate: 3600, tags: [cacheTags.projects.top] }
 )
 
 export const getAllProjects = unstable_cache(
-  async (offset: number): Promise<ProjectType[]>  => {
-    return await getProjectsBase(offset, { priority: 1, date: -1, name: 1 });
+  async (offset: number): Promise<Project[]>  => {
+    return await getProjectsBase(offset, { priority: 1, date: -1, title: 1 });
   },
   [cacheTags.projects.list, ...cacheScope],
   { revalidate: 3600, tags: [cacheTags.projects.list] }
 )
 
-export const getFullAllProjects = async (): Promise<ProjectType[]> => {
+export const getFullAllProjects = async (): Promise<Project[]> => {
   await requireAdmin();
   return (await projectDatabase
     .find({})
-    .sort({ priority: 1, date: -1, name: 1, _id: -1 })
+    .sort({ priority: 1, date: -1, title: 1, _id: -1 })
     .toArray())
-    .map((project: WithId<ProjectType>) => {
+    .map((project: WithId<Project>) => {
       const { _id, ...rest } = project;
       return { id: _id.toString(), ...rest };
     })
@@ -119,9 +119,9 @@ export const getProjectFilters = unstable_cache(
 )
 
 export const getProjectsByCategory = unstable_cache(
-  async (category: string, offset: number = 0): Promise<ProjectType[]> => {
+  async (category: string, offset: number = 0): Promise<Project[]> => {
     return await getProjectsBase(offset,
-      { priority: 1, date: -1, name: 1 },
+      { priority: 1, date: -1, title: 1 },
       { categories: filterInput(category)}
     );
   },
@@ -130,9 +130,9 @@ export const getProjectsByCategory = unstable_cache(
 );
 
 export const getProjectsByTech = unstable_cache(
-  async (tech: string, offset: number = 0): Promise<ProjectType[]> => {
+  async (tech: string, offset: number = 0): Promise<Project[]> => {
     return getProjectsBase(offset,
-      { priority: 1, date: -1, name: 1 },
+      { priority: 1, date: -1, title: 1 },
       { key_techs: filterInput(tech) }
     );
   },
@@ -141,8 +141,8 @@ export const getProjectsByTech = unstable_cache(
 );
 
 export const getProjectsByCategoryAndTech = unstable_cache(
-  async (category: string, tech: string, offset: number = 0): Promise<ProjectType[]> =>
-    getProjectsBase(offset, { priority: 1, date: -1, name: 1 }, { categories: filterInput(category), key_techs: filterInput(tech) }),
+  async (category: string, tech: string, offset: number = 0): Promise<Project[]> =>
+    getProjectsBase(offset, { priority: 1, date: -1, title: 1 }, { categories: filterInput(category), key_techs: filterInput(tech) }),
   ['projectsByCategoryAndTech', ...cacheScope],
   { revalidate: 3600, tags: [cacheTags.projects.category, cacheTags.projects.tech] }
 );

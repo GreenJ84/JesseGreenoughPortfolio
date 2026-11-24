@@ -5,17 +5,17 @@ const crypto = require('node:crypto');
 const validation = loadSource()('src/app/_security/validation.ts');
 const query = loadSource()('src/app/_security/query.ts');
 const config = { JWT_SECRET: 'a'.repeat(64), ADMIN_USERNAME: 'owner', ADMIN_PASSWORD: 'a-long-test-password', NODE_ENV: 'test' };
-const validProject = { name: 'Portfolio', priority: 1, date: '2025', brief: 'Summary', description: 'Description', image_path: '/assets/image.png', deployed_url: '', github_url: 'https://github.com/example/project', categories: ['web'], key_techs: ['TypeScript'] };
-const validEducation = { college: 'College', title: 'Degree', brief: '', description: '', image: '', url: '', start_date: '2024-01-01', details: [] };
-const validCertification = { title: 'Certificate', issuer: 'Issuer', priority: 1, date: '2025', description: 'Description', image: '', url: '', techs: [] };
-const validWork = { company: 'Company', position: 'Engineer', location: 'Remote', date: '2025', logo: '', details: [] };
+const validProject = { title: 'Portfolio', priority: 1, date: '2025', brief: 'Summary', description: 'Description', image_url: '/assets/image.png', deployed_url: '', github_url: 'https://github.com/example/project', categories: ['web'], key_techs: ['TypeScript'] };
+const validEducation = { title: 'Degree', brief: 'College', description: '', image_url: '', url: '', start_date: '2024-01-01', details: [] };
+const validCertification = { title: 'Certificate', brief: 'Issuer', priority: 1, date: '2025', description: 'Description', image_url: '', url: '', techs: [] };
+const validWork = { title: 'Engineer', brief: 'Company', location: 'Remote', start_date: '2025-01', primary: true, image_url: '', details: [] };
 
 test('mutation schemas allowlist properties and reject malicious values', () => {
-  const data = validation.projectInput({ ...validProject, _id: 'injected', role: 'admin', $set: { name: 'bad' } });
-  assert.equal(data.name, 'Portfolio');
+  const data = validation.projectInput({ ...validProject, _id: 'injected', role: 'admin', $set: { title: 'bad' } });
+  assert.equal(data.title, 'Portfolio');
   assert.equal(data._id, undefined);
   assert.equal(data.role, undefined);
-  for (const patch of [{ name: {} }, { priority: Infinity }, { priority: -1 }, { key_techs: Array(51).fill('x') }, { description: 'x'.repeat(20001) }, { github_url: 'javascript:alert(1)' }, { image_path: '//evil.test/image' }, { image_path: '/\\evil.test/image' }, { id: 'abcdefghijkl' }]) {
+  for (const patch of [{ title: {} }, { priority: Infinity }, { priority: -1 }, { key_techs: Array(51).fill('x') }, { description: 'x'.repeat(20001) }, { github_url: 'javascript:alert(1)' }, { image_url: '//evil.test/image' }, { image_url: '/\\evil.test/image' }, { id: 'abcdefghijkl' }]) {
     assert.throws(() => validation.projectInput({ ...validProject, ...patch }));
   }
   assert.throws(() => validation.workCategory('__proto__'));

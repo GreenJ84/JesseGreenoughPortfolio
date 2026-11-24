@@ -1,6 +1,6 @@
 'use client';
 import { useMemo } from 'react';
-import type { CertificationType } from '@/app/_lib/_types';
+import type { Certification } from '@/app/_lib/_types';
 import DataFilter from '../../../_shared/DataFilter';
 import AddItemsButton from '../../../_shared/AddItemsButton';
 import ListStatus from '../../../_shared/ListStatus';
@@ -8,7 +8,7 @@ import { usePaginatedList } from '../../../_shared/usePaginatedList';
 import CertificationCard from './CertificationCard';
 const css = require('./Certifications.module.css');
 
-export default function Certifications({ certificationData }: { certificationData: { certItems: CertificationType[]; total: number; issuerData: string; techData: string } }) {
+export default function Certifications({ certificationData }: { certificationData: { certItems: Certification[]; total: number; issuerData: string; techData: string } }) {
   const { certItems, total, issuerData, techData } = certificationData;
   const issuers = useMemo(() => JSON.parse(issuerData) as [string, number][], [issuerData]);
   const technologies = useMemo(() => JSON.parse(techData) as [string, number][], [techData]);

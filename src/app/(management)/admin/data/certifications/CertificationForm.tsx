@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-import type { CertificationType } from '@/app/_lib/_types';
+import type { Certification } from '@/app/_lib/_types';
 import { saveCertification, deleteCertification } from '@/app/_actions/certificationService';
 import { getCertificationTagOptions } from '@/app/_actions/adminTagOptions';
 
@@ -16,7 +16,7 @@ import { certificationInput } from '@/app/_security/validation';
 import css from '../_components/DataPage.module.css';
 
 interface CertificationFormProps {
-  initial?: CertificationType;
+  initial?: Certification;
   onClose: () => void;
   onSaved: () => Promise<void>;
 }
@@ -26,14 +26,14 @@ export default function CertificationForm({
   onClose,
   onSaved,
 }: CertificationFormProps) {
-  const [form, setForm] = useState<CertificationType>(
+  const [form, setForm] = useState<Certification>(
     initial ?? {
       priority: 0,
       title: '',
-      issuer: '',
+      brief: '',
       date: '',
       description: '',
-      image: '',
+      image_url: '',
       url: '',
       techs: [],
     }
@@ -51,7 +51,7 @@ export default function CertificationForm({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setForm((prev: CertificationType) => ({
+    setForm((prev: Certification) => ({
       ...prev,
       [name]: name === 'priority' ? Number(value) : value,
     }));
@@ -72,7 +72,7 @@ export default function CertificationForm({
       </label>
       <label className={css.formLabel}>
         Issuer*
-        <input className={css.formInput} name="issuer" value={form.issuer} onChange={handleChange} required />
+        <input className={css.formInput} name="brief" value={form.brief} onChange={handleChange} required />
       </label>
       <label className={css.formLabel}>
         Priority*
@@ -91,7 +91,7 @@ export default function CertificationForm({
         Description*
         <textarea className={css.formTextarea} name="description" value={form.description} onChange={handleChange} rows={3} required />
       </label>
-      <MediaPicker label="Credential image" value={form.image} onChange={image => setForm(previous => ({ ...previous, image }))} onBusyChange={setMediaBusy} />
+      <MediaPicker label="Credential image" value={form.image_url} onChange={image_url => setForm(previous => ({ ...previous, image_url }))} onBusyChange={setMediaBusy} />
       <label className={css.formLabel}>
         Certification URL
         <input className={css.formInput} name="url" type="url" value={form.url} onChange={handleChange} />

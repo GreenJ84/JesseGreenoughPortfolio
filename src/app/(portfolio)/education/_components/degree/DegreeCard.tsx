@@ -17,9 +17,9 @@ const DegreeCard = ({ education }: DegreeCardProps) => {
   return (
     <article className={css.cardContainer}>
       <div className={css.cardHead}>
-        <Image src={education.image} width={72} height={72} alt="" className={css.image} />
+        {education.image_url && <Image src={education.image_url} width={72} height={72} alt="" className={css.image} />}
         <div><p className={css.date}>{formatEducationMonth(education.start_date)} – {education.end_date ? formatEducationMonth(education.end_date) : 'Present'}</p>
-        <h3>{education.title}</h3><p className={css.college}>{education.college}</p></div>
+        <h3>{education.title}</h3><p className={css.college}>{education.brief}</p></div>
       </div>
       <div className={css.cardBody}>
         <ul>

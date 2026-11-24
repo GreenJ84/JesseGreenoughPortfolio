@@ -49,7 +49,7 @@ function cachedDomain(entity, initial) {
 
 test('education writes immediately refresh warmed public lists, admin lists and totals', async () => {
   const id = new ObjectId();
-  const input = { title: 'Degree', college: 'College', brief: '', description: '', image: '', url: '', start_date: new Date('2024-01-01'), details: [] };
+  const input = { title: 'Degree', brief: 'College', description: '', image_url: '', url: '', start_date: new Date('2024-01-01'), details: [] };
   const { actions, invalidated, auditEvents, authorizations } = cachedDomain('education', [{ ...input, _id: id }]);
   await actions.getEducation(); await actions.getAllEducation(); await actions.getEducationCount();
   const before = authorizations();
@@ -70,7 +70,7 @@ test('education writes immediately refresh warmed public lists, admin lists and 
 
 test('project mutations refresh cached category and technology counts', async () => {
   const id = new ObjectId();
-  const input = { name: 'Project', priority: 1, date: '2026', brief: 'Summary', description: 'Details', image_path: '/assets/image.png', deployed_url: '', github_url: 'https://github.com/example/project', categories: ['old'], key_techs: ['old-tech'] };
+  const input = { title: 'Project', priority: 1, date: '2026', brief: 'Summary', description: 'Details', image_url: '/assets/image.png', deployed_url: '', github_url: 'https://github.com/example/project', categories: ['old'], key_techs: ['old-tech'] };
   const { actions, auditEvents } = cachedDomain('project', [{ ...input, _id: id }]);
   assert.equal((await actions.getProjectFilters())[0][0][0], 'old');
   await actions.saveProject({ ...input, id: id.toString(), categories: ['new'], key_techs: ['new-tech'] });
@@ -184,18 +184,21 @@ test('education DTOs, month inputs and display preserve UTC months across timezo
   assert.throws(() => dates.dateOnly('invalid'));
 });
 
-test('legacy degree date ranges and fields render without changing stored records', () => {
-  const dto = dates.educationRecordDTO({ id: 'legacy-id', college: 'College', degree: 'Software Engineering', date: 'April 2024 - October 2024', description: ['Engineering coursework'], icon: '/degree.png', website: 'https://example.test' });
+test('legacy degree fields migrate to the canonical education model', () => {
+  const { transformLegacyRecord } = loadSource()('src/app/_utils/migrationTransform.ts');
+  const migrated = transformLegacyRecord('degrees', { _id: new ObjectId(), college: 'College', degree: 'Software Engineering', date: 'April 2024 - October 2024', description: ['Engineering coursework'], icon: '/degree.png', website: 'https://example.test' });
+  const dto = dates.educationRecordDTO({ ...migrated, id: migrated._id.toString() });
   assert.equal(dto.title, 'Software Engineering');
   assert.equal(dto.start_date, '2024-04-01');
-  assert.equal(dto.end_date, '2024-10-01');
+  assert.equal(dto.end_date, '2024-10-31');
   assert.deepEqual(dto.details, ['Engineering coursework']);
-  assert.equal(dto.image, '/degree.png');
+  assert.equal(dto.image_url, '/degree.png');
+  assert.equal(dto.brief, 'College');
 });
 
 test('education month edits save BSON-compatible dates and clear optional end dates', () => {
   const { educationInput } = validationModule();
-  const dto = { id: 'a'.repeat(24), college: 'College', title: 'Degree', brief: '', description: '', image: '', url: '', details: [], start_date: '2024-01-01', end_date: '2024-02-29' };
+  const dto = { id: 'a'.repeat(24), title: 'Degree', brief: 'College', description: '', image_url: '', url: '', details: [], start_date: '2024-01-01', end_date: '2024-02-29' };
   const draft = dates.educationDraft(dto);
   draft.start_month = '2023-12'; draft.end_month = '';
   const submitted = dates.educationDraftInput(draft);

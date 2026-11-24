@@ -2,10 +2,10 @@
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { ProjectType } from '@/app/_lib/_types';
+import type { Project } from '@/app/_lib/_types';
 import css from './Project.module.css';
 
-export default function ProjectsPreview({ projects }: { projects: ProjectType[] }) {
+export default function ProjectsPreview({ projects }: { projects: Project[] }) {
   const featured = projects.slice(0, 10);
   const [active, setActive] = useState(0);
   const [expanded, setExpanded] = useState(false);
@@ -24,9 +24,9 @@ export default function ProjectsPreview({ projects }: { projects: ProjectType[] 
         const isTruncated = project.brief.length > 90;
         const previewBrief = isTruncated ? project.brief.slice(0, 90).trimEnd() : project.brief;
         return <article key={project.id} ref={isCenter ? activeCard : undefined} className={`${css.previewCard} ${css[`preview${position}`]}`} aria-current={isCenter ? 'true' : undefined}>
-          <div className={css.previewMedia}><Image src={project.image_path} alt="" fill sizes="(max-width: 760px) 90vw, 45vw" /></div>
+          <div className={css.previewMedia}><Image src={project.image_url} alt="" width={1200} height={800} sizes="(max-width: 760px) 90vw, 45vw" /></div>
           <div className={`${css.previewContent} ${isExpanded ? css.previewContentExpanded : ''}`}>
-            <h3>{project.name}</h3>
+            <h3>{project.title}</h3>
             {!isExpanded && <p className={css.previewBrief}>{previewBrief}{canExpand ? <span className={css.previewMoreGroup}>… <button className={css.previewInlineMore} type="button" aria-expanded={false} aria-controls={`preview-description-${project.id}`} onClick={() => { setExpanded(true); requestAnimationFrame(() => activeCard.current?.scrollIntoView({ block: 'center', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })); }}>Show more</button></span> : isTruncated ? '…' : null}</p>}
             {isCenter && <>
               <ul>{project.key_techs.slice(0, 4).map(tech => <li key={tech}>{tech}</li>)}</ul>
@@ -39,10 +39,10 @@ export default function ProjectsPreview({ projects }: { projects: ProjectType[] 
               </div>
             </>}
           </div>
-          {!isCenter && <button className={css.previewSideButton} type="button" aria-label={`Show ${project.name}`} onClick={() => { setExpanded(false); setActive(index => (index + (position === 'left' ? -1 : 1) + featured.length) % featured.length); }} />}
+          {!isCenter && <button className={css.previewSideButton} type="button" aria-label={`Show ${project.title}`} onClick={() => { setExpanded(false); setActive(index => (index + (position === 'left' ? -1 : 1) + featured.length) % featured.length); }} />}
         </article>;
       })}
     </div>
-    {featured.length > 1 && <div className={css.previewPagination} aria-label="Choose featured project">{featured.map((project, index) => <button key={project.id} type="button" aria-label={`Show ${project.name}`} aria-current={index === active ? 'true' : undefined} onClick={() => { setExpanded(false); setActive(index); }} />)}</div>}
+    {featured.length > 1 && <div className={css.previewPagination} aria-label="Choose featured project">{featured.map((project, index) => <button key={project.id} type="button" aria-label={`Show ${project.title}`} aria-current={index === active ? 'true' : undefined} onClick={() => { setExpanded(false); setActive(index); }} />)}</div>}
   </section>;
 }

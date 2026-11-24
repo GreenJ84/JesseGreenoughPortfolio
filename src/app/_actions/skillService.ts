@@ -3,38 +3,38 @@
 import { unstable_cache, updateTag, revalidatePath } from 'next/cache';
 import { ObjectId, type WithId } from 'mongodb';
 import { DB, DB_INFO } from '../_utils/Database';
-import type { SkillType } from '../_lib/_types';
+import type { Skill } from '../_lib/_types';
 import { normalizeSkillName, seedSkills, skillCategories } from '../_lib/skillCatalog';
 import { skillInput, objectId, ValidationError } from '../_security/validation';
 import { requireAdmin } from '../_security/session';
 import { recordAdminEvent } from '../_observability/metrics';
 
-type StoredSkill = SkillType & { normalizedName: string };
+type StoredSkill = Skill & { normalizedName: string };
 const skills = DB.collection<StoredSkill>(DB_INFO.collections.SKILL);
 const state = DB.collection<{ _id: string; initialized: boolean }>('portfolioMetadata');
-const cacheScope = [DB_INFO.name, DB_INFO.collections.SKILL, 'v1'];
+const cacheScope = [DB_INFO.name, DB_INFO.collections.SKILL, 'model-v2'];
 const tag = 'publicSkills';
 
-function toSkill(document: WithId<StoredSkill>): SkillType {
+function toSkill(document: WithId<StoredSkill>): Skill {
   const { _id, normalizedName, ...skill } = document;
   void normalizedName;
   return { id: _id.toString(), ...skill };
 }
 
-async function readSkills(visibleOnly: boolean): Promise<SkillType[]> {
+async function readSkills(visibleOnly: boolean): Promise<Skill[]> {
   const query = visibleOnly ? { visible: true } : {};
-  const rows = await skills.find(query).sort({ category: 1, sortOrder: 1, name: 1, _id: 1 }).toArray();
+  const rows = await skills.find(query).sort({ category: 1, sortOrder: 1, title: 1, _id: 1 }).toArray();
   const categoryOrder = new Map<string, number>(skillCategories.map((category, index) => [category, index]));
   return rows.map(toSkill).sort((a, b) =>
     (categoryOrder.get(a.category) ?? 999) - (categoryOrder.get(b.category) ?? 999)
-    || a.sortOrder - b.sortOrder || a.name.localeCompare(b.name));
+    || a.sortOrder - b.sortOrder || a.title.localeCompare(b.title));
 }
 
-const getCachedSkills = unstable_cache(async (): Promise<SkillType[]> => {
+const getCachedSkills = unstable_cache(async (): Promise<Skill[]> => {
   return readSkills(true);
 }, ['publicSkills', ...cacheScope], { revalidate: 3600, tags: [tag] });
 
-export async function getPublicSkills(): Promise<SkillType[]> {
+export async function getPublicSkills(): Promise<Skill[]> {
   let initialized;
   try { initialized = await state.findOne({ _id: 'skills' }); }
   catch (error) {
@@ -44,7 +44,7 @@ export async function getPublicSkills(): Promise<SkillType[]> {
   return initialized ? getCachedSkills() : seedSkills;
 }
 
-export async function getAdminSkills(): Promise<SkillType[]> {
+export async function getAdminSkills(): Promise<Skill[]> {
   await requireAdmin();
   return readSkills(false);
 }
@@ -73,7 +73,7 @@ export async function importLegacySkills(): Promise<number> {
   await prepareCollection();
   if (await state.findOne({ _id: 'skills' })) throw new ValidationError('Skills have already been initialized');
   await skills.bulkWrite(seedSkills.map(skill => {
-    const normalizedName = normalizeSkillName(skill.name);
+    const normalizedName = normalizeSkillName(skill.title);
     return { updateOne: { filter: { category: skill.category, normalizedName }, update: { $setOnInsert: { ...skill, normalizedName } }, upsert: true } };
   }));
   await markInitialized();
@@ -86,7 +86,7 @@ export async function saveSkill(input: unknown): Promise<void> {
   const admin = await requireAdmin();
   const { id, ...skill } = skillInput(input);
   await prepareCollection();
-  const normalizedName = normalizeSkillName(skill.name);
+  const normalizedName = normalizeSkillName(skill.title);
   try {
     if (id) {
       const result = await skills.updateOne({ _id: new ObjectId(id) }, { $set: { ...skill, normalizedName } });

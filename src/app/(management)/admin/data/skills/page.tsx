@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import type { SkillType } from '@/app/_lib/_types';
+import type { Skill } from '@/app/_lib/_types';
 import { deleteSkill, getAdminSkills, getSkillInitializationStatus, importLegacySkills } from '@/app/_actions/skillService';
 import DataStatus from '../_components/DataStatus';
 import useDataManager from '../_components/useDataManager';
@@ -11,7 +11,7 @@ import SkillForm from './SkillForm';
 import css from '../_components/DataPage.module.css';
 
 export default function SkillsAdminPage() {
-  const { items, selected, showModal, openModal, closeModal, loading, error, refresh, afterMutation } = useDataManager<SkillType>(getAdminSkills);
+  const { items, selected, showModal, openModal, closeModal, loading, error, refresh, afterMutation } = useDataManager<Skill>(getAdminSkills);
   const [importing, setImporting] = useState(false);
   const [importError, setImportError] = useState<string | null>(null);
   const [initialized, setInitialized] = useState<boolean | null>(null);
@@ -31,9 +31,9 @@ export default function SkillsAdminPage() {
     {initialized === false && <button type="button" className={css.newBtn} disabled={importing} onClick={() => { void importCurrent(); }}>{importing ? 'Importing…' : 'Import current skills'}</button>}
     {importError && <p className={css.listError} role="alert">{importError}</p>}
     <DataStatus loading={loading} error={error} refresh={refresh} />
-    <PortfolioDataList items={items} openModal={openModal} itemLabel={item => item.name} searchText={item => [item.name, item.category, item.iconKey].join(' ')} groupBy={item => item.category} groupLabel={category => category.replaceAll('_', ' ')} defaultOpenGroup="languages" groupItemLabel={['skill', 'skills']}
+    <PortfolioDataList items={items} openModal={openModal} itemLabel={item => item.title} searchText={item => [item.title, item.category, item.image_url].join(' ')} groupBy={item => item.category} groupLabel={category => category.replaceAll('_', ' ')} defaultOpenGroup="languages" groupItemLabel={['skill', 'skills']}
       onDelete={async item => { if (item.id) { await deleteSkill(item.id); await afterMutation(); } }}
-      itemDisplay={item => <><strong>{item.name} · {item.rating}/5</strong><div className={css.dataBrief}>{item.category.replaceAll('_', ' ')} · {item.visible ? 'Visible' : 'Hidden'} · order {item.sortOrder}</div></>} />
+      itemDisplay={item => <><strong>{item.title} · {item.rating}/5</strong><div className={css.dataBrief}>{item.category.replaceAll('_', ' ')} · {item.visible ? 'Visible' : 'Hidden'} · order {item.sortOrder}</div></>} />
     {showModal && <FormModal title={selected ? 'Edit Skill' : 'New Skill'} onClose={closeModal}><SkillForm initial={selected} onSaved={afterMutation} onClose={closeModal} /></FormModal>}
   </main>;
 }

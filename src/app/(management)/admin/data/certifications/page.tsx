@@ -2,7 +2,7 @@
 
 
 import { deleteCertification, getFullAllCertifications } from "@/app/_actions/certificationService";
-import type { CertificationType } from "@/app/_lib/_types";
+import type { Certification } from "@/app/_lib/_types";
 
 import DataStatus from "../_components/DataStatus";
 import useDataManager from "../_components/useDataManager";
@@ -20,7 +20,7 @@ export default function CertificationsPage() {
     showModal,
     openModal,
     closeModal
-  } = useDataManager<CertificationType>(getFullAllCertifications);
+  } = useDataManager<Certification>(getFullAllCertifications);
 
   return (
     <main className={css.dataPageWrap}>
@@ -35,12 +35,12 @@ export default function CertificationsPage() {
         items={certifications}
         openModal={openModal}
         itemLabel={cert => cert.title}
-        searchText={cert => [cert.title, cert.issuer, ...(cert.techs ?? [])].join(' ')}
+        searchText={cert => [cert.title, cert.brief, ...(cert.techs ?? [])].join(' ')}
         onDelete={async cert => { if (cert.id) { await deleteCertification(cert.id); await afterMutation(); } }}
-        itemDisplay={(cert: CertificationType) => (
+        itemDisplay={(cert: Certification) => (
           <>
             <strong>{cert.title}</strong>
-            <div className={css.dataBrief}>{cert.issuer}</div>
+            <div className={css.dataBrief}>{cert.brief}</div>
           </>
         )}
       />

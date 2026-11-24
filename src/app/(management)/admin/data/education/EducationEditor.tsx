@@ -22,11 +22,11 @@ export default function EducationEditor({ initial, onClose, onSaved }: { initial
       return { ...fields, start_date: start_month ? monthDate(start_month) : '', ...(end_month ? { end_date: monthDate(end_month, true) } : {}) };
     }} validate={educationInput} onApply={value => setForm(educationDraft(educationDTO({ ...value, id: value.id ?? '' })))} onModeChange={setJsonMode} />
     <fieldset hidden={jsonMode} disabled={mutation.pending} className={css.formFields}>
-    <label className={css.formLabel}>College*<input className={css.formInput} name="college" value={form.college} onChange={event => setForm({ ...form, college: event.target.value })} required /></label>
+    <label className={css.formLabel}>College*<input className={css.formInput} name="brief" value={form.brief} onChange={event => setForm({ ...form, brief: event.target.value })} required /></label>
     <label className={css.formLabel}>Degree*<input className={css.formInput} name="title" value={form.title} onChange={event => setForm({ ...form, title: event.target.value })} required /></label>
     <label className={css.formLabel}>Start month*<input className={css.formInput} type="month" name="start_month" value={form.start_month} onChange={event => setForm({ ...form, start_month: event.target.value })} required /></label>
     <label className={css.formLabel}>End month (leave empty for Present)<input className={css.formInput} type="month" name="end_month" min={form.start_month || undefined} value={form.end_month} onChange={event => setForm({ ...form, end_month: event.target.value })} /></label>
-    <MediaPicker label="School icon" value={form.image} onChange={image => setForm(previous => ({ ...previous, image }))} onBusyChange={setMediaBusy} />
+    <MediaPicker label="School icon" value={form.image_url} onChange={image_url => setForm(previous => ({ ...previous, image_url }))} onBusyChange={setMediaBusy} />
     <label className={css.formLabel}>Website<input className={css.formInput} type="url" name="url" value={form.url} onChange={event => setForm({ ...form, url: event.target.value })} /></label>
     <fieldset className={css.formFieldset}><legend className={css.formLegend}>Description</legend>
       {form.details.map((detail, index) => <div key={index} className={css.arrayFieldRow}>

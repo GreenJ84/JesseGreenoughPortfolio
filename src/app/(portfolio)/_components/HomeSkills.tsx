@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { getPublicSkills } from '@/app/_actions/skillService';
 import { getSkillIcon } from '@/app/_lib/skillCatalog';
-import type { SkillType } from '@/app/_lib/_types';
+import type { Skill } from '@/app/_lib/_types';
 import css from './Home.module.css';
 
 export default async function HomeSkills() {
   const skills = await getPublicSkills();
-  const languages = skills.filter((skill: SkillType) => skill.category === 'languages' && !['Java', 'Solidity', 'Markdown'].includes(skill.name))
-    .sort((a: SkillType, b: SkillType) => a.name === 'Rust' ? -1 : b.name === 'Rust' ? 1 : a.sortOrder - b.sortOrder);
+  const languages = skills.filter((skill: Skill) => skill.category === 'languages' && !['Java', 'Solidity', 'Markdown'].includes(skill.title))
+    .sort((a: Skill, b: Skill) => a.title === 'Rust' ? -1 : b.title === 'Rust' ? 1 : a.sortOrder - b.sortOrder);
   return <section className={css.homeSkills} aria-labelledby="home-skills-title">
     <div className={css.snapshotHeading}>
       <p className={css.eyebrow}>Start here</p>
@@ -19,8 +19,8 @@ export default async function HomeSkills() {
       <div className={css.skillTrack}>
         {[0, 1].map(copy => <ul key={copy} aria-hidden={copy === 1}>
           {languages.map(skill => {
-            const Icon = getSkillIcon(skill.iconKey);
-            return <li key={skill.name}><Icon aria-hidden="true" /><span>{skill.name}</span></li>;
+            const Icon = getSkillIcon(skill.image_url);
+            return <li key={skill.title}><Icon aria-hidden="true" /><span>{skill.title}</span></li>;
           })}
         </ul>)}
       </div>

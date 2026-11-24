@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-import type { ProjectType } from '@/app/_lib/_types';
+import type { Project } from '@/app/_lib/_types';
 import { deleteProject, saveProject } from '@/app/_actions/projectService';
 import { getProjectTagOptions } from '@/app/_actions/adminTagOptions';
 
@@ -16,7 +16,7 @@ import { projectInput } from '@/app/_security/validation';
 import css from '../_components/DataPage.module.css';
 
 interface ProjectFormProps {
-  initial?: ProjectType;
+  initial?: Project;
   onClose: () => void;
   onSaved: () => Promise<void>;
 }
@@ -26,14 +26,14 @@ export default function ProjectForm({
   onClose,
   onSaved,
 }: ProjectFormProps) {
-  const [form, setForm] = useState<ProjectType>(
+  const [form, setForm] = useState<Project>(
     initial ?? {
       priority: 0,
-      name: '',
+      title: '',
       date: '',
       brief: '',
       description: '',
-      image_path: '',
+      image_url: '',
       deployed_url: '',
       github_url: '',
       categories: [],
@@ -52,7 +52,7 @@ export default function ProjectForm({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setForm((prev: ProjectType) => ({
+    setForm((prev: Project) => ({
       ...prev,
       [name]: name === 'priority' ? Number(value) : value,
     }));
@@ -69,7 +69,7 @@ export default function ProjectForm({
         {form.id && <input type="hidden" name="id" value={form.id} />}
         <label className={css.formLabel}>
           Name*
-          <input className={css.formInput} name="name" value={form.name} onChange={handleChange} required />
+          <input className={css.formInput} name="title" value={form.title} onChange={handleChange} required />
         </label>
         <label className={css.formLabel}>
           Priority*
@@ -92,7 +92,7 @@ export default function ProjectForm({
           Description*
           <textarea className={css.formTextarea} name="description" value={form.description} onChange={handleChange} rows={4} required />
         </label>
-        <MediaPicker label="Project image" value={form.image_path} onChange={image_path => setForm(previous => ({ ...previous, image_path }))} onBusyChange={setMediaBusy} required />
+        <MediaPicker label="Project image" value={form.image_url} onChange={image_url => setForm(previous => ({ ...previous, image_url }))} onBusyChange={setMediaBusy} required />
         <label className={css.formLabel}>
           Deployed URL
           <input className={css.formInput} name="deployed_url" type="url" value={form.deployed_url} onChange={handleChange} />

@@ -1,14 +1,14 @@
 import Image from 'next/image';
-import type { ProjectType } from '@/app/_lib/_types';
+import type { Project } from '@/app/_lib/_types';
 import css from './Project.module.css';
 
-export default function ProjectCard({ project }: { project: ProjectType }) {
+export default function ProjectCard({ project }: { project: Project }) {
   return <li className={css.projectCard}>
     <article>
-      <div className={css.projectImage}><Image src={project.image_path} alt="" fill sizes="(max-width: 760px) 90vw, (max-width: 1200px) 45vw, 360px" /></div>
+      <div className={css.projectImage}><Image src={project.image_url} alt="" width={1200} height={800} sizes="(max-width: 760px) 90vw, (max-width: 1200px) 45vw, 360px" /></div>
       <div className={css.projectContent}>
         <p className={css.projectCategory}>{project.categories.slice(0, 2).join(' · ') || 'Software project'}</p>
-        <h2>{project.name}</h2>
+        <h2>{project.title}</h2>
         <p className={css.projectBrief}>{project.brief}</p>
         <ul className={css.techList}>{project.key_techs.slice(0, 5).map(tech => <li key={tech}>{tech}</li>)}</ul>
         <div className={css.projectLinks}>

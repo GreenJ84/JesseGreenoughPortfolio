@@ -14,12 +14,12 @@ import { queryKey } from '@/app/_lib/paginatedList';
 
 
 
-import type { ResumeType } from '@/app/_lib/_types';
+import type { Resume } from '@/app/_lib/_types';
 
 const css = require("./_components/Resume.module.css");
 
 interface resumeProps {
-  resumeData: ResumeType[];
+  resumeData: Resume[];
   total: number;
   categoryData: string;
 }
@@ -93,15 +93,13 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
           width={800}
           height={1400}
           priority={resNum === 0}
-          blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8fwYAAtABzbrmHzgAAAAASUVORK5CYII="
-          placeholder="blur"
         />
       </section>
 
       <ButtonGroup
         section="bottom"
         download={current.download}
-        view={current.view}
+        view={current.brief}
       />
       </>}
     </>

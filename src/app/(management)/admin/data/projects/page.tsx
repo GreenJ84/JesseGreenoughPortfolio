@@ -3,7 +3,7 @@
 
 import { deleteProject, getFullAllProjects } from "@/app/_actions/projectService";
 
-import type { ProjectType } from "@/app/_lib/_types";
+import type { Project } from "@/app/_lib/_types";
 
 import DataStatus from "../_components/DataStatus";
 import useDataManager from "../_components/useDataManager";
@@ -20,7 +20,7 @@ export default function ProjectsPage() {
     showModal,
     openModal,
     closeModal
-  } = useDataManager<ProjectType>(getFullAllProjects);
+  } = useDataManager<Project>(getFullAllProjects);
 
   return (
     <main className={css.dataPageWrap}>
@@ -34,12 +34,12 @@ export default function ProjectsPage() {
       <PortfolioDataList
         items={projects}
         openModal={openModal}
-        itemLabel={project => project.name}
-        searchText={project => [project.name, project.brief, ...(project.categories ?? []), ...(project.key_techs ?? [])].join(' ')}
+        itemLabel={project => project.title}
+        searchText={project => [project.title, project.brief, ...(project.categories ?? []), ...(project.key_techs ?? [])].join(' ')}
         onDelete={async project => { if (project.id) { await deleteProject(project.id); await afterMutation(); } }}
-        itemDisplay={(proj: ProjectType) => (
+        itemDisplay={(proj: Project) => (
           <>
-            <strong>{proj.name}</strong>
+            <strong>{proj.title}</strong>
             <div className={css.dataBrief}>{proj.brief}</div>
           </>
         )}

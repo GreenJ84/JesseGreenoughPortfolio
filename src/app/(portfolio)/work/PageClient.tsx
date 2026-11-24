@@ -2,14 +2,14 @@
 
 import ListStatus from '../_shared/ListStatus';
 import { usePaginatedList } from '../_shared/usePaginatedList';
-import { WorkType } from "@/app/_lib/_types";
+import { Work } from "@/app/_lib/_types";
 import WorkCard from './_components/WorkCard';
 import AddItemsButton from '../_shared/AddItemsButton';
 
 const css = require("./_components/WorkExp.module.css");
 
 export interface WorkExp {
-  workData: WorkType[];
+  workData: Work[];
   documentTotals: [number, number];
 }
 const WorkClient = ({ workData, documentTotals }: WorkExp) => {

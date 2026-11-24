@@ -12,12 +12,12 @@ import { revalidatePath, updateTag, unstable_cache } from "next/cache";
 
 
 import { DB, DB_INFO } from "../_utils/Database";
-import { educationRecordDTO, LegacyEducationType } from "../_lib/educationDates";
-import { EducationType, EducationDTO } from "../_lib/_types";
+import { educationRecordDTO } from "../_lib/educationDates";
+import { Education, EducationDTO } from "../_lib/_types";
 import { ObjectId } from "mongodb";
 
-const educationDatabase = DB.collection<EducationType | LegacyEducationType>(DB_INFO.collections.EDU);
-const cacheScope = [DB_INFO.name, DB_INFO.collections.EDU, 'legacy-dates-20261123'];
+const educationDatabase = DB.collection<Education>(DB_INFO.collections.EDU);
+const cacheScope = [DB_INFO.name, DB_INFO.collections.EDU, 'model-v2'];
 
 export const getEducation = unstable_cache(
   async (offset: number = 0): Promise<EducationDTO[]> => {

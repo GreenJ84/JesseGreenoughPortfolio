@@ -16,7 +16,7 @@ export default async function AdminDashboard() {
   await requireOwnerPage();
   const [ping, counts, keys] = await Promise.all([
     DB.command({ ping: 1 }).then(() => true).catch(() => false),
-    Promise.all(destinations.map(async destination => ({ ...destination, count: await DB.collection(destination.collection).countDocuments() + (destination.label === 'Work' ? await DB.collection(DB_INFO.collections.SWORK).countDocuments() : 0) }))).catch(() => []),
+    Promise.all(destinations.map(async destination => ({ ...destination, count: await DB.collection(destination.collection).countDocuments() }))).catch(() => []),
     ownerPasskeys().then(value => value.length).catch(() => 0),
   ]);
   return <><Navigation /><main className={styles.adminContainer}>

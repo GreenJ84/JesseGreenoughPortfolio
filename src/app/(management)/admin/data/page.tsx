@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 
-import { DataType } from '@/app/_lib/_types';
 
 import css from './Data.module.css';
 
@@ -19,7 +18,7 @@ const cards = [
 		description:
 			'Manage your portfolio projects, add new work, edit details, and showcase your best builds.',
 		href: '/admin/data/projects',
-		type: DataType.Project,
+		type: 'project',
 		icon: '🛠️',
 	},
 	{
@@ -27,21 +26,21 @@ const cards = [
 		description:
 			'Track your certifications, add new achievements, and keep your credentials up to date.',
 		href: '/admin/data/certifications',
-		type: DataType.Certification,
+		type: 'certification',
 		icon: '🎓',
 	},
 	{
 		label: 'Education',
 		description: 'Edit your education history, degrees, and academic highlights.',
 		href: '/admin/data/education',
-		type: DataType.Education,
+		type: 'education',
 		icon: '🏫',
 	},
 	{
 		label: 'Work',
 		description: 'Update your work experience, roles, and professional journey.',
 		href: '/admin/data/work',
-		type: DataType.Work,
+		type: 'work',
 		icon: '💼',
 	},
 ];

@@ -16,7 +16,7 @@ test('legacy skill seed preserves categories, order, ratings and renderable icon
   }
   for (const skill of catalog.seedSkills) {
     assert.ok(skill.rating >= 1 && skill.rating <= 5);
-    assert.ok(catalog.skillIconKeys.includes(skill.iconKey));
+    assert.ok(catalog.skillIconKeys.includes(skill.image_url));
     assert.equal(skill.visible, true);
   }
 });
@@ -24,7 +24,7 @@ test('legacy skill seed preserves categories, order, ratings and renderable icon
 test('skill input enforces category, icon, rating, visibility and order', () => {
   const base = catalog.seedSkills[0];
   assert.equal(validation.skillInput(base).name, base.name);
-  for (const changes of [{ rating: 0 }, { rating: 2.5 }, { rating: 6 }, { category: 'admin' }, { iconKey: '__proto__' }, { visible: 'true' }, { sortOrder: -1 }, { name: '' }]) {
+  for (const changes of [{ rating: 0 }, { rating: 2.5 }, { rating: 6 }, { category: 'admin' }, { image_url: '__proto__' }, { visible: 'true' }, { sortOrder: -1 }, { title: '' }]) {
     assert.throws(() => validation.skillInput({ ...base, ...changes }));
   }
   const allowed = validation.skillInput({ ...base, role: 'admin', _id: 'bad' });

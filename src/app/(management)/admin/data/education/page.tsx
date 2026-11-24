@@ -35,12 +35,12 @@ export default function EducationPage() {
         items={educationItems}
         openModal={openModal}
         itemLabel={education => education.title}
-        searchText={education => [education.title, education.college, ...(education.details ?? [])].join(' ')}
+        searchText={education => [education.title, education.brief, ...(education.details ?? [])].join(' ')}
         onDelete={async education => { if (education.id) { await deleteEducation(education.id); await afterMutation(); } }}
         itemDisplay={(edu: EducationDTO) => (
           <>
             <strong>{edu.degree}</strong>
-            <div className={css.dataBrief}>{edu.college}</div>
+            <div className={css.dataBrief}>{edu.brief}</div>
           </>
         )}
       />

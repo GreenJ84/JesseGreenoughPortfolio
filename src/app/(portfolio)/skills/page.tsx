@@ -32,7 +32,7 @@ const page = async () => {
               className={css.skillsListContainer}
             >
               {data.map(skill =>
-                <TechnicalSkill key={skill.name} {...skill}/>
+                <TechnicalSkill key={skill.title} {...skill}/>
               )}
             </ul>
           </section>

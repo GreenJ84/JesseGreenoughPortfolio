@@ -1,4 +1,4 @@
-import type { CertificationType, EducationType, ProjectType, WorkType, SkillType } from '../_lib/_types';
+import type { Certification, Education, Project, Work, Skill } from '../_lib/_types';
 import { skillCategories, skillIconKeys } from '../_lib/skillCatalog';
 
 export class ValidationError extends Error {
@@ -53,35 +53,40 @@ function date(value: unknown, field: string): Date {
   if (!Number.isFinite(parsed.getTime())) throw new ValidationError(`Invalid ${field}`);
   return parsed;
 }
-export function projectInput(value: unknown): ProjectType {
+export function projectInput(value: unknown): Project {
   const v = record(value);
-  return { ...identity(v), name: text(v.name, 'name'), priority: priority(v.priority), date: text(v.date, 'date', 100), brief: text(v.brief, 'brief', 1000), description: text(v.description, 'description', 20000), image_path: url(v.image_path, 'image', false, true), deployed_url: url(v.deployed_url, 'deployed URL', true), github_url: url(v.github_url, 'GitHub URL'), categories: strings(v.categories, 'categories'), key_techs: strings(v.key_techs, 'technologies') };
+  return { ...identity(v), title: text(v.title, 'title'), priority: priority(v.priority), date: text(v.date, 'date', 100), brief: text(v.brief, 'brief', 1000), description: text(v.description, 'description', 20000), image_url: url(v.image_url, 'image', false, true), deployed_url: url(v.deployed_url, 'deployed URL', true), github_url: url(v.github_url, 'GitHub URL'), categories: strings(v.categories, 'categories'), key_techs: strings(v.key_techs, 'technologies') };
 }
-export function certificationInput(value: unknown): CertificationType {
+export function certificationInput(value: unknown): Certification {
   const v = record(value);
-  return { ...identity(v), title: text(v.title, 'title'), issuer: text(v.issuer, 'issuer'), priority: priority(v.priority), date: text(v.date, 'date', 100), description: text(v.description, 'description', 20000), image: url(v.image, 'image', true, true), url: url(v.url, 'URL', true), techs: strings(v.techs, 'technologies') };
+  return { ...identity(v), title: text(v.title, 'title'), brief: text(v.brief, 'issuer'), priority: priority(v.priority), date: text(v.date, 'date', 100), description: text(v.description, 'description', 20000), image_url: url(v.image_url, 'image', true, true), url: url(v.url, 'URL', true), techs: strings(v.techs, 'technologies') };
 }
-export function educationInput(value: unknown): EducationType {
+export function educationInput(value: unknown): Education {
   const v = record(value);
   const start = date(v.start_date, 'start date');
   const end = v.end_date === undefined || v.end_date === null || v.end_date === '' ? undefined : date(v.end_date, 'end date');
   if (end && end < start) throw new ValidationError('End date must follow start date');
-  return { ...identity(v), college: text(v.college, 'college'), title: text(v.title, 'title'), brief: text(v.brief, 'brief', 1000, true), description: text(v.description, 'description', 20000, true), image: url(v.image, 'image', true, true), url: url(v.url, 'URL', true), start_date: start, ...(end ? { end_date: end } : {}), details: strings(v.details, 'details', 2000) };
+  return { ...identity(v), title: text(v.title, 'title'), brief: text(v.brief, 'school'), description: text(v.description, 'description', 20000, true), image_url: url(v.image_url, 'image', true, true), url: url(v.url, 'URL', true), start_date: start, ...(end ? { end_date: end } : {}), details: strings(v.details, 'details', 2000) };
 }
-export function workInput(value: unknown): WorkType {
+export function workInput(value: unknown): Work {
   const v = record(value);
-  return { ...identity(v), company: text(v.company, 'company'), position: text(v.position, 'position'), logo: url(v.logo, 'logo', true, true), location: text(v.location, 'location'), date: text(v.date, 'date', 100), details: strings(v.details, 'details', 2000) };
+  const start = text(v.start_date, 'start month', 7);
+  const end = v.end_date === undefined || v.end_date === '' ? undefined : text(v.end_date, 'end month', 7);
+  if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(start) || (end && (!/^\d{4}-(0[1-9]|1[0-2])$/.test(end) || end < start))) throw new ValidationError('Choose valid work dates');
+  if (typeof v.primary !== 'boolean') throw new ValidationError('Invalid work category');
+  return { ...identity(v), title: text(v.title, 'position'), brief: text(v.brief, 'company'), image_url: url(v.image_url, 'logo', true, true), location: text(v.location, 'location'), start_date: start, ...(end ? { end_date: end } : {}), primary: v.primary, details: strings(v.details, 'details', 2000) };
 }
-export function skillInput(value: unknown): SkillType {
+export function skillInput(value: unknown): Skill {
   const v = record(value);
   const category = text(v.category, 'category', 50);
-  const iconKey = text(v.iconKey, 'icon', 100);
+  const image_url = text(v.image_url, 'icon', 100);
+  const title = text(v.title, 'name', 100);
   if (!skillCategories.includes(category as (typeof skillCategories)[number])) throw new ValidationError('Invalid skill category');
-  if (!skillIconKeys.includes(iconKey)) throw new ValidationError('Invalid skill icon');
+  if (!skillIconKeys.includes(image_url)) throw new ValidationError('Invalid skill icon');
   if (typeof v.rating !== 'number' || !Number.isInteger(v.rating) || v.rating < 1 || v.rating > 5) throw new ValidationError('Rating must be an integer from 1 to 5');
   if (typeof v.sortOrder !== 'number' || !Number.isSafeInteger(v.sortOrder) || v.sortOrder < 0 || v.sortOrder > 10000) throw new ValidationError('Invalid skill order');
   if (typeof v.visible !== 'boolean') throw new ValidationError('Invalid skill visibility');
-  return { ...identity(v), category, name: text(v.name, 'name', 100), rating: v.rating, iconKey, sortOrder: v.sortOrder, visible: v.visible };
+  return { ...identity(v), category, title, name: title, brief: text(v.brief, 'brief', 1000, true), image_url, rating: v.rating, sortOrder: v.sortOrder, visible: v.visible };
 }
 export function workCategory(value: unknown): 'primary' | 'secondary' {
   if (value !== 'primary' && value !== 'secondary') throw new ValidationError('Invalid work category');

@@ -3,7 +3,7 @@
 import React, { useCallback } from "react";
 
 import { deleteWork, getFullAllWorkByCategory } from "@/app/_actions/workService";
-import type { WorkType } from "@/app/_lib/_types";
+import type { Work } from "@/app/_lib/_types";
 
 import DataStatus from "../_components/DataStatus";
 import useDataManager from "../_components/useDataManager";
@@ -23,7 +23,7 @@ export default function WorkPage() {
     showModal,
     openModal,
     closeModal
-  } = useDataManager<WorkType>(loader);
+  } = useDataManager<Work>(loader);
 
   return (
     <main className={css.dataPageWrap}>
@@ -55,13 +55,13 @@ export default function WorkPage() {
       <PortfolioDataList
         items={workItems}
         openModal={openModal}
-        itemLabel={work => `${work.position} at ${work.company}`}
-        searchText={work => [work.position, work.company, work.location, work.date, ...(work.details ?? [])].join(' ')}
+        itemLabel={work => `${work.title} at ${work.brief}`}
+        searchText={work => [work.title, work.brief, work.location, work.start_date, work.end_date ?? '', ...(work.details ?? [])].join(' ')}
         onDelete={async work => { if (work.id) { await deleteWork(category, work.id); await afterMutation(); } }}
-        itemDisplay={(work: WorkType) => (
+        itemDisplay={(work: Work) => (
           <>
-            <strong>{work.position}</strong>
-            <div className={css.dataBrief}>{work.company}</div>
+            <strong>{work.title}</strong>
+            <div className={css.dataBrief}>{work.brief}</div>
           </>
         )}
       />

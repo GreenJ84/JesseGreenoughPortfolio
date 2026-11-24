@@ -5,7 +5,7 @@
 import PageClient from "./PageClient";
 import Footer from '../_layout/Footer/Footer';
 
-import { ProjectType } from "@/app/_lib/_types";
+import { Project } from "@/app/_lib/_types";
 import {
   getProjectCount,
   getProjectFilters,
@@ -27,7 +27,7 @@ const ProjectPage = async () => {
       className={css.projectsBody}
     >
       <PageClient
-        JSONData={projectData.map((project: ProjectType) => JSON.stringify(project))}
+        JSONData={projectData.map((project: Project) => JSON.stringify(project))}
         total={total}
         filters={filters}
       />

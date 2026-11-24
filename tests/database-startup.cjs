@@ -48,7 +48,10 @@ test('database import is lazy and keeps the development client across reloads', 
   assert.equal(first.DB.client.uri, 'mongodb://localhost:27017');
   assert.equal(first.DB.name, 'PersonalPortfolio');
   assert.equal(first.DB_INFO.collections.WORK, 'work');
-  assert.equal(first.DB_INFO.collections.SWORK, 'secondaryExperience');
+  assert.equal(first.DB_INFO.collections.PROJ, 'project');
+  assert.equal(first.DB_INFO.collections.CERT, 'certification');
+  assert.equal(first.DB_INFO.collections.EDU, 'education');
+  assert.equal(first.DB_INFO.collections.RES, 'resume');
 });
 
 test('explicit development database configuration is respected', () => {
