@@ -1,6 +1,8 @@
 const assert = require('node:assert/strict');
 const { test } = require('node:test');
 const { loadSource, sourcePath } = require('./security-harness.cjs');
+const { spawnSync } = require('node:child_process');
+const path = require('node:path');
 
 const catalog = loadSource()('src/app/_lib/skillCatalog.ts');
 const validation = loadSource()('src/app/_security/validation.ts');
@@ -101,4 +103,17 @@ test('owner skill writes invalidate public reads and deleting the last skill sta
   assert.equal(tags.length, 2);
   assert.ok(paths.includes('/skills'));
   assert.equal(events.length, 2);
+});
+
+test('skills seed refuses remote and mismatched development targets before connecting', () => {
+  const script = path.resolve(__dirname, '../scripts/seed-skills.cjs');
+  const name = 'PersonalPortfolioDev_20261123_12345678';
+  for (const [uri, expected] of [
+    ['mongodb://example.com:27017/' + name, /loopback/],
+    ['mongodb://127.0.0.1:27017/PersonalPortfolio', /does not match/],
+  ]) {
+    const result = spawnSync(process.execPath, [script, '--apply'], { cwd: path.dirname(__dirname), env: { ...process.env, DB_CONN_STRING: uri, PORTFOLIO_DB_NAME: name }, encoding: 'utf8' });
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, expected);
+  }
 });

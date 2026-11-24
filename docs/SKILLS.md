@@ -6,7 +6,7 @@ Each record stores a category, name, 1–5 rating, icon key, display order, and 
 
 ## Initialize a development copy
 
-Set `PORTFOLIO_DB_NAME` to the isolated `PersonalPortfolioDev_YYYYMMDD_XXXXXXXX` database from `npm run data:copy`. The default target is loopback MongoDB; `PORTFOLIO_LOCAL_URI` can override it only with another loopback URI.
+Set `PORTFOLIO_DB_NAME` to the isolated `PersonalPortfolioDev_YYYYMMDD_XXXXXXXX` database from `npm run data:copy`. The seed uses `DB_CONN_STRING` when present, otherwise `PORTFOLIO_LOCAL_URI` or loopback MongoDB. It rejects remote hosts and a URI database path that differs from `PORTFOLIO_DB_NAME`.
 
 ```sh
 npm run skills:preview

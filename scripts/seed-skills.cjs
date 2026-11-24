@@ -4,17 +4,21 @@ const Module = require('node:module');
 const ts = require('typescript');
 const { MongoClient } = require('mongodb');
 require('dotenv').config({ path: '.env.local' });
+require('dotenv').config({ path: '.env' });
 
 const apply = process.argv.includes('--apply');
 const production = process.argv.includes('--production');
 const name = production ? 'PersonalPortfolio' : process.env.PORTFOLIO_DB_NAME;
-const uri = production ? process.env.PORTFOLIO_PRODUCTION_URI : (process.env.PORTFOLIO_LOCAL_URI || 'mongodb://127.0.0.1:27017');
+const uri = production ? process.env.PORTFOLIO_PRODUCTION_URI : (process.env.DB_CONN_STRING || process.env.PORTFOLIO_LOCAL_URI || 'mongodb://127.0.0.1:27017');
 
 function requireLocal(uri) {
   if (!uri?.startsWith('mongodb://')) throw new Error('Development target must be a local MongoDB URI');
   const authority = uri.slice('mongodb://'.length).split('/')[0];
   if (authority.includes('@') || authority.includes(',')) throw new Error('Development target must be one loopback host without credentials');
-  if (!['localhost', '127.0.0.1', '[::1]'].includes(authority.split(':')[0])) throw new Error('Development target must use loopback');
+  const parsed = new URL(uri);
+  if (!['localhost', '127.0.0.1', '[::1]'].includes(parsed.hostname.toLowerCase())) throw new Error('Development target must use loopback');
+  const uriDatabase = decodeURIComponent(parsed.pathname.slice(1));
+  if (uriDatabase && uriDatabase !== name) throw new Error('DB_CONN_STRING database path does not match PORTFOLIO_DB_NAME');
 }
 
 function legacySkills() {
