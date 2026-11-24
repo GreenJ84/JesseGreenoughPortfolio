@@ -1,7 +1,7 @@
 # My Personal Portfolio
 
 <br/>
-My personalized portfolio is a captivating showcase of my professional journey. It serves as a living testament to my accomplishments and experiences from my educational background to my practical experiences. With a user-friendly interface and engaging visuals, my portfolio invites viewers to delve into the realm of my professional growth and discover the innovative solutions I have created. 
+My personalized portfolio is a captivating showcase of my professional journey. It serves as a living testament to my accomplishments and experiences from my educational background to my practical experiences. With a user-friendly interface and engaging visuals, my portfolio invites viewers to delve into the realm of my professional growth and discover the innovative solutions I have created.
 
 <br/>
 <br/>
@@ -143,7 +143,7 @@ client. Development reuses the client across hot reloads. Set `DB_CONN_STRING` t
 select a database; development defaults to `mongodb://localhost:27017` when unset,
 and production requires an explicit connection string.
 
-Primary work records use `work`; secondary work records retain the existing
+Primary work records use `workExperience`; secondary work records retain the existing
 `secondaryExperience` collection. No work data is moved during startup.
 
 Legacy schema migration helpers have been removed pending a reviewed migration plan.
