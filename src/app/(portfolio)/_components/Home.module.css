@@ -1,4 +1,6 @@
 .homeMain { display: flex; flex-direction: column; gap: clamp(4rem, 8vw, 8rem); }
+.skillsFallback { min-height: 250px; }
+.projectsFallback { min-height: 400px; }
 .homeIntro { width: min(100% - 3rem, 1180px); min-height: min(750px, calc(100svh - 76px)); margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(250px, 0.8fr); align-items: center; gap: clamp(2rem, 5vw, 6rem); padding: 3rem 0 4rem; }
 .heroCopy { max-width: 680px; }
 .eyebrow { margin: 0 0 1.1rem; color: var(--text-detail); text-transform: uppercase; letter-spacing: 0.17em; font-size: 0.77rem; font-weight: 800; }
@@ -11,7 +13,7 @@
 .secondaryAction { border: 1px solid var(--surface-border); background: var(--card-background); color: var(--text-primary); }
 .primaryAction:hover { transform: translateY(-2px); background: var(--detail-hover); box-shadow: var(--shadow-hover); }
 .secondaryAction:hover { transform: translateY(-2px); background: var(--hover-surface); border-color: var(--hover-border); box-shadow: var(--shadow-hover); }
-.heroNote { margin-top: 2rem; color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.03em; }
+.heroNote { margin-top: 2rem; color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.03em; line-height: 1.7; }
 .heroPortrait { justify-self: center; position: relative; width: min(100%, 380px); }
 .portraitCaption { display: block; margin-top: 1rem; color: var(--text-secondary); text-align: center; font-size: 0.85rem; }
 .developerIntro { width: min(100% - 3rem, 1180px); margin: 0 auto; padding: clamp(2rem, 5vw, 4.5rem); display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(180px, 0.7fr); align-items: center; gap: 2rem; border: 1px solid var(--surface-border); border-radius: 1.5rem; background: var(--card-background); box-shadow: var(--shadow); }

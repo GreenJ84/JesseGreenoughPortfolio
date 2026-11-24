@@ -2,9 +2,9 @@ import Link from 'next/link';
 import css from './Home.module.css';
 
 const paths = [
-  { number: '01', title: 'Education', text: 'Software engineering, cybersecurity, and credentials behind the work.', href: '/education' },
-  { number: '02', title: 'Experience', text: 'See how engineering and people leadership meet in my work.', href: '/work' },
-  { number: '03', title: 'Resumes', text: 'Get a concise view of my background and qualifications.', href: '/resumes' },
+  { number: '01', title: 'Education & credentials', text: 'M.S. Cybersecurity, B.S. Software Engineering, and SecurityX certification.', href: '/education' },
+  { number: '02', title: 'Experience', text: 'Engineering work alongside more than eight years in customer success and team leadership.', href: '/work' },
+  { number: '03', title: 'Resume', text: 'A concise, downloadable view of my backend, security, and full-stack background.', href: '/resumes' },
 ];
 
 export default function ProfessionalSnapshot() {
