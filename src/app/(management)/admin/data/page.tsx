@@ -8,6 +8,13 @@ import css from './Data.module.css';
 
 const cards = [
 	{
+		label: 'Skills',
+		description: 'Manage skill ratings, icons, visibility, and display order.',
+		href: '/admin/data/skills',
+		type: 'skills',
+		icon: '🧰',
+	},
+	{
 		label: 'Projects',
 		description:
 			'Manage your portfolio projects, add new work, edit details, and showcase your best builds.',
