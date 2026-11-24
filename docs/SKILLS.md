@@ -1,6 +1,6 @@
 # Skills data
 
-Skills now use the `skills` collection. Public Home and Skills views read visible records from that collection after initialization. Until a database is initialized, they render the existing 58 static records so a deployment does not start with an empty skills page. The owner-only admin page is at `/admin/data/skills`.
+Skills now use the `skills` collection. Public Home and Skills views read visible records from that collection after initialization. Until a reachable database is initialized, they render the existing 58 static records so a deployment does not start with an empty skills page. If the database cannot be checked, public reads return no skills rather than exposing records whose visibility is unknown. The owner-only admin page is at `/admin/data/skills`.
 
 Each record stores a category, name, 1–5 rating, icon key, display order, and visibility. Icon keys are chosen from the application's allowlisted icon registry; React components are never stored in MongoDB. A unique index on category and normalized name prevents duplicates within a group.
 

@@ -32,11 +32,12 @@ test('skill input enforces category, icon, rating, visibility and order', () => 
 
 test('skill reads use the seed before initialization and honor visibility after it', async () => {
   let initialized = false;
+  let fail = false;
   const rows = [{ _id: { toString: () => 'a'.repeat(24) }, category: 'languages', name: 'Rust', normalizedName: 'rust', rating: 4, iconKey: 'Rust', sortOrder: 0, visible: true },
     { _id: { toString: () => 'b'.repeat(24) }, category: 'languages', name: 'Secret', normalizedName: 'secret', rating: 4, iconKey: 'Rust', sortOrder: 1, visible: false }];
   const collections = {
     skills: { find: query => ({ sort: () => ({ toArray: async () => rows.filter(row => !query.visible || row.visible) }) }) },
-    portfolioMetadata: { findOne: async () => initialized ? { initialized: true } : null },
+    portfolioMetadata: { findOne: async () => { if (fail) throw new Error('database unavailable'); return initialized ? { initialized: true } : null; } },
   };
   const service = loadSource({
     [sourcePath('src/app/_utils/Database.ts')]: { DB: { collection: name => collections[name] }, DB_INFO: { name: 'test', collections: { SKILL: 'skills' } } },
@@ -50,6 +51,8 @@ test('skill reads use the seed before initialization and honor visibility after 
   assert.equal(publicRows.length, 1);
   assert.equal(publicRows[0].name, 'Rust');
   assert.equal((await service.getAdminSkills()).length, 2);
+  fail = true;
+  assert.equal((await service.getPublicSkills()).length, 0);
 });
 
 test('skill admin operations reject anonymous callers before collection access', async () => {

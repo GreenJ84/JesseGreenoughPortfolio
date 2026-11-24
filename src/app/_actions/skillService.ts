@@ -38,8 +38,8 @@ export async function getPublicSkills(): Promise<SkillType[]> {
   let initialized;
   try { initialized = await state.findOne({ _id: 'skills' }); }
   catch (error) {
-    console.error('Skills initialization check failed:', error);
-    return seedSkills;
+    console.error('Skills initialization check failed:', error instanceof Error ? error.message : 'Unknown error');
+    return [];
   }
   return initialized ? getCachedSkills() : seedSkills;
 }
