@@ -1,4 +1,4 @@
-export interface ListQuery { type: string; filter?: string }
+export interface ListQuery { type: string; filter?: string; secondFilter?: string }
 export interface ListItem { id?: string }
 export interface ListSnapshot<T> {
   query: ListQuery;
@@ -8,11 +8,12 @@ export interface ListSnapshot<T> {
   hasMore: boolean;
 }
 export type PageLoader<T> = (query: ListQuery, offset: number, signal: AbortSignal) => Promise<T[]>;
-export const queryKey = (query: ListQuery) => JSON.stringify([query.type, query.filter ?? '']);
+export const queryKey = (query: ListQuery) => JSON.stringify([query.type, query.filter ?? '', query.secondFilter ?? '']);
 
 export async function fetchListPage<T>(endpoint: string, query: ListQuery, offset: number, signal: AbortSignal, transport: typeof fetch = fetch): Promise<T[]> {
   const params = new URLSearchParams({ type: query.type, offset: String(offset) });
   if (query.filter !== undefined) params.set('filter', query.filter);
+  if (query.secondFilter !== undefined) params.set('secondFilter', query.secondFilter);
   const response = await transport(`${endpoint}?${params}`, { signal });
   if (!response.ok) throw new Error('The list could not be loaded. Please try again.');
   const rows: unknown = await response.json();

@@ -5,8 +5,8 @@ import * as service from "@/app/_actions/certificationService";
 
 export async function GET(req: NextRequest) {
   try {
-    const { type, offset, filter } = queryInput(req.nextUrl.searchParams, ["top", "all", "issuer", "tech"], "top");
-    const results = type === "issuer" ? await service.getCertificationsByIssuer(filter!, offset) : type === "tech" ? await service.getCertificationsByTech(filter!, offset) : type === "all" ? await service.getAllCertifications(offset) : await service.getTopCertifications();
+    const { type, offset, filter, secondFilter } = queryInput(req.nextUrl.searchParams, ["top", "all", "issuer", "tech", "combined"], "top");
+    const results = type === "combined" ? await service.getCertificationsByIssuerAndTech(filter!, secondFilter!, offset) : type === "issuer" ? await service.getCertificationsByIssuer(filter!, offset) : type === "tech" ? await service.getCertificationsByTech(filter!, offset) : type === "all" ? await service.getAllCertifications(offset) : await service.getTopCertifications();
     return NextResponse.json(results);
   } catch (error) {
     if (error instanceof ValidationError) return NextResponse.json({ error: error.message }, { status: 400 });

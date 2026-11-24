@@ -3,61 +3,34 @@
 .portraitFrame .developerPortrait { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 1.1rem; box-shadow: none; transform: rotate(3deg); }
 
 /* ============== Data Filter ============== */
-.itemFilter {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin: 0 auto 2rem;
-  width: min(100% - 3rem, 900px);
-  height: auto;
-  padding: 1rem;
-  text-align: center;
-  border: 1px solid var(--surface-border);
-  border-radius: 1rem;
-  background: var(--card-background);
-}
-
-.itemFilter > div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1 1 220px;
-}
-.itemFilter .filterSearch { position: relative; flex: 1 1 100%; align-items: stretch; text-align: left; }
-.filterSearch label { margin-bottom: .45rem; color: var(--text-detail); font-size: .85rem; font-weight: 750; }
+.filterShell { width: min(100% - 3rem, 900px); margin: 0 auto 1.8rem; }
+.filterTitleRow { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: .75rem; }
+.filterTitleRow h1, .filterTitleRow h3 { grid-column: 2; margin: 0; text-align: center; font-size: var(--header2); letter-spacing: -.035em; }
+.filterTitleRow h3 { font-size: var(--header3); }
+.filterToggle { grid-column: 3; }
+.filterToggle, .filterClose { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--surface-border); border-radius: .75rem; background: var(--card-background2); color: var(--text-detail); cursor: pointer; font-size: 1.35rem; }
+.filterToggle:hover, .filterToggle:focus-visible, .filterClose:hover, .filterClose:focus-visible { background: var(--hover-surface); border-color: var(--hover-border); box-shadow: var(--shadow-hover); }
+.itemFilter { position: relative; margin-top: 1.2rem; padding: 1.4rem; border: 1px solid var(--surface-border); border-radius: 1rem; background: var(--card-background); box-shadow: var(--shadow); }
+.filterClose { position: absolute; top: .7rem; right: .7rem; }
+.filterModes, .filterChips { display: flex; flex-wrap: wrap; gap: .6rem; padding-right: 3rem; }
+.filterModes button, .filterChips button { min-height: 40px; padding: .45rem .8rem; border: 1px solid var(--surface-border); border-radius: 999px; background: var(--card-background2); color: var(--text-primary); cursor: pointer; font: inherit; }
+.filterModes button[aria-pressed='true'], .filterModes button:hover, .filterChips button:hover { border-color: var(--detail); color: var(--text-detail); background: var(--hover-surface); }
+.filterChips { margin-top: 1rem; }
+.filterChips button { display: inline-flex; align-items: center; gap: .35rem; }
+.filterChips svg { font-size: 1.1rem; }
+.filterSearch { display: grid; gap: .4rem; margin-top: 1rem; }
+.filterSearch label { color: var(--text-detail); font-size: .85rem; font-weight: 750; }
 .filterSearch input { width: 100%; min-height: 44px; padding: .65rem .8rem; border: 1px solid var(--surface-border); border-radius: .6rem; outline: none; background: var(--background); color: var(--text-primary); font: inherit; }
 .filterSearch input:focus-visible { border-color: var(--detail); box-shadow: 0 0 0 3px var(--surface-border); }
-.filterResults { position: absolute; top: 100%; left: 0; right: 0; z-index: 8; max-height: 260px; overflow-y: auto; padding: .35rem; border: 1px solid var(--hover-border); border-radius: .6rem; background: var(--card-background); box-shadow: var(--shadow-hover); }
-.filterResults button { display: flex; justify-content: space-between; align-items: center; gap: 1rem; width: 100%; padding: .65rem .75rem; border: 0; border-radius: .4rem; background: transparent; color: var(--text-primary); font: inherit; text-align: left; cursor: pointer; }
-.filterResults button:hover, .filterResults button:focus-visible { background: var(--hover-surface); }
-.filterResults small { color: var(--text-detail); }
-.filterResults p { margin: .5rem; color: var(--text-secondary); }
-.itemFilter > div > h2 {
-  margin: 0 0 0.5rem;
-  text-align: center;
-  color: var(--text-primary);
-  font-size: var(--text1);
-  letter-spacing: 0;
-}
-
-.itemFilter > div > select {
-  width: min(100%, 330px);
-  min-height: 44px;
-  padding: 0.5rem 0.8rem;
-  color: var(--text-primary);
-  font-size: var(--text2);
-  background-color: var(--card-background2);
-  border: 1px solid var(--surface-border);
-  border-radius: 0.6rem;
-}
-
-.itemFilter > div > select:hover {
-  background-color: var(--card-background);
-  border-color: var(--detail);
-}
+.filterGroups { display: grid; gap: .7rem; margin-top: .8rem; max-height: 350px; overflow-y: auto; }
+.filterGroup { overflow: hidden; border: 1px solid var(--surface-border); border-radius: .7rem; }
+.filterGroupToggle { display: flex; justify-content: space-between; width: 100%; padding: .75rem; border: 0; background: var(--card-background2); color: var(--text-primary); font: inherit; font-weight: 750; cursor: pointer; text-align: left; }
+.filterGroupToggle:hover { background: var(--hover-surface); }
+.filterOptions { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); gap: .3rem; padding: .5rem; }
+.filterOptions button { display: flex; justify-content: space-between; gap: .5rem; padding: .55rem .65rem; border: 0; border-radius: .4rem; background: transparent; color: var(--text-primary); font: inherit; cursor: pointer; text-align: left; }
+.filterOptions button:hover, .filterOptions button:focus-visible { background: var(--hover-surface); color: var(--text-detail); }
+.filterOptions button:disabled { opacity: .5; cursor: not-allowed; }
+.filterOptions p { margin: .5rem; color: var(--text-secondary); }
 
 /* ============== Add Item Button ============== */
 .add_item_button {

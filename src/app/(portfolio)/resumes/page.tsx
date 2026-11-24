@@ -19,7 +19,7 @@ const ResumePage = async () => {
         id="resumePage"
         className={css.resumeContainer}
       >
-        <header className={css.pageHeader}><h1>Resumes</h1><p>Explore the experience behind my work. Open or download the version that fits what you’re looking for.</p></header>
+        <header className={css.pageHeader}><p>Explore the experience behind my work. Open or download the version that fits what you’re looking for.</p></header>
         <ResumeClient
           resumeData={resumeData}
           total={total}

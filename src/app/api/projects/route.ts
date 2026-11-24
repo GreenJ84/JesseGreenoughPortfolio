@@ -5,8 +5,8 @@ import * as service from "@/app/_actions/projectService";
 
 export async function GET(req: NextRequest) {
   try {
-    const { type, offset, filter } = queryInput(req.nextUrl.searchParams, ["all", "category", "tech"], "all");
-    const results = type === "category" ? await service.getProjectsByCategory(filter!, offset) : type === "tech" ? await service.getProjectsByTech(filter!, offset) : await service.getAllProjects(offset);
+    const { type, offset, filter, secondFilter } = queryInput(req.nextUrl.searchParams, ["all", "category", "tech", "combined"], "all");
+    const results = type === "combined" ? await service.getProjectsByCategoryAndTech(filter!, secondFilter!, offset) : type === "category" ? await service.getProjectsByCategory(filter!, offset) : type === "tech" ? await service.getProjectsByTech(filter!, offset) : await service.getAllProjects(offset);
     return NextResponse.json(results);
   } catch (error) {
     if (error instanceof ValidationError) return NextResponse.json({ error: error.message }, { status: 400 });

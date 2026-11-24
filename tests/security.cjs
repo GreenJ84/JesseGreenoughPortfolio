@@ -28,6 +28,11 @@ test('query parsing rejects invalid offsets, duplicate parameters, types and mis
   for (const value of ['-1', '1.5', '1e3', 'Infinity', 'NaN', '', '10001', '0x10', '1abc']) assert.throws(() => query.queryInput(new URLSearchParams(`offset=${value}`), ['all'], 'all'));
   for (const value of ['offset=0&offset=1', 'type=bad', 'type=category', 'type=category&filter=' + 'a'.repeat(201)]) assert.throws(() => query.queryInput(new URLSearchParams(value), ['all', 'category'], 'all'));
   assert.equal(query.queryInput(new URLSearchParams('offset=10000'), ['all'], 'all').offset, 10000);
+  const combined = query.queryInput(new URLSearchParams('type=combined&filter=Backend&secondFilter=Rust'), ['all', 'combined'], 'all');
+  assert.equal(combined.type, 'combined');
+  assert.equal(combined.filter, 'Backend');
+  assert.equal(combined.secondFilter, 'Rust');
+  for (const value of ['type=combined&filter=Backend', 'type=combined&filter=Backend&secondFilter=', 'type=combined&filter=Backend&secondFilter=Rust&secondFilter=Go', 'type=all&secondFilter=Rust']) assert.throws(() => query.queryInput(new URLSearchParams(value), ['all', 'combined'], 'all'));
 });
 
 for (const [entity, input] of [['Project', validProject], ['Certification', validCertification], ['Education', validEducation], ['Work', validWork]]) {

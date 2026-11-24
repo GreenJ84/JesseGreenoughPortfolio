@@ -141,6 +141,13 @@ export const getCertificationsByIssuer = unstable_cache(
   { revalidate: 3600, tags: ['certificationsByIssuer'] }
 );
 
+export const getCertificationsByIssuerAndTech = unstable_cache(
+  async (issuer: string, tech: string, offset: number = 0): Promise<CertificationType[]> =>
+    getCertificationsBase(offset, { priority: 1, date: -1, title: 1 }, { issuer: filterInput(issuer), techs: filterInput(tech) }),
+  ['certificationsByIssuerAndTech', ...cacheScope],
+  { revalidate: 3600, tags: ['certificationsByIssuer', 'certificationsByTech'] }
+);
+
 export const saveCertification = async (input: unknown) => {
   const admin = await requireAdmin();
   const { id, ...data } = certificationInput(input);

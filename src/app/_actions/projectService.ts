@@ -140,6 +140,13 @@ export const getProjectsByTech = unstable_cache(
   { revalidate: 3600, tags: [cacheTags.projects.tech] }
 );
 
+export const getProjectsByCategoryAndTech = unstable_cache(
+  async (category: string, tech: string, offset: number = 0): Promise<ProjectType[]> =>
+    getProjectsBase(offset, { priority: 1, date: -1, name: 1 }, { categories: filterInput(category), key_techs: filterInput(tech) }),
+  ['projectsByCategoryAndTech', ...cacheScope],
+  { revalidate: 3600, tags: [cacheTags.projects.category, cacheTags.projects.tech] }
+);
+
 export const saveProject = async (input: unknown) => {
   const admin = await requireAdmin();
   const { id, ...data } = projectInput(input);

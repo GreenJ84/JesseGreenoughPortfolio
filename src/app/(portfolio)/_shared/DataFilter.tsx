@@ -1,42 +1,47 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useState, type ReactNode } from 'react';
+import { BsSearch, BsX } from 'react-icons/bs';
+import css from './Shared.module.css';
 
-const css = require('./Shared.module.css');
 interface DataFilterProps {
+  heading: ReactNode;
+  headingLevel?: 'h1' | 'h3';
   titles: [string, string?];
   options: [string[], string[]?];
-  values: [string, string?];
-  firstHandler: (value: string) => void;
-  secondHandler?: (value: string) => void;
+  values: [string?, string?];
+  onSelect: (index: number, value: string) => void;
+  onMode: (mode: 'top' | 'all') => void;
+  mode: 'top' | 'all' | 'filtered';
   topLabel?: string;
 }
-export default function DataFilter({ titles, options, values, firstHandler, secondHandler, topLabel = 'Selected' }: DataFilterProps) {
-  const paired = Boolean(titles[1] && options[1] && secondHandler);
+
+export default function DataFilter({ heading, headingLevel = 'h1', titles, options, values, onSelect, onMode, mode, topLabel = 'Selected' }: DataFilterProps) {
+  const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
-  const matches = useMemo(() => {
-    const needle = query.trim().toLocaleLowerCase();
-    if (!needle) return [];
-    return options.flatMap((group, index) => (group ?? []).filter(value => value.toLocaleLowerCase().includes(needle)).map(value => ({ value, index }))).slice(0, 8);
-  }, [options, query]);
-  return <nav id="dataFilter" className={css.itemFilter}>
-    <div className={css.filterSearch}>
-      <label htmlFor="filterSearch">Search {paired ? `${titles[0]?.toLowerCase()} or ${titles[1]?.toLowerCase()}` : titles[0]?.toLowerCase()}</label>
-      <input id="filterSearch" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Type a technology or category" autoComplete="off" />
-      {query.trim() && <div className={css.filterResults} aria-live="polite">
-        {matches.length ? matches.map(({ value, index }) => <button type="button" key={`${index}-${value}`} onClick={() => {
-          (index === 0 ? firstHandler : secondHandler)?.(value);
-          setQuery('');
-        }}><span>{value}</span><small>{titles[index]}</small></button>) : <p>No matching filters.</p>}
-      </div>}
+  const [expanded, setExpanded] = useState([true, true]);
+  const needle = query.trim().toLocaleLowerCase();
+  const Heading = headingLevel;
+  const groups = titles.map((title, index) => ({ title, index, items: (options[index] ?? []).filter(value => !needle || value.toLocaleLowerCase().includes(needle)) })).filter(group => group.title);
+  return <div className={css.filterShell}>
+    <div className={css.filterTitleRow}>
+      <Heading>{heading}</Heading>
+      <button className={css.filterToggle} type="button" aria-label={open ? 'Close filters' : 'Search and filter'} aria-expanded={open} onClick={() => { setOpen(value => !value); setQuery(''); }}><BsSearch aria-hidden="true" /></button>
     </div>
-    {titles.map((title, index) => title && (index === 0 || paired) && <div key={title}>
-      <h2><label htmlFor={index === 0 ? 'firstSelector' : 'secondSelector'}>Filter by <span className="detail">{title}</span></label></h2>
-      <select id={index === 0 ? 'firstSelector' : 'secondSelector'} name={index === 0 ? 'firstSelector' : 'secondSelector'} value={values[index] ?? ''} onChange={event => (index === 0 ? firstHandler : secondHandler)?.(event.currentTarget.value)}>
-        <option value="" disabled>...</option>
-        {paired && <option value="top">{topLabel}</option>}
-        <option value="all">All</option>
-        {(options[index] ?? []).map(option => <option key={option} value={option}>{index === 0 ? option.toUpperCase() : option}</option>)}
-      </select>
-    </div>)}
-  </nav>;
+    {open && <nav className={css.itemFilter} aria-label="Search filters">
+      <button className={css.filterClose} type="button" aria-label="Close filters" onClick={() => { setOpen(false); setQuery(''); }}><BsX aria-hidden="true" /></button>
+      <div className={css.filterModes}>
+        <button type="button" aria-pressed={mode === 'top'} onClick={() => { onMode('top'); setQuery(''); }}>{topLabel}</button>
+        <button type="button" aria-pressed={mode === 'all'} onClick={() => { onMode('all'); setQuery(''); }}>All</button>
+      </div>
+      {values.some(Boolean) && <div className={css.filterChips} aria-label="Selected filters">{values.map((value, index) => value && <button key={titles[index]} type="button" onClick={() => onSelect(index, '')} aria-label={`Remove ${titles[index]} ${value}`}>{titles[index]} <span>|</span> {value} <BsX aria-hidden="true" /></button>)}</div>}
+      <div className={css.filterSearch}>
+        <label htmlFor="filterSearch">Search {titles.filter(Boolean).join(' or ').toLowerCase()}</label>
+        <input id="filterSearch" type="search" value={query} onChange={event => setQuery(event.target.value)} placeholder="Search filter options" autoComplete="off" />
+      </div>
+      {needle && <div className={css.filterGroups} aria-live="polite">{groups.map(({ title, index, items }) => <section key={title} className={css.filterGroup}>
+        <button type="button" className={css.filterGroupToggle} aria-expanded={expanded[index]} onClick={() => setExpanded(previous => previous.map((value, i) => i === index ? !value : value))}>{title}<span>{items.length} {expanded[index] ? '⌃' : '⌄'}</span></button>
+        {expanded[index] && <div className={css.filterOptions}>{items.length ? items.map(value => <button key={value} type="button" disabled={values[index] === value} onClick={() => { onSelect(index, value); setQuery(''); }}>{value}{values[index] === value && <span>Selected</span>}</button>) : <p>No matching options.</p>}</div>}
+      </section>)}</div>}
+    </nav>}
+  </div>;
 }

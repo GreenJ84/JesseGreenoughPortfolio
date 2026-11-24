@@ -17,13 +17,13 @@ export interface resumeType {
 const resumeDatabase = DB.collection<resumeType>(DB_INFO.collections.RES);
 const cacheScope = [DB_INFO.name, DB_INFO.collections.RES, 'legacy-20261123'];
 
-const getResumeItems = async (offset: number, filterOptions?: object) => {
+const getResumeItems = async (offset: number, filterOptions?: object, limit = 5) => {
   return (
     await resumeDatabase
       .find(filterOptions ?? {})
       .sort({ _id: -1 })
       .skip(offsetInput(offset))
-      .limit(5)
+      .limit(limit)
       .toArray()
   ).map((resume: WithId<resumeType>) => {
     const { _id, ...rest } = resume;
@@ -46,6 +46,12 @@ export const getResumes = unstable_cache(
     return await getResumeItems(offset);
   },
   ['resumes', ...cacheScope],
+  { revalidate: 60, tags: ['resumes'] }
+);
+
+export const getTopResumes = unstable_cache(
+  async (offset: number = 0): Promise<resumeType[]> => offset >= 10 ? [] : getResumeItems(offset, undefined, Math.min(5, 10 - offset)),
+  ['topResumes', ...cacheScope],
   { revalidate: 60, tags: ['resumes'] }
 );
 

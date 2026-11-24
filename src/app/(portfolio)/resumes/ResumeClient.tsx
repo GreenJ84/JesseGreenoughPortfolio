@@ -30,7 +30,7 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
   const current = resumes[resNum];
   const categoryMap = useMemo(() => new Map<string, number>(JSON.parse(categoryData)), [categoryData]);
   const hasMoreResumes = list.hasMore;
-  const visibleTotal = list.query.type === 'all' ? total : categoryMap.get(list.query.filter ?? '') ?? 0;
+  const visibleTotal = list.query.type === 'all' ? total : list.query.type === 'top' ? Math.min(total, 10) : categoryMap.get(list.query.filter ?? '') ?? 0;
   function selectCategory(value: string) {
     setResNum(0);
     if (value === 'all') void list.select({ type: 'all' }, total, resumeData);
@@ -51,12 +51,7 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
 
   return (
     <>
-      <DataFilter
-        titles={["Category"]}
-        options={[Array.from(categoryMap.keys())]}
-        values={[list.query.type === 'all' ? 'all' : list.query.filter!]}
-        firstHandler={selectCategory}
-      />
+      <DataFilter heading="Resumes" titles={["Category"]} options={[Array.from(categoryMap.keys())]} values={[list.query.type === 'category' ? list.query.filter : undefined]} onSelect={(_, value) => selectCategory(value || 'all')} mode={list.query.type === 'top' ? 'top' : list.query.type === 'all' ? 'all' : 'filtered'} onMode={mode => { setResNum(0); if (mode === 'top') void list.select({ type: 'top' }, Math.min(total, 10), resumeData); else selectCategory('all'); }} topLabel="Selected (top 10)" />
       <ListStatus pending={list.pending} error={list.error} retry={() => { void list.loadMore(); }} />
       {!list.pending && !list.error && !current && <p>No resumes match this filter.</p>}
       {current && <>

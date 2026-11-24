@@ -5,8 +5,8 @@ import * as service from "../../(portfolio)/resumes/resumeService";
 
 export async function GET(req: NextRequest) {
   try {
-    const { type, offset, filter } = queryInput(req.nextUrl.searchParams, ["all", "category"], "all");
-    const results = type === "category" ? await service.getResumesByCategory(filter!, offset) : await service.getResumes(offset);
+    const { type, offset, filter } = queryInput(req.nextUrl.searchParams, ["all", "category", "top"], "all");
+    const results = type === "category" ? await service.getResumesByCategory(filter!, offset) : type === "top" ? await service.getTopResumes(offset) : await service.getResumes(offset);
     return NextResponse.json(results);
   } catch (error) {
     if (error instanceof ValidationError) return NextResponse.json({ error: error.message }, { status: 400 });

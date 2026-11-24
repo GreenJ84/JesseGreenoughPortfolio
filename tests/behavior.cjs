@@ -157,6 +157,8 @@ test('list requests encode special-character filters, reject HTTP errors and val
   const rows = await fetchListPage('/api/projects', { type: 'tech', filter: 'C++ & C#' }, 10, signal, async url => { address = new URL(url, 'https://portfolio.test'); return Response.json([item('a')]); });
   assert.equal(address.searchParams.get('filter'), 'C++ & C#');
   assert.equal(address.searchParams.get('offset'), '10');
+  await fetchListPage('/api/projects', { type: 'combined', filter: 'Backend', secondFilter: 'C++ & C#' }, 0, signal, async url => { address = new URL(url, 'https://portfolio.test'); return Response.json([]); });
+  assert.equal(address.searchParams.get('secondFilter'), 'C++ & C#');
   assert.equal(rows.length, 1);
   await assert.rejects(fetchListPage('/api/projects', { type: 'all' }, 0, signal, async () => new Response('', { status: 500 })));
   await assert.rejects(fetchListPage('/api/projects', { type: 'all' }, 0, signal, async () => Response.json([{ name: 'missing id' }])));
