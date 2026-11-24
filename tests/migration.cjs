@@ -24,6 +24,20 @@ test('legacy resources map to the settled field names without losing identifiers
   assert.throws(() => transformLegacyRecord('workExperience', { _id: id, date: 'unknown' }), /Unrecognized/);
 });
 
+test('legacy work periods accept compact ranges and single-year roles', () => {
+  const id = new ObjectId();
+  for (const [date, start_date, end_date] of [
+    ['2015-2016', '2015-01', '2016-12'],
+    ['May 2018- Jun 2019', '2018-05', '2019-06'],
+    ['2016', '2016-01', '2016-12'],
+    ['2024-01..present', '2024-01', undefined],
+  ]) {
+    const result = transformLegacyRecord('workExperience', { _id: id, date });
+    assert.equal(result.start_date, start_date, date);
+    assert.equal(result.end_date, end_date, date);
+  }
+});
+
 function migrationRuntime(env, initial) {
   const data = new Map(Object.entries(initial).map(([name, rows]) => [name, new Map(rows.map(row => [String(row._id), row]))]));
   const DB = {

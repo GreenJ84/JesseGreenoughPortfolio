@@ -24,7 +24,11 @@ function month(value: unknown, end = false): string {
 }
 function range(value: unknown): { start: string; end?: string } {
   const raw = string(value).trim();
-  const match = /^(.+?)\s*(?:\.\.|\s+-\s+)\s*(present|current|.+)$/i.exec(raw);
+  // Legacy work dates include year-only roles and hyphenated ranges without
+  // spaces. Match complete date tokens so the hyphen in YYYY-MM stays intact.
+  const token = '(?:\\d{4}(?:-(?:0[1-9]|1[0-2]))?|[a-z]+\\.?\\s+\\d{4})';
+  const match = new RegExp(`^(${token})\\s*(?:\\.\\.|-)\\s*(present|current|${token})$`, 'i').exec(raw);
+  if (/^\d{4}$/.test(raw)) return { start: `${raw}-01`, end: `${raw}-12` };
   if (!match) throw new Error(`Unrecognized legacy work period: ${raw}`);
   const start = month(match[1]);
   const end = /^(present|current)$/i.test(match[2]) ? undefined : month(match[2], true);
