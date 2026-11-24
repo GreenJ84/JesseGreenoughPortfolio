@@ -21,6 +21,16 @@
 .resultCount{margin:0 0 .55rem;color:var(--text-secondary);font-size:.88rem;white-space:nowrap}
 .listError,.formError{color:#f6b8a9}
 .dataList{display:grid;gap:.55rem;padding:0;margin:0;list-style:none}
+.groupedList{display:grid;gap:.75rem}
+.listGroup{border:1px solid var(--surface-border);border-radius:.85rem;background:var(--card-background);overflow:hidden}
+.listGroup summary{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.15rem;color:var(--text-primary);font-weight:750;cursor:pointer;list-style:none}
+.listGroup summary::-webkit-details-marker{display:none}
+.listGroup summary::before{content:'▸';margin-right:.25rem;color:var(--text-detail);transition:transform .18s ease}
+.listGroup[open] summary::before{transform:rotate(90deg)}
+.listGroup summary span:first-child{flex:1;text-transform:capitalize}
+.listGroup summary span:last-child{color:var(--text-secondary);font-size:.85rem;font-weight:600}
+.listGroup summary:hover,.listGroup summary:focus-visible{background:var(--hover-surface);outline:none}
+.listGroup .dataList{padding:.35rem .75rem .75rem}
 .dataRow{display:flex;align-items:stretch;min-width:0;border:1px solid var(--surface-border);border-radius:.85rem;background:var(--card-background);overflow:hidden;transition:border-color .18s,background .18s}
 .dataRow:hover,.dataRow:focus-within{border-color:var(--hover-border);background:var(--card-background2)}
 .dataCard{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex:1;min-width:0;padding:1rem 1.15rem;border:0;background:transparent;color:var(--text-primary);font:inherit;text-align:left;cursor:pointer}

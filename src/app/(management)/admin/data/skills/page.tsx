@@ -31,7 +31,7 @@ export default function SkillsAdminPage() {
     {initialized === false && <button type="button" className={css.newBtn} disabled={importing} onClick={() => { void importCurrent(); }}>{importing ? 'Importing…' : 'Import current skills'}</button>}
     {importError && <p className={css.listError} role="alert">{importError}</p>}
     <DataStatus loading={loading} error={error} refresh={refresh} />
-    <PortfolioDataList items={items} openModal={openModal} itemLabel={item => item.name} searchText={item => [item.name, item.category, item.iconKey].join(' ')}
+    <PortfolioDataList items={items} openModal={openModal} itemLabel={item => item.name} searchText={item => [item.name, item.category, item.iconKey].join(' ')} groupBy={item => item.category} groupLabel={category => category.replaceAll('_', ' ')} defaultOpenGroup="languages" groupItemLabel={['skill', 'skills']}
       onDelete={async item => { if (item.id) { await deleteSkill(item.id); await afterMutation(); } }}
       itemDisplay={item => <><strong>{item.name} · {item.rating}/5</strong><div className={css.dataBrief}>{item.category.replaceAll('_', ' ')} · {item.visible ? 'Visible' : 'Hidden'} · order {item.sortOrder}</div></>} />
     {showModal && <FormModal title={selected ? 'Edit Skill' : 'New Skill'} onClose={closeModal}><SkillForm initial={selected} onSaved={afterMutation} onClose={closeModal} /></FormModal>}
