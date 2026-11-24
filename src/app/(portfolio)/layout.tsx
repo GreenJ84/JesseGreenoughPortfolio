@@ -2,26 +2,28 @@
 
 // TODO: Implement streaming and preloading where needed in the application
 import React from 'react';
+import { connection } from 'next/server';
 import { Metadata, Viewport } from 'next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { AppContextProvider } from '../_utils/AppContext';
 import Navbar from './_layout/Navbar/Navbar';
-import AmbientBackground from './_layout/AmbientBackground';
+import LazyAmbientBackground from './_layout/LazyAmbientBackground';
 import VisitorTracker from './_layout/VisitorTracker';
 
 // Styles
 import '../../styles/globals.css';
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  await connection();
   return (
     <html lang='en-US'>
       <body>
         <AppContextProvider>
-          <AmbientBackground />
+          <LazyAmbientBackground />
           <Navbar />
           <VisitorTracker />
           {children}

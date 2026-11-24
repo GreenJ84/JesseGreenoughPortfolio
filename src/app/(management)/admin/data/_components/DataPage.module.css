@@ -56,6 +56,7 @@
 .jsonEditor .formTextarea{min-height:300px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.84rem;line-height:1.5;tab-size:2}
 .jsonEditor .submitBtn{justify-self:start}
 .jsonEditor p{margin:0}
+.skillPreviewList{list-style:none;padding:0}
 .formLabel{display:grid;align-content:start;gap:.4rem;min-width:0;color:var(--text-primary);font-size:.9rem;font-weight:650}
 .wideField,.formFieldset,.modalActions,.formError{grid-column:1 / -1}
 .formInput,.formTextarea{width:100%;min-width:0;min-height:42px;padding:.65rem .8rem;border:1px solid var(--surface-border);border-radius:.6rem;outline:none;background:var(--background);color:var(--text-primary);font:inherit;font-weight:400}

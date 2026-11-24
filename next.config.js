@@ -5,24 +5,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   analyzerMode: 'json',
 });
 
-const development = process.env.NODE_ENV === 'development';
-// Static Next.js pages contain inline hydration scripts. Keep that compatibility
-// explicit; a nonce-only policy would require changing their rendering strategy.
-const contentSecurityPolicy = [
-  "default-src 'self'",
-  "base-uri 'self'",
-  "object-src 'none'",
-  "frame-ancestors 'none'",
-  "form-action 'self'",
-  `script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com${development ? " 'unsafe-eval'" : ''}`,
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: blob: https:",
-  "font-src 'self'",
-  `connect-src 'self' https://github-contributions-api.jogruber.de https://vitals.vercel-insights.com https://*.vercel-insights.com${development ? ' ws: wss:' : ''}`,
-  "worker-src 'self' blob:",
-  "frame-src 'none'",
-].join('; ');
-
 const nextConfig = {
   output: 'standalone',
   poweredByHeader: false,
@@ -32,7 +14,6 @@ const nextConfig = {
     return [{
       source: '/:path*',
       headers: [
-        { key: 'Content-Security-Policy', value: contentSecurityPolicy },
         { key: 'X-Content-Type-Options', value: 'nosniff' },
         { key: 'X-Frame-Options', value: 'DENY' },
         { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },

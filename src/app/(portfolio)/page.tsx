@@ -23,9 +23,9 @@ const HomePage = () => {
   return (
     <main className={css.homeMain}>
       <HomeTop />
-      <Suspense fallback={<section style={{ minHeight: 250 }} aria-label="Skills loading" />}><HomeSkills /></Suspense>
+      <Suspense fallback={<section className={css.skillsFallback} aria-label="Skills loading" />}><HomeSkills /></Suspense>
       <ProfessionalSnapshot />
-      <Suspense fallback={<section style={{ minHeight: 400 }} aria-label="Featured projects loading" />}><HomeProjects /></Suspense>
+      <Suspense fallback={<section className={css.projectsFallback} aria-label="Featured projects loading" />}><HomeProjects /></Suspense>
       <AboutPreview />
       <Footer />
     </main>

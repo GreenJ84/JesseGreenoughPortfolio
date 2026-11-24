@@ -2,6 +2,13 @@ const assert = require('node:assert/strict');
 const { test } = require('node:test');
 const { hasRemoteMatch } = require('next/dist/shared/lib/match-remote-pattern');
 const { hasLocalMatch } = require('next/dist/shared/lib/match-local-pattern');
+const { NextRequest } = require('next/server');
+const { loadSource, sourcePath } = require('./security-harness.cjs');
+
+async function pagePolicy(mode) {
+  const { proxy } = loadSource({}, { NODE_ENV: mode })('src/proxy.ts');
+  return (await proxy(new NextRequest('https://example.test/about'))).headers.get('content-security-policy');
+}
 
 function config(mode) {
   const original = process.env.NODE_ENV;
@@ -28,21 +35,32 @@ test('production headers protect pages and APIs without wildcard credentialed CO
   assert.equal(headers.get('strict-transport-security'), 'max-age=31536000');
   assert.equal(headers.get('access-control-allow-origin'), null);
   assert.equal(headers.get('access-control-allow-credentials'), null);
-  const policy = headers.get('content-security-policy');
+  const policy = await pagePolicy('production');
   assert.ok(policy.includes("frame-ancestors 'none'"));
   assert.ok(policy.includes("object-src 'none'"));
   assert.ok(policy.includes("form-action 'self'"));
   assert.ok(!policy.includes('unsafe-eval'));
+  assert.ok(!policy.includes('unsafe-inline'));
+  assert.ok(policy.includes('nonce-'));
   assert.ok(policy.includes('https://github-contributions-api.jogruber.de'));
   assert.equal(value.productionBrowserSourceMaps, false);
   assert.equal(value.poweredByHeader, false);
 });
 
 test('development CSP permits debugging and websocket reloads without production changes', async () => {
-  const rules = await config('development').headers();
-  const policy = rules[0].headers.find(header => header.key === 'Content-Security-Policy').value;
+  const policy = await pagePolicy('development');
   assert.ok(policy.includes("'unsafe-eval'"));
   assert.ok(policy.includes(' ws: wss:'));
+});
+
+test('nonce proxy retains the admin navigation guard', async () => {
+  const { proxy } = loadSource({ [sourcePath('src/app/_security/token.ts')]: { verifySessionToken: async token => { if (token !== 'valid') throw new Error('invalid'); } } }, { NODE_ENV: 'production' })('src/proxy.ts');
+  const signedOut = await proxy(new NextRequest('https://example.test/admin/data'));
+  assert.equal(signedOut.status, 307);
+  assert.equal(signedOut.headers.get('location'), 'https://example.test/admin/login');
+  const signedIn = await proxy(new NextRequest('https://example.test/admin/data', { headers: { cookie: 'admin-token=valid' } }));
+  assert.equal(signedIn.status, 200);
+  assert.ok(signedIn.headers.get('content-security-policy').includes('nonce-'));
 });
 
 test('image optimizer restricts protocol, ports, Cloudinary tenant, local paths and queries', () => {
