@@ -2,6 +2,10 @@
 .certCardHolder { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 310px), 1fr)); gap: 1rem; width: min(100% - 3rem, 1180px); margin: 0 auto; padding: 0; list-style: none; align-items: stretch; }
 .certCard { min-width: 0; }
 .certCard article { height: 100%; display: flex; flex-direction: column; padding: 1.5rem; border: 1px solid var(--surface-border); border-radius: 1rem; background: var(--card-background); box-shadow: var(--shadow); }
+.certCard article { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.certCard article:hover, .certCard article:focus-within { transform: translateY(-4px) scale(1.012); box-shadow: var(--shadow-hover); border-color: var(--hover-border); }
+.certCard article:hover h4, .certCard article:focus-within h4 { letter-spacing: .005em; }
+@media (prefers-reduced-motion: reduce) { .certCard article { transition: none; } }
 .certHead { display: flex; align-items: center; gap: 1rem; }
 .certImage { flex: none; width: 72px; height: 72px; border-radius: 0.75rem; object-fit: contain; background: var(--card-background2); }
 .issuer { margin: 0 0 0.2rem; color: var(--text-detail); font-size: 0.77rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }

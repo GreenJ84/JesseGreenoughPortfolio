@@ -8,6 +8,10 @@
 .workFilter .activeFilter { color: var(--text-primary); background: var(--card-background2); }
 .workCardHolder { width: min(100% - 3rem, 1000px); margin: 0 auto; padding: 0; list-style: none; display: grid; gap: 1rem; }
 .workCard article { padding: 1.5rem; border: 1px solid var(--surface-border); border-radius: 1rem; background: var(--card-background); box-shadow: var(--shadow); }
+.workCard article { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.workCard article:hover, .workCard article:focus-within { transform: translateY(-4px) scale(1.012); box-shadow: var(--shadow-hover); border-color: var(--hover-border); }
+.workCard article:hover h2, .workCard article:focus-within h2 { letter-spacing: .005em; }
+@media (prefers-reduced-motion: reduce) { .workCard article { transition: none; } }
 .cardHead { display: flex; align-items: center; gap: 1rem; }
 .workImage { flex: none; width: 64px; height: 64px; object-fit: contain; padding: 0.3rem; border-radius: 0.75rem; background: var(--card-background2); }
 .company { margin: 0 0 0.2rem; color: var(--text-detail); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }

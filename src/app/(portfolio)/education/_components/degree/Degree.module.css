@@ -1,5 +1,9 @@
 .degrees { list-style: none; width: 100%; }
 .cardContainer { height: 100%; padding: 1.5rem; border: 1px solid var(--surface-border); border-radius: 1rem; color: var(--text-primary); background: var(--card-background); box-shadow: var(--shadow); }
+.cardContainer { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.cardContainer:hover, .cardContainer:focus-within { transform: translateY(-4px) scale(1.012); box-shadow: var(--shadow-hover); border-color: var(--hover-border); }
+.cardContainer:hover h3, .cardContainer:focus-within h3 { letter-spacing: .005em; }
+@media (prefers-reduced-motion: reduce) { .cardContainer { transition: none; } }
 .cardHead { display: flex; align-items: center; gap: 1rem; }
 .image { flex: none; width: 72px; height: 72px; object-fit: contain; border-radius: 0.75rem; background: var(--card-background2); }
 .date { margin: 0 0 0.3rem; color: var(--text-detail); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }

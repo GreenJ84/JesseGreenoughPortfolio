@@ -9,6 +9,9 @@
 .resumeControls button:hover:not(:disabled) { background: var(--hover-surface); border-color: var(--hover-border); }
 .resumeControls button:disabled { opacity: 0.45; cursor: not-allowed; }
 .resume > img { display: block; width: min(100%, 760px); height: auto; margin: 0 auto; border: 1px solid var(--surface-border); border-radius: 0.75rem; box-shadow: var(--shadow); }
+.resume > img { transition: transform .2s ease, box-shadow .2s ease; }
+.resume > img:hover { transform: scale(1.008); box-shadow: var(--shadow-hover); }
+@media (prefers-reduced-motion: reduce) { .resume > img { transition: none; } }
 .resumeButtonHolder { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.8rem; margin: 1.5rem auto; }
 .resumeButton { display: inline-flex; align-items: center; justify-content: center; min-width: 150px; padding: 0.7rem 1.15rem; border: 1px solid var(--surface-border); border-radius: 0.65rem; background: var(--card-background); color: var(--text-primary); font-weight: 750; }
 .resumeButton:first-child { background: var(--detail); color: var(--text-negative); border-color: var(--detail); }

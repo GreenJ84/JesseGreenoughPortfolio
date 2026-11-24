@@ -4,8 +4,22 @@
 .previewEyebrow { margin: 0 0 0.6rem; color: var(--text-detail); text-transform: uppercase; font-size: 0.77rem; font-weight: 800; letter-spacing: 0.17em; }
 .previewHeading h2 { margin: 0; font-size: var(--header2); letter-spacing: -0.035em; }
 .moreLink { color: var(--text-detail); font-weight: 800; white-space: nowrap; border-bottom: 1px solid currentColor; }
-.previewGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.previewCarousel { position: relative; height: clamp(430px, 46vw, 570px); isolation: isolate; }
+.previewCarousel .previewCard { position: absolute; top: 0; width: 54%; height: 100%; transition: transform .32s ease, opacity .32s ease, box-shadow .2s ease; }
+.previewcenter { z-index: 3; left: 23%; transform: scale(1); }
+.previewleft { z-index: 1; left: 0; transform: scale(.86); transform-origin: left center; opacity: .6; box-shadow: var(--shadow-hover); }
+.previewright { z-index: 1; right: 0; transform: scale(.86); transform-origin: right center; opacity: .6; box-shadow: var(--shadow-hover); }
+.previewleft:hover, .previewright:hover { opacity: .82; }
+.previewSideButton { position: absolute; inset: 0; width: 100%; border: 0; background: transparent; cursor: pointer; }
+.previewSideButton:focus-visible { outline: 3px solid var(--detail); outline-offset: -4px; }
+.previewPagination { display: flex; justify-content: center; gap: .45rem; margin-top: 1rem; }
+.previewPagination button { width: 28px; height: 28px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.previewPagination button::before { content: ''; display: block; width: 9px; height: 9px; margin: auto; border-radius: 50%; background: var(--text-secondary); }
+.previewPagination button[aria-current='true']::before { width: 20px; border-radius: 99px; background: var(--detail); }
 .previewCard, .projectCard article { min-width: 0; overflow: hidden; border: 1px solid var(--surface-border); border-radius: 1.2rem; background: var(--card-background); box-shadow: var(--shadow); }
+.projectCard article { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.projectCard article:hover, .projectCard article:focus-within { transform: translateY(-4px) scale(1.012); box-shadow: var(--shadow-hover); border-color: var(--hover-border); }
+.projectCard article:hover h2, .projectCard article:focus-within h2, .previewcenter:hover h3 { letter-spacing: .005em; }
 .previewMedia, .projectImage { position: relative; height: clamp(180px, 21vw, 290px); background: var(--card-background2); }
 .previewMedia img, .projectImage img { object-fit: cover; }
 .previewContent, .projectContent { padding: 1.5rem; }
@@ -31,4 +45,5 @@
 .projectDetails summary { color: var(--text-primary); cursor: pointer; font-weight: 700; }
 .projectDetails summary:hover { color: var(--text-detail); }
 .projectDetails p { margin: 0.8rem 0 0; white-space: pre-line; line-height: 1.65; }
-@media (max-width: 760px) { .previewHeading { align-items: flex-start; flex-direction: column; } .previewGrid { grid-template-columns: 1fr; } .projectsBody { padding-top: 2rem; } }
+@media (max-width: 760px) { .previewHeading { align-items: flex-start; flex-direction: column; } .previewCarousel { height: 480px; } .previewCarousel .previewCard { width: 82%; } .previewcenter { left: 9%; } .previewleft { left: -55%; } .previewright { right: -55%; } .projectsBody { padding-top: 2rem; } }
+@media (prefers-reduced-motion: reduce) { .previewCarousel .previewCard, .projectCard article { transition: none; } }
