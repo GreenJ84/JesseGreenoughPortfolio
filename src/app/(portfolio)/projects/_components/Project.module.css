@@ -20,17 +20,25 @@
 .projectCard article { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
 .projectCard article:hover, .projectCard article:focus-within { transform: translateY(-4px) scale(1.012); box-shadow: var(--shadow-hover); border-color: var(--hover-border); }
 .projectCard article:hover h2, .projectCard article:focus-within h2, .previewcenter:hover h3 { letter-spacing: .005em; }
-.previewMedia, .projectImage { position: relative; height: clamp(180px, 21vw, 290px); background: var(--card-background2); }
-.previewExpand { position: absolute; z-index: 5; right: .75rem; bottom: .75rem; display: flex; align-items: center; gap: .5rem; min-height: 40px; padding: .4rem .8rem; border: 1px solid var(--hover-border); border-radius: .6rem; background: var(--card-background); color: var(--text-primary); box-shadow: var(--shadow); cursor: pointer; font: inherit; font-weight: 750; }
-.previewExpand:hover, .previewExpand:focus-visible { background: var(--hover-surface); box-shadow: var(--shadow-hover); }
-.previewDescription { position: absolute; z-index: 4; inset: 5% 5% 0; overflow-y: auto; padding: 1rem 1rem 3.8rem; border: 1px solid var(--hover-border); border-radius: .8rem .8rem 0 0; background: var(--card-background); color: var(--text-primary); box-shadow: var(--shadow-hover); overscroll-behavior: contain; }
+.previewMedia { position: absolute; inset: 0; background: var(--card-background2); }
+.projectImage { position: relative; height: clamp(180px, 21vw, 290px); background: var(--card-background2); }
+.previewCarousel .previewContent { position: absolute; z-index: 2; inset: auto 0 0; display: flex; flex-direction: column; height: 48%; min-height: 260px; padding: 1.35rem 1.5rem; background: var(--card-background); border-top: 1px solid var(--surface-border); box-shadow: 0 -12px 28px rgb(0 0 0 / .14); transition: height .3s ease, box-shadow .3s ease; }
+.previewCarousel .previewContentExpanded { height: 93%; box-shadow: 0 -20px 44px rgb(0 0 0 / .25); }
+.previewBrief { margin: .35rem 0 0; color: var(--text-secondary); line-height: 1.55; }
+.previewInlineMore { display: inline; padding: 0; border: 0; background: transparent; color: var(--text-detail); cursor: pointer; font: inherit; font-weight: 800; text-decoration: underline; text-underline-offset: .15em; }
+.previewMoreGroup { white-space: nowrap; }
+.previewInlineMore:hover, .previewInlineMore:focus-visible { color: var(--detail-hover); }
+.previewRule { width: 100%; margin: .25rem 0 .8rem; border: 0; border-top: 1px solid var(--surface-border); }
+.previewDescription { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0 .5rem 0 0; color: var(--text-secondary); overscroll-behavior: contain; }
 .previewDescription[hidden] { display: none; }
-.previewDescription p { margin: 0; white-space: pre-line; line-height: 1.6; }
+.previewDescription p { margin: 0; white-space: pre-line; line-height: 1.65; }
+.previewDescription p + p { margin-top: 1rem; }
 .previewMedia img, .projectImage img { object-fit: cover; }
 .previewContent, .projectContent { padding: 1.5rem; }
 .previewContent h3, .projectContent h2 { margin: 0 0 0.6rem; font-size: 1.4rem; line-height: 1.25; }
 .previewContent p, .projectBrief { color: var(--text-secondary); line-height: 1.6; }
-.previewContent p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; overflow: hidden; }
+.previewCarousel .previewContent > ul { margin: .75rem 0; }
+.previewCarousel .previewLinks { margin-top: auto; padding-top: .75rem; }
 .previewContent ul, .techList { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; padding: 0; margin: 1.2rem 0; }
 .previewContent li, .techList li { padding: 0.25rem 0.6rem; border-radius: 999px; background: var(--card-background2); color: var(--text-secondary); font-size: 0.78rem; }
 .techList li { cursor: default; transition: background .16s, color .16s, transform .16s; }
@@ -50,5 +58,5 @@
 .projectDetails summary { color: var(--text-primary); cursor: pointer; font-weight: 700; }
 .projectDetails summary:hover { color: var(--text-detail); }
 .projectDetails p { margin: 0.8rem 0 0; white-space: pre-line; line-height: 1.65; }
-@media (max-width: 760px) { .previewHeading { align-items: flex-start; flex-direction: column; } .previewCarousel { height: 480px; } .previewCarousel .previewCard { width: 82%; } .previewcenter { left: 9%; } .previewleft { left: -55%; } .previewright { right: -55%; } .projectsBody { padding-top: 2rem; } }
-@media (prefers-reduced-motion: reduce) { .previewCarousel .previewCard, .projectCard article { transition: none; } }
+@media (max-width: 760px) { .previewHeading { align-items: flex-start; flex-direction: column; } .previewCarousel { height: 500px; } .previewCarousel .previewCard { width: 82%; } .previewcenter { left: 9%; } .previewleft { left: -55%; } .previewright { right: -55%; } .previewCarousel .previewContent { height: 54%; padding: 1rem; } .previewCarousel .previewContentExpanded { height: 94%; } .previewCarousel .previewContent:not(.previewContentExpanded) > ul { display: none; } .projectsBody { padding-top: 2rem; } }
+@media (prefers-reduced-motion: reduce) { .previewCarousel .previewCard, .previewCarousel .previewContent, .projectCard article { transition: none; } }
