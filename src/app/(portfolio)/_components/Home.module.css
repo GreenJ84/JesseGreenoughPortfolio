@@ -29,10 +29,13 @@
 .skillTrack { display: flex; width: max-content; animation: skillDrift 34s linear infinite; }
 .skillTrack ul { display: flex; flex: none; align-items: center; gap: .75rem; margin: 0; padding: 0 .75rem 0 0; list-style: none; }
 .skillTrack li { display: inline-flex; align-items: center; gap: .65rem; min-height: 56px; padding: .8rem 1rem; border: 1px solid var(--surface-border); border-radius: .8rem; background: var(--card-background); color: var(--text-primary); font-weight: 700; white-space: nowrap; }
+.skillTrack li { transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.skillTrack li:hover { transform: translateY(-3px) scale(1.045); background: var(--hover-surface); border-color: var(--hover-border); box-shadow: var(--shadow-hover); }
 .skillTrack svg { width: 22px; height: 22px; color: var(--text-detail); }
 .skillMarquee:hover .skillTrack, .skillMarquee:focus-within .skillTrack { animation-play-state: paused; }
 @keyframes skillDrift { to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .skillTrack { animation: none; } .skillMarquee { overflow-x: auto; mask-image: none; } }
+@media (prefers-reduced-motion: reduce) { .skillTrack li { transition: none; } }
 .snapshotHeading h2 { margin: 0 0 1.5rem; font-size: var(--header2); letter-spacing: -0.035em; }
 .snapshotGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
 .snapshotCard { display: flex; flex-direction: column; min-height: 230px; padding: 1.5rem; border: 1px solid var(--surface-border); border-radius: 1rem; background: var(--card-background); box-shadow: var(--shadow); }
