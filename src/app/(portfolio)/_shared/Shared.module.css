@@ -30,6 +30,7 @@
 .filterOptions button { display: flex; justify-content: space-between; gap: .5rem; padding: .55rem .65rem; border: 0; border-radius: .4rem; background: transparent; color: var(--text-primary); font: inherit; cursor: pointer; text-align: left; }
 .filterOptions button:hover, .filterOptions button:focus-visible { background: var(--hover-surface); color: var(--text-detail); }
 .filterOptions button:disabled { opacity: .5; cursor: not-allowed; }
+.selectedCheck { flex: none; width: 1rem; height: 1rem; color: var(--text-detail); }
 .filterOptions p { margin: .5rem; color: var(--text-secondary); }
 
 /* ============== Add Item Button ============== */
