@@ -26,6 +26,7 @@ Admin cookies remain HTTP-only, same-site strict, and secure in production. Sess
 expire after one hour. Tokens require HS256, the configured admin identity and role,
 a session ID, issuance/expiration times, and the application's issuer and audience.
 Old tokens from before this change are invalid; log in again after deployment.
+Once a passkey is enrolled, password-only sign-in is disabled for the owner.
 
 Each mutation and full admin-list action checks the active MongoDB session before
 performing data operations. Authorization is never cached. Dashboard/data page
@@ -35,8 +36,8 @@ check; revocation is enforced at the server action/page boundary.
 Logout deletes the session before clearing the cookie. A copied token cannot be
 reused after a successful logout. If session storage is unavailable, logout displays
 an error rather than claiming the session was revoked. Rotating `JWT_SECRET`
-invalidates all existing tokens. Existing login uses environment credentials; MFA
-and a managed identity provider are not part of this change.
+invalidates all existing tokens. Password credentials remain a bootstrap gate for
+passkey sign-in; recovery and a second passkey need an operational drill.
 
 ## Shared storage and rate limits
 
@@ -105,12 +106,10 @@ production HSTS. API responses no longer advertise wildcard credentialed CORS;
 same-origin application requests continue to work. Browser source maps and the
 framework identification header are disabled.
 
-The CSP permits the existing GitHub calendar API and Vercel measurement endpoints.
-Development alone permits eval and websocket reloads. Inline hydration scripts and
-inline styles remain allowed to preserve static rendering and existing styling;
-this is a baseline policy, not a nonce-only XSS defense. A stricter nonce policy
-requires a separate rendering/cache design decision. External HTTPS images remain
-allowed in browser markup for the existing stats cards.
+The per-request nonce CSP permits the existing GitHub calendar API and Vercel
+measurement endpoints. Development alone permits eval and websocket reloads.
+`unsafe-inline` is absent; the nonce policy requires dynamic page rendering.
+External HTTPS images remain allowed in browser markup for the existing stats cards.
 
 The optimizer accepts HTTPS on the existing image hosts, with Cloudinary restricted
 to the `portfolio-g84` tenant and no query string. Other legacy hosts retain their

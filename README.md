@@ -138,20 +138,18 @@ Run `npm run typecheck` to check all application source files and the separate
 Cypress configuration/suite. Run `npm run lint` for Next.js lint checks and `npm run test:startup` for isolated
 database startup regression tests (no database required).
 
-Application startup does not run database migrations or close the shared MongoDB
-client. Development reuses the client across hot reloads. Set `DB_CONN_STRING` to
-select a database; development defaults to `mongodb://localhost:27017` when unset,
-and production requires an explicit connection string.
+Development reuses the MongoDB client across hot reloads. On a named local
+`PersonalPortfolioDev_YYYYMMDD_XXXXXXXX` database, startup migrates legacy
+resource collections to singular names and merges both work collections into
+`work`. It verifies the copied documents before dropping the old local
+collections. Production startup never performs this migration. For a read-only
+production-content copy into a fresh local development database, follow
+[the development data guide](docs/DEVELOPMENT_DATA.md) and
+[the rollout plan](docs/ROLLOUT_PLAN_2026-11.md).
 
-Primary work records use `workExperience`; secondary work records retain the existing
-`secondaryExperience` collection. No work data is moved during startup.
-
-Legacy schema migration helpers have been removed pending a reviewed migration plan.
-For a read-only production-content copy into a fresh local development database,
-follow [the development data guide](docs/DEVELOPMENT_DATA.md).
-
-`npm run build` prerenders database-backed portfolio pages, so the configured
-MongoDB server must be reachable during a production build.
+Portfolio routes use per-request nonce CSP and render dynamically. The production
+database must contain the new collections before the new deployment receives
+traffic. A successful build alone does not prove data availability.
 
 ## Security checks
 
@@ -184,9 +182,9 @@ and ships only Next.js standalone output, static assets, and root `public` files
 The runtime runs as the unprivileged `node` user. Keep the image digest updated
 when taking future Node/base-image security patches.
 
-Portfolio pages are prerendered, so build-time configuration must point to a
-reachable database containing valid portfolio data. Give the builder read-only
-portfolio credentials. Supply that configuration through a BuildKit secret:
+Build-time configuration should use a non-production database. Supply build
+secrets through BuildKit when needed; runtime credentials must point to the
+verified destination database:
 
 ```sh
 docker build --secret id=build_env,src=/secure/path/build.env -t portfolio:local .
@@ -199,7 +197,7 @@ needs mail settings and database permissions described in `docs/SECURITY.md`.
 No secret file is copied into the context or final image; traced `.env*` files are
 removed from standalone output. Do not place secrets in `NEXT_PUBLIC_*` variables.
 Changes to BuildKit secret contents do not automatically invalidate build caches;
-use `--no-cache-filter builder` when refreshing prerendered data or build credentials.
+use `--no-cache-filter builder` when refreshing build credentials.
 The container health check tests HTTP readiness, not database/SMTP availability.
 
 Sources: [Docker build secrets](https://docs.docker.com/build/building/secrets/),

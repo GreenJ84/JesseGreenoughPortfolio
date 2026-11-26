@@ -1,22 +1,15 @@
 # Skills data
 
-Skills now use the `skills` collection. Public Home and Skills views read visible records from that collection after initialization. Until a reachable database is initialized, they render the existing 58 static records so a deployment does not start with an empty skills page. If the database cannot be checked, public reads return no skills rather than exposing records whose visibility is unknown. The owner-only admin page is at `/admin/data/skills`.
+Skills are stored in the singular `skill` MongoDB collection. Home and Skills read only visible records from that collection; the owner-only editor at `/admin/data/skills` reads all records. An empty collection renders an empty skill list. A database failure is an error, not an invitation to show stale hardcoded data.
 
-Each record stores a category, name, 1–5 rating, icon key, display order, and visibility. Icon keys are chosen from the application's allowlisted icon registry; React components are never stored in MongoDB. A unique index on category and normalized name prevents duplicates within a group.
+Each record stores `title`/`name`, `brief`, `category`, `rating` (1–5), `image_url` (an icon key), `sortOrder`, and `visible`. Category labels and the allowlisted icon registry remain in application code as presentation metadata; skill names, ratings, visibility, and ordering are database data. Admin writes create the unique `(category, normalizedName)` index and invalidate public skill caches.
 
-## Initialize a development copy
+## Development copy
 
-Set `PORTFOLIO_DB_NAME` to the isolated `PersonalPortfolioDev_YYYYMMDD_XXXXXXXX` database from `npm run data:copy`. The seed uses `DB_CONN_STRING` when present, otherwise `PORTFOLIO_LOCAL_URI` or loopback MongoDB. It rejects remote hosts and a URI database path that differs from `PORTFOLIO_DB_NAME`.
+`npm run data:copy` creates a named local copy from a read-only production source credential. With `PORTFOLIO_DB_NAME=PersonalPortfolioDev_YYYYMMDD_XXXXXXXX` and a loopback MongoDB connection, the development startup migration copies legacy `skills` into `skill`, verifies records, then drops the old local collection. The hardcoded seed script and admin import control have been removed.
 
-```sh
-npm run skills:preview
-npm run skills:seed
-```
+Check the copied records before relying on them: total count, visible count, category values, icon keys, and Home/Skills rendering. The tested local copy had 58 records, all visible, with supported categories and icon keys. A future production migration must copy the current production records; the local copy is not a production source of truth.
 
-The preview reports the target and current count. The seed inserts missing legacy records, leaves existing matching records unchanged, then marks the collection initialized. Repeating it after initialization makes no changes. You can also initialize through the owner-only **Import current skills** button on the Skills admin page.
+## Deployment gate
 
-## Production rollout
-
-Review the development copy first. A production preview uses `PORTFOLIO_PRODUCTION_URI` and `node scripts/seed-skills.cjs --production`. An explicit production write requires `--production --apply --confirm-production-skills`; no production import was run as part of this implementation. After import, edits in the admin page invalidate the public skills cache and refresh Home and Skills.
-
-The former static list remains as the seed and pre-initialization fallback. A standalone script import may require page revalidation or redeployment before the static Home and Skills pages refresh; the admin import triggers that refresh directly. The static list can be removed after production has been initialized and checked.
+Do not deploy the database-only skill reader until the production `skill` collection is populated and verified. Keep the legacy `skills` collection through the rollback window so the previous deployment can still read it. The full sequence is in [the rollout plan](ROLLOUT_PLAN_2026-11.md).
