@@ -39,7 +39,7 @@ export default function EducationPage() {
         onDelete={async education => { if (education.id) { await deleteEducation(education.id); await afterMutation(); } }}
         itemDisplay={(edu: EducationDTO) => (
           <>
-            <strong>{edu.degree}</strong>
+            <strong>{edu.title}</strong>
             <div className={css.dataBrief}>{edu.brief}</div>
           </>
         )}
