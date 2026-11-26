@@ -4,18 +4,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 // Database connection
-export const OLD_DB_INFO = {
-  name: "PersonalPortfolio",
-  collections: {
-    RES: "resumes",
-    WORK: "workExperience",
-    SWORK: "secondaryExperience",
-    CERT: "certifications",
-    EDU: "degrees",
-    PROJ: "projects",
-  }
-}
-
 export const DB_INFO = {
   name: process.env.NODE_ENV !== "production" && /^PersonalPortfolioDev_[0-9]{8}_[a-f0-9]{8}$/.test(process.env.PORTFOLIO_DB_NAME || "") ? process.env.PORTFOLIO_DB_NAME! : "PersonalPortfolio",
   collections: {
