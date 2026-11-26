@@ -4,14 +4,13 @@ import { unstable_cache, updateTag, revalidatePath } from 'next/cache';
 import { ObjectId, type WithId } from 'mongodb';
 import { DB, DB_INFO } from '../_utils/Database';
 import type { Skill } from '../_lib/_types';
-import { normalizeSkillName, seedSkills, skillCategories } from '../_lib/skillCatalog';
+import { normalizeSkillName, skillCategories } from '../_lib/skillCatalog';
 import { skillInput, objectId, ValidationError } from '../_security/validation';
 import { requireAdmin } from '../_security/session';
 import { recordAdminEvent } from '../_observability/metrics';
 
 type StoredSkill = Skill & { normalizedName: string };
 const skills = DB.collection<StoredSkill>(DB_INFO.collections.SKILL);
-const state = DB.collection<{ _id: string; initialized: boolean }>('portfolioMetadata');
 const cacheScope = [DB_INFO.name, DB_INFO.collections.SKILL, 'model-v2'];
 const tag = 'publicSkills';
 
@@ -35,13 +34,7 @@ const getCachedSkills = unstable_cache(async (): Promise<Skill[]> => {
 }, ['publicSkills', ...cacheScope], { revalidate: 3600, tags: [tag] });
 
 export async function getPublicSkills(): Promise<Skill[]> {
-  let initialized;
-  try { initialized = await state.findOne({ _id: 'skills' }); }
-  catch (error) {
-    console.error('Skills initialization check failed:', error instanceof Error ? error.message : 'Unknown error');
-    return [];
-  }
-  return initialized ? getCachedSkills() : seedSkills;
+  return getCachedSkills();
 }
 
 export async function getAdminSkills(): Promise<Skill[]> {
@@ -49,37 +42,14 @@ export async function getAdminSkills(): Promise<Skill[]> {
   return readSkills(false);
 }
 
-export async function getSkillInitializationStatus(): Promise<boolean> {
-  await requireAdmin();
-  return Boolean(await state.findOne({ _id: 'skills' }));
-}
-
 async function prepareCollection() {
   await skills.createIndex({ category: 1, normalizedName: 1 }, { unique: true, name: 'skill_category_name_unique' });
-}
-
-async function markInitialized() {
-  await state.updateOne({ _id: 'skills' }, { $set: { initialized: true } }, { upsert: true });
 }
 
 function refreshSkills() {
   updateTag(tag);
   revalidatePath('/');
   revalidatePath('/skills');
-}
-
-export async function importLegacySkills(): Promise<number> {
-  const admin = await requireAdmin();
-  await prepareCollection();
-  if (await state.findOne({ _id: 'skills' })) throw new ValidationError('Skills have already been initialized');
-  await skills.bulkWrite(seedSkills.map(skill => {
-    const normalizedName = normalizeSkillName(skill.title);
-    return { updateOne: { filter: { category: skill.category, normalizedName }, update: { $setOnInsert: { ...skill, normalizedName } }, upsert: true } };
-  }));
-  await markInitialized();
-  await recordAdminEvent(admin.username, 'create', 'skill', 'legacy-import');
-  refreshSkills();
-  return seedSkills.length;
 }
 
 export async function saveSkill(input: unknown): Promise<void> {
@@ -98,7 +68,6 @@ export async function saveSkill(input: unknown): Promise<void> {
     if (error && typeof error === 'object' && 'code' in error && error.code === 11000) throw new ValidationError('A skill with this name already exists in this group');
     throw error;
   }
-  await markInitialized();
   await recordAdminEvent(admin.username, id ? 'update' : 'create', 'skill', id);
   refreshSkills();
 }
@@ -108,7 +77,6 @@ export async function deleteSkill(inputId: unknown): Promise<void> {
   const id = objectId(inputId);
   const result = await skills.deleteOne({ _id: new ObjectId(id) });
   if (!result.deletedCount) throw new Error('Record not found');
-  await markInitialized();
   await recordAdminEvent(admin.username, 'delete', 'skill', id);
   refreshSkills();
 }

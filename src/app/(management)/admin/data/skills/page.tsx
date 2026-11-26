@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import type { Skill } from '@/app/_lib/_types';
-import { deleteSkill, getAdminSkills, getSkillInitializationStatus, importLegacySkills } from '@/app/_actions/skillService';
+import { deleteSkill, getAdminSkills } from '@/app/_actions/skillService';
 import DataStatus from '../_components/DataStatus';
 import useDataManager from '../_components/useDataManager';
 import FormModal from '../_components/FormModal';
@@ -12,24 +11,11 @@ import css from '../_components/DataPage.module.css';
 
 export default function SkillsAdminPage() {
   const { items, selected, showModal, openModal, closeModal, loading, error, refresh, afterMutation } = useDataManager<Skill>(getAdminSkills);
-  const [importing, setImporting] = useState(false);
-  const [importError, setImportError] = useState<string | null>(null);
-  const [initialized, setInitialized] = useState<boolean | null>(null);
-  useEffect(() => { let active = true; void getSkillInitializationStatus().then(value => { if (active) setInitialized(value); }).catch(() => { if (active) setImportError('Could not check skill initialization.'); }); return () => { active = false; }; }, []);
-  async function importCurrent() {
-    setImporting(true);
-    setImportError(null);
-    try { await importLegacySkills(); setInitialized(true); await refresh(); }
-    catch (cause) { setImportError(cause instanceof Error ? cause.message : 'Could not import skills.'); }
-    finally { setImporting(false); }
-  }
   return <main className={css.dataPageWrap}>
     <div className={css.dataHeader}>
       <div><p className={css.eyebrow}>Portfolio data</p><h1>Skills <span>{items.length}</span></h1><p>Manage public skills, proficiency, icons, and display order.</p></div>
-      <button type="button" className={css.newBtn} disabled={loading || importing || initialized !== true} onClick={() => openModal()}>+ New skill</button>
+      <button type="button" className={css.newBtn} disabled={loading} onClick={() => openModal()}>+ New skill</button>
     </div>
-    {initialized === false && <button type="button" className={css.newBtn} disabled={importing} onClick={() => { void importCurrent(); }}>{importing ? 'Importing…' : 'Import current skills'}</button>}
-    {importError && <p className={css.listError} role="alert">{importError}</p>}
     <DataStatus loading={loading} error={error} refresh={refresh} />
     <PortfolioDataList items={items} openModal={openModal} itemLabel={item => item.title} searchText={item => [item.title, item.category, item.image_url].join(' ')} groupBy={item => item.category} groupLabel={category => category.replaceAll('_', ' ')} defaultOpenGroup="languages" groupItemLabel={['skill', 'skills']}
       onDelete={async item => { if (item.id) { await deleteSkill(item.id); await afterMutation(); } }}

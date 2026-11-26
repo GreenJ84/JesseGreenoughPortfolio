@@ -20,9 +20,7 @@
     "perf:bundles": "node scripts/measure-bundles.cjs",
     "data:preview": "node scripts/copy-production-to-local.cjs",
     "data:copy": "node scripts/copy-production-to-local.cjs --apply",
-    "test:passkeys": "node scripts/check-owner-passkeys.cjs",
-    "skills:preview": "node scripts/seed-skills.cjs",
-    "skills:seed": "node scripts/seed-skills.cjs --apply"
+    "test:passkeys": "node scripts/check-owner-passkeys.cjs"
   },
   "dependencies": {
     "@simplewebauthn/browser": "14.0.0",

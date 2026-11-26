@@ -56,9 +56,6 @@ export async function migrateDevelopmentResources(): Promise<void> {
       if (!existing || !isDeepStrictEqual(existing, converted)) throw new Error(`Migration verification failed for ${sourceName}`);
     }
   }
-  if (pending.some(([source]) => source === 'skills')) {
-    await DB.collection<{ _id: string; initialized: boolean }>('portfolioMetadata').updateOne({ _id: 'skills' }, { $set: { initialized: true } }, { upsert: true });
-  }
   for (const [sourceName] of pending) await DB.collection(sourceName).drop();
   console.info(`Migrated ${pending.map(([name]) => name).join(', ')} in local development copy ${DB.databaseName}`);
 }
