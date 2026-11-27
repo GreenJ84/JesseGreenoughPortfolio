@@ -1,5 +1,4 @@
 const assert = require('node:assert/strict');
-const { spawn } = require('node:child_process');
 const { randomBytes } = require('node:crypto');
 const fs = require('node:fs');
 const { performance } = require('node:perf_hooks');
@@ -7,6 +6,7 @@ const { MongoClient, ObjectId, BSON } = require('mongodb');
 const { loadSource } = require('../tests/security-harness.cjs');
 const { transformLegacyRecord } = loadSource()('src/app/_utils/migrationTransform.ts');
 const { skillCategories, skillIconKeys } = loadSource()('src/app/_lib/skillCatalog.ts');
+const { run } = require('./migrate-portfolio.cjs');
 
 if (process.env.GITHUB_ACTIONS !== 'true' || process.env.PORTFOLIO_MIGRATION_CI !== '1') throw new Error('Migration integration requires CI');
 const localUri = process.env.DB_CONN_STRING || '';
@@ -29,19 +29,6 @@ async function fixture(db) {
   await db.collection('secondaryExperience').insertOne({ _id: rowId('05'), position: 'Volunteer', company: 'Example', date: '2016', details: ['Service'] });
   await db.collection('resumes').insertOne({ _id: rowId('06'), job_title: 'Backend Resume', view: '/assets/resumes/JesseGreenough.React.Resume_03.png', image: '/assets/resumes/JesseGreenough.React.Resume_03.png', download: '/assets/resumes/JesseGreenough.React.Resume_03.pdf', categories: ['Backend'] });
   await db.collection('skills').insertOne({ _id: rowId('07'), name: 'Rust', iconKey: 'Rust', category: 'languages', rating: 4, sortOrder: 0, visible: true });
-}
-async function copyProduction(db) {
-  const source = new MongoClient(process.env.PORTFOLIO_SOURCE_URI, { readPreference: 'secondaryPreferred', serverSelectionTimeoutMS: 10000 });
-  try {
-    await source.connect();
-    const from = source.db('PersonalPortfolio');
-    for (const name of sources) {
-      const docs = await from.collection(name).find({}).toArray();
-      if (!docs.length) throw new Error(`Production legacy collection ${name} is empty or missing`);
-      await db.collection(name).insertMany(docs);
-      console.log(`Copied ${docs.length} ${name} records into disposable MongoDB`);
-    }
-  } finally { await source.close(); }
 }
 async function inspect(db) {
   const expected = new Map();
@@ -120,68 +107,64 @@ async function queryTimings(db) {
   }
   return timings;
 }
-async function start(db, pattern, appPort = 3210) {
-  const uri = `mongodb://127.0.0.1:${port}/${db.databaseName}`;
-  const child = spawn(process.execPath, ['node_modules/next/dist/bin/next', 'dev', '--webpack', '-p', String(appPort)], {
-    env: { ...process.env, DB_CONN_STRING: uri, PORTFOLIO_DB_NAME: db.databaseName, NODE_ENV: 'development' }, stdio: ['ignore', 'pipe', 'pipe'],
-  });
-  let output = '';
-  let finished = false;
-  const onData = data => { output += data.toString(); if (output.length > 100000) output = output.slice(-100000); };
-  child.stdout.on('data', onData); child.stderr.on('data', onData);
-  try {
-    const deadline = Date.now() + 60000;
-    while (Date.now() < deadline) {
-      if (pattern.test(output)) { finished = true; break; }
-      if (child.exitCode !== null) break;
-      await new Promise(resolve => setTimeout(resolve, 200));
-    }
-    if (!finished) throw new Error(`Application startup did not report ${pattern}: ${output.slice(-1500)}`);
-    if (pattern.source === 'Ready in' || pattern.source.includes('Migrated')) {
-      const response = await fetch(`http://127.0.0.1:${appPort}/api/health`);
-      assert.equal(response.status, 200, 'Started app health');
-    }
-    return output;
-  } finally {
-    child.kill('SIGTERM');
-    await new Promise(resolve => { if (child.exitCode !== null) resolve(); else { child.once('exit', resolve); setTimeout(resolve, 5000); } });
-  }
-}
 async function negativeCases() {
+  const source = local.db('PersonalPortfolio');
   for (const [kind, setup, expected] of [
-    ['bad-date', async db => db.collection('workExperience').insertOne({ _id: rowId('10'), position: 'Engineer', company: 'Example', date: 'unknown' }), /Unrecognized legacy work period/],
-    ['conflict', async db => { await db.collection('projects').insertOne(project); await db.collection('project').insertOne({ _id: project._id, title: 'Conflicting target' }); }, /Migration conflict/],
+    ['bad-date', async db => source.collection('workExperience').insertOne({ _id: rowId('10'), position: 'Engineer', company: 'Example', date: 'unknown' }), /Unrecognized legacy work period/],
+    ['conflict', async db => db.collection('project').insertOne({ _id: project._id, title: 'Conflicting target' }), /Migration conflict/],
   ]) {
     const db = local.db(dbName());
     try {
+      await fixture(source);
       await setup(db);
-      await start(db, expected);
-      assert.ok(await db.collection(kind === 'bad-date' ? 'workExperience' : 'projects').countDocuments(), `${kind} source must survive`);
+      await assert.rejects(run('apply', { PORTFOLIO_SOURCE_URI: localUri, DB_CONN_STRING: `mongodb://127.0.0.1:${port}/${db.databaseName}` }), expected);
+      assert.ok(await source.collection('projects').countDocuments(), `${kind} source must survive`);
       console.log(`${kind} preserved source collection`);
-    } finally { await db.dropDatabase(); }
+    } finally { await db.dropDatabase(); await source.dropDatabase(); }
   }
 }
 (async () => {
   await local.connect();
   const db = local.db(dbName());
+  const sourceClient = productionCopy ? new MongoClient(process.env.PORTFOLIO_SOURCE_URI) : local;
+  const source = sourceClient.db('PersonalPortfolio');
+  let seededSource = false;
   try {
-    if (productionCopy) await copyProduction(db); else await fixture(db);
-    const snapshot = await inspect(db);
-    await start(db, /Migrated projects, certifications, degrees, workExperience, secondaryExperience, resumes, skills/);
+    if (productionCopy) await sourceClient.connect();
+    else {
+      assert.equal((await source.listCollections({}, { nameOnly: true }).toArray()).length, 0, 'Synthetic source database must be empty');
+      await fixture(source);
+      seededSource = true;
+    }
+    const snapshot = await inspect(source);
+    const env = { PORTFOLIO_SOURCE_URI: productionCopy ? process.env.PORTFOLIO_SOURCE_URI : localUri, DB_CONN_STRING: `mongodb://127.0.0.1:${port}/${db.databaseName}` };
+    await run('plan', env);
+    assert.equal(await db.collection('project').countDocuments(), 0, 'Plan must not write target records');
+    await assert.rejects(run('verify', env), /Migration incomplete/, 'Verify must fail before copy');
+    await run('apply', env);
     const report = await verify(db, snapshot);
+    for (const name of sources) assert.equal(await source.collection(name).countDocuments(), snapshot.counts[name], `${name} legacy source retained`);
     report.queryTimings = await queryTimings(db);
     const firstCounts = { ...report.targetCounts };
     const firstRecords = new Map();
     for (const name of Object.keys(firstCounts)) firstRecords.set(name, (await db.collection(name).find({}).toArray()).map(stable).sort());
-    await start(db, /Ready in/);
+    await run('apply', env);
+    await run('verify', env);
     for (const [name, count] of Object.entries(firstCounts)) assert.equal(await db.collection(name).countDocuments(), count, `${name} idempotence`);
-    for (const [name, records] of firstRecords) assert.deepEqual((await db.collection(name).find({}).toArray()).map(stable).sort(), records, `${name} changed on second startup`);
+    for (const [name, records] of firstRecords) assert.deepEqual((await db.collection(name).find({}).toArray()).map(stable).sort(), records, `${name} changed on second copy`);
+    if (!productionCopy) {
+      const sameDatabase = { PORTFOLIO_SOURCE_URI: localUri, DB_CONN_STRING: localUri };
+      await run('apply', sameDatabase);
+      await run('verify', sameDatabase);
+      for (const name of sources) assert.equal(await source.collection(name).countDocuments(), snapshot.counts[name], `${name} retained in same-database copy`);
+      for (const [name, count] of Object.entries(firstCounts)) assert.equal(await source.collection(name).countDocuments(), count, `${name} same-database target`);
+    }
     fs.mkdirSync('test-results', { recursive: true });
     fs.writeFileSync('test-results/migration-report.json', JSON.stringify(report, null, 2) + '\n');
     console.log(JSON.stringify(report, null, 2));
     if (productionCopy && report.inferredPeriods.length && !process.argv.includes('--accept-inferred-months')) throw new Error('Review inferred work months in the report before accepting this production-data rehearsal');
   } finally {
-    try { await db.dropDatabase(); await negativeCases(); }
-    finally { await local.close(); }
+    try { await db.dropDatabase(); if (seededSource) await source.dropDatabase(); if (seededSource || productionCopy) await negativeCases(); }
+    finally { if (productionCopy) await sourceClient.close(); await local.close(); }
   }
 })().catch(error => { console.error(error); process.exitCode = 1; });

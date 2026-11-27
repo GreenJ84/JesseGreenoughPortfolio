@@ -28,6 +28,7 @@ function databaseRuntime(env) {
       if (name === 'dotenv') return { config() {} };
       assert.fail(`Unexpected startup dependency: ${name}`);
     },
+    URL,
   });
   return {
     clients,
@@ -59,10 +60,10 @@ test('explicit development database configuration is respected', () => {
   assert.equal(runtime.load().DB.client.uri, 'mongodb://example.test:27017');
 });
 
-test('named development copy is selected only outside production', () => {
+test('database name follows DB_CONN_STRING while production rejects development names', () => {
   const name = 'PersonalPortfolioDev_20261123_b2704083';
-  assert.equal(databaseRuntime({ NODE_ENV: 'development', PORTFOLIO_DB_NAME: name }).load().DB.name, name);
-  assert.equal(databaseRuntime({ NODE_ENV: 'production', DB_CONN_STRING: 'mongodb://example.test:27017', PORTFOLIO_DB_NAME: name }).load().DB.name, 'PersonalPortfolio');
+  assert.equal(databaseRuntime({ NODE_ENV: 'development', DB_CONN_STRING: `mongodb://localhost:27017/${name}` }).load().DB.name, name);
+  assert.throws(() => databaseRuntime({ NODE_ENV: 'production', DB_CONN_STRING: `mongodb://example.test:27017/${name}` }).load(), /Production must use/);
 });
 
 test('production requires explicit database configuration before creating a client', () => {

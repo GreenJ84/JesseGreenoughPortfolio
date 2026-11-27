@@ -5,7 +5,14 @@ dotenv.config();
 
 // Database connection
 export const DB_INFO = {
-  name: process.env.NODE_ENV !== "production" && /^PersonalPortfolioDev_[0-9]{8}_[a-f0-9]{8}$/.test(process.env.PORTFOLIO_DB_NAME || "") ? process.env.PORTFOLIO_DB_NAME! : "PersonalPortfolio",
+  name: (() => {
+    const configured = process.env.DB_CONN_STRING?.trim();
+    const path = configured ? new URL(configured).pathname.slice(1) : '';
+    const name = path ? decodeURIComponent(path) : 'PersonalPortfolio';
+    if (!/^PersonalPortfolio(?:Dev_[0-9]{8}_[a-f0-9]{8})?$/.test(name)) throw new Error('DB_CONN_STRING contains an unsupported database name');
+    if (process.env.NODE_ENV === 'production' && name !== 'PersonalPortfolio') throw new Error('Production must use PersonalPortfolio');
+    return name;
+  })(),
   collections: {
     RES: "resume",
     WORK: "work",
