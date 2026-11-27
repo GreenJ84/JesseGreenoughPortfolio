@@ -16,7 +16,9 @@ permissions:
   contents: read
 jobs:
   verify:
-    runs-on: ubuntu-latest
+    name: App, browser, performance, and container checks
+    # Playwright's --with-deps runs apt; keep its package sources on a known Ubuntu release.
+    runs-on: ubuntu-24.04
     timeout-minutes: 35
     services:
       mongo:
@@ -33,25 +35,34 @@ jobs:
       ADMIN_PASSWORD: ci-only-fixture-password
       NEXT_TELEMETRY_DISABLED: '1'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Check out portfolio source
+        uses: actions/checkout@v4
+      - name: Set up project Node.js and npm cache
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: npm
-      - name: Install dependencies
+      - name: Install locked npm dependencies
         run: npm ci
         env:
           CYPRESS_INSTALL_BINARY: '0'
-      - run: npm run typecheck
-      - run: npm run lint
-      - run: npm test
-      - run: npx playwright install --with-deps chromium
+      - name: Check TypeScript types
+        run: npm run typecheck
+      - name: Check ESLint rules
+        run: npm run lint
+      - name: Run application and security tests
+        run: npm test
+      - name: Install Chromium and browser system dependencies
+        run: npx playwright install --with-deps chromium
       - name: Seed disposable browser fixture
         run: node scripts/seed-ci-portfolio.cjs
         env:
           PORTFOLIO_CI_FIXTURE: '1'
-      - run: npm run build
-      - name: Start standalone server and run route/browser checks
+      - name: Build the standalone Next.js application
+        run: npm run build
+      # Exercise the standalone output, then collect browser, accessibility,
+      # performance, and database evidence against the disposable fixture.
+      - name: Check routes, browser UX, accessibility, and performance
         run: |
           cp -R .next/static .next/standalone/.next/static
           cp -R public .next/standalone/public
@@ -69,6 +80,8 @@ jobs:
           node scripts/measure-db-queries.cjs
       - name: Check pinned container base digests
         run: node scripts/check-container-base.cjs
+      # The BuildKit secret supplies fixture credentials only while Next.js
+      # builds; the Dockerfile removes environment files from its output.
       - name: Build the runtime container with disposable data
         env:
           DOCKER_BUILDKIT: '1'
@@ -103,9 +116,10 @@ jobs:
           format: json
           output: test-results/container-vulnerabilities.json
           exit-code: '0'
+      # Keep the full report even when the policy step rejects a finding.
       - name: Gate unreviewed and fixable severe findings
         run: node scripts/check-container-vulnerabilities.cjs
-      - name: Upload browser and performance evidence
+      - name: Upload browser, performance, and container evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -116,7 +130,8 @@ jobs:
         if: failure()
         run: tail -150 /tmp/portfolio-ci-server.log || true
   migration-integration:
-    runs-on: ubuntu-latest
+    name: Rehearse migration with synthetic legacy data
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     services:
       mongo:
@@ -134,15 +149,18 @@ jobs:
       NEXT_TELEMETRY_DISABLED: '1'
       PORTFOLIO_MIGRATION_CI: '1'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Check out portfolio source
+        uses: actions/checkout@v4
+      - name: Set up project Node.js and npm cache
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: npm
-      - run: npm ci
+      - name: Install locked npm dependencies
+        run: npm ci
         env:
           CYPRESS_INSTALL_BINARY: '0'
-      - name: Plan, copy, and verify against synthetic legacy source; test failure preservation
+      - name: Check migration mapping, idempotence, and failure preservation
         run: node scripts/check-migration-integration.cjs
       - name: Upload migration report
         if: always()
@@ -152,8 +170,9 @@ jobs:
           path: test-results/migration-report.json
           if-no-files-found: ignore
   production-snapshot-rehearsal:
+    name: Rehearse migration with a read-only production copy
     if: github.event_name == 'workflow_dispatch' && inputs.production_snapshot
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     environment: production-data-review
     services:
@@ -172,15 +191,20 @@ jobs:
       NEXT_TELEMETRY_DISABLED: '1'
       PORTFOLIO_MIGRATION_CI: '1'
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Check out portfolio source
+        uses: actions/checkout@v4
+      - name: Set up project Node.js and npm cache
+        uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: npm
-      - run: npm ci
+      - name: Install locked npm dependencies
+        run: npm ci
         env:
           CYPRESS_INSTALL_BINARY: '0'
-      - name: Copy production resources read-only and verify disposable migration
+      # Source access is read-only; the copy and all migration writes target
+      # the MongoDB service created for this workflow run.
+      - name: Copy production data and verify migration in disposable MongoDB
         env:
           PORTFOLIO_SOURCE_URI: ${{ secrets.PORTFOLIO_SOURCE_URI }}
           ACCEPT_INFERRED_MONTHS: ${{ inputs.accept_inferred_months }}
