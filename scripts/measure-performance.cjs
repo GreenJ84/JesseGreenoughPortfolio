@@ -23,7 +23,7 @@ const metric = (metrics, name) => metrics.metrics.find(entry => entry.name === n
   const portrait = await sharp(Buffer.from('<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="400" fill="#184747"/><circle cx="200" cy="150" r="70" fill="#a4ffb6"/><path d="M60 400v-60a140 140 0 0 1 280 0v60" fill="#65fffa"/></svg>')).jpeg({ quality: 75 }).toBuffer();
   const stats = '<svg width="600" height="200" xmlns="http://www.w3.org/2000/svg"><rect width="600" height="200" fill="#184747"/></svg>';
   const calendar = { total: { lastYear: 365, '2026': 365 }, contributions: Array.from({ length: 365 }, (_, index) => ({ date: new Date(Date.UTC(2025, 10, 22 + index)).toISOString().slice(0, 10), count: 1, level: 1 })) };
-  const browser = await chromium.launch({ headless: true, ...(process.env.PERF_CHROME_PATH ? { executablePath: process.env.PERF_CHROME_PATH } : { channel: 'chrome' }) });
+  const browser = await chromium.launch({ headless: true, ...(process.env.PERF_CHROME_PATH ? { executablePath: process.env.PERF_CHROME_PATH } : {}) });
   const samples = [];
   try {
     for (const profile of selected) for (const route of routes) for (let run = 1; run <= runs; run++) {
@@ -42,8 +42,9 @@ const metric = (metrics, name) => metrics.metrics.find(entry => entry.name === n
         return request.continue();
       });
       await page.addInitScript(() => {
-        window.__performanceLab = { lcp: 0, blocking: 0, interaction: 0 };
+        window.__performanceLab = { lcp: 0, cls: 0, blocking: 0, interaction: 0 };
         new PerformanceObserver(list => { for (const entry of list.getEntries()) window.__performanceLab.lcp = entry.startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
+        new PerformanceObserver(list => { for (const entry of list.getEntries()) if (!entry.hadRecentInput) window.__performanceLab.cls += entry.value; }).observe({ type: 'layout-shift', buffered: true });
         new PerformanceObserver(list => { for (const entry of list.getEntries()) window.__performanceLab.blocking += Math.max(0, entry.duration - 50); }).observe({ type: 'longtask', buffered: true });
         new PerformanceObserver(list => { for (const entry of list.getEntries()) if (entry.interactionId) window.__performanceLab.interaction = Math.max(window.__performanceLab.interaction, entry.duration); }).observe({ type: 'event', buffered: true, durationThreshold: 16 });
       });
@@ -64,9 +65,10 @@ const metric = (metrics, name) => metrics.metrics.find(entry => entry.name === n
       const idleEnd = await cdp.send('Performance.getMetrics');
       const initialBytes = bytes, initialRequests = requests;
       const initial = await page.evaluate(() => ({ ...window.__performanceLab }));
-      await page.locator('#navbarToggle').click();
-      await page.locator('label[class*=themeSwitch]').click();
-      await page.locator('#navbarToggle').click();
+      const menu = page.getByRole('button', { name: 'Open menu' });
+      if (await menu.isVisible()) await menu.click();
+      await page.locator('label[aria-label="Toggle Day and Night themes"]').click();
+      if (await page.getByRole('button', { name: 'Close menu' }).isVisible()) await page.getByRole('button', { name: 'Close menu' }).click();
       await page.waitForTimeout(200);
       const interaction = await page.evaluate(() => window.__performanceLab.interaction);
       const activity = page.locator('[aria-label="Coding activity"], #githubCard').first();
@@ -75,7 +77,7 @@ const metric = (metrics, name) => metrics.metrics.find(entry => entry.name === n
       await page.waitForTimeout(2500);
       const sample = {
         profile, route, run, jsTransferredBytes: initialBytes, jsRequests: initialRequests,
-        lcpMs: Math.round(initial.lcp), longTaskBlockingMs: Math.round(initial.blocking),
+        lcpMs: Math.round(initial.lcp), cls: Number(initial.cls.toFixed(4)), longTaskBlockingMs: Math.round(initial.blocking),
         mainThreadTaskMs: Math.round(metric(idleStart, 'TaskDuration') * 1000),
         idleTaskMs: Math.round((metric(idleEnd, 'TaskDuration') - metric(idleStart, 'TaskDuration')) * 1000), idleWindowMs: 3000,
         interactionMaxMs: Math.round(interaction), afterScrollExtraJsBytes: bytes - initialBytes,
@@ -87,11 +89,11 @@ const metric = (metrics, name) => metrics.metrics.find(entry => entry.name === n
     }
     const summary = selected.flatMap(profile => routes.map(route => {
       const group = samples.filter(sample => sample.profile === profile && sample.route === route);
-      return { profile, route, ...Object.fromEntries(['jsTransferredBytes', 'jsRequests', 'lcpMs', 'longTaskBlockingMs', 'mainThreadTaskMs', 'idleTaskMs', 'interactionMaxMs', 'afterScrollExtraJsBytes'].map(key => [key, median(group.map(sample => sample[key]))])) };
+      return { profile, route, ...Object.fromEntries(['jsTransferredBytes', 'jsRequests', 'lcpMs', 'cls', 'longTaskBlockingMs', 'mainThreadTaskMs', 'idleTaskMs', 'interactionMaxMs', 'afterScrollExtraJsBytes'].map(key => [key, median(group.map(sample => sample[key]))])) };
     }));
     const report = {
       measuredAt: new Date().toISOString(), commit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(), browser: browser.version(), runs, base,
-      methodology: 'Cold contexts, disabled browser cache, fixed viewports; mobile CPU 4x and 1.6 Mbps/150 ms, desktop unthrottled. Images and third-party calendar/stats use fixed fixtures. Initial capture is load + 5.5 seconds; idle task cost is a 3-second window. Interaction maximum is a lab Event Timing proxy, not field INP. Below-fold JS is measured after scrolling.',
+      methodology: 'Cold contexts, disabled browser cache, fixed viewports; mobile CPU 4x and 1.6 Mbps/150 ms, desktop unthrottled. Images and third-party calendar/stats use fixed fixtures. Initial capture is load + 5.5 seconds; CLS excludes shifts after recent input. Idle task cost is a 3-second window. Interaction maximum is a lab Event Timing proxy, not field INP; collect field INP after deployment. Below-fold JS is measured after scrolling.',
       profiles: Object.fromEntries(selected.map(name => [name, profiles[name]])), samples, summary,
     };
     const output = path.resolve(process.env.PERF_OUTPUT || '/tmp/portfolio-performance.json');
