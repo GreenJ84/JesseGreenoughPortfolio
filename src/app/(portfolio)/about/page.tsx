@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import type { Metadata } from 'next';
+import { headers } from 'next/headers';
 import DeveloperPortrait from '../_shared/DeveloperPortrait';
 import Footer from '../_layout/Footer/Footer';
-import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from '../sharedMetadata';
+import { APP_URL, portfolioMetadata } from '../sharedMetadata';
 import css from './_components/About.module.css';
 
 const strengths = [
@@ -19,8 +19,23 @@ const milestones = [
   { date: 'Before code', title: 'Leadership and service', text: 'Spent more than eight years in customer success and operations, including team leadership roles.' },
 ];
 
-export default function AboutPage() {
-  return <><main className={css.page}>
+export default async function AboutPage() {
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
+  const profile = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    mainEntity: {
+      '@type': 'Person',
+      '@id': `${APP_URL}/about#jesse-greenough`,
+      name: 'Jesse Greenough',
+      url: `${APP_URL}/about`,
+      description: 'Rust backend engineer focused on secure systems, with full-stack TypeScript, Node.js, Python, and frontend experience.',
+      knowsAbout: ['Rust', 'Backend software engineering', 'Application security', 'TypeScript', 'Node.js', 'Python'],
+      alumniOf: { '@type': 'CollegeOrUniversity', name: 'Western Governors University' },
+      sameAs: ['https://github.com/GreenJ84'],
+    },
+  };
+  return <><script type="application/ld+json" nonce={nonce} dangerouslySetInnerHTML={{ __html: JSON.stringify(profile).replace(/</g, '\\u003c') }} /><main className={css.page}>
     <section className={css.hero} aria-labelledby="about-title">
       <div className={css.intro}>
         <p className={css.eyebrow}>About Jesse</p>
@@ -61,8 +76,4 @@ export default function AboutPage() {
 
 const title = 'About Jesse Greenough | Rust Backend & Security Engineer';
 const description = 'Meet Jesse Greenough, a Rust-first backend engineer focused on security with full-stack TypeScript, Node.js, Python, and frontend experience.';
-export const metadata: Metadata = {
-  metadataBase: new URL(APP_URL), title, description,
-  openGraph: { title, description, url: `${APP_URL}/about`, siteName: title, ...OPEN_GRAPH },
-  twitter: { title, description, ...TWITTER_SHARE },
-};
+export const metadata = portfolioMetadata('/about', title, description);

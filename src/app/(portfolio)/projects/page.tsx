@@ -38,30 +38,10 @@ const ProjectPage = async () => {
 
 export default ProjectPage;
 
-import { Metadata } from 'next/types';
-import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from '../sharedMetadata';
+import { portfolioMetadata } from '../sharedMetadata';
 
-const PROJECT_URL = APP_URL + '/projects';
-const TITLE="Selected Projects | Jesse Greenough"
-const DESCRIPTION ="Explore Rust backend, security, and full-stack projects by Jesse Greenough."
-const KEYWORDS ="Rust,Backend,Security,TypeScript,Node.js,Python,Projects"
-
-export const metadata: Metadata = {
-  metadataBase: new URL(PROJECT_URL),
-  title: TITLE,
-  description: DESCRIPTION,
-  keywords: KEYWORDS,
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: PROJECT_URL,
-    siteName: TITLE,
-    ...OPEN_GRAPH
-  },
-  twitter: {
-    site: PROJECT_URL,
-    title: TITLE,
-    description: DESCRIPTION,
-    ...TWITTER_SHARE
-  },
-};
+export const metadata = portfolioMetadata(
+  '/projects',
+  'Rust Backend & Security Projects | Jesse Greenough',
+  'Explore Jesse Greenough’s selected Rust backend, security, and full-stack engineering projects, with links to code and live work.'
+);

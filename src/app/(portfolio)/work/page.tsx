@@ -28,30 +28,10 @@ const WorkPage = async () => {
 export default WorkPage;
 
 
-import { Metadata } from 'next/types';
-import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from '../sharedMetadata';
+import { portfolioMetadata } from '../sharedMetadata';
 
-const WORK_URL = APP_URL + '/work';
-const TITLE="Lifetime Work Experience for Jesse Greenough"
-const DESCRIPTION ="View the Work experience attained by Jesse Greenough over his lifetime"
-const KEYWORDS ="Work,Experience,Management,Software,Development,Engineering,Retail"
-
-export const metadata: Metadata = {
-  metadataBase: new URL(WORK_URL),
-  title: TITLE,
-  description: DESCRIPTION,
-  keywords: KEYWORDS,
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: WORK_URL,
-    siteName: TITLE,
-    ...OPEN_GRAPH
-  },
-  twitter: {
-    site: WORK_URL,
-    title: TITLE,
-    description: DESCRIPTION,
-    ...TWITTER_SHARE
-  },
-};
+export const metadata = portfolioMetadata(
+  '/work',
+  'Engineering & Professional Experience | Jesse Greenough',
+  'Explore Jesse Greenough’s software engineering, backend development, and professional experience, including leadership and service.'
+);

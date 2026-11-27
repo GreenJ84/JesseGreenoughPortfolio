@@ -65,30 +65,10 @@ const Page = async () => {
 export default Page;
 
 
-import { Metadata } from 'next/types';
-import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from '../sharedMetadata';
+import { portfolioMetadata } from '../sharedMetadata';
 
-const EDU_URL = APP_URL + '/education';
-const TITLE="Education & Security Credentials | Jesse Greenough"
-const DESCRIPTION ="M.S. Cybersecurity and Information Assurance, CompTIA SecurityX, and software engineering education."
-const KEYWORDS ="Cybersecurity,SecurityX,CASP+,WGU,Software Engineering,Education,Rust"
-
-export const metadata: Metadata = {
-  metadataBase: new URL(EDU_URL),
-  title: TITLE,
-  description: DESCRIPTION,
-  keywords: KEYWORDS,
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: EDU_URL,
-    siteName: TITLE,
-    ...OPEN_GRAPH
-  },
-  twitter: {
-    site: EDU_URL,
-    title: TITLE,
-    description: DESCRIPTION,
-    ...TWITTER_SHARE
-  },
-};
+export const metadata = portfolioMetadata(
+  '/education',
+  'Cybersecurity Education & Credentials | Jesse Greenough',
+  'M.S. Cybersecurity and Information Assurance from WGU, CompTIA SecurityX (CASP+), and software engineering education.'
+);

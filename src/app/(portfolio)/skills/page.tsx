@@ -44,30 +44,10 @@ const page = async () => {
 
 export default page;
 
-const SKILLS_URL = APP_URL + '/skills';
-const TITLE="Jesse Greenough's Rust, Security & Full-Stack Skills"
-const DESCRIPTION ="Explore Rust backend, security, TypeScript, Node.js, Python, and frontend skills used by Jesse Greenough."
-const KEYWORDS="Rust,Backend,Security,TypeScript,Node.js,Python,Frontend,Full-Stack,React,Next.js";
+import { portfolioMetadata } from '../sharedMetadata';
 
-import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from '../sharedMetadata';
-import { Metadata } from 'next/types';
-
-export const metadata: Metadata = {
-  metadataBase: new URL(SKILLS_URL),
-  title: TITLE,
-  description: DESCRIPTION,
-  keywords: KEYWORDS,
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: SKILLS_URL,
-    siteName: TITLE,
-    ...OPEN_GRAPH
-  },
-  twitter: {
-    site: SKILLS_URL,
-    title: TITLE,
-    description: DESCRIPTION,
-    ...TWITTER_SHARE
-  },
-};
+export const metadata = portfolioMetadata(
+  '/skills',
+  'Rust Backend, Security & Full-Stack Skills | Jesse Greenough',
+  'Explore Jesse Greenough’s Rust, secure backend engineering, TypeScript, Node.js, Python, and frontend skills with a clear proficiency scale.'
+);

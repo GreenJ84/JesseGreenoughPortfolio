@@ -36,47 +36,11 @@ export default HomePage;
 
 
 
-import { Metadata } from 'next/types';
-import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from './sharedMetadata';
-
-const RESUME_URL = APP_URL + '/resumes';
+import { portfolioMetadata } from './sharedMetadata';
 const TITLE = "Jesse Greenough | Rust Backend & Security Engineer";
 const DESCRIPTION =
   'Rust-first backend engineering with a security focus and full-stack TypeScript, Node.js, Python, and web development experience.';
-const KEYWORDS = [
-  'Jesse Greenough',
-  'Software',
-  'Developer',
-  'Engineer',
-  'Rust',
-  'Backend',
-  'Security',
-  'Full-Stack',
-  'Portfolio',
-  'Next.js',
-  'React',
-  'TypeScript',
-];
-
-export const metadata: Metadata = {
-  metadataBase: new URL(APP_URL),
-  title: TITLE,
-  description: DESCRIPTION,
-  keywords: KEYWORDS,
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: RESUME_URL,
-    siteName: TITLE,
-    ...OPEN_GRAPH
-  },
-  twitter: {
-    site: RESUME_URL,
-    title: TITLE,
-    description: DESCRIPTION,
-    ...TWITTER_SHARE
-  },
-};
+export const metadata = portfolioMetadata('/', TITLE, DESCRIPTION);
 
 
 

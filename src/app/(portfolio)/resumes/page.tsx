@@ -34,30 +34,10 @@ const ResumePage = async () => {
 export default ResumePage;
 
 
-import { Metadata } from 'next/types';
-import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from '../sharedMetadata';
+import { portfolioMetadata } from '../sharedMetadata';
 
-const RESUME_URL = APP_URL + '/resumes';
-const TITLE="Jesse Greenough | Rust Backend & Security Resumes"
-const DESCRIPTION ="View Jesse Greenough's Rust backend, security, and full-stack engineering resumes."
-const KEYWORDS ="Resume,Rust,Backend,Security,TypeScript,Node.js,Python,Full-Stack"
-
-export const metadata: Metadata = {
-  metadataBase: new URL(RESUME_URL),
-  title: TITLE,
-  description: DESCRIPTION,
-  keywords: KEYWORDS,
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: RESUME_URL,
-    siteName: TITLE,
-    ...OPEN_GRAPH
-  },
-  twitter: {
-    site: RESUME_URL,
-    title: TITLE,
-    description: DESCRIPTION,
-    ...TWITTER_SHARE
-  },
-};
+export const metadata = portfolioMetadata(
+  '/resumes',
+  'Rust Backend & Security Resumes | Jesse Greenough',
+  'View and download Jesse Greenough’s Rust backend, security, and full-stack engineering resumes.'
+);
