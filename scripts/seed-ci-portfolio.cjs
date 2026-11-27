@@ -1,6 +1,6 @@
 // Seed canonical resources only for the public-route browser/performance job.
-// The migration job seeds legacy collections separately and uses the actual
-// plan/copy/verify command. Both jobs require an isolated loopback CI MongoDB.
+// Manual resource migration is separate from CI. This fixture is used only
+// for app, browser, accessibility, and performance verification in CI.
 const { MongoClient, ObjectId } = require('mongodb');
 
 if (process.env.GITHUB_ACTIONS !== 'true' || process.env.PORTFOLIO_CI_FIXTURE !== '1') {

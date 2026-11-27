@@ -1,23 +1,42 @@
-# CI verification and production-data rehearsal
+# CI verification
 
-The `Quality and deployment smoke` workflow runs on pushes and pull requests. Its main job runs `npm ci`, typecheck, lint, unit tests, and build against a disposable MongoDB service seeded with canonical portfolio records. It starts the standalone build, retains the existing admin/public route smoke checks, tests the contact dialog keyboard flow, and runs the browser matrix at 390, 768, and 1365 px. The browser matrix saves full-page screenshots and checks the carousel, project search filter, mobile menu, theme switch, reduced motion, visible button names, CSP violations, horizontal overflow, and a real project image. Screenshots and performance reports are uploaded as the `portfolio-quality-evidence` artifact.
+The `Quality and deployment smoke` workflow runs on pushes, pull requests, and
+manual dispatch. It runs `npm ci`, typecheck, lint, unit tests, and build against
+a disposable MongoDB service seeded with canonical portfolio records. It
+starts the standalone build, runs admin and public route smoke checks, tests
+the contact dialog keyboard flow, and runs browser checks at 390, 768, and
+1365 px. The browser matrix checks the carousel, searchable filters, mobile
+menu, theme switch, reduced motion, screen-reader names, CSP violations,
+horizontal overflow, and a real project image. Screenshots and performance
+reports are uploaded as `portfolio-quality-evidence`.
 
-The separate `migration-integration` job seeds all seven legacy collections in its isolated MongoDB service. It runs the same plan/copy/verify command used for production, compares every transformed document by `_id` and field value, confirms legacy collections remain, and repeats the copy to prove idempotence. Malformed work dates and conflicting target records must leave their source collections intact. It drops only its disposable fixture data and uploads `portfolio-migration-fixture`.
-
-## Rehearse with current production resources
-
-Configure a GitHub environment named `production-data-review` with required reviewers. Add an environment secret `PORTFOLIO_SOURCE_URI` that has read-only access to the production `PersonalPortfolio` database. Manually run the workflow with `production_snapshot` enabled. The job uses that URI as its legacy source and a uniquely named database on the job's local MongoDB service as `DB_CONN_STRING`. It runs the shared plan/copy/verify command and full mapped-field audit. It never writes to production. The runner drops the temporary database at the end. The `portfolio-production-rehearsal` artifact contains counts, data validation results, query timings, and any work periods whose month was inferred from a year-only value. **Do not enable this job on untrusted pull requests or expose the environment secret to them.**
-
-The first production rehearsal fails if it finds inferred work months. Review every listed period against the original record and approve the inferred month before rerunning with `accept_inferred_months`. The job also fails if a legacy collection is missing or empty. If production skills exist only in the former static source, establish and review a source snapshot before this rehearsal; the job will not invent skill records. Remote URLs are checked for valid HTTP(S) syntax and absent embedded credentials; confirm the actual destination and availability of every external image, credential, and project link during the protected preview. Local media paths must exist in `public/`.
-
-This job validates a **local copy**. It does not migrate production collections, exercise owner actions against production, or authorize a deployment. Follow the cutover steps in `ROLLOUT_PLAN_2026-11.md` separately.
+CI includes unit checks for migration transforms and the historical skill
+seed as code verification. It does **not** connect to production MongoDB,
+run migration plan/copy/verify, or remove legacy collections. The manual
+process is in [DEVELOPMENT_DATA.md](DEVELOPMENT_DATA.md).
 
 ## Performance evidence
 
-The workflow measures LCP, CLS, route JavaScript transfer, and an Event Timing interaction proxy at mobile and desktop sizes. It compares Home and Skills with `docs/performance/after.json` and records Projects as a new route baseline. The lab uses fixed image and third-party response fixtures to keep timing comparisons repeatable; the browser matrix checks a real project image separately. The interaction proxy is **not field INP**. Check field INP in deployed Speed Insights after release. Query median, p95, and documents examined are saved for five common MongoDB reads on the CI fixture; those timings are functional baselines, not production latency targets. The protected production-copy rehearsal also reports query p95 and examined counts on the copied data.
+The workflow measures LCP, CLS, route JavaScript transfer, and an Event Timing
+interaction proxy at mobile and desktop sizes. It compares Home and Skills
+with `docs/performance/after.json` and records Projects as a new route
+baseline. The lab uses fixed image and third-party response fixtures; the
+browser matrix checks a real project image separately. The interaction proxy
+is **not field INP**. Check field INP in deployed Speed Insights after release.
+Query median, p95, and documents examined are saved for common MongoDB reads
+on the CI fixture; these are functional baselines, not production targets.
 
 ## Container security gate
 
-`npm audit` checks npm dependencies, not Debian packages or the Node image's bundled npm tooling. The original digest-pinned Bookworm image stayed frozen while the official tag was rebuilt with security updates, so its stale digest and OS findings were outside the earlier npm and browser gates.
+`npm audit` checks npm dependencies, not Debian packages or the Node image's
+bundled npm tooling. CI compares both Dockerfile pins with their current
+registry index digests, builds and smokes the final runtime image, and saves a
+Trivy OS/library report in `portfolio-quality-evidence`.
 
-CI now compares both Dockerfile pins with their current registry index digests, builds the final runtime image with disposable data, runs its route smoke check, and saves a complete Trivy OS/library report in `portfolio-quality-evidence`. The runtime uses the official, digest-pinned distroless Node 22 Debian 13 image as user 65532. The 27 November 2026 local scan of the built image found 56 reported vulnerabilities: 2 high, 35 medium, 17 low, and 2 unknown. The two high findings are `CVE-2026-107494` and `CVE-2026-124709` in Debian `libssl3t64`; Trivy reported no fixed version. Debian describes them as OpenSSL QUIC issues, while this app serves HTTP over TCP through Node. CI fails for any new high/critical finding or when a fixed package becomes available for these two. Review the full report and refresh the pinned runtime image when Debian publishes a fix.
+The 27 November 2026 local scan of the distroless Node 22 Debian 13 runtime
+found 56 reported vulnerabilities: 2 high, 35 medium, 17 low, and 2 unknown.
+The two high findings are `CVE-2026-107494` and `CVE-2026-124709` in Debian
+`libssl3t64`; Trivy reported no fixed version. CI fails for any new
+high/critical finding or when a fixed package becomes available for either of
+these two. Review the complete report and refresh the runtime pin when Debian
+publishes a fix.

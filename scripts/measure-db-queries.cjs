@@ -2,15 +2,16 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const { performance } = require('node:perf_hooks');
 const { MongoClient } = require('mongodb');
-const { databaseName } = require('./migrate-portfolio.cjs');
 const uri = process.env.DB_CONN_STRING || '';
 if (!/^mongodb:\/\/(?:127\.0\.0\.1|localhost):\d{4,5}(?:\/|\?|$)/.test(uri)) throw new Error('DB timing requires local MongoDB');
+const databaseName = new URL(uri).pathname.slice(1) || 'PersonalPortfolio';
+if (databaseName !== 'PersonalPortfolio') throw new Error('DB timing requires the CI portfolio fixture');
 const percentile = (values, fraction) => [...values].sort((a, b) => a - b)[Math.ceil(values.length * fraction) - 1];
 (async () => {
   const client = new MongoClient(uri);
   try {
     await client.connect();
-    const db = client.db(databaseName(uri, 'DB_CONN_STRING'));
+    const db = client.db(databaseName);
     const cases = [
       ['project-top', 'project', { priority: { $gte: 0 } }, { priority: 1, date: -1, title: 1, _id: -1 }],
       ['project-filter', 'project', { key_techs: 'Rust' }, { priority: 1, date: -1, title: 1, _id: -1 }],
