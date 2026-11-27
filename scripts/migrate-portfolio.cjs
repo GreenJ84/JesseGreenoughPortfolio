@@ -151,6 +151,9 @@ async function run(mode, env = process.env) {
 }
 
 if (require.main === module) {
+  // npm does not load .env for CLI scripts. Read the project file before
+  // selecting URIs; dotenv leaves explicit shell/CI variables unchanged.
+  require('dotenv').config({ path: path.join(__dirname, '../.env') });
   const selected = process.argv.slice(2).filter(arg => ['--plan', '--apply', '--verify'].includes(arg));
   if (selected.length !== 1 || process.argv.length !== 3) { console.error('Use one mode: --plan, --apply, or --verify'); process.exitCode = 1; }
   else run(selected[0].slice(2)).then(report => console.log(JSON.stringify(report, null, 2))).catch(error => { console.error(error.message); process.exitCode = 1; });
