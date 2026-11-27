@@ -24,9 +24,8 @@ const pages = ['/', '/about', '/skills', '/projects', '/education', '/work', '/r
     assert.ok(!html.includes('noimageindex'), `${path}: image indexing disabled`);
     if (['/', '/about', '/skills', '/projects'].includes(path)) assert.match(title, /Rust/, `${path}: Rust focus missing from title`);
     if (path === '/about') {
-      const nonce = /<script type="application\/ld\+json" nonce="([^"]+)"/.exec(html)?.[1];
-      assert.ok(nonce && html.includes('"@type":"ProfilePage"'), 'About: missing profile structured data');
-      assert.ok(response.headers.get('content-security-policy')?.includes(`'nonce-${nonce}'`), 'About: structured data nonce differs from CSP');
+      assert.match(html, /<script type="application\/ld\+json">/, 'About: missing profile data block');
+      assert.ok(html.includes('"@type":"ProfilePage"'), 'About: missing profile structured data');
     }
     console.log(`${path}: metadata and canonical URL verified`);
   }

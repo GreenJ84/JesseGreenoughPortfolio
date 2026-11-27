@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { headers } from 'next/headers';
 import DeveloperPortrait from '../_shared/DeveloperPortrait';
 import Footer from '../_layout/Footer/Footer';
 import { APP_URL, portfolioMetadata } from '../sharedMetadata';
@@ -19,9 +18,7 @@ const milestones = [
   { date: 'Before code', title: 'Leadership and service', text: 'Spent more than eight years in customer success and operations, including team leadership roles.' },
 ];
 
-export default async function AboutPage() {
-  const nonce = (await headers()).get('x-nonce') ?? undefined;
-  const profile = {
+const profileJson = JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'ProfilePage',
     mainEntity: {
@@ -34,8 +31,10 @@ export default async function AboutPage() {
       alumniOf: { '@type': 'CollegeOrUniversity', name: 'Western Governors University' },
       sameAs: ['https://github.com/GreenJ84'],
     },
-  };
-  return <><script type="application/ld+json" nonce={nonce} dangerouslySetInnerHTML={{ __html: JSON.stringify(profile).replace(/</g, '\\u003c') }} /><main className={css.page}>
+}).replace(/</g, '\\u003c');
+
+export default function AboutPage() {
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: profileJson }} /><main className={css.page}>
     <section className={css.hero} aria-labelledby="about-title">
       <div className={css.intro}>
         <p className={css.eyebrow}>About Jesse</p>
