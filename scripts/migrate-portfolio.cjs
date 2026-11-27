@@ -1,3 +1,10 @@
+// Resource migration process:
+//   npm run data:preview  -> validate the source and detect target conflicts; no writes
+//   npm run data:copy     -> insert missing canonical records and verify exact parity
+//   npm run data:verify   -> verify parity again without writing
+// PORTFOLIO_SOURCE_URI always reads legacy production data. DB_CONN_STRING alone
+// chooses the destination (named local development DB or production DB). None
+// of these modes removes legacy collections; cleanup follows release review.
 const assert = require('node:assert/strict');
 const { createHash } = require('node:crypto');
 const { readFileSync, mkdirSync, writeFileSync } = require('node:fs');
@@ -12,6 +19,8 @@ const legacy = {
 const targetNames = [...new Set(Object.values(legacy))];
 
 function transform() {
+  // Load the same TypeScript mapping used by the application and tests so the
+  // command cannot silently diverge from the resource schema.
   const file = readFileSync(path.join(__dirname, '../src/app/_utils/migrationTransform.ts'), 'utf8');
   const compiled = ts.transpileModule(file, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
   const module = { exports: {} };
@@ -20,6 +29,7 @@ function transform() {
 }
 
 function databaseName(uri, label) {
+  // Never log connection strings: both URIs may contain database credentials.
   if (!uri || !/^mongodb(?:\+srv)?:\/\//.test(uri)) throw new Error(`${label} must be a MongoDB URI`);
   const parsed = new URL(uri);
   const name = decodeURIComponent(parsed.pathname.slice(1)) || 'PersonalPortfolio';
@@ -32,6 +42,8 @@ function canonical(value) {
     ? Object.fromEntries(Object.entries(item).sort(([a], [b]) => a.localeCompare(b))) : item);
 }
 function digest(rows) {
+  // Sorting BSON-aware representations makes the source fingerprint independent
+  // of MongoDB cursor order while preserving dates, IDs, and field values.
   return createHash('sha256').update(rows.map(canonical).sort().join('\n')).digest('hex');
 }
 function validate(name, row) {
@@ -44,6 +56,8 @@ function validate(name, row) {
 }
 
 async function snapshot(db, convert) {
+  // Preflight every legacy collection before any target write. Keep year-only
+  // work periods visible in the report because their months are inferred.
   const present = new Set((await db.listCollections({}, { nameOnly: true }).toArray()).map(item => item.name));
   const source = {}, expected = Object.fromEntries(targetNames.map(name => [name, new Map()]));
   const inferredPeriods = [];
@@ -67,6 +81,8 @@ async function snapshot(db, convert) {
 }
 
 async function checkTargets(db, expected, requireComplete) {
+  // A partial matching copy can resume; an extra or changed target document is
+  // a conflict and stops the command before further writes.
   const missing = {};
   for (const name of targetNames) {
     const rows = await db.collection(name).find({}).toArray();
@@ -102,12 +118,15 @@ async function run(mode, env = process.env) {
     const before = await snapshot(sourceDb, transform());
     const missing = await checkTargets(targetDb, before.expected, mode === 'verify');
     if (mode === 'apply') {
+      // Only the destination receives writes. A rerun skips identical records.
       for (const name of targetNames) for (const id of missing[name]) {
         await targetDb.collection(name).insertOne(before.expected[name].get(id));
       }
       await checkTargets(targetDb, before.expected, true);
     }
     if (mode !== 'plan') {
+      // Detect source edits during copy/verify; such a run needs reconciliation
+      // before its report can be accepted.
       const after = await snapshot(sourceDb, transform());
       for (const name of Object.keys(before.source)) {
         if (before.source[name].sha256 !== after.source[name].sha256) throw new Error(`Source changed during ${mode}: ${name}`);
@@ -121,6 +140,8 @@ async function run(mode, env = process.env) {
       legacyCollectionsRetained: true,
     };
     if (env.PORTFOLIO_MIGRATION_REPORT) {
+      // This manifest contains counts and hashes, never connection strings or
+      // entire resource documents. Treat it as operational review material.
       const output = path.resolve(env.PORTFOLIO_MIGRATION_REPORT);
       mkdirSync(path.dirname(output), { recursive: true });
       writeFileSync(output, JSON.stringify(report, null, 2) + '\n');

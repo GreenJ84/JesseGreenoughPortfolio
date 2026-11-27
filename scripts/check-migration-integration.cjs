@@ -1,3 +1,7 @@
+// CI rehearsal for the real migration command. Synthetic mode seeds only the
+// isolated local Mongo service; protected mode reads production through its
+// read-only source URI and writes canonical records to a disposable local DB.
+// Both paths audit every mapped record and retain the legacy source.
 const assert = require('node:assert/strict');
 const { randomBytes } = require('node:crypto');
 const fs = require('node:fs');
@@ -22,6 +26,8 @@ const stable = value => JSON.stringify(BSON.EJSON.serialize(value), (_, item) =>
 const rowId = n => new ObjectId(`0000000000000000000000${n}`);
 const project = { _id: rowId('01'), name: 'Fixture Rust API', brief: 'Backend service', description: 'Secure API', image_path: '/projectImages/myPortfolio.png', priority: 1, date: '2026', categories: ['Backend'], key_techs: ['Rust'], deployed_url: 'https://example.com', github_url: 'https://github.com/GreenJ84' };
 async function fixture(db) {
+  // Cover all seven old collections, including both work streams that merge
+  // into the singular work collection.
   await db.collection('projects').insertOne(project);
   await db.collection('certifications').insertOne({ _id: rowId('02'), title: 'Fixture SecurityX', issuer: 'CompTIA', image: '/assets/load_icon.svg', description: 'Security', priority: 1, date: '2026', url: 'https://example.com', techs: ['Security'] });
   await db.collection('degrees').insertOne({ _id: rowId('03'), degree: 'Cybersecurity', college: 'WGU', date: 'Jan 2025 - Oct 2025', image: '/assets/load_icon.svg', details: ['Security'] });
@@ -61,7 +67,9 @@ function validLink(value, optional = false) {
 }
 async function verify(db, snapshot) {
   const present = new Set((await db.listCollections({}, { nameOnly: true }).toArray()).map(item => item.name));
-  for (const old of sources) assert.equal(present.has(old), false, `${old} must be removed after verified migration`);
+  // The destination receives canonical collections only. Legacy collections
+  // remain in the separate source DB and are checked below after the copy.
+  for (const old of sources) assert.equal(present.has(old), false, `${old} must not be copied into the destination`);
   const report = { sourceCounts: snapshot.counts, targetCounts: {}, inferredPeriods: snapshot.inferred, invalid: [] };
   for (const [name, expected] of snapshot.expected) {
     const actual = await db.collection(name).find({}).toArray();
@@ -108,6 +116,8 @@ async function queryTimings(db) {
   return timings;
 }
 async function negativeCases() {
+  // Failed transforms and target conflicts must not remove source records.
+  // These cases use disposable local fixtures even in protected snapshot mode.
   const source = local.db('PersonalPortfolio');
   for (const [kind, setup, expected] of [
     ['bad-date', async db => source.collection('workExperience').insertOne({ _id: rowId('10'), position: 'Engineer', company: 'Example', date: 'unknown' }), /Unrecognized legacy work period/],
@@ -138,6 +148,7 @@ async function negativeCases() {
     }
     const snapshot = await inspect(source);
     const env = { PORTFOLIO_SOURCE_URI: productionCopy ? process.env.PORTFOLIO_SOURCE_URI : localUri, DB_CONN_STRING: `mongodb://127.0.0.1:${port}/${db.databaseName}` };
+    // Exercise plan -> expected verify failure -> copy -> verify -> repeat copy.
     await run('plan', env);
     assert.equal(await db.collection('project').countDocuments(), 0, 'Plan must not write target records');
     await assert.rejects(run('verify', env), /Migration incomplete/, 'Verify must fail before copy');
@@ -153,6 +164,8 @@ async function negativeCases() {
     for (const [name, count] of Object.entries(firstCounts)) assert.equal(await db.collection(name).countDocuments(), count, `${name} idempotence`);
     for (const [name, records] of firstRecords) assert.deepEqual((await db.collection(name).find({}).toArray()).map(stable).sort(), records, `${name} changed on second copy`);
     if (!productionCopy) {
+      // Simulate cutover, where source and target collection names share one
+      // database and changing only DB_CONN_STRING selects that destination.
       const sameDatabase = { PORTFOLIO_SOURCE_URI: localUri, DB_CONN_STRING: localUri };
       await run('apply', sameDatabase);
       await run('verify', sameDatabase);
@@ -164,6 +177,8 @@ async function negativeCases() {
     console.log(JSON.stringify(report, null, 2));
     if (productionCopy && report.inferredPeriods.length && !process.argv.includes('--accept-inferred-months')) throw new Error('Review inferred work months in the report before accepting this production-data rehearsal');
   } finally {
+    // Never drop the production source. The only source cleanup here is the
+    // synthetic fixture created by this job on its isolated Mongo service.
     try { await db.dropDatabase(); if (seededSource) await source.dropDatabase(); if (seededSource || productionCopy) await negativeCases(); }
     finally { if (productionCopy) await sourceClient.close(); await local.close(); }
   }
