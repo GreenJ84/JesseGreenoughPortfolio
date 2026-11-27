@@ -64,6 +64,7 @@ jobs:
             sleep 1
           done
           node scripts/smoke-deployment.cjs
+          node scripts/check-seo.cjs
           node scripts/check-accessibility.cjs
           node scripts/check-portfolio-browser.cjs
           PERF_BASE_URL=http://127.0.0.1:3000 PERF_RUNS=1 PERF_ROUTES=/,/skills,/projects PERF_OUTPUT=test-results/performance.json npm run perf:browser

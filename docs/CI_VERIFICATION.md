@@ -7,7 +7,7 @@ starts the standalone build, runs admin and public route smoke checks, tests
 the contact dialog keyboard flow, and runs browser checks at 390, 768, and
 1365 px. The browser matrix checks the carousel, searchable filters, mobile
 menu, theme switch, reduced motion, screen-reader names, CSP violations,
-horizontal overflow, and a real project image. Screenshots and performance
+horizontal overflow, a real project image, and canonical SEO metadata, robots, sitemap, and admin noindex behavior. Screenshots and performance
 reports are uploaded as `portfolio-quality-evidence`.
 
 CI includes unit checks for migration transforms and the historical skill
