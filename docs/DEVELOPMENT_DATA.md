@@ -1,22 +1,76 @@
-# Development migration rehearsal
+# Manual portfolio migration
 
-Keep `PORTFOLIO_SOURCE_URI` set to a **read-only** production MongoDB credential for `PersonalPortfolio`. It is always the legacy input. Set only `DB_CONN_STRING` to choose the destination. In development, point it at loopback MongoDB and include a fresh database name matching `PersonalPortfolioDev_YYYYMMDD_XXXXXXXX`, for example `mongodb://127.0.0.1:27017/PersonalPortfolioDev_20261126_1234abcd`. In production, point it at the production `PersonalPortfolio` database with a separate credential that may write the six canonical resource collections. Never commit either URI.
+The migration is an operator-run command in `migration/`. CI never connects to
+production data or runs a copy. Application startup never migrates. The six
+canonical target collections are `project`, `certification`, `education`,
+`work`, `resume`, and `skill`. Legacy collections are never dropped or renamed.
 
-Run the same commands in either environment:
+## 1. Prepare credentials and a backup
+
+1. Back up the production `PersonalPortfolio` database and record the backup ID.
+2. Create a **read-only** MongoDB credential for the legacy production source.
+   Keep `PORTFOLIO_SOURCE_URI` pointed at that database for both local rehearsal
+   and production cutover.
+3. Use a separate destination credential. Locally it may write to a fresh
+   loopback database named `PersonalPortfolioDev_YYYYMMDD_XXXXXXXX`. In
+   production it may write to the canonical collections in `PersonalPortfolio`.
+4. Put both variables in the project-root `.env` (ignored by Git), or export
+   them in your shell. The CLI reads `.env`; explicit shell values take
+   precedence. It does not read `.env.local`.
+
+Do not print or commit either URI. Confirm both databases and credentials
+before `data:copy`; it is the only command below that writes.
+
+## 2. Rehearse against a local development database
+
+Set `DB_CONN_STRING` to a **fresh** local destination, for example
+`mongodb://127.0.0.1:27017/PersonalPortfolioDev_20261127_1234abcd`. Keep
+`PORTFOLIO_SOURCE_URI` unchanged. Run:
 
 ```sh
+npm ci
 npm run data:preview
 npm run data:copy
 npm run data:verify
 ```
 
-The CLI loads the project-root `.env` file automatically. Explicit shell or CI
-environment variables take precedence, so set `DB_CONN_STRING` in the shell to
-select a different destination without editing the source URI. The CLI does not
-read `.env.local`; keep the two migration URIs in `.env` or export them explicitly.
+`data:preview` transforms every legacy document and checks for target conflicts
+without writing. Review its counts and `inferredPeriods` before copying:
+year-only work dates become January starts and December ends. `data:copy`
+inserts missing canonical records, checks every `_id` and mapped field, and
+verifies the source did not change during the run. `data:verify` repeats the
+comparison without writing. Matching copies can be rerun; an unexpected or
+changed target record stops the run. Set `PORTFOLIO_MIGRATION_REPORT` to a local
+path if you want a JSON manifest; use a different path for each mode so one
+report does not overwrite another.
 
-`data:preview` transforms every legacy document and checks for target conflicts without writing. `data:copy` inserts missing canonical documents, verifies every `_id` and mapped field, and checks that legacy source records did not change during the copy. It can be rerun: matching records are retained; a conflicting target stops the run. `data:verify` requires exact parity and performs no writes. All three commands retain legacy collections. The application reads the database named in `DB_CONN_STRING` and does not migrate on startup.
+Six legacy collections are required: `projects`, `certifications`, `degrees`,
+`workExperience`, `secondaryExperience`, and `resumes`. Missing or empty
+collections stop the run. **No legacy `skills` collection is required.** The
+`skill` target is seeded from `migration/historical-skills.json`, which records
+the 58 names, ratings, icon keys, categories, and order recovered from Git
+commit `007e9a1`. All 58 are visible by default. Inspect those ratings before
+publishing; later changes made only in the erased local database cannot be
+recovered from this historical file.
 
-The seven source collections are `projects`, `certifications`, `degrees`, `workExperience`, `secondaryExperience`, `resumes`, and `skills`. They map into `project`, `certification`, `education`, `work`, `resume`, and `skill`. A missing or empty source collection stops the run; resolve the source data explicitly rather than creating empty target content. Review year-only work dates in the report because the transform infers January/December. Set `PORTFOLIO_MIGRATION_REPORT` to a local path if a JSON manifest is needed for review. Protect that report as operational data.
+Check each copied image, resume download, credential link, project link, work
+date, and visible page in the local app. Confirm all 58 skill icons render and
+the Home and Skills pages show the expected order. Keep the local database as
+rehearsal evidence until production is stable.
 
-The production source should be stable during copy and verification. Freeze owner resource edits or take a consistent snapshot and reconcile any changes before cutover. A partial target copy after an interruption remains available for an idempotent rerun, but a source change can require review of a conflicting target. Do not remove legacy collections until the release has been verified and the rollback window has ended; their cleanup is a separate reviewed operation.
+## 3. Copy to production before deploying the refactor
+
+Freeze owner edits to the legacy resources, take a fresh backup, and change
+**only `DB_CONN_STRING`** to the production `PersonalPortfolio` URI with the
+destination credential. The read-only `PORTFOLIO_SOURCE_URI` remains the same.
+Run the same three commands, in order, from the reviewed release commit. Review
+the preview report before copying and retain the final verify report. This
+places canonical and legacy collections side by side in production.
+
+Do not merge the refactor into `main` until production `data:verify` passes and
+the public records and skill seed have been reviewed. Deploy the new app, then
+check all public routes, owner sign-in and edits, downloads, contact delivery,
+health, and metrics. Keep legacy collections throughout the rollback window:
+the old deployment can still read them. Remove legacy collections only after
+the new deployment is confirmed stable, no old deployment needs them, and a
+separate backup and cleanup review are complete.

@@ -1,15 +1,25 @@
 # Skills data
 
-Skills are stored in the singular `skill` MongoDB collection. Home and Skills read only visible records from that collection; the owner-only editor at `/admin/data/skills` reads all records. An empty collection renders an empty skill list. A database failure is an error, not an invitation to show stale hardcoded data.
+Home and Skills read visible records from the singular `skill` MongoDB
+collection. The owner editor at `/admin/data/skills` reads all records. An
+empty collection renders an empty skill list; the app has no hardcoded fallback.
 
-Each record stores `title`/`name`, `brief`, `category`, `rating` (1–5), `image_url` (an icon key), `sortOrder`, and `visible`. Category labels and the allowlisted icon registry remain in application code as presentation metadata; skill names, ratings, visibility, and ordering are database data. Admin writes create the unique `(category, normalizedName)` index and invalidate public skill caches.
+Each record stores `title`/`name`, `brief`, `category`, `rating` (1–5),
+`image_url` (an icon key), `sortOrder`, and `visible`. Category labels and the
+icon registry remain presentation metadata in the application. Admin writes
+create the unique `(category, normalizedName)` index and invalidate caches.
 
-## Development copy
+## Recovered historical seed
 
-`npm run data:copy` reads legacy `skills` through the read-only `PORTFOLIO_SOURCE_URI` and writes canonical `skill` records to the database named in `DB_CONN_STRING`. Run `data:preview` first and `data:verify` afterward. The source collection stays intact, and the application does not migrate on startup. The hardcoded seed script and admin import control have been removed.
+The old `skillData.ts` at Git commit `007e9a1` contained 58 skills in eight
+groups. `migration/historical-skills.json` preserves their names, ratings,
+icon keys, group order, and item order. The manual migration creates stable
+`skill` IDs from those values. It does not require or read a legacy `skills`
+collection. All recovered skills are visible by default. Any edits made only
+to the erased local database are not in the historical source and must be
+re-entered through admin after review.
 
-Check the copied records before relying on them: total count, visible count, category values, icon keys, and Home/Skills rendering. The tested local copy had 58 records, all visible, with supported categories and icon keys. A future production migration must copy the current production records; the local copy is not a production source of truth.
-
-## Deployment gate
-
-Do not deploy the database-only skill reader until the production `skill` collection is populated and verified. Keep the legacy `skills` collection through the rollback window so the previous deployment can still read it. The full sequence is in [the rollout plan](ROLLOUT_PLAN_2026-11.md).
+Run `data:preview`, `data:copy`, and `data:verify` first against a fresh local
+database, then against production by changing only `DB_CONN_STRING`. Inspect
+the 58 records, icons, ratings, ordering, and Home/Skills rendering before
+deploying the database-only reader. See [manual migration](DEVELOPMENT_DATA.md).

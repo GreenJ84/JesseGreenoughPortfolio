@@ -1,5 +1,9 @@
 # Skills persistence plan
 
+Historical design note. Skills are now persisted, and the manual migration
+seeds the recovered 58 records from `migration/historical-skills.json`. Follow
+[the current procedure](DEVELOPMENT_DATA.md) for local and production copies.
+
 ## Current shape
 
 `skillData.ts` contains eight ordered groups of skills. Each item stores a name, a 1–5 rating, and a React icon component. The Home skills carousel reads the language group directly. The Skills page reads every group and passes the component to `TechnicalSkill`. Skills have no collection, shared database type, validation, admin editor, or cache invalidation yet.
