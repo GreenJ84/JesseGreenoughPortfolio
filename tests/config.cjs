@@ -41,6 +41,7 @@ test('production headers protect pages and APIs without wildcard credentialed CO
   assert.ok(policy.includes("form-action 'self'"));
   assert.ok(!policy.includes('unsafe-eval'));
   assert.ok(!policy.includes('unsafe-inline'));
+  assert.match(policy, /style-src-attr 'unsafe-hashes' 'sha256-zlqnbDt84zf1iSefLU\/ImC54isoprH\/MRiVZGskwexk='/);
   assert.ok(policy.includes('nonce-'));
   assert.ok(policy.includes('https://github-contributions-api.jogruber.de'));
   assert.equal(value.productionBrowserSourceMaps, false);

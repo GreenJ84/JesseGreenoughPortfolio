@@ -13,7 +13,9 @@ export async function proxy(request: NextRequest) {
     "form-action 'self'",
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://va.vercel-scripts.com${development ? " 'unsafe-eval'" : ''}`,
     `style-src 'self' 'nonce-${nonce}'`,
-    "style-src-attr 'none'",
+    // Next/Image emits only color:transparent as an inline attribute. Permit
+    // that exact value by hash without opening inline styles generally.
+    "style-src-attr 'unsafe-hashes' 'sha256-zlqnbDt84zf1iSefLU/ImC54isoprH/MRiVZGskwexk='",
     "img-src 'self' data: blob: https:",
     "font-src 'self'",
     `connect-src 'self' https://github-contributions-api.jogruber.de https://vitals.vercel-insights.com https://*.vercel-insights.com${development ? ' ws: wss:' : ''}`,
