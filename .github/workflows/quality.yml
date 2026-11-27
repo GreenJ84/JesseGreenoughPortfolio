@@ -104,7 +104,7 @@ jobs:
       - run: npm ci
         env:
           CYPRESS_INSTALL_BINARY: '0'
-      - name: Migrate complete synthetic legacy copy and test failure preservation
+      - name: Plan, copy, and verify against synthetic legacy source; test failure preservation
         run: node scripts/check-migration-integration.cjs
       - name: Upload migration report
         if: always()

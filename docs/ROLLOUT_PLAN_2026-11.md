@@ -4,13 +4,13 @@
 
 The canonical collections are `project`, `certification`, `education`, `work`, `resume`, and `skill`. All resource documents use `title`, `brief`, and `image_url`; work uses `primary`, `start_date`, and optional `end_date`. The two legacy work collections merge into `work`.
 
-On a named `PersonalPortfolioDev_YYYYMMDD_hex8` database connected through loopback MongoDB, Next.js instrumentation copies legacy collections into the canonical collections at server startup, checks each transformed document by `_id`, then drops the legacy collections. It refuses remote targets and never runs in production. A conflict or unrecognized date stops the migration before any legacy collection is dropped. Do not treat a successful build as evidence that real portfolio data migrated: the development copy must be exercised with MongoDB available.
+The explicit `data:preview`, `data:copy`, and `data:verify` commands read legacy collections through `PORTFOLIO_SOURCE_URI` and use `DB_CONN_STRING` as the only destination selector. In development, use a named loopback database; for production cutover, change `DB_CONN_STRING` to the production `PersonalPortfolio` database. The commands compare transformed documents by `_id` and field value and retain every legacy collection. Application startup never migrates. A conflict or unrecognized date stops the command without dropping source data.
 
 ## Development gates before production work
 
 1. Run `npm ci`, `npm run typecheck`, `npm run lint`, `npm test`, and `npm run build` in CI. Retain the existing admin and public route smoke checks and add browser checks for the home carousel, searchable filters, contact modal, mobile navigation, and light/dark themes.
-2. Add a MongoDB integration job that creates a disposable named development database with representative legacy documents in every old collection. Start `next dev`, verify the instrumentation migration completes, compare counts and mapped fields, verify old collections are absent, then repeat startup to prove idempotence. Include malformed dates and conflicting target records to prove it stops without dropping sources.
-3. Use a current read-only production snapshot copied by `data:copy` to a named local database. Audit every record after migration: image URLs, credential links, project links, work dates, resume downloads, skill icons, and visible content. Review any inferred month precision before accepting it.
+2. Run the shared migration command against a disposable named development database with representative legacy documents in every source collection. Compare counts and mapped fields, verify legacy collections remain, and repeat the copy to prove idempotence. Include malformed dates and conflicting target records to prove it stops without deleting sources.
+3. Use the read-only `PORTFOLIO_SOURCE_URI` and a named local `DB_CONN_STRING` destination for a current production-data rehearsal. Audit every record after migration: image URLs, credential links, project links, work dates, resume downloads, skill icons, and visible content. Review any inferred month precision before accepting it.
 4. Run desktop and mobile visual checks at 390, 768, and 1365 px. Check reduced motion, keyboard focus, screen-reader names, CSP violations, and real images. Measure LCP, CLS, INP, route bundle sizes, and database query times against the existing performance baselines.
 5. Require a reviewed migration report, passing CI, and a deployment preview before production cutover. Keep deployment credentials separate from development copy credentials.
 
@@ -37,7 +37,7 @@ Capture collection sizes, query plans, and p95 read latency first. If the data w
 
 ## Deployment execution checklist (26 November 2026)
 
-This is a plan, not an executed production migration. The current `migrateDevelopmentResources` function is intentionally loopback-only and must not be repurposed with production credentials. No production migration command exists yet.
+This is a plan, not an executed production migration. The shared migration command exists, but no production copy or legacy cleanup has been executed. The protected production-data rehearsal and preview remain release gates. Legacy cleanup is a separate reviewed operation after the rollback window.
 
 ### 0. Commit and release gates
 
@@ -45,10 +45,10 @@ This is a plan, not an executed production migration. The current `migrateDevelo
 - Verify `npm ci`, typecheck, lint, tests, build, production server smoke, passkey checks, and browser flows in CI. Add a MongoDB fixture job with both old and new collection states. Fail the gate when transformed data is absent, mismatched, or a migration emits a warning even if Next exits zero.
 - Inventory production collections, counts, and schema variants with read-only credentials. Confirm images, dates, links, and visibility. Run `npm audit` in CI and require a reviewed result.
 
-### 1. Build a separate production migration command
+### 1. Review the shared production migration command
 
-- Give the command explicit `--plan`, `--copy`, `--verify`, and `--cleanup-rehearsal` modes. `--plan` must be read-only and identify the source database, old/new collection names, counts, and conflicts without printing credentials or private document contents.
-- Use a migration-specific account that can read legacy resource collections and write only the six new resource collections. It must not have permission to drop legacy collections. The cleanup mode must require an explicit list of newly created rehearsal collections and must refuse any pre-existing target collection.
+- The command has read-only `--plan` and `--verify` modes and an idempotent `--apply` copy mode. Review its report, including source hashes, old/new collection counts, inferred dates, and conflicts, without printing credentials or private document contents. Rehearsal cleanup is separate and only removes disposable local targets.
+- Use a source account that can read legacy resource collections and a distinct destination account that can write only the six new resource collections. Neither migration credential needs permission to drop legacy collections.
 - Reuse the reviewed transforms but add shape validation for every output, deterministic counts and per-collection checksums or a field-level comparison keyed by `_id`, and a manifest recording source counts, destination counts, conflicts, start/end times, and code commit. Stop on unknown legacy dates or mismatched target documents. Make reruns idempotent.
 - Do not migrate owner passkeys, sessions, rate limits, visitor metrics, or alerts as part of the resource rename; they keep their existing collection names. Preserve the old resource collections for rollback.
 

@@ -6,7 +6,7 @@ Each record stores `title`/`name`, `brief`, `category`, `rating` (1–5), `image
 
 ## Development copy
 
-`npm run data:copy` creates a named local copy from a read-only production source credential. With `PORTFOLIO_DB_NAME=PersonalPortfolioDev_YYYYMMDD_XXXXXXXX` and a loopback MongoDB connection, the development startup migration copies legacy `skills` into `skill`, verifies records, then drops the old local collection. The hardcoded seed script and admin import control have been removed.
+`npm run data:copy` reads legacy `skills` through the read-only `PORTFOLIO_SOURCE_URI` and writes canonical `skill` records to the database named in `DB_CONN_STRING`. Run `data:preview` first and `data:verify` afterward. The source collection stays intact, and the application does not migrate on startup. The hardcoded seed script and admin import control have been removed.
 
 Check the copied records before relying on them: total count, visible count, category values, icon keys, and Home/Skills rendering. The tested local copy had 58 records, all visible, with supported categories and icon keys. A future production migration must copy the current production records; the local copy is not a production source of truth.
 

@@ -6,7 +6,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 });
 
 const nextConfig = {
-  distDir: process.env.PORTFOLIO_MIGRATION_CI === '1' ? '.next-migration-ci' : '.next',
   output: 'standalone',
   poweredByHeader: false,
   productionBrowserSourceMaps: false,

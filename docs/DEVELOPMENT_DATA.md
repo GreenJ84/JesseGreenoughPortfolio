@@ -1,19 +1,17 @@
-# Copy production portfolio content into a local development database
+# Development migration rehearsal
 
-Use a **read-only** Atlas account in `PORTFOLIO_SOURCE_URI`. The script never writes to the source. It copies only the six public content collections; admin sessions, login limits, credentials, and other collections are excluded. The destination must be a loopback MongoDB server without URI credentials. Every copy uses a fresh local database name, so existing local data is never deleted or overwritten.
+Keep `PORTFOLIO_SOURCE_URI` set to a **read-only** production MongoDB credential for `PersonalPortfolio`. It is always the legacy input. Set only `DB_CONN_STRING` to choose the destination. In development, point it at loopback MongoDB and include a fresh database name matching `PersonalPortfolioDev_YYYYMMDD_XXXXXXXX`, for example `mongodb://127.0.0.1:27017/PersonalPortfolioDev_20261126_1234abcd`. In production, point it at the production `PersonalPortfolio` database with a separate credential that may write the six canonical resource collections. Never commit either URI.
 
-Inject `PORTFOLIO_SOURCE_URI` through your secret manager or a temporary shell environment before these commands. Preview collection counts first:
+Run the same commands in either environment:
 
 ```sh
 npm run data:preview
-```
-
-Then create a copy:
-
-```sh
 npm run data:copy
+npm run data:verify
 ```
 
-The script prints `PORTFOLIO_DB_NAME=PersonalPortfolioDev_...` after a successful copy. Set that environment variable alongside local `DB_CONN_STRING` when running `npm run dev`. It is ignored in production. Never put the source URI in a committed file, command history, CI output, or a browser variable. Prefer a secret manager or a temporary environment file outside the repository. Copying real portfolio data into development also requires appropriate local access and retention controls.
+`data:preview` transforms every legacy document and checks for target conflicts without writing. `data:copy` inserts missing canonical documents, verifies every `_id` and mapped field, and checks that legacy source records did not change during the copy. It can be rerun: matching records are retained; a conflicting target stops the run. `data:verify` requires exact parity and performs no writes. All three commands retain legacy collections. The application reads the database named in `DB_CONN_STRING` and does not migrate on startup.
 
-The copy is best-effort across collections, not a transactionally consistent database snapshot. It checks counts during each collection and deletes the *new* local destination if the copy fails. For a point-in-time backup, use database backup tooling and a defined snapshot window. Old schema migration helpers were removed; schema transformation will be designed separately.
+The seven source collections are `projects`, `certifications`, `degrees`, `workExperience`, `secondaryExperience`, `resumes`, and `skills`. They map into `project`, `certification`, `education`, `work`, `resume`, and `skill`. A missing or empty source collection stops the run; resolve the source data explicitly rather than creating empty target content. Review year-only work dates in the report because the transform infers January/December. Set `PORTFOLIO_MIGRATION_REPORT` to a local path if a JSON manifest is needed for review. Protect that report as operational data.
+
+The production source should be stable during copy and verification. Freeze owner resource edits or take a consistent snapshot and reconcile any changes before cutover. A partial target copy after an interruption remains available for an idempotent rerun, but a source change can require review of a conflicting target. Do not remove legacy collections until the release has been verified and the rollback window has ended; their cleanup is a separate reviewed operation.

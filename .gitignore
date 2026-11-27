@@ -30,7 +30,6 @@ src/cypress/e2e/examples
 
 # next.js
 /.next/
-/.next-migration-ci/
 /out/
 /.swm/
 
