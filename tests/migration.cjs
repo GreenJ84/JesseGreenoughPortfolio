@@ -2,9 +2,10 @@ const assert = require('node:assert/strict');
 const { test } = require('node:test');
 const { ObjectId } = require('mongodb');
 const { loadSource } = require('./security-harness.cjs');
-const { databaseName } = require('../scripts/migrate-portfolio.cjs');
+const { databaseName, historicalSkills } = require('../migration/migrate-portfolio.cjs');
 
-const { transformLegacyRecord } = loadSource()('src/app/_utils/migrationTransform.ts');
+const { transformLegacyRecord } = loadSource()('migration/transform.ts');
+const { skillIconKeys } = loadSource()('src/app/_lib/skillCatalog.ts');
 
 test('legacy resources map to the settled field names without losing identifiers', () => {
   const id = new ObjectId();
@@ -15,7 +16,6 @@ test('legacy resources map to the settled field names without losing identifiers
     ['workExperience', { position: 'Engineer', company: 'Example', date: '2024-01..present' }, 'primary', true],
     ['secondaryExperience', { position: 'Volunteer', company: 'Example', date: '2023 - 2024' }, 'primary', false],
     ['resumes', { view: '/resume.pdf', image_url: '/resume.png', categories: ['Backend'] }, 'brief', '/resume.pdf'],
-    ['skills', { name: 'Rust', iconKey: 'Rust', rating: 4 }, 'image_url', 'Rust'],
   ];
   for (const [collection, row, key, expected] of cases) {
     const result = transformLegacyRecord(collection, { _id: id, ...row });
@@ -23,6 +23,22 @@ test('legacy resources map to the settled field names without losing identifiers
     assert.equal(result[key], expected);
   }
   assert.throws(() => transformLegacyRecord('workExperience', { _id: id, date: 'unknown' }), /Unrecognized/);
+});
+
+test('historical skills seed preserves all categories and stable identifiers', () => {
+  const first = historicalSkills();
+  const second = historicalSkills();
+  assert.equal(first.length, 58);
+  assert.deepEqual(first.map(row => String(row._id)), second.map(row => String(row._id)));
+  assert.deepEqual([...new Set(first.map(row => row.category))], [
+    'languages', 'frameworks', 'databases', 'planning_Tools',
+    'development_Tools', 'runtime_Tools', 'devops_Tools', 'extras',
+  ]);
+  assert.deepEqual(first.slice(0, 2).map(row => [row.title, row.rating, row.sortOrder]), [
+    ['Rust', 3, 0], ['HTML5', 5, 1],
+  ]);
+  assert.ok(first.every(row => skillIconKeys.includes(row.image_url)), 'Every historical icon must render');
+  assert.throws(() => transformLegacyRecord('skills', { _id: new ObjectId() }), /No migration for skills/);
 });
 
 test('legacy work periods accept compact ranges and single-year roles', () => {

@@ -18,9 +18,9 @@
     "analyze": "ANALYZE=true next build --webpack",
     "perf:browser": "node scripts/measure-performance.cjs",
     "perf:bundles": "node scripts/measure-bundles.cjs",
-    "data:preview": "node scripts/migrate-portfolio.cjs --plan",
-    "data:copy": "node scripts/migrate-portfolio.cjs --apply",
-    "data:verify": "node scripts/migrate-portfolio.cjs --verify",
+    "data:preview": "node migration/migrate-portfolio.cjs --plan",
+    "data:copy": "node migration/migrate-portfolio.cjs --apply",
+    "data:verify": "node migration/migrate-portfolio.cjs --verify",
     "test:passkeys": "node scripts/check-owner-passkeys.cjs"
   },
   "dependencies": {

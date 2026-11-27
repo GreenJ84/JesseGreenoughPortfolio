@@ -185,7 +185,7 @@ test('education DTOs, month inputs and display preserve UTC months across timezo
 });
 
 test('legacy degree fields migrate to the canonical education model', () => {
-  const { transformLegacyRecord } = loadSource()('src/app/_utils/migrationTransform.ts');
+  const { transformLegacyRecord } = loadSource()('migration/transform.ts');
   const migrated = transformLegacyRecord('degrees', { _id: new ObjectId(), college: 'College', degree: 'Software Engineering', date: 'April 2024 - October 2024', description: ['Engineering coursework'], icon: '/degree.png', website: 'https://example.test' });
   const dto = dates.educationRecordDTO({ ...migrated, id: migrated._id.toString() });
   assert.equal(dto.title, 'Software Engineering');

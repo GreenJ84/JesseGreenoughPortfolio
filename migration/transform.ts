@@ -57,10 +57,6 @@ export function transformLegacyRecord(collection: string, row: Row): Row {
       return { _id, title: string(row.title ?? row.position), brief: string(row.brief ?? row.company), image_url: string(row.image_url ?? row.logo), primary: collection === 'workExperience', location: string(row.location), start_date: period.start, ...(period.end ? { end_date: period.end } : {}), details: list(row.details) };
     }
     case 'resumes': return { _id, title: string(row.title ?? row.job_title, list(row.categories)[0] ?? 'Resume'), brief: string(row.view ?? row.brief), image_url: string(row.image_url ?? row.image), download: string(row.download), categories: list(row.categories) };
-    case 'skills': {
-      const title = string(row.title ?? row.name);
-      return { _id, title, name: title, brief: string(row.brief), image_url: string(row.image_url ?? row.iconKey), category: string(row.category), rating: row.rating, sortOrder: row.sortOrder, visible: row.visible, normalizedName: string(row.normalizedName, title.toLocaleLowerCase('en-US')) };
-    }
     default: throw new Error(`No migration for ${collection}`);
   }
 }

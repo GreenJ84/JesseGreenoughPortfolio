@@ -1,0 +1,408 @@
+[
+  {
+    "category": "languages",
+    "title": "Rust",
+    "rating": 3,
+    "image_url": "Rust",
+    "sortOrder": 0
+  },
+  {
+    "category": "languages",
+    "title": "HTML5",
+    "rating": 5,
+    "image_url": "HTML5",
+    "sortOrder": 1
+  },
+  {
+    "category": "languages",
+    "title": "JavaScript",
+    "rating": 5,
+    "image_url": "JavaScript",
+    "sortOrder": 2
+  },
+  {
+    "category": "languages",
+    "title": "TypeScript",
+    "rating": 5,
+    "image_url": "TypeScript",
+    "sortOrder": 3
+  },
+  {
+    "category": "languages",
+    "title": "CSS3",
+    "rating": 4,
+    "image_url": "CSS3",
+    "sortOrder": 4
+  },
+  {
+    "category": "languages",
+    "title": "Java",
+    "rating": 4,
+    "image_url": "Java",
+    "sortOrder": 5
+  },
+  {
+    "category": "languages",
+    "title": "SQL",
+    "rating": 4,
+    "image_url": "SQL",
+    "sortOrder": 6
+  },
+  {
+    "category": "languages",
+    "title": "GraphQL",
+    "rating": 4,
+    "image_url": "GraphQL",
+    "sortOrder": 7
+  },
+  {
+    "category": "languages",
+    "title": "Markdown",
+    "rating": 3,
+    "image_url": "Markdown",
+    "sortOrder": 8
+  },
+  {
+    "category": "languages",
+    "title": "Python",
+    "rating": 2,
+    "image_url": "Python",
+    "sortOrder": 9
+  },
+  {
+    "category": "languages",
+    "title": "Solidity",
+    "rating": 2,
+    "image_url": "Solidity",
+    "sortOrder": 10
+  },
+  {
+    "category": "frameworks",
+    "title": "Next.js",
+    "rating": 5,
+    "image_url": "Next.js",
+    "sortOrder": 0
+  },
+  {
+    "category": "frameworks",
+    "title": "React",
+    "rating": 5,
+    "image_url": "React",
+    "sortOrder": 1
+  },
+  {
+    "category": "frameworks",
+    "title": "ExpressJS",
+    "rating": 4,
+    "image_url": "ExpressJS",
+    "sortOrder": 2
+  },
+  {
+    "category": "frameworks",
+    "title": "Spring Boot",
+    "rating": 4,
+    "image_url": "Spring Boot",
+    "sortOrder": 3
+  },
+  {
+    "category": "frameworks",
+    "title": "Tailwind CSS",
+    "rating": 3,
+    "image_url": "Tailwind CSS",
+    "sortOrder": 4
+  },
+  {
+    "category": "frameworks",
+    "title": "Jest",
+    "rating": 4,
+    "image_url": "Jest",
+    "sortOrder": 5
+  },
+  {
+    "category": "frameworks",
+    "title": "Cypress",
+    "rating": 3,
+    "image_url": "Cypress",
+    "sortOrder": 6
+  },
+  {
+    "category": "frameworks",
+    "title": "Flask",
+    "rating": 3,
+    "image_url": "Flask",
+    "sortOrder": 7
+  },
+  {
+    "category": "frameworks",
+    "title": "NestJS",
+    "rating": 2,
+    "image_url": "NestJS",
+    "sortOrder": 8
+  },
+  {
+    "category": "frameworks",
+    "title": "Django",
+    "rating": 2,
+    "image_url": "Django",
+    "sortOrder": 9
+  },
+  {
+    "category": "databases",
+    "title": "MySQL",
+    "rating": 5,
+    "image_url": "MySQL",
+    "sortOrder": 0
+  },
+  {
+    "category": "databases",
+    "title": "Sqlite",
+    "rating": 5,
+    "image_url": "Sqlite",
+    "sortOrder": 1
+  },
+  {
+    "category": "databases",
+    "title": "PostgreSQL",
+    "rating": 4,
+    "image_url": "PostgreSQL",
+    "sortOrder": 2
+  },
+  {
+    "category": "databases",
+    "title": "MongoDB",
+    "rating": 4,
+    "image_url": "MongoDB",
+    "sortOrder": 3
+  },
+  {
+    "category": "databases",
+    "title": "Redis",
+    "rating": 4,
+    "image_url": "Redis",
+    "sortOrder": 4
+  },
+  {
+    "category": "databases",
+    "title": "DynamoDB",
+    "rating": 1,
+    "image_url": "DynamoDB",
+    "sortOrder": 5
+  },
+  {
+    "category": "planning_Tools",
+    "title": "Trello",
+    "rating": 4,
+    "image_url": "Trello",
+    "sortOrder": 0
+  },
+  {
+    "category": "planning_Tools",
+    "title": "Figma",
+    "rating": 3,
+    "image_url": "Figma",
+    "sortOrder": 1
+  },
+  {
+    "category": "planning_Tools",
+    "title": "Notion",
+    "rating": 3,
+    "image_url": "Notion",
+    "sortOrder": 2
+  },
+  {
+    "category": "development_Tools",
+    "title": "Visual Studio Code",
+    "rating": 5,
+    "image_url": "Visual Studio Code",
+    "sortOrder": 0
+  },
+  {
+    "category": "development_Tools",
+    "title": "Git",
+    "rating": 4,
+    "image_url": "Git",
+    "sortOrder": 1
+  },
+  {
+    "category": "development_Tools",
+    "title": "Chrome DevTools",
+    "rating": 4,
+    "image_url": "Chrome DevTools",
+    "sortOrder": 2
+  },
+  {
+    "category": "development_Tools",
+    "title": "NPM",
+    "rating": 4,
+    "image_url": "NPM",
+    "sortOrder": 3
+  },
+  {
+    "category": "development_Tools",
+    "title": "Spring Tools",
+    "rating": 3,
+    "image_url": "Spring Tools",
+    "sortOrder": 4
+  },
+  {
+    "category": "development_Tools",
+    "title": "Postman",
+    "rating": 3,
+    "image_url": "Postman",
+    "sortOrder": 5
+  },
+  {
+    "category": "development_Tools",
+    "title": "Apollo Graphql",
+    "rating": 3,
+    "image_url": "Apollo Graphql",
+    "sortOrder": 6
+  },
+  {
+    "category": "development_Tools",
+    "title": "Gitkraken",
+    "rating": 3,
+    "image_url": "Gitkraken",
+    "sortOrder": 7
+  },
+  {
+    "category": "development_Tools",
+    "title": "Yarn",
+    "rating": 2,
+    "image_url": "Yarn",
+    "sortOrder": 8
+  },
+  {
+    "category": "development_Tools",
+    "title": "HardHat",
+    "rating": 2,
+    "image_url": "HardHat",
+    "sortOrder": 9
+  },
+  {
+    "category": "runtime_Tools",
+    "title": "NodeJS",
+    "rating": 5,
+    "image_url": "NodeJS",
+    "sortOrder": 0
+  },
+  {
+    "category": "runtime_Tools",
+    "title": "Deno",
+    "rating": 3,
+    "image_url": "Deno",
+    "sortOrder": 1
+  },
+  {
+    "category": "runtime_Tools",
+    "title": "Apache Tomcat",
+    "rating": 2,
+    "image_url": "Apache Tomcat",
+    "sortOrder": 2
+  },
+  {
+    "category": "runtime_Tools",
+    "title": "Wasmer",
+    "rating": 1,
+    "image_url": "Wasmer",
+    "sortOrder": 3
+  },
+  {
+    "category": "devops_Tools",
+    "title": "Github Pages",
+    "rating": 5,
+    "image_url": "Github Pages",
+    "sortOrder": 0
+  },
+  {
+    "category": "devops_Tools",
+    "title": "Vercel",
+    "rating": 4,
+    "image_url": "Vercel",
+    "sortOrder": 1
+  },
+  {
+    "category": "devops_Tools",
+    "title": "Docker",
+    "rating": 4,
+    "image_url": "Docker",
+    "sortOrder": 2
+  },
+  {
+    "category": "devops_Tools",
+    "title": "AWS EC2",
+    "rating": 3,
+    "image_url": "AWS EC2",
+    "sortOrder": 3
+  },
+  {
+    "category": "devops_Tools",
+    "title": "Nginx",
+    "rating": 3,
+    "image_url": "Nginx",
+    "sortOrder": 4
+  },
+  {
+    "category": "devops_Tools",
+    "title": "Kubernetes",
+    "rating": 2,
+    "image_url": "Kubernetes",
+    "sortOrder": 5
+  },
+  {
+    "category": "devops_Tools",
+    "title": "Gunicorn",
+    "rating": 2,
+    "image_url": "Gunicorn",
+    "sortOrder": 6
+  },
+  {
+    "category": "devops_Tools",
+    "title": "PM2",
+    "rating": 2,
+    "image_url": "PM2",
+    "sortOrder": 7
+  },
+  {
+    "category": "extras",
+    "title": "JSON Web Tokens",
+    "rating": 4,
+    "image_url": "JSON Web Tokens",
+    "sortOrder": 0
+  },
+  {
+    "category": "extras",
+    "title": "ReduxJS",
+    "rating": 4,
+    "image_url": "ReduxJS",
+    "sortOrder": 1
+  },
+  {
+    "category": "extras",
+    "title": "Firebase",
+    "rating": 3,
+    "image_url": "Firebase",
+    "sortOrder": 2
+  },
+  {
+    "category": "extras",
+    "title": "NextAuth.js",
+    "rating": 3,
+    "image_url": "NextAuth.js",
+    "sortOrder": 3
+  },
+  {
+    "category": "extras",
+    "title": "Socket.io",
+    "rating": 3,
+    "image_url": "Socket.io",
+    "sortOrder": 4
+  },
+  {
+    "category": "extras",
+    "title": "Ethers.js",
+    "rating": 2,
+    "image_url": "Ethers.js",
+    "sortOrder": 5
+  }
+]

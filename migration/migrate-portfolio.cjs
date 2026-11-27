@@ -10,18 +10,19 @@ const { createHash } = require('node:crypto');
 const { readFileSync, mkdirSync, writeFileSync } = require('node:fs');
 const path = require('node:path');
 const ts = require('typescript');
-const { BSON, MongoClient } = require('mongodb');
+const { BSON, MongoClient, ObjectId } = require('mongodb');
 
 const legacy = {
   projects: 'project', certifications: 'certification', degrees: 'education',
-  workExperience: 'work', secondaryExperience: 'work', resumes: 'resume', skills: 'skill',
+  workExperience: 'work', secondaryExperience: 'work', resumes: 'resume',
 };
-const targetNames = [...new Set(Object.values(legacy))];
+const targetNames = [...new Set([...Object.values(legacy), 'skill'])];
+const skillCategories = new Set(['languages', 'frameworks', 'databases', 'planning_Tools', 'development_Tools', 'runtime_Tools', 'devops_Tools', 'extras']);
 
 function transform() {
   // Load the same TypeScript mapping used by the application and tests so the
   // command cannot silently diverge from the resource schema.
-  const file = readFileSync(path.join(__dirname, '../src/app/_utils/migrationTransform.ts'), 'utf8');
+  const file = readFileSync(path.join(__dirname, 'transform.ts'), 'utf8');
   const compiled = ts.transpileModule(file, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText;
   const module = { exports: {} };
   new Function('module', 'exports', compiled)(module, module.exports);
@@ -45,6 +46,29 @@ function digest(rows) {
   // Sorting BSON-aware representations makes the source fingerprint independent
   // of MongoDB cursor order while preserving dates, IDs, and field values.
   return createHash('sha256').update(rows.map(canonical).sort().join('\n')).digest('hex');
+}
+function historicalSkills() {
+  // These 58 values were recovered from skillData.ts at commit 007e9a1.
+  // Stable IDs make plan/copy/verify repeatable across local and production.
+  const entries = JSON.parse(readFileSync(path.join(__dirname, 'historical-skills.json'), 'utf8'));
+  assert.equal(entries.length, 58, 'Historical skill seed must contain 58 entries');
+  const seen = new Set();
+  return entries.map(entry => {
+    assert.ok(skillCategories.has(entry.category), `Invalid skill category: ${entry.category}`);
+    assert.ok(typeof entry.title === 'string' && entry.title.trim() && entry.image_url === entry.title, 'Invalid historical skill title/icon');
+    assert.ok(Number.isInteger(entry.rating) && entry.rating >= 1 && entry.rating <= 5, 'Invalid historical skill rating');
+    assert.ok(Number.isInteger(entry.sortOrder) && entry.sortOrder >= 0, 'Invalid historical skill order');
+    const normalizedName = entry.title.trim().toLocaleLowerCase('en-US');
+    const key = `${entry.category}:${normalizedName}`;
+    assert.ok(!seen.has(key), `Duplicate historical skill: ${key}`);
+    seen.add(key);
+    return {
+      _id: new ObjectId(createHash('sha256').update(`portfolio-skill:${key}`).digest('hex').slice(0, 24)),
+      title: entry.title, name: entry.title, brief: '', image_url: entry.image_url,
+      category: entry.category, rating: entry.rating, sortOrder: entry.sortOrder,
+      visible: true, normalizedName,
+    };
+  });
 }
 function validate(name, row) {
   assert.ok(row._id && typeof row.title === 'string' && row.title.trim(), `${name}: missing identifier/title`);
@@ -76,6 +100,12 @@ async function snapshot(db, convert) {
         inferredPeriods.push({ collection: oldName, id, original: row.date, mappedStart: mapped.start_date, mappedEnd: mapped.end_date });
       }
     }
+  }
+  // Skills were never a required legacy collection. Seed the recovered static
+  // list into the canonical collection and leave any old collection untouched.
+  for (const row of historicalSkills()) {
+    validate('skill', row);
+    expected.skill.set(String(row._id), row);
   }
   return { source, expected, inferredPeriods };
 }
@@ -135,6 +165,7 @@ async function run(mode, env = process.env) {
     const report = {
       mode, verified: mode !== 'plan', sourceDatabase: sourceName, targetDatabase: targetName,
       source: before.source,
+      historicalSkills: { count: before.expected.skill.size, sha256: digest([...before.expected.skill.values()]) },
       target: Object.fromEntries(targetNames.map(name => [name, { expected: before.expected[name].size, missingBefore: missing[name].length }])),
       inferredPeriods: before.inferredPeriods,
       legacyCollectionsRetained: true,
@@ -158,4 +189,4 @@ if (require.main === module) {
   if (selected.length !== 1 || process.argv.length !== 3) { console.error('Use one mode: --plan, --apply, or --verify'); process.exitCode = 1; }
   else run(selected[0].slice(2)).then(report => console.log(JSON.stringify(report, null, 2))).catch(error => { console.error(error.message); process.exitCode = 1; });
 }
-module.exports = { run, databaseName };
+module.exports = { run, databaseName, historicalSkills };
