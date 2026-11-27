@@ -52,11 +52,17 @@ test('database import is lazy and keeps the development client across reloads', 
   assert.equal(first.DB_INFO.collections.CERT, 'certification');
   assert.equal(first.DB_INFO.collections.EDU, 'education');
   assert.equal(first.DB_INFO.collections.RES, 'resume');
-});
+  });
 
 test('explicit development database configuration is respected', () => {
   const runtime = databaseRuntime({ NODE_ENV: 'development', DB_CONN_STRING: 'mongodb://example.test:27017' });
   assert.equal(runtime.load().DB.client.uri, 'mongodb://example.test:27017');
+});
+
+test('named development copy is selected only outside production', () => {
+  const name = 'PersonalPortfolioDev_20261123_b2704083';
+  assert.equal(databaseRuntime({ NODE_ENV: 'development', PORTFOLIO_DB_NAME: name }).load().DB.name, name);
+  assert.equal(databaseRuntime({ NODE_ENV: 'production', DB_CONN_STRING: 'mongodb://example.test:27017', PORTFOLIO_DB_NAME: name }).load().DB.name, 'PersonalPortfolio');
 });
 
 test('production requires explicit database configuration before creating a client', () => {
