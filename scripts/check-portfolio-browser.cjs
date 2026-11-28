@@ -9,6 +9,19 @@ const output = path.resolve(process.env.VISUAL_OUTPUT || 'test-results/visual');
 const sizes = [390, 768, 1365];
 const routes = ['/', '/about', '/skills', '/projects', '/education', '/work', '/resumes'];
 
+async function assertCarouselLinksVisible(carousel, width, state) {
+  const bounds = await carousel.locator('article[aria-current="true"]').evaluate(card => {
+    const cardRect = card.getBoundingClientRect();
+    const contentRect = card.querySelector('[class*="previewContent"]').getBoundingClientRect();
+    return [...card.querySelectorAll('a')].map(link => {
+      const rect = link.getBoundingClientRect();
+      return { label: link.textContent.trim(), visible: rect.height > 0 && rect.top >= contentRect.top && rect.bottom <= Math.min(contentRect.bottom, cardRect.bottom) - 1 };
+    });
+  });
+  assert.ok(bounds.length > 0, `${width}px ${state} carousel needs project links`);
+  for (const link of bounds) assert.ok(link.visible, `${width}px ${state} carousel clips ${link.label}`);
+}
+
 (async () => {
   fs.mkdirSync(output, { recursive: true });
   const browser = await chromium.launch({ headless: true, ...(process.env.BROWSER_CHANNEL ? { channel: process.env.BROWSER_CHANNEL } : {}) });
@@ -44,9 +57,13 @@ const routes = ['/', '/about', '/skills', '/projects', '/education', '/work', '/
             await page.locator('[aria-label="Choose featured project"] button').nth(1).click();
             await page.waitForFunction(previous => document.querySelector('[aria-roledescription="carousel"] article[aria-current="true"] h3')?.textContent?.trim() !== previous, first);
             assert.notEqual(await current.innerText(), first, `${width}px carousel must advance`);
+            await assertCarouselLinksVisible(carousel, width, 'collapsed');
             await carousel.getByRole('button', { name: 'Show more' }).click();
+            await carousel.getByRole('button', { name: 'Show less' }).waitFor();
             assert.equal(await carousel.getByRole('button', { name: 'Show less' }).getAttribute('aria-expanded'), 'true');
+            await assertCarouselLinksVisible(carousel, width, 'expanded');
             await carousel.getByRole('button', { name: 'Show less' }).click();
+            await assertCarouselLinksVisible(carousel, width, 'collapsed again');
             const image = carousel.locator('article[aria-current="true"] img');
             await image.waitFor();
             assert.ok(await image.evaluate(node => node.complete && node.naturalWidth > 0), `${width}px carousel image must load`);
