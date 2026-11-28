@@ -2,8 +2,10 @@
 
 ## Required environment
 
-Next.js loads `.env.local` and deployment environment variables. Keep credentials
-out of source control. The existing credential names are retained:
+Start with the tracked [`.env-template`](../.env-template) for local development.
+Next.js loads project-root environment files; deployment values belong in the
+hosting platform's secrets or environment manager. Keep credentials out of
+source control. The application uses these variable names:
 
 | Variable | Requirement |
 | --- | --- |
