@@ -16,7 +16,7 @@ source control. The application uses these variable names:
 | `USER_EMAIL` | Single Gmail sender address. |
 | `USER_PASS` | Gmail application password. |
 | `CONTACT_EMAIL` | Single recipient address for contact messages. |
-| `CLOUDINARY_CLOUD_NAME` | Cloudinary tenant identifier for admin media and image optimization. |
+| `CLOUDINARY_CLOUD_NAME` | Cloudinary tenant identifier for admin media and any additional optimized images. |
 | `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` | Server-side credentials for admin media. |
 | `TRUSTED_CLIENT_IP_HEADER` | Optional. See trusted proxy configuration below. |
 
@@ -114,8 +114,9 @@ measurement endpoints. Development alone permits eval and websocket reloads.
 `unsafe-inline` is absent; the nonce policy requires dynamic page rendering.
 External HTTPS images remain allowed in browser markup for the existing stats cards.
 
-The optimizer accepts HTTPS on configured image hosts, with Cloudinary restricted
-to `CLOUDINARY_CLOUD_NAME` and no query string. Other allowlisted hosts retain
+The optimizer accepts HTTPS on configured image hosts. It permits the static
+portrait's Cloudinary tenant and, when configured, `CLOUDINARY_CLOUD_NAME`,
+with no query strings. Other allowlisted hosts retain
 their current path and query behavior for stored images. The SVG stats
 service uses plain image tags and is not an optimizer origin. SVG
 optimization and local-IP fetching are disabled; optimized responses use attachment

@@ -10,6 +10,21 @@ if (cloudinaryCloud && !/^[a-z0-9_-]+$/i.test(cloudinaryCloud)) {
   throw new Error('CLOUDINARY_CLOUD_NAME must be a Cloudinary cloud identifier');
 }
 
+// The portrait is static page content. Its Cloudinary tenant must remain
+// optimizable even when an admin-media tenant is not configured for a preview.
+const portraitUrl = require('./src/app/(portfolio)/portrait.json').url;
+let portraitCloud;
+try {
+  const url = new URL(portraitUrl);
+  const tenant = url.pathname.split('/')[1];
+  if (url.protocol === 'https:' && url.hostname === 'res.cloudinary.com' && !url.username && !url.password && !url.search && !url.hash && /^[a-z0-9_-]+$/i.test(tenant)) {
+    portraitCloud = tenant;
+  }
+} catch {
+  // A fork may use a local portrait; it needs no remote image pattern.
+}
+const cloudinaryImageTenants = [...new Set([portraitCloud, cloudinaryCloud].filter(Boolean))];
+
 const nextConfig = {
   output: 'standalone',
   poweredByHeader: false,
@@ -45,7 +60,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'imgs.search.brave.com', port: '', pathname: '/**' },
       { protocol: 'https', hostname: 'media.glassdoor.com', port: '', pathname: '/**' },
       { protocol: 'https', hostname: 'trufflesuite.com', port: '', pathname: '/**' },
-      ...(cloudinaryCloud ? [{ protocol: 'https', hostname: 'res.cloudinary.com', port: '', pathname: `/${cloudinaryCloud}/**`, search: '' }] : []),
+      ...cloudinaryImageTenants.map(tenant => ({ protocol: 'https', hostname: 'res.cloudinary.com', port: '', pathname: `/${tenant}/**`, search: '' })),
     ],
     qualities: [75],
     minimumCacheTTL: 60,

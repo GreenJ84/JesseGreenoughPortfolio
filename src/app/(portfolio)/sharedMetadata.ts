@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
+import portrait from './portrait.json';
 
 export const APP_URL = 'https://jesse-greenough-portfolio.vercel.app';
 
-const PORTRAIT =
-  'https://res.cloudinary.com/portfolio-g84/image/upload/v1690310921/personal/personal_portrait.jpg';
+const PORTRAIT = portrait.url;
 
 export const OPEN_GRAPH = {
   images: [

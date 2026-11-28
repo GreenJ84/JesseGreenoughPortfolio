@@ -10,11 +10,11 @@ async function pagePolicy(mode) {
   return (await proxy(new NextRequest('https://example.test/about'))).headers.get('content-security-policy');
 }
 
-function config(mode) {
+function config(mode, cloud = 'example-cloud') {
   const original = process.env.NODE_ENV;
   const originalCloud = process.env.CLOUDINARY_CLOUD_NAME;
   process.env.NODE_ENV = mode;
-  process.env.CLOUDINARY_CLOUD_NAME = 'example-cloud';
+  process.env.CLOUDINARY_CLOUD_NAME = cloud;
   delete require.cache[require.resolve('../next.config.js')];
   const value = require('../next.config.js');
   if (original === undefined) delete process.env.NODE_ENV;
@@ -71,6 +71,8 @@ test('nonce proxy retains the admin navigation guard', async () => {
 test('image optimizer restricts protocol, ports, Cloudinary tenant, local paths and queries', () => {
   const { images } = config('production');
   const remote = url => hasRemoteMatch([], images.remotePatterns, new URL(url));
+  const staticCloud = new URL(require('../src/app/(portfolio)/portrait.json').url).pathname.split('/')[1];
+  assert.ok(remote(`https://res.cloudinary.com/${staticCloud}/image/upload/c_scale,q_auto:eco,w_200/v1/certification_issuers/example.png`));
   assert.ok(remote('https://res.cloudinary.com/example-cloud/image/upload/test.jpg'));
   assert.ok(remote('https://raw.githubusercontent.com/GreenJ84/project/main/image.png'));
   for (const url of ['http://res.cloudinary.com/example-cloud/test.jpg', 'https://res.cloudinary.com/other-tenant/test.jpg', 'https://res.cloudinary.com/example-cloud/test.jpg?transform=other', 'https://res.cloudinary.com:444/example-cloud/test.jpg', 'https://untrusted.test/image.jpg', 'https://127.0.0.1/image.jpg', 'https://greenj-readme-stats.onrender.com/github/stats/GreenJ84']) assert.equal(remote(url), false, url);
@@ -80,4 +82,12 @@ test('image optimizer restricts protocol, ports, Cloudinary tenant, local paths 
   assert.equal(images.dangerouslyAllowLocalIP, false);
   assert.equal(images.contentDispositionType, 'attachment');
   assert.ok(images.contentSecurityPolicy.includes('sandbox'));
+});
+
+test('static Cloudinary images remain optimizable without admin media configuration', () => {
+  const { images } = config('production', '');
+  const remote = url => hasRemoteMatch([], images.remotePatterns, new URL(url));
+  const staticCloud = new URL(require('../src/app/(portfolio)/portrait.json').url).pathname.split('/')[1];
+  assert.ok(remote(`https://res.cloudinary.com/${staticCloud}/image/upload/v1/certification_issuers/example.png`));
+  assert.equal(remote('https://res.cloudinary.com/another-cloud/image/upload/example.png'), false);
 });

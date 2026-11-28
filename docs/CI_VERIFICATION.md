@@ -6,4 +6,4 @@ Checks include `npm ci`, typecheck, lint, unit tests, a production build, standa
 
 Performance reports include LCP, CLS, route JavaScript transfer, an interaction timing proxy, and MongoDB query timings against the disposable fixture. The interaction proxy is not field INP. The workflow also checks pinned container base digests, smokes the final runtime image, and scans OS and library vulnerabilities. Screenshots and reports are uploaded as `portfolio-quality-evidence`.
 
-The workflow obtains the Cloudinary tenant from the current static portrait URL so the image optimizer and container build use the same tenant without duplicating the account name in workflow configuration. Unit tests cover migration transforms and the historical skill seed; running the copy against real data remains a separate operator action.
+The image optimizer derives the static portrait's Cloudinary tenant from the shared portrait asset, so preview and container builds use the same allowlist without a tenant variable. Unit tests cover migration transforms and the historical skill seed; running the copy against real data remains a separate operator action.
