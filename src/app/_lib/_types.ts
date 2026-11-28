@@ -1,57 +1,88 @@
-// Base interface that all portfolio data must extend
-export interface BasePortfolioItem {
+// Shared persisted fields. Concrete resources make their own stored fields required.
+export interface BaseItem {
   id?: string;
-}
-
-export enum DataType {
-  Project = 'projects',
-  Certification = 'certifications',
-  Education = 'education',
-  Work = 'work',
-}
-export type PortfolioData = ProjectType | CertificationType | EducationType | WorkType;
-
-
-export interface ProjectType extends BasePortfolioItem {
-  priority: number;
-  name: string;
-  date: string;
+  title: string;
   brief: string;
+  image_url: string;
+}
+
+export type PortfolioData = Project | Certification | Education | Work | Skill | Resume;
+
+export interface Resume extends BaseItem {
+  // id?: string; -> send vs receive
+  // title: string; -> job_title
+  // brief: string; -> view
+  // image_url: string; -> image
+  download: string;
+  categories: string[];
+}
+
+// TODO: Fix
+export interface Skill extends BaseItem {
+  // id?: string; -> send vs receive
+  // title: string; -> name
+  // brief: string; -> issuer
+  // image_url: string; -> icon_key
+  category: string;
+  name: string;
+  rating: number;
+  sortOrder: number;
+  visible: boolean;
+}
+
+
+export interface Project extends BaseItem {
+  // id?: string; -> send vs receive
+  // title: string; -> name
+  // brief: string; -> brief
+  // image_url: string; -> image_path
   description: string;
-  image_path: string;
+  priority: number;
+  date: string;
   deployed_url: string;
   github_url: string;
   categories: string[];
   key_techs: string[];
 }
 
-export interface CertificationType extends BasePortfolioItem {
-  priority: number;
-  title: string;
-  issuer: string;
-  date: string;
+export interface Certification extends BaseItem {
+  // id?: string; -> send vs receive
+  // title: string; -> title
+  // brief: string; -> issuer
+  // image_url: string; -> image_path
   description: string;
-  image: string;
+  priority: number;
+  date: string;
   url: string;
   techs: string[];
 }
 
-export interface EducationType extends BasePortfolioItem {
-  college: string;
-  degree: string;
-  date: string; // "start - end"
-  startDate?: string;
-  endDate?: string;
-  description: string[];
-  icon: string;
-  website: string;
-}
-
-export interface WorkType extends BasePortfolioItem {
-  company: string;
-  position: string;
-  logo: string;
-  location: string;
-  date: string; // "start - end"
+export interface Education extends BaseItem {
+  // id?: string; -> send vs receive
+  // title: string; -> program_name
+  // brief: string; -> school_name
+  // image_url: string; -> image_path
+  description: string;
+  url: string;
+  start_date: Date;
+  end_date?: Date;
   details: string[];
 }
+
+export interface Work extends BaseItem {
+  // id?: string; -> send vs receive
+  // title: string; -> position
+  // brief: string; -> company
+  // image_url: string; -> logo of the company
+  primary: boolean;
+  location: string;
+  start_date: string;
+  end_date?: string;
+  details: string[];
+}
+// Browser/API dates are UTC date-only strings, while MongoDB keeps BSON Dates.
+export type EducationDTO = Omit<Education, 'id' | 'start_date' | 'end_date'> & {
+  id: string;
+  start_date: string;
+  end_date?: string;
+};

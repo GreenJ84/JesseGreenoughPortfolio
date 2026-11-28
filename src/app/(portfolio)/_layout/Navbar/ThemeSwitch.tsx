@@ -1,7 +1,7 @@
 /** @format */
 'use client';
 
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import { AppContext } from '../../../_utils/AppContext';
 
@@ -17,13 +17,13 @@ const ThemeSwitch = () => {
     >
       <input
         id='themeChange'
-        aria-labelledby='themeChange'
+        aria-label='Use dark theme'
         className={css.themeInput}
         type='checkbox'
         aria-checked={theme === 'dark'}
-        defaultChecked={theme === 'dark'}
+        checked={theme === 'dark'}
         data-theme-toggle
-        onClick={() => {
+        onChange={() => {
           setTheme();
         }}
       />

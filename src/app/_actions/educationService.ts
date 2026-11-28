@@ -1,88 +1,96 @@
 /** @format */
 'use server';
+import { recordAdminEvent } from '../_observability/metrics';
 
-import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
+import { cacheTags } from '../_lib/cacheTags';
+
+import { requireAdmin } from "../_security/session";
+import { educationInput, objectId, offsetInput } from "../_security/validation";
+
+
+import { revalidatePath, updateTag, unstable_cache } from "next/cache";
 
 
 import { DB, DB_INFO } from "../_utils/Database";
-import { EducationType } from "../_lib/_types";
+import { educationRecordDTO } from "../_lib/educationDates";
+import { Education, EducationDTO } from "../_lib/_types";
 import { ObjectId } from "mongodb";
 
-const educationDatabase = DB.collection<EducationType>(DB_INFO.collections.EDU);
+const educationDatabase = DB.collection<Education>(DB_INFO.collections.EDU);
+const cacheScope = [DB_INFO.name, DB_INFO.collections.EDU, 'model-v2'];
 
 export const getEducation = unstable_cache(
-  async (offset: number = 0): Promise<EducationType[]> => {
+  async (offset: number = 0): Promise<EducationDTO[]> => {
     return (await educationDatabase
       .find()
       .sort({ _id: -1 })
-      .skip(offset)
+      .skip(offsetInput(offset))
       .limit(5)
       .toArray()
     ).map(item => {
       const { _id,...rest} = item;
-      return {id: _id.toString(),...rest} as EducationType;
+      return educationRecordDTO({ ...rest, id: _id.toString() });
     });
   },
-  ['educationData'],
-  { revalidate: 3600, tags: ['educationData'] }
+  [cacheTags.education.list, ...cacheScope],
+  { revalidate: 3600, tags: [cacheTags.education.list] }
 );
 
-export const getAllEducation = unstable_cache(
-  async (): Promise<EducationType[]> => {
+const getAllEducationCached = unstable_cache(
+  async (): Promise<EducationDTO[]> => {
     return (await educationDatabase
       .find()
       .sort({ _id: -1 })
       .toArray()
     ).map(item => {
       const { _id,...rest} = item;
-      return {id: _id.toString(),...rest} as EducationType;
+      return educationRecordDTO({ ...rest, id: _id.toString() });
     });
   },
-  ['allEducationData'],
-  { revalidate: 3600, tags: ['allEducationData'] }
+  [cacheTags.education.all, ...cacheScope],
+  { revalidate: 3600, tags: [cacheTags.education.all] }
 );
+
+export const getAllEducation = async (): Promise<EducationDTO[]> => {
+  await requireAdmin();
+  return getAllEducationCached();
+};
 
 export const getEducationCount =  unstable_cache(
   async (): Promise<number> => {
     return await educationDatabase.countDocuments();
   },
-  ['totalEducation'],
-  { revalidate: 3600, tags: ['totalEducation'] }
+  [cacheTags.education.count, ...cacheScope],
+  { revalidate: 3600, tags: [cacheTags.education.count] }
 )
 
-export const saveEducation = async (formData: EducationType) => {
-  if (formData.id) {
-    const { id, ...rest } = formData;
-    try {
-      await educationDatabase.updateOne(
-        { _id: new ObjectId(id) },
-        { $set: { ...rest } }
-      );
-    } catch (error) {
-      console.error('Update education error:', error);
-      throw new Error('Failed to update education');
-    }
+export const saveEducation = async (input: unknown) => {
+  const admin = await requireAdmin();
+  const { id, ...data } = educationInput(input);
+  if (id) {
+    const result = await educationDatabase.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: data, ...(data.end_date ? {} : { $unset: { end_date: "" } }) }
+    );
+    if (!result.matchedCount) throw new Error('Record not found');
   } else {
-    try {
-      await educationDatabase.insertOne(formData);
-    } catch (error) {
-      console.error('Insert education error:', error);
-      throw new Error('Failed to insert education');
-    }
+    await educationDatabase.insertOne(data);
   }
-  revalidateTag('educationData');
-  revalidateTag('totalEducation');
+  await recordAdminEvent(admin.username, id ? 'update' : 'create', 'education', id);
+  for (const tag of Object.values(cacheTags.education)) updateTag(tag);
 }
 
-export const deleteEducation = async (id: string) => {
-  if (!id) throw new Error('Invalid education id');
+export const deleteEducation = async (inputId: unknown) => {
+  const admin = await requireAdmin();
+  const id = objectId(inputId);
   try {
-    await educationDatabase.deleteOne({ _id: new ObjectId(id) });
-    revalidatePath('/(management)/admin/data/education');
+    const result = await educationDatabase.deleteOne({ _id: new ObjectId(id) });
+    if (!result.deletedCount) throw new Error('Record not found');
+    revalidatePath('/admin/data/education');
   } catch (error) {
     console.error('Delete education error:', error);
     throw new Error('Failed to delete education');
   }
-  revalidateTag('educationData');
-  revalidateTag('totalEducation');
+  await recordAdminEvent(admin.username, 'delete', 'education', id);
+  for (const tag of Object.values(cacheTags.education)) updateTag(tag);
 }

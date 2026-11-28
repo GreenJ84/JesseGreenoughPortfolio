@@ -66,8 +66,6 @@ export class WorkPage {
 
   toggleHoverTest = (toggle: Cypress.Chainable<JQuery<HTMLElement>>) => {
     toggle.should("be.visible").then((toggle) => {
-      let width = parseFloat(toggle.css("width"));
-
       cy.wrap(toggle)
         .then(($toggle) => {
           expect($toggle).to.have.css("border-radius", "10px");

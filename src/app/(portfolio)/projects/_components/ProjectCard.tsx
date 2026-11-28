@@ -1,63 +1,22 @@
-/** @format */
+import Image from 'next/image';
+import type { Project } from '@/app/_lib/_types';
+import css from './Project.module.css';
 
-"use client";
-
-import React, { useState } from "react";
-
-import Image from "next/image";
-import FlipCard from "../../_shared/FlipCard";
-
-import { ProjectType } from "@/app/_lib/_types";
-import ProjectDetailCard from "./ProjectDetailCard";
-
-const css = require("./Project.module.css");
-
-const ProjectCard = ({ project }: { project: ProjectType }) => {
-  const [showDetail, setShowDetail] = useState(false);
-
-  return (
-    <li className={css.display}>
-      <FlipCard
-        style={{ width: "100%", height: "100%", margin: "0", padding: "0" }}
-        frontDisplay={
-          <div
-            className={css.projectDisplay}
-          >
-            <Image
-              priority
-              src={project.image_path}
-              alt={project.name}
-              className={css.displayImage}
-              height="200"
-              width="300"
-            />
-            <p className={css.displayTitle}>{project.name}</p>
-          </div>
-        }
-        backDisplay={
-          <div
-            className={css.displayDetail}
-          >
-            <h2>{project.name}</h2>
-            <p>{project.brief}</p>
-            <button onClick={() => setShowDetail(true)}> View More </button>
-          </div>
-        }
-      />
-
-      {showDetail && (
-        <div
-          className={css.detailModal}
-          onClick={() => setShowDetail(false)}
-        >
-          <ProjectDetailCard
-            project={project}
-            setShowDetail={setShowDetail}
-          />
+export default function ProjectCard({ project }: { project: Project }) {
+  return <li className={css.projectCard}>
+    <article>
+      <div className={css.projectImage}><Image src={project.image_url} alt="" width={1200} height={800} sizes="(max-width: 760px) 90vw, (max-width: 1200px) 45vw, 360px" /></div>
+      <div className={css.projectContent}>
+        <p className={css.projectCategory}>{project.categories.slice(0, 2).join(' · ') || 'Software project'}</p>
+        <h2>{project.title}</h2>
+        <p className={css.projectBrief}>{project.brief}</p>
+        <ul className={css.techList}>{project.key_techs.slice(0, 5).map(tech => <li key={tech}>{tech}</li>)}</ul>
+        <div className={css.projectLinks}>
+          {project.deployed_url && <a href={project.deployed_url} target="_blank" rel="noopener noreferrer">View project ↗</a>}
+          {project.github_url && <a href={project.github_url} target="_blank" rel="noopener noreferrer">Source code ↗</a>}
         </div>
-      )}
-    </li>
-  );
-};
-
-export default ProjectCard;
+        {project.description && <details className={css.projectDetails}><summary>Read project details</summary><p>{project.description}</p></details>}
+      </div>
+    </article>
+  </li>;
+}

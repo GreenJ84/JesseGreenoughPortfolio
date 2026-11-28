@@ -1,11 +1,8 @@
 /** @format */
 
-import React from "react";
-import dynamic from "next/dynamic";
-
 import PageClient from "./PageClient";
-const Degree = dynamic(() => import("./_components/degree/Degree"));
-const Certifications = dynamic(() => import("./_components/certifications/Certifications"));
+import Degree from './_components/degree/Degree';
+import Certifications from './_components/certifications/Certifications';
 import Footer from "../_layout/Footer/Footer";
 
 import * as educationService from "@/app/_actions/educationService";
@@ -30,12 +27,15 @@ const Page = async () => {
         className={css.eduBody}
       >
         <h1 id="educationTitle">
-          Educational Experience, Qualifications and Certifications
+          Education &amp; credentials
         </h1>
         <p>
-          I actively participate in tech-related activities and partake in
-          courses to further my understanding and knowledge.
+          Software engineering foundations and advanced cybersecurity study inform how I build secure systems.
         </p>
+        <section className={css.credentialHighlights} aria-label="Recent education and credentials">
+          <article><span>October 2025 · Western Governors University</span><h2>M.S. Cybersecurity and Information Assurance</h2><p>Graduate study focused on protecting systems and managing cyber risk.</p></article>
+          <article><span>2026 · CompTIA</span><h2>SecurityX (CASP+)</h2><p>Advanced practitioner credential in cybersecurity.</p></article>
+        </section>
         <PageClient
           degreeComp={
             <Degree
@@ -65,30 +65,10 @@ const Page = async () => {
 export default Page;
 
 
-import { Metadata } from 'next/types';
-import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from '../sharedMetadata';
+import { portfolioMetadata } from '../sharedMetadata';
 
-const EDU_URL = APP_URL + '/education';
-const TITLE="Lifetime Educational Experience for Jesse Greenough"
-const DESCRIPTION ="View the scholarly efforts undergone by Jesse Greenough over his lifetime"
-const KEYWORDS ="Education,Experience,Coursework,Software,Development,Engineering"
-
-export const metadata: Metadata = {
-  metadataBase: new URL(EDU_URL),
-  title: TITLE,
-  description: DESCRIPTION,
-  keywords: KEYWORDS,
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: EDU_URL,
-    siteName: TITLE,
-    ...OPEN_GRAPH
-  },
-  twitter: {
-    site: EDU_URL,
-    title: TITLE,
-    description: DESCRIPTION,
-    ...TWITTER_SHARE
-  },
-};
+export const metadata = portfolioMetadata(
+  '/education',
+  'Cybersecurity Education & Credentials | Jesse Greenough',
+  'M.S. Cybersecurity and Information Assurance from WGU, CompTIA SecurityX (CASP+), and software engineering education.'
+);

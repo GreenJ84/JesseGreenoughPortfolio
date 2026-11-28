@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 
-import { getFullAllWorkByCategory } from "@/app/_actions/workService";
-import type { WorkType } from "@/app/_lib/_types";
+import { deleteWork, getFullAllWorkByCategory } from "@/app/_actions/workService";
+import type { Work } from "@/app/_lib/_types";
 
+import DataStatus from "../_components/DataStatus";
 import useDataManager from "../_components/useDataManager";
 import FormModal from "../_components/FormModal";
 import PortfolioDataList from "../_components/PortfolioDataList";
@@ -14,57 +15,53 @@ import css from '../_components/DataPage.module.css';
 
 export default function WorkPage() {
   const [category, setCategory] = React.useState<'primary' | 'secondary'>('primary');
+  const loader = useCallback(() => getFullAllWorkByCategory(category), [category]);
   const {
+    loading, error, refresh, afterMutation,
     items: workItems,
-    setItems: setWorkItems,
     selected,
     showModal,
     openModal,
     closeModal
-  } = useDataManager<WorkType>();
-
-  // Fetch all work items on mount
-  useEffect(() => {
-    (async () => {
-      const data = await getFullAllWorkByCategory(category);
-      setWorkItems(data);
-    })();
-  }, [setWorkItems, category]);
+  } = useDataManager<Work>(loader);
 
   return (
-    <>
+    <main className={css.dataPageWrap}>
       <div className={css.dataHeader}>
-        <h2>Work Experience {workItems.length}</h2>
-        <button className={css.newBtn} onClick={() => openModal()}>
-          + New Work Experience
+        <div><p className={css.eyebrow}>Portfolio data</p><h1>Work experience <span>{workItems.length}</span></h1><p>Manage roles, organizations, and the achievements visitors see.</p></div>
+        <button type="button" className={css.newBtn} disabled={loading} onClick={() => openModal()}>
+          + New experience
         </button>
       </div>
-      <div style={{ margin: '1rem auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '40vw' }}>
+      <div className={css.categorySwitch} role="group" aria-label="Experience category">
         <button
           type="button"
-          className={category === 'primary' ? css.submitBtn : css.cancelBtn}
+          className={category === 'primary' ? css.activeCategory : ''}
+          aria-pressed={category === 'primary'}
           onClick={() => setCategory('primary')}
-          disabled={category === 'primary'}
         >
-          Primary
+          Work
         </button>
         <button
           type="button"
-          className={category === 'secondary' ? css.submitBtn : css.cancelBtn}
+          className={category === 'secondary' ? css.activeCategory : ''}
+          aria-pressed={category === 'secondary'}
           onClick={() => setCategory('secondary')}
-          disabled={category === 'secondary'}
-          style={{ marginLeft: '0.5rem' }}
         >
-          Secondary
+          Internship / volunteer
         </button>
       </div>
+      <DataStatus loading={loading} error={error} refresh={refresh} />
       <PortfolioDataList
         items={workItems}
         openModal={openModal}
-        itemDisplay={(work: WorkType) => (
+        itemLabel={work => `${work.title} at ${work.brief}`}
+        searchText={work => [work.title, work.brief, work.location, work.start_date, work.end_date ?? '', ...(work.details ?? [])].join(' ')}
+        onDelete={async work => { if (work.id) { await deleteWork(category, work.id); await afterMutation(); } }}
+        itemDisplay={(work: Work) => (
           <>
-            <strong>{work.position}</strong>
-            <div className={css.dataBrief}>{work.company}</div>
+            <strong>{work.title}</strong>
+            <div className={css.dataBrief}>{work.brief}</div>
           </>
         )}
       />
@@ -74,12 +71,13 @@ export default function WorkPage() {
           onClose={closeModal}
         >
           <WorkForm
+            onSaved={afterMutation}
             initial={selected || undefined}
             category={category}
             onClose={closeModal}
           />
         </FormModal>
       )}
-    </>
+    </main>
   );
 }

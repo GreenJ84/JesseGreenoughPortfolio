@@ -1,64 +1,12 @@
-/** @format */
-import React from "react";
-import dynamic from "next/dynamic";
+import Image from 'next/image';
+import type { Certification } from '@/app/_lib/_types';
+import css from './Certifications.module.css';
 
-const RiExternalLinkFill = dynamic(() =>
-  import("react-icons/ri").then((m) => m.RiExternalLinkFill)
-);
-
-import Image from "next/image";
-import FlipCard from "../../../_shared/FlipCard";
-
-import { CertificationType } from "@/app/_lib/_types";
-
-const css = require("./Certifications.module.css");
-
-interface certificateCardProps {
-  certificate: CertificationType;
+export default function CertificationCard({ certificate }: { certificate: Certification }) {
+  return <li className={css.certCard}><article>
+    <div className={css.certHead}>{certificate.image_url && <Image src={certificate.image_url} alt="" width={72} height={72} className={css.certImage} />}<div><p className={css.issuer}>{certificate.brief}</p><h4>{certificate.title}</h4></div></div>
+    <p className={css.description}>{certificate.description}</p>
+    {certificate.techs.length > 0 && <ul className={css.techs}>{certificate.techs.slice(0, 5).map(tech => <li key={tech}>{tech}</li>)}</ul>}
+    {certificate.url && <a className={css.certLink} href={certificate.url} target="_blank" rel="noopener noreferrer">View credential ↗</a>}
+  </article></li>;
 }
-
-const CertificationCard = (props: certificateCardProps) => {
-
-  return (
-    <li className={css.certCard}>
-      <FlipCard
-        style={{ width: "100%", height: "100%" }}
-        frontDisplay={
-          <div
-            id="certCardFront"
-            className={css.certDisplay}
-          >
-            <Image
-              src={props.certificate.image}
-              alt={props.certificate.title}
-              className={css.certImage}
-              width={200}
-              height={200}
-              loading="lazy"
-            />
-            <h4>{props.certificate.title}</h4>
-            <p>{props.certificate.issuer}</p>
-          </div>
-        }
-        backDisplay={
-          <div
-            id="certCardBack"
-            className={css.certDetailCard}
-          >
-            <div className={css.certDetails}>
-              <p>{props.certificate.description}</p>
-              <a
-                href={props.certificate.url}
-                target="_blank noreferrer"
-              >
-                View <RiExternalLinkFill />
-              </a>
-            </div>
-          </div>
-        }
-      />
-    </li>
-  );
-};
-
-export default CertificationCard;

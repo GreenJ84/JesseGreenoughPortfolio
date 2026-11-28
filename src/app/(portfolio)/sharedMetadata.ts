@@ -1,7 +1,9 @@
-export const APP_URL = 'https://jesse-greenough-portfolio.vercel.app/';
+import type { Metadata } from 'next';
+import portrait from './portrait.json';
 
-const PORTRAIT =
-  'https://res.cloudinary.com/portfolio-g84/image/upload/v1690310921/personal/personal_portrait.jpg';
+export const APP_URL = 'https://jesse-greenough-portfolio.vercel.app';
+
+const PORTRAIT = portrait.url;
 
 export const OPEN_GRAPH = {
   images: [
@@ -22,4 +24,17 @@ export const TWITTER_SHARE = {
     url: PORTRAIT,
     alt: 'Jesse Greenough',
   },
+}
+
+// One canonical host and URL shape for every public page and share preview.
+export function portfolioMetadata(path: string, title: string, description: string): Metadata {
+  const url = `${APP_URL}${path}`;
+  return {
+    metadataBase: new URL(APP_URL),
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { ...OPEN_GRAPH, title, description, url, siteName: 'Jesse Greenough' },
+    twitter: { ...TWITTER_SHARE, title, description },
+  };
 }

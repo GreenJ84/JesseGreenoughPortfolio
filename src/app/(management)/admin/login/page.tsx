@@ -1,25 +1,26 @@
 'use client'
-import React, { useState, useTransition } from 'react';
+import { useRef, useState } from 'react';
 
 import { loginAction } from '../../../_actions/auth';
 import css from './Login.module.css';
+import PasskeyButton from './PasskeyButton';
 
 const LoginPage = () => {
-  const [isPending, startTransition] = useTransition()
+  const [isPending, setPending] = useState(false)
+  const submitting = useRef(false);
   const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(formData: FormData) {
-    startTransition(async () => {
-      try {
-        const result = await loginAction(formData)
-        if (result && !result.success) {
-          setError(result.message || 'Login failed')
-        }
-        // If successful, the redirect in the server action will happen
-      } catch (err) {
-        setError('An error occurred during login')
-      }
-    })
+    if (submitting.current) return;
+    submitting.current = true;
+    setPending(true);
+    setError(null);
+    try {
+      const result = await loginAction(formData);
+      if (result && !result.success) setError(result.message);
+    } catch {
+      setError('Login unavailable. Please try again later.');
+    } finally { submitting.current = false; setPending(false); }
   }
 
   return (
@@ -30,6 +31,8 @@ const LoginPage = () => {
           <p>Access your portfolio dashboard</p>
         </div>
 
+        <PasskeyButton />
+        <p>Use your owner password only to enroll the first passkey.</p>
         <form action={handleSubmit} className={css.loginForm}>
           <div className={css.inputGroup}>
             <label htmlFor="username">Username</label>
@@ -37,6 +40,8 @@ const LoginPage = () => {
               type="text"
               id="username"
               name="username"
+              autoComplete="username"
+              maxLength={200}
               required
               className={css.input}
             />
@@ -48,6 +53,8 @@ const LoginPage = () => {
               type="password"
               id="password"
               name="password"
+              autoComplete="current-password"
+              maxLength={1024}
               required
               className={css.input}
             />
@@ -55,6 +62,7 @@ const LoginPage = () => {
 
           <button
             type="submit"
+            disabled={isPending}
             className={css.loginButton}
           >
             {isPending ? 'Logging in...' : 'Login'}

@@ -1,0 +1,290 @@
+{
+  "measuredAt": "2026-11-22T05:51:01.070Z",
+  "commit": "24c0114e5a6c7955913dced33f8cd36e394e5caa",
+  "browser": "157.0.8103.79",
+  "runs": 3,
+  "base": "http://127.0.0.1:3150",
+  "methodology": "Cold contexts, disabled browser cache, fixed viewports; mobile CPU 4x and 1.6 Mbps/150 ms, desktop unthrottled. Images and third-party calendar/stats use fixed fixtures. Initial capture is load + 5.5 seconds; idle task cost is a 3-second window. Interaction maximum is a lab Event Timing proxy, not field INP. Below-fold JS is measured after scrolling.",
+  "profiles": {
+    "mobile": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 2,
+      "isMobile": true,
+      "hasTouch": true,
+      "cpu": 4,
+      "latency": 150,
+      "throughput": 200000
+    },
+    "desktop": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "deviceScaleFactor": 1,
+      "isMobile": false,
+      "hasTouch": false,
+      "cpu": 1,
+      "latency": 0,
+      "throughput": -1
+    }
+  },
+  "samples": [
+    {
+      "profile": "mobile",
+      "route": "/",
+      "run": 1,
+      "jsTransferredBytes": 874344,
+      "jsRequests": 26,
+      "lcpMs": 3604,
+      "longTaskBlockingMs": 244,
+      "mainThreadTaskMs": 2083,
+      "idleTaskMs": 374,
+      "idleWindowMs": 3000,
+      "interactionMaxMs": 80,
+      "afterScrollExtraJsBytes": 0,
+      "canvasCount": 1,
+      "pageErrors": [
+        "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+      ]
+    },
+    {
+      "profile": "mobile",
+      "route": "/",
+      "run": 2,
+      "jsTransferredBytes": 874344,
+      "jsRequests": 26,
+      "lcpMs": 3408,
+      "longTaskBlockingMs": 85,
+      "mainThreadTaskMs": 1949,
+      "idleTaskMs": 364,
+      "idleWindowMs": 3000,
+      "interactionMaxMs": 80,
+      "afterScrollExtraJsBytes": 0,
+      "canvasCount": 1,
+      "pageErrors": [
+        "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+      ]
+    },
+    {
+      "profile": "mobile",
+      "route": "/",
+      "run": 3,
+      "jsTransferredBytes": 874344,
+      "jsRequests": 26,
+      "lcpMs": 3412,
+      "longTaskBlockingMs": 83,
+      "mainThreadTaskMs": 1956,
+      "idleTaskMs": 360,
+      "idleWindowMs": 3000,
+      "interactionMaxMs": 80,
+      "afterScrollExtraJsBytes": 0,
+      "canvasCount": 1,
+      "pageErrors": [
+        "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+      ]
+    },
+    {
+      "profile": "mobile",
+      "route": "/skills",
+      "run": 1,
+      "jsTransferredBytes": 866479,
+      "jsRequests": 25,
+      "lcpMs": 624,
+      "longTaskBlockingMs": 50,
+      "mainThreadTaskMs": 2019,
+      "idleTaskMs": 273,
+      "idleWindowMs": 3000,
+      "interactionMaxMs": 72,
+      "afterScrollExtraJsBytes": 0,
+      "canvasCount": 1,
+      "pageErrors": []
+    },
+    {
+      "profile": "mobile",
+      "route": "/skills",
+      "run": 2,
+      "jsTransferredBytes": 866479,
+      "jsRequests": 25,
+      "lcpMs": 628,
+      "longTaskBlockingMs": 53,
+      "mainThreadTaskMs": 2033,
+      "idleTaskMs": 274,
+      "idleWindowMs": 3000,
+      "interactionMaxMs": 80,
+      "afterScrollExtraJsBytes": 0,
+      "canvasCount": 1,
+      "pageErrors": []
+    },
+    {
+      "profile": "mobile",
+      "route": "/skills",
+      "run": 3,
+      "jsTransferredBytes": 866479,
+      "jsRequests": 25,
+      "lcpMs": 628,
+      "longTaskBlockingMs": 61,
+      "mainThreadTaskMs": 2028,
+      "idleTaskMs": 273,
+      "idleWindowMs": 3000,
+      "interactionMaxMs": 80,
+      "afterScrollExtraJsBytes": 0,
+      "canvasCount": 1,
+      "pageErrors": []
+    },
+    {
+      "profile": "desktop",
+      "route": "/",
+      "run": 1,
+      "jsTransferredBytes": 874344,
+      "jsRequests": 26,
+      "lcpMs": 376,
+      "longTaskBlockingMs": 0,
+      "mainThreadTaskMs": 611,
+      "idleTaskMs": 595,
+      "idleWindowMs": 3000,
+      "interactionMaxMs": 48,
+      "afterScrollExtraJsBytes": 0,
+      "canvasCount": 1,
+      "pageErrors": [
+        "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+      ]
+    },
+    {
+      "profile": "desktop",
+      "route": "/",
+      "run": 2,
+      "jsTransferredBytes": 874344,
+      "jsRequests": 26,
+      "lcpMs": 380,
+      "longTaskBlockingMs": 0,
+      "mainThreadTaskMs": 642,
+      "idleTaskMs": 640,
+      "idleWindowMs": 3000,
+      "interactionMaxMs": 64,
+      "afterScrollExtraJsBytes": 0,
+      "canvasCount": 1,
+      "pageErrors": [
+        "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+      ]
+    },
+    {
+      "profile": "desktop",
+      "route": "/",
+      "run": 3,
+      "jsTransferredBytes": 874344,
+      "jsRequests": 26,
+      "lcpMs": 396,
+      "longTaskBlockingMs": 0,
+      "mainThreadTaskMs": 645,
+      "idleTaskMs": 621,
+      "idleWindowMs": 3000,
+      "interactionMaxMs": 64,
+      "afterScrollExtraJsBytes": 0,
+      "canvasCount": 1,
+      "pageErrors": [
+        "Minified React error #418; visit https://react.dev/errors/418?args[]=HTML&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+      ]
+    },
+    {
+      "profile": "desktop",
+      "route": "/skills",
+      "run": 1,
+      "jsTransferredBytes": 866479,
+      "jsRequests": 25,
+      "lcpMs": 48,
+      "longTaskBlockingMs": 0,
+      "mainThreadTaskMs": 562,
+      "idleTaskMs": 636,
+      "idleWindowMs": 3000,
+      "interactionMaxMs": 56,
+      "afterScrollExtraJsBytes": 0,
+      "canvasCount": 1,
+      "pageErrors": []
+    },
+    {
+      "profile": "desktop",
+      "route": "/skills",
+      "run": 2,
+      "jsTransferredBytes": 866479,
+      "jsRequests": 25,
+      "lcpMs": 88,
+      "longTaskBlockingMs": 0,
+      "mainThreadTaskMs": 631,
+      "idleTaskMs": 664,
+      "idleWindowMs": 3000,
+      "interactionMaxMs": 56,
+      "afterScrollExtraJsBytes": 0,
+      "canvasCount": 1,
+      "pageErrors": []
+    },
+    {
+      "profile": "desktop",
+      "route": "/skills",
+      "run": 3,
+      "jsTransferredBytes": 866479,
+      "jsRequests": 25,
+      "lcpMs": 44,
+      "longTaskBlockingMs": 0,
+      "mainThreadTaskMs": 592,
+      "idleTaskMs": 638,
+      "idleWindowMs": 3000,
+      "interactionMaxMs": 56,
+      "afterScrollExtraJsBytes": 0,
+      "canvasCount": 1,
+      "pageErrors": []
+    }
+  ],
+  "summary": [
+    {
+      "profile": "mobile",
+      "route": "/",
+      "jsTransferredBytes": 874344,
+      "jsRequests": 26,
+      "lcpMs": 3412,
+      "longTaskBlockingMs": 85,
+      "mainThreadTaskMs": 1956,
+      "idleTaskMs": 364,
+      "interactionMaxMs": 80,
+      "afterScrollExtraJsBytes": 0
+    },
+    {
+      "profile": "mobile",
+      "route": "/skills",
+      "jsTransferredBytes": 866479,
+      "jsRequests": 25,
+      "lcpMs": 628,
+      "longTaskBlockingMs": 53,
+      "mainThreadTaskMs": 2028,
+      "idleTaskMs": 273,
+      "interactionMaxMs": 80,
+      "afterScrollExtraJsBytes": 0
+    },
+    {
+      "profile": "desktop",
+      "route": "/",
+      "jsTransferredBytes": 874344,
+      "jsRequests": 26,
+      "lcpMs": 380,
+      "longTaskBlockingMs": 0,
+      "mainThreadTaskMs": 642,
+      "idleTaskMs": 621,
+      "interactionMaxMs": 64,
+      "afterScrollExtraJsBytes": 0
+    },
+    {
+      "profile": "desktop",
+      "route": "/skills",
+      "jsTransferredBytes": 866479,
+      "jsRequests": 25,
+      "lcpMs": 48,
+      "longTaskBlockingMs": 0,
+      "mainThreadTaskMs": 592,
+      "idleTaskMs": 638,
+      "interactionMaxMs": 56,
+      "afterScrollExtraJsBytes": 0
+    }
+  ]
+}

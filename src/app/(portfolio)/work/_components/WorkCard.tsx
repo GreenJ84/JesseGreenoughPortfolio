@@ -1,51 +1,14 @@
-/** @format */
+import Image from 'next/image';
+import type { Work } from '@/app/_lib/_types';
+import { formatWorkPeriod } from '@/app/_lib/portfolioDates';
+import css from './WorkExp.module.css';
 
-import React from "react";
-import Image from "next/image";
-
-import { ImPointRight } from "react-icons/im";
-
-import { WorkType } from "@/app/_lib/_types";
-const css = require("./WorkExp.module.css");
-
-interface WorkCard {
-  work: WorkType;
+export default function WorkCard({ work }: { work: Work }) {
+  return <li className={css.workCard}><article>
+    <div className={css.cardHead}>
+      {work.image_url && <Image src={work.image_url} width={64} height={64} alt="" className={css.workImage} />}
+      <div><p className={css.company}>{work.brief}</p><h2>{work.title}</h2><p className={css.meta}>{formatWorkPeriod(`${work.start_date}..${work.end_date || 'present'}`)}{work.location ? ` · ${work.location}` : ''}</p></div>
+    </div>
+    {work.details.length > 0 && <ul className={css.details}>{work.details.map((item, index) => <li key={`${index}-${item}`}>{item}</li>)}</ul>}
+  </article></li>;
 }
-
-const WorkCard = (props: WorkCard) => {
-  return (
-    <li className={css.workCard}>
-      <div className={css.workImageHolder}>
-        <Image
-          src={props.work.logo}
-          width={200}
-          height={200}
-          className={css.workImage}
-          alt={props.work.company}
-        />
-      </div>
-      <div className={css.workCardBody}>
-        <div>
-          <h2>{props.work.position}</h2>
-          <p>{props.work.date}</p>
-        </div>
-        <div>
-          <p>{props.work.company}</p>
-          <p>{props.work.location}</p>
-        </div>
-        <ul>
-          {props.work.details.map((item: string, idx: number) => (
-            <li
-              key={idx}
-              className={css.details}
-            >
-              <ImPointRight /> {item}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </li>
-  );
-};
-
-export default WorkCard;

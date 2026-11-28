@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useEffect, useMemo } from "react";
 
-import { getFullAllCertifications } from "@/app/_actions/certificationService";
-import type { CertificationType } from "@/app/_lib/_types";
+import { deleteCertification, getFullAllCertifications } from "@/app/_actions/certificationService";
+import type { Certification } from "@/app/_lib/_types";
 
+import DataStatus from "../_components/DataStatus";
 import useDataManager from "../_components/useDataManager";
 import FormModal from "../_components/FormModal";
 import PortfolioDataList from "../_components/PortfolioDataList";
@@ -14,43 +14,33 @@ import css from '../_components/DataPage.module.css';
 
 export default function CertificationsPage() {
   const {
+    loading, error, refresh, afterMutation,
     items: certifications,
-    setItems: setCertifications,
     selected,
     showModal,
     openModal,
     closeModal
-  } = useDataManager<CertificationType>();
-
-  // Fetch all certifications on mount
-  useEffect(() => {
-    (async () => {
-      const data = await getFullAllCertifications();
-      setCertifications(data);
-    })();
-  }, [setCertifications]);
-
-  const form = useMemo(() => {
-    return (
-      <CertificationForm initial={selected} onClose={closeModal} />
-    );
-  }, [selected, closeModal]);
+  } = useDataManager<Certification>(getFullAllCertifications);
 
   return (
-    <>
+    <main className={css.dataPageWrap}>
       <div className={css.dataHeader}>
-        <h2>Certifications {certifications.length}</h2>
-        <button className={css.newBtn} onClick={() => openModal()}>
-          + New Certification
+        <div><p className={css.eyebrow}>Portfolio data</p><h1>Certifications <span>{certifications.length}</span></h1><p>Find credentials by title, issuer, or technology and keep their details current.</p></div>
+        <button type="button" className={css.newBtn} disabled={loading} onClick={() => openModal()}>
+          + New certification
         </button>
       </div>
+      <DataStatus loading={loading} error={error} refresh={refresh} />
       <PortfolioDataList
         items={certifications}
         openModal={openModal}
-        itemDisplay={(cert: CertificationType) => (
+        itemLabel={cert => cert.title}
+        searchText={cert => [cert.title, cert.brief, ...(cert.techs ?? [])].join(' ')}
+        onDelete={async cert => { if (cert.id) { await deleteCertification(cert.id); await afterMutation(); } }}
+        itemDisplay={(cert: Certification) => (
           <>
             <strong>{cert.title}</strong>
-            <div className={css.dataBrief}>{cert.issuer}</div>
+            <div className={css.dataBrief}>{cert.brief}</div>
           </>
         )}
       />
@@ -59,9 +49,9 @@ export default function CertificationsPage() {
           title={selected ? "Edit Certification" : "New Certification"}
           onClose={closeModal}
         >
-          {form}
+          <CertificationForm initial={selected} onClose={closeModal} onSaved={afterMutation} />
         </FormModal>
       )}
-    </>
+    </main>
   );
 }

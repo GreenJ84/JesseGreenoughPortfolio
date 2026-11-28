@@ -5,20 +5,41 @@ dotenv.config();
 
 // Database connection
 export const DB_INFO = {
-  name: "PersonalPortfolio",
+  name: (() => {
+    const configured = process.env.DB_CONN_STRING?.trim();
+    const path = configured ? new URL(configured).pathname.slice(1) : '';
+    const name = path ? decodeURIComponent(path) : 'PersonalPortfolio';
+    if (!/^PersonalPortfolio(?:Dev_[0-9]{8}_[a-f0-9]{8})?$/.test(name)) throw new Error('DB_CONN_STRING contains an unsupported database name');
+    if (process.env.NODE_ENV === 'production' && name !== 'PersonalPortfolio') throw new Error('Production must use PersonalPortfolio');
+    return name;
+  })(),
   collections: {
-    RES: "resumes",
-    WORK: "workExperience",
-    SWORK: "secondaryExperience",
-    CERT: "certifications",
-    EDU: "degrees",
-    PROJ: "projects",
+    RES: "resume",
+    WORK: "work",
+    CERT: "certification",
+    EDU: "education",
+    PROJ: "project",
+    SKILL: "skill",
   }
 }
 
-const DB_CLIENT = new MongoClient(
-  process.env.NODE_ENV === "production" ? process.env.DB_CONN_STRING! : "mongodb://localhost:27017"
-);
+// Creating a client is lazy: importing this module never connects or migrates data.
+const connectionString = process.env.DB_CONN_STRING?.trim()
+  || (process.env.NODE_ENV !== "production" ? "mongodb://localhost:27017" : "");
 
-export const DB = DB_CLIENT.db(DB_INFO.name);
+if (!connectionString) {
+  throw new Error("DB_CONN_STRING must be configured in production");
+}
 
+const databaseGlobal = globalThis as typeof globalThis & {
+  portfolioMongoClient?: MongoClient;
+};
+
+const client = databaseGlobal.portfolioMongoClient ?? new MongoClient(connectionString);
+
+// Keep the pool across development hot reloads. Application code must not close it.
+if (process.env.NODE_ENV !== "production") {
+  databaseGlobal.portfolioMongoClient = client;
+}
+
+export const DB = client.db(DB_INFO.name);

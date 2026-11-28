@@ -1,26 +1,32 @@
 /** @format */
 
-import React from "react";
 import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
 import HomeTop from "./_components/HomeTop";
 import AboutPreview from "./_components/AboutPreview";
 const ProjectsPreview = dynamic(() => import("./projects/_components/ProjectsPreview"));
-const GithubCard = dynamic(() => import("./_components/GithubCard"));
-const Footer = dynamic(() => import('./_layout/Footer/Footer'));
+import ProfessionalSnapshot from './_components/ProfessionalSnapshot';
+import HomeSkills from './_components/HomeSkills';
+import Footer from './_layout/Footer/Footer';
 
 import { getTopProjects } from "@/app/_actions/projectService";
 
 const css = require("./_components/Home.module.css")
 
-const HomePage = async () => {
+async function HomeProjects() {
   const projectData = await getTopProjects();
+  return <ProjectsPreview projects={projectData} />;
+}
+
+const HomePage = () => {
   return (
     <main className={css.homeMain}>
       <HomeTop />
+      <Suspense fallback={<section className={css.skillsFallback} aria-label="Skills loading" />}><HomeSkills /></Suspense>
+      <ProfessionalSnapshot />
+      <Suspense fallback={<section className={css.projectsFallback} aria-label="Featured projects loading" />}><HomeProjects /></Suspense>
       <AboutPreview />
-      <ProjectsPreview projects={projectData} />
-      <GithubCard />
       <Footer />
     </main>
   );
@@ -30,44 +36,11 @@ export default HomePage;
 
 
 
-import { Metadata } from 'next/types';
-import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from './sharedMetadata';
-
-const RESUME_URL = APP_URL + '/resumes';
-const TITLE = "Jesse Greenough's Development Portfolio";
+import { portfolioMetadata } from './sharedMetadata';
+const TITLE = "Jesse Greenough | Rust Backend & Security Engineer";
 const DESCRIPTION =
-  'View the Technical Development Skills possessed by Full Stack Engineer Jesse Greenough';
-const KEYWORDS = [
-  'Jesse Greenough',
-  'Software',
-  'Developer',
-  'Engineer',
-  'Full-Stack',
-  'Portfolio',
-  'Next.js',
-  'React',
-  'TypeScript',
-];
-
-export const metadata: Metadata = {
-  metadataBase: new URL(APP_URL),
-  title: TITLE,
-  description: DESCRIPTION,
-  keywords: KEYWORDS,
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: RESUME_URL,
-    siteName: TITLE,
-    ...OPEN_GRAPH
-  },
-  twitter: {
-    site: RESUME_URL,
-    title: TITLE,
-    description: DESCRIPTION,
-    ...TWITTER_SHARE
-  },
-};
+  'Rust-first backend engineering with a security focus and full-stack TypeScript, Node.js, Python, and web development experience.';
+export const metadata = portfolioMetadata('/', TITLE, DESCRIPTION);
 
 
 

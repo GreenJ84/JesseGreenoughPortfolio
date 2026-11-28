@@ -1,87 +1,70 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import type { CertificationType } from '@/app/_lib/_types';
+import type { Certification } from '@/app/_lib/_types';
 import { saveCertification, deleteCertification } from '@/app/_actions/certificationService';
+import { getCertificationTagOptions } from '@/app/_actions/adminTagOptions';
 
-import { FormActionButtons } from '../_components/FormModal';
+import { FormActionButtons, useFormMutation } from '../_components/FormModal';
+import { PortfolioDateField } from '../_components/PortfolioDateFields';
+import TagPicker from '../_components/TagPicker';
+import MediaPicker from '../_components/MediaPicker';
+import ResourceJsonImport from '../_components/ResourceJsonImport';
+import { certificationInput } from '@/app/_security/validation';
 
 import css from '../_components/DataPage.module.css';
 
 interface CertificationFormProps {
-  initial?: CertificationType;
+  initial?: Certification;
   onClose: () => void;
+  onSaved: () => Promise<void>;
 }
 
 export default function CertificationForm({
   initial,
   onClose,
+  onSaved,
 }: CertificationFormProps) {
-  const [form, setForm] = useState<CertificationType>(
+  const [form, setForm] = useState<Certification>(
     initial ?? {
       priority: 0,
       title: '',
-      issuer: '',
+      brief: '',
       date: '',
       description: '',
-      image: '',
+      image_url: '',
       url: '',
       techs: [],
     }
   );
 
-  // Array field handlers for techs
-  const handleArrayChange = (idx: number, value: string) => {
-    setForm((prev: CertificationType) => ({
-      ...prev,
-      techs: prev.techs.map((item: string, i: number) => (i === idx ? value : item)),
-    }));
-  };
-
-  const addArrayItem = () => {
-    setForm((prev: CertificationType) => ({
-      ...prev,
-      techs: [...prev.techs, ''],
-    }));
-  };
-
-  const removeArrayItem = (idx: number) => {
-    setForm((prev: CertificationType) => ({
-      ...prev,
-      techs: prev.techs.filter((_, i) => i !== idx),
-    }));
-  };
+  const [tagOptions, setTagOptions] = useState<string[]>([]);
+  const [tagError, setTagError] = useState(false);
+  const [mediaBusy, setMediaBusy] = useState(false);
+  const [jsonMode, setJsonMode] = useState(false);
+  useEffect(() => {
+    let active = true;
+    void getCertificationTagOptions().then(options => { if (active) setTagOptions(options); }).catch(() => { if (active) setTagError(true); });
+    return () => { active = false; };
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setForm((prev: CertificationType) => ({
+    setForm((prev: Certification) => ({
       ...prev,
       [name]: name === 'priority' ? Number(value) : value,
     }));
   };
 
-  const [_isPending, startTransition] = useTransition();
-
-  const handleSubmit = async () => {
-    startTransition(async () => {
-      await saveCertification(form);
-      window.location.reload();
-      onClose();
-    });
-  };
-
-  const handleDelete = async (id?: string) => {
-    if (!id) return;
-    startTransition(async () => {
-      await deleteCertification(id);
-      window.location.reload();
-      onClose();
-    });
-  };
+  const mutation = useFormMutation();
+  const handleSubmit = async () => { if (!mediaBusy && !jsonMode) await mutation.run('save', () => saveCertification(form), onSaved); };
+  const handleDelete = async (id?: string) => { if (id) await mutation.run('delete', () => deleteCertification(id), onSaved); };
 
   return (
     <form className={css.dataForm} action={handleSubmit}>
+      <ResourceJsonImport value={form} validate={certificationInput} onApply={setForm} onModeChange={setJsonMode} />
+      <fieldset hidden={jsonMode} disabled={mutation.pending} className={css.formFields}>
       {form.id && <input type="hidden" name="id" value={form.id} />}
       <label className={css.formLabel}>
         Title*
@@ -89,7 +72,7 @@ export default function CertificationForm({
       </label>
       <label className={css.formLabel}>
         Issuer*
-        <input className={css.formInput} name="issuer" value={form.issuer} onChange={handleChange} required />
+        <input className={css.formInput} name="brief" value={form.brief} onChange={handleChange} required />
       </label>
       <label className={css.formLabel}>
         Priority*
@@ -103,45 +86,27 @@ export default function CertificationForm({
           required
         />
       </label>
-      <label className={css.formLabel}>
-        Date*
-        <input className={css.formInput} name="date" value={form.date} onChange={handleChange} required />
-      </label>
-      <label className={css.formLabel}>
+      <PortfolioDateField value={form.date} onChange={date => setForm(previous => ({ ...previous, date }))} />
+      <label className={`${css.formLabel} ${css.wideField}`}>
         Description*
         <textarea className={css.formTextarea} name="description" value={form.description} onChange={handleChange} rows={3} required />
       </label>
-      <label className={css.formLabel}>
-        Image URL
-        <input className={css.formInput} name="image" value={form.image} onChange={handleChange} />
-      </label>
+      <MediaPicker label="Credential image" value={form.image_url} onChange={image_url => setForm(previous => ({ ...previous, image_url }))} onBusyChange={setMediaBusy} />
       <label className={css.formLabel}>
         Certification URL
-        <input className={css.formInput} name="url" value={form.url} onChange={handleChange} />
+        <input className={css.formInput} name="url" type="url" value={form.url} onChange={handleChange} />
       </label>
 
-      <fieldset className={css.formFieldset}>
-        <legend className={css.formLegend}>Techs</legend>
-        {form.techs.map((tech: string, idx: number) => (
-          <div key={idx} className={css.arrayFieldRow}>
-            <input
-              className={css.formInput}
-              value={tech}
-              name="techs[]"
-              onChange={(e) => handleArrayChange(idx, e.target.value)}
-              placeholder="Technology"
-            />
-            <button type="button" className={css.removeBtn} onClick={() => removeArrayItem(idx)} aria-label="Remove tech">✕</button>
-          </div>
-        ))}
-        <button type="button" className={css.addBtn} onClick={addArrayItem}>Add Tech</button>
-      </fieldset>
+      {tagError && <p className={css.formError}>Existing options are unavailable. You can still add a new value.</p>}
+      <TagPicker label="Technologies" values={form.techs} options={tagOptions} onChange={techs => setForm(previous => ({ ...previous, techs }))} />
 
       <FormActionButtons
         id={form.id || undefined}
         onClose={onClose}
         onDelete={handleDelete}
+        blocked={mediaBusy}
       />
+      </fieldset>
     </form>
   );
 }

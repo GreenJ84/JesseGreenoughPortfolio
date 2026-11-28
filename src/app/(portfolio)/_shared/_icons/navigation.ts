@@ -1,12 +1,13 @@
-import dynamic from 'next/dynamic';
+import { AiOutlineHome, AiOutlineUser, AiOutlineFundProjectionScreen, AiFillStar } from "react-icons/ai";
+import { CgFileDocument } from "react-icons/cg";
 import { IconBaseProps } from 'react-icons';
 
 
-const AiOutlineHome = dynamic(() => import("react-icons/ai").then(m => m.AiOutlineHome));
-const AiOutlineUser = dynamic(() => import("react-icons/ai").then(m => m.AiOutlineUser));
-const AiOutlineFundProjectionScreen = dynamic(() => import("react-icons/ai").then(m => m.AiOutlineFundProjectionScreen));
-const AiFillStar = dynamic(() => import("react-icons/ai").then(m => m.AiFillStar));
-const CgFileDocument = dynamic(() => import("react-icons/cg").then(m => m.CgFileDocument));
+
+
+
+
+
 export const InternalIcons = {
   Home: AiOutlineHome,
   About: AiOutlineUser,

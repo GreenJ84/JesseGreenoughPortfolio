@@ -1,147 +1,81 @@
 "use client";
+import { BsArrowLeft, BsArrowRight, BsPlusCircleFill } from "react-icons/bs";
 
-import React, { useMemo, useState, useEffect } from "react";
-import dynamic from "next/dynamic";
+import React, { useMemo, useState } from "react";
 import Image from "next/image";
-import axios from "axios";
+import DataFilter from '../_shared/DataFilter';
+import ButtonGroup from './_components/ButtonGroup';
+import ListStatus from '../_shared/ListStatus';
+import { usePaginatedList } from '../_shared/usePaginatedList';
+import { queryKey } from '@/app/_lib/paginatedList';
 
 
-const BsArrowLeft = dynamic(() =>import("react-icons/bs").then(m => m.BsArrowLeft));
-const BsArrowRight = dynamic(() =>import("react-icons/bs").then(m => m.BsArrowRight));
-const BsPlusCircleFill = dynamic(() =>import("react-icons/bs").then(m => m.BsPlusCircleFill));
 
-const ButtonGroup = dynamic(() => import("./_components/ButtonGroup"), {
-  ssr: false,
-});
-const DataFilter = dynamic(() => import("../_shared/DataFilter"), {
-  ssr: false,
-});
 
-import * as resumeService from "./resumeService";
+
+
+import type { Resume } from '@/app/_lib/_types';
 
 const css = require("./_components/Resume.module.css");
 
 interface resumeProps {
-  resumeData: resumeService.resumeType[];
+  resumeData: Resume[];
   total: number;
   categoryData: string;
 }
 const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
-  const [modal, setModal] = useState(true);
-  const [resumes, setResumes] = useState(resumeData);
-  const [category, setCategory] = useState("all");
   const [resNum, setResNum] = useState(0);
-
-  // Filter Resumes on category change
-  useEffect(() => {
-    async function filter() {
-      if (category === "all") {
-        setResumes(resumeData);
-      } else {
-        const response = await axios.get(
-          `/api/resumes?type=category&filter=${category}&offset=0`
-        );
-        setResumes(response.data);
-      }
-      setResNum(0);
+  const list = usePaginatedList('/api/resumes', resumeData, total, 5);
+  const resumes = list.items;
+  const current = resumes[resNum];
+  const categoryMap = useMemo(() => new Map<string, number>(JSON.parse(categoryData)), [categoryData]);
+  const hasMoreResumes = list.hasMore;
+  const visibleTotal = list.query.type === 'all' ? total : list.query.type === 'top' ? Math.min(total, 10) : categoryMap.get(list.query.filter ?? '') ?? 0;
+  function selectCategory(value: string) {
+    setResNum(0);
+    if (value === 'all') void list.select({ type: 'all' }, total, resumeData);
+    else void list.select({ type: 'category', filter: value }, categoryMap.get(value) ?? 0);
+  }
+  async function changeResNum(event: React.MouseEvent, direction: string) {
+    event.preventDefault();
+    if (list.pending) return;
+    if (direction === 'left') setResNum(index => Math.max(0, index - 1));
+    else if (resNum < resumes.length - 1) setResNum(index => Math.min(index + 1, resumes.length - 1));
+    else if (hasMoreResumes) {
+      const key = queryKey(list.query);
+      const next = resumes.length;
+      const added = await list.loadMore();
+      if (added && queryKey(list.getSnapshot().query) === key) setResNum(next);
     }
-    filter();
-  }, [category, resumeData]);
-
-  const categoryMap: Map<string, number> = useMemo(() => new Map(JSON.parse(categoryData)), [categoryData]);
-  const hasMoreResumes = useMemo(() => {
-    return category === "all"
-      ? resumes.length < total
-      : resumes.length < categoryMap.get(category)!;
-  }, [category, resumes, total, categoryMap]);
-
-  // Resume Flip Through
-  const changeResNum = async (e: React.MouseEvent, dir: string) => {
-    e.preventDefault();
-    if (dir == "left") {
-      if (resNum > 0) {
-        setResNum((num) => num - 1);
-      }
-    } else if (dir == "right") {
-      if (resNum < resumes.length - 1) {
-        setResNum((num) => num + 1);
-      }
-      // If on the end, check if more Resumes need to retrieve
-      else if (resumes.length % 5 === 0 && hasMoreResumes) {
-        const response = await axios.get(
-          `/api/resumes?type=${
-            category === "all" ? "all" : "category"
-          }&filter=${category}&offset=${resumes.length}`
-        );
-
-        setResumes((resumes) => [...resumes, ...response.data]);
-        setResNum((num) => num + 1);
-      }
-    }
-  };
+  }
 
   return (
     <>
-      <DataFilter
-        titles={["Category"]}
-        options={[Array.from(categoryMap.keys())]}
-        firstHandler={(category: string) => setCategory(category)}
-      />
+      <DataFilter heading="Resumes" titles={["Category"]} options={[Array.from(categoryMap.keys())]} values={[list.query.type === 'category' ? list.query.filter : undefined]} onSelect={(_, value) => selectCategory(value || 'all')} mode={list.query.type === 'top' ? 'top' : list.query.type === 'all' ? 'all' : 'filtered'} onMode={mode => { setResNum(0); if (mode === 'top') void list.select({ type: 'top' }, Math.min(total, 10), resumeData); else selectCategory('all'); }} topLabel="Selected (top 10)" />
+      <ListStatus pending={list.pending} error={list.error} retry={() => { void list.loadMore(); }} />
+      {!list.pending && !list.error && !current && <p>No resumes match this filter.</p>}
+      {current && <>
       <section
         id="resume"
         className={css.resume}
       >
-        {
-          // Mobile viewing warning
-          modal && (
-            <div className={css.mobileModal}>
-              <p>
-                <button
-                  onClick={() => {
-                    setModal(false);
-                  }}
-                >
-                  X
-                </button>
-                If you are viewing on mobile it is best to use the view button
-                to get a better PDF viewing experience.
-              </p>
-            </div>
-          )
-        }
-        <div>
-          <label
-            id="previousResume"
-            aria-label="View Previous Resume"
-            className={css.resumeControls}
-          >
-            Prev
+        <div className={css.resumeNavigation}>
+          <div className={css.resumeControls}>
             <button
-              aria-labelledby="previousResume"
-              aria-disabled={resNum === 0}
-              className={`${css.leftArrow} ${resNum === 0 && css.disabled}`}
+              type="button"
+              aria-label="Previous resume"
+              disabled={list.pending || resNum === 0}
               onClick={(e) => changeResNum(e, "left")}
             >
               <BsArrowLeft />
             </button>
-          </label>
-
-          <label
-            id="nextResume"
-            aria-label="View Next Resume"
-            className={css.resumeControls}
-          >
-            Next
+          </div>
+          <p aria-live="polite">Resume {resNum + 1} of {visibleTotal}</p>
+          <div className={css.resumeControls}>
             <button
-              aria-labelledby="nextResume"
-              aria-disabled={
-                resNum === resumes.length - 1 && !hasMoreResumes
-              }
-              className={`${css.rightArrow} ${
-                resNum === resumes.length - 1 &&
-                !hasMoreResumes &&
-                css.disabled
-              }`}
+              type="button"
+              aria-label="Next resume"
+              disabled={list.pending || (resNum >= resumes.length - 1 && !hasMoreResumes)}
               onClick={(e) => changeResNum(e, "right")}
             >
               {resNum === resumes.length - 1 && hasMoreResumes ? (
@@ -150,38 +84,24 @@ const ResumeClient = ({ resumeData, total, categoryData }: resumeProps) => {
                 <BsArrowRight />
               )}
             </button>
-          </label>
+          </div>
         </div>
         <Image
           id="resumeImage"
-          src={resumes[resNum].image_url}
-          alt="My Resume pdf view"
+          src={current.image_url}
+          alt={`Preview of resume ${resNum + 1}`}
           width={800}
           height={1400}
           priority={resNum === 0}
-          blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8fwYAAtABzbrmHzgAAAAASUVORK5CYII="
-          placeholder="blur"
-          onClick={() => {
-            let image = document.getElementById("resumeImage")!;
-            if (window.innerWidth < 1400) {
-              return;
-            }
-            if (image.style.transform === "scale(1)") {
-              image.style.transform = "scale(1.2)";
-              image.style.zIndex = "30";
-            } else {
-              image.style.transform = "scale(1)";
-              image.style.zIndex = "10";
-            }
-          }}
         />
       </section>
 
       <ButtonGroup
         section="bottom"
-        download={resumes[resNum].download}
-        view={resumes[resNum].view}
+        download={current.download}
+        view={current.brief}
       />
+      </>}
     </>
   )
 }

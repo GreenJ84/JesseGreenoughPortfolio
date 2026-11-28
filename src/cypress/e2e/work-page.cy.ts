@@ -3,7 +3,6 @@
 import { WorkPage } from "../page-objects/WorkPage";
 import {
   BASEURL,
-  getOddEven,
   getWindowInnerWidth,
   setupPageWithTheme,
   viewPortSetup,
@@ -605,7 +604,7 @@ for (let viewport of viewports) {
     });
   });
 
-  if (!Cypress.env("FULL_SPECTRUM")) {
+  if (!Cypress.expose("FULL_SPECTRUM")) {
     break;
   }
 }

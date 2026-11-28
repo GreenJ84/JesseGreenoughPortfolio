@@ -158,4 +158,12 @@
   .statNumber {
     font-size: var(--header2);
   }
+}.adminCard { display: block; color: inherit; text-decoration: none; }
+.adminCard:focus-visible { outline: 3px solid var(--detail); outline-offset: 4px; }
+.adminCard h3 { color: var(--text-primary); margin-top: 0; }
+.adminCard span { color: var(--text-primary); font-weight: 700; }
+@media (max-width: 700px) {
+  .adminContainer { padding: 1rem; }
+  .adminHeader { align-items: flex-start; gap: 1rem; flex-direction: column; margin-bottom: 1.5rem; }
+  .adminGrid { grid-template-columns: 1fr; gap: 1rem; }
 }

@@ -1,44 +1,8 @@
-/** @format */
+import css from './Resume.module.css';
 
-import React from "react";
-
-import { Button } from "react-bootstrap";
-import { AiOutlineDownload, AiOutlineEye } from "react-icons/ai";
-
-const css = require("./Resume.module.css");
-
-interface resumeButtons {
-  section: string;
-  download: string;
-  view: string;
+export default function ButtonGroup({ download, view }: { download: string; view: string; section?: string }) {
+  return <div className={css.resumeButtonHolder}>
+    <a className={css.resumeButton} href={view} target="_blank" rel="noopener noreferrer">Open PDF ↗</a>
+    <a className={css.resumeButton} href={download} target="_blank" rel="noopener noreferrer" download>Download PDF ↓</a>
+  </div>;
 }
-
-const ButtonGroup = (props: resumeButtons) => {
-  return (
-    <section
-      id={`${props.section}-buttons`}
-      className={css.resumeButtonHolder}
-    >
-      <Button
-        variant="primary"
-        href={props.download}
-        target="_blank"
-        className={css.resumeButton}
-      >
-        <AiOutlineDownload />
-        &nbsp;Save
-      </Button>
-      <Button
-        variant="primary"
-        href={props.view}
-        target="_blank"
-        className={css.resumeButton}
-      >
-        <AiOutlineEye />
-        &nbsp;View
-      </Button>
-    </section>
-  );
-};
-
-export default ButtonGroup;

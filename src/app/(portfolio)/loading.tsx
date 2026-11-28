@@ -1,6 +1,5 @@
 /** @format */
 
-import React from 'react';
 
 const css = require('./_layout/Layout.module.css');
 

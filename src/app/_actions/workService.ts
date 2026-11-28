@@ -1,102 +1,55 @@
-/** @format */
 'use server';
 
-import { revalidateTag, unstable_cache } from "next/cache";
-import { Collection, ObjectId, WithId } from "mongodb";
+import { recordAdminEvent } from '../_observability/metrics';
+import { requireAdmin } from '../_security/session';
+import { workInput, objectId, offsetInput, workCategory } from '../_security/validation';
+import { updateTag, unstable_cache } from 'next/cache';
+import { ObjectId, type WithId } from 'mongodb';
+import type { Work } from '../_lib/_types';
+import { DB, DB_INFO } from '../_utils/Database';
 
-import type { WorkType } from "../_lib/_types";
-import { DB, DB_INFO } from "../_utils/Database";
+const workCollection = DB.collection<Work>(DB_INFO.collections.WORK);
+export type WorkCategory = 'primary' | 'secondary';
+const cacheScope = [DB_INFO.name, DB_INFO.collections.WORK, 'model-v2'];
+const tag = 'work';
+const primaryFor = (category: WorkCategory) => workCategory(category) === 'primary';
+const toWork = ({ _id, ...fields }: WithId<Work>): Work => ({ id: _id.toString(), ...fields });
 
-const WORK_COLLECTIONS = {
-  primary: DB.collection<WorkType>(DB_INFO.collections.WORK),
-  secondary: DB.collection<WorkType>(DB_INFO.collections.SWORK!),
-};
+export const getWorkTotals = unstable_cache(async (): Promise<[number, number]> => {
+  const [primary, secondary] = await Promise.all([
+    workCollection.countDocuments({ primary: true }),
+    workCollection.countDocuments({ primary: false }),
+  ]);
+  return [primary, secondary];
+}, ['workTotals', ...cacheScope], { revalidate: 3600, tags: [tag] });
 
-export type WorkCategory = keyof typeof WORK_COLLECTIONS; // 'primary' | 'secondary'
+export const getWorkByCategory = unstable_cache(async (category: WorkCategory, offset = 0): Promise<Work[]> =>
+  (await workCollection.find({ primary: primaryFor(category) }).sort({ _id: -1 }).skip(offsetInput(offset)).limit(5).toArray()).map(toWork),
+  ['workByCategory', ...cacheScope], { revalidate: 3600, tags: [tag] });
 
-export const getWorkTotals = unstable_cache(
-  async (): Promise<[number, number]> => {
-    const workTotal = await WORK_COLLECTIONS.primary.countDocuments();
-    const secWorkTotal = await WORK_COLLECTIONS.secondary.countDocuments();
-    return [workTotal, secWorkTotal];
-  },
-  ['workTotals'],
-  { revalidate: 3600, tags: ['workTotals'] }
-);
+export async function getFullAllWorkByCategory(category: WorkCategory): Promise<Work[]> {
+  await requireAdmin();
+  return (await workCollection.find({ primary: primaryFor(category) }).sort({ _id: -1 }).toArray()).map(toWork);
+}
 
+export async function saveWork(category: unknown, input: unknown) {
+  const admin = await requireAdmin();
+  const primary = primaryFor(workCategory(category));
+  const { id, ...data } = workInput(input);
+  if (data.primary !== primary) throw new Error('Work category mismatch');
+  if (id) {
+    const result = await workCollection.updateOne({ _id: new ObjectId(id) }, { $set: data, ...(data.end_date ? {} : { $unset: { end_date: '' } }) });
+    if (!result.matchedCount) throw new Error('Record not found');
+  } else await workCollection.insertOne(data);
+  await recordAdminEvent(admin.username, id ? 'update' : 'create', 'work', id);
+  updateTag(tag);
+}
 
-const getWorkBase = async (category: WorkCategory, offset: number = 0) => {
-  const database: Collection<WorkType> = WORK_COLLECTIONS[category];
-  return (await database.find()
-    .sort({ _id: -1 })
-    .skip(offset)
-    .limit(5)
-    .toArray())
-    .map((work: WithId<WorkType>) => {
-      const { _id, ...rest } = work;
-      return { id: _id.toString(), ...rest } as WorkType;
-    });
-};
-
-export const getWorkByCategory = unstable_cache(
-  async (category: WorkCategory, offset: number = 0): Promise<WorkType[]> => {
-    return getWorkBase(category, offset);
-  },
-  ['workByCategory'],
-  { revalidate: 3600, tags: ['workByCategory'] }
-);
-
-export const getFullAllWorkByCategory = unstable_cache(
-  async (category: WorkCategory): Promise<WorkType[]> => {
-    const database: Collection<WorkType> = WORK_COLLECTIONS[category];
-    return (await database.find()
-      .sort({ _id: -1 })
-      .toArray())
-      .map((work: WithId<WorkType>) => {
-        const { _id, ...rest } = work;
-        return { id: _id.toString(), ...rest } as WorkType;
-      });
-  },
-  ['fullAllWorkByCategory'],
-  { revalidate: 3600, tags: ['fullAllWorkByCategory'] }
-);
-
-export const saveWork = async (category: WorkCategory, formData: WorkType) => {
-  const database: Collection<WorkType> = WORK_COLLECTIONS[category];
-  if (formData.id) {
-    const { id, ...rest } = formData;
-    try {
-      await database.updateOne(
-        { _id: new ObjectId(id) },
-        { $set: { ...rest } }
-      );
-    } catch (error) {
-      console.error('Update work error:', error);
-      throw new Error('Failed to update work');
-    }
-  } else {
-    try {
-      await database.insertOne(formData);
-    } catch (error) {
-      console.error('Insert work error:', error);
-      throw new Error('Failed to insert work');
-    }
-  }
-  revalidateTag('workTotals');
-  revalidateTag('workByCategory');
-  revalidateTag('fullAllWorkByCategory');
-};
-
-export const deleteWork = async (category: WorkCategory, id: string) => {
-  if (!id) throw new Error('Invalid work id');
-  const database: Collection<WorkType> = WORK_COLLECTIONS[category];
-  try {
-    await database.deleteOne({ _id: new ObjectId(id) });
-  } catch (error) {
-    console.error('Delete work error:', error);
-    throw new Error('Failed to delete work');
-  }
-  revalidateTag('workTotals');
-  revalidateTag('workByCategory');
-  revalidateTag('fullAllWorkByCategory');
-};
+export async function deleteWork(category: unknown, inputId: unknown) {
+  const admin = await requireAdmin();
+  const id = objectId(inputId);
+  const result = await workCollection.deleteOne({ _id: new ObjectId(id), primary: primaryFor(workCategory(category)) });
+  if (!result.deletedCount) throw new Error('Record not found');
+  await recordAdminEvent(admin.username, 'delete', 'work', id);
+  updateTag(tag);
+}

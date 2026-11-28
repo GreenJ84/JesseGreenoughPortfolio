@@ -1,93 +1,55 @@
 'use server';
 
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { SignJWT, jwtVerify } from 'jose';
+import { createHash, timingSafeEqual } from 'node:crypto';
+import { authConfig } from '../_security/token';
+import { issueAdminSession } from '../_security/issueSession';
+import { ownerPasskeys } from '../_security/passkeys';
+import { recordAlert } from '../_observability/alerts';
+import { currentAdmin, revokeSession } from '../_security/session';
+import { clientIdentity, rateLimit, RateLimitError } from '../_security/rateLimit';
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET
-);
+// Fail at module startup instead of silently issuing tokens with missing configuration.
+authConfig();
+const cookieOptions = { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'strict' as const, path: '/' };
+function equal(value: string, expected: string) {
+  return timingSafeEqual(createHash('sha256').update(value).digest(), createHash('sha256').update(expected).digest());
+}
 
 export async function loginAction(formData: FormData) {
   try {
-    const username = formData.get('username') as string;
-    const password = formData.get('password') as string;
-    // Validate credentials
-    if (username !== process.env.ADMIN_USERNAME! || password !== process.env.ADMIN_PASSWORD!) {
-      return {
-        success: false,
-        message: 'Invalid credentials'
-      }
-    }
-    // Create JWT token
-    const token = await new SignJWT({
-      username,
-      role: 'admin',
-      iat: Math.floor(Date.now() / 1000),
-    })
-      .setProtectedHeader({ alg: 'HS256' })
-      .setExpirationTime('24h')
-      .sign(JWT_SECRET);
-    // Set cookie
-    cookies().set('admin-token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
-      maxAge: 24 * 60 * 60, // 24 hours
-      path: '/',
-    });
-    // Success redirect
-    redirect('/admin/dashboard');
-
+    const config = authConfig();
+    await rateLimit('login-global', 'admin', 30, 900);
+    const identity = clientIdentity(await headers());
+    if (identity) await rateLimit('login-client', identity, 5, 900);
+    const username = formData.get('username');
+    const password = formData.get('password');
+    if (typeof username !== 'string' || typeof password !== 'string' || username.length > 200 || password.length > 1024) return { success: false, message: 'Invalid credentials' };
+    const userMatches = equal(username, config.username);
+    const passwordMatches = equal(password, config.password);
+    if (!userMatches || !passwordMatches) { await recordAlert('login-failures'); return { success: false, message: 'Invalid credentials' }; }
+    if ((await ownerPasskeys()).length > 0) return { success: false, message: 'Use your passkey to sign in' };
+    await issueAdminSession();
   } catch (error) {
-
-    if (error instanceof Error && error.message.includes('NEXT_REDIRECT')) {
-      throw error
-    }
-    console.error('Login error:', error)
-    return {
-      success: false,
-      message: 'Internal server error'
-    }
+    return { success: false, message: error instanceof RateLimitError ? error.message : 'Login unavailable. Please try again later.' };
   }
+  redirect('/admin/dashboard');
 }
 
 export async function logoutAction() {
-  // Clear the cookie
-  cookies().set('admin-token', '', {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
-    maxAge: 0, // Expire immediately
-    path: '/',
-  });
-
-  // Redirect to login
+  const token = (await cookies()).get('admin-token')?.value;
+  if (token) {
+    // A storage failure must not claim that a still-valid session was revoked.
+    try { await revokeSession(token); } catch {
+      return { success: false, message: 'Logout unavailable. Please try again.' };
+    }
+  }
+  (await cookies()).set('admin-token', '', { ...cookieOptions, maxAge: 0 });
   redirect('/admin/login');
 }
 
 export async function verifyAuth() {
-  try {
-    const token = cookies().get('admin-token')?.value;
-    // Missing tokens unauthorized
-    if (!token) {
-      return { isValid: false };
-    }
-    // Verify the JWT token
-    const { payload } = await jwtVerify(token, JWT_SECRET);
-    // Valid token
-    return {
-      isValid: true,
-      user: {
-        username: payload.username,
-        role: payload.role,
-        iat: payload.iat
-      }
-    };
-
-  } catch (error) {
-
-    console.error('Auth verification error:', error);
-    return { isValid: false };
-  }
+  const admin = await currentAdmin();
+  return admin ? { isValid: true, user: { username: admin.username, role: admin.role, iat: admin.iat } } : { isValid: false };
 }

@@ -1,18 +1,24 @@
 'use server';
+import { recordAdminEvent } from '../_observability/metrics';
 
-import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
+import { requireAdmin } from "../_security/session";
+import { certificationInput, objectId, offsetInput, filterInput } from "../_security/validation";
+
+
+import { revalidatePath, updateTag, unstable_cache } from "next/cache";
 import { ObjectId, SortDirection, WithId } from "mongodb";
 
-import { CertificationType } from "../_lib/_types";
+import { Certification } from "../_lib/_types";
 import { DB, DB_INFO } from "../_utils/Database";
 
-const certificationDatabase = DB.collection<CertificationType>(DB_INFO.collections.CERT);
+const certificationDatabase = DB.collection<Certification>(DB_INFO.collections.CERT);
+const cacheScope = [DB_INFO.name, DB_INFO.collections.CERT, 'model-v2'];
 
 export const getCertificationCount = unstable_cache(
   async (): Promise<number> => {
     return await certificationDatabase.countDocuments();
   },
-  ['totalCertifications'],
+  ['totalCertifications', ...cacheScope],
   { revalidate: 3600, tags: ['totalCertifications'] }
 );
 
@@ -20,7 +26,7 @@ const getCertificationsBase = async (
   offset: number = 0,
   sortOption?: object,
   filterOptions?: object,
-): Promise<CertificationType[]> => {
+): Promise<Certification[]> => {
   let sortBase: { [key: string]: SortDirection } = {
     title: 1,
     _id: -1,
@@ -34,37 +40,38 @@ const getCertificationsBase = async (
   return (await certificationDatabase
     .find(filterOptions ?? {})
     .sort(sortBase)
-    .skip(offset)
+    .skip(offsetInput(offset))
     .limit(10)
     .toArray())
-    .map((cert: WithId<CertificationType>) => {
+    .map((cert: WithId<Certification>) => {
       const { _id, ...rest } = cert;
       return { id: _id.toString(), ...rest };
     });
 };
 
 export const getTopCertifications = unstable_cache(
-  async (): Promise<CertificationType[]> => {
+  async (): Promise<Certification[]> => {
     return await getCertificationsBase(0, { priority: 1, date: -1 });
   },
-  ['topCertifications'],
+  ['topCertifications', ...cacheScope],
   { revalidate: 3600, tags: ['topCertifications'] }
 );
 
 export const getAllCertifications = unstable_cache(
-  async (offset: number): Promise<CertificationType[]> => {
+  async (offset: number): Promise<Certification[]> => {
     return await getCertificationsBase(offset);
   },
-  ['allCertifications'],
+  ['allCertifications', ...cacheScope],
   { revalidate: 3600, tags: ['allCertifications'] }
 );
 
-export const getFullAllCertifications = async (): Promise<CertificationType[]> => {
+export const getFullAllCertifications = async (): Promise<Certification[]> => {
+  await requireAdmin();
   return (await certificationDatabase
     .find({})
     .sort({ priority: 1, date: -1, title: 1 })
     .toArray())
-    .map((cert: WithId<CertificationType>) => {
+    .map((cert: WithId<Certification>) => {
       const { _id, ...rest } = cert;
       return { id: _id.toString(), ...rest };
     });
@@ -73,12 +80,12 @@ export const getFullAllCertifications = async (): Promise<CertificationType[]> =
 export const getCertificationFilterOptions = unstable_cache(
   async (): Promise<[string, string]> => {
     const res: {
-      issuer: string;
+      brief: string;
       techs: string[];
     }[] = await certificationDatabase
       .find()
-      .project<{ issuer: string; techs: string[] }>({
-        issuer: 1,
+      .project<{ brief: string; techs: string[] }>({
+        brief: 1,
         techs: 1,
         _id: 0,
       })
@@ -87,10 +94,10 @@ export const getCertificationFilterOptions = unstable_cache(
     const issuerMap = new Map<string, number>();
     const techMap = new Map<string, number>();
     res.map((item) => {
-      if (issuerMap.has(item.issuer)) {
-        issuerMap.set(item.issuer, issuerMap.get(item.issuer)! + 1);
+      if (issuerMap.has(item.brief)) {
+        issuerMap.set(item.brief, issuerMap.get(item.brief)! + 1);
       } else {
-        issuerMap.set(item.issuer, 1);
+        issuerMap.set(item.brief, 1);
       }
       item.techs.forEach((tech) => {
         if (techMap.has(tech)) {
@@ -106,75 +113,78 @@ export const getCertificationFilterOptions = unstable_cache(
       JSON.stringify(Array.from(techMap.entries())),
     ];
   },
-  ['certificationFilters'],
+  ['certificationFilters', ...cacheScope],
   { revalidate: 3600, tags: ['certificationFilters'] }
 );
 
 export const getCertificationsByTech = unstable_cache(
-  async (tech: string, offset: number = 0): Promise<CertificationType[]> => {
+  async (tech: string, offset: number = 0): Promise<Certification[]> => {
     return await getCertificationsBase(
       offset,
       { priority: 1, date: -1, title: 1 },
-      { techs: tech }
+      { techs: filterInput(tech) }
     );
   },
-  ['certificationsByTech'],
+  ['certificationsByTech', ...cacheScope],
   { revalidate: 3600, tags: ['certificationsByTech'] }
 );
 
 export const getCertificationsByIssuer = unstable_cache(
-  async (issuer: string, offset: number = 0): Promise<CertificationType[]> => {
+  async (issuer: string, offset: number = 0): Promise<Certification[]> => {
     return await getCertificationsBase(
       offset,
       { priority: 1, date: -1, title: 1 },
-      { issuer: issuer }
+      { brief: filterInput(issuer) }
     );
   },
-  ['certificationsByIssuer'],
+  ['certificationsByIssuer', ...cacheScope],
   { revalidate: 3600, tags: ['certificationsByIssuer'] }
 );
 
-export const saveCertification = async (formData: CertificationType) => {
-  if (formData.id) {
-    const { id, ...rest } = formData;
-    try {
-      await certificationDatabase.updateOne(
-        { _id: new ObjectId(id) },
-        { $set: { ...rest } }
-      );
-    } catch (error) {
-      console.error('Update certification error:', error);
-      throw new Error('Failed to update certification');
-    }
+export const getCertificationsByIssuerAndTech = unstable_cache(
+  async (issuer: string, tech: string, offset: number = 0): Promise<Certification[]> =>
+    getCertificationsBase(offset, { priority: 1, date: -1, title: 1 }, { brief: filterInput(issuer), techs: filterInput(tech) }),
+  ['certificationsByIssuerAndTech', ...cacheScope],
+  { revalidate: 3600, tags: ['certificationsByIssuer', 'certificationsByTech'] }
+);
+
+export const saveCertification = async (input: unknown) => {
+  const admin = await requireAdmin();
+  const { id, ...data } = certificationInput(input);
+  if (id) {
+    const result = await certificationDatabase.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: data }
+    );
+    if (!result.matchedCount) throw new Error('Record not found');
   } else {
-    try {
-      await certificationDatabase.insertOne(formData);
-    } catch (error) {
-      console.error('Insert certification error:', error);
-      throw new Error('Failed to insert certification');
-    }
+    await certificationDatabase.insertOne(data);
   }
-  revalidateTag('totalCertifications');
-  revalidateTag('allCertifications');
-  revalidateTag('topCertifications');
-  revalidateTag('certificationFilters');
-  revalidateTag('certificationsByTech');
-  revalidateTag('certificationsByIssuer');
+  await recordAdminEvent(admin.username, id ? 'update' : 'create', 'certification', id);
+  updateTag('totalCertifications');
+  updateTag('allCertifications');
+  updateTag('topCertifications');
+  updateTag('certificationFilters');
+  updateTag('certificationsByTech');
+  updateTag('certificationsByIssuer');
 };
 
-export const deleteCertification = async (id: string) => {
-  if (!id) throw new Error('Invalid certification id');
+export const deleteCertification = async (inputId: unknown) => {
+  const admin = await requireAdmin();
+  const id = objectId(inputId);
   try {
-    await certificationDatabase.deleteOne({ _id: new ObjectId(id) });
+    const result = await certificationDatabase.deleteOne({ _id: new ObjectId(id) });
+    if (!result.deletedCount) throw new Error('Record not found');
     revalidatePath('/(management)/admin/data/certifications');
   } catch (error) {
     console.error('Delete certification error:', error);
     throw new Error('Failed to delete certification');
   }
-  revalidateTag('totalCertifications');
-  revalidateTag('allCertifications');
-  revalidateTag('topCertifications');
-  revalidateTag('certificationFilters');
-  revalidateTag('certificationsByTech');
-  revalidateTag('certificationsByIssuer');
+  await recordAdminEvent(admin.username, 'delete', 'certification', id);
+  updateTag('totalCertifications');
+  updateTag('allCertifications');
+  updateTag('topCertifications');
+  updateTag('certificationFilters');
+  updateTag('certificationsByTech');
+  updateTag('certificationsByIssuer');
 };

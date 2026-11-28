@@ -1,26 +1,34 @@
 'use server';
+import { recordAdminEvent } from '../_observability/metrics';
 
-import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
+import { cacheTags } from '../_lib/cacheTags';
+
+import { requireAdmin } from "../_security/session";
+import { projectInput, objectId, offsetInput, filterInput } from "../_security/validation";
+
+
+import { revalidatePath, updateTag, unstable_cache } from "next/cache";
 import { ObjectId, SortDirection, WithId } from "mongodb";
 
-import { ProjectType } from "../_lib/_types";
+import { Project } from "../_lib/_types";
 import { DB, DB_INFO } from "../_utils/Database";
 
-const projectDatabase = DB.collection<ProjectType>(DB_INFO.collections.PROJ);
+const projectDatabase = DB.collection<Project>(DB_INFO.collections.PROJ);
+const cacheScope = [DB_INFO.name, DB_INFO.collections.PROJ, 'model-v2'];
 
 export const getProjectCount = unstable_cache(
   async (): Promise<number> => {
     return await projectDatabase.countDocuments()
   },
-  ['totalProjects'],
-  { revalidate: 3600, tags: ['totalProjects'] }
+  [cacheTags.projects.count, ...cacheScope],
+  { revalidate: 3600, tags: [cacheTags.projects.count] }
 );
 
 const getProjectsBase = async (
   offset: number = 0,
   sortOption?: object,
   filterOptions?: object,
-): Promise<ProjectType[]> => {
+): Promise<Project[]> => {
   let sortBase: { [key: string]: SortDirection } = {};
   if (sortOption) {
     sortBase = {
@@ -30,38 +38,39 @@ const getProjectsBase = async (
   }
   return (await projectDatabase
     .find(filterOptions ?? {})
-    .sort(sortBase)
-    .skip(offset)
+    .sort({ ...sortBase, _id: -1 })
+    .skip(offsetInput(offset))
     .limit(10)
     .toArray())
-    .map((project: WithId<ProjectType>) => {
+    .map((project: WithId<Project>) => {
       const { _id, ...rest } = project;
       return { id: _id.toString(), ...rest };
     })
 }
 
 export const getTopProjects = unstable_cache(
-  async (): Promise<ProjectType[]> => {
-    return await getProjectsBase(0, { priority: 1, date: -1, name: 1 });
+  async (): Promise<Project[]> => {
+    return await getProjectsBase(0, { priority: 1, date: -1, title: 1 });
   },
-  ['topProjects'],
-  { revalidate: 3600, tags: ['topProjects'] }
+  [cacheTags.projects.top, ...cacheScope],
+  { revalidate: 3600, tags: [cacheTags.projects.top] }
 )
 
 export const getAllProjects = unstable_cache(
-  async (offset: number): Promise<ProjectType[]>  => {
-    return await getProjectsBase(offset, { priority: 1, date: -1, name: 1 });
+  async (offset: number): Promise<Project[]>  => {
+    return await getProjectsBase(offset, { priority: 1, date: -1, title: 1 });
   },
-  ['allProjects'],
-  { revalidate: 3600, tags: ['allProjects'] }
+  [cacheTags.projects.list, ...cacheScope],
+  { revalidate: 3600, tags: [cacheTags.projects.list] }
 )
 
-export const getFullAllProjects = async (): Promise<ProjectType[]> => {
+export const getFullAllProjects = async (): Promise<Project[]> => {
+  await requireAdmin();
   return (await projectDatabase
     .find({})
-    .sort({ priority: 1, date: -1, name: 1 })
+    .sort({ priority: 1, date: -1, title: 1, _id: -1 })
     .toArray())
-    .map((project: WithId<ProjectType>) => {
+    .map((project: WithId<Project>) => {
       const { _id, ...rest } = project;
       return { id: _id.toString(), ...rest };
     })
@@ -105,72 +114,66 @@ export const getProjectFilters = unstable_cache(
       Array.from(techs.entries()),
     ];
   },
-  ['projectFilters'],
-  { revalidate: 3600, tags: ['projectFilters'] }
+  [cacheTags.projects.filters, ...cacheScope],
+  { revalidate: 3600, tags: [cacheTags.projects.filters] }
 )
 
 export const getProjectsByCategory = unstable_cache(
-  async (category: string, offset: number = 0): Promise<ProjectType[]> => {
+  async (category: string, offset: number = 0): Promise<Project[]> => {
     return await getProjectsBase(offset,
-      { priority: 1, date: -1, name: 1 },
-      { categories: category}
+      { priority: 1, date: -1, title: 1 },
+      { categories: filterInput(category)}
     );
   },
-  ['projectsByCategory'],
-  { revalidate: 3600, tags: ['projectsByCategory'] }
+  [cacheTags.projects.category, ...cacheScope],
+  { revalidate: 3600, tags: [cacheTags.projects.category] }
 );
 
 export const getProjectsByTech = unstable_cache(
-  async (tech: string, offset: number = 0): Promise<ProjectType[]> => {
+  async (tech: string, offset: number = 0): Promise<Project[]> => {
     return getProjectsBase(offset,
-      { priority: 1, date: -1, name: 1 },
-      { key_techs: tech }
+      { priority: 1, date: -1, title: 1 },
+      { key_techs: filterInput(tech) }
     );
   },
-  ['projectsByTech'],
-  { revalidate: 3600, tags: ['projectsByTech'] }
+  [cacheTags.projects.tech, ...cacheScope],
+  { revalidate: 3600, tags: [cacheTags.projects.tech] }
 );
 
-export const saveProject = async (formData: ProjectType) => {
+export const getProjectsByCategoryAndTech = unstable_cache(
+  async (category: string, tech: string, offset: number = 0): Promise<Project[]> =>
+    getProjectsBase(offset, { priority: 1, date: -1, title: 1 }, { categories: filterInput(category), key_techs: filterInput(tech) }),
+  ['projectsByCategoryAndTech', ...cacheScope],
+  { revalidate: 3600, tags: [cacheTags.projects.category, cacheTags.projects.tech] }
+);
 
-  if (formData.id) {
-    const { id, ...rest } = formData;
-    try {
-      await projectDatabase.updateOne(
-        { _id: new ObjectId(id) },
-        { $set: { ...rest } }
-      );
-    } catch (error) {
-      console.error('Update project error:', error);
-      throw new Error('Failed to update project');
-    }
+export const saveProject = async (input: unknown) => {
+  const admin = await requireAdmin();
+  const { id, ...data } = projectInput(input);
+  if (id) {
+    const result = await projectDatabase.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: data }
+    );
+    if (!result.matchedCount) throw new Error('Record not found');
   } else {
-    try {
-      await projectDatabase.insertOne(formData);
-    } catch (error) {
-      console.error('Insert project error:', error);
-      throw new Error('Failed to insert project');
-    }
+    await projectDatabase.insertOne(data);
   }
-  revalidateTag('totalProjects');
-  revalidateTag('allProjects');
-  revalidateTag('topProjects');
-  revalidateTag('projectsByCategory');
-  revalidateTag('projectsByTech');
+  await recordAdminEvent(admin.username, id ? 'update' : 'create', 'project', id);
+  for (const tag of Object.values(cacheTags.projects)) updateTag(tag);
 }
 
-export const deleteProject = async (id: string) => {
-  if (!id) throw new Error('Invalid project id');
+export const deleteProject = async (inputId: unknown) => {
+  const admin = await requireAdmin();
+  const id = objectId(inputId);
   try {
-    await projectDatabase.deleteOne({ _id: new ObjectId(id) });
-    revalidatePath('/(management)/admin/data/projects');
+    const result = await projectDatabase.deleteOne({ _id: new ObjectId(id) });
+    if (!result.deletedCount) throw new Error('Record not found');
+    revalidatePath('/admin/data/projects');
   } catch (error) {
     console.error('Delete project error:', error);
     throw new Error('Failed to delete project');
   }
-  revalidateTag('totalProjects');
-  revalidateTag('allProjects');
-  revalidateTag('topProjects');
-  revalidateTag('projectsByCategory');
-  revalidateTag('projectsByTech');
+  await recordAdminEvent(admin.username, 'delete', 'project', id);
+  for (const tag of Object.values(cacheTags.projects)) updateTag(tag);
 }

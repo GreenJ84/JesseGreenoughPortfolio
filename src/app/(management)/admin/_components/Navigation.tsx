@@ -1,7 +1,6 @@
-import React from 'react';
 import Link from 'next/link';
 
-import { logoutAction } from '../../../_actions/auth';
+import LogoutButton from '../Logout';
 
 import css from './Navigation.module.css';
 
@@ -12,6 +11,7 @@ const AdminNavigation = () => {
         <Link href="/admin/dashboard">Portfolio Admin</Link>
       </div>
       <div className={css.navLinks}>
+        <Link href="/admin/dashboard" className={css.navLink}>Overview</Link>
         <Link href="/admin/data" className={css.navLink}>
           Data
         </Link>
@@ -23,11 +23,9 @@ const AdminNavigation = () => {
         </Link>
       </div>
 
-      <form action={logoutAction} className={css.logoutForm}>
-        <button type="submit" className={css.logoutButton}>
-          Logout
-        </button>
-      </form>
+      <div className={css.logoutForm}>
+        <LogoutButton label="Logout" className={css.logoutButton} />
+      </div>
     </nav>
   );
 };

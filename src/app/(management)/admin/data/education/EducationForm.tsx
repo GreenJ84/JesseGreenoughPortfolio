@@ -2,7 +2,7 @@
 
 import React, { useState, useTransition } from 'react';
 
-import type { EducationType } from '@/app/_lib/_types';
+import type { Education } from '@/app/_lib/_types';
 import { deleteEducation, saveEducation } from '@/app/_actions/educationService';
 
 import { FormActionButtons } from '../_components/FormModal';
@@ -10,7 +10,7 @@ import { FormActionButtons } from '../_components/FormModal';
 import css from '../_components/DataPage.module.css';
 
 interface EducationFormProps {
-  initial?: EducationType;
+  initial?: Education;
   onClose: () => void;
 }
 
@@ -18,46 +18,46 @@ export default function EducationForm({
   initial,
   onClose,
 }: EducationFormProps) {
-  const [form, setForm] = useState<EducationType>(
+  const [form, setForm] = useState<Education>(
     initial ?? {
-      college: '',
-      degree: '',
-      date: '',
-      startDate: '',
-      endDate: '',
-      description: [],
-      icon: '',
-      website: '',
+      title: '',
+      brief: "",
+      description: "",
+      start_date: new Date(),
+      end_date: new Date(),
+      details: [],
+      image_url: '',
+      url: '',
     }
   );
 
   // Array field handlers for description
   const handleArrayChange = (idx: number, value: string) => {
-    setForm((prev: EducationType) => ({
+    setForm((prev: Education) => ({
       ...prev,
-      description: prev.description.map((item: string, i: number) => (i === idx ? value : item)),
+      details: prev.details.map((item: string, i: number) => (i === idx ? value : item)),
     }));
   };
 
   const addArrayItem = () => {
-    setForm((prev: EducationType) => ({
+    setForm((prev: Education) => ({
       ...prev,
-      description: [...prev.description, ''],
+      details: [...prev.details, ''],
     }));
   };
 
   const removeArrayItem = (idx: number) => {
-    setForm((prev: EducationType) => ({
+    setForm((prev: Education) => ({
       ...prev,
-      description: prev.description.filter((_: string, i: number) => i !== idx),
+      details: prev.details.filter((_: string, i: number) => i !== idx),
     }));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setForm((prev: EducationType) => ({
+    setForm((prev: Education) => ({
       ...prev,
-      [name]: value,
+      [name]: name === 'start_date' || name === 'end_date' ? new Date(value) : value,
     }));
   };
 
@@ -85,41 +85,37 @@ export default function EducationForm({
       {form.id && <input type="hidden" name="id" value={form.id} />}
       <label className={css.formLabel}>
         College*
-        <input className={css.formInput} name="college" value={form.college} onChange={handleChange} required />
+        <input className={css.formInput} name="brief" value={form.brief} onChange={handleChange} required />
       </label>
       <label className={css.formLabel}>
         Degree*
-        <input className={css.formInput} name="degree" value={form.degree} onChange={handleChange} required />
-      </label>
-      <label className={css.formLabel}>
-        Date (e.g. &quot;2020 - 2024&quot;)*
-        <input className={css.formInput} name="date" value={form.date} onChange={handleChange} required />
+        <input className={css.formInput} name="title" value={form.title} onChange={handleChange} required />
       </label>
       <label className={css.formLabel}>
         Start Date
-        <input className={css.formInput} name="startDate" value={form.startDate ?? ''} onChange={handleChange} />
+        <input className={css.formInput} name="start_date" value={form.start_date.toISOString() ?? ''} onChange={handleChange} />
       </label>
       <label className={css.formLabel}>
         End Date
-        <input className={css.formInput} name="endDate" value={form.endDate ?? ''} onChange={handleChange} />
+        <input className={css.formInput} name="end_date" value={form.end_date?.toISOString() ?? ''} onChange={handleChange} />
       </label>
       <label className={css.formLabel}>
         Icon URL
-        <input className={css.formInput} name="icon" value={form.icon} onChange={handleChange} />
+        <input className={css.formInput} name="image_url" value={form.image_url} onChange={handleChange} />
       </label>
       <label className={css.formLabel}>
         Website
-        <input className={css.formInput} name="website" value={form.website} onChange={handleChange} />
+        <input className={css.formInput} name="url" value={form.url} onChange={handleChange} />
       </label>
 
       <fieldset className={css.formFieldset}>
         <legend className={css.formLegend}>Description</legend>
-        {form.description.map((desc: string, idx: number) => (
+        {form.details.map((desc: string, idx: number) => (
           <div key={idx} className={css.arrayFieldRow}>
             <input
               className={css.formInput}
               value={desc}
-              name="description[]"
+              name="details[]"
               onChange={(e) => handleArrayChange(idx, e.target.value)}
               placeholder="Description or achievement"
             />

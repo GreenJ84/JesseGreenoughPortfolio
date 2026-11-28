@@ -1,49 +1,13 @@
-/** @format */
-
-/* Page Body */
-.eduBody {
-  padding: 3dvh 2vw 1rem;
-}
-
-.eduBody > h1 {
-  position: relative;
-  width: 70%;
-  margin: 5dvh auto;
-  text-align: center;
-  font-size: clamp(26px, 4.5vw, 80px);
-  color: var(--text-secondary);
-  text-shadow: 1px 1px 15px var(--detail);
-}
-
-.eduBody > p {
-  position: relative;
-  margin: 0 auto;
-  width: min(80%, 1100px);
-  text-align: center;
-  font-size: clamp(16px, 3vw, 52px);
-  color: var(--text-primary);
-}
-
-.eduNav {
-  position: relative;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 8vh auto 0;
-  width: 80vw;
-  padding-bottom: 4dvh;
-  border-bottom: 2px solid var(--detail);
-  & > .title{
-    text-align: center;
-    font-size: var(--header2);
-    color: var(--text-primary);
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-  }
-  & > .title.active{
-    font-size: var(--header1);
-    color: var(--text-secondary);
-    text-shadow: 0 0 18px var(--text-secondary);
-  }
-}
+.eduBody { min-height: calc(100vh - 76px); padding: clamp(2.5rem, 5vw, 5rem) 0 2rem; color: var(--text-primary); }
+.eduBody > h1 { width: min(100% - 3rem, 900px); margin: 0 auto 0.7rem; text-align: center; font-size: var(--header2); letter-spacing: -0.035em; }
+.eduBody > p { width: min(100% - 3rem, 700px); margin: 0 auto; text-align: center; color: var(--text-secondary); font-size: var(--text1); line-height: 1.65; }
+.credentialHighlights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; width: min(100% - 3rem, 900px); margin: 2.5rem auto 0; }
+.credentialHighlights article { padding: 1.4rem; border: 1px solid var(--surface-border); border-radius: 1rem; background: var(--card-background); }
+.credentialHighlights span { color: var(--text-detail); font-size: .78rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.credentialHighlights h2 { margin: .65rem 0; font-size: 1.18rem; line-height: 1.3; }
+.credentialHighlights p { margin: 0; color: var(--text-secondary); font-size: .9rem; line-height: 1.5; }
+.eduNav { display: flex; gap: 0.4rem; width: min(100% - 3rem, 600px); margin: 2.5rem auto 2rem; padding: 0.35rem; border: 1px solid var(--surface-border); border-radius: 0.8rem; background: var(--card-background); }
+.title { flex: 1; padding: 0.7rem 0.8rem; border: 0; border-radius: 0.55rem; background: transparent; color: var(--text-secondary); font-weight: 700; }
+.title:hover { color: var(--text-primary); background: var(--hover-surface); }
+.title.active { background: var(--card-background2); color: var(--text-primary); }
+@media (max-width: 560px) { .eduNav, .credentialHighlights { grid-template-columns: 1fr; flex-direction: column; } }

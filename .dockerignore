@@ -1,0 +1,25 @@
+# Only source and build inputs enter the context.
+**
+!package.json
+!package-lock.json
+!next.config.js
+!tsconfig.json
+!next-env.d.ts
+!eslint.config.mjs
+!src/
+!src/**
+!public/
+!public/**
+
+# Never re-include secrets or local tool state through a source directory.
+**/.env*
+**/*.pem
+**/*.key
+**/.git
+**/.git/**
+**/.aws/**
+**/.codex/**
+**/.agents/**
+**/node_modules/**
+**/.DS_Store
+src/cypress/**

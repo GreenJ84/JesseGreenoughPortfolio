@@ -1,63 +1,44 @@
-import React from 'react';
+import { requireOwnerPage } from '@/app/_security/ownerPage';
+import { DB, DB_INFO } from '@/app/_utils/Database';
+import { ownerPasskeys } from '@/app/_security/passkeys';
 import Link from 'next/link';
-
-import LogoutButton from '../Logout';
+import Navigation from '../_components/Navigation';
 import styles from './Admin.module.css';
 
-const AdminPage = () => {
+const destinations = [
+  { label: 'Projects', href: '/admin/data/projects', collection: DB_INFO.collections.PROJ },
+  { label: 'Certifications', href: '/admin/data/certifications', collection: DB_INFO.collections.CERT },
+  { label: 'Education', href: '/admin/data/education', collection: DB_INFO.collections.EDU },
+  { label: 'Work', href: '/admin/data/work', collection: DB_INFO.collections.WORK },
+] as const;
 
-  return (
-    <div className={styles.adminContainer}>
-      <header className={styles.adminHeader}>
-        <h1>Admin Dashboard</h1>
-        <LogoutButton />
-      </header>
-
+export default async function AdminDashboard() {
+  await requireOwnerPage();
+  const [ping, counts, keys] = await Promise.all([
+    DB.command({ ping: 1 }).then(() => true).catch(() => false),
+    Promise.all(destinations.map(async destination => ({ ...destination, count: await DB.collection(destination.collection).countDocuments() }))).catch(() => []),
+    ownerPasskeys().then(value => value.length).catch(() => 0),
+  ]);
+  return <><Navigation /><main className={styles.adminContainer}>
+    <header className={styles.adminHeader}>
+      <div><h1>Portfolio admin</h1><p>Manage published content and review site status.</p></div>
+      <Link href="/" target="_blank">View public site</Link>
+    </header>
+    <section aria-labelledby="contentHeading">
+      <h2 id="contentHeading">Content</h2>
       <div className={styles.adminGrid}>
-        <div className={styles.adminCard}>
-          <h2>Website Analytics</h2>
-          <p>View website metrics and visitor statistics</p>
-          <Link href="/admin/analytics" className={styles.cardButton}>
-            Go to Analytics
-          </Link>
-        </div>
-
-        <div className={styles.adminCard}>
-          <h2>Data Management</h2>
-          <p>Manage projects, education, work experience, and skills</p>
-          <Link href="/admin/data" className={styles.cardButton}>
-            Manage Data
-          </Link>
-        </div>
-
-        <div className={styles.adminCard}>
-          <h2>Settings</h2>
-          <p>Configure admin settings and preferences</p>
-          <Link href="/admin/settings" className={styles.cardButton}>
-            Settings
-          </Link>
-        </div>
+        {destinations.map(destination => <Link key={destination.href} href={destination.href} className={styles.adminCard}>
+          <h3>{destination.label}</h3>
+          <p>{counts.find(item => item.href === destination.href)?.count ?? 'Unavailable'} records</p>
+          <span>Open manager →</span>
+        </Link>)}
       </div>
-
-      <div className={styles.quickStats}>
-        <h2>Quick Stats</h2>
-        <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
-            <h3>Projects</h3>
-            <p className={styles.statNumber}>12</p>
-          </div>
-          <div className={styles.statCard}>
-            <h3>Skills</h3>
-            <p className={styles.statNumber}>25</p>
-          </div>
-          <div className={styles.statCard}>
-            <h3>Work Experience</h3>
-            <p className={styles.statNumber}>5</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default AdminPage;
+    </section>
+    <section className={styles.quickStats} aria-labelledby="statusHeading">
+      <h2 id="statusHeading">System status</h2>
+      <p role="status">Database: {ping ? 'Connected' : 'Unavailable'}</p>
+      <p>Owner passkeys: {keys}. <Link href="/admin/settings">Manage sign-in</Link></p>
+      <p><Link href="/admin/analytics">View traffic and alerts</Link></p>
+    </section>
+  </main></>;
+}

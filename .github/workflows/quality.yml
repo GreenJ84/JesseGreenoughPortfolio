@@ -1,0 +1,123 @@
+name: Quality and deployment smoke
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    name: App, browser, performance, and container checks
+    # Playwright's --with-deps runs apt; keep its package sources on a known Ubuntu release.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    services:
+      mongo:
+        image: mongo:8.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --quiet --eval 'db.adminCommand({ ping: 1 })'"
+          --health-interval 5s --health-timeout 5s --health-retries 20
+    env:
+      DB_CONN_STRING: mongodb://127.0.0.1:27017/?serverSelectionTimeoutMS=2000
+      JWT_SECRET: ci-only-fixture-key-at-least-thirty-two-bytes-long
+      ADMIN_USERNAME: ci-admin
+      ADMIN_PASSWORD: ci-only-fixture-password
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - name: Check out portfolio source
+        uses: actions/checkout@v4
+      - name: Set up project Node.js and npm cache
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Install locked npm dependencies
+        run: npm ci
+        env:
+          CYPRESS_INSTALL_BINARY: '0'
+      - name: Check TypeScript types
+        run: npm run typecheck
+      - name: Check ESLint rules
+        run: npm run lint
+      - name: Run application and security tests
+        run: npm test
+      - name: Install Chromium and browser system dependencies
+        run: npx playwright install --with-deps chromium
+      - name: Seed disposable browser fixture
+        run: node scripts/seed-ci-portfolio.cjs
+        env:
+          PORTFOLIO_CI_FIXTURE: '1'
+      - name: Build the standalone Next.js application
+        run: npm run build
+      # Exercise the standalone output, then collect browser, accessibility,
+      # performance, and database evidence against the disposable fixture.
+      - name: Check routes, browser UX, accessibility, and performance
+        run: |
+          cp -R .next/static .next/standalone/.next/static
+          cp -R public .next/standalone/public
+          rm -f .next/standalone/.env .next/standalone/.env.local
+          PORT=3000 HOSTNAME=127.0.0.1 node .next/standalone/server.js > /tmp/portfolio-ci-server.log 2>&1 &
+          for i in $(seq 1 40); do
+            if curl --fail --silent http://127.0.0.1:3000/admin/login > /dev/null; then break; fi
+            sleep 1
+          done
+          node scripts/smoke-deployment.cjs
+          node scripts/check-seo.cjs
+          node scripts/check-accessibility.cjs
+          node scripts/check-portfolio-browser.cjs
+          PERF_BASE_URL=http://127.0.0.1:3000 PERF_RUNS=1 PERF_ROUTES=/,/skills,/projects PERF_OUTPUT=test-results/performance.json npm run perf:browser
+          node scripts/compare-performance.cjs
+          node scripts/measure-db-queries.cjs
+      - name: Check pinned container base digests
+        run: node scripts/check-container-base.cjs
+      # The BuildKit secret supplies fixture credentials only while Next.js
+      # builds; the Dockerfile removes environment files from its output.
+      - name: Build the runtime container with disposable data
+        env:
+          DOCKER_BUILDKIT: '1'
+        run: |
+          build_env="$RUNNER_TEMP/portfolio-container-build.env"
+          trap 'rm -f "$build_env"' EXIT
+          printf 'DB_CONN_STRING=%s\nJWT_SECRET=%s\nADMIN_USERNAME=%s\nADMIN_PASSWORD=%s\n' \
+            "$DB_CONN_STRING" "$JWT_SECRET" "$ADMIN_USERNAME" "$ADMIN_PASSWORD" > "$build_env"
+          chmod 600 "$build_env"
+          docker build --network=host --secret "id=build_env,src=$build_env" -t "portfolio-ci:${{ github.sha }}" .
+      - name: Smoke the final container
+        run: |
+          docker run -d --name portfolio-ci-smoke -p 3100:3000 \
+            --add-host=host.docker.internal:host-gateway \
+            -e DB_CONN_STRING=mongodb://host.docker.internal:27017 \
+            -e JWT_SECRET="$JWT_SECRET" -e ADMIN_USERNAME="$ADMIN_USERNAME" -e ADMIN_PASSWORD="$ADMIN_PASSWORD" \
+            "portfolio-ci:${{ github.sha }}"
+          trap 'docker rm -f portfolio-ci-smoke >/dev/null 2>&1 || true' EXIT
+          for i in $(seq 1 40); do
+            if curl --fail --silent http://127.0.0.1:3100/api/health > /dev/null; then break; fi
+            sleep 1
+          done
+          SMOKE_BASE_URL=http://127.0.0.1:3100 node scripts/smoke-deployment.cjs
+          curl --fail --silent --output /dev/null 'http://127.0.0.1:3100/_next/image?url=%2FprojectImages%2FmyPortfolio.png&w=640&q=75'
+      - name: Scan the final container for OS and library vulnerabilities
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: portfolio-ci:${{ github.sha }}
+          version: v0.76.2
+          scanners: vuln
+          vuln-type: os,library
+          format: json
+          output: test-results/container-vulnerabilities.json
+          exit-code: '0'
+      # Keep the full report even when the policy step rejects a finding.
+      - name: Gate unreviewed and fixable severe findings
+        run: node scripts/check-container-vulnerabilities.cjs
+      - name: Upload browser, performance, and container evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-quality-evidence
+          path: test-results/
+          if-no-files-found: ignore
+      - name: Show server log on failure
+        if: failure()
+        run: tail -150 /tmp/portfolio-ci-server.log || true

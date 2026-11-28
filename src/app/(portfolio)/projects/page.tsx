@@ -1,12 +1,11 @@
 /** @format */
 
 // TODO: Update styling logic gor route
-import dynamic from "next/dynamic";
 
 import PageClient from "./PageClient";
-const Footer = dynamic(() => import("../_layout/Footer/Footer"));
+import Footer from '../_layout/Footer/Footer';
 
-import { ProjectType } from "@/app/_lib/_types";
+import { Project } from "@/app/_lib/_types";
 import {
   getProjectCount,
   getProjectFilters,
@@ -28,7 +27,7 @@ const ProjectPage = async () => {
       className={css.projectsBody}
     >
       <PageClient
-        JSONData={projectData.map((project: ProjectType) => JSON.stringify(project))}
+        JSONData={projectData.map((project: Project) => JSON.stringify(project))}
         total={total}
         filters={filters}
       />
@@ -39,30 +38,10 @@ const ProjectPage = async () => {
 
 export default ProjectPage;
 
-import { Metadata } from 'next/types';
-import { APP_URL, OPEN_GRAPH, TWITTER_SHARE } from '../sharedMetadata';
+import { portfolioMetadata } from '../sharedMetadata';
 
-const PROJECT_URL = APP_URL + '/projects';
-const TITLE="Jesse Greenough's development project archive"
-const DESCRIPTION ="View the development projects crafted and completed by Jesse Greenough"
-const KEYWORDS ="Work,Experience,Management,Software,Development,Engineering,Retail"
-
-export const metadata: Metadata = {
-  metadataBase: new URL(PROJECT_URL),
-  title: TITLE,
-  description: DESCRIPTION,
-  keywords: KEYWORDS,
-  openGraph: {
-    title: TITLE,
-    description: DESCRIPTION,
-    url: PROJECT_URL,
-    siteName: TITLE,
-    ...OPEN_GRAPH
-  },
-  twitter: {
-    site: PROJECT_URL,
-    title: TITLE,
-    description: DESCRIPTION,
-    ...TWITTER_SHARE
-  },
-};
+export const metadata = portfolioMetadata(
+  '/projects',
+  'Rust Backend & Security Projects | Jesse Greenough',
+  'Explore Jesse Greenough’s selected Rust backend, security, and full-stack engineering projects, with links to code and live work.'
+);

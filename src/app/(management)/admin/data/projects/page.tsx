@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useEffect } from "react";
 
-import { getFullAllProjects } from "@/app/_actions/projectService";
+import { deleteProject, getFullAllProjects } from "@/app/_actions/projectService";
 
-import type { ProjectType } from "@/app/_lib/_types";
+import type { Project } from "@/app/_lib/_types";
 
+import DataStatus from "../_components/DataStatus";
 import useDataManager from "../_components/useDataManager";
 import FormModal from "../_components/FormModal";
 import PortfolioDataList from "../_components/PortfolioDataList";
@@ -14,36 +14,32 @@ import css from '../_components/DataPage.module.css';
 
 export default function ProjectsPage() {
   const {
+    loading, error, refresh, afterMutation,
     items: projects,
-    setItems: setProjects,
     selected,
     showModal,
     openModal,
     closeModal
-  } = useDataManager<ProjectType>();
-
-  // Fetch all projects on mount
-  useEffect(() => {
-    (async () => {
-      const data = await getFullAllProjects();
-      setProjects(data);
-    })();
-  }, [setProjects]);
+  } = useDataManager<Project>(getFullAllProjects);
 
   return (
-    <>
+    <main className={css.dataPageWrap}>
       <div className={css.dataHeader}>
-        <h2>Projects {projects.length}</h2>
-        <button className={css.newBtn} onClick={() => openModal()}>
-          + New Project
+        <div><p className={css.eyebrow}>Portfolio data</p><h1>Projects <span>{projects.length}</span></h1><p>Review the project archive, then open a record to update its story and links.</p></div>
+        <button type="button" className={css.newBtn} disabled={loading} onClick={() => openModal()}>
+          + New project
         </button>
       </div>
+      <DataStatus loading={loading} error={error} refresh={refresh} />
       <PortfolioDataList
         items={projects}
         openModal={openModal}
-        itemDisplay={(proj: ProjectType) => (
+        itemLabel={project => project.title}
+        searchText={project => [project.title, project.brief, ...(project.categories ?? []), ...(project.key_techs ?? [])].join(' ')}
+        onDelete={async project => { if (project.id) { await deleteProject(project.id); await afterMutation(); } }}
+        itemDisplay={(proj: Project) => (
           <>
-            <strong>{proj.name}</strong>
+            <strong>{proj.title}</strong>
             <div className={css.dataBrief}>{proj.brief}</div>
           </>
         )}
@@ -54,11 +50,12 @@ export default function ProjectsPage() {
           onClose={closeModal}
         >
           <ProjectForm
+            onSaved={afterMutation}
             initial={selected || undefined}
             onClose={closeModal}
           />
         </FormModal>
       )}
-    </>
+    </main>
   );
 }
