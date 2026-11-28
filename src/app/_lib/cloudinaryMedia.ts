@@ -2,8 +2,16 @@ import 'server-only';
 import sharp from 'sharp';
 
 export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
-export const CLOUDINARY_CLOUD = 'portfolio-g84';
-const apiBase = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}`;
+export const CLOUDINARY_CLOUD = process.env.CLOUDINARY_CLOUD_NAME?.trim() ?? '';
+
+function cloudName(): string {
+  if (!/^[a-z0-9_-]+$/i.test(CLOUDINARY_CLOUD)) throw new MediaConfigurationError('Cloudinary media is not configured');
+  return CLOUDINARY_CLOUD;
+}
+
+function apiBase(): string {
+  return `https://api.cloudinary.com/v1_1/${cloudName()}`;
+}
 
 export type PortfolioImage = { publicId: string; url: string; width: number; height: number };
 
@@ -11,6 +19,7 @@ export class MediaConfigurationError extends Error {}
 export class MediaInputError extends Error {}
 
 function authorization(): string {
+  cloudName();
   const key = process.env.CLOUDINARY_API_KEY;
   const secret = process.env.CLOUDINARY_API_SECRET;
   if (!key || !secret) throw new MediaConfigurationError('Cloudinary media is not configured');
@@ -18,17 +27,18 @@ function authorization(): string {
 }
 
 export function portfolioImage(value: unknown): PortfolioImage {
+  const cloud = cloudName();
   if (!value || typeof value !== 'object') throw new Error('Invalid media response');
   const item = value as Record<string, unknown>;
   if (typeof item.public_id !== 'string' || typeof item.secure_url !== 'string') throw new Error('Invalid media response');
   const url = new URL(item.secure_url);
-  if (url.origin !== 'https://res.cloudinary.com' || url.username || url.password || url.pathname.startsWith(`/${CLOUDINARY_CLOUD}/image/upload/`) === false || url.search || url.hash) throw new Error('Unexpected media URL');
+  if (url.origin !== 'https://res.cloudinary.com' || url.username || url.password || url.pathname.startsWith(`/${cloud}/image/upload/`) === false || url.search || url.hash) throw new Error('Unexpected media URL');
   return { publicId: item.public_id, url: item.secure_url, width: Number(item.width) || 0, height: Number(item.height) || 0 };
 }
 
 export async function listPortfolioImages(cursor?: string): Promise<{ images: PortfolioImage[]; nextCursor?: string }> {
   if (cursor && !/^[A-Za-z0-9_-]{1,2048}$/.test(cursor)) throw new MediaInputError('Invalid page cursor');
-  const url = new URL(`${apiBase}/resources/image/upload`);
+  const url = new URL(`${apiBase()}/resources/image/upload`);
   url.searchParams.set('max_results', '60');
   if (cursor) url.searchParams.set('next_cursor', cursor);
   const response = await fetch(url, { headers: { Authorization: authorization() }, cache: 'no-store', signal: AbortSignal.timeout(10000) });
@@ -56,7 +66,7 @@ export async function uploadPortfolioImage(bytes: Uint8Array): Promise<Portfolio
   const form = new FormData();
   form.set('file', new Blob([new Uint8Array(image)], { type: 'image/webp' }), 'portfolio-image.webp');
   form.set('folder', 'portfolio-admin');
-  const response = await fetch(`${apiBase}/image/upload`, { method: 'POST', headers: { Authorization: authorization() }, body: form, signal: AbortSignal.timeout(20000) });
+  const response = await fetch(`${apiBase()}/image/upload`, { method: 'POST', headers: { Authorization: authorization() }, body: form, signal: AbortSignal.timeout(20000) });
   if (!response.ok) throw new Error('Could not upload image to Cloudinary');
   return portfolioImage(await response.json());
 }

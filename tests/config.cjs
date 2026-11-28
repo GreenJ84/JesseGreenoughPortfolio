@@ -12,11 +12,15 @@ async function pagePolicy(mode) {
 
 function config(mode) {
   const original = process.env.NODE_ENV;
+  const originalCloud = process.env.CLOUDINARY_CLOUD_NAME;
   process.env.NODE_ENV = mode;
+  process.env.CLOUDINARY_CLOUD_NAME = 'example-cloud';
   delete require.cache[require.resolve('../next.config.js')];
   const value = require('../next.config.js');
   if (original === undefined) delete process.env.NODE_ENV;
   else process.env.NODE_ENV = original;
+  if (originalCloud === undefined) delete process.env.CLOUDINARY_CLOUD_NAME;
+  else process.env.CLOUDINARY_CLOUD_NAME = originalCloud;
   return value;
 }
 
@@ -67,9 +71,9 @@ test('nonce proxy retains the admin navigation guard', async () => {
 test('image optimizer restricts protocol, ports, Cloudinary tenant, local paths and queries', () => {
   const { images } = config('production');
   const remote = url => hasRemoteMatch([], images.remotePatterns, new URL(url));
-  assert.ok(remote('https://res.cloudinary.com/portfolio-g84/image/upload/test.jpg'));
+  assert.ok(remote('https://res.cloudinary.com/example-cloud/image/upload/test.jpg'));
   assert.ok(remote('https://raw.githubusercontent.com/GreenJ84/project/main/image.png'));
-  for (const url of ['http://res.cloudinary.com/portfolio-g84/test.jpg', 'https://res.cloudinary.com/other-tenant/test.jpg', 'https://res.cloudinary.com/portfolio-g84/test.jpg?transform=other', 'https://res.cloudinary.com:444/portfolio-g84/test.jpg', 'https://untrusted.test/image.jpg', 'https://127.0.0.1/image.jpg', 'https://greenj-readme-stats.onrender.com/github/stats/GreenJ84']) assert.equal(remote(url), false, url);
+  for (const url of ['http://res.cloudinary.com/example-cloud/test.jpg', 'https://res.cloudinary.com/other-tenant/test.jpg', 'https://res.cloudinary.com/example-cloud/test.jpg?transform=other', 'https://res.cloudinary.com:444/example-cloud/test.jpg', 'https://untrusted.test/image.jpg', 'https://127.0.0.1/image.jpg', 'https://greenj-readme-stats.onrender.com/github/stats/GreenJ84']) assert.equal(remote(url), false, url);
   for (const path of ['/assets/resumes/test.png', '/projectImages/test.png', '/_next/static/media/test.png']) assert.ok(hasLocalMatch(images.localPatterns, path));
   for (const path of ['/admin/login', '/api/projects', '/assets/test.png?arbitrary=value']) assert.equal(hasLocalMatch(images.localPatterns, path), false, path);
   assert.equal(images.dangerouslyAllowSVG, false);

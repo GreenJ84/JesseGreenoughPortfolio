@@ -5,6 +5,11 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   analyzerMode: 'json',
 });
 
+const cloudinaryCloud = process.env.CLOUDINARY_CLOUD_NAME?.trim();
+if (cloudinaryCloud && !/^[a-z0-9_-]+$/i.test(cloudinaryCloud)) {
+  throw new Error('CLOUDINARY_CLOUD_NAME must be a Cloudinary cloud identifier');
+}
+
 const nextConfig = {
   output: 'standalone',
   poweredByHeader: false,
@@ -40,7 +45,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'imgs.search.brave.com', port: '', pathname: '/**' },
       { protocol: 'https', hostname: 'media.glassdoor.com', port: '', pathname: '/**' },
       { protocol: 'https', hostname: 'trufflesuite.com', port: '', pathname: '/**' },
-      { protocol: 'https', hostname: 'res.cloudinary.com', port: '', pathname: '/portfolio-g84/**', search: '' },
+      ...(cloudinaryCloud ? [{ protocol: 'https', hostname: 'res.cloudinary.com', port: '', pathname: `/${cloudinaryCloud}/**`, search: '' }] : []),
     ],
     qualities: [75],
     minimumCacheTTL: 60,

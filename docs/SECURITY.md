@@ -16,6 +16,8 @@ source control. The application uses these variable names:
 | `USER_EMAIL` | Single Gmail sender address. |
 | `USER_PASS` | Gmail application password. |
 | `CONTACT_EMAIL` | Single recipient address for contact messages. |
+| `CLOUDINARY_CLOUD_NAME` | Cloudinary tenant identifier for admin media and image optimization. |
+| `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` | Server-side credentials for admin media. |
 | `TRUSTED_CLIENT_IP_HEADER` | Optional. See trusted proxy configuration below. |
 
 Missing/short authentication credentials fail when the authentication module loads.
@@ -27,7 +29,7 @@ response. No credential values or provider error messages are returned to caller
 Admin cookies remain HTTP-only, same-site strict, and secure in production. Sessions
 expire after one hour. Tokens require HS256, the configured admin identity and role,
 a session ID, issuance/expiration times, and the application's issuer and audience.
-Old tokens from before this change are invalid; log in again after deployment.
+Tokens signed with an older secret or format are invalid and require a new sign-in.
 Once a passkey is enrolled, password-only sign-in is disabled for the owner.
 
 Each mutation and full admin-list action checks the active MongoDB session before
@@ -97,14 +99,13 @@ validation and query errors, atomic limiter behavior, bounded bodies, and delive
 failure handling. Live deployment/database/SMTP smoke tests remain separate; these
 checks send no email and require no running database.
 
-Implementation references: [Next.js 14 Server Actions](https://nextjs.org/docs/14/app/building-your-application/data-fetching/server-actions-and-mutations)
-and [MongoDB TTL indexes](https://www.mongodb.com/docs/manual/core/index-ttl/).
+Implementation reference: [MongoDB TTL indexes](https://www.mongodb.com/docs/manual/core/index-ttl/).
 
 ## Response and image configuration
 
 Pages and APIs receive a CSP, framing denial, content-type protection, a conservative
 referrer policy, disabled camera/microphone/geolocation/payment permissions, and
-production HSTS. API responses no longer advertise wildcard credentialed CORS;
+production HSTS. API responses do not advertise wildcard credentialed CORS;
 same-origin application requests continue to work. Browser source maps and the
 framework identification header are disabled.
 
@@ -113,14 +114,13 @@ measurement endpoints. Development alone permits eval and websocket reloads.
 `unsafe-inline` is absent; the nonce policy requires dynamic page rendering.
 External HTTPS images remain allowed in browser markup for the existing stats cards.
 
-The optimizer accepts HTTPS on the existing image hosts, with Cloudinary restricted
-to the `portfolio-g84` tenant and no query string. Other legacy hosts retain their
-path/query flexibility until stored image URLs can be inventoried. The SVG stats
-service is used by plain image tags and is no longer an optimizer origin. SVG
+The optimizer accepts HTTPS on configured image hosts, with Cloudinary restricted
+to `CLOUDINARY_CLOUD_NAME` and no query string. Other allowlisted hosts retain
+their current path and query behavior for stored images. The SVG stats
+service uses plain image tags and is not an optimizer origin. SVG
 optimization and local-IP fetching are disabled; optimized responses use attachment
 disposition and a sandboxed CSP. Local optimization is limited to `/assets`,
-`/projectImages`, and compiled static media, with no query strings. This does not
-move the existing legacy `src/public` directory; static-asset cleanup remains separate.
+`/projectImages`, and compiled static media, with no query strings.
 
 `npm run test:config` verifies the response and image contracts using the installed
 Next.js URL matchers. Consult the [Next.js CSP guide](https://nextjs.org/docs/app/guides/content-security-policy)

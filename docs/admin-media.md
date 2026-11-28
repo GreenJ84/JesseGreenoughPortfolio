@@ -1,12 +1,7 @@
-# Admin media setup
+# Admin media
 
-The resource editors can choose an existing Cloudinary image, upload a new JPEG/PNG/WebP image, or keep a local path or URL. The media library and upload endpoints require an active owner session.
+Resource editors can choose an existing Cloudinary image, upload a JPEG, PNG, or WebP image, or enter a local image path or URL. Media listing and upload endpoints require an active owner session.
 
-Set these **server-only** environment variables in local development and deployment:
+Set `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET` as server-side environment variables. The cloud name selects the account for uploads and limits accepted delivery URLs and optimized images to that tenant. Keep API credentials out of `NEXT_PUBLIC_*` variables. Missing configuration produces a media error; manual image paths remain available.
 
-- `CLOUDINARY_API_KEY`
-- `CLOUDINARY_API_SECRET`
-
-The Cloudinary cloud is `portfolio-g84`, matching the existing public image configuration. Never use a `NEXT_PUBLIC_` prefix for the API credentials. Restart the local server after adding them. The picker displays a configuration error if they are absent; manual image paths remain available.
-
-Uploads are limited to 5 MB. The server checks the file, converts it to WebP with a maximum 2400-pixel side, and uploads it to the `portfolio-admin` folder. The saved resource stores the returned secure delivery URL. Uploading an image alone does not save the resource; use the form's Save/Create button afterward.
+Uploads are limited to 5 MB. The server validates the file, converts it to WebP with a maximum 2400-pixel side, and uploads it to the `portfolio-admin` folder. The resource is saved separately through its editor form.

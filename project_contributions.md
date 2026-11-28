@@ -1,4 +1,4 @@
-# Profile Contributions Guidline 
+# Portfolio Contribution Guide 
 
 Feel Free to look through any the project for your own use!
 If you have any questions or need any explanation just ask!
@@ -66,7 +66,7 @@ git checkout -b <your_branch_name>
 git add . 
 ``` 
 
-**10.** Get your application [running](https://github.com/GreenJ84/JesseGreenoughPortfolio/edit/main/README.md#how-to-install-locally) locally
+**10.** Get your application [running](README.md#local-development) locally
 
 **11.** Perform your desired changes to the code base.
 

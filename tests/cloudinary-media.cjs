@@ -2,16 +2,18 @@ const assert = require('node:assert/strict');
 const { test } = require('node:test');
 const sharp = require('sharp');
 const { loadSource, sourcePath } = require('./security-harness.cjs');
-const image = { public_id: 'portfolio-admin/sample', secure_url: 'https://res.cloudinary.com/portfolio-g84/image/upload/v1/portfolio-admin/sample.webp', width: 200, height: 100 };
+const image = { public_id: 'portfolio-admin/sample', secure_url: 'https://res.cloudinary.com/example-cloud/image/upload/v1/portfolio-admin/sample.webp', width: 200, height: 100 };
 
 test('Cloudinary media accepts only the configured secure tenant', () => {
-  const media = loadSource()('src/app/_lib/cloudinaryMedia.ts');
+  const media = loadSource({}, { CLOUDINARY_CLOUD_NAME: 'example-cloud' })('src/app/_lib/cloudinaryMedia.ts');
   assert.equal(media.portfolioImage(image).url, image.secure_url);
+  const unconfigured = loadSource({}, { CLOUDINARY_CLOUD_NAME: '' })('src/app/_lib/cloudinaryMedia.ts');
+  assert.throws(() => unconfigured.portfolioImage(image), unconfigured.MediaConfigurationError);
   for (const url of [
-    'http://res.cloudinary.com/portfolio-g84/image/upload/sample.webp',
-    'https://res.cloudinary.com:444/portfolio-g84/image/upload/sample.webp',
+    'http://res.cloudinary.com/example-cloud/image/upload/sample.webp',
+    'https://res.cloudinary.com:444/example-cloud/image/upload/sample.webp',
     'https://res.cloudinary.com/another-cloud/image/upload/sample.webp',
-    'https://res.cloudinary.com/portfolio-g84/image/upload/sample.webp?unsafe=1',
+    'https://res.cloudinary.com/example-cloud/image/upload/sample.webp?unsafe=1',
   ]) assert.throws(() => media.portfolioImage({ ...image, secure_url: url }));
 });
 
@@ -25,7 +27,7 @@ test('Cloudinary list and upload use server credentials and transform images to 
       return Response.json(image);
     }
     return Response.json({ resources: [image], next_cursor: 'next_page' });
-  } }, { CLOUDINARY_API_KEY: 'test-key', CLOUDINARY_API_SECRET: 'test-secret' })('src/app/_lib/cloudinaryMedia.ts');
+  } }, { CLOUDINARY_CLOUD_NAME: 'example-cloud', CLOUDINARY_API_KEY: 'test-key', CLOUDINARY_API_SECRET: 'test-secret' })('src/app/_lib/cloudinaryMedia.ts');
   const listed = await media.listPortfolioImages();
   assert.equal(listed.images[0].publicId, image.public_id);
   assert.equal(listed.nextCursor, 'next_page');
@@ -40,7 +42,7 @@ test('Cloudinary list and upload use server credentials and transform images to 
 test('media routes reject anonymous and cross-origin requests before Cloudinary calls', async () => {
   let calls = 0;
   const mediaMock = {
-    CLOUDINARY_CLOUD: 'portfolio-g84', MAX_IMAGE_BYTES: 5 * 1024 * 1024,
+    CLOUDINARY_CLOUD: 'example-cloud', MAX_IMAGE_BYTES: 5 * 1024 * 1024,
     MediaConfigurationError: class extends Error {}, MediaInputError: class extends Error {},
     listPortfolioImages: async () => { calls++; return { images: [] }; },
     uploadPortfolioImage: async () => { calls++; return image; },
